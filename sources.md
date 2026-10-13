@@ -247,6 +247,7 @@
   - 产品架构与缓存
   - 配额与成本控制
   - 定价与收支平衡
+  - 最优部署比较：RunPod 与恒源云 4060 Ti
   - 容量与常驻切换
   - 阶段路线
   - 前置要求
@@ -275,6 +276,18 @@
 | RunPod configuration | <https://docs.runpod.io/serverless/endpoints/endpoint-configurations> | Worker 数量、保留与执行配置 |
 | RunPod cached models | <https://docs.runpod.io/serverless/workers/model-caching> | 模型缓存加载 |
 | RunPod pricing | <https://docs.runpod.io/serverless/pricing> | GPU 与持续资源计价 |
+
+## 雨云 P40 显卡云报价（2026-10-13）
+
+来源为用户提供的雨云商品信息。高配档实际 168 元/月，8 核、16 GB 内存、4 GB 显存、25 Mbps 上行、100 Mbps 下行、30–250 GB 磁盘及公网 IPv4；旗舰档实际 258 元/月，16 核、16 GB 内存、8 GB 显存、35 Mbps 上行、150 Mbps 下行，当前售空。商品入口：<https://www.rainyun.com/>。用户指出 P40 的实际推理性能低于本机 RTX 3050 Laptop。
+
+## 恒源云 RTX 4060 Ti 16G 报价（2026-10-13）
+
+来源为用户提供的恒源云实例列表。西北区 RTX 4060 Ti 16G，8 核 AMD EPYC 7601、32 GB 内存、20 GB 系统盘、50 GB NVMe 数据盘，列表标示 800 Mbps 上下行；原价 324 元/月，8.5 折后 275.40 元/月。方案中的每月 30 元备份及杂项费用是财务预算。
+
+## 校内 eScience 资源报价 [废弃]
+
+来源为用户提供的学校 eScience 中心收费表。该方案须经课题组办理，已退出部署路线。历史报价：2080Ti 为 0.6 元/卡/小时，3080 为 0.7 元/卡/小时。
 
 ## 旧字规范化来源
 
