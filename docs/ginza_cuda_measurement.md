@@ -186,3 +186,5 @@ BERT 的优势体现在上下文词性、独立句子、功能成分归属、地
 原始输出保存在 .agents/analysis/cuda-clean 和 .agents/analysis/cuda-*.json。本机独立 Python 环境入口为 experiments/ginza-cuda/Scripts/python.exe，实际目录位于 C 盘，通过目录 junction 保留该工作区路径；模型缓存位于 C:/Users/WRH/.cache/huggingface。
 
 仓库保留 [机器摘要](../data/validation/ginza_cuda_summary.json)和[二十处人工复核](../data/validation/ginza_cuda_manual_review.json)。外部模型与算法来源登记在根目录 [sources.md](../sources.md)。
+
+清理前已生成本机核心归档 `.agents/analysis/ginza-cuda-core-records.zip`，约 2.1 MiB，包含七种配置的完整输出、最终对照、批次上限、分阶段与 NER 开关测量、依赖清单、报告和脚本。保留此归档后，`cuda-clean`、`cuda-precision`、`cloud-design-sources` 及分析目录下的 `cuda-*.json` 可清理；机器摘要和人工复核 JSON 继续保留在仓库。
