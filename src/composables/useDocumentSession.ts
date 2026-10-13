@@ -1,6 +1,6 @@
 import { onUnmounted, ref, shallowRef } from 'vue';
 import { nlpRequest } from '../services/nlp';
-import { isSessionGenerationError, mergeSession, openSession, type DocumentPlan, type DocumentSession, type DocumentUpdate } from '../reader/session';
+import { documentControlRequest, isSessionGenerationError, mergeSession, openSession, type DocumentControlCommand, type DocumentPlan, type DocumentSession, type DocumentUpdate } from '../reader/session';
 import type { RegisterPolicy } from '../types/nlp';
 
 export function useDocumentSession() {
@@ -48,11 +48,11 @@ export function useDocumentSession() {
     try {
       const update = await nlpRequest<DocumentUpdate>({ command: 'poll_document', session_id: current.session_id,
         text_version: current.text_version, generation: current.generation, after_revision: current.revision });
-      if (expected === operation) { await apply(update); error.value = ''; }
+      if (expected === operation) await apply(update);
     } catch (e) {
       if (expected === operation && state.value?.session_id === current.session_id) {
         try { await synchronize(); }
-        catch { return; }
+        catch { /* 同步失败后仍继续轮询，服务恢复时重新获取会话。 */ }
       }
     }
     if (expected === operation && state.value) timer = setTimeout(poll, state.value.progress.pending ? 200 : 1000);
@@ -90,7 +90,7 @@ export function useDocumentSession() {
     void poll();
   }
 
-  function control(command: string, payload: Record<string, unknown> = {}) {
+  function control(command: DocumentControlCommand, payload: Record<string, unknown> = {}) {
     const sessionId = state.value?.session_id;
     if (!sessionId) return Promise.resolve();
     controlling.value++; operation++; clearTimeout(timer);
@@ -98,7 +98,7 @@ export function useDocumentSession() {
       async function send() {
         const current = state.value;
         if (!current || current.session_id !== sessionId) return;
-        const update = await nlpRequest<DocumentUpdate>({ command, ...payload, session_id: sessionId, text_version: current.text_version, generation: current.generation, after_revision: current.revision });
+        const update = await nlpRequest<DocumentUpdate>(documentControlRequest(current, command, payload));
         if (state.value?.session_id === sessionId) {
           await apply(update);
           error.value = '';

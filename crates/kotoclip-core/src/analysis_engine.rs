@@ -217,7 +217,10 @@ impl AnalysisEngine {
         let ginza_started = Instant::now();
         let (sources, diagnostics) = self.external.lock().unwrap().analyze(&prepared.text, generation);
         if diagnostics.iter().any(|item| item["status"] != "ready") || sources.is_empty() {
-            return Err(format!("GiNZA 来源分析未完成：{diagnostics:?}"));
+            let errors = diagnostics.iter().filter(|item| item["status"] != "ready").map(|item| {
+                item["error"].as_str().unwrap_or_else(|| if item["status"] == "disabled" { "GiNZA 未启用" } else { "来源分析已取消" })
+            }).collect::<Vec<_>>();
+            return Err(format!("GiNZA 来源分析未完成：{}", if errors.is_empty() { "来源未返回结果".into() } else { errors.join("；") }));
         }
         let ginza_timing = StageTiming::new("ginza", ginza_started);
         let unify_started = Instant::now();

@@ -14,6 +14,16 @@ struct AppState {
     cancellation: Arc<std::sync::atomic::AtomicU64>,
 }
 
+fn dictionary_source_dir(data: &std::path::Path, portable: &std::path::Path, resources: &std::path::Path) -> PathBuf {
+    [data.join("dict-sources"), portable.join("dict-sources"), resources.join("dict-sources"), resources.join("_up_/data/dict-sources")]
+        .into_iter()
+        .find(|path| std::fs::read_dir(path).is_ok_and(|entries| entries.flatten().any(|entry| {
+            let path = entry.path();
+            path.is_file() && path.extension().is_some_and(|extension| extension == "kdict")
+        })))
+        .unwrap_or_else(|| portable.join("dict-sources"))
+}
+
 #[tauri::command]
 fn cancel_external(state: State<'_, AppState>) {
     state.cancellation.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
@@ -159,15 +169,7 @@ pub fn run() {
                             }
                         })
                 };
-                let sources = [
-                    data.join("dict-sources"),
-                    portable.join("dict-sources"),
-                    resources.join("dict-sources"),
-                    resources.join("_up_/data/dict-sources"),
-                ]
-                .into_iter()
-                .find(|p| p.is_dir())
-                .unwrap_or_else(|| data.join("dict-sources"));
+                let sources = dictionary_source_dir(&data, &portable, &resources);
                 ResourcePaths {
                     cwj: dictionary("cwj"),
                     csj: dictionary("csj"),

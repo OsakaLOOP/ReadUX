@@ -41,6 +41,9 @@ const appearance = ref<ReaderAppearance>({ ...DEFAULT_READER_APPEARANCE });
 const selections = ref<SavedSelection[]>([]);
 const session = useDocumentSession();
 const sessionState = session.state;
+const sessionControlling = session.controlling;
+const readerAnalysisError = computed(() => session.error.value || Object.values(sessionState.value?.units || {})
+  .find((unit) => unit.stage === 'failed' && unit.error)?.error || '');
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
@@ -465,6 +468,7 @@ onBeforeUnmount(() => { readerViewTransition.dispose(); void closeSession(); });
       :appearance="appearance"
       :initial-offset="currentBook?.progressOffset || 0"
       :selections="selections"
+      :retrying="sessionControlling > 0"
       @back="void leaveReader()"
       @progress="saveProgress"
       @update-appearance="appearanceUpdated"
@@ -494,11 +498,12 @@ onBeforeUnmount(() => { readerViewTransition.dispose(); void closeSession(); });
         </div>
       </div>
       <AnalysisProgressPanel :progress="readerProgress" :active="readerAnalysisActive" />
+      <p v-if="readerAnalysisError" class="reader-progress__error" role="alert">{{ readerAnalysisError }}</p>
       <div v-if="sessionState" class="reader-progress__diagnostics">
         <button type="button" :disabled="timingSaving" @click="void toggleTiming()">{{ timingEnabled ? '关闭耗时记录' : '开启耗时记录' }}</button>
         <button type="button" @click="exportTiming">导出耗时</button>
       </div>
-      <button v-if="!readerVisible && sessionState?.progress.failed" class="reader-progress__retry" type="button" @click="void session.control('retry_document', { unit_id: null })">重试分析</button>
+      <button v-if="!readerVisible && sessionState?.progress.failed" class="reader-progress__retry" type="button" :disabled="sessionControlling > 0" @click="void session.control('retry_document', { unit_id: null })">{{ sessionControlling > 0 ? '正在重试' : '重试分析' }}</button>
     </main>
 
     <ReaderSurface :show="textInputOpen" variant="modal" title="打开文本" @close="textInputOpen = false">
@@ -529,6 +534,8 @@ onBeforeUnmount(() => { readerViewTransition.dispose(); void closeSession(); });
 .reader-progress__copy span { color: var(--text-secondary); font-size: .82rem; }
 .reader-progress__copy small { color: var(--text-muted); font-size: .72rem; }
 .reader-progress__retry { align-self: center; max-width: max-content; padding: 7px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; }
+.reader-progress__retry:disabled { opacity: .6; cursor: wait; }
+.reader-progress__error { margin: 4px 0; max-width: 100%; overflow-wrap: anywhere; color: var(--novelty-high-text); font-size: .8rem; }
 .analysis-view-enter-active { transition: opacity 200ms ease, transform 200ms cubic-bezier(0, 0, .2, 1); }
 .analysis-view-enter-from { opacity: 0; transform: translateY(12px); }
 @keyframes analysis-cover-halo { from { opacity: .7; transform: scale(.55); } to { opacity: 0; transform: scale(1); } }

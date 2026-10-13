@@ -1,10 +1,23 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { openSession, mergeSession, matchesSessionGeneration } from './session.ts';
+import { documentControlRequest, openSession, mergeSession, matchesSessionGeneration } from './session.ts';
 
 const plan = { id: 'book', text_version: 'text-v1', units: [] };
 const initial = { schema: 'kotoclip.document-update.v1', session_id: 's1', text_version: 'text-v1', generation: 1,
   base_revision: null, revision: 0, snapshot: true, paused: false, progress: { total: 1 }, changes: [{ unit_id: 'u1', stage: 'pending' }] };
+
+test('重试与取消请求遵循后端字段协议，范围与继续请求携带增量版本', () => {
+  const state = openSession(plan, initial);
+  assert.deepEqual(documentControlRequest(state, 'retry_document', { unit_id: null }), {
+    command: 'retry_document', unit_id: null, session_id: 's1', text_version: 'text-v1', generation: 1,
+  });
+  assert.deepEqual(documentControlRequest(state, 'cancel_document'), {
+    command: 'cancel_document', session_id: 's1', text_version: 'text-v1', generation: 1,
+  });
+  assert.equal(documentControlRequest(state, 'continue_document').after_revision, 0);
+  assert.deepEqual(documentControlRequest(state, 'request_range', { range: [0, 10] }).range, [0, 10]);
+  assert.equal(documentControlRequest(state, 'request_range', { range: [0, 10] }).after_revision, 0);
+});
 
 test('按基准版本合并结构追加并拒绝跨会话迟到结果', () => {
   const state = openSession(plan, initial);

@@ -342,8 +342,16 @@ impl DocumentSessions {
             "retry" => {
                 for (index, unit) in session.units.iter_mut().enumerate() {
                     if unit_id.map_or(unit.stage == UnitStage::Failed, |id| id == unit.unit_id) {
-                        unit.stage = if unit.document.is_some() { UnitStage::Complete } else { UnitStage::Pending };
+                        unit.stage = UnitStage::Pending;
+                        unit.analysis_complete = false;
+                        unit.artifact_revision += 1;
+                        unit.document = None;
+                        unit.lookup = None;
+                        unit.providers.clear();
+                        unit.cache_hit = false;
+                        unit.timing = None;
                         unit.error = None;
+                        changed.push(index);
                         if !session.order.contains(&index) { session.order.push(index); }
                     }
                 }
@@ -411,6 +419,39 @@ mod tests {
         session.request_range([0, 1]).unwrap();
         session.start_load(&vec![false; session.units.len()]);
         session
+    }
+
+    #[test]
+    fn retry_resets_failed_artifacts_and_preserves_other_units() {
+        let engine = Arc::new(AnalysisEngine::new(crate::analysis::ResourcePaths::development(
+            &std::env::temp_dir().join("kotoclip-retry-missing-resources"))));
+        let sessions = DocumentSessions::new(engine);
+        let mut session = pending_session();
+        session.paused = true;
+        session.units[0].stage = UnitStage::Failed;
+        session.units[0].analysis_complete = true;
+        session.units[0].artifact_revision = 7;
+        session.units[0].lookup = Some(json!({"stale": true}));
+        session.units[0].providers = vec![json!({"status": "failed"})];
+        session.units[0].error = Some("来源进程已退出".into());
+        session.units[1].stage = UnitStage::Complete;
+        session.units[1].analysis_complete = true;
+        let text_version = session.plan.text_version.clone();
+        sessions.state.lock().unwrap().sessions.insert("session".into(), session);
+        let update = sessions.control("session", &text_version, 1, "retry", None, None, None).unwrap();
+        assert_eq!(update["generation"], 2);
+        assert_eq!(update["snapshot"], true);
+        assert_eq!(update["paused"], false);
+        let retried = &update["changes"][0];
+        assert_eq!(retried["stage"], "pending");
+        assert_eq!(retried["analysis_complete"], false);
+        assert_eq!(retried["artifact_revision"], 8);
+        assert!(retried["lookup"].is_null());
+        assert!(retried["error"].is_null());
+        assert_eq!(retried["providers"], json!([]));
+        assert_eq!(update["changes"][1]["stage"], "complete");
+        assert_eq!(update["progress"]["failed"], 0);
+        assert!(sessions.control("session", &text_version, 1, "retry", None, None, None).is_err());
     }
 
     #[test]

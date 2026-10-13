@@ -124,6 +124,7 @@ const props = defineProps<{
   appearance: ReaderAppearance;
   initialOffset: number;
   selections: SavedSelection[];
+  retrying: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -1314,7 +1315,7 @@ function toggleEinkMode() {
           <button type="button" :title="`选择与导出（${selections.length}）`" aria-label="选择与导出" @click="showExport = true"><BriefcaseBusiness :size="17" aria-hidden="true" /><span v-if="selections.length" class="reader-view__count">{{ selections.length }}</span></button>
           <button type="button" title="墨水屏模式" aria-label="墨水屏模式" :aria-pressed="einkMode" @click="toggleEinkMode"><Moon :size="17" aria-hidden="true" /></button>
           <button v-if="session.paused" type="button" title="继续分析" aria-label="继续分析" @click="emit('continue')"><LoaderCircle :size="17" aria-hidden="true" /></button>
-          <button v-if="session.progress.failed" type="button" title="重试失败单元" aria-label="重试失败单元" @click="emit('retry')"><RotateCcw :size="17" aria-hidden="true" /></button>
+          <button v-if="session.progress.failed" type="button" :disabled="retrying" title="重试失败单元" aria-label="重试失败单元" @click="emit('retry')"><RotateCcw :size="17" aria-hidden="true" /></button>
         </div>
       </template>
     </AppHeader>

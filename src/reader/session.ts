@@ -45,6 +45,14 @@ export function isSessionGenerationError(error: unknown): boolean {
   return (error instanceof Error ? error.message : String(error)) === '文档任务代次已改变，请同步会话';
 }
 
+export type DocumentControlCommand = 'request_range' | 'continue_document' | 'cancel_document' | 'retry_document';
+
+export function documentControlRequest(session: DocumentSession, command: DocumentControlCommand, payload: Record<string, unknown> = {}) {
+  return { command, ...payload, session_id: session.session_id, text_version: session.text_version,
+    generation: session.generation,
+    ...(command === 'request_range' || command === 'continue_document' ? { after_revision: session.revision } : {}) };
+}
+
 export function openSession(plan: DocumentPlan, update: DocumentUpdate): DocumentSession {
   return { plan, session_id: update.session_id, text_version: update.text_version, generation: update.generation,
     revision: update.revision, paused: update.paused, progress: update.progress,
