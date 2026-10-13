@@ -30,6 +30,11 @@
 | UniDic 2025.12 archive | <https://clrd.ninjal.ac.jp/unidic_archive/2512/> | Actions 下载 `unidic-cwj-202512_full.zip`、`unidic-csj-202512_full.zip` 并按清单校验 SHA-256 |
 | Vibrato | <https://github.com/daac-tools/vibrato> | Rust 形态分析引擎；仓库实现位于 `vendor/vibrato` |
 | GiNZA | <https://github.com/megagonlabs/ginza> | spaCy／Sudachi 分析流程、任务和部署依赖 |
+| GiNZA v5.3 官网 | <https://megagonlabs.github.io/ginza/> | v5.3.0 兼容性、`ja_ginza_bert_large`、GPU 与精度说明 |
+| GiNZA v5.3 release | <https://github.com/megagonlabs/ginza/releases/tag/v5.3.0> | 发布日期、wheel 体积、依赖升级和 SHA-256 |
+| ja-ginza-bert-large PyPI | <https://pypi.org/project/ja-ginza-bert-large/> | 模型包版本与运行时依赖 |
+| BERT large Japanese v2 | <https://huggingface.co/tohoku-nlp/bert-large-japanese-v2> | 24 层 BERT large 配置、权重体积与许可证 |
+| spaCy pipeline | <https://spacy.io/usage/processing-pipelines> | GPU、批处理与管线执行参考 |
 | GiNZA PyPI | <https://pypi.org/project/ginza/5.2.1/>；<https://pypi.org/project/ja-ginza/5.2.0/> | Actions 安装固定的 GiNZA 与 `ja-ginza` 版本 |
 | Python standalone | <https://github.com/astral-sh/python-build-standalone/releases> | Actions 下载 Windows x64 与 macOS arm64 的 Python 3.11 运行时 |
 | GiNZA 文节 API | <https://megagonlabs.github.io/ginza/bunsetu_api.html> | 文节、主辞和小句结果的适配依据 |
@@ -224,6 +229,52 @@
   - 十段回测
   - 查询与语言边界
   - 验证记录
+
+## 云端 SaaS 规划来源与索引（2026-10-12）
+
+官网、release、PyPI 和 Hugging Face 数据由用户提供，模型版本采用 GiNZA 5.3.0。GPU 使用用户提供的实际价格，按 720 小时计算月租。AutoDL 来源为 <https://www.autodl.com/>；美元报价的平台归属列入后续信息清单，采购参考入口为 <https://www.runpod.io/pricing> 和 <https://vast.ai/>。
+
+- [云端分析 SaaS 路线](docs/cloud_saas_roadmap.md)
+  - 目标与阶段选择
+  - 模型与 GPU
+  - 本机实测与性能判断
+  - Serverless：独立请求与弹性并发
+  - 常驻单卡：共享 GPU 与 CPU 并行
+  - GiNZA 需要的优化
+  - 两种模式的单次时间预算
+  - 实验架构
+  - 两种部署模式的共同设计
+  - 产品架构与缓存
+  - 配额与成本控制
+  - 定价与收支平衡
+  - 容量与常驻切换
+  - 阶段路线
+  - 前置要求
+  - 后续信息
+
+- [首个部署实验](docs/cloud_gpu_first_experiment.md)
+  - 任务目标
+  - 实验组成
+  - API 协议
+  - 代码和镜像组织
+  - 模型缓存与启动
+  - Endpoint 初始配置
+  - 性能预算与 GiNZA 优化边界
+  - 实验内容与报告
+  - 执行顺序与完成条件
+  - 前置要求
+  - 来源
+
+2026-10-13 用户确定前期 RunPod serverless、后期常驻单卡，实验使用本地脚本直接调用。RunPod 16 GB GPU 档实际价格为 0.58 美元/小时。以下为后续实施的官方文档入口：
+
+| 来源 | 链接 | 对应内容 |
+| --- | --- | --- |
+| RunPod serverless | <https://docs.runpod.io/serverless/overview> | Endpoint 与 worker 架构 |
+| RunPod handler | <https://docs.runpod.io/serverless/workers/handlers/overview> | Python handler 入口 |
+| RunPod requests | <https://docs.runpod.io/serverless/endpoints/send-requests> | 提交与查询异步任务 |
+| RunPod configuration | <https://docs.runpod.io/serverless/endpoints/endpoint-configurations> | Worker 数量、保留与执行配置 |
+| RunPod cached models | <https://docs.runpod.io/serverless/workers/model-caching> | 模型缓存加载 |
+| RunPod pricing | <https://docs.runpod.io/serverless/pricing> | GPU 与持续资源计价 |
 
 ## 旧字规范化来源
 

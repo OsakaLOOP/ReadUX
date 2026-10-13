@@ -18,6 +18,8 @@
 | [P4 活用链与整体构词](p4_morphology_formation.md) | 多来源协作、活用状态机、occurrence、整体查询对象和十段验收 |
 | [P4 完成范围与后续开发对齐](p4_handoff.md)        | 当前完成证据、原任务归属、P4 独立待核验项及下游查询问题    |
 | [P4 小说性能测量](p4_novel_performance.md)        | 第一话前约一万字符的十段测量、分窗校验及阶段耗时           |
+| [云端 SaaS 路线](cloud_saas_roadmap.md)            | BERT large 云端推理、订阅配额、容量成本与阶段 catalog       |
+| [首个云端部署实验](cloud_gpu_first_experiment.md) | 本地直连 RunPod、推理镜像、性能资源与实际费用实验 |
 | [GiNZA CUDA 测量](ginza_cuda_measurement.md) | RTX 3050 显存与批次上限、七种配置、量化差异及二十处人工复核 |
 | [词典与解释](dictionary.md)                       | 下一模块的多粒度查询、词典验证、聚合与决定、表记矩阵和浮层 |
 | [书库与阅读器](reader.md)                         | EPUB、Markdown、章节、虚拟滚动与阅读进度                   |
