@@ -243,3 +243,27 @@
 | Hoshi Reader | <https://github.com/Manhhao/Hoshi-Reader> (iOS), <https://github.com/HuangAntimony/Hoshi-Reader-Android> (Android) | 跨平台开源日文小说/有声书阅读器，集成查词与闪卡创建，验证核心阅读器需求边界。 |
 | moemeter (萌メーター) | <https://moemeter.netlify.app/books> | 针对 TMW Novel Club 的 Bookmeter 增强工具，提供社区阅读统计、排行榜功能参考。 |
 | Jiten.moe | <https://jiten.moe/decks/media> | 提供媒体词汇统计、阅读跟踪与已知/未知词汇状态管理，为本地阅读数据持久化提供参考。 |
+
+## GiNZA CUDA 实验来源与索引（2026-10-13）
+
+| 来源 | 链接 | 对应内容 |
+| --- | --- | --- |
+| GiNZA 正式微调 BERT large | <https://huggingface.co/megagonlabs/transformers-ud-japanese-bert-large-ginza> | 实际权重与参数 |
+| GiNZA BERT large 管线 | <https://github.com/megagonlabs/ginza/blob/v5.3.0/config/ja_ginza_bert_large.cfg> | 模型配置 |
+| spaCy EntityRecognizer | <https://spacy.io/api/entityrecognizer> | 实体识别 |
+| spaCy transition_parser.pyx | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/pipeline/transition_parser.pyx> | CPU 解码 |
+| spaCy parser_model.pyx | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/ml/parser_model.pyx> | 特征预计算和传输 |
+| spaCy parser.py | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/ml/models/parser.py> | 状态特征配置 |
+| bitsandbytes 0.48.2 | <https://huggingface.co/docs/bitsandbytes/v0.48.2/en/index> | 量化实现 |
+
+- [GiNZA CUDA 测量与输出复核](docs/ginza_cuda_measurement.md)
+  - 结论
+  - 环境与文本
+  - 理论显存
+  - 相同正文的配置摘要
+  - 批大小与显存上限
+  - NER 算法与瓶颈
+  - 全量输出差异
+  - 小模型与 BERT FP32：随机十处复核
+  - 小模型与 BERT FP16：随机十处复核
+  - 实验入口与保存结果

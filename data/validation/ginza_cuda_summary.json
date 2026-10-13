@@ -1,0 +1,1082 @@
+{
+  "日期": "2026-10-13",
+  "硬件": {
+    "GPU": "RTX 3050 Laptop",
+    "显存_MiB": 4096,
+    "系统": "Windows WDDM",
+    "驱动": "576.80"
+  },
+  "模型": {
+    "repository": "megagonlabs/transformers-ud-japanese-bert-large-ginza",
+    "revision": "7683285d102ba2098cf5f2641388cd69c7406241",
+    "parameters": 337441792
+  },
+  "versions": {
+    "torch": "2.7.1+cu128",
+    "spacy": "3.8.16",
+    "ginza": "5.3.0",
+    "ja-ginza-bert-large": "5.3.0",
+    "transformers": "4.53.2",
+    "spacy-transformers": "1.4.0"
+  },
+  "相同正文完整管线": {
+    "small-cpu": {
+      "variant": "small-cpu",
+      "model": "ginza",
+      "model_version": "5.3.0",
+      "load_seconds": 14.27876329998253,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 20.762757849995978,
+        "runs_seconds": [
+          20.674376800016034,
+          20.851138899975922
+        ],
+        "baseline_mib": 0.0,
+        "peak_allocated_mib": 0.0,
+        "peak_reserved_mib": 0.0
+      },
+      "model_mib": null,
+      "characters_per_second": 711.4661793352689,
+      "tokens_per_second": 436.7435224893189,
+      "units": 42
+    },
+    "small-cuda": {
+      "variant": "small-cuda",
+      "model": "ginza",
+      "model_version": "5.3.0",
+      "load_seconds": 13.186804500001017,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 9.278931049979292,
+        "runs_seconds": [
+          9.278309999965131,
+          9.279552099993452
+        ],
+        "baseline_mib": 448.89208984375,
+        "peak_allocated_mib": 448.89208984375,
+        "peak_reserved_mib": 468.0
+      },
+      "model_mib": null,
+      "characters_per_second": 1591.9937243237698,
+      "tokens_per_second": 977.267742497153,
+      "units": 42
+    },
+    "fp32": {
+      "variant": "fp32",
+      "model": "ginza_bert_large",
+      "model_version": "5.3.0",
+      "load_seconds": 18.43802499998128,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 13.341772949992446,
+        "runs_seconds": [
+          13.443769100005738,
+          13.239776799979154
+        ],
+        "baseline_mib": 1445.8203125,
+        "peak_allocated_mib": 1793.6826171875,
+        "peak_reserved_mib": 2142.0
+      },
+      "model_mib": 1287.24609375,
+      "characters_per_second": 1107.1991747549837,
+      "tokens_per_second": 679.66978856473,
+      "units": 42
+    },
+    "amp": {
+      "variant": "amp",
+      "model": "ginza_bert_large",
+      "model_version": "5.3.0",
+      "load_seconds": 42.71169149997877,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 10.681334900000365,
+        "runs_seconds": [
+          10.633231499989051,
+          10.72943830001168
+        ],
+        "baseline_mib": 1446.2724609375,
+        "peak_allocated_mib": 2275.64697265625,
+        "peak_reserved_mib": 2552.0
+      },
+      "model_mib": 1287.24609375,
+      "characters_per_second": 1382.973208713781,
+      "tokens_per_second": 848.9575586661635,
+      "units": 42
+    },
+    "fp16": {
+      "variant": "fp16",
+      "model": "ginza_bert_large",
+      "model_version": "5.3.0",
+      "load_seconds": 16.85332749999361,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 11.195726250007283,
+        "runs_seconds": [
+          11.147805500018876,
+          11.24364699999569
+        ],
+        "baseline_mib": 803.56005859375,
+        "peak_allocated_mib": 988.89892578125,
+        "peak_reserved_mib": 1078.0
+      },
+      "model_mib": 643.626953125,
+      "characters_per_second": 1319.432046669629,
+      "tokens_per_second": 809.9519225020441,
+      "units": 42
+    },
+    "int8": {
+      "variant": "int8",
+      "model": "ginza_bert_large",
+      "model_version": "5.3.0",
+      "load_seconds": 23.534283599990886,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 12.275867699994706,
+        "runs_seconds": [
+          12.207834800006822,
+          12.34390059998259
+        ],
+        "baseline_mib": 512.82080078125,
+        "peak_allocated_mib": 763.28759765625,
+        "peak_reserved_mib": 880.0
+      },
+      "model_mib": 355.626953125,
+      "characters_per_second": 1203.336526672275,
+      "tokens_per_second": 738.6850544181012,
+      "units": 42
+    },
+    "nf4": {
+      "variant": "nf4",
+      "model": "ginza_bert_large",
+      "model_version": "5.3.0",
+      "load_seconds": 25.169124299951363,
+      "batch": 16,
+      "characters": 14772,
+      "tokens": 9068,
+      "metrics": {
+        "seconds": 10.751663649978582,
+        "runs_seconds": [
+          10.895818299963139,
+          10.607508999994025
+        ],
+        "baseline_mib": 374.2568359375,
+        "peak_allocated_mib": 559.3310546875,
+        "peak_reserved_mib": 642.0
+      },
+      "model_mib": 211.626953125,
+      "characters_per_second": 1373.9269085142398,
+      "tokens_per_second": 843.4043600329763,
+      "units": 42
+    }
+  },
+  "输出对照": {
+    "small-cpu-vs-small-cuda": {
+      "common_tokens": 9068,
+      "different_positions": 0,
+      "sentence_changed_units": 0,
+      "entity_changed_units": 0,
+      "field_counts": {},
+      "eligible_sample_positions": 0,
+      "random_seed": 20261013
+    },
+    "small-cpu-vs-fp32": {
+      "common_tokens": 9068,
+      "different_positions": 1819,
+      "sentence_changed_units": 28,
+      "entity_changed_units": 42,
+      "field_counts": {
+        "dep": 710,
+        "head": 890,
+        "entity": 685,
+        "pos": 669,
+        "bunsetsu": 469
+      },
+      "eligible_sample_positions": 1583,
+      "random_seed": 20261013
+    },
+    "small-cpu-vs-fp16": {
+      "common_tokens": 9068,
+      "different_positions": 1819,
+      "sentence_changed_units": 28,
+      "entity_changed_units": 42,
+      "field_counts": {
+        "dep": 710,
+        "head": 890,
+        "entity": 685,
+        "pos": 669,
+        "bunsetsu": 469
+      },
+      "eligible_sample_positions": 1583,
+      "random_seed": 20261014
+    },
+    "fp32-vs-amp": {
+      "common_tokens": 9068,
+      "different_positions": 0,
+      "sentence_changed_units": 0,
+      "entity_changed_units": 0,
+      "field_counts": {},
+      "eligible_sample_positions": 0,
+      "random_seed": 20261013
+    },
+    "fp32-vs-fp16": {
+      "common_tokens": 9068,
+      "different_positions": 0,
+      "sentence_changed_units": 0,
+      "entity_changed_units": 0,
+      "field_counts": {},
+      "eligible_sample_positions": 0,
+      "random_seed": 20261013
+    },
+    "fp32-vs-int8": {
+      "common_tokens": 9068,
+      "different_positions": 28,
+      "sentence_changed_units": 0,
+      "entity_changed_units": 5,
+      "field_counts": {
+        "entity": 11,
+        "dep": 10,
+        "head": 8,
+        "pos": 3,
+        "bunsetsu": 2
+      },
+      "eligible_sample_positions": 26,
+      "random_seed": 20261013
+    },
+    "fp32-vs-nf4": {
+      "common_tokens": 9068,
+      "different_positions": 118,
+      "sentence_changed_units": 4,
+      "entity_changed_units": 18,
+      "field_counts": {
+        "entity": 31,
+        "dep": 39,
+        "bunsetsu": 27,
+        "head": 51,
+        "pos": 14
+      },
+      "eligible_sample_positions": 102,
+      "random_seed": 20261013
+    }
+  },
+  "批次上限": [
+    {
+      "source": "cuda-raw-fp32-power.json",
+      "precision": "float32",
+      "memory_fraction": 0.8,
+      "length": 128,
+      "max_success_batch": 108,
+      "first_failed_batch": 109,
+      "search_cap": 128,
+      "peak_allocated_mib": 3077.634765625,
+      "peak_reserved_mib": 3264.0
+    },
+    {
+      "source": "cuda-raw-fp32-power.json",
+      "precision": "float32",
+      "memory_fraction": 0.8,
+      "length": 512,
+      "max_success_batch": 21,
+      "first_failed_batch": 22,
+      "search_cap": 128,
+      "peak_allocated_mib": 3185.576171875,
+      "peak_reserved_mib": 3210.0
+    },
+    {
+      "source": "cuda-raw-fp32-medium-limits.json",
+      "precision": "float32",
+      "memory_fraction": 0.8,
+      "length": 256,
+      "max_success_batch": 52,
+      "first_failed_batch": 53,
+      "search_cap": 128,
+      "peak_allocated_mib": 3219.625,
+      "peak_reserved_mib": 3244.0
+    },
+    {
+      "source": "cuda-raw-fp16-short-limits.json",
+      "precision": "float16",
+      "memory_fraction": 0.8,
+      "length": 128,
+      "max_success_batch": 288,
+      "first_failed_batch": 289,
+      "search_cap": 512,
+      "peak_allocated_mib": 3028.384765625,
+      "peak_reserved_mib": 3260.0
+    },
+    {
+      "source": "cuda-raw-fp16-short-limits.json",
+      "precision": "float16",
+      "memory_fraction": 0.8,
+      "length": 256,
+      "max_success_batch": 140,
+      "first_failed_batch": 141,
+      "search_cap": 512,
+      "peak_allocated_mib": 3242.3671875,
+      "peak_reserved_mib": 3258.0
+    },
+    {
+      "source": "cuda-raw-fp16.json",
+      "precision": "float16",
+      "memory_fraction": 0.8,
+      "length": 512,
+      "max_success_batch": 57,
+      "first_failed_batch": 58,
+      "search_cap": 64,
+      "peak_allocated_mib": 3246.2529296875,
+      "peak_reserved_mib": 3262.0
+    }
+  ],
+  "分阶段平均秒": {
+    "tokenizer": 0.1259820499981288,
+    "transformer": 1.699340699997265,
+    "parser": 0.18649225000990555,
+    "ner": 4.017342100007227,
+    "morphologizer": 0.06934204997378401,
+    "compound_splitter": 4.1749997762963176e-05,
+    "bunsetu_recognizer": 0.07363619998795912
+  },
+  "分阶段输入形状": [
+    [
+      24,
+      163
+    ],
+    [
+      24,
+      156
+    ]
+  ],
+  "关闭NER": {
+    "fp32": {
+      "model": "ja_ginza_bert_large",
+      "precision": "float32",
+      "precision_mode": "float32",
+      "memory_fraction": 0.8,
+      "load_seconds": 14.052569299994502,
+      "pipeline": [
+        "transformer",
+        "parser",
+        "morphologizer",
+        "compound_splitter",
+        "bunsetu_recognizer"
+      ],
+      "transformer_class": "BertModel",
+      "parameter_mib": 1287.23828125,
+      "unit_characters": 447,
+      "units": 32,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "transformers": "4.53.2",
+        "spacy-transformers": "1.4.0"
+      },
+      "cases": [
+        {
+          "seconds": 4.455006800009869,
+          "runs_seconds": [
+            4.444730299990624,
+            4.455006800009869,
+            4.465958799992222
+          ],
+          "baseline_mib": 1363.82568359375,
+          "peak_allocated_mib": 1558.33251953125,
+          "peak_reserved_mib": 1778.0,
+          "batch": 8,
+          "status": "ok",
+          "warmup_seconds": 5.630946400051471,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 3210.769509929438,
+          "tokens_per_second": 2047.134922438232,
+          "transformer_shapes": [
+            [
+              24,
+              163
+            ],
+            [
+              24,
+              156
+            ],
+            [
+              24,
+              171
+            ],
+            [
+              24,
+              167
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        },
+        {
+          "seconds": 4.228601599985268,
+          "runs_seconds": [
+            4.228601599985268,
+            4.218543700000737,
+            4.276432099984959
+          ],
+          "baseline_mib": 1431.07958984375,
+          "peak_allocated_mib": 1757.71875,
+          "peak_reserved_mib": 2152.0,
+          "batch": 16,
+          "status": "ok",
+          "warmup_seconds": 4.427000899973791,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 3382.6785668457946,
+          "tokens_per_second": 2156.7413681231574,
+          "transformer_shapes": [
+            [
+              9,
+              156
+            ],
+            [
+              39,
+              163
+            ],
+            [
+              9,
+              144
+            ],
+            [
+              39,
+              171
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        },
+        {
+          "seconds": 4.238651000021491,
+          "runs_seconds": [
+            4.251740300038364,
+            4.238651000021491,
+            4.230978900042828
+          ],
+          "baseline_mib": 1516.12255859375,
+          "peak_allocated_mib": 1862.96923828125,
+          "peak_reserved_mib": 2250.0,
+          "batch": 32,
+          "status": "ok",
+          "warmup_seconds": 4.2179236999945715,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 3374.65858829318,
+          "tokens_per_second": 2151.627958978873,
+          "transformer_shapes": [
+            [
+              15,
+              156
+            ],
+            [
+              39,
+              158
+            ],
+            [
+              42,
+              171
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        }
+      ]
+    },
+    "amp": {
+      "model": "ja_ginza_bert_large",
+      "precision": "float16",
+      "precision_mode": "amp",
+      "memory_fraction": 0.8,
+      "load_seconds": 15.415713800000958,
+      "pipeline": [
+        "transformer",
+        "parser",
+        "morphologizer",
+        "compound_splitter",
+        "bunsetu_recognizer"
+      ],
+      "transformer_class": "BertModel",
+      "parameter_mib": 1287.23828125,
+      "unit_characters": 447,
+      "units": 32,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "transformers": "4.53.2",
+        "spacy-transformers": "1.4.0"
+      },
+      "cases": [
+        {
+          "seconds": 2.2750273999990895,
+          "runs_seconds": [
+            2.2750273999990895,
+            2.276350000000093,
+            2.270580400014296
+          ],
+          "baseline_mib": 1363.82568359375,
+          "peak_allocated_mib": 2086.4365234375,
+          "peak_reserved_mib": 2246.0,
+          "batch": 8,
+          "status": "ok",
+          "warmup_seconds": 3.832336799998302,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 6287.396802344326,
+          "tokens_per_second": 4008.7429276692005,
+          "transformer_shapes": [
+            [
+              24,
+              163
+            ],
+            [
+              24,
+              156
+            ],
+            [
+              24,
+              171
+            ],
+            [
+              24,
+              167
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        },
+        {
+          "seconds": 2.1170568999950774,
+          "runs_seconds": [
+            2.111173300014343,
+            2.1170568999950774,
+            2.275684100051876
+          ],
+          "baseline_mib": 1431.07958984375,
+          "peak_allocated_mib": 2244.716796875,
+          "peak_reserved_mib": 2528.0,
+          "batch": 16,
+          "status": "ok",
+          "warmup_seconds": 2.2811164999729954,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 6756.549623221397,
+          "tokens_per_second": 4307.867209436461,
+          "transformer_shapes": [
+            [
+              9,
+              156
+            ],
+            [
+              39,
+              163
+            ],
+            [
+              9,
+              144
+            ],
+            [
+              39,
+              171
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        },
+        {
+          "seconds": 1.9381875999970362,
+          "runs_seconds": [
+            1.9742710000136867,
+            1.9234227999695577,
+            1.9381875999970362
+          ],
+          "baseline_mib": 1516.70458984375,
+          "peak_allocated_mib": 2344.890625,
+          "peak_reserved_mib": 2722.0,
+          "batch": 32,
+          "status": "ok",
+          "warmup_seconds": 1.976053900027182,
+          "characters": 14304,
+          "tokens": 9120,
+          "characters_per_second": 7380.090554713008,
+          "tokens_per_second": 4705.426863743193,
+          "transformer_shapes": [
+            [
+              15,
+              156
+            ],
+            [
+              39,
+              158
+            ],
+            [
+              42,
+              171
+            ]
+          ],
+          "cupy_pool_mib": 0.0
+        }
+      ]
+    }
+  },
+  "纯Transformer电源调整后": {
+    "fp32": {
+      "model": "megagonlabs/transformers-ud-japanese-bert-large-ginza",
+      "revision": "7683285d102ba2098cf5f2641388cd69c7406241",
+      "precision": "float32",
+      "memory_fraction": 0.8,
+      "attention": "eager",
+      "output_hidden_states": true,
+      "parameters": 337441792,
+      "parameter_mib": 1287.23828125,
+      "load_seconds": 4.59092960000271,
+      "loaded_allocated_mib": 1287.24609375,
+      "cases": [
+        {
+          "seconds": 0.05192879994865507,
+          "runs_seconds": [
+            0.05192879994865507
+          ],
+          "baseline_mib": 1295.3720703125,
+          "peak_allocated_mib": 1311.87353515625,
+          "peak_reserved_mib": 1334.0,
+          "length": 128,
+          "batch": 1,
+          "status": "ok",
+          "tokens_per_second": 2464.9134993791654
+        },
+        {
+          "seconds": 0.07790380000369623,
+          "runs_seconds": [
+            0.07790380000369623
+          ],
+          "baseline_mib": 1295.373046875,
+          "peak_allocated_mib": 1328.3759765625,
+          "peak_reserved_mib": 1348.0,
+          "length": 128,
+          "batch": 2,
+          "status": "ok",
+          "tokens_per_second": 3286.104143672758
+        },
+        {
+          "seconds": 0.14191999996546656,
+          "runs_seconds": [
+            0.14191999996546656
+          ],
+          "baseline_mib": 1295.375,
+          "peak_allocated_mib": 1361.380859375,
+          "peak_reserved_mib": 1380.0,
+          "length": 128,
+          "batch": 4,
+          "status": "ok",
+          "tokens_per_second": 3607.6662917459494
+        },
+        {
+          "seconds": 0.22223469999153167,
+          "runs_seconds": [
+            0.22223469999153167
+          ],
+          "baseline_mib": 1295.37890625,
+          "peak_allocated_mib": 1427.390625,
+          "peak_reserved_mib": 1458.0,
+          "length": 128,
+          "batch": 8,
+          "status": "ok",
+          "tokens_per_second": 4607.74127550297
+        },
+        {
+          "seconds": 0.41499790002126247,
+          "runs_seconds": [
+            0.41499790002126247
+          ],
+          "baseline_mib": 1295.38671875,
+          "peak_allocated_mib": 1559.41015625,
+          "peak_reserved_mib": 1620.0,
+          "length": 128,
+          "batch": 16,
+          "status": "ok",
+          "tokens_per_second": 4934.964730893988
+        },
+        {
+          "seconds": 0.8283116999664344,
+          "runs_seconds": [
+            0.8283116999664344
+          ],
+          "baseline_mib": 1295.40234375,
+          "peak_allocated_mib": 1823.44921875,
+          "peak_reserved_mib": 1928.0,
+          "length": 128,
+          "batch": 32,
+          "status": "ok",
+          "tokens_per_second": 4944.998362531861
+        },
+        {
+          "seconds": 1.6913806000375189,
+          "runs_seconds": [
+            1.6913806000375189
+          ],
+          "baseline_mib": 1295.43359375,
+          "peak_allocated_mib": 2351.52734375,
+          "peak_reserved_mib": 2536.0,
+          "length": 128,
+          "batch": 64,
+          "status": "ok",
+          "tokens_per_second": 4843.380608609488
+        },
+        {
+          "length": 128,
+          "batch": 128,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 256.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 174.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 2.83 GiB is allocated by PyTorch, and 214.32 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "seconds": 2.5835491999750957,
+          "runs_seconds": [
+            2.5835491999750957
+          ],
+          "baseline_mib": 1295.46484375,
+          "peak_allocated_mib": 2879.60546875,
+          "peak_reserved_mib": 3144.0,
+          "length": 128,
+          "batch": 96,
+          "status": "ok",
+          "tokens_per_second": 4756.247723139335
+        },
+        {
+          "length": 128,
+          "batch": 112,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 224.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 174.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 2.85 GiB is allocated by PyTorch, and 190.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "seconds": 2.8637450999813154,
+          "runs_seconds": [
+            2.8637450999813154
+          ],
+          "baseline_mib": 1295.47265625,
+          "peak_allocated_mib": 3011.625,
+          "peak_reserved_mib": 3192.0,
+          "length": 128,
+          "batch": 104,
+          "status": "ok",
+          "tokens_per_second": 4648.45841205869
+        },
+        {
+          "seconds": 2.993350200005807,
+          "runs_seconds": [
+            2.993350200005807
+          ],
+          "baseline_mib": 1295.4765625,
+          "peak_allocated_mib": 3077.634765625,
+          "peak_reserved_mib": 3264.0,
+          "length": 128,
+          "batch": 108,
+          "status": "ok",
+          "tokens_per_second": 4618.23678364569
+        },
+        {
+          "length": 128,
+          "batch": 110,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 220.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 90.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 2.83 GiB is allocated by PyTorch, and 297.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "length": 128,
+          "batch": 109,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 218.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 102.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 2.81 GiB is allocated by PyTorch, and 303.86 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "seconds": 3.0048858000081964,
+          "runs_seconds": [
+            3.0048858000081964,
+            3.0002393000177108,
+            3.012621300003957
+          ],
+          "baseline_mib": 1295.4765625,
+          "peak_allocated_mib": 3077.634765625,
+          "peak_reserved_mib": 3264.0,
+          "length": 128,
+          "batch": 108,
+          "status": "ok",
+          "tokens_per_second": 4600.50761328843
+        },
+        {
+          "seconds": 0.12286020000465214,
+          "runs_seconds": [
+            0.12286020000465214
+          ],
+          "baseline_mib": 1295.375,
+          "peak_allocated_mib": 1385.380859375,
+          "peak_reserved_mib": 1404.0,
+          "length": 512,
+          "batch": 1,
+          "status": "ok",
+          "tokens_per_second": 4167.338161427484
+        },
+        {
+          "seconds": 0.2535300999879837,
+          "runs_seconds": [
+            0.2535300999879837
+          ],
+          "baseline_mib": 1295.37890625,
+          "peak_allocated_mib": 1475.390625,
+          "peak_reserved_mib": 1522.0,
+          "length": 512,
+          "batch": 2,
+          "status": "ok",
+          "tokens_per_second": 4038.9681542685994
+        },
+        {
+          "seconds": 0.49956209998345,
+          "runs_seconds": [
+            0.49956209998345
+          ],
+          "baseline_mib": 1295.38671875,
+          "peak_allocated_mib": 1655.41015625,
+          "peak_reserved_mib": 1728.0,
+          "length": 512,
+          "batch": 4,
+          "status": "ok",
+          "tokens_per_second": 4099.590421426782
+        },
+        {
+          "seconds": 1.0060596999828704,
+          "runs_seconds": [
+            1.0060596999828704
+          ],
+          "baseline_mib": 1295.40234375,
+          "peak_allocated_mib": 2015.44921875,
+          "peak_reserved_mib": 2040.0,
+          "length": 512,
+          "batch": 8,
+          "status": "ok",
+          "tokens_per_second": 4071.3289679228183
+        },
+        {
+          "seconds": 2.023821200011298,
+          "runs_seconds": [
+            2.023821200011298
+          ],
+          "baseline_mib": 1295.43359375,
+          "peak_allocated_mib": 2735.52734375,
+          "peak_reserved_mib": 2760.0,
+          "length": 512,
+          "batch": 16,
+          "status": "ok",
+          "tokens_per_second": 4047.788411325204
+        },
+        {
+          "length": 512,
+          "batch": 32,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 46.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 3.14 GiB is allocated by PyTorch, and 22.32 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "length": 512,
+          "batch": 24,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 46.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 3.14 GiB is allocated by PyTorch, and 22.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "seconds": 2.540047099988442,
+          "runs_seconds": [
+            2.540047099988442
+          ],
+          "baseline_mib": 1295.44921875,
+          "peak_allocated_mib": 3095.56640625,
+          "peak_reserved_mib": 3120.0,
+          "length": 512,
+          "batch": 20,
+          "status": "ok",
+          "tokens_per_second": 4031.421307127177
+        },
+        {
+          "length": 512,
+          "batch": 22,
+          "status": "oom",
+          "error": "CUDA out of memory. Tried to allocate 44.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 30.25 MiB is free. 3.20 GiB allowed; Of the allocated memory 3.16 GiB is allocated by PyTorch, and 22.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+        },
+        {
+          "seconds": 2.6818303000181913,
+          "runs_seconds": [
+            2.6818303000181913
+          ],
+          "baseline_mib": 1295.453125,
+          "peak_allocated_mib": 3185.576171875,
+          "peak_reserved_mib": 3210.0,
+          "length": 512,
+          "batch": 21,
+          "status": "ok",
+          "tokens_per_second": 4009.202222798015
+        },
+        {
+          "seconds": 2.68910080002388,
+          "runs_seconds": [
+            2.6871032000053674,
+            2.6900567999691702,
+            2.68910080002388
+          ],
+          "baseline_mib": 1295.453125,
+          "peak_allocated_mib": 3185.576171875,
+          "peak_reserved_mib": 3210.0,
+          "length": 512,
+          "batch": 21,
+          "status": "ok",
+          "tokens_per_second": 3998.3625752907888
+        }
+      ],
+      "limits": [
+        {
+          "length": 128,
+          "max_success_batch": 108,
+          "first_failed_batch": 109,
+          "search_cap": 128
+        },
+        {
+          "length": 512,
+          "max_success_batch": 21,
+          "first_failed_batch": 22,
+          "search_cap": 128
+        }
+      ]
+    },
+    "fp16": {
+      "model": "megagonlabs/transformers-ud-japanese-bert-large-ginza",
+      "revision": "7683285d102ba2098cf5f2641388cd69c7406241",
+      "precision": "float16",
+      "memory_fraction": 0.8,
+      "attention": "eager",
+      "output_hidden_states": true,
+      "parameters": 337441792,
+      "parameter_mib": 643.619140625,
+      "load_seconds": 4.898921400017571,
+      "loaded_allocated_mib": 643.626953125,
+      "cases": [
+        {
+          "seconds": 0.12801735001266934,
+          "runs_seconds": [
+            0.17495640000561252,
+            0.08107830001972616
+          ],
+          "baseline_mib": 651.759765625,
+          "peak_allocated_mib": 717.76953125,
+          "peak_reserved_mib": 730.0,
+          "length": 128,
+          "batch": 8,
+          "status": "ok",
+          "tokens_per_second": 7998.915771172103
+        },
+        {
+          "seconds": 0.1381227000092622,
+          "runs_seconds": [
+            0.14024219999555498,
+            0.1360032000229694
+          ],
+          "baseline_mib": 651.767578125,
+          "peak_allocated_mib": 783.787109375,
+          "peak_reserved_mib": 820.0,
+          "length": 128,
+          "batch": 16,
+          "status": "ok",
+          "tokens_per_second": 14827.396219902057
+        },
+        {
+          "seconds": 0.256898750027176,
+          "runs_seconds": [
+            0.2579401000402868,
+            0.2558574000140652
+          ],
+          "baseline_mib": 651.783203125,
+          "peak_allocated_mib": 915.822265625,
+          "peak_reserved_mib": 956.0,
+          "length": 128,
+          "batch": 32,
+          "status": "ok",
+          "tokens_per_second": 15944.024638370975
+        },
+        {
+          "seconds": 0.4649166500021238,
+          "runs_seconds": [
+            0.46626720001222566,
+            0.4635660999920219
+          ],
+          "baseline_mib": 651.8076171875,
+          "peak_allocated_mib": 1127.12744140625,
+          "peak_reserved_mib": 1230.0,
+          "length": 128,
+          "batch": 57,
+          "status": "ok",
+          "tokens_per_second": 15693.135532931916
+        },
+        {
+          "seconds": 0.3165979500336107,
+          "runs_seconds": [
+            0.31812220002757385,
+            0.3150737000396475
+          ],
+          "baseline_mib": 651.783203125,
+          "peak_allocated_mib": 1011.822265625,
+          "peak_reserved_mib": 1076.0,
+          "length": 512,
+          "batch": 8,
+          "status": "ok",
+          "tokens_per_second": 12937.544287842547
+        },
+        {
+          "seconds": 0.6366463999729604,
+          "runs_seconds": [
+            0.635268299956806,
+            0.6380244999891147
+          ],
+          "baseline_mib": 651.814453125,
+          "peak_allocated_mib": 1371.892578125,
+          "peak_reserved_mib": 1388.0,
+          "length": 512,
+          "batch": 16,
+          "status": "ok",
+          "tokens_per_second": 12867.425309163658
+        },
+        {
+          "seconds": 1.2742937500297558,
+          "runs_seconds": [
+            1.278890700021293,
+            1.2696968000382185
+          ],
+          "baseline_mib": 651.876953125,
+          "peak_allocated_mib": 2092.033203125,
+          "peak_reserved_mib": 2108.0,
+          "length": 512,
+          "batch": 32,
+          "status": "ok",
+          "tokens_per_second": 12857.31802389945
+        },
+        {
+          "seconds": 2.3392314499942586,
+          "runs_seconds": [
+            2.3521542999660596,
+            2.3263086000224575
+          ],
+          "baseline_mib": 651.974609375,
+          "peak_allocated_mib": 3246.2529296875,
+          "peak_reserved_mib": 3262.0,
+          "length": 512,
+          "batch": 57,
+          "status": "ok",
+          "tokens_per_second": 12475.892456076388
+        }
+      ]
+    }
+  }
+}
