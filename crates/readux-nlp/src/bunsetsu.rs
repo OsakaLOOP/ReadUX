@@ -4,7 +4,7 @@ use crate::{formation::FormationArtifact, model::MorphemeToken, structure::{Stru
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
-pub const SCHEMA: &str = "kotoclip.bunsetsu-artifact.v1";
+pub const SCHEMA: &str = "readux.bunsetsu-artifact.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

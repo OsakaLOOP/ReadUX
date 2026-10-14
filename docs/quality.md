@@ -64,4 +64,4 @@
 
 ## 代码入口
 
-[alignment.rs](../crates/kotoclip-nlp/src/alignment.rs)等模块包含协议测试，[evaluate_source_validation.py](../scripts/evaluate_source_validation.py)提供来源评估基础。[artifact.rs](../crates/kotoclip-quality-audit/src/artifact.rs)、[history.rs](../crates/kotoclip-quality-audit/src/history.rs)及[质量界面](../src/components/quality/)提供审计恢复基础。
+[alignment.rs](../crates/readux-nlp/src/alignment.rs)等模块包含协议测试，[evaluate_source_validation.py](../scripts/evaluate_source_validation.py)提供来源评估基础。[artifact.rs](../crates/readux-quality-audit/src/artifact.rs)、[history.rs](../crates/readux-quality-audit/src/history.rs)及[质量界面](../src/components/quality/)提供审计恢复基础。

@@ -16,7 +16,7 @@
     "navigation_recommendation"
   ],
   "properties": {
-    "schema_version": { "const": "kotoclip.dictionary-disambiguation.v1" },
+    "schema_version": { "const": "readux.dictionary-disambiguation.v1" },
     "request_id": { "type": "string", "minLength": 1 },
     "status": {
       "type": "string",

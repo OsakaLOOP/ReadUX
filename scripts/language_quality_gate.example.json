@@ -1,5 +1,5 @@
 {
-  "schema_version": "kotoclip.quality.gate-config.v1",
+  "schema_version": "readux.quality.gate-config.v1",
   "require_comparable": true,
   "allowed_quality_conclusions": [
     "partial",

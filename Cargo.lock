@@ -2115,45 +2115,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "kotoclip-core"
-version = "0.1.0"
-dependencies = [
- "aho-corasick",
- "ammonia",
- "chrono",
- "cjclassifier",
- "flate2",
- "html5ever 0.39.0",
- "imagesize",
- "kotoclip-nlp",
- "log",
- "regex",
- "rmp-serde",
- "roxmltree",
- "rusqlite",
- "serde",
- "serde_json",
- "sha2",
- "thiserror 1.0.69",
- "unicode-normalization",
- "unicode-segmentation",
- "vibrato",
- "zip",
-]
-
-[[package]]
-name = "kotoclip-nlp"
-version = "0.1.0"
-dependencies = [
- "csv",
- "serde",
- "serde_json",
- "sha2",
- "thiserror 1.0.69",
- "vibrato",
-]
-
-[[package]]
 name = "libappindicator"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3017,6 +2978,45 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "20675572f6f24e9e76ef639bc5552774ed45f1c30e2951e1e99c59888861c539"
 
 [[package]]
+name = "readux-core"
+version = "0.1.0"
+dependencies = [
+ "aho-corasick",
+ "ammonia",
+ "chrono",
+ "cjclassifier",
+ "flate2",
+ "html5ever 0.39.0",
+ "imagesize",
+ "log",
+ "readux-nlp",
+ "regex",
+ "rmp-serde",
+ "roxmltree",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror 1.0.69",
+ "unicode-normalization",
+ "unicode-segmentation",
+ "vibrato",
+ "zip",
+]
+
+[[package]]
+name = "readux-nlp"
+version = "0.1.0"
+dependencies = [
+ "csv",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror 1.0.69",
+ "vibrato",
+]
+
+[[package]]
 name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3866,7 +3866,7 @@ name = "tauri-app"
 version = "0.1.2"
 dependencies = [
  "flate2",
- "kotoclip-core",
+ "readux-core",
  "serde",
  "serde_json",
  "tauri",

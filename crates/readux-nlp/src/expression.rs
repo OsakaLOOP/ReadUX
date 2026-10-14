@@ -1,7 +1,7 @@
 //! L3 表达候选层。表达规则由独立目录提供，默认保持空候选。
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.expression-artifact.v1";
+pub const SCHEMA: &str = "readux.expression-artifact.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

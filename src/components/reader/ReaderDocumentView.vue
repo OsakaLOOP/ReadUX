@@ -19,7 +19,7 @@ import { isSessionGenerationError, matchesSessionGeneration, type AnalysisUnit, 
 import { buildReaderRows, rowCharacterOffset, rowIndexForOffset, type ReaderRow, type ReaderTextRow } from "../../reader/rows";
 import { readingEstimate, type ReaderAppearance } from "../../reader/reading";
 import { estimateReaderRow, resolveReaderRowMeasurement } from "../../reader/virtualization";
-import { dictionaryLookupFromSearch, readerCapsuleRanges, readerChains, readerMorphologyHits, type ReaderMorphologyDetail, type ReaderMorphologyHit } from "../../reader/lookupPresentation";
+import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations, type ReaderMorphologyDetail, type ReaderMorphologyHit } from "../../reader/lookupPresentation";
 import { constrainMergeRange, mergedLookupTarget, selectionExcludedRanges } from "../../reader/mergeLookup";
 import { explanationPanelWidth, isWithinPanelGroupTriangle, measureIntrinsicPanel, placeExplanationPanels, snapshotRect, type Size } from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
@@ -85,12 +85,13 @@ interface TextCapsule {
   key: string;
   capsuleKey: string | null;
   parts: TextPart[];
+  runs: TextRun[];
 }
 
 interface TextRun {
   key: string;
   reading?: string;
-  capsules: TextCapsule[];
+  parts: TextPart[];
 }
 
 interface MergeDrag {
@@ -302,15 +303,9 @@ function createUnitLookup(unitPlan: AnalysisUnit, unit: UnitUpdate, group: Looku
   return {
     sessionId: props.session.session_id, generation: props.session.generation,
     unit, group, contextOffset: offset, range: unitPlan.anchor.char_range,
-    capsules: [
-      ...group.outer_targets.filter((target) => target.decision === "accepted" && target.morpheme_ids.length > 1
-        || target.reason === "author_ruby"
-        || !target.lexical_core_ids.length && target.morpheme_ids.length === 1)
-        .map((target) => ({ key: `${unit.unit_id}:${target.id}`, range: globalRange(target.char_range) })),
-      ...readerCapsuleRanges(unit.document!)
-        .filter((capsule) => capsule.range[0] >= start && capsule.range[1] <= end)
-        .map((capsule) => ({ key: `${unit.unit_id}:${capsule.id}`, range: globalRange(capsule.range) })),
-    ],
+    capsules: readerCapsuleRanges(group.outer_targets, unit.document!)
+      .filter((capsule) => capsule.range[0] >= start && capsule.range[1] <= end)
+      .map((capsule) => ({ key: `${unit.unit_id}:${capsule.id}`, range: globalRange(capsule.range) })),
     morphology: readerMorphologyHits(
       [...group.inner_targets.filter((target) => target.decision === "queryable"), ...group.outer_targets], unit.document,
     ).filter((hit) => hit.range[0] >= start && hit.range[1] <= end)
@@ -512,7 +507,12 @@ function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
     boundaries.add(Math.max(block.charRange[0], hit.range[0]));
     boundaries.add(Math.min(block.charRange[1], hit.range[1]));
   }
-  const annotations = prepared.value.annotations.filter((annotation) =>
+  const validations = lookups.flatMap((lookup) => lookup.unit.document!.ruby_validations.map((validation) => ({
+    ...validation,
+    char_range: [validation.char_range[0] + lookup.contextOffset, validation.char_range[1] + lookup.contextOffset] as [number, number],
+    candidate_char_range: [validation.candidate_char_range[0] + lookup.contextOffset, validation.candidate_char_range[1] + lookup.contextOffset] as [number, number],
+  })));
+  const annotations = readerRubyAnnotations(prepared.value.annotations, validations).filter((annotation) =>
     annotation.char_range[0] >= block.charRange[0] && annotation.char_range[1] <= block.charRange[1]);
   for (const annotation of annotations) {
     boundaries.add(annotation.char_range[0]);
@@ -542,9 +542,10 @@ function capsulesForParts(parts: TextPart[]): TextCapsule[] {
     if (previous && previous.capsuleKey === part.capsuleKey && previous.parts[previous.parts.length - 1].range[1] === part.range[0]) {
       previous.parts.push(part);
     } else {
-      capsules.push({ key: part.key, capsuleKey: part.capsuleKey, parts: [part] });
+      capsules.push({ key: part.key, capsuleKey: part.capsuleKey, parts: [part], runs: [] });
     }
   }
+  for (const capsule of capsules) capsule.runs = runsForParts(capsule.parts);
   return capsules;
 }
 
@@ -556,7 +557,7 @@ function runsForParts(parts: TextPart[]): TextRun[] {
     else groups.push([part]);
   }
   return groups.map((group) => ({
-    key: group[0].key, reading: group[0].annotation?.reading, capsules: capsulesForParts(group),
+    key: group[0].key, reading: group[0].annotation ? displayReading(group[0].annotation.reading) : undefined, parts: group,
   }));
 }
 
@@ -565,12 +566,12 @@ let rowProjectionCache = new Map<ReaderTextRow, {
   prepared: typeof prepared.value;
   selection: TargetHit | null;
   highlight: string;
-  runs: TextRun[];
+  capsules: TextCapsule[];
 }>();
-const visibleRuns = computed(() => {
+const visibleCapsules = computed(() => {
   const lookups = unitLookups();
   const next: typeof rowProjectionCache = new Map();
-  const result = new Map<string, TextRun[]>();
+  const result = new Map<string, TextCapsule[]>();
   for (const { row } of visibleRows.value) {
     if (row.kind !== "text") continue;
     const relevant = lookups.filter((lookup) => lookup.range[0] < row.paragraph.charRange[1] && lookup.range[1] > row.paragraph.charRange[0]);
@@ -580,17 +581,17 @@ const visibleRuns = computed(() => {
     let entry = rowProjectionCache.get(row);
     if (!entry || entry.prepared !== prepared.value || entry.selection !== selection || entry.highlight !== highlight
       || entry.lookups.length !== relevant.length || entry.lookups.some((lookup, index) => lookup !== relevant[index])) {
-      entry = { lookups: relevant, prepared: prepared.value, selection, highlight, runs: runsForParts(partsFor(row, relevant)) };
+      entry = { lookups: relevant, prepared: prepared.value, selection, highlight, capsules: capsulesForParts(partsFor(row, relevant)) };
     }
     next.set(row, entry);
-    result.set(row.key, entry.runs);
+    result.set(row.key, entry.capsules);
   }
   rowProjectionCache = next;
   return result;
 });
 
-const visibleParts = computed(() => new Map([...visibleRuns.value.values()]
-  .flatMap((runs) => runs.flatMap((run) => run.capsules.flatMap((capsule) => capsule.parts)))
+const visibleParts = computed(() => new Map([...visibleCapsules.value.values()]
+  .flatMap((capsules) => capsules.flatMap((capsule) => capsule.parts))
   .map((part) => [part.key, part])));
 const mergeRange = computed<[number, number] | null>(() => {
   const drag = mergeDrag.value;
@@ -827,14 +828,14 @@ function orderedLookup(lookup: DictionaryLookup): DictionaryLookup {
 
 function updateDictionaryOrder(order: string[]) {
   dictionaryOrder.value = order;
-  localStorage.setItem("kotoclip.reader.dictionaryOrder", JSON.stringify(order));
+  localStorage.setItem("readux.reader.dictionaryOrder", JSON.stringify(order));
   if (activeQuery.value) activeQuery.value = orderedLookup(activeQuery.value);
   if (componentQuery.value) componentQuery.value = orderedLookup(componentQuery.value);
 }
 
-function componentForHit(hit: TargetHit, range: [number, number]): TargetHit | null {
+function componentForHit(hit: TargetHit, range: [number, number], detail: ReaderMorphologyDetail | null): TargetHit | null {
   const outer = outerForHit(hit);
-  if (outer.target.decision === "selection") return null;
+  if (detail || outer.target.decision === "selection") return null;
   const child = outer.children.filter((target) => target.decision === "queryable"
     && target.char_range[0] <= range[0] && range[1] <= target.char_range[1])
     .sort((left, right) => (left.char_range[1] - left.char_range[0]) - (right.char_range[1] - right.char_range[0]))[0];
@@ -844,7 +845,7 @@ function componentForHit(hit: TargetHit, range: [number, number]): TargetHit | n
 function openLookup(hit: TargetHit, source: HTMLElement, range: [number, number], detail: ReaderMorphologyDetail | null) {
   if (mergedHit.value?.key === hit.key) detail ??= activeDetail.value;
   const outer = outerForHit(hit);
-  const component = componentForHit(hit, range);
+  const component = componentForHit(hit, range, detail);
   activeCapsule = source.closest<HTMLElement>(".reader-capsule") ?? source;
   positionLookupAt(snapshotRect(source.getBoundingClientRect()), component ? "component" : detail ? "detail" : null);
   activeDetail.value = detail;
@@ -894,7 +895,7 @@ function scheduleLookup(hit: TargetHit, event: MouseEvent, detail: ReaderMorphol
   const anchor = snapshotRect(source.getBoundingClientRect());
   const range: [number, number] = [Number(source.dataset.charStart), Number(source.dataset.charEnd)];
   const outer = outerForHit(hit);
-  const component = componentForHit(hit, range);
+  const component = componentForHit(hit, range, detail);
   if (activeHit.value?.key === outer.key && componentHit.value?.key === component?.key && !relatedWord.value) {
     activeCapsule = capsule;
     activeDetail.value = detail;
@@ -1273,7 +1274,7 @@ onMounted(() => {
   window.addEventListener("resize", handleLookupResize);
   lastProgressAt = Date.now();
   try {
-    const saved = JSON.parse(localStorage.getItem("kotoclip.reader.dictionaryOrder") || "[]");
+    const saved = JSON.parse(localStorage.getItem("readux.reader.dictionaryOrder") || "[]");
     if (Array.isArray(saved) && saved.every((name) => typeof name === "string")) dictionaryOrder.value = saved;
   } catch { dictionaryOrder.value = []; }
   void restoreOffset();
@@ -1332,14 +1333,14 @@ function toggleEinkMode() {
             <ReaderImageBlock v-if="visible.row.kind === 'image'" :items="visible.row.items" :layout="visible.row.layout" class="reader-view__image" @settled="measureSettledImage(visible.row.key)" />
             <section v-else class="reader-view__paragraph" :class="{ 'reader-view__heading': visible.row.heading }" :data-char-start="visible.row.paragraph.charRange[0]" :data-block-id="visible.row.paragraph.id">
               <component :is="visible.row.heading ? 'h2' : 'p'">
-                <component v-for="run in visibleRuns.get(visible.row.key) ?? []" :key="run.key" :is="run.reading ? 'ruby' : 'span'"><span
-                  v-for="capsule in run.capsules"
+                <span
+                  v-for="capsule in visibleCapsules.get(visible.row.key) ?? []"
                   :key="capsule.key"
                   class="reader-capsule"
                   :class="{ 'reader-capsule--group': capsule.capsuleKey, 'reader-capsule--merged': mergedHit && capsule.capsuleKey === mergedHit.key }"
                   @pointerleave="leaveCapsule"
-                ><span
-                  v-for="part in capsule.parts"
+                ><component v-for="run in capsule.runs" :key="run.key" :is="run.reading ? 'ruby' : 'span'"><span
+                  v-for="part in run.parts"
                   :key="part.key"
                   class="reader-capsule__part"
                   :class="{ 'reader-capsule__part--lookup': part.hit, 'reader-capsule__part--merging': highlightedRange && part.range[0] < highlightedRange[1] && part.range[1] > highlightedRange[0] }"
@@ -1351,7 +1352,7 @@ function toggleEinkMode() {
                   @pointerleave="leavePart"
                   @pointerdown="startMerge(part, visible.row.paragraph, $event)"
                   @click="clickPart(part, $event)"
-                >{{ part.text }}</span></span><rt v-if="run.reading">{{ run.reading }}</rt></component>
+                >{{ part.text }}</span><rt v-if="run.reading">{{ run.reading }}</rt></component></span>
               </component>
             </section>
           </section>

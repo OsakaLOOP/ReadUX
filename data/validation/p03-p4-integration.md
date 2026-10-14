@@ -1,5 +1,5 @@
 # p03
-paragraph=3 | schema=kotoclip.unified-document.v8
+paragraph=3 | schema=readux.unified-document.v8
 
 ## 文本
 柚子は世間のすねものである。超絶哲学者の猫が、軒端で日向ぼこりをしながら、どんな思索にふけっていようと、また新聞記者の雀が、路次裏で見た小さな出来事をどんなに大げさに吹聴していようと、彼はそんなことには一向頓着しない。

@@ -33,7 +33,7 @@ pub struct StructureArtifact {
     pub compounds: Vec<StructureSpan>,
 }
 
-pub const SCHEMA: &str = "kotoclip.structure-artifact.v1";
+pub const SCHEMA: &str = "readux.structure-artifact.v1";
 
 pub trait StructureProvider {
     fn descriptor(&self) -> (&'static str, Option<&'static str>);

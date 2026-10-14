@@ -1,5 +1,5 @@
 use crate::analysis_engine::AnalysisEngine;
-use kotoclip_nlp::{
+use readux_nlp::{
     model::{QueryForm, Register, StageTiming},
     prepare::prepare_text,
     routing::{route_text, RegisterPolicy},
@@ -26,16 +26,16 @@ pub struct ResourcePaths {
 
 impl ResourcePaths {
     pub fn development(root: &Path) -> Self {
-        let data = std::env::var_os("KOTOCLIP_DATA_DIR")
+        let data = std::env::var_os("READUX_DATA_DIR")
             .map(PathBuf::from)
             .unwrap_or_else(|| root.join("data"));
         Self {
-            cwj: std::env::var_os("KOTOCLIP_UNIDIC_CWJ")
+            cwj: std::env::var_os("READUX_UNIDIC_CWJ")
                 .map(PathBuf::from)
                 .unwrap_or_else(|| {
                     root.join("experiments/unidic-source/unidic-cwj-202512.vibrato.dic")
                 }),
-            csj: std::env::var_os("KOTOCLIP_UNIDIC_CSJ")
+            csj: std::env::var_os("READUX_UNIDIC_CSJ")
                 .map(PathBuf::from)
                 .unwrap_or_else(|| {
                     root.join("experiments/unidic-source/unidic-csj-202512.vibrato.dic")
@@ -75,8 +75,8 @@ pub enum Request {
     PollDocument { session_id: String, text_version: String, generation: u64, after_revision: u64 },
     QueryDocument { session_id: String, text_version: String, generation: u64, unit_id: String, artifact_revision: u64, token_id: String, #[serde(default)] selected_form: Option<String> },
     ListRules,
-    PreviewRule { session_id: String, text_version: String, generation: u64, unit_id: String, artifact_revision: u64, rule: kotoclip_nlp::rules::Rule },
-    SaveRule { rule: kotoclip_nlp::rules::Rule },
+    PreviewRule { session_id: String, text_version: String, generation: u64, unit_id: String, artifact_revision: u64, rule: readux_nlp::rules::Rule },
+    SaveRule { rule: readux_nlp::rules::Rule },
     SetRuleEnabled { id: String, enabled: bool },
     DeleteRule { id: String },
     AnalyzeWithArtifacts {
@@ -84,9 +84,9 @@ pub enum Request {
         register: Register,
         artifacts: Vec<SyntaxArtifact>,
         #[serde(default)]
-        grammar: Option<kotoclip_nlp::grammar::GrammarArtifact>,
+        grammar: Option<readux_nlp::grammar::GrammarArtifact>,
         #[serde(default)]
-        expression: Option<kotoclip_nlp::expression::ExpressionArtifact>,
+        expression: Option<readux_nlp::expression::ExpressionArtifact>,
     },
     Query {
         analysis_id: String,
@@ -281,8 +281,8 @@ impl AnalysisService {
         text: String,
         policy: RegisterPolicy,
         artifacts: &[SyntaxArtifact],
-        grammar: Option<kotoclip_nlp::grammar::GrammarArtifact>,
-        expression: Option<kotoclip_nlp::expression::ExpressionArtifact>,
+        grammar: Option<readux_nlp::grammar::GrammarArtifact>,
+        expression: Option<readux_nlp::expression::ExpressionArtifact>,
     ) -> Result<Value, String> {
         if text.chars().count() > 20000 { return Err("单次分析支持 20,000 字符，长文档请使用文档会话".into()); }
         if text.trim().is_empty() { return Err("请输入日文正文".into()); }

@@ -250,7 +250,7 @@ def main() -> None:
         segments.append({"id": sid, "text": text, "paragraphs": paragraphs, **{layer: confirmed[layer] for layer in LAYERS}})
 
     output = {
-        "schema": "kotoclip.validation-gold.v1",
+        "schema": "readux.validation-gold.v1",
         "coordinate_system": "unicode_scalar",
         "annotation": {
             "status": "complete_manual_interactive",

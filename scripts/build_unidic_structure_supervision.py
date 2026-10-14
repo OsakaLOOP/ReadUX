@@ -73,7 +73,7 @@ def build(artifact_path: Path, unidic_path: Path) -> dict[str, Any]:
             labels[indices[-1]][prefix + "end"] = True
         samples.append({"segment_id": segment_id, "provider": artifact["provider"], "tokens": labels})
     rates = {kind: (accepted[kind] / totals[kind] if totals[kind] else None) for kind in totals}
-    return {"schema": "kotoclip.unidic-structure-supervision.v1", "input": {"artifact": str(artifact_path), "unidic": str(unidic_path)}, "statistics": {"total_spans": totals, "accepted_spans": accepted, "coverage_rate": rates, "invalid_segments": invalid_segments}, "samples": samples, "conflicts": conflicts}
+    return {"schema": "readux.unidic-structure-supervision.v1", "input": {"artifact": str(artifact_path), "unidic": str(unidic_path)}, "statistics": {"total_spans": totals, "accepted_spans": accepted, "coverage_rate": rates, "invalid_segments": invalid_segments}, "samples": samples, "conflicts": conflicts}
 
 
 def main() -> None:

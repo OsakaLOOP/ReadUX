@@ -10,10 +10,10 @@ Markdown 编译生成标题、段落、图片等阅读块，再形成分析正�
 
 ## 书库与持久化
 
-默认书库位于 Windows 文档目录的 `Kotoclip Library`。书籍目录按 EPUB 内容摘要生成稳定 ID，重复导入复用原书与已有进度。
+默认书库位于 Windows 文档目录的 `ReadUX Library`。书籍目录按 EPUB 内容摘要生成稳定 ID，重复导入复用原书与已有进度。
 
 ```text
-Kotoclip Library/
+ReadUX Library/
   library.sqlite
   books/<book-id>/
     source.epub
@@ -53,4 +53,4 @@ SQLite 保存书籍元数据、章节、资源相对路径、颜色与标签、�
 
 验收覆盖多章节 EPUB、目录头图、连续 ruby、首章以后的坐标、混合空白、补充平面字符、图片缺失、长文本跳转、取消分析和重启恢复。书架操作、排版设置、查词及选择操作在实际 Tauri 窗口共同验证。
 
-[epub.rs](../crates/kotoclip-core/src/import/epub.rs)提供导入基础，[library.rs](../crates/kotoclip-core/src/library.rs)提供书库存储，[document.ts](../src/reader/document.ts)和[reader_markdown.rs](../crates/kotoclip-core/src/reader_markdown.rs)提供正文编译基础。界面组件位于 [reader](../src/components/reader/)，应用协调入口为 [App.vue](../src/App.vue)。
+[epub.rs](../crates/readux-core/src/import/epub.rs)提供导入基础，[library.rs](../crates/readux-core/src/library.rs)提供书库存储，[document.ts](../src/reader/document.ts)和[reader_markdown.rs](../crates/readux-core/src/reader_markdown.rs)提供正文编译基础。界面组件位于 [reader](../src/components/reader/)，应用协调入口为 [App.vue](../src/App.vue)。

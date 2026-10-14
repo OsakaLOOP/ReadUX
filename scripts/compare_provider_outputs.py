@@ -24,7 +24,7 @@ def main():
                 disagreements.append({"segment": gs["id"], "layer": layer, "ginza_only": sorted(gp-kp), "kwja_only": sorted(kp-gp)})
         p = matched / total_k if total_k else 0.0; r = matched / total_g if total_g else 0.0
         layers[layer] = {"ginza": total_g, "kwja": total_k, "matched": matched, "precision_vs_ginza": p, "recall_vs_ginza": r, "f1_vs_ginza": 2*p*r/(p+r) if p+r else 0.0}
-    output = {"schema": "kotoclip.syntax-provider-comparison.v1", "providers": [g["provider"], k["provider"]], "layers": layers, "disagreements": disagreements}
+    output = {"schema": "readux.syntax-provider-comparison.v1", "providers": [g["provider"], k["provider"]], "layers": layers, "disagreements": disagreements}
     OUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(OUT), "layers": layers, "disagreement_count": len(disagreements)}, ensure_ascii=False, indent=2))
 

@@ -17,9 +17,9 @@ npx tauri dev
 当前 CLI 支持如下命令：
 
 ```powershell
-cargo run -p kotoclip-core --bin kotoclip-nlp -- inspect cwj "七日は警察署へ向かった。"
-cargo run -p kotoclip-core --bin kotoclip-nlp -- repl
-cargo run -p kotoclip-core --bin kotoclip-nlp -- stdio
+cargo run -p readux-core --bin readux-nlp -- inspect cwj "七日は警察署へ向かった。"
+cargo run -p readux-core --bin readux-nlp -- repl
+cargo run -p readux-core --bin readux-nlp -- stdio
 ```
 
 `stdio` 接收逐行 JSON 请求，使用与桌面端相同的 `AnalysisService`。网页开发由 Vite 提供，通过开发 bridge 调用 Rust；Tauri 窗口承担桌面 IPC 与资源定位验收。
@@ -36,11 +36,11 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 | 资源 | 开发位置或覆盖项 |
 | --- | --- |
-| CWJ | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`；`KOTOCLIP_UNIDIC_CWJ` |
-| CSJ | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`；`KOTOCLIP_UNIDIC_CSJ` |
+| CWJ | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`；`READUX_UNIDIC_CWJ` |
+| CSJ | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`；`READUX_UNIDIC_CSJ` |
 | 词典源包 | `data/dict-sources/*.kdict` |
 | 词典查询缓存 | `data/dicts` |
-| 词典数据根目录 | `KOTOCLIP_DATA_DIR` |
+| 词典数据根目录 | `READUX_DATA_DIR` |
 | GiNZA 实验环境 | `experiments/ginza311`，由本机配置选择解释器 |
 | GiNZA 最小环境 | `experiments/ginza-minimal`，由 `scripts/build_ginza_minimal_env.py` 生成 |
 
@@ -61,7 +61,7 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 按修改范围选择检查；以下命令是对应入口，实际结果记录在 TODO 或验收报告中：
 
 ```powershell
-cargo test -p kotoclip-nlp -p kotoclip-core --lib
+cargo test -p readux-nlp -p readux-core --lib
 cargo check -p tauri-app
 npm run test:ui
 npm run build
@@ -76,9 +76,9 @@ GitHub Actions 使用 `src-tauri/tauri.github-release.conf.json` 构建发行包
 资源 Release 的资产名称固定为：
 
 ```text
-Kotoclip-insider-portable-nlp.zip
-Kotoclip-insider-portable-windows-x64-python.zip
-Kotoclip-insider-portable-macos-arm64-python.zip
+ReadUX-insider-portable-nlp.zip
+ReadUX-insider-portable-windows-x64-python.zip
+ReadUX-insider-portable-macos-arm64-python.zip
 ```
 
 ## 桌面交付验收

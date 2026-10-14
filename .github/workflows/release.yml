@@ -20,14 +20,14 @@ jobs:
             os: windows-latest
             target: x86_64-pc-windows-msvc
             binary: tauri-app.exe
-            nlp_asset: Kotoclip-insider-portable-nlp.zip
-            python_asset: Kotoclip-insider-portable-windows-x64-python.zip
+            nlp_asset: ReadUX-insider-portable-nlp.zip
+            python_asset: ReadUX-insider-portable-windows-x64-python.zip
           - name: macos-arm64
             os: macos-14
             target: aarch64-apple-darwin
             binary: tauri-app
-            nlp_asset: Kotoclip-insider-portable-nlp.zip
-            python_asset: Kotoclip-insider-portable-macos-arm64-python.zip
+            nlp_asset: ReadUX-insider-portable-nlp.zip
+            python_asset: ReadUX-insider-portable-macos-arm64-python.zip
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out source
@@ -79,13 +79,13 @@ jobs:
           --target ${{ matrix.name }}
           --binary target/${{ matrix.target }}/release/${{ matrix.binary }}
           --output release-packages
-          --name Kotoclip-${{ matrix.name }}
+          --name ReadUX-${{ matrix.name }}
 
       - name: Upload portable ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: kotoclip-${{ matrix.name }}
-          path: release-packages/Kotoclip-${{ matrix.name }}.zip
+          name: readux-${{ matrix.name }}
+          path: release-packages/ReadUX-${{ matrix.name }}.zip
           if-no-files-found: error
           retention-days: 14
 
@@ -99,7 +99,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: release-assets
-          pattern: kotoclip-*
+          pattern: readux-*
           merge-multiple: true
 
       - name: Publish release

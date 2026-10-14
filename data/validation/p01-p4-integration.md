@@ -1,5 +1,5 @@
 # p01
-paragraph=1 | schema=kotoclip.unified-document.v8
+paragraph=1 | schema=readux.unified-document.v8
 
 ## 文本
 そのうち大正十四年、普選が成立した。この普選の実施は労働運動を政治運動に発展せしめる一転機をなしたもので、日本労働総同盟は政治運動への方向転換の宣言を行い、私の属する日農は単一無産政党の結成を提唱した。

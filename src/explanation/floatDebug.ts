@@ -40,7 +40,7 @@ const enabled = typeof window !== "undefined" && shouldEnableFloatDebug({
   search: window.location.search,
 });
 
-const storageKey = "kotoclip.ui-float-debug.settings.v1";
+const storageKey = "readux.ui-float-debug.settings.v1";
 const initialSettings = loadSettings();
 const state = reactive({
   enabled,
@@ -194,7 +194,7 @@ function clear() {
 
 function report() {
   const lines = [
-    "KOTOCLIP UI FLOAT DEBUG REPORT",
+    "READUX UI FLOAT DEBUG REPORT",
     `capturedAt=${new Date().toISOString()}`,
     `enabled=${enabled} paused=${state.settings.paused}`,
     "",

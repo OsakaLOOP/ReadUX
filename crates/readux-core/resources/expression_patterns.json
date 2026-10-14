@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_version": 1,
-  "source": "kotoclip_builtin",
+  "source": "readux_builtin",
   "patterns": [
     {
       "id": "idiom_mimi_wo_katamukeru", "rule_version": 1, "expression_type": "idiom",

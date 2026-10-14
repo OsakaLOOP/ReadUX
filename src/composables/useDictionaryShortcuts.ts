@@ -16,7 +16,7 @@ export const dictionaryShortcutKeyOptions = [
   { value: ";", label: ";" },
 ] as const;
 
-const storageKey = "kotoclip.dictionary-shortcuts.v1";
+const storageKey = "readux.dictionary-shortcuts.v1";
 const defaults: DictionaryShortcutSettings = {
   dictionaryKey: "d",
   choiceKey: "f",

@@ -6,7 +6,7 @@
   "version": "0.1.2",
   "type": "module",
   "scripts": {
-    "acceptance": "cargo build -p kotoclip-core --bin kotoclip-nlp && vite --host 127.0.0.1 --port 1420",
+    "acceptance": "cargo build -p readux-core --bin readux-nlp && vite --host 127.0.0.1 --port 1420",
     "dev": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel dev",
     "verify:release-resources": "node scripts/check_release_resources.mjs",
     "frontend:dev": "vite",

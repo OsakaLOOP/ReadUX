@@ -60,6 +60,16 @@ pub fn finish(
     if occurrence.header.display_form.is_empty() {
         occurrence.header.display_form = "未识别词头".to_string();
     }
+    let display_form = canonical_display_form(&occurrence.header.display_form);
+    if !display_form.is_empty() && display_form != occurrence.header.display_form {
+        occurrence.header.display_form = display_form.clone();
+        occurrence.header.canonical_form = Some(display_form.clone());
+        for form in &mut occurrence.header.scoped_forms {
+            if form.kind == "canonical" {
+                form.form = display_form.clone();
+            }
+        }
+    }
     let structured = render_structured_html(&occurrence.senses, &occurrence.sections);
     occurrence.definition_html = if structured.trim().is_empty() {
         sanitize_fallback(fallback_source)
@@ -88,6 +98,39 @@ pub fn finish(
         .to_string();
     }
     occurrence
+}
+
+fn canonical_display_form(value: &str) -> String {
+    let chars = value.chars().collect::<Vec<_>>();
+    let mut result = String::new();
+    let mut index = 0;
+    while index < chars.len() {
+        if chars[index] == '（' {
+            if let Some(relative_end) = chars[index + 1..].iter().position(|character| *character == '）') {
+                let end = index + 1 + relative_end;
+                let optional = &chars[index + 1..end];
+                if !optional.is_empty() && optional.iter().all(|character| matches!(*character, 'ぁ'..='ゖ' | 'ァ'..='ヺ' | 'ー')) {
+                    result.extend(optional);
+                    index = end + 1;
+                    continue;
+                }
+            }
+        }
+        result.push(chars[index]);
+        index += 1;
+    }
+    result.trim_start_matches(['－', '‐', '‑', '–', '—', '-']).to_string()
+}
+
+#[cfg(test)]
+mod display_form_tests {
+    use super::canonical_display_form;
+
+    #[test]
+    fn display_form_expands_optional_kana_and_hides_affix_marker() {
+        assert_eq!(canonical_display_form("－降り積（も）る"), "降り積もる");
+        assert_eq!(canonical_display_form("語（別義）"), "語（別義）");
+    }
 }
 
 pub fn text(lang: &str, value: impl AsRef<str>) -> DictionaryText {

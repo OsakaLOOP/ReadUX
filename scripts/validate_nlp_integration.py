@@ -17,10 +17,10 @@ def main():
     parser.add_argument("--cases", nargs="*")
     parser.add_argument("--output", type=Path, default=ROOT / "data/validation/behavior/integration.json")
     args = parser.parse_args()
-    report = {"schema": "kotoclip.provider-integration-check.v1", "cases": []}
-    with tempfile.TemporaryDirectory(prefix="kotoclip-provider-") as data:
-        env = {**os.environ, "KOTOCLIP_DATA_DIR": data}
-        process = subprocess.Popen([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"],
+    report = {"schema": "readux.provider-integration-check.v1", "cases": []}
+    with tempfile.TemporaryDirectory(prefix="readux-provider-") as data:
+        env = {**os.environ, "READUX_DATA_DIR": data}
+        process = subprocess.Popen([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"],
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                    text=True, encoding="utf-8", env=env)
         def request(value):

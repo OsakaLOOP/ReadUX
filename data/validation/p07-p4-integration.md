@@ -1,5 +1,5 @@
 # p07
-paragraph=7 | schema=kotoclip.unified-document.v8
+paragraph=7 | schema=readux.unified-document.v8
 
 ## 文本
 気象庁は20日午後4時過ぎ、線状降水帯の半日前予測として、伊豆諸島と静岡県で21日昼前から夕方や夜のはじめにかけて、線状降水帯が発生する恐れがあると発表していた。

@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.unidic-nlp-architecture.v1",
+  "schema": "readux.unidic-nlp-architecture.v1",
   "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
   "ginza": {
     "python_module": null,
@@ -1459,7 +1459,7 @@
     "directory_bytes": 78971273
   },
   "kwja": {
-    "python_module": "D:\\PROJ\\GIT\\kotoclip\\experiments\\kwja311\\Lib\\site-packages\\kwja\\__init__.py",
+    "python_module": "D:\\PROJ\\GIT\\readux\\experiments\\kwja311\\Lib\\site-packages\\kwja\\__init__.py",
     "checkpoint_dir": "experiments\\kwja-cache\\v2.1",
     "checkpoints": [
       {

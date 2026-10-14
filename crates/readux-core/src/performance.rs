@@ -114,6 +114,6 @@ impl PerformanceRecorder {
         let mut state = self.state.lock().unwrap();
         let events = state.events.clone();
         if clear { state.events.clear(); }
-        PerformanceSnapshot { schema: "kotoclip.performance.v1".into(), retained_limit: RETAINED_EVENTS, events }
+        PerformanceSnapshot { schema: "readux.performance.v1".into(), retained_limit: RETAINED_EVENTS, events }
     }
 }

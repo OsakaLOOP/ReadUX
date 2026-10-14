@@ -1,0 +1,2818 @@
+{
+  "schema": "readux.ginza-optimization-summary.v1",
+  "runs": [
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "baseline",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 0,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 2,
+        "limit": 42,
+        "reference": "None",
+        "output": ".agents\\analysis\\ginza-opt\\baseline-fp16.json"
+      },
+      "load_seconds": 23.97722749999957,
+      "initialize_seconds": 2.600019797682762e-06,
+      "warmup_seconds": 12.442862000025343,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 11.219464699999662,
+      "runs_seconds": [
+        11.118682100030128,
+        11.320247299969196
+      ],
+      "tokens_per_second": 808.2382040918826,
+      "characters_per_second": 1316.640356290835,
+      "peak_allocated_mib": 989.07861328125,
+      "peak_reserved_mib": 1476.0,
+      "peak_rss_mib": 1412.06640625,
+      "cpu_seconds": 22.6875,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "baseline-fp16"
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 6,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 5,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "input": ".agents\\analysis\\ginza-opt\\units.json",
+        "output": ".agents\\analysis\\ginza-opt\\final-overlap.json"
+      },
+      "load_seconds": 47.8960082999547,
+      "initialize_seconds": 43.745401600026526,
+      "warmup_seconds": 9.063461899990216,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 4.900964600034058,
+      "runs_seconds": [
+        4.826821500028018,
+        4.666633400018327,
+        4.900964600034058,
+        4.907941399957053,
+        5.496031999995466
+      ],
+      "tokens_per_second": 1850.2480103482046,
+      "conversion_runs_seconds": [
+        0.6138991999905556,
+        0.6486027000355534,
+        0.7637115999823436,
+        1.0299806999973953,
+        0.5554788000299595
+      ],
+      "output_bytes": 2472845,
+      "export_tokens_per_second": 1600.7975883906204,
+      "repeat_output_consistent": true,
+      "characters_per_second": 3014.1005303113893,
+      "peak_allocated_mib": 1041.94384765625,
+      "peak_reserved_mib": 1658.0,
+      "peak_rss_mib": 4681.72265625,
+      "cpu_seconds": 93.484375,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6",
+        "threadpoolctl": "3.6.0"
+      },
+      "differences": [],
+      "name": "final-overlap",
+      "stage_medians": {
+        "gpu_prepare_seconds": 2.2704961999552324,
+        "gpu_compute_seconds": 1.6410614929199219,
+        "cpu_decode_seconds": 15.847743099846411,
+        "cpu_wait_seconds": 1.6644292999408208,
+        "transfer_bytes": 205077168,
+        "parser_decode_seconds": 1.0637045000330545,
+        "ner_decode_seconds": 14.029887999990024,
+        "parser_kernel_seconds": 1.0479282000451349,
+        "ner_kernel_seconds": 14.023336699930951,
+        "tokenizer_seconds": 0.4856248000287451,
+        "reconstruct_seconds": 0.1171079000341706
+      },
+      "cpu_wait_over_gpu_interval": 1.0142394463106443
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 6,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": true,
+        "unsorted": false,
+        "repeats": 3,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "input": ".agents\\analysis\\ginza-opt\\units.json",
+        "output": ".agents\\analysis\\ginza-opt\\final-serial.json"
+      },
+      "load_seconds": 29.3860193999717,
+      "initialize_seconds": 39.022230300004594,
+      "warmup_seconds": 10.283585299970582,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 6.61152930004755,
+      "runs_seconds": [
+        6.61152930004755,
+        6.175465700041968,
+        6.632807000016328
+      ],
+      "tokens_per_second": 1371.543494473326,
+      "conversion_runs_seconds": [
+        0.6078197999740951,
+        0.6872281999676488,
+        0.6187329000094905
+      ],
+      "output_bytes": 2472845,
+      "export_tokens_per_second": 1256.0689162368963,
+      "repeat_output_consistent": true,
+      "characters_per_second": 2234.2788377106276,
+      "peak_allocated_mib": 1041.94384765625,
+      "peak_reserved_mib": 1658.0,
+      "peak_rss_mib": 4806.78125,
+      "cpu_seconds": 54.328125,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6",
+        "threadpoolctl": "3.6.0"
+      },
+      "differences": [],
+      "name": "final-serial",
+      "stage_medians": {
+        "gpu_prepare_seconds": 2.236769200011622,
+        "gpu_compute_seconds": 1.6945604858398438,
+        "cpu_decode_seconds": 14.589057500008494,
+        "cpu_wait_seconds": 3.4417516999528743,
+        "transfer_bytes": 205077168,
+        "parser_decode_seconds": 0.9889193000271916,
+        "ner_decode_seconds": 12.776606899918988,
+        "parser_kernel_seconds": 0.975400900002569,
+        "ner_kernel_seconds": 12.771364099986386,
+        "tokenizer_seconds": 0.43537119997199625,
+        "reconstruct_seconds": 0.12294420000398532
+      },
+      "cpu_wait_over_gpu_interval": 2.031058630667351
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 0,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 2,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "output": ".agents\\analysis\\ginza-opt\\fused-1.json"
+      },
+      "load_seconds": 23.99665400001686,
+      "initialize_seconds": 0.4958940999931656,
+      "warmup_seconds": 11.242460899986327,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 10.86895684999763,
+      "runs_seconds": [
+        10.935370000021067,
+        10.802543699974194
+      ],
+      "tokens_per_second": 834.3026957552028,
+      "characters_per_second": 1359.1000685593135,
+      "peak_allocated_mib": 1016.55322265625,
+      "peak_reserved_mib": 1510.0,
+      "peak_rss_mib": 1550.45703125,
+      "cpu_seconds": 22.25,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "fused-1",
+      "stage_medians": {
+        "gpu_prepare_seconds": 1.9119512499892153,
+        "cpu_decode_seconds": 8.48952230004943,
+        "transfer_bytes": 205077168.0,
+        "tokenizer_seconds": 0.26660494998213835
+      }
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 4,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 2,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "output": ".agents\\analysis\\ginza-opt\\fused-w4.json"
+      },
+      "load_seconds": 24.322402800025884,
+      "initialize_seconds": 20.655993100022897,
+      "warmup_seconds": 4.776873099966906,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 3.717507250024937,
+      "runs_seconds": [
+        3.783144999993965,
+        3.651869500055909
+      ],
+      "tokens_per_second": 2439.268948282259,
+      "characters_per_second": 3973.630448172202,
+      "peak_allocated_mib": 1041.94384765625,
+      "peak_reserved_mib": 1658.0,
+      "peak_rss_mib": 4184.09375,
+      "cpu_seconds": 23.984375,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "fused-w4",
+      "stage_medians": {
+        "gpu_prepare_seconds": 1.7394489499856718,
+        "gpu_compute_seconds": 1.4074067382812498,
+        "cpu_decode_seconds": 9.093028850009432,
+        "cpu_wait_seconds": 1.4416285000334028,
+        "transfer_bytes": 205077168.0,
+        "tokenizer_seconds": 0.2535111999604851,
+        "reconstruct_seconds": 0.06278584999381565
+      },
+      "cpu_wait_over_gpu_interval": 1.0243154738579305
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "baseline",
+        "precision": "fp32",
+        "threads": 1,
+        "workers": 0,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 1,
+        "limit": 2,
+        "reference": "None",
+        "output": ".agents\\analysis\\ginza-opt\\smoke-fp32.json"
+      },
+      "load_seconds": 28.87259600003017,
+      "initialize_seconds": 2.3999600671231747e-06,
+      "warmup_seconds": 30.104321400052868,
+      "characters": 199,
+      "tokens": 128,
+      "units": 2,
+      "input_sha256": "3391e25f89901a7c9014c36ae3849c408c3769bfaaad1e35f3532fc5b079bfe4",
+      "seconds": 0.23737580003216863,
+      "runs_seconds": [
+        0.23737580003216863
+      ],
+      "tokens_per_second": 539.229356921193,
+      "characters_per_second": 838.3331408384173,
+      "peak_allocated_mib": 1311.21875,
+      "peak_reserved_mib": 1328.0,
+      "peak_rss_mib": 1092.4453125,
+      "cpu_seconds": 0.203125,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "smoke-fp32"
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp32",
+        "threads": 1,
+        "workers": 0,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 1,
+        "limit": 2,
+        "reference": ".agents\\analysis\\ginza-opt\\smoke-fp32.json",
+        "output": ".agents\\analysis\\ginza-opt\\smoke-fused.json"
+      },
+      "load_seconds": 24.112468499981333,
+      "initialize_seconds": 0.4905195999890566,
+      "warmup_seconds": 0.7478071000077762,
+      "characters": 199,
+      "tokens": 128,
+      "units": 2,
+      "input_sha256": "3391e25f89901a7c9014c36ae3849c408c3769bfaaad1e35f3532fc5b079bfe4",
+      "seconds": 0.2064578999998048,
+      "runs_seconds": [
+        0.2064578999998048
+      ],
+      "tokens_per_second": 619.9811196380522,
+      "characters_per_second": 963.8768969372843,
+      "peak_allocated_mib": 1310.67529296875,
+      "peak_reserved_mib": 1326.0,
+      "peak_rss_mib": 1157.6796875,
+      "cpu_seconds": 0.0,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "smoke-fused",
+      "stage_medians": {
+        "gpu_prepare_seconds": 0.08692899998277426,
+        "cpu_decode_seconds": 0.10979389998828992,
+        "transfer_bytes": 2916432,
+        "tokenizer_seconds": 0.0036145999911241233
+      }
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 6,
+        "batch": 8,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 2,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "output": ".agents\\analysis\\ginza-opt\\vector-w6-b8.json"
+      },
+      "load_seconds": 27.115740499983076,
+      "initialize_seconds": 37.108348299982026,
+      "warmup_seconds": 7.6469479000079446,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 4.220864949951647,
+      "runs_seconds": [
+        4.383593399950769,
+        4.058136499952525
+      ],
+      "tokens_per_second": 2148.374825426215,
+      "characters_per_second": 3499.7566079836847,
+      "peak_allocated_mib": 935.5302734375,
+      "peak_reserved_mib": 1540.0,
+      "peak_rss_mib": 4813.125,
+      "cpu_seconds": 33.765625,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [
+        {
+          "id": "novel-14",
+          "fields": [
+            "tokens",
+            "entities"
+          ]
+        },
+        {
+          "id": "novel-15",
+          "fields": [
+            "tokens"
+          ]
+        }
+      ],
+      "name": "vector-w6-b8",
+      "stage_medians": {
+        "gpu_prepare_seconds": 2.062687850004295,
+        "gpu_compute_seconds": 1.32105810546875,
+        "cpu_decode_seconds": 13.230159999948228,
+        "cpu_wait_seconds": 1.2783807000669185,
+        "transfer_bytes": 205144992.0,
+        "parser_decode_seconds": 0.866336200007936,
+        "ner_decode_seconds": 11.985914000018965,
+        "parser_kernel_seconds": 0.8517936000425834,
+        "ner_kernel_seconds": 11.979343499901006,
+        "tokenizer_seconds": 0.46151325001847,
+        "reconstruct_seconds": 0.08115300003555603
+      },
+      "cpu_wait_over_gpu_interval": 0.9676945281777077
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 6,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 3,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "output": ".agents\\analysis\\ginza-opt\\vector-w6.json"
+      },
+      "load_seconds": 28.010894100007135,
+      "initialize_seconds": 22.85554990003584,
+      "warmup_seconds": 5.20794210000895,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 3.1848728000186384,
+      "runs_seconds": [
+        3.256010100012645,
+        3.182331799995154,
+        3.1848728000186384
+      ],
+      "tokens_per_second": 2847.2094709549883,
+      "characters_per_second": 4638.175816602017,
+      "peak_allocated_mib": 1041.94384765625,
+      "peak_reserved_mib": 1658.0,
+      "peak_rss_mib": 5526.90625,
+      "cpu_seconds": 37.625,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "vector-w6",
+      "stage_medians": {
+        "gpu_prepare_seconds": 1.7263460000394844,
+        "gpu_compute_seconds": 1.3886208190917968,
+        "cpu_decode_seconds": 9.69093740003882,
+        "cpu_wait_seconds": 0.9383058999665082,
+        "transfer_bytes": 205077168,
+        "parser_decode_seconds": 0.6220035998849198,
+        "ner_decode_seconds": 8.785061899980064,
+        "tokenizer_seconds": 0.25401730003068224,
+        "reconstruct_seconds": 0.06128110003191978
+      },
+      "cpu_wait_over_gpu_interval": 0.675710667063303
+    },
+    {
+      "schema": "readux.ginza-optimization.v1",
+      "options": {
+        "mode": "fused",
+        "precision": "fp16",
+        "threads": 1,
+        "workers": 8,
+        "batch": 16,
+        "max_batch_items": 4096,
+        "serial": false,
+        "unsorted": false,
+        "repeats": 2,
+        "limit": null,
+        "reference": ".agents\\analysis\\ginza-opt\\baseline-fp16.json",
+        "output": ".agents\\analysis\\ginza-opt\\vector-w8-b16.json"
+      },
+      "load_seconds": 27.4322207000223,
+      "initialize_seconds": 27.441172499966342,
+      "warmup_seconds": 5.331212600052822,
+      "characters": 14772,
+      "tokens": 9068,
+      "units": 42,
+      "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+      "seconds": 3.1265190999838524,
+      "runs_seconds": [
+        3.071849800006021,
+        3.181188399961684
+      ],
+      "tokens_per_second": 2900.3501050247332,
+      "characters_per_second": 4724.743245635791,
+      "peak_allocated_mib": 1041.94384765625,
+      "peak_reserved_mib": 1658.0,
+      "peak_rss_mib": 6758.75,
+      "cpu_seconds": 28.140625,
+      "versions": {
+        "torch": "2.7.1+cu128",
+        "spacy": "3.8.16",
+        "ginza": "5.3.0",
+        "ja-ginza-bert-large": "5.3.0",
+        "Cython": "3.0.12",
+        "numpy": "2.4.6"
+      },
+      "differences": [],
+      "name": "vector-w8-b16",
+      "stage_medians": {
+        "gpu_prepare_seconds": 1.800368950032862,
+        "gpu_compute_seconds": 1.3993467712402343,
+        "cpu_decode_seconds": 11.089825700037181,
+        "cpu_wait_seconds": 0.7513057999894954,
+        "transfer_bytes": 205077168.0,
+        "parser_decode_seconds": 0.8230363999900874,
+        "ner_decode_seconds": 9.977255800069543,
+        "parser_kernel_seconds": 0.8105520501558203,
+        "ner_kernel_seconds": 9.972048500028905,
+        "tokenizer_seconds": 0.2704978499969002,
+        "reconstruct_seconds": 0.0626054500171449
+      },
+      "cpu_wait_over_gpu_interval": 0.5368975120610145
+    }
+  ],
+  "pipeline_suite": {
+    "schema": "readux.ginza-pipeline-suite.v1",
+    "tokens": 9068,
+    "input_sha256": "dd9b8bf790802a9154f140d8e65f7d0f57b92fdce736b4b2c29f2504c23e90c0",
+    "results": [
+      {
+        "implementation": "original",
+        "overlap": false,
+        "workers": 6,
+        "runs_seconds": [
+          6.027164499973878,
+          5.692100799991749,
+          5.938005499949213
+        ],
+        "seconds": 5.938005499949213,
+        "tokens_per_second": 1527.1120917751857,
+        "stages": [
+          {
+            "gpu_prepare_seconds": 2.0137412000331096,
+            "gpu_compute_seconds": 1.5254099731445312,
+            "cpu_decode_seconds": 13.849676400073804,
+            "cpu_wait_seconds": 3.194013600004837,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.45685930037871003,
+            "ner_decode_seconds": 12.694849600142334,
+            "parser_kernel_seconds": 0.0,
+            "ner_kernel_seconds": 0.0,
+            "bert_interval_seconds": 1.3955755004882813,
+            "heads_interval_seconds": 0.12983443069458006,
+            "d2h_seconds": 0.14428950002184138,
+            "submit_seconds": 0.20615049998741597,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368595.5639414,
+                "prepare_finished": 368596.1775104,
+                "gpu_event_seconds": 0.4245599670410156,
+                "bert_interval_seconds": 0.3800202941894531,
+                "heads_interval_seconds": 0.04453968048095703,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368597.3070324,
+                "prepare_finished": 368598.210101,
+                "gpu_event_seconds": 0.7754546508789063,
+                "bert_interval_seconds": 0.7307916870117187,
+                "heads_interval_seconds": 0.04466291046142578,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368599.6531622,
+                "prepare_finished": 368600.1503093,
+                "gpu_event_seconds": 0.3253953552246094,
+                "bert_interval_seconds": 0.28476351928710936,
+                "heads_interval_seconds": 0.040631839752197266,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser": 0.004406500025652349,
+                "ner": 0.1512808999978006,
+                "task_started": 368596.2341683,
+                "task_finished": 368596.4076431,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.009037100011482835,
+                "ner": 0.2576542000169866,
+                "task_started": 368596.2351817,
+                "task_finished": 368596.5243358,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.010187900043092668,
+                "ner": 0.30311050004092976,
+                "task_started": 368596.2357018,
+                "task_finished": 368596.5737283,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.03478640003595501,
+                "ner": 0.8329056999646127,
+                "task_started": 368596.2374899,
+                "task_finished": 368597.1614801,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.0357242000172846,
+                "ner": 0.9638006999739446,
+                "task_started": 368596.2393363,
+                "task_finished": 368597.2890018,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.014126699999906123,
+                "ner": 0.3815375000122003,
+                "task_started": 368596.2393356,
+                "task_finished": 368596.6500987,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.032929399982094765,
+                "ner": 1.1508292999933474,
+                "task_started": 368598.3257254,
+                "task_finished": 368599.5712912,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.03766840003663674,
+                "ner": 1.151745400042273,
+                "task_started": 368598.3272231,
+                "task_finished": 368599.5721044,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.03892269998323172,
+                "ner": 1.194133699988015,
+                "task_started": 368598.3284626,
+                "task_finished": 368599.6113168,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.03692129999399185,
+                "ner": 1.198133500001859,
+                "task_started": 368598.3297729,
+                "task_finished": 368599.6175516,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.037964400020428,
+                "ner": 1.210099900024943,
+                "task_started": 368598.3310206,
+                "task_finished": 368599.6277174,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.012326500029303133,
+                "ner": 0.4122306000208482,
+                "task_started": 368598.3302964,
+                "task_finished": 368598.7767974,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.026426700002048165,
+                "ner": 0.6845450000255369,
+                "task_started": 368600.2216152,
+                "task_finished": 368600.97554,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.030163700052071363,
+                "ner": 0.6597673000069335,
+                "task_started": 368600.2226223,
+                "task_finished": 368600.949385,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.03242640005191788,
+                "ner": 0.7263682000339031,
+                "task_started": 368600.2237149,
+                "task_finished": 368601.0299098,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.03249450004659593,
+                "ner": 0.7106726999627426,
+                "task_started": 368600.2247709,
+                "task_finished": 368601.0178685,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.03034650004701689,
+                "ner": 0.7060345000354573,
+                "task_started": 368600.2254845,
+                "task_finished": 368601.0058289,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.44683339999755844,
+            "reconstruct_seconds": 0.08518809999804944
+          },
+          {
+            "gpu_prepare_seconds": 1.8364999000332318,
+            "gpu_compute_seconds": 1.4122771911621093,
+            "cpu_decode_seconds": 13.874884500051849,
+            "cpu_wait_seconds": 3.1665343000204302,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.46192419982980937,
+            "ner_decode_seconds": 12.714239899883978,
+            "parser_kernel_seconds": 0.0,
+            "ner_kernel_seconds": 0.0,
+            "bert_interval_seconds": 1.2955336608886718,
+            "heads_interval_seconds": 0.1167435531616211,
+            "d2h_seconds": 0.09838770003989339,
+            "submit_seconds": 0.18619470001431182,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368602.0392761,
+                "prepare_finished": 368602.5753584,
+                "gpu_event_seconds": 0.39807443237304685,
+                "bert_interval_seconds": 0.3600672607421875,
+                "heads_interval_seconds": 0.03800716781616211,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368603.6102316,
+                "prepare_finished": 368604.4045227,
+                "gpu_event_seconds": 0.6957290649414063,
+                "bert_interval_seconds": 0.6511615600585937,
+                "heads_interval_seconds": 0.04456752014160156,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368605.8039163,
+                "prepare_finished": 368606.3100855,
+                "gpu_event_seconds": 0.3184736938476562,
+                "bert_interval_seconds": 0.28430484008789064,
+                "heads_interval_seconds": 0.034168865203857424,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser": 0.005595399998128414,
+                "ner": 0.1312307000043802,
+                "task_started": 368602.6251505,
+                "task_finished": 368602.7752684,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.009263299987651408,
+                "ner": 0.21701140003278852,
+                "task_started": 368602.6258379,
+                "task_finished": 368602.8718003,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.009946699952706695,
+                "ner": 0.2823865999816917,
+                "task_started": 368602.626235,
+                "task_finished": 368602.9358627,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.03168070001993328,
+                "ner": 0.7676066000130959,
+                "task_started": 368602.6277673,
+                "task_finished": 368603.4702443,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.03374099999200553,
+                "ner": 0.8744163999799639,
+                "task_started": 368602.6286917,
+                "task_finished": 368603.5899978,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.014677099999971688,
+                "ner": 0.35091599996667355,
+                "task_started": 368602.6285003,
+                "task_finished": 368603.0161132,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.04017039999598637,
+                "ner": 1.096937499998603,
+                "task_started": 368604.5184832,
+                "task_finished": 368605.7113833,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.03955469996435568,
+                "ner": 1.0447027999907732,
+                "task_started": 368604.5206866,
+                "task_finished": 368605.6735152,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.03912339999806136,
+                "ner": 1.0959070000099018,
+                "task_started": 368604.5220751,
+                "task_finished": 368605.7252434,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.04152239998802543,
+                "ner": 1.1372592999832705,
+                "task_started": 368604.5228654,
+                "task_finished": 368605.7609989,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.04054459999315441,
+                "ner": 1.1325495999772102,
+                "task_started": 368604.5243429,
+                "task_finished": 368605.7585431,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.015428599959705025,
+                "ner": 0.42110360000515357,
+                "task_started": 368604.5241995,
+                "task_finished": 368604.9872475,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.028182599984575063,
+                "ner": 0.8099535999936052,
+                "task_started": 368606.3753827,
+                "task_finished": 368607.2580728,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.027048499963711947,
+                "ner": 0.8336683000088669,
+                "task_started": 368606.3762511,
+                "task_finished": 368607.2741335,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.02725980000104755,
+                "ner": 0.8546110999886878,
+                "task_started": 368606.3771059,
+                "task_finished": 368607.2938498,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.0289106999989599,
+                "ner": 0.8058331999927759,
+                "task_started": 368606.3777992,
+                "task_finished": 368607.253067,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.029274300031829625,
+                "ner": 0.8581461999565363,
+                "task_started": 368606.3784708,
+                "task_finished": 368607.2993884,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.31965399999171495,
+            "reconstruct_seconds": 0.08891749999020249
+          },
+          {
+            "gpu_prepare_seconds": 1.8852301999577321,
+            "gpu_compute_seconds": 1.4514884033203124,
+            "cpu_decode_seconds": 14.07493699999759,
+            "cpu_wait_seconds": 3.2481469999765977,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.4594939001253806,
+            "ner_decode_seconds": 12.924739700043574,
+            "parser_kernel_seconds": 0.0,
+            "ner_kernel_seconds": 0.0,
+            "bert_interval_seconds": 1.3389731140136718,
+            "heads_interval_seconds": 0.11251533126831054,
+            "d2h_seconds": 0.10448769998038188,
+            "submit_seconds": 0.19970050000119954,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368608.4368655,
+                "prepare_finished": 368608.9866675,
+                "gpu_event_seconds": 0.40022802734375,
+                "bert_interval_seconds": 0.36118359375,
+                "heads_interval_seconds": 0.03904444885253906,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368610.1493959,
+                "prepare_finished": 368610.9939404,
+                "gpu_event_seconds": 0.73456884765625,
+                "bert_interval_seconds": 0.6923844604492188,
+                "heads_interval_seconds": 0.042184417724609374,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368612.3250116,
+                "prepare_finished": 368612.815941,
+                "gpu_event_seconds": 0.3166915283203125,
+                "bert_interval_seconds": 0.28540505981445313,
+                "heads_interval_seconds": 0.03128646469116211,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser": 0.005531999981030822,
+                "ner": 0.16623829997843131,
+                "task_started": 368609.0413854,
+                "task_finished": 368609.2316732,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.0096244000014849,
+                "ner": 0.2897011999739334,
+                "task_started": 368609.0421814,
+                "task_finished": 368609.3749574,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.01174769998760894,
+                "ner": 0.3580898000509478,
+                "task_started": 368609.0425923,
+                "task_finished": 368609.4394243,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.03690489998552948,
+                "ner": 0.8370600999915041,
+                "task_started": 368609.0441414,
+                "task_finished": 368609.9620769,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.04095599998254329,
+                "ner": 0.9950905999867246,
+                "task_started": 368609.0456368,
+                "task_finished": 368610.1311097,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.013454800006002188,
+                "ner": 0.4424314000061713,
+                "task_started": 368609.0456373,
+                "task_finished": 368609.5139753,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser": 0.03469140001107007,
+                "ner": 1.0438348000170663,
+                "task_started": 368611.1108799,
+                "task_finished": 368612.2481429,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.032164800039026886,
+                "ner": 1.0513399000046775,
+                "task_started": 368611.1118396,
+                "task_finished": 368612.2537859,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.04203489999054,
+                "ner": 1.096038600022439,
+                "task_started": 368611.1134642,
+                "task_finished": 368612.2957658,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.04380340001080185,
+                "ner": 1.0915841999812983,
+                "task_started": 368611.1141621,
+                "task_finished": 368612.2927278,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.032829999981913716,
+                "ner": 1.0590297000017017,
+                "task_started": 368611.1157914,
+                "task_finished": 368612.2689936,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.01602039998397231,
+                "ner": 0.34336190001340583,
+                "task_started": 368611.1156921,
+                "task_finished": 368611.4973348,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser": 0.02990190003765747,
+                "ner": 0.8098040000186302,
+                "task_started": 368612.8860654,
+                "task_finished": 368613.7756452,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.02911380003206432,
+                "ner": 0.8574975000228733,
+                "task_started": 368612.8876275,
+                "task_finished": 368613.8133778,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.027945000038016587,
+                "ner": 0.7966727999737486,
+                "task_started": 368612.8886323,
+                "task_finished": 368613.7562751,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.02498450002167374,
+                "ner": 0.8176817999919876,
+                "task_started": 368612.8899513,
+                "task_finished": 368613.7783252,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser": 0.027784000034444034,
+                "ner": 0.8692831000080332,
+                "task_started": 368612.8908974,
+                "task_finished": 368613.8279239,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.4192188000306487,
+            "reconstruct_seconds": 0.09796869999263436
+          }
+        ],
+        "export_seconds": [
+          0.5523755999747664,
+          0.5835843000095338,
+          0.2841430999687873
+        ],
+        "output_bytes": 2472845,
+        "export_tokens_per_second": 1444.9418438790287,
+        "differences": [
+          [],
+          [],
+          []
+        ]
+      },
+      {
+        "implementation": "fused",
+        "overlap": false,
+        "workers": 6,
+        "runs_seconds": [
+          7.712854599987622,
+          6.103459000005387,
+          6.087599500024226
+        ],
+        "seconds": 6.103459000005387,
+        "tokens_per_second": 1485.7149036295643,
+        "stages": [
+          {
+            "gpu_prepare_seconds": 2.612794699962251,
+            "gpu_compute_seconds": 1.8364852905273437,
+            "cpu_decode_seconds": 16.921268599980976,
+            "cpu_wait_seconds": 4.013145999982953,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 1.111469300056342,
+            "ner_decode_seconds": 14.890178700035904,
+            "parser_kernel_seconds": 1.0945718000875786,
+            "ner_kernel_seconds": 14.880952999927104,
+            "bert_interval_seconds": 1.681220672607422,
+            "heads_interval_seconds": 0.15526460647583007,
+            "d2h_seconds": 0.18961170001421124,
+            "submit_seconds": 0.29089609993388876,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368620.7164904,
+                "prepare_finished": 368621.4162739,
+                "gpu_event_seconds": 0.4379127502441406,
+                "bert_interval_seconds": 0.37910333251953127,
+                "heads_interval_seconds": 0.058809406280517576,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368622.8984092,
+                "prepare_finished": 368624.0648946,
+                "gpu_event_seconds": 0.9890151977539062,
+                "bert_interval_seconds": 0.93803173828125,
+                "heads_interval_seconds": 0.05098345565795898,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368625.8121021,
+                "prepare_finished": 368626.5586822,
+                "gpu_event_seconds": 0.4095573425292969,
+                "bert_interval_seconds": 0.3640856018066406,
+                "heads_interval_seconds": 0.04547174453735352,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.01142449997132644,
+                "parser": 0.011766400013584644,
+                "ner_kernel": 0.1688673000317067,
+                "ner": 0.16909659997327253,
+                "task_started": 368621.5142779,
+                "task_finished": 368621.7120119,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.01898210000945255,
+                "parser": 0.019444400037173182,
+                "ner_kernel": 0.26019439997617155,
+                "ner": 0.260465600003954,
+                "task_started": 368621.5151073,
+                "task_finished": 368621.8197708,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.023382999992463738,
+                "parser": 0.023830800026189536,
+                "ner_kernel": 0.34779729996807873,
+                "ner": 0.34805160004179925,
+                "task_started": 368621.5157294,
+                "task_finished": 368621.9119325,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.08205579995410517,
+                "parser": 0.08329040004173294,
+                "ner_kernel": 0.9942923999624327,
+                "ner": 0.9950055999797769,
+                "task_started": 368621.5274335,
+                "task_finished": 368622.6754324,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.09179780003614724,
+                "parser": 0.0933031000313349,
+                "ner_kernel": 1.1618719999678433,
+                "ner": 1.1628948000143282,
+                "task_started": 368621.5310306,
+                "task_finished": 368622.8620182,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.02879810001468286,
+                "parser": 0.029592700011562556,
+                "ner_kernel": 0.41409149998798966,
+                "ner": 0.4143385000061244,
+                "task_started": 368621.5317655,
+                "task_finished": 368622.0014072,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.08464090002235025,
+                "parser": 0.0857757999910973,
+                "ner_kernel": 1.2313686999841593,
+                "ner": 1.2319072000100277,
+                "task_started": 368624.2132628,
+                "task_finished": 368625.6024704,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08878440002445132,
+                "parser": 0.08975169999757782,
+                "ner_kernel": 1.2869016000186093,
+                "ner": 1.2875743000186048,
+                "task_started": 368624.2140348,
+                "task_finished": 368625.6650874,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.09242549998452887,
+                "parser": 0.0941224999842234,
+                "ner_kernel": 1.3007154999650083,
+                "ner": 1.3012893999693915,
+                "task_started": 368624.2151248,
+                "task_finished": 368625.6808974,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.1010729999979958,
+                "parser": 0.10225870000431314,
+                "ner_kernel": 1.3533230000175536,
+                "ner": 1.3543407000252046,
+                "task_started": 368624.2163599,
+                "task_finished": 368625.7522794,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.11032630002591759,
+                "parser": 0.1115960999741219,
+                "ner_kernel": 1.3290980000165291,
+                "ner": 1.3295802000211552,
+                "task_started": 368624.2187045,
+                "task_finished": 368625.7498237,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.02936560002854094,
+                "parser": 0.030667099985294044,
+                "ner_kernel": 0.42676409997511655,
+                "ner": 0.427341400005389,
+                "task_started": 368624.2195982,
+                "task_finished": 368624.7047317,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.06299579999176785,
+                "parser": 0.06391249998705462,
+                "ner_kernel": 0.9059294000035152,
+                "ner": 0.9064280000166036,
+                "task_started": 368626.6652207,
+                "task_finished": 368627.6921193,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06441089999862015,
+                "parser": 0.06527369999093935,
+                "ner_kernel": 0.8977912000264041,
+                "ner": 0.8984825999941677,
+                "task_started": 368626.6662293,
+                "task_finished": 368627.6797148,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.07134120003320277,
+                "parser": 0.07214040000690147,
+                "ner_kernel": 0.9259761000284925,
+                "ner": 0.9264143999898806,
+                "task_started": 368626.6670921,
+                "task_finished": 368627.7166539,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.0642373000155203,
+                "parser": 0.06536299997242168,
+                "ner_kernel": 0.9300189999630675,
+                "ner": 0.9304497999837622,
+                "task_started": 368626.6685484,
+                "task_finished": 368627.7194003,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06852959998650476,
+                "parser": 0.06938000000081956,
+                "ner_kernel": 0.9459515000344254,
+                "ner": 0.9465179999824613,
+                "task_started": 368626.6699624,
+                "task_finished": 368627.7449994,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.48648570000659674,
+            "reconstruct_seconds": 0.1568186999647878
+          },
+          {
+            "gpu_prepare_seconds": 2.0332318999571726,
+            "gpu_compute_seconds": 1.5608590087890624,
+            "cpu_decode_seconds": 13.927224800048862,
+            "cpu_wait_seconds": 3.2308247999171726,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 1.005222000181675,
+            "ner_decode_seconds": 12.293967200093903,
+            "parser_kernel_seconds": 0.9895782000385225,
+            "ner_kernel_seconds": 12.28852340002777,
+            "bert_interval_seconds": 1.4356445617675782,
+            "heads_interval_seconds": 0.12521446228027344,
+            "d2h_seconds": 0.12053480005124584,
+            "submit_seconds": 0.2198728999355808,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368629.3460878,
+                "prepare_finished": 368629.9563864,
+                "gpu_event_seconds": 0.43050091552734376,
+                "bert_interval_seconds": 0.38174566650390623,
+                "heads_interval_seconds": 0.04875526428222656,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368631.1623919,
+                "prepare_finished": 368632.0309887,
+                "gpu_event_seconds": 0.7526891479492187,
+                "bert_interval_seconds": 0.7041447143554688,
+                "heads_interval_seconds": 0.04854441452026367,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368633.494315,
+                "prepare_finished": 368634.0487092,
+                "gpu_event_seconds": 0.3776689453125,
+                "bert_interval_seconds": 0.34975418090820315,
+                "heads_interval_seconds": 0.027914783477783204,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.010464400053024292,
+                "parser": 0.010741000005509704,
+                "ner_kernel": 0.17921799997566268,
+                "ner": 0.17944919998990372,
+                "task_started": 368630.0217474,
+                "task_finished": 368630.2292945,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.019276499981060624,
+                "parser": 0.01961169997230172,
+                "ner_kernel": 0.28238789999159053,
+                "ner": 0.28265229996759444,
+                "task_started": 368630.0229167,
+                "task_finished": 368630.3461977,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.022289700049441308,
+                "parser": 0.022679800051264465,
+                "ner_kernel": 0.32717370003229007,
+                "ner": 0.32735820004018024,
+                "task_started": 368630.0237929,
+                "task_finished": 368630.3943078,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.08175879996269941,
+                "parser": 0.08340549998683855,
+                "ner_kernel": 0.817650799988769,
+                "ner": 0.8181430999538861,
+                "task_started": 368630.0257888,
+                "task_finished": 368630.9859262,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.09719090000726283,
+                "parser": 0.09847190004074946,
+                "ner_kernel": 0.9560935000190511,
+                "ner": 0.9563985000131652,
+                "task_started": 368630.027272,
+                "task_finished": 368631.1409247,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.0283210999914445,
+                "parser": 0.028850900009274483,
+                "ner_kernel": 0.3850082000135444,
+                "ner": 0.3852626000298187,
+                "task_started": 368630.0271921,
+                "task_finished": 368630.4583937,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.08292409998830408,
+                "parser": 0.0845219999901019,
+                "ner_kernel": 1.1138211999787018,
+                "ner": 1.1143642000388354,
+                "task_started": 368632.1597664,
+                "task_finished": 368633.4087305,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08412870002212003,
+                "parser": 0.08565909997560084,
+                "ner_kernel": 1.117857700039167,
+                "ner": 1.1181717999861576,
+                "task_started": 368632.1609055,
+                "task_finished": 368633.4122569,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.0937804999994114,
+                "parser": 0.0950163000379689,
+                "ner_kernel": 1.16576989996247,
+                "ner": 1.1662094000494108,
+                "task_started": 368632.1623652,
+                "task_finished": 368633.4650843,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.09117229998810217,
+                "parser": 0.09229589998722076,
+                "ner_kernel": 1.1412302000098862,
+                "ner": 1.1416428999509662,
+                "task_started": 368632.1631856,
+                "task_finished": 368633.4458139,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.0846577999764122,
+                "parser": 0.08640470000682399,
+                "ner_kernel": 1.147936999972444,
+                "ner": 1.1481882000225596,
+                "task_started": 368632.1644229,
+                "task_finished": 368633.4511744,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.03195120004238561,
+                "parser": 0.032542600005399436,
+                "ner_kernel": 0.43433810002170503,
+                "ner": 0.4346765999798663,
+                "task_started": 368632.1745364,
+                "task_finished": 368632.6652193,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.0494073000154458,
+                "parser": 0.049958900024648756,
+                "ner_kernel": 0.6135899000219069,
+                "ner": 0.6139221000485122,
+                "task_started": 368634.1240287,
+                "task_finished": 368634.8221591,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05035649996716529,
+                "parser": 0.05141010001534596,
+                "ner_kernel": 0.629516799992416,
+                "ner": 0.6297736000269651,
+                "task_started": 368634.124893,
+                "task_finished": 368634.8355601,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05348480003885925,
+                "parser": 0.05411230004392564,
+                "ner_kernel": 0.6877472000196576,
+                "ner": 0.6879887999966741,
+                "task_started": 368634.1260852,
+                "task_finished": 368634.899513,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.053766699973493814,
+                "parser": 0.05433770001400262,
+                "ner_kernel": 0.6319222999736667,
+                "ner": 0.632146299991291,
+                "task_started": 368634.1269339,
+                "task_finished": 368634.8479348,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.054646899981889874,
+                "parser": 0.05520160001469776,
+                "ner_kernel": 0.6572610000148416,
+                "ner": 0.6576194000081159,
+                "task_started": 368634.1280414,
+                "task_finished": 368634.882608,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.4581062000361271,
+            "reconstruct_seconds": 0.07265050004934892
+          },
+          {
+            "gpu_prepare_seconds": 1.9691374999820255,
+            "gpu_compute_seconds": 1.4509238891601561,
+            "cpu_decode_seconds": 14.301881700055674,
+            "cpu_wait_seconds": 3.3540934000047855,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.9748547999770381,
+            "ner_decode_seconds": 12.672253700089641,
+            "parser_kernel_seconds": 0.9576994000235572,
+            "ner_kernel_seconds": 12.665479799907189,
+            "bert_interval_seconds": 1.3261817626953125,
+            "heads_interval_seconds": 0.12474211120605469,
+            "d2h_seconds": 0.1415600999025628,
+            "submit_seconds": 0.23447019990999252,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368635.6615281,
+                "prepare_finished": 368636.1485475,
+                "gpu_event_seconds": 0.351521240234375,
+                "bert_interval_seconds": 0.3127050170898438,
+                "heads_interval_seconds": 0.03881622314453125,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368637.3700444,
+                "prepare_finished": 368638.3146118,
+                "gpu_event_seconds": 0.7776116943359375,
+                "bert_interval_seconds": 0.7248197021484375,
+                "heads_interval_seconds": 0.05279199981689453,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368639.8067597,
+                "prepare_finished": 368640.3443597,
+                "gpu_event_seconds": 0.32179095458984375,
+                "bert_interval_seconds": 0.28865704345703125,
+                "heads_interval_seconds": 0.03313388824462891,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.008020500012207776,
+                "parser": 0.008322999987285584,
+                "ner_kernel": 0.1367729000048712,
+                "ner": 0.13696070003788918,
+                "task_started": 368636.1978606,
+                "task_finished": 368636.355543,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.012362000008579344,
+                "parser": 0.01260249997721985,
+                "ner_kernel": 0.24686220003059134,
+                "ner": 0.2472439999692142,
+                "task_started": 368636.1983104,
+                "task_finished": 368636.4772401,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.021310199983417988,
+                "parser": 0.021599299972876906,
+                "ner_kernel": 0.29067870002472773,
+                "ner": 0.2910649999976158,
+                "task_started": 368636.1987199,
+                "task_finished": 368636.5461472,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.0610848999931477,
+                "parser": 0.06256920000305399,
+                "ner_kernel": 0.8700678999884985,
+                "ner": 0.8705929000279866,
+                "task_started": 368636.199803,
+                "task_finished": 368637.1810777,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07607900002039969,
+                "parser": 0.07739730004686862,
+                "ner_kernel": 1.029959399951622,
+                "ner": 1.0305271000252105,
+                "task_started": 368636.2010239,
+                "task_finished": 368637.3494255,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.020996899984311312,
+                "parser": 0.02143600000999868,
+                "ner_kernel": 0.3686155999894254,
+                "ner": 0.36890140001196414,
+                "task_started": 368636.2008936,
+                "task_finished": 368636.6127973,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.08552120003150776,
+                "parser": 0.08686840004520491,
+                "ner_kernel": 1.0904842999880202,
+                "ner": 1.0909660000470467,
+                "task_started": 368638.4656356,
+                "task_finished": 368639.7001272,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08770249999361113,
+                "parser": 0.0888422999996692,
+                "ner_kernel": 1.0997415999881923,
+                "ner": 1.100548800022807,
+                "task_started": 368638.4670899,
+                "task_finished": 368639.7081602,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.0902007999829948,
+                "parser": 0.09162190003553405,
+                "ner_kernel": 1.1087851999909617,
+                "ner": 1.1090812999755144,
+                "task_started": 368638.468928,
+                "task_finished": 368639.7126307,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08870600000955164,
+                "parser": 0.09163789998274297,
+                "ner_kernel": 1.120775599963963,
+                "ner": 1.1210876000113785,
+                "task_started": 368638.4732886,
+                "task_finished": 368639.7416391,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08987510000588372,
+                "parser": 0.09109040000475943,
+                "ner_kernel": 1.157798999978695,
+                "ner": 1.1581465999479406,
+                "task_started": 368638.4751522,
+                "task_finished": 368639.7753404,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.030652099987491965,
+                "parser": 0.03139059996465221,
+                "ner_kernel": 0.4278372999979183,
+                "ner": 0.42819810000946745,
+                "task_started": 368638.478279,
+                "task_finished": 368638.9615617,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.0558858000440523,
+                "parser": 0.05670549999922514,
+                "ner_kernel": 0.7099094000295736,
+                "ner": 0.7101965000038035,
+                "task_started": 368640.4289041,
+                "task_finished": 368641.2339273,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.054855700000189245,
+                "parser": 0.055504599993582815,
+                "ner_kernel": 0.7251237999880686,
+                "ner": 0.7254613999975845,
+                "task_started": 368640.429518,
+                "task_finished": 368641.2503725,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05430359998717904,
+                "parser": 0.05512749997433275,
+                "ner_kernel": 0.7589715999783948,
+                "ner": 0.7593989000306465,
+                "task_started": 368640.4303108,
+                "task_finished": 368641.2854105,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.0597441999707371,
+                "parser": 0.06056249997345731,
+                "ner_kernel": 0.7606699999887496,
+                "ner": 0.7610167000093497,
+                "task_started": 368640.4312705,
+                "task_finished": 368641.2943765,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06039890000829473,
+                "parser": 0.06157590000657365,
+                "ner_kernel": 0.7624253000249155,
+                "ner": 0.7628606999642216,
+                "task_started": 368640.4321424,
+                "task_finished": 368641.2932353,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.34997480001766235,
+            "reconstruct_seconds": 0.08624450000934303
+          }
+        ],
+        "export_seconds": [
+          0.9228415999677964,
+          0.30196900002192706,
+          0.30841830000281334
+        ],
+        "output_bytes": 2472845,
+        "export_tokens_per_second": 1415.6743312018077,
+        "differences": [
+          [],
+          [],
+          []
+        ]
+      },
+      {
+        "implementation": "fused",
+        "overlap": true,
+        "workers": 6,
+        "runs_seconds": [
+          4.1143034000415355,
+          4.224384300003294,
+          4.143790200003423
+        ],
+        "seconds": 4.143790200003423,
+        "tokens_per_second": 2188.3347279484638,
+        "stages": [
+          {
+            "gpu_prepare_seconds": 2.0484919999726117,
+            "gpu_compute_seconds": 1.58834814453125,
+            "cpu_decode_seconds": 13.188234600180294,
+            "cpu_wait_seconds": 1.358174399996642,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.9094670001068152,
+            "ner_decode_seconds": 11.695346499967854,
+            "parser_kernel_seconds": 0.8949460998410359,
+            "ner_kernel_seconds": 11.689941199903842,
+            "bert_interval_seconds": 1.4798152465820313,
+            "heads_interval_seconds": 0.10853286361694336,
+            "d2h_seconds": 0.10029279999434948,
+            "submit_seconds": 0.1918922999757342,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368646.2724923,
+                "prepare_finished": 368646.8564517,
+                "gpu_event_seconds": 0.4464406433105469,
+                "bert_interval_seconds": 0.41160150146484376,
+                "heads_interval_seconds": 0.0348391342163086,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368646.9023045,
+                "prepare_finished": 368647.8228053,
+                "gpu_event_seconds": 0.8223009033203125,
+                "bert_interval_seconds": 0.7810899047851563,
+                "heads_interval_seconds": 0.04121097564697265,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368647.9423447,
+                "prepare_finished": 368648.4864223,
+                "gpu_event_seconds": 0.31960659790039064,
+                "bert_interval_seconds": 0.28712384033203125,
+                "heads_interval_seconds": 0.03248275375366211,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.00949720002245158,
+                "parser": 0.009755500010214746,
+                "ner_kernel": 0.14432329998817295,
+                "ner": 0.14456829999107867,
+                "task_started": 368646.9247259,
+                "task_finished": 368647.0968329,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.017556499980855733,
+                "parser": 0.0178961000056006,
+                "ner_kernel": 0.2524748000432737,
+                "ner": 0.25289529998553917,
+                "task_started": 368646.9252657,
+                "task_finished": 368647.2168518,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.02153349999571219,
+                "parser": 0.021921099978499115,
+                "ner_kernel": 0.2937672000261955,
+                "ner": 0.2939578000223264,
+                "task_started": 368646.9258327,
+                "task_finished": 368647.2612599,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07270889997016639,
+                "parser": 0.07395930000348017,
+                "ner_kernel": 0.7261422000010498,
+                "ner": 0.7264995999867097,
+                "task_started": 368646.9280379,
+                "task_finished": 368647.7681801,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07919059996493161,
+                "parser": 0.08063539996510372,
+                "ner_kernel": 0.8035082999849692,
+                "ner": 0.803894400014542,
+                "task_started": 368646.9298263,
+                "task_finished": 368647.8573336,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.028263500018510967,
+                "parser": 0.028694499982520938,
+                "ner_kernel": 0.3523618999752216,
+                "ner": 0.3525387999834493,
+                "task_started": 368646.9298446,
+                "task_finished": 368647.3285774,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07786239997949451,
+                "parser": 0.07897410000441596,
+                "ner_kernel": 0.9906677000108175,
+                "ner": 0.990978299989365,
+                "task_started": 368647.9309302,
+                "task_finished": 368649.0565506,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07890550000593066,
+                "parser": 0.08007399999769405,
+                "ner_kernel": 1.0479665999882855,
+                "ner": 1.0482558999792673,
+                "task_started": 368647.9320094,
+                "task_finished": 368649.1181981,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07862849999219179,
+                "parser": 0.07971790002193302,
+                "ner_kernel": 1.0388291999697685,
+                "ner": 1.039133399957791,
+                "task_started": 368647.9332086,
+                "task_finished": 368649.100248,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07421279995469376,
+                "parser": 0.0754002999747172,
+                "ner_kernel": 1.0594368999591097,
+                "ner": 1.0597487000050023,
+                "task_started": 368647.9337033,
+                "task_finished": 368649.1158927,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07715759996790439,
+                "parser": 0.0779028000542894,
+                "ner_kernel": 1.0312199000036344,
+                "ner": 1.031539799994789,
+                "task_started": 368647.9348666,
+                "task_finished": 368649.0873392,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.027260800008662045,
+                "parser": 0.027884899987839162,
+                "ner_kernel": 0.380739199987147,
+                "ner": 0.38101889996323735,
+                "task_started": 368647.9346142,
+                "task_finished": 368648.3631,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.05145059997448698,
+                "parser": 0.052440800005570054,
+                "ner_kernel": 0.6914867999730632,
+                "ner": 0.6918359000119381,
+                "task_started": 368648.5607694,
+                "task_finished": 368649.3397467,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.04876739997416735,
+                "parser": 0.04949200002010912,
+                "ner_kernel": 0.7082274000276811,
+                "ner": 0.7086230000131764,
+                "task_started": 368649.0598267,
+                "task_finished": 368649.8439286,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.04625110002234578,
+                "parser": 0.047221200016792864,
+                "ner_kernel": 0.7120739999809302,
+                "ner": 0.7124055000022054,
+                "task_started": 368649.0912835,
+                "task_finished": 368649.8806376,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05087710003135726,
+                "parser": 0.05167370004346594,
+                "ner_kernel": 0.7230822999845259,
+                "ner": 0.7235293000121601,
+                "task_started": 368649.107122,
+                "task_finished": 368649.9159348,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05482209997717291,
+                "parser": 0.055823400034569204,
+                "ner_kernel": 0.7336334999999963,
+                "ner": 0.7339236000552773,
+                "task_started": 368649.1202279,
+                "task_finished": 368649.9397175,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.34682819998124614,
+            "reconstruct_seconds": 0.07961149996845052
+          },
+          {
+            "gpu_prepare_seconds": 2.0054957999964245,
+            "gpu_compute_seconds": 1.5577732849121095,
+            "cpu_decode_seconds": 13.182927099929657,
+            "cpu_wait_seconds": 1.3182596000260673,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.9032801999128424,
+            "ner_decode_seconds": 11.681483399996068,
+            "parser_kernel_seconds": 0.8891433999524452,
+            "ner_kernel_seconds": 11.673798799980432,
+            "bert_interval_seconds": 1.440812042236328,
+            "heads_interval_seconds": 0.11696125030517578,
+            "d2h_seconds": 0.0998859999817796,
+            "submit_seconds": 0.18097069999203086,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368650.8909017,
+                "prepare_finished": 368651.4690045,
+                "gpu_event_seconds": 0.4462201843261719,
+                "bert_interval_seconds": 0.40727523803710936,
+                "heads_interval_seconds": 0.03894496154785156,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368651.510663,
+                "prepare_finished": 368652.4103336,
+                "gpu_event_seconds": 0.7953469848632813,
+                "bert_interval_seconds": 0.7472223510742187,
+                "heads_interval_seconds": 0.04812464141845703,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368652.5174097,
+                "prepare_finished": 368653.0451865,
+                "gpu_event_seconds": 0.3162061157226562,
+                "bert_interval_seconds": 0.286314453125,
+                "heads_interval_seconds": 0.029891647338867188,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.01001709996489808,
+                "parser": 0.010258900001645088,
+                "ner_kernel": 0.1403075999696739,
+                "ner": 0.1404958000057377,
+                "task_started": 368651.5289343,
+                "task_finished": 368651.6962109,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.014248999999836087,
+                "parser": 0.014584299991838634,
+                "ner_kernel": 0.23350929998559877,
+                "ner": 0.23374699999112636,
+                "task_started": 368651.5295049,
+                "task_finished": 368651.7956056,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.016898300033062696,
+                "parser": 0.017308600014075637,
+                "ner_kernel": 0.28171030001249164,
+                "ner": 0.2819020000169985,
+                "task_started": 368651.5299955,
+                "task_finished": 368651.8474861,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.06271379999816418,
+                "parser": 0.06383110000751913,
+                "ner_kernel": 0.7512097000144422,
+                "ner": 0.7517017999780364,
+                "task_started": 368651.531587,
+                "task_finished": 368652.3914673,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07793940004194155,
+                "parser": 0.07922059996053576,
+                "ner_kernel": 0.8447378999553621,
+                "ner": 0.845215699984692,
+                "task_started": 368651.5328201,
+                "task_finished": 368652.5028625,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.02661679999437183,
+                "parser": 0.027083199995104223,
+                "ner_kernel": 0.33453900000313297,
+                "ner": 0.33472990000154823,
+                "task_started": 368651.5330484,
+                "task_finished": 368651.9133853,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.0755875000031665,
+                "parser": 0.07624740002211183,
+                "ner_kernel": 1.0528741999878548,
+                "ner": 1.055662500031758,
+                "task_started": 368652.49625,
+                "task_finished": 368653.6771193,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07240040000760928,
+                "parser": 0.07310100004542619,
+                "ner_kernel": 1.0784404000150971,
+                "ner": 1.0788090999703854,
+                "task_started": 368652.4970326,
+                "task_finished": 368653.7001859,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07606719998875633,
+                "parser": 0.07706410001264885,
+                "ner_kernel": 1.0522176999947987,
+                "ner": 1.0526678999885917,
+                "task_started": 368652.4984251,
+                "task_finished": 368653.6740861,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07645479997154325,
+                "parser": 0.07778449996840209,
+                "ner_kernel": 1.093006899987813,
+                "ner": 1.0933363999938592,
+                "task_started": 368652.4997303,
+                "task_finished": 368653.7253619,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08139060001121834,
+                "parser": 0.08207940001739189,
+                "ner_kernel": 1.121214000042528,
+                "ner": 1.1214954999741167,
+                "task_started": 368652.5013418,
+                "task_finished": 368653.7644878,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.023746199964080006,
+                "parser": 0.02428179996786639,
+                "ner_kernel": 0.3543097000219859,
+                "ner": 0.35455190000357106,
+                "task_started": 368652.5072266,
+                "task_finished": 368652.9053444,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.05657260003499687,
+                "parser": 0.05747689999407157,
+                "ner_kernel": 0.735419999982696,
+                "ner": 0.7357789000379853,
+                "task_started": 368653.1321951,
+                "task_finished": 368653.9686893,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05526409996673465,
+                "parser": 0.057138799980748445,
+                "ner_kernel": 0.6311751999892294,
+                "ner": 0.6314781999681145,
+                "task_started": 368653.6785991,
+                "task_finished": 368654.3937514,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06129240000154823,
+                "parser": 0.06208990002050996,
+                "ner_kernel": 0.6707414000411518,
+                "ner": 0.6709769000299275,
+                "task_started": 368653.6807344,
+                "task_finished": 368654.4404414,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.05800169997382909,
+                "parser": 0.05914719996508211,
+                "ner_kernel": 0.6612164999824017,
+                "ner": 0.6615132000297308,
+                "task_started": 368653.7050349,
+                "task_finished": 368654.4575277,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.04393149999668822,
+                "parser": 0.04458249994786456,
+                "ner_kernel": 0.6371689999941736,
+                "ner": 0.6374206999898888,
+                "task_started": 368653.7284615,
+                "task_finished": 368654.4398358,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.5612822999828495,
+            "reconstruct_seconds": 0.07253179996041581
+          },
+          {
+            "gpu_prepare_seconds": 1.9864806000259705,
+            "gpu_compute_seconds": 1.5264818115234375,
+            "cpu_decode_seconds": 13.674670299864374,
+            "cpu_wait_seconds": 1.4562199999927543,
+            "transfer_bytes": 205077168,
+            "parser_decode_seconds": 0.9408139000297524,
+            "ner_decode_seconds": 12.028532599972095,
+            "parser_kernel_seconds": 0.9171335001010448,
+            "ner_kernel_seconds": 12.022573599941097,
+            "bert_interval_seconds": 1.4001294860839844,
+            "heads_interval_seconds": 0.12635228729248046,
+            "d2h_seconds": 0.10076169995591044,
+            "submit_seconds": 0.1755606000078842,
+            "batches": [
+              {
+                "documents": 16,
+                "tokens": 2072,
+                "prepare_started": 368655.2303758,
+                "prepare_finished": 368655.7736806,
+                "gpu_event_seconds": 0.405182861328125,
+                "bert_interval_seconds": 0.3612926025390625,
+                "heads_interval_seconds": 0.04389023971557617,
+                "transfer_bytes": 46866384
+              },
+              {
+                "documents": 16,
+                "tokens": 4197,
+                "prepare_started": 368655.8153967,
+                "prepare_finished": 368656.7338337,
+                "gpu_event_seconds": 0.8007987060546875,
+                "bert_interval_seconds": 0.751615966796875,
+                "heads_interval_seconds": 0.04918272018432617,
+                "transfer_bytes": 94908384
+              },
+              {
+                "documents": 10,
+                "tokens": 2799,
+                "prepare_started": 368657.2064059,
+                "prepare_finished": 368657.7311998,
+                "gpu_event_seconds": 0.320500244140625,
+                "bert_interval_seconds": 0.2872209167480469,
+                "heads_interval_seconds": 0.03327932739257813,
+                "transfer_bytes": 63302400
+              }
+            ],
+            "decode_tasks": [
+              {
+                "parser_kernel": 0.0066353000001981854,
+                "parser": 0.006903600005898625,
+                "ner_kernel": 0.12338149995775893,
+                "ner": 0.12357240001438186,
+                "task_started": 368655.8363359,
+                "task_finished": 368655.9774427,
+                "documents": 3,
+                "tokens": 95,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.012687600043136626,
+                "parser": 0.012913200014736503,
+                "ner_kernel": 0.1929293999564834,
+                "ner": 0.19316919997800142,
+                "task_started": 368655.8371075,
+                "task_finished": 368656.0705179,
+                "documents": 3,
+                "tokens": 162,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.01926839997759089,
+                "parser": 0.0196946999640204,
+                "ner_kernel": 0.28445400000782683,
+                "ner": 0.2846913000103086,
+                "task_started": 368655.83835,
+                "task_finished": 368656.1634264,
+                "documents": 3,
+                "tokens": 200,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.06016789999557659,
+                "parser": 0.06131059996550903,
+                "ner_kernel": 0.7752288000192493,
+                "ner": 0.7755492000142112,
+                "task_started": 368655.839503,
+                "task_finished": 368656.7130145,
+                "documents": 3,
+                "tokens": 625,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.0724021999631077,
+                "parser": 0.07341980002820492,
+                "ner_kernel": 0.8872427000314929,
+                "ner": 0.8875769000151195,
+                "task_started": 368655.8411492,
+                "task_finished": 368656.856576,
+                "documents": 3,
+                "tokens": 740,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.031348500051535666,
+                "parser": 0.031763500010129064,
+                "ner_kernel": 0.33694999996805564,
+                "ner": 0.3371723999734968,
+                "task_started": 368655.8412005,
+                "task_finished": 368656.2271041,
+                "documents": 1,
+                "tokens": 250,
+                "batch_index": 0
+              },
+              {
+                "parser_kernel": 0.07624889997532591,
+                "parser": 0.07697990001179278,
+                "ner_kernel": 0.9862592999706976,
+                "ner": 0.9866761000012048,
+                "task_started": 368656.8447345,
+                "task_finished": 368657.9809833,
+                "documents": 3,
+                "tokens": 764,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.08197529998142272,
+                "parser": 0.0826859999797307,
+                "ner_kernel": 1.0414130999706686,
+                "ner": 1.0418866999680176,
+                "task_started": 368656.846322,
+                "task_finished": 368658.0422464,
+                "documents": 3,
+                "tokens": 775,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07531650003511459,
+                "parser": 0.07603670004755259,
+                "ner_kernel": 1.0831579000223428,
+                "ner": 1.0835268000373617,
+                "task_started": 368656.8475833,
+                "task_finished": 368658.0644298,
+                "documents": 3,
+                "tokens": 787,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07632280001416802,
+                "parser": 0.07844219997059554,
+                "ner_kernel": 1.023472499975469,
+                "ner": 1.0239796999958344,
+                "task_started": 368656.8488218,
+                "task_finished": 368658.0157596,
+                "documents": 3,
+                "tokens": 798,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.07813199999509379,
+                "parser": 0.07942199998069555,
+                "ner_kernel": 1.1248344000196084,
+                "ner": 1.1252215999993496,
+                "task_started": 368656.8500865,
+                "task_finished": 368658.1289811,
+                "documents": 3,
+                "tokens": 803,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.026870800007600337,
+                "parser": 0.02749720000429079,
+                "ner_kernel": 0.37721000000601634,
+                "ner": 0.37765380000928417,
+                "task_started": 368656.8634182,
+                "task_finished": 368657.2904126,
+                "documents": 1,
+                "tokens": 270,
+                "batch_index": 1
+              },
+              {
+                "parser_kernel": 0.039845700026489794,
+                "parser": 0.04081189999124035,
+                "ner_kernel": 0.8022624999866821,
+                "ner": 0.8027825999888591,
+                "task_started": 368657.7948455,
+                "task_finished": 368658.6672934,
+                "documents": 2,
+                "tokens": 544,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.0665156000177376,
+                "parser": 0.06733720004558563,
+                "ner_kernel": 0.7471157000400126,
+                "ner": 0.7473576000193134,
+                "task_started": 368657.9852703,
+                "task_finished": 368658.8343798,
+                "documents": 2,
+                "tokens": 553,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06432070001028478,
+                "parser": 0.06512929999735206,
+                "ner_kernel": 0.770595800015144,
+                "ner": 0.7708539000013843,
+                "task_started": 368658.022438,
+                "task_finished": 368658.8915518,
+                "documents": 2,
+                "tokens": 559,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.06271540001034737,
+                "parser": 0.06405719998292625,
+                "ner_kernel": 0.7305606000008993,
+                "ner": 0.7310250999871641,
+                "task_started": 368658.0465427,
+                "task_finished": 368658.884609,
+                "documents": 2,
+                "tokens": 566,
+                "batch_index": 2
+              },
+              {
+                "parser_kernel": 0.0663598999963142,
+                "parser": 0.07640890002949163,
+                "ner_kernel": 0.7355053999926895,
+                "ner": 0.7358372999588028,
+                "task_started": 368658.0710213,
+                "task_finished": 368658.9206721,
+                "documents": 2,
+                "tokens": 577,
+                "batch_index": 2
+              }
+            ],
+            "tokenizer_seconds": 0.34127299999818206,
+            "reconstruct_seconds": 0.08952429995406419
+          }
+        ],
+        "export_seconds": [
+          0.27521940000588074,
+          0.3165756000089459,
+          0.34760959999402985
+        ],
+        "output_bytes": 2472845,
+        "export_tokens_per_second": 2018.9696762254705,
+        "differences": [
+          [],
+          [],
+          []
+        ]
+      }
+    ]
+  },
+  "gpu_concurrency": {
+    "schema": "readux.ginza-gpu-concurrency.v1",
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "precision": "fp16",
+    "attention": "sdpa",
+    "sequences": 107,
+    "padded_length": 187,
+    "wordpieces": 13880,
+    "cases": [
+      {
+        "batch": 8,
+        "streams": 1,
+        "seconds": 1.2249297000234947,
+        "runs_seconds": [
+          1.2252971000270918,
+          1.2249297000234947,
+          1.2215666000265628
+        ],
+        "wordpieces_per_second": 11331.26252039915,
+        "peak_allocated_mib": 1061.07470703125,
+        "max_absolute_difference": 0.0,
+        "active_max_absolute_difference": 0.0
+      },
+      {
+        "batch": 16,
+        "streams": 1,
+        "seconds": 1.1521037999773398,
+        "runs_seconds": [
+          1.1510541000170633,
+          1.1521037999773398,
+          1.1540416000061668
+        ],
+        "wordpieces_per_second": 12047.52557909539,
+        "peak_allocated_mib": 1067.64892578125,
+        "max_absolute_difference": 0.75537109375,
+        "active_max_absolute_difference": 0.02734375
+      },
+      {
+        "batch": 32,
+        "streams": 1,
+        "seconds": 1.161078399978578,
+        "runs_seconds": [
+          1.161078399978578,
+          1.1616631000069901,
+          1.1610462000244297
+        ],
+        "wordpieces_per_second": 11954.403768303748,
+        "peak_allocated_mib": 1074.40673828125,
+        "max_absolute_difference": 0.75537109375,
+        "active_max_absolute_difference": 0.02734375
+      },
+      {
+        "batch": 64,
+        "streams": 1,
+        "seconds": 1.1502123000100255,
+        "runs_seconds": [
+          1.1471284999861382,
+          1.150213100016117,
+          1.1502123000100255
+        ],
+        "wordpieces_per_second": 12067.337481853583,
+        "peak_allocated_mib": 1113.25341796875,
+        "max_absolute_difference": 0.0,
+        "active_max_absolute_difference": 0.0
+      },
+      {
+        "batch": 8,
+        "streams": 2,
+        "seconds": 1.1871529999771155,
+        "runs_seconds": [
+          1.1923030999605544,
+          1.184607999981381,
+          1.1871529999771155
+        ],
+        "wordpieces_per_second": 11691.837530855384,
+        "peak_allocated_mib": 1119.7265625,
+        "max_absolute_difference": 0.0,
+        "active_max_absolute_difference": 0.0
+      },
+      {
+        "batch": 8,
+        "streams": 4,
+        "seconds": 1.1898226999910548,
+        "runs_seconds": [
+          1.1854022999759763,
+          1.1898226999910548,
+          1.8784753000363708
+        ],
+        "wordpieces_per_second": 11665.603623215753,
+        "peak_allocated_mib": 1237.65234375,
+        "max_absolute_difference": 0.0,
+        "active_max_absolute_difference": 0.0
+      },
+      {
+        "batch": 16,
+        "streams": 2,
+        "seconds": 16.077873800008092,
+        "runs_seconds": [
+          16.077873800008092,
+          16.034040800004732,
+          16.2090814000112
+        ],
+        "wordpieces_per_second": 863.2982303911984,
+        "peak_allocated_mib": 1269.4921875,
+        "max_absolute_difference": 0.75537109375,
+        "active_max_absolute_difference": 0.02734375
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 # p06
-paragraph=6 | schema=kotoclip.unified-document.v8
+paragraph=6 | schema=readux.unified-document.v8
 
 ## 文本
 時折雨が降る中、巨大鍋の周りには長蛇の列ができた。神戸市から訪れた会社員女性（２８）は「芋煮を食べたのは初めて。サトイモがとろとろでおいしい」と頬張っていた。

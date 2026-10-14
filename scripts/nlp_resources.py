@@ -21,7 +21,7 @@ def file_resources(role, path):
 
 
 def tokenizer_resource(role, tokenizer):
-    with TemporaryDirectory(prefix="kotoclip-tokenizer-") as directory:
+    with TemporaryDirectory(prefix="readux-tokenizer-") as directory:
         tokenizer.save_pretrained(directory)
         files = file_resources(role, directory)
     identity = [{k: v for k, v in resource.items() if k != "path"} for resource in files]

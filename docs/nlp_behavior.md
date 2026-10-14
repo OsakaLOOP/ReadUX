@@ -11,7 +11,7 @@
 ```powershell
 experiments/ginza311/Scripts/python.exe -X utf8 scripts/probe_nlp_behavior.py ginza
 experiments/kwja311/Scripts/python.exe -X utf8 scripts/probe_nlp_behavior.py kwja
-cargo build -p kotoclip-core --bin kotoclip-nlp
+cargo build -p readux-core --bin readux-nlp
 python -X utf8 scripts/probe_nlp_behavior.py unidic
 ```
 

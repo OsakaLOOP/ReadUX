@@ -47,4 +47,4 @@
 
 验收覆盖重启后的已知状态、重复曝光去重、收藏恢复、中文路径导出、上下文高亮和助手异常。已有数据库迁移采用副本验证数据数量与身份映射。
 
-[profile](../crates/kotoclip-core/src/profile/)保存画像与用户状态基础，[export](../crates/kotoclip-core/src/export/)保存输出基础，[llm](../crates/kotoclip-core/src/llm/)保存结构化助手接口。[ExportPanel.vue](../src/components/ExportPanel.vue)和[dictionaryAssistantPort.ts](../src/services/dictionaryAssistantPort.ts)提供对应前端入口基础。
+[profile](../crates/readux-core/src/profile/)保存画像与用户状态基础，[export](../crates/readux-core/src/export/)保存输出基础，[llm](../crates/readux-core/src/llm/)保存结构化助手接口。[ExportPanel.vue](../src/components/ExportPanel.vue)和[dictionaryAssistantPort.ts](../src/services/dictionaryAssistantPort.ts)提供对应前端入口基础。

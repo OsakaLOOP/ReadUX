@@ -40,7 +40,7 @@ def main() -> None:
     csj = read(ROOT / "data" / "csj.txt", 800)
     research = read_research(448)
     payload = {
-        "schema": "kotoclip.validation-set.v1",
+        "schema": "readux.validation-set.v1",
         "target_characters": 2000,
         "coordinate_system": "unicode_scalar",
         "segments": [

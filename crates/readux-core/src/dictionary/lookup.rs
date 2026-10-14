@@ -258,7 +258,7 @@ impl DictionaryEngine {
         selected_form: Option<&str>,
         priority_list: &[String],
     ) -> DictionaryLookup {
-        let cache_key = kotoclip_nlp::external::text_digest(&serde_json::to_string(&(query, observed_form, reading, pos, selected_form, priority_list)).unwrap_or_default());
+        let cache_key = readux_nlp::external::text_digest(&serde_json::to_string(&(query, observed_form, reading, pos, selected_form, priority_list)).unwrap_or_default());
         if let Some(mut cached) = self.matrix_cache.lock().ok().and_then(|mut cache| cache.get(&cache_key)) {
             cached.timing = Some(DictionaryLookupTiming::default());
             return cached;
@@ -1556,7 +1556,7 @@ mod tests {
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        let directory = std::env::temp_dir().join(format!("kotoclip-matrix-reading-{nonce}"));
+        let directory = std::env::temp_dir().join(format!("readux-matrix-reading-{nonce}"));
         std::fs::create_dir_all(&directory).unwrap();
         create_reading_database(&directory.join("compatible.sqlite"), "兼容大辞林", "わたし");
         create_reading_database(&directory.join("conflict.sqlite"), "冲突大辞林", "わたくし");
@@ -1608,7 +1608,7 @@ mod tests {
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        let directory = std::env::temp_dir().join(format!("kotoclip-dictionary-{nonce}"));
+        let directory = std::env::temp_dir().join(format!("readux-dictionary-{nonce}"));
         std::fs::create_dir_all(&directory).unwrap();
         let database = directory.join("test.sqlite");
         let connection = Connection::open(&database).unwrap();

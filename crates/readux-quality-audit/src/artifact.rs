@@ -56,7 +56,7 @@ impl ArtifactTransaction {
             serde_json::to_writer(
                 &mut encoder,
                 &json!({
-                    "schema_version": "kotoclip.quality.pipeline-change.v1",
+                    "schema_version": "readux.quality.pipeline-change.v1",
                     "change_id": change.change_id,
                     "primary_domain": change.primary_domain,
                     "reading_unit_id": reading_unit_id(change),
@@ -133,9 +133,9 @@ impl ArtifactTransaction {
         self.write_gzip_json(
             "reading-index.json.gz",
             &json!({
-                "schema_version": "kotoclip.quality.reading-index.v2",
-                "reading_schema_version": "kotoclip.quality.reading-diff.v1",
-                "bundle_schema_version": "kotoclip.quality.reading-bundle.v2",
+                "schema_version": "readux.quality.reading-index.v2",
+                "reading_schema_version": "readux.quality.reading-diff.v1",
+                "bundle_schema_version": "readux.quality.reading-bundle.v2",
                 "chunk_units": 20,
                 "unit_count": index_units.len(),
                 "units": index_units,
@@ -216,15 +216,15 @@ fn reading_unit_id(change: &LexicalObservation) -> String {
 }
 
 fn word_formations(
-    tokens: &[kotoclip_core::models::AnnotatedToken],
-) -> Vec<&kotoclip_core::models::WordFormationAnnotation> {
+    tokens: &[readux_core::models::AnnotatedToken],
+) -> Vec<&readux_core::models::WordFormationAnnotation> {
     tokens
         .iter()
         .flat_map(|token| token.bunsetsu.word_formations.iter())
         .collect()
 }
 
-fn reading_token(token: &kotoclip_core::models::AnnotatedToken) -> Value {
+fn reading_token(token: &readux_core::models::AnnotatedToken) -> Value {
     json!({
         "surface": token.bunsetsu.surface,
         "char_range": token.bunsetsu.char_range,

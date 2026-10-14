@@ -1,5 +1,5 @@
 use crate::dictionary::{lookup::DictionaryEngine, model::{DictEntry, DictionaryFormGroup, DictionaryLookupTiming, PosTag}};
-use kotoclip_nlp::model::{MorphemeToken, QueryForm};
+use readux_nlp::model::{MorphemeToken, QueryForm};
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]

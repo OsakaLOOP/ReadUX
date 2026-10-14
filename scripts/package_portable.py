@@ -52,7 +52,7 @@ def main() -> int:
     archive.unlink(missing_ok=True)
     package_dir.mkdir(parents=True, exist_ok=True)
 
-    executable_name = "Kotoclip.exe" if args.target == "windows-x64" else "Kotoclip"
+    executable_name = "ReadUX.exe" if args.target == "windows-x64" else "ReadUX"
     copy_file(binary, package_dir / executable_name)
     copy_file(resources / "nlp/cwj.dic", package_dir / "nlp/cwj.dic")
     copy_file(resources / "nlp/csj.dic", package_dir / "nlp/csj.dic")

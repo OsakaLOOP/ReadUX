@@ -39,7 +39,7 @@ def download(url: str, destination: Path, expected_sha256: str | None = None) ->
         return
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix(destination.suffix + ".part")
-    request = Request(url, headers={"User-Agent": "kotoclip-release-builder"})
+    request = Request(url, headers={"User-Agent": "readux-release-builder"})
     with urlopen(request) as response, temporary.open("wb") as stream:
         while block := response.read(8 * 1024 * 1024):
             stream.write(block)
@@ -90,7 +90,7 @@ def python_asset() -> tuple[str, str]:
 
 def prepare_python(workspace: Path, output: Path) -> None:
     target, executable = python_asset()
-    request = Request(PYTHON_API, headers={"Accept": "application/vnd.github+json", "User-Agent": "kotoclip-release-builder"})
+    request = Request(PYTHON_API, headers={"Accept": "application/vnd.github+json", "User-Agent": "readux-release-builder"})
     with urlopen(request) as response:
         release = json.load(response)
     assets = [asset for asset in release["assets"] if asset["name"].startswith("cpython-3.11.") and target in asset["name"] and asset["name"].endswith("-install_only.tar.gz")]
@@ -101,7 +101,7 @@ def prepare_python(workspace: Path, output: Path) -> None:
     expected_sha256 = digest.removeprefix("sha256:").upper() or None
     archive = workspace / asset["name"]
     download(asset["browser_download_url"], archive, expected_sha256)
-    with tempfile.TemporaryDirectory(prefix="kotoclip-python-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="readux-python-") as temporary:
         extraction = Path(temporary)
         with tarfile.open(archive, "r:gz") as source:
             source.extractall(extraction)

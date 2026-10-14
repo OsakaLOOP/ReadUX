@@ -61,7 +61,8 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
         && matches!(base,"やすい"|"易い"|"にくい"|"難い"|"づらい"|"辛い"|"さ") { return Transition::Core; }
     if *form==Continuative && pos=="動詞" && field(next,1).starts_with("非自立") {
         let kind=match base { "すぎる"|"過ぎる"=>Some("excessive"), "はじめる"|"始める"=>Some("inceptive"),
-            "つづける"|"続ける"=>Some("continuative_aspect"), "おわる"|"終わる"=>Some("terminative"), _=>None };
+            "つづける"|"続ける"=>Some("continuative_aspect"), "おわる"|"終わる"=>Some("terminative"),
+            "まくる"|"捲る"=>Some("iterative_aspect"), _=>None };
         if let Some(kind)=kind { return Transition::Support(kind); }
     }
     if matches!(pos, "動詞" | "助動詞") && matches!(base, "てる" | "でる" | "ちゃう" | "じゃう" | "とく" | "どく")

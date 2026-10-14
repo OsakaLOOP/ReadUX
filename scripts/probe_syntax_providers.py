@@ -26,7 +26,7 @@ def command(name: str) -> dict[str, object]:
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     payload = {
-        "schema": "kotoclip.syntax-provider-probe.v1",
+        "schema": "readux.syntax-provider-probe.v1",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "commands": [command(name) for name in ("cabocha", "jumanpp", "kwja")],
         "python_modules": {name: importlib.util.find_spec(name) is not None for name in ("spacy", "ginza", "ja_ginza", "kwja", "rhoknp")},

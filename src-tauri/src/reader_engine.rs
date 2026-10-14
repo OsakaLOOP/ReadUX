@@ -1,4 +1,4 @@
-use kotoclip_core::{
+use readux_core::{
     analysis::{AnalysisService, Request, ResourcePaths},
     library::{LibraryBook, LibraryBookSummary, ReaderLibrary},
     reader_state::{ReaderState, SavedSelection, WordState},

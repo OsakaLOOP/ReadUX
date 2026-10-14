@@ -131,7 +131,7 @@ def main() -> int:
 
     manifest_path = output.parent / f"{output.name}-manifest.json"
     manifest = {
-        "schema": "kotoclip.ginza-minimal-environment.v1",
+        "schema": "readux.ginza-minimal-environment.v1",
         "source": str(source),
         "output": str(output),
         "removed": removed,

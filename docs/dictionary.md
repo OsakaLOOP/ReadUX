@@ -118,4 +118,4 @@ UniDic 查询形式按出现表记／`kana`、基本表记／`kanaBase`、词元
 
 验收覆盖同形异读、假名查询、别名、无正文记录、整体与全部内部组分并排查询、词典顺序、表记切换、链接返回和迟到响应。重点样本包括 `行く`、`強い／コワイ`、`警察署`、`三味線`、`茶屋酒`、活用词及无整体词条的数量表达。
 
-查询引擎位于 [lookup.rs](../crates/kotoclip-core/src/dictionary/lookup.rs)，矩阵状态位于 [lookup_state.rs](../crates/kotoclip-core/src/dictionary/lookup_state.rs)，内容协议位于 [model.rs](../crates/kotoclip-core/src/dictionary/model.rs)。[output.rs](../crates/kotoclip-core/src/output.rs)是当前应用输出接入点，[useExplanationSession.ts](../src/composables/useExplanationSession.ts)和[ExplanationPopover.vue](../src/components/explanation/ExplanationPopover.vue)提供解释会话与面板基础。
+查询引擎位于 [lookup.rs](../crates/readux-core/src/dictionary/lookup.rs)，矩阵状态位于 [lookup_state.rs](../crates/readux-core/src/dictionary/lookup_state.rs)，内容协议位于 [model.rs](../crates/readux-core/src/dictionary/model.rs)。[output.rs](../crates/readux-core/src/output.rs)是当前应用输出接入点，[useExplanationSession.ts](../src/composables/useExplanationSession.ts)和[ExplanationPopover.vue](../src/components/explanation/ExplanationPopover.vue)提供解释会话与面板基础。

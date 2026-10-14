@@ -7,7 +7,7 @@ export interface GrammarReviewOverride {
   reviewedAt: string;
 }
 
-const STORAGE_KEY = "kotoclip.grammar-review-overrides.v1";
+const STORAGE_KEY = "readux.grammar-review-overrides.v1";
 
 function loadOverrides(): Record<string, GrammarReviewOverride> {
   try {

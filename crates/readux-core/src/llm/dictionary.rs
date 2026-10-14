@@ -6,7 +6,7 @@ use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use thiserror::Error;
 
-pub const DICTIONARY_DISAMBIGUATION_SCHEMA_VERSION: &str = "kotoclip.dictionary-disambiguation.v1";
+pub const DICTIONARY_DISAMBIGUATION_SCHEMA_VERSION: &str = "readux.dictionary-disambiguation.v1";
 pub const DICTIONARY_DECISION_SCHEMA_JSON: &str =
     include_str!("../../resources/llm_dictionary_decision.schema.json");
 
@@ -248,7 +248,7 @@ pub fn build_disambiguation_prompt(
         user_prompt: format!(
             "请对以下只读候选集进行消歧。结果仅供 UI 标记，不会自动保存或跳转。\n{user_payload}"
         ),
-        response_schema_name: "kotoclip_dictionary_disambiguation".to_string(),
+        response_schema_name: "readux_dictionary_disambiguation".to_string(),
         response_schema,
         max_output_tokens: 1_500,
     })

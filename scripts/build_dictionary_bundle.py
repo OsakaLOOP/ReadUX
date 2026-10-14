@@ -1,4 +1,4 @@
-"""从 MDX、TXT 或旧 SQLite 生成 Kotoclip `.kdict` 词典源包。"""
+"""从 MDX、TXT 或旧 SQLite 生成 ReadUX `.kdict` 词典源包。"""
 
 from __future__ import annotations
 

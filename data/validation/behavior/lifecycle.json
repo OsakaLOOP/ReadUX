@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.provider-integration-check.v1",
+  "schema": "readux.provider-integration-check.v1",
   "cases": [
     {
       "id": "contraction",

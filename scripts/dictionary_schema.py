@@ -1,4 +1,4 @@
-"""Kotoclip 词典 schema v4 的词头解析与规范化工具。"""
+"""ReadUX 词典 schema v4 的词头解析与规范化工具。"""
 
 from __future__ import annotations
 

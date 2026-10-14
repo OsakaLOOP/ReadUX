@@ -1,4 +1,4 @@
-"""创建 Kotoclip schema v4 starter `.kdict` 词典源包。"""
+"""创建 ReadUX schema v4 starter `.kdict` 词典源包。"""
 
 from __future__ import annotations
 

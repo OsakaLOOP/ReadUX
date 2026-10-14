@@ -11,9 +11,9 @@
 | 2026-09-21 用户确认 | 完成模块接入、恢复完整桌面功能；允许使用本机 Python 环境、外部模型和词典 |
 | 2026-09-22 用户确认 | P4 必须保证 token、语法活用链及整体构词；依存等主要作为实验。词典验证、查询决定与聚合归下一模块；当前修复和长期方案严格分离。 |
 | [P4 完成范围核对](docs/p4_handoff.md) | 以 `522a801` 及历史 `df5a05f` 的 P4 清单核对原任务归属；读取十段产物并实际查询成立した、てる、読みませんでした。本机响应为 `experiments/p4-handoff-query.json`。 |
-| [应用服务](crates/kotoclip-core/src/analysis.rs)与[模块入口](crates/kotoclip-core/src/lib.rs) | 实际请求类型、分析流程、注册模块和状态管理 |
-| [统一对象](crates/kotoclip-nlp/src/model.rs)、[来源对齐](crates/kotoclip-nlp/src/alignment.rs)与[结构协议](crates/kotoclip-nlp/src/syntax.rs) | 字段、坐标、实体、对齐与来源结果 |
-| [词典查询](crates/kotoclip-core/src/dictionary/lookup.rs)与[应用输出](crates/kotoclip-core/src/output.rs) | 查询矩阵及当前接入差距 |
+| [应用服务](crates/readux-core/src/analysis.rs)与[模块入口](crates/readux-core/src/lib.rs) | 实际请求类型、分析流程、注册模块和状态管理 |
+| [统一对象](crates/readux-nlp/src/model.rs)、[来源对齐](crates/readux-nlp/src/alignment.rs)与[结构协议](crates/readux-nlp/src/syntax.rs) | 字段、坐标、实体、对齐与来源结果 |
+| [词典查询](crates/readux-core/src/dictionary/lookup.rs)与[应用输出](crates/readux-core/src/output.rs) | 查询矩阵及当前接入差距 |
 | [桌面宿主](src-tauri/src/lib.rs)、[前端入口](src/App.vue)与[构建配置](src-tauri/tauri.conf.json) | 实际桌面命令、界面与资源 |
 | [重构对象设计备份](docs_backup/unidic_rewrite_acceptance.md) | 统一对象、应用分层、会话与查询的既定契约 |
 | [阅读模块备份](docs_backup/reader_library_and_scroll_reader.md) | 书架、导入、章节、进度和排版的功能参照 |
@@ -80,7 +80,7 @@
     - 分析单元与语域
   - 实施验收重点
 
-- [Kotoclip](README.md)
+- [ReadUX](README.md)
   - 文档
   - 代码入口
   - 开发入口
@@ -331,3 +331,31 @@
   - 小模型与 BERT FP32：随机十处复核
   - 小模型与 BERT FP16：随机十处复核
   - 实验入口与保存结果
+
+## GiNZA BERT 优化交接来源与索引（2026-10-13）
+
+本轮使用本机 spaCy 3.8.16、spaCy Transformers 1.4.0 源码和真实测量。GPU/CPU 倍率由本轮用户提供：4060 Ti 16 GiB 或更高平台，频率 1.5×、计算核心和 Tensor Core 2.1×、FLOPS 2.2×，期望 GPU 部分提升超过 2×。这些数值作为下一阶段分析输入，目标硬件实际推理尚待测量。
+
+| 来源 | 链接 | 对应内容 |
+| --- | --- | --- |
+| spaCy BILUO 状态与动作 | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/pipeline/_parser_internals/ner.pyx> | 合法动作、状态更新与实体写回 |
+| spaCy StateC | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/pipeline/_parser_internals/_state.pxd> | token 上下文与共享批次 offset |
+| spaCy TransitionSystem | <https://github.com/explosion/spaCy/blob/v3.8.16/spacy/pipeline/_parser_internals/transition_system.pxd> | Cython 动作接口 |
+| spaCy Transformers pipeline | <https://github.com/explosion/spacy-transformers/blob/v1.4.0/spacy_transformers/pipeline_component.py> | 长度组织、max_batch_items 与分批 |
+| spaCy TransformerListener | <https://github.com/explosion/spacy-transformers/blob/v1.4.0/spacy_transformers/layers/listener.py> | Doc Transformer 特征传递 |
+| spaCy Transformer pooling | <https://github.com/explosion/spacy-transformers/blob/v1.4.0/spacy_transformers/layers/trfs2arrays.py> | 特征对齐与池化 |
+| NVIDIA CUDA Asynchronous Execution | <https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html> | stream、event、pinned host memory 与异步 D2H |
+| CuPy ndarray.get | <https://docs.cupy.dev/en/stable/reference/generated/cupy.ndarray.html> | pinned `out` 与 `blocking=False` 传输语义 |
+| NVIDIA GeForce RTX 4060 Ti specifications | <https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/> | 4352 CUDA cores、2.54 GHz、16 GB、128-bit |
+
+- [GiNZA BERT 优化交接与流程模型](docs/ginza_optimization_handoff.md)
+  - 本轮结论与范围
+  - 环境、输入与测量口径
+  - 完整管线对照
+  - 已完成的执行组织
+  - 已有流程成本模型
+    - 时间变量与实测阶段
+    - 吞吐与调度关系
+    - GPU 并行实测
+  - 面向 4060 Ti 的分析输入与剩余任务
+  - 文件入口与复现

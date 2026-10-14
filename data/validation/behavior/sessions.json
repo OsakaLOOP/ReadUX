@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.document-session-check.v1",
+  "schema": "readux.document-session-check.v1",
   "open_ms": 1.9237000014982186,
   "query_during_model_ms": 58.73609999980545,
   "real_units": 2,

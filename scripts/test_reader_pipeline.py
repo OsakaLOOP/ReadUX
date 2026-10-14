@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_BINARY = ROOT / "target" / "debug" / "kotoclip-nlp.exe"
+DEFAULT_BINARY = ROOT / "target" / "debug" / "readux-nlp.exe"
 DEFAULT_REPORT = ROOT / ".agents" / "analysis" / "reader-pipeline-test.json"
 TEXT = "七日は警察署へ向かった。彼女は窓の外を見て、ゆっくり歩いている。\n" * 48
 

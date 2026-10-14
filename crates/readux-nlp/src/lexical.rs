@@ -3,7 +3,7 @@
 use crate::{formation::{FormationArtifact, FormationStatus}, model::{MorphemeToken, QueryForm}};
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.dictionary-candidates.v2";
+pub const SCHEMA: &str = "readux.dictionary-candidates.v2";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

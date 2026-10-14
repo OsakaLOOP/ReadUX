@@ -20,7 +20,7 @@ def main():
     with contextlib.redirect_stdout(sys.stderr):
         adapter = GinzaAdapter(args.model)
         segments = [validation_segment(segment, adapter.analyze(segment["text"])) for segment in data["segments"]]
-    output = {"schema": "kotoclip.provider-validation.v2", "provider": adapter.manifest, "segments": segments}
+    output = {"schema": "readux.provider-validation.v2", "provider": adapter.manifest, "segments": segments}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(args.output), "segments": len(segments)}, ensure_ascii=False))

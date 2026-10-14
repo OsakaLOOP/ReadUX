@@ -32,7 +32,7 @@ def main() -> None:
             ]
     segment_status = {segment["id"]: "complete_manual_interactive" for segment in segments}
     output = {
-        "schema": "kotoclip.external-source-gold.v1",
+        "schema": "readux.external-source-gold.v1",
         "coordinate_system": "unicode_scalar",
         "annotation": {
             "status": "complete_manual_interactive",

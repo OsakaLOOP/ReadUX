@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.unidic-structure-training.v1",
+  "schema": "readux.unidic-structure-training.v1",
   "model_id": "unidic-structure-p2",
   "architecture": {
     "encoder": "token_feature_transformer",

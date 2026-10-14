@@ -64,7 +64,7 @@ class FeatureTokenizer:
     def manifest(self) -> dict[str, Any]:
         value = {"lemma": self.lemma, "surface": self.surface, "pos": self.pos, "conj": self.conj, "register": self.register}
         encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-        return {"schema": "kotoclip.unidic-feature-vocabulary.v1", "sha256": hashlib.sha256(encoded).hexdigest(), "sizes": {key: len(table) + 1 for key, table in value.items()}, "tables": value}
+        return {"schema": "readux.unidic-feature-vocabulary.v1", "sha256": hashlib.sha256(encoded).hexdigest(), "sizes": {key: len(table) + 1 for key, table in value.items()}, "tables": value}
 
 
 FeatureVocabulary = FeatureTokenizer

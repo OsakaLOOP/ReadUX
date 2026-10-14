@@ -1,6 +1,6 @@
 //! 来源分析、查询和快照分别加锁，模型推理期间允许前台查词。
 use crate::{analysis::ResourcePaths, analysis_cache::AnalysisCache, dictionary::lookup::DictionaryEngine, document_plan::DocumentPlan, output, performance::{PerformanceEvent, PerformanceRecorder, PerformanceSnapshot}, providers::ProviderManager, rule_store::{RuleSnapshot, RuleStore}};
-use kotoclip_nlp::{model::{MorphemeToken, QueryForm, Register, RegisterRouting, SourceAnalysis, SourceRun, StageTiming, UnifiedDocument}, prepare::PreparedText, sources::UniDicProvider, syntax::SyntaxArtifact};
+use readux_nlp::{model::{MorphemeToken, QueryForm, Register, RegisterRouting, SourceAnalysis, SourceRun, StageTiming, UnifiedDocument}, prepare::PreparedText, sources::UniDicProvider, syntax::SyntaxArtifact};
 use serde_json::{json, Value};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fs, path::{Path, PathBuf}, sync::{Arc, Condvar, Mutex, atomic::AtomicU64}, time::{Instant, UNIX_EPOCH}};
@@ -89,7 +89,7 @@ impl AnalysisEngine {
 
     pub fn status(&self) -> Value {
         let providers = self.providers.lock().unwrap();
-        json!({"schema": kotoclip_nlp::model::SCHEMA, "providers": [
+        json!({"schema": readux_nlp::model::SCHEMA, "providers": [
             {"register":"cwj", "available": self.paths.cwj.is_file(), "loaded": providers.contains_key(&Register::Cwj)},
             {"register":"csj", "available": self.paths.csj.is_file(), "loaded": providers.contains_key(&Register::Csj)}]})
     }
@@ -103,7 +103,7 @@ impl AnalysisEngine {
     }
 
     pub fn analyze(&self, prepared: &PreparedText, routing: RegisterRouting, artifacts: &[SyntaxArtifact],
-        grammar: Option<kotoclip_nlp::grammar::GrammarArtifact>, expression: Option<kotoclip_nlp::expression::ExpressionArtifact>,
+        grammar: Option<readux_nlp::grammar::GrammarArtifact>, expression: Option<readux_nlp::expression::ExpressionArtifact>,
         stage_timings: Vec<StageTiming>,
     ) -> Result<Arc<UnifiedDocument>, String> {
         let mut stage_timings = stage_timings;
@@ -117,8 +117,8 @@ impl AnalysisEngine {
             }
         }
         let resources: Vec<_> = routing.runs.iter().map(|run| providers[&run.selected].metadata()).collect();
-        let key = format!("base:{}", kotoclip_nlp::external::text_digest(&serde_json::to_string(&(
-            kotoclip_nlp::model::SCHEMA, &prepared.mapping.source_sha256, &routing, resources, artifacts, &grammar, &expression,
+        let key = format!("base:{}", readux_nlp::external::text_digest(&serde_json::to_string(&(
+            readux_nlp::model::SCHEMA, &prepared.mapping.source_sha256, &routing, resources, artifacts, &grammar, &expression,
         )).map_err(|e| e.to_string())?));
         let cached = self.documents.lock().unwrap().get(&key);
         if let Some(document) = cached {
@@ -130,14 +130,14 @@ impl AnalysisEngine {
         let source = self.analyze_source(prepared, &routing)?;
         stage_timings.push(StageTiming::new("unidic", unidic_started));
         let unify_started = Instant::now();
-        let mut document = kotoclip_nlp::unify::unify_with_external(prepared, source, routing, artifacts)?;
+        let mut document = readux_nlp::unify::unify_with_external(prepared, source, routing, artifacts)?;
         if let Some(value) = grammar {
-            kotoclip_nlp::grammar::validate(&value, &document.text, &document.morphemes)?;
-            document.grammar = kotoclip_nlp::grammar::merge(document.grammar, value);
+            readux_nlp::grammar::validate(&value, &document.text, &document.morphemes)?;
+            document.grammar = readux_nlp::grammar::merge(document.grammar, value);
         }
         if let Some(value) = expression {
-            kotoclip_nlp::expression::validate(&value, &document.text, &document.morphemes)?;
-            document.expression = kotoclip_nlp::expression::merge(document.expression, value);
+            readux_nlp::expression::validate(&value, &document.text, &document.morphemes)?;
+            document.expression = readux_nlp::expression::merge(document.expression, value);
         }
         stage_timings.push(StageTiming::new("unify", unify_started));
         // P4 分析只生成来源级证据；规则扫描和词典绑定由后置交互显式触发。
@@ -182,8 +182,8 @@ impl AnalysisEngine {
         let mut dictionaries = fs::read_dir(&self.paths.dictionary_sources).ok().into_iter().flatten()
             .filter_map(Result::ok).map(|entry| resource_identity(&entry.path())).collect::<Vec<_>>();
         dictionaries.sort_by_key(Value::to_string);
-        Ok(kotoclip_nlp::external::text_digest(&serde_json::to_string(&(
-            "kotoclip.complete-unit.v4", kotoclip_nlp::model::SCHEMA, env!("CARGO_PKG_VERSION"),
+        Ok(readux_nlp::external::text_digest(&serde_json::to_string(&(
+            "readux.complete-unit.v5", readux_nlp::model::SCHEMA, env!("CARGO_PKG_VERSION"),
             &prepared.mapping.source_sha256, routing, range, self.external.lock().unwrap().cache_identity()?, resources, dictionaries,
         )).map_err(|e| e.to_string())?))
     }
@@ -224,7 +224,7 @@ impl AnalysisEngine {
         }
         let ginza_timing = StageTiming::new("ginza", ginza_started);
         let unify_started = Instant::now();
-        let mut value = kotoclip_nlp::unify::unify_with_sources(prepared, source, routing, &sources)?;
+        let mut value = readux_nlp::unify::unify_with_sources(prepared, source, routing, &sources)?;
         let unify_timing = StageTiming::new("unify", unify_started);
         let lookup_started = Instant::now();
         let lookup = self.lookup_targets_for(&value, range, "background")?;
@@ -245,7 +245,7 @@ impl AnalysisEngine {
     fn read_complete_cache(&self, digest: &str, prepared: &PreparedText) -> Option<Arc<CompleteUnit>> {
         let bytes = fs::read(self.complete_cache_path(digest)).ok()?;
         let unit: CompleteUnit = rmp_serde::from_slice(&bytes).ok()?;
-        if unit.document.schema != kotoclip_nlp::model::SCHEMA || unit.document.preparation.source_sha256 != prepared.mapping.source_sha256
+        if unit.document.schema != readux_nlp::model::SCHEMA || unit.document.preparation.source_sha256 != prepared.mapping.source_sha256
             || unit.document.text != prepared.text || unit.document.external_sources.is_empty() { return None; }
         let unit = Arc::new(unit);
         self.complete_units.lock().unwrap().insert(format!("complete:{digest}"), unit.clone());
@@ -280,14 +280,14 @@ impl AnalysisEngine {
         stage_timings.push(StageTiming::new("enrich.external", external_started));
         let unify_started = Instant::now();
         let prepared = PreparedText { text: document.text.clone(), annotations: document.author_ruby.clone(), mapping: document.preparation.clone() };
-        let mut updated = kotoclip_nlp::unify::unify_with_sources(&prepared, document.source.clone(), document.routing.clone(), &sources)?;
+        let mut updated = readux_nlp::unify::unify_with_sources(&prepared, document.source.clone(), document.routing.clone(), &sources)?;
         updated.ruby_validations = document.ruby_validations.clone();
-        let grammar_overlay = kotoclip_nlp::grammar::GrammarArtifact { schema: kotoclip_nlp::grammar::SCHEMA.into(), occurrences: document.grammar.occurrences.iter()
+        let grammar_overlay = readux_nlp::grammar::GrammarArtifact { schema: readux_nlp::grammar::SCHEMA.into(), occurrences: document.grammar.occurrences.iter()
             .filter(|item| !matches!(item.provider.as_str(), "unidic" | "compiled-grammar-catalog" | "user-rule")).cloned().collect() };
-        let expression_overlay = kotoclip_nlp::expression::ExpressionArtifact { schema: kotoclip_nlp::expression::SCHEMA.into(), occurrences: document.expression.occurrences.iter()
+        let expression_overlay = readux_nlp::expression::ExpressionArtifact { schema: readux_nlp::expression::SCHEMA.into(), occurrences: document.expression.occurrences.iter()
             .filter(|item| !matches!(item.provider.as_str(), "builtin-expression-catalog" | "user-rule")).cloned().collect() };
-        updated.grammar = kotoclip_nlp::grammar::merge(updated.grammar, grammar_overlay);
-        updated.expression = kotoclip_nlp::expression::merge(updated.expression, expression_overlay);
+        updated.grammar = readux_nlp::grammar::merge(updated.grammar, grammar_overlay);
+        updated.expression = readux_nlp::expression::merge(updated.expression, expression_overlay);
         stage_timings.push(StageTiming::new("enrich.unify", unify_started));
         updated.stage_timings = stage_timings;
         updated.elapsed_ms = document.elapsed_ms;
@@ -302,7 +302,7 @@ impl AnalysisEngine {
         Ok(updated)
     }
 
-    pub fn save_rule(&self, rule: kotoclip_nlp::rules::Rule) -> Result<RuleSnapshot, String> { self.rules.save(rule) }
+    pub fn save_rule(&self, rule: readux_nlp::rules::Rule) -> Result<RuleSnapshot, String> { self.rules.save(rule) }
     pub fn set_rule_enabled(&self, id: &str, enabled: bool) -> Result<RuleSnapshot, String> { self.rules.set_enabled(id, enabled) }
     pub fn delete_rule(&self, id: &str) -> Result<RuleSnapshot, String> { self.rules.delete(id) }
 
@@ -367,7 +367,7 @@ impl AnalysisEngine {
         let target = group.outer_targets.iter().chain(group.inner_targets.iter()).chain(group.candidate_targets.iter())
             .find(|target| target.id == target_id).ok_or("查词目标引用无效")?;
         let request = target.matrix_request.as_ref().ok_or("该目标没有词条矩阵")?;
-        let cache_key = format!("query-group:{}", kotoclip_nlp::external::text_digest(&serde_json::to_string(&(request, selected_form)).map_err(|error| error.to_string())?));
+        let cache_key = format!("query-group:{}", readux_nlp::external::text_digest(&serde_json::to_string(&(request, selected_form)).map_err(|error| error.to_string())?));
         if let Some(value) = self.query_cache.lock().unwrap().get(&cache_key) {
             return Ok(value.as_ref().clone());
         }

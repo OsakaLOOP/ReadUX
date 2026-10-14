@@ -1,6 +1,6 @@
 //! 实际 UniDic 活用与 GiNZA 信息变化的定向验收。
-use kotoclip_core::analysis::{AnalysisService, Request, ResourcePaths};
-use kotoclip_nlp::{model::{Register, UnifiedDocument}, morphology::MorphologyRole};
+use readux_core::analysis::{AnalysisService, Request, ResourcePaths};
+use readux_nlp::{model::{Register, UnifiedDocument}, morphology::MorphologyRole};
 use std::path::PathBuf;
 
 fn analyze(service: &AnalysisService, text: &str) -> UnifiedDocument {
@@ -37,7 +37,7 @@ fn modern_inflections_and_functional_ownership() {
             .unwrap_or_else(|| panic!("{text}: {:?}", doc.morphology.chains.iter().map(|c| (&c.surface_form,&c.final_state)).collect::<Vec<_>>()));
         assert_eq!(chain.dictionary_form, base, "{text}");
         for kind in kinds { assert!(chain.operators.iter().any(|o| o.kind == kind), "{text} 缺少 {kind}"); }
-        for op in &chain.operators { assert!(kotoclip_core::grammar_catalog::get(&op.concept_id).is_ok(), "目录引用无效：{}",op.concept_id); }
+        for op in &chain.operators { assert!(readux_core::grammar_catalog::get(&op.concept_id).is_ok(), "目录引用无效：{}",op.concept_id); }
         assert!(chain.query_forms.iter().any(|q| q.form == base), "{text} 缺少基本形查询");
     }
     for text in ["読んでくださった。", "専有してしまっている。", "読んでいる。", "覗かれてる。", "読んじゃった。", "読んどく。"] {
@@ -71,40 +71,40 @@ fn modern_inflections_and_functional_ownership() {
 
 #[test]
 fn ginza_changes_core_boundaries_and_functional_status() {
-    use kotoclip_nlp::{external::{SourceArtifact, Endpoint, RelationKind, SourceRelation}, syntax::*};
+    use readux_nlp::{external::{SourceArtifact, Endpoint, RelationKind, SourceRelation}, syntax::*};
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));
     let doc = analyze(&service, "読んでいる。");
     let specs = [("t0", [0,2], "VERB"), ("t1", [2,3], "SCONJ"), ("t2", [3,5], "AUX")];
     let syntax = SyntaxArtifact { schema: SCHEMA.into(), segment_id: None, text_characters: doc.characters,
-        text_sha256: kotoclip_nlp::external::text_digest(&doc.text), provider: SyntaxProviderDescriptor { id: "ginza".into(), version: None, capabilities: Vec::new(), license: None },
+        text_sha256: readux_nlp::external::text_digest(&doc.text), provider: SyntaxProviderDescriptor { id: "ginza".into(), version: None, capabilities: Vec::new(), license: None },
         spans: specs.iter().map(|(id, range, pos)| SyntaxSpan { id: (*id).into(), kind: "token".into(), char_range: *range,
             head_char_range: None, source_id: "fixture".into(), surface: None, labels: vec![format!("pos:{pos}")] }).collect() };
     let mut source = SourceArtifact::from_syntax(&syntax, &doc.text).unwrap();
     source.relations.push(SourceRelation { id: "aux2".into(), kind: RelationKind::Dependency, source: Endpoint::Node { id: "t2".into() },
         target: Endpoint::Node { id: "t0".into() }, label: "aux".into(), features: serde_json::json!({}) });
-    let with = kotoclip_nlp::morphology::collect_with_external(&doc.source.tokens, &doc.morphemes, &[source.clone()]).unwrap();
+    let with = readux_nlp::morphology::collect_with_external(&doc.source.tokens, &doc.morphemes, &[source.clone()]).unwrap();
     assert_eq!(with.chains.iter().find(|c| c.surface_form=="いる").unwrap().status, "resolved");
     source.relations.clear();
-    let without = kotoclip_nlp::morphology::collect_with_external(&doc.source.tokens, &doc.morphemes, &[source]).unwrap();
+    let without = readux_nlp::morphology::collect_with_external(&doc.source.tokens, &doc.morphemes, &[source]).unwrap();
     assert_eq!(without.chains.iter().find(|c| c.surface_form=="いる").unwrap().status, "candidate");
 
     let doc = analyze(&service, "情報処理。");
-    let mut syntax = syntax; syntax.text_characters=doc.characters; syntax.text_sha256=kotoclip_nlp::external::text_digest(&doc.text);
+    let mut syntax = syntax; syntax.text_characters=doc.characters; syntax.text_sha256=readux_nlp::external::text_digest(&doc.text);
     syntax.spans=vec![SyntaxSpan { id: "whole".into(), kind:"token".into(), char_range:[0,4], head_char_range:None, source_id:"fixture".into(),surface:None,labels:vec!["pos:NOUN".into()] }];
     let source=SourceArtifact::from_syntax(&syntax,&doc.text).unwrap();
-    let with=kotoclip_nlp::morphology::collect_with_external(&doc.source.tokens,&doc.morphemes,&[source]).unwrap();
+    let with=readux_nlp::morphology::collect_with_external(&doc.source.tokens,&doc.morphemes,&[source]).unwrap();
     assert!(with.chains.iter().any(|c| c.surface_form=="情報処理" && c.core_morpheme_indices.len()==2));
     assert!(doc.morphology.chains.iter().all(|c| c.core_morpheme_indices.len()==1));
 }
 
 #[test]
 fn formation_uses_dependencies_and_preserves_partial_coverage() {
-    use kotoclip_nlp::{external::*, formation::*, syntax::*};
+    use readux_nlp::{external::*, formation::*, syntax::*};
     let root=PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service=AnalysisService::new(ResourcePaths::development(&root));
     let doc=analyze(&service,"情報処理。");
-    let mut syntax=SyntaxArtifact { schema: kotoclip_nlp::syntax::SCHEMA.into(),segment_id:None,
+    let mut syntax=SyntaxArtifact { schema: readux_nlp::syntax::SCHEMA.into(),segment_id:None,
         provider:SyntaxProviderDescriptor {id:"ginza".into(),version:None,capabilities:vec![],license:None},
         text_sha256:text_digest(&doc.text),text_characters:doc.characters,spans:vec![] };
     for (id,range) in [("a",[0,2]),("b",[2,4])] {
@@ -125,12 +125,12 @@ fn formation_uses_dependencies_and_preserves_partial_coverage() {
     assert_eq!(artifact.nodes[0].status,FormationStatus::Candidate);
     assert_eq!(artifact.nodes[0].word.as_ref().unwrap().reason,"morphology_core_candidate");
     let mut tokens=doc.morphemes.clone();
-    tokens[1].query_forms.push(kotoclip_nlp::model::QueryForm {kind:"base".into(),form:"処理する".into(),reading:None,reading_field:None});
+    tokens[1].query_forms.push(readux_nlp::model::QueryForm {kind:"base".into(),form:"処理する".into(),reading:None,reading_field:None});
     attach_words(&doc.text,&tokens,&doc.morphology,&mut artifact);
     let restored=artifact.nodes[0].word.as_ref().unwrap().query_forms.iter().find(|q| q.form=="情報処理する").unwrap();
     assert!(restored.reading.is_none(),"基本形缺少读音时应保留缺失状态");
     syntax.spans[0].char_range=[0,1]; syntax.spans[0].kind="compound".into(); syntax.spans.truncate(1);
-    let (structure,_)=kotoclip_nlp::structure::merge_external(kotoclip_nlp::structure::local_candidates(&doc.text),&syntax,&doc.text).unwrap();
+    let (structure,_)=readux_nlp::structure::merge_external(readux_nlp::structure::local_candidates(&doc.text),&syntax,&doc.text).unwrap();
     let mut partial=collect_formations(&doc.text,&doc.morphemes,&structure).unwrap();
     attach_words(&doc.text,&doc.morphemes,&doc.morphology,&mut partial);
     assert_eq!(partial.nodes[0].status,FormationStatus::Pending);

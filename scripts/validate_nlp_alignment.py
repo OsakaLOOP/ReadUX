@@ -11,8 +11,8 @@ from probe_nlp_behavior import ROOT, samples
 def main():
     cases = [case for case in samples()[1] if case["id"] in {"news", "boundaries"}]
     cases.append({"id": "repeated-ruby", "text": "警察署《けいさつしょ》へ向かった。\n警察署《けいさつしょ》へ向かった。  \n"})
-    process = subprocess.Popen([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
-    report = {"schema": "kotoclip.alignment-check.v1", "cases": []}
+    process = subprocess.Popen([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
+    report = {"schema": "readux.alignment-check.v1", "cases": []}
     def request(payload):
         process.stdin.write(json.dumps(payload, ensure_ascii=False) + "\n")
         process.stdin.flush()

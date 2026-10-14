@@ -1,11 +1,11 @@
 //! 文档会话与单工作线程调度。控制操作立即更新代次，迟到产物在提交前失效。
 use crate::{analysis_engine::AnalysisEngine, document_plan::DocumentPlan, performance::PerformanceEvent};
-use kotoclip_nlp::{model::UnifiedDocument, routing::RegisterPolicy};
+use readux_nlp::{model::UnifiedDocument, routing::RegisterPolicy};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::{collections::{BTreeMap, HashMap, VecDeque}, sync::{Arc, Mutex, mpsc::{self, SyncSender}, atomic::Ordering}, thread::JoinHandle};
 
-pub const SCHEMA: &str = "kotoclip.document-update.v1";
+pub const SCHEMA: &str = "readux.document-update.v1";
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
@@ -31,7 +31,7 @@ pub struct UnitUpdate {
 pub struct UnitTiming {
     pub elapsed_ms: f64,
     pub generated_ms: f64,
-    pub stages: Vec<kotoclip_nlp::model::StageTiming>,
+    pub stages: Vec<readux_nlp::model::StageTiming>,
     pub cache_hit: bool,
 }
 
@@ -424,7 +424,7 @@ mod tests {
     #[test]
     fn retry_resets_failed_artifacts_and_preserves_other_units() {
         let engine = Arc::new(AnalysisEngine::new(crate::analysis::ResourcePaths::development(
-            &std::env::temp_dir().join("kotoclip-retry-missing-resources"))));
+            &std::env::temp_dir().join("readux-retry-missing-resources"))));
         let sessions = DocumentSessions::new(engine);
         let mut session = pending_session();
         session.paused = true;

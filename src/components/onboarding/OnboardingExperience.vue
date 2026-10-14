@@ -23,9 +23,9 @@ const emit = defineEmits<{
 const slides: Slide[] = [
   {
     id: "welcome",
-    eyebrow: "欢迎来到 KOTOCLIP · V1.0",
+    eyebrow: "欢迎来到 READUX · V1.0",
     title: "想读整本日语书？\n就从这里开始",
-    lead: "KotoClip 是面向整本书阅读的日语智能助手。文本解析、查词、语法说明和学习记录，都集中在同一个阅读界面中。",
+    lead: "ReadUX 是面向整本书阅读的日语智能助手。文本解析、查词、语法说明和学习记录，都集中在同一个阅读界面中。",
     leadPoints: ["整本书阅读", "本地文本解析", "按需展开辅助"],
   },
   {
@@ -108,12 +108,12 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleKeydown));
     <div class="grain" aria-hidden="true"></div>
 
     <header class="onboarding-header">
-      <div class="brand" aria-label="KotoClip">
+      <div class="brand" aria-label="ReadUX">
         <span class="brand-mark" aria-hidden="true">
           <span></span>
           <span></span>
         </span>
-        <span>KotoClip</span>
+        <span>ReadUX</span>
       </div>
 
       <div class="progress" aria-label="引导进度">
@@ -206,7 +206,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleKeydown));
                 type="button"
                 @click="next"
               >
-                {{ current.id === 'welcome' ? '看看怎么帮我阅读' : current.id === 'system' ? '开始使用 KotoClip' : '继续' }}
+                {{ current.id === 'welcome' ? '看看怎么帮我阅读' : current.id === 'system' ? '开始使用 ReadUX' : '继续' }}
                 <ArrowRight :size="17" aria-hidden="true" />
               </button>
 

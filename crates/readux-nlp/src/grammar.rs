@@ -1,7 +1,7 @@
 //! L3 语法候选层。识别结果由外部目录或人工审阅提供，本模块不生成规则。
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.grammar-artifact.v1";
+pub const SCHEMA: &str = "readux.grammar-artifact.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

@@ -52,24 +52,24 @@ def main() -> int:
 
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="kotoclip-resource-split-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="readux-resource-split-") as temporary:
         root = source_root(args.input.resolve(), Path(temporary))
         if args.parts in {"nlp", "all"}:
-            nlp_root = output / "Kotoclip-insider-portable-nlp"
+            nlp_root = output / "ReadUX-insider-portable-nlp"
             if nlp_root.exists():
                 shutil.rmtree(nlp_root)
             for relative in NLP_PATHS:
                 copy_path(root, relative, nlp_root)
-            zip_directory(nlp_root, output / "Kotoclip-insider-portable-nlp.zip")
+            zip_directory(nlp_root, output / "ReadUX-insider-portable-nlp.zip")
             shutil.rmtree(nlp_root)
 
         if args.parts in {"python", "all"}:
-            python_root = output / f"Kotoclip-insider-portable-{args.target}-python"
+            python_root = output / f"ReadUX-insider-portable-{args.target}-python"
             if python_root.exists():
                 shutil.rmtree(python_root)
             copy_path(root, "python", python_root)
             copy_path(root, "manifest.json", python_root)
-            zip_directory(python_root, output / f"Kotoclip-insider-portable-{args.target}-python.zip")
+            zip_directory(python_root, output / f"ReadUX-insider-portable-{args.target}-python.zip")
             shutil.rmtree(python_root)
 
     return 0

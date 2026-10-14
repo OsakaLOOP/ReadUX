@@ -23,7 +23,7 @@ export interface DictionaryAssistantGrant {
 }
 
 export interface DictionaryAssistantRequest {
-  schema_version: "kotoclip.dictionary-disambiguation.v1";
+  schema_version: "readux.dictionary-disambiguation.v1";
   request_id: string;
   task: DictionaryAssistantTask;
   context: Record<string, unknown>;
@@ -61,7 +61,7 @@ export interface DictionaryAssistantCandidate {
 }
 
 export interface DictionaryAssistantDecision {
-  schema_version: "kotoclip.dictionary-disambiguation.v1";
+  schema_version: "readux.dictionary-disambiguation.v1";
   request_id: string;
   status: "selected" | "ambiguous" | "insufficient_evidence";
   selected_candidate_id: string | null;

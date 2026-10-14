@@ -1,8 +1,8 @@
 use flate2::read::GzDecoder;
-use kotoclip_core::dictionary::lookup::DictionaryEngine;
-use kotoclip_core::pipeline::lexical::WordFormationOverlapPolicy;
-use kotoclip_core::pipeline::Pipeline;
-use kotoclip_quality_audit::{
+use readux_core::dictionary::lookup::DictionaryEngine;
+use readux_core::pipeline::lexical::WordFormationOverlapPolicy;
+use readux_core::pipeline::Pipeline;
+use readux_quality_audit::{
     build_substrate, publish_history, run_containment_audit, BuildSubstrateOptions,
     ContainmentAuditOptions,
 };
@@ -13,7 +13,7 @@ use std::io::{Read, Seek, SeekFrom};
 use std::path::PathBuf;
 use std::time::Duration;
 
-fn reading_projection(tokens: &[kotoclip_core::models::AnnotatedToken]) -> Value {
+fn reading_projection(tokens: &[readux_core::models::AnnotatedToken]) -> Value {
     serde_json::json!(tokens
         .iter()
         .map(|token| serde_json::json!({
@@ -62,7 +62,7 @@ fn real_containment_audit_matches_full_domain_and_writes_ui_bundle() {
     fs::write(
         &corpus_path,
         serde_json::to_vec_pretty(&serde_json::json!({
-            "schema_version": "kotoclip.quality.corpus.v1",
+            "schema_version": "readux.quality.corpus.v1",
             "books": [{"book_id": "fixture", "path": source_path}],
         }))
         .unwrap(),
@@ -79,7 +79,7 @@ fn real_containment_audit_matches_full_domain_and_writes_ui_bundle() {
         serde_json::from_slice(&fs::read(substrate.join("manifest.json")).unwrap()).unwrap();
     assert_eq!(
         substrate_manifest["fingerprint"]["analysis_text_protocol"],
-        kotoclip_core::reader_markdown::ANALYSIS_TEXT_PROTOCOL_VERSION
+        readux_core::reader_markdown::ANALYSIS_TEXT_PROTOCOL_VERSION
     );
     let output = run_containment_audit(&ContainmentAuditOptions {
         repository_root: repository,
@@ -133,11 +133,11 @@ fn real_containment_audit_matches_full_domain_and_writes_ui_bundle() {
     let mut before = before;
     let mut after = after;
     for tokens in [&mut before, &mut after] {
-        kotoclip_core::pipeline::expressions::apply_builtin_expressions(tokens);
-        kotoclip_core::pipeline::expressions::apply_correlative_expressions(tokens);
-        kotoclip_core::pipeline::expressions::resolve_expression_conflicts(tokens);
-        kotoclip_core::pipeline::expressions::stabilize_expression_ids(tokens);
-        kotoclip_core::document::offset_token_ranges(
+        readux_core::pipeline::expressions::apply_builtin_expressions(tokens);
+        readux_core::pipeline::expressions::apply_correlative_expressions(tokens);
+        readux_core::pipeline::expressions::resolve_expression_conflicts(tokens);
+        readux_core::pipeline::expressions::stabilize_expression_ids(tokens);
+        readux_core::document::offset_token_ranges(
             tokens,
             first_change["char_range"]["start"].as_u64().unwrap() as usize,
             0,
@@ -194,7 +194,7 @@ fn zero_corpus_changes_still_passes_independent_known_example_gate() {
     fs::write(
         &corpus_path,
         serde_json::to_vec_pretty(&serde_json::json!({
-            "schema_version": "kotoclip.quality.corpus.v1",
+            "schema_version": "readux.quality.corpus.v1",
             "books": [{"book_id": "unchanged", "path": source_path}],
         }))
         .unwrap(),

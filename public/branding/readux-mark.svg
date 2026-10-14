@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">ReadUX 标志</title>
+  <desc id="desc">两页展开的阅读界面与一枚高亮词块组成的 ReadUX 标志。</desc>
+  <rect width="256" height="256" rx="52" fill="#173f5f"/>
+  <path d="M48 65c32-10 59-6 80 12v116c-21-18-48-22-80-12z" fill="#f7fbfc"/>
+  <path d="M208 65c-32-10-59-6-80 12v116c21-18 48-22 80-12z" fill="#dff1ee"/>
+  <path d="M67 98c18-4 35-1 49 8M67 122c18-4 35-1 49 8M67 146c14-3 27-1 39 5" fill="none" stroke="#4fae9d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140 104h42v18h-42zm0 30h31v18h-31z" fill="#f4c95d"/>
+  <path d="M128 77v116" stroke="#173f5f" stroke-width="6" opacity=".35"/>
+</svg>

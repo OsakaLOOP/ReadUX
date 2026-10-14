@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Kotoclip",
+  "productName": "ReadUX",
   "version": "0.1.2",
-  "identifier": "com.kotoclip.app",
+  "identifier": "com.readux.app",
   "build": {
     "beforeDevCommand": "npm run frontend:dev",
     "devUrl": "http://127.0.0.1:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Kotoclip",
+        "title": "ReadUX",
         "width": 1200,
         "height": 800,
         "minWidth": 380,
@@ -23,7 +23,7 @@
       "csp": "default-src 'self' ipc: http://ipc.localhost; connect-src 'self' ipc: http://ipc.localhost; img-src 'self' data: asset: http://asset.localhost; style-src 'self' 'unsafe-inline'; script-src 'self'",
       "assetProtocol": {
         "enable": true,
-        "scope": ["$DOCUMENT/Kotoclip Library/**"]
+        "scope": ["$DOCUMENT/ReadUX Library/**"]
       }
     }
   },

@@ -55,7 +55,7 @@ def main() -> None:
             "independent_gold": path.stem.lower() == "collective",
         })
     payload = {
-        "schema": "kotoclip.external-source-validation.v1",
+        "schema": "readux.external-source-validation.v1",
         "coordinate_system": "unicode_scalar",
         "source_directory": "experiments/sources",
         "limit_per_source": args.limit,

@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 
-pub const SCHEMA: &str = "kotoclip.structure-graph.v1";
+pub const SCHEMA: &str = "readux.structure-graph.v1";
 pub const SELECTION_VERSION: &str = "source-preference.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

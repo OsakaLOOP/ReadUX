@@ -1,7 +1,7 @@
 //! L3 到阅读展示层的稳定引用，不包含颜色或 UI 决策。
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.l3-projection.v1";
+pub const SCHEMA: &str = "readux.l3-projection.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct ProjectionTarget {

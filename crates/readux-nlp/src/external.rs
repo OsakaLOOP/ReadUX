@@ -4,7 +4,7 @@ use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashSet};
 
-pub const SCHEMA: &str = "kotoclip.source-analysis.v1";
+pub const SCHEMA: &str = "readux.source-analysis.v1";
 pub type Range = [usize; 2];
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

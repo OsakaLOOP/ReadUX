@@ -1,7 +1,7 @@
 mod reader_engine;
 
-use kotoclip_core::analysis::{Request, ResourcePaths, Response};
-use kotoclip_core::reader_state::{SavedSelection, WordState};
+use readux_core::analysis::{Request, ResourcePaths, Response};
+use readux_core::reader_state::{SavedSelection, WordState};
 use reader_engine::ReaderEngine;
 use std::{
     path::PathBuf,
@@ -33,13 +33,13 @@ fn cancel_external(state: State<'_, AppState>) {
 fn search_grammar_catalog(
     query: Option<String>, family: Option<String>, jlpt_level: Option<u8>,
     audit_status: Option<String>, source_ref: Option<String>,
-) -> Result<Vec<kotoclip_core::grammar_catalog::GrammarConcept>, String> {
-    kotoclip_core::grammar_catalog::search(query.as_deref(), family.as_deref(), jlpt_level, audit_status.as_deref(), source_ref.as_deref())
+) -> Result<Vec<readux_core::grammar_catalog::GrammarConcept>, String> {
+    readux_core::grammar_catalog::search(query.as_deref(), family.as_deref(), jlpt_level, audit_status.as_deref(), source_ref.as_deref())
 }
 
 #[tauri::command]
-fn get_grammar_concept(concept_id: String) -> Result<kotoclip_core::grammar_catalog::GrammarConceptBundle, String> {
-    kotoclip_core::grammar_catalog::get(&concept_id)
+fn get_grammar_concept(concept_id: String) -> Result<readux_core::grammar_catalog::GrammarConceptBundle, String> {
+    readux_core::grammar_catalog::get(&concept_id)
 }
 
 #[tauri::command]
@@ -63,19 +63,19 @@ fn reader_library(state: State<'_, AppState>) -> Result<serde_json::Value, Strin
 }
 
 #[tauri::command]
-async fn reader_book_summary(state: State<'_, AppState>, id: String) -> Result<kotoclip_core::library::LibraryBookSummary, String> {
+async fn reader_book_summary(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBookSummary, String> {
     let reader = state.reader.clone();
     tauri::async_runtime::spawn_blocking(move || reader.book_summary(&id)).await.map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-async fn reader_import(state: State<'_, AppState>, path: String) -> Result<kotoclip_core::library::LibraryBook, String> {
+async fn reader_import(state: State<'_, AppState>, path: String) -> Result<readux_core::library::LibraryBook, String> {
     let reader = state.reader.clone();
     tauri::async_runtime::spawn_blocking(move || reader.import(&path)).await.map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-async fn reader_open_book(state: State<'_, AppState>, id: String) -> Result<kotoclip_core::library::LibraryBook, String> {
+async fn reader_open_book(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBook, String> {
     let reader = state.reader.clone();
     tauri::async_runtime::spawn_blocking(move || reader.open_book(&id)).await.map_err(|error| error.to_string())?
 }
@@ -90,17 +90,17 @@ async fn reader_open_text(state: State<'_, AppState>, text: String) -> Result<se
 fn reader_close(state: State<'_, AppState>) { state.reader.close(); }
 
 #[tauri::command]
-fn reader_progress(state: State<'_, AppState>, id: String, offset: usize, total: usize, chapter: Option<String>, seconds: u64) -> Result<kotoclip_core::library::LibraryBookSummary, String> {
+fn reader_progress(state: State<'_, AppState>, id: String, offset: usize, total: usize, chapter: Option<String>, seconds: u64) -> Result<readux_core::library::LibraryBookSummary, String> {
     state.reader.progress(&id, offset, total, chapter.as_deref(), seconds)
 }
 
 #[tauri::command]
-fn reader_organize(state: State<'_, AppState>, id: String, color: Option<String>, tags: Vec<String>) -> Result<kotoclip_core::library::LibraryBookSummary, String> {
+fn reader_organize(state: State<'_, AppState>, id: String, color: Option<String>, tags: Vec<String>) -> Result<readux_core::library::LibraryBookSummary, String> {
     state.reader.organize(&id, color.as_deref(), &tags)
 }
 
 #[tauri::command]
-fn reader_reset(state: State<'_, AppState>, id: String) -> Result<kotoclip_core::library::LibraryBookSummary, String> { state.reader.reset(&id) }
+fn reader_reset(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBookSummary, String> { state.reader.reset(&id) }
 
 #[tauri::command]
 fn reader_remove(state: State<'_, AppState>, id: String) -> Result<bool, String> { state.reader.remove(&id) }
@@ -142,7 +142,7 @@ pub fn run() {
                     .parent()
                     .ok_or("程序目录无效")?
                     .to_path_buf();
-                let data = std::env::var_os("KOTOCLIP_DATA_DIR")
+                let data = std::env::var_os("READUX_DATA_DIR")
                     .map(PathBuf::from)
                     .unwrap_or(app.path().app_data_dir()?);
                 let bundled = |relative: &str| {
@@ -155,7 +155,7 @@ pub fn run() {
                     }
                 };
                 let dictionary = |name: &str| {
-                    let override_name = format!("KOTOCLIP_UNIDIC_{}", name.to_uppercase());
+                    let override_name = format!("READUX_UNIDIC_{}", name.to_uppercase());
                     std::env::var_os(override_name)
                         .map(PathBuf::from)
                         .unwrap_or_else(|| {
@@ -177,11 +177,11 @@ pub fn run() {
                     dictionaries: data.join("dicts"),
                     provider_config: data.join("providers.local.json"),
                     provider_script: bundled("scripts/nlp_provider.py"),
-                    provider_defaults: kotoclip_core::providers::ProviderSettings::portable_with_resource_dir(&portable, Some(&resources)),
+                    provider_defaults: readux_core::providers::ProviderSettings::portable_with_resource_dir(&portable, Some(&resources)),
                 }
             };
-            let data = std::env::var_os("KOTOCLIP_DATA_DIR").map(PathBuf::from).unwrap_or(app.path().app_data_dir()?);
-            let library = app.path().document_dir()?.join("Kotoclip Library");
+            let data = std::env::var_os("READUX_DATA_DIR").map(PathBuf::from).unwrap_or(app.path().app_data_dir()?);
+            let library = app.path().document_dir()?.join("ReadUX Library");
             let reader = Arc::new(ReaderEngine::new(paths, library, data).map_err(std::io::Error::other)?);
             let background_reader = Arc::clone(&reader);
             tauri::async_runtime::spawn_blocking(move || {

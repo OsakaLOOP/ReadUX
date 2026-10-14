@@ -95,6 +95,6 @@ def inspect(output, binary):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--binary", type=Path, default=ROOT / "target-lookup-review/debug/kotoclip-nlp.exe")
+    parser.add_argument("--binary", type=Path, default=ROOT / "target-lookup-review/debug/readux-nlp.exe")
     args = parser.parse_args()
     inspect(args.output, args.binary)

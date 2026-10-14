@@ -264,7 +264,7 @@ def default_library_corpus(library: Path, cache_root: Path) -> tuple[Path, str]:
                 delete=False,
             ) as output:
                 temporary = Path(output.name)
-                output.write("# Kotoclip 语言质量全书库语料\n")
+                output.write("# ReadUX 语言质量全书库语料\n")
                 for book_id, title, author, language in rows:
                     heading = " / ".join(
                         item.replace("\n", " ").strip()
@@ -289,7 +289,7 @@ def default_library_corpus(library: Path, cache_root: Path) -> tuple[Path, str]:
 def default_commit_arguments(repo: Path, before: str, after: str) -> tuple[list[str], Path, Path]:
     quality_root = (repo / QUALITY_ROOT_NAME).resolve()
     cache_root = quality_root / ".cache"
-    library = Path.home() / "Documents" / "Kotoclip Library"
+    library = Path.home() / "Documents" / "ReadUX Library"
     source, corpus_id = default_library_corpus(library, cache_root)
     before_commit = resolve_commit(repo, before)
     after_commit = resolve_commit(repo, after)
@@ -355,7 +355,7 @@ def compare(values: Sequence[str]) -> int:
     no_history = False
     started_at = now()
     lifecycle: dict[str, Any] = {
-        "schema_version": "kotoclip.quality.lifecycle.v1",
+        "schema_version": "readux.quality.lifecycle.v1",
         "run_id": f"quality-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')}",
         "command": "compare",
         "status": "running",
@@ -507,7 +507,7 @@ def export_reading(values: Sequence[str]) -> int:
     with output.open("wb") as raw:
         with gzip.GzipFile(fileobj=raw, mode="wb", compresslevel=6, mtime=0) as compressed:
             with io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as stream:
-                stream.write('{"schema_version":"kotoclip.quality.reading-diff.v1","units":[')
+                stream.write('{"schema_version":"readux.quality.reading-diff.v1","units":[')
                 for index, unit in enumerate(
                     iter_reading_units(
                         directory / "reading-index.json.gz",
@@ -524,7 +524,7 @@ def export_reading(values: Sequence[str]) -> int:
 
 def print_help() -> None:
     print(
-        """Kotoclip 语言质量统一入口
+        """ReadUX 语言质量统一入口
 
 用法：
   language_quality.py compare BEFORE_COMMIT AFTER_COMMIT
@@ -540,7 +540,7 @@ def print_help() -> None:
   python scripts/language_quality.py compare HEAD^ HEAD
   python scripts/language_quality.py serve --root experiments/quality-audit-series --port 8765
 
-compare 固定读取用户 Documents/Kotoclip Library 全部书籍，并使用仓库内 IPADIC、
+compare 固定读取用户 Documents/ReadUX Library 全部书籍，并使用仓库内 IPADIC、
 词典源／缓存、data/research-profile.sqlite、release 构建和统一门禁配置。
 输出、内容寻址 artifact、生命周期与历史索引均位于 experiments/quality-audit-series。
 """

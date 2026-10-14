@@ -4,7 +4,7 @@ use crate::{model::MorphemeToken, structure::{StructureArtifact, StructureStatus
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
-pub const SCHEMA: &str = "kotoclip.clause-artifact.v1";
+pub const SCHEMA: &str = "readux.clause-artifact.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

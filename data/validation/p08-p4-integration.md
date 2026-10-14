@@ -1,5 +1,5 @@
 # p08
-paragraph=8 | schema=kotoclip.unified-document.v8
+paragraph=8 | schema=readux.unified-document.v8
 
 ## 文本
 第一に、東京市内電車の乗客の大多数は――たとえ無意識とはいえ――自ら求めて満員電車を選んで乗っている。第二には、そうすることによって、みずからそれらの満員電車の満員混雑の程度をますます増進するように努力している。

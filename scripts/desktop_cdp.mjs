@@ -4,10 +4,10 @@ export async function connectDesktop() {
   const deadline = Date.now() + 90000;
   while (!page && Date.now() < deadline) {
     const pages = await fetch('http://127.0.0.1:9222/json/list').then(response => response.json()).catch(() => []);
-    page = pages.find(page => page.title === 'Kotoclip');
+    page = pages.find(page => page.title === 'ReadUX');
     if (!page) await new Promise(resolve => setTimeout(resolve, 250));
   }
-  if (!page) throw new Error('未找到 Kotoclip 桌面窗口');
+  if (!page) throw new Error('未找到 ReadUX 桌面窗口');
   const socket = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
   let sequence = 0;

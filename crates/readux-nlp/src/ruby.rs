@@ -275,6 +275,14 @@ mod tests {
     #[test]
     fn groups_ruby_before_resolving_multi_token_coverage() {
         let results = validate(
+            "以来放課後《ほうかご》",
+            &[("以来", Some("イライ")), ("放課後", Some("ホウカゴ"))],
+        );
+        assert_eq!(results[0].base, "放課後");
+        assert_eq!(results[0].char_range, [2, 5]);
+        assert_eq!(results[0].candidate_char_range, [0, 5]);
+
+        let results = validate(
             "産業廃《はい》棄《き》物《ぶつ》",
             &[
                 ("産業", Some("サンギョウ")),

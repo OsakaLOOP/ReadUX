@@ -1,5 +1,5 @@
 # p10
-paragraph=10 | schema=kotoclip.unified-document.v8
+paragraph=10 | schema=readux.unified-document.v8
 
 ## 文本
 わたしなんかとは比べ物にならないほど貴重な彼女の時間を専有してしまっているという後ろめたさが、背筋をゾワゾワゾワと這い上がる。

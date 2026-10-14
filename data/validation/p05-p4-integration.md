@@ -1,5 +1,5 @@
 # p05
-paragraph=5 | schema=kotoclip.unified-document.v8
+paragraph=5 | schema=readux.unified-document.v8
 
 ## 文本
 あなたの作品は、上記に示された約束に従って扱われます。また、あなた自身も青空文庫のボランティアのひとりとして、登録されることになります。

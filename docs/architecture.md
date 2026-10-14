@@ -37,7 +37,7 @@ flowchart TD
 | L2 应用分析 | 统一对象、词典、规则 → 阅读单位和知识实例 | 分析活用、构词、词典整体词、语法与表达，保存成立依据 |
 | L3 查询与展示 | 应用分析、个人状态 → 阅读投影和解释结果 | 生成着色、注音、交互目标、词典查询、语法说明及导出内容 |
 
-`kotoclip-nlp` 承担来源与语言对象处理；`kotoclip-core` 协调词典、知识目录、书库、用户数据和会话；Tauri 提供桌面命令及资源管理；Vue 消费投影并提交用户意图。
+`readux-nlp` 承担来源与语言对象处理；`readux-core` 协调词典、知识目录、书库、用户数据和会话；Tauri 提供桌面命令及资源管理；Vue 消费投影并提交用户意图。
 
 阶段划分与代码层级分别描述实施顺序和职责。P4 提供来源支持的候选及词法形式；下一模块拥有词典查询与绑定、多粒度查询聚合、范围竞争和默认选择。语法与表达独立消费词汇、形态和结构证据，按需使用可声明的规则条件；阅读分组在词汇与语言决定之后生成。当前阅读器 Engine 的生命周期、进度和显示外围整体协议见 [阅读器 Engine](reader_engine.md)；现状核对见 [P4 完成范围](p4_handoff.md)，长期查询协议见 [词典与解释](dictionary.md)。
 
@@ -86,4 +86,4 @@ GiNZA 复用本机服务和已加载模型。基础正文和 UniDic 结果完成
 
 ## 代码入口
 
-[analysis.rs](../crates/kotoclip-core/src/analysis.rs)是当前应用服务，[model.rs](../crates/kotoclip-nlp/src/model.rs)定义统一结果，[unify.rs](../crates/kotoclip-nlp/src/unify.rs)组装各层，[src-tauri/src/lib.rs](../src-tauri/src/lib.rs)注册桌面命令。目标会话与当前服务的差距见 [TODO](TODO.md)。
+[analysis.rs](../crates/readux-core/src/analysis.rs)是当前应用服务，[model.rs](../crates/readux-nlp/src/model.rs)定义统一结果，[unify.rs](../crates/readux-nlp/src/unify.rs)组装各层，[src-tauri/src/lib.rs](../src-tauri/src/lib.rs)注册桌面命令。目标会话与当前服务的差距见 [TODO](TODO.md)。

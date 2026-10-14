@@ -233,11 +233,11 @@ processing: (3 + analysis.complete + cache.complete / 4)
 
 ## 实现入口与验收
 
-应用级协调入口为 `src-tauri/src/reader_engine.rs`，Tauri 命令在 `src-tauri/src/lib.rs` 注册。核心依赖为 `crates/kotoclip-core/src/analysis.rs`、`crates/kotoclip-core/src/document_session.rs`、`crates/kotoclip-core/src/library.rs` 和 `crates/kotoclip-core/src/profile/`。阅读器投影位于 `src/components/reader/`，查询目标和词典矩阵位于 `crates/kotoclip-core/src/dictionary/targets.rs` 与 `src/types/nlp.ts`。
+应用级协调入口为 `src-tauri/src/reader_engine.rs`，Tauri 命令在 `src-tauri/src/lib.rs` 注册。核心依赖为 `crates/readux-core/src/analysis.rs`、`crates/readux-core/src/document_session.rs`、`crates/readux-core/src/library.rs` 和 `crates/readux-core/src/profile/`。阅读器投影位于 `src/components/reader/`，查询目标和词典矩阵位于 `crates/readux-core/src/dictionary/targets.rs` 与 `src/types/nlp.ts`。
 
-运行 `cargo build -p kotoclip-core --bin kotoclip-nlp` 后，可用 `python -X utf8 scripts/test_reader_pipeline.py` 生成冷启动、重启缓存、关闭耗时诊断和查词验证报告，默认写入 `.agents/analysis/reader-pipeline-test.json`。阅读界面的“导出耗时”可保存当前书籍每个单元的诊断数据。
+运行 `cargo build -p readux-core --bin readux-nlp` 后，可用 `python -X utf8 scripts/test_reader_pipeline.py` 生成冷启动、重启缓存、关闭耗时诊断和查词验证报告，默认写入 `.agents/analysis/reader-pipeline-test.json`。阅读界面的“导出耗时”可保存当前书籍每个单元的诊断数据。
 
-`python -X utf8 scripts/test_reader_recovery.py --portable packages/Kotoclip-insider-portable-win64` 使用便携包资源和独立临时数据目录，验证解释器缺失、指定单元重试、全部重试、模型进程退出后的重建、损坏缓存重算及重启缓存读取。测试复用 `data/dicts` 的查询数据库，后端仍核验源包身份。报告位于 `.agents/analysis/reader-recovery.json`。
+`python -X utf8 scripts/test_reader_recovery.py --portable packages/ReadUX-insider-portable-win64` 使用便携包资源和独立临时数据目录，验证解释器缺失、指定单元重试、全部重试、模型进程退出后的重建、损坏缓存重算及重启缓存读取。测试复用 `data/dicts` 的查询数据库，后端仍核验源包身份。报告位于 `.agents/analysis/reader-recovery.json`。
 
 验收顺序如下：
 

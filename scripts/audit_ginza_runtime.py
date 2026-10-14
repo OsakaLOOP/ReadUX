@@ -96,7 +96,7 @@ def main() -> int:
     import sudachidict_core
 
     result = {
-        "schema": "kotoclip.ginza-runtime-audit.v1",
+        "schema": "readux.ginza-runtime-audit.v1",
         "python": sys.version,
         "model": args.model,
         "pipeline": adapter.nlp.pipe_names,

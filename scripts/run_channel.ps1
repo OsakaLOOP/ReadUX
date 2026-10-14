@@ -81,7 +81,7 @@ function Stop-PackagedExecutable([string]$ExecutablePath) {
 
 function Create-InsiderPackage {
     $packageRoot = Join-Path $workspace "packages"
-    $packageName = "Kotoclip-insider-portable-win64"
+    $packageName = "ReadUX-insider-portable-win64"
     $packageDir = Join-Path $packageRoot $packageName
     $archive = Join-Path $packageRoot ($packageName + ".zip")
     $workspaceRoot = (Resolve-Path $workspace).Path.TrimEnd("\")
@@ -112,7 +112,7 @@ function Create-InsiderPackage {
         }
     }
 
-    $packagedExecutable = Join-Path $packageDir "Kotoclip.exe"
+    $packagedExecutable = Join-Path $packageDir "ReadUX.exe"
     Stop-PackagedExecutable $packagedExecutable
     if (Test-Path -LiteralPath $packageDir) {
         Remove-Item -LiteralPath $packageDir -Recurse -Force

@@ -39,7 +39,7 @@ def main():
         for layer in ("tokens", "sentences"):
             u, g, k = spans(raw["unidic"], segment, layer), spans(raw["ginza"], gs, layer), spans(raw["kwja"], ks, layer)
             disagreements.append({"segment": gid, "layer": layer, "unidic_only": sorted(u-g-k), "ginza_only": sorted(g-u), "kwja_only": sorted(k-u)})
-    output = {"schema": "kotoclip.syntax-evidence-report.v1", "dataset": {"characters": sum(s["characters"] for s in json.loads(DATA.read_text(encoding="utf-8"))["segments"]), "gold_status": "pending_manual_annotation"}, "layers": layers, "label_richness": {key: {"distinct": len(value), "counts": value} for key, value in tag_counts.items()}, "disagreements": disagreements}
+    output = {"schema": "readux.syntax-evidence-report.v1", "dataset": {"characters": sum(s["characters"] for s in json.loads(DATA.read_text(encoding="utf-8"))["segments"]), "gold_status": "pending_manual_annotation"}, "layers": layers, "label_richness": {key: {"distinct": len(value), "counts": value} for key, value in tag_counts.items()}, "disagreements": disagreements}
     OUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(OUT), "layers": layers, "distinct_labels": {k: v["distinct"] for k, v in output["label_richness"].items()}}, ensure_ascii=False, indent=2))
 if __name__ == "__main__": main()

@@ -21,19 +21,19 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 ~~~json
 {
   "input": {
-    "schema": "kotoclip.cloud-analysis.v1",
+    "schema": "readux.cloud-analysis.v1",
     "request_id": "book-001",
     "units": [
       {"id": "chapter-1-unit-1", "text": "銀座でランチをご一緒しましょう。"}
     ],
-    "options": {"batch_size": 16, "precision": "fp16", "cpu_decode_processes": 1}
+    "options": {"batch_size": 32, "precision": "fp16", "cpu_decode_processes": 8}
   }
 }
 ~~~
 
 一个任务接收一组有序单元。小说输入由本地按现有文档单元策略准备，worker 使用 nlp.pipe 批处理。API 输出包含相同 request_id、模型清单、每个单元的 id 和来源 artifact，以及任务指标。
 
-来源 artifact 沿用 kotoclip.source-analysis.v1。统计信息单独放在 metrics，包含模型初始化、推理、结果转换耗时，输入规模、处理数量、显存和内存峰值。平台返回的任务状态、延迟、执行时间和 worker 信息完整保留在本地原始响应。
+来源 artifact 沿用 readux.source-analysis.v1。统计信息单独放在 metrics，包含模型初始化、推理、结果转换耗时，输入规模、处理数量、显存和内存峰值。平台返回的任务状态、延迟、执行时间和 worker 信息完整保留在本地原始响应。
 
 首次实验采用完整 JSON 返回。全书任务的输入输出大小与传输耗时写入报告；平台大小限制通过实际部署选定单任务书籍或章节规模，产品结果存储在后续阶段接入。
 
@@ -74,6 +74,8 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 
 ## 性能预算与 GiNZA 优化边界
 
+2026-10-13，本机共享 BERT、CPU pool 和阶段重叠原型完成阶段验收。源码及实际速度见 [BERT 优化交接](ginza_optimization_handoff.md)，下一个 agent 先完成流程模型分析与 4060 Ti 16 GiB 设计，再决定镜像执行核心和参数。E1/E2 的云端部署、计价与目标平台验收按本文继续推进。
+
 本机纯 Transformer FP16 为 12900–15944 token/s，关闭 NER 的 AMP 管线为 4705 token/s，完整 FP16 为 810 token/s。NER 占分阶段耗时 65.1%。E1 单进程为零优化对照，E2 优化后的 serverless 是正式上线版本。
 
 | 状态 | 完整吞吐预算 | 十万 token 暖机完成 | 缓存冷启动完成 | 每本 GPU 费用 |
@@ -85,7 +87,7 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 
 E1 模型加载预算 17 s；E2 的模型、CPU pool 初始化与预热合计 30 s。请求与结果处理预留 5 s，serverless 空闲保留 10 s。E2 的 9068 token 正文暖机/缓存冷启动为 8/38 s，119702 字符材料约 73500 token，对应 30/60 s。并发 6–10 个 serverless 请求时，平台分配独立 worker，各请求保持该单次时间预算，总 GPU 费用按所有 worker 秒数累加。
 
-E2 在每个 serverless worker 内采用一份共享 FP16 BERT、一个 GPU 推理进程和六个 CPU 解码进程，资源为六个有效 CPU 核心、24 GiB 系统内存、16 GB GPU。必须实现 NER 独立单元并行、状态特征与 maxout 数组计算优化、合法动作筛选与 argmax 循环合并、特征批量传输及共享缓冲、GPU/CPU 双缓冲重叠、长度分组与 batch/max_batch_items 配置、完成单元的 Doc 和特征释放。保留 BILUO、greedy 及同分规则，完整输出与 FP32/FP16 基准逐字段对照。
+E2 在每个 serverless worker 内采用一份共享 FP16 BERT、一个 GPU 计算流、一个独立 D2H 流和八个 CPU 解码进程，资源为八个有效 CPU 核心、24 GiB 系统内存、16 GB GPU。必须实现 NER 独立单元并行、特征批量传输及共享缓冲、GPU/CPU 双缓冲重叠、长度分组与 batch/max_batch_items 配置、完成单元的 Doc 和特征释放。保留 BILUO、greedy 及同分规则，完整输出与 FP32/FP16 基准逐字段对照；计算多流仅在目标设备上的受控实验达到验收条件后启用。
 
 P4 常驻单卡复用 E2 执行核心，增加跨请求的单元合批和优先顺序。十个十万 token 请求在 serverless 优化版上各约 38 s 完成；在常驻单卡上共享 3000 token/s，整组约 6.4 分钟完成。上线版本、扩缩容并发与单卡共享容量分别验收。
 

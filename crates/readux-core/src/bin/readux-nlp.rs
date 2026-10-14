@@ -1,5 +1,5 @@
-use kotoclip_core::analysis::{AnalysisService, Request, ResourcePaths, Response};
-use kotoclip_nlp::model::Register;
+use readux_core::analysis::{AnalysisService, Request, ResourcePaths, Response};
+use readux_nlp::model::Register;
 use std::{
     io::{self, BufRead, Write},
     path::PathBuf,
@@ -45,7 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
             let text = args
                 .get(2)
-                .ok_or("用法：kotoclip-nlp inspect cwj|csj 文本")?
+                .ok_or("用法：readux-nlp inspect cwj|csj 文本")?
                 .clone();
             let response = service.dispatch(Request::Analyze { text, register });
             if let Some(error) = response.error {
@@ -69,7 +69,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 );
             }
         }
-        _ => eprintln!("用法：kotoclip-nlp inspect cwj|csj 文本 | repl | stdio"),
+        _ => eprintln!("用法：readux-nlp inspect cwj|csj 文本 | repl | stdio"),
     }
     Ok(())
 }

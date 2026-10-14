@@ -1,10 +1,10 @@
 [workspace]
 members = [
-    "crates/kotoclip-core",
-    "crates/kotoclip-nlp",
+    "crates/readux-core",
+    "crates/readux-nlp",
     "src-tauri",
 ]
-exclude = ["crates/kotoclip-quality-audit"]
+exclude = ["crates/readux-quality-audit"]
 resolver = "2"
 
 # 开发渠道只保留实时调试所需的增量编译，不生成完整 debug 符号。

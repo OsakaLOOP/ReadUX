@@ -11,7 +11,7 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
 const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 try {
-  await page.goto(process.env.KOTOCLIP_TEST_URL || 'http://127.0.0.1:1420', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.goto(process.env.READUX_TEST_URL || 'http://127.0.0.1:1420', { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.getByRole('button', { name: '分析', exact: true }).click();
   await page.getByRole('button', { name: '警察', exact: true }).waitFor({ timeout: 60000 });
   await page.getByRole('button', { name: '警察', exact: true }).click();

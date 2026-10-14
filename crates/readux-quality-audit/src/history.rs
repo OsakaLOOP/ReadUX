@@ -7,7 +7,7 @@ use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-const HISTORY_SCHEMA_VERSION: &str = "kotoclip.quality.comparison-history.v1";
+const HISTORY_SCHEMA_VERSION: &str = "readux.quality.comparison-history.v1";
 
 pub fn publish_history(history_root: &Path, audit_directory: &Path) -> Result<PathBuf> {
     fs::create_dir_all(history_root)?;

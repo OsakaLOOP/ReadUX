@@ -79,7 +79,7 @@ def main() -> None:
     reference = artifacts(reference_payload)
     candidate = artifacts(candidate_payload)
     results: dict[str, Any] = {
-        "schema": "kotoclip.native-provider-parity.v1",
+        "schema": "readux.native-provider-parity.v1",
         "reference": {"path": str(args.reference), "provider": provider(reference_payload)},
         "candidate": {"path": str(args.candidate), "provider": provider(candidate_payload)},
         "layers": {},

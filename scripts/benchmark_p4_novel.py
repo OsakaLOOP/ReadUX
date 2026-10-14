@@ -108,14 +108,14 @@ def summarize(report: dict):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=SOURCE)
-    parser.add_argument("--binary", type=Path, default=ROOT / "target/release/kotoclip-nlp.exe")
+    parser.add_argument("--binary", type=Path, default=ROOT / "target/release/readux-nlp.exe")
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     text, partitions = partition_novel(args.source)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     report = {
-        "schema": "kotoclip.p4-novel-performance.v1",
+        "schema": "readux.p4-novel-performance.v1",
         "started_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "source_path": str(args.source),
         "source_sha256": hashlib.sha256(args.source.read_bytes()).hexdigest(),

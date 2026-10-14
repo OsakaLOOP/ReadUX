@@ -17,7 +17,7 @@ pub fn generate_bubble_preview_html(lookup: &DictionaryLookup) -> String {
     let mut html = String::new();
     html.push_str("<!doctype html><html lang=\"ja\"><head><meta charset=\"utf-8\">");
     html.push_str("<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">");
-    html.push_str("<title>Kotoclip 词典 Lookup 预览 - ");
+    html.push_str("<title>ReadUX 词典 Lookup 预览 - ");
     html.push_str(&escape_html(&lookup.query));
     html.push_str("</title><style>");
     html.push_str(PREVIEW_CSS);

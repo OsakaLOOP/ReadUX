@@ -185,7 +185,7 @@ fn read_header_from(reader: &mut impl Read) -> Result<BundleHeader, Box<dyn std:
     let mut magic = [0; 8];
     reader.read_exact(&mut magic)?;
     if &magic != MAGIC {
-        return Err("不是有效的 Kotoclip 词典源包".into());
+        return Err("不是有效的 ReadUX 词典源包".into());
     }
     let header_size = read_u32(reader)? as usize;
     let mut header = vec![0; header_size];

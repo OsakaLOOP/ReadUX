@@ -1,7 +1,7 @@
 use crate::model::{Register, RegisterRouting};
 use serde::{Deserialize, Serialize};
 
-pub const VERSION: &str = "kotoclip.register-routing.v2";
+pub const VERSION: &str = "readux.register-routing.v2";
 
 #[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

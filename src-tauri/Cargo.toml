@@ -25,4 +25,4 @@ tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 flate2 = "1"
-kotoclip-core = { path = "../crates/kotoclip-core" }
+readux-core = { path = "../crates/readux-core" }

@@ -34,7 +34,7 @@ def main() -> int:
         raise SystemExit("训练入口需要 PyTorch；数据校验可使用标准库脚本完成") from error
     config = json.loads(args.config.read_text(encoding="utf-8"))
     feature_vocabulary = json.loads(args.feature_vocabulary.read_text(encoding="utf-8"))
-    if feature_vocabulary.get("schema") != "kotoclip.unidic-feature-vocabulary.v1":
+    if feature_vocabulary.get("schema") != "readux.unidic-feature-vocabulary.v1":
         raise SystemExit("feature vocabulary schema is unsupported")
     count, errors = validate_jsonl(args.contract)
     if errors:
@@ -48,7 +48,7 @@ def main() -> int:
     batches = torch.load(args.data, map_location="cpu", weights_only=True)
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(config["training"]["learning_rate"]), weight_decay=float(config["training"].get("weight_decay", 0.01)))
     loss = train_one_epoch(model, batches, optimizer, loss_weights=config.get("loss_weights"), device=args.device)
-    manifest = {"schema": "kotoclip.unidic-checkpoint.v1", "model_id": config["model_id"], "model_kind": args.model, "config_sha256": hashlib.sha256(args.config.read_bytes()).hexdigest(), "feature_vocabulary_sha256": feature_vocabulary["sha256"], "contract_sha256": sha256_file(args.contract), "contract_documents": count, "parameters": sum(parameter.numel() for parameter in model.parameters()), "loss": loss}
+    manifest = {"schema": "readux.unidic-checkpoint.v1", "model_id": config["model_id"], "model_kind": args.model, "config_sha256": hashlib.sha256(args.config.read_bytes()).hexdigest(), "feature_vocabulary_sha256": feature_vocabulary["sha256"], "contract_sha256": sha256_file(args.contract), "contract_documents": count, "parameters": sum(parameter.numel() for parameter in model.parameters()), "loss": loss}
     save_checkpoint(args.output, model, manifest=manifest)
     print(json.dumps(manifest, ensure_ascii=False, indent=2))
     return 0

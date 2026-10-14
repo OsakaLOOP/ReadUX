@@ -21,7 +21,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.chain",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -46,7 +46,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.form.imperfective",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -71,7 +71,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.form.continuative",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -96,7 +96,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.form.imperative",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -126,7 +126,7 @@
       ],
       "default_explanation_id": "explanation.morphology.form.adjectival_attributive",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -151,7 +151,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.form.te",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -176,7 +176,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.form.de",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -201,7 +201,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.tense.past",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -226,7 +226,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.polarity.negative",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -251,7 +251,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.voice.causative",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -279,7 +279,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.voice.passive_potential",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -304,7 +304,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.politeness.masu",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -329,7 +329,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.modality.desire",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -354,7 +354,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.mood.volitional",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -379,7 +379,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.morphology.mood.conditional",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -406,7 +406,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.ga",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -432,7 +432,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.wo",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -460,7 +460,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.ni",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -485,7 +485,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.e",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -512,7 +512,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.de",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -539,7 +539,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.to",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -565,7 +565,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.kara",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -590,7 +590,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.made",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -616,7 +616,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.wa",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -642,7 +642,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.mo",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -667,7 +667,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.shika",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -692,7 +692,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.dake",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -717,7 +717,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.te",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -742,7 +742,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.de_connective",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -767,7 +767,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.ba",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -792,7 +792,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.auxiliary.nai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -818,7 +818,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.auxiliary.ta",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -843,7 +843,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.auxiliary.masu",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -869,7 +869,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.auxiliary.desu",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -894,7 +894,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.auxiliary.da",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -920,7 +920,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.iru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -945,7 +945,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.aru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -970,7 +970,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.oku",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -995,7 +995,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.miru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1022,7 +1022,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.shimau",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1048,7 +1048,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.iku",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1074,7 +1074,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.kuru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1099,7 +1099,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.yaru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1124,7 +1124,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.ageru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1149,7 +1149,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.kureru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1176,7 +1176,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.kudasaru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1201,7 +1201,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.morau",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1226,7 +1226,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.functional.naru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1252,7 +1252,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.aspect.te_iru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1277,7 +1277,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.aspect.te_aru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1302,7 +1302,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.aspect.te_oku",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1327,7 +1327,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.modality.te_miru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1354,7 +1354,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.aspect.te_shimau",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1380,7 +1380,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.direction.te_iku",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1406,7 +1406,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.direction.te_kuru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1431,7 +1431,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.benefactive.te_yaru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1456,7 +1456,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.benefactive.te_ageru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1481,7 +1481,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.benefactive.te_kureru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1508,7 +1508,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.benefactive.te_kudasaru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1533,7 +1533,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.benefactive.te_morau",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1558,7 +1558,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.request.te_kudasai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1584,7 +1584,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.obligation.nakereba_naranai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1611,7 +1611,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.ni_wa",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1637,7 +1637,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.ni_mo",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1664,7 +1664,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.particle.de_wa",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1690,7 +1690,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.connective.te_mo",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1716,7 +1716,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.modality.volitional_to_suru",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1742,7 +1742,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.formal.tsumori_da",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1769,7 +1769,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.connective.nagara_mo",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "audit_status": "verified",
       "concept_version": 1,
@@ -1795,7 +1795,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.restriction.shika_nai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1823,7 +1823,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.necessity.zaru_wo_enai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1850,7 +1850,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.equivalence.douzen",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1877,7 +1877,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.emphasis.sura_nai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1904,7 +1904,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.modality.kanenai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1931,7 +1931,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.obligation.neba_naranai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1959,7 +1959,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.modality.kamo_shirezu",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -1987,7 +1987,7 @@
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.evaluation.kono_ue_nai",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "audit_status": "verified",
@@ -5691,7 +5691,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5712,7 +5712,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5733,7 +5733,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5754,7 +5754,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5775,7 +5775,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5796,7 +5796,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5817,7 +5817,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5838,7 +5838,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5859,7 +5859,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5880,7 +5880,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5901,7 +5901,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5922,7 +5922,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5943,7 +5943,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5964,7 +5964,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -5985,7 +5985,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6006,7 +6006,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6027,7 +6027,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6048,7 +6048,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6069,7 +6069,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6090,7 +6090,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6111,7 +6111,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6132,7 +6132,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6153,7 +6153,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6174,7 +6174,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6195,7 +6195,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6216,7 +6216,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6237,7 +6237,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6258,7 +6258,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6279,7 +6279,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6300,7 +6300,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6321,7 +6321,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6342,7 +6342,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6363,7 +6363,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6384,7 +6384,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6405,7 +6405,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6426,7 +6426,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6447,7 +6447,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6468,7 +6468,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6489,7 +6489,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6510,7 +6510,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6531,7 +6531,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6552,7 +6552,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6573,7 +6573,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6594,7 +6594,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6615,7 +6615,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6636,7 +6636,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6657,7 +6657,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6678,7 +6678,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6699,7 +6699,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6720,7 +6720,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6741,7 +6741,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6762,7 +6762,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6783,7 +6783,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6804,7 +6804,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6825,7 +6825,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6846,7 +6846,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6867,7 +6867,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6888,7 +6888,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6909,7 +6909,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6930,7 +6930,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6951,7 +6951,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6972,7 +6972,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -6993,7 +6993,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ]
     },
     {
@@ -7016,7 +7016,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7040,7 +7040,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7065,7 +7065,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7089,7 +7089,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7113,7 +7113,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7137,7 +7137,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7162,7 +7162,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7186,7 +7186,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7210,7 +7210,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7234,7 +7234,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7258,7 +7258,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7282,7 +7282,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -7306,7 +7306,7 @@
       "realization_version": 1,
       "audit_status": "verified",
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ]
     },
@@ -8599,7 +8599,7 @@
         "ほかにない（普通的名词＋格助词结构）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -8655,7 +8655,7 @@
         "本しか読まない（しか与否定分句分离）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -8738,7 +8738,7 @@
         "ねば单独作为终助词＋条件句"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -8819,7 +8819,7 @@
         "水を入れたざるを得ない（名词ざる）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -8888,7 +8888,7 @@
         "すらない（缺少系词前接）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -8944,7 +8944,7 @@
         "かねない作为普通词汇链而无风险语义"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -9015,7 +9015,7 @@
         "かも＋しれない"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -9081,7 +9081,7 @@
         "同然の理由（连体名词结构）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -9159,7 +9159,7 @@
         "読まなければ帰る。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9213,7 +9213,7 @@
         "こと、この上ない（逗号分隔的独立成分）"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -9281,7 +9281,7 @@
         "先生が本を読んでくださった。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9392,7 +9392,7 @@
         "出かけようと話す。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9625,7 +9625,7 @@
         "あげる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9687,7 +9687,7 @@
         "ある を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9750,7 +9750,7 @@
         "いく を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9815,7 +9815,7 @@
         "いる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9877,7 +9877,7 @@
         "くださる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -9939,7 +9939,7 @@
         "くれる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10002,7 +10002,7 @@
         "くる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10065,7 +10065,7 @@
         "みる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10127,7 +10127,7 @@
         "もらう を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10189,7 +10189,7 @@
         "おく を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10251,7 +10251,7 @@
         "しまう を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10313,7 +10313,7 @@
         "やる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10480,7 +10480,7 @@
         "ならば を接続词として孤立使用する例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -10541,7 +10541,7 @@
         "たら を独立的过去助动词として使用する例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -10598,7 +10598,7 @@
         "だろ を单独词典词头使用的例子"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -10647,7 +10647,7 @@
         "で と は が離れている。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10695,7 +10695,7 @@
         "に と も が離れている。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10743,7 +10743,7 @@
         "に と は が離れている。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10796,7 +10796,7 @@
         "て と も が離れている。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10839,7 +10839,7 @@
         "だろ を独立词汇使用的例子"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-23",
+        "readux-editorial:2026-07-23",
         "annotation-audit:20260723"
       ],
       "rule_version": 1,
@@ -10889,7 +10889,7 @@
         "音楽を聞きながら歩く。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10938,7 +10938,7 @@
         "荷物を積もりだ。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": true
@@ -10990,7 +10990,7 @@
         "あげる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11042,7 +11042,7 @@
         "ある を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11095,7 +11095,7 @@
         "いく を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11148,7 +11148,7 @@
         "いる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11200,7 +11200,7 @@
         "くださる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11252,7 +11252,7 @@
         "くれる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11305,7 +11305,7 @@
         "くる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11358,7 +11358,7 @@
         "みる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11410,7 +11410,7 @@
         "もらう を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11462,7 +11462,7 @@
         "おく を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11514,7 +11514,7 @@
         "しまう を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11566,7 +11566,7 @@
         "やる を自立谓词として用いる。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11640,7 +11640,7 @@
         "causative negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11672,7 +11672,7 @@
         "conditional negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11704,7 +11704,7 @@
         "de negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11736,7 +11736,7 @@
         "desire negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11768,7 +11768,7 @@
         "masu negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11800,7 +11800,7 @@
         "negative negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11832,7 +11832,7 @@
         "passive_potential negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11864,7 +11864,7 @@
         "past negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11896,7 +11896,7 @@
         "te negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -11928,7 +11928,7 @@
         "volitional negative"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13686,7 +13686,7 @@
         "だ を独立語として扱う例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13724,7 +13724,7 @@
         "です を独立語として扱う例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13762,7 +13762,7 @@
         "ます を独立語として扱う例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13800,7 +13800,7 @@
         "ない を独立語として扱う例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13838,7 +13838,7 @@
         "た を独立語として扱う例"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13879,7 +13879,7 @@
         "「ば」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13920,7 +13920,7 @@
         "「だけ」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -13961,7 +13961,7 @@
         "「で」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14002,7 +14002,7 @@
         "「で」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14043,7 +14043,7 @@
         "「へ」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14084,7 +14084,7 @@
         "「が」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14122,7 +14122,7 @@
         "「から」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14160,7 +14160,7 @@
         "「まで」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14201,7 +14201,7 @@
         "「も」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14242,7 +14242,7 @@
         "「に」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14283,7 +14283,7 @@
         "「しか」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14324,7 +14324,7 @@
         "「て」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14365,7 +14365,7 @@
         "「と」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14406,7 +14406,7 @@
         "「は」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false
@@ -14447,7 +14447,7 @@
         "「を」を名詞として引用する。"
       ],
       "source_refs": [
-        "kotoclip-editorial:2026-07-16"
+        "readux-editorial:2026-07-16"
       ],
       "rule_version": 1,
       "show_badge": false

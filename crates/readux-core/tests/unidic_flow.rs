@@ -1,6 +1,6 @@
-use kotoclip_core::analysis::{AnalysisService, Request, ResourcePaths};
-use kotoclip_nlp::model::{Register, UnifiedDocument};
-use kotoclip_nlp::syntax::{SyntaxArtifact, SyntaxProviderDescriptor, SyntaxSpan};
+use readux_core::analysis::{AnalysisService, Request, ResourcePaths};
+use readux_nlp::model::{Register, UnifiedDocument};
+use readux_nlp::syntax::{SyntaxArtifact, SyntaxProviderDescriptor, SyntaxSpan};
 use std::path::PathBuf;
 
 #[test]
@@ -14,9 +14,9 @@ fn real_resources_preserve_ranges_fields_and_query_targets() {
         });
         assert!(response.error.is_none(), "{:?}", response.error);
         let doc: UnifiedDocument = serde_json::from_value(response.result.unwrap()).unwrap();
-        assert_eq!(doc.morphology.schema, kotoclip_nlp::morphology::SCHEMA);
+        assert_eq!(doc.morphology.schema, readux_nlp::morphology::SCHEMA);
         assert!(!doc.morphology.chains.is_empty());
-        assert!(doc.grammar.occurrences.iter().all(|item| item.status == kotoclip_nlp::grammar::GrammarStatus::Candidate));
+        assert!(doc.grammar.occurrences.iter().all(|item| item.status == readux_nlp::grammar::GrammarStatus::Candidate));
         assert!(doc.projection.targets.iter().all(|item| item.layer == "grammar"));
         let chars: Vec<char> = doc.text.chars().collect();
         let mut coverage = vec![0; chars.len()];
@@ -106,12 +106,12 @@ fn ruby_validation_and_automatic_routing_preserve_actual_source_runs() {
     );
 
     let response = service.dispatch(Request::AnalyzeRouted {
-        policy: kotoclip_nlp::routing::RegisterPolicy::Auto,
+        policy: readux_nlp::routing::RegisterPolicy::Auto,
         text: "𠮷野は「これはとても長い会話文を含んでいます」と言った。".into(),
     });
     assert!(response.error.is_none(), "{:?}", response.error);
     let document: UnifiedDocument = serde_json::from_value(response.result.unwrap()).unwrap();
-    assert_eq!(document.routing.requested, kotoclip_nlp::routing::RegisterPolicy::Auto);
+    assert_eq!(document.routing.requested, readux_nlp::routing::RegisterPolicy::Auto);
     assert_eq!(document.routing.selected, None);
     assert_eq!(document.source.runs.len(), 3);
     assert!(document.source.runs[0].provider.id.contains("cwj"));
@@ -196,14 +196,14 @@ fn analyze_with_artifacts_preserves_bunsetsu_head_mapping() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let mut service = AnalysisService::new(ResourcePaths::development(&root));
     let artifact = SyntaxArtifact {
-        schema: kotoclip_nlp::syntax::SCHEMA.into(),
+        schema: readux_nlp::syntax::SCHEMA.into(),
         segment_id: Some("fixture".into()),
         provider: SyntaxProviderDescriptor {
             id: "ginza".into(), version: Some("5.2.1".into()),
             capabilities: vec!["bunsetsu".into()], license: Some("MIT".into()),
         },
         text_characters: 8,
-        text_sha256: kotoclip_nlp::external::text_digest("警察へ向かった。"),
+        text_sha256: readux_nlp::external::text_digest("警察へ向かった。"),
         spans: vec![
             SyntaxSpan {
                 id: "b0".into(), kind: "bunsetsu".into(), char_range: [0, 3],

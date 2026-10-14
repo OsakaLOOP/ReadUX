@@ -1,5 +1,5 @@
 //! 用户语言规则的 UTF-8 JSON 存储与版本管理。
-use kotoclip_nlp::rules::Rule;
+use readux_nlp::rules::Rule;
 use serde::{Deserialize, Serialize};
 use std::{path::PathBuf, sync::Mutex, time::{SystemTime, UNIX_EPOCH}};
 
@@ -20,8 +20,8 @@ impl RuleStore {
     pub fn open(path: PathBuf) -> Self {
         let state = std::fs::read_to_string(&path).ok()
             .and_then(|text| serde_json::from_str::<RuleSnapshot>(&text).ok())
-            .filter(|state| state.schema == "kotoclip.user-language-rules.v1")
-            .unwrap_or_else(|| RuleSnapshot { schema: "kotoclip.user-language-rules.v1".into(), version: 0, rules: Vec::new() });
+            .filter(|state| state.schema == "readux.user-language-rules.v1")
+            .unwrap_or_else(|| RuleSnapshot { schema: "readux.user-language-rules.v1".into(), version: 0, rules: Vec::new() });
         Self { path, state: Mutex::new(state) }
     }
 
@@ -73,7 +73,7 @@ impl RuleStore {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kotoclip_nlp::rules::Atom;
+    use readux_nlp::rules::Atom;
 
     fn rule() -> Rule {
         Rule { id: String::new(), label: "测试规则".into(), description: String::new(), kind: "idiom".into(),
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn persists_updates_and_deletion() {
-        let path = std::env::temp_dir().join(format!("kotoclip-rule-store-{}.json", std::process::id()));
+        let path = std::env::temp_dir().join(format!("readux-rule-store-{}.json", std::process::id()));
         let _ = std::fs::remove_file(&path);
         let store = RuleStore::open(path.clone());
         let saved = store.save(rule()).unwrap();

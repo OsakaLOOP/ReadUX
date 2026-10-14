@@ -1,5 +1,5 @@
 //! P4 十段核查语料的离线回归测试。
-use kotoclip_nlp::{
+use readux_nlp::{
     bunsetsu::BunsetsuArtifact,
     external::{text_digest, SourceArtifact, SourceNode, SourceRelation},
     formation::FormationArtifact,
@@ -42,7 +42,7 @@ fn samples() -> Vec<Sample> {
 
 #[test]
 fn sample_inflection_chains_preserve_ownership_and_operators() {
-    let artifacts = samples().into_iter().map(|sample| kotoclip_nlp::morphology::collect(&sample.sources, &sample.morphemes).unwrap()).collect::<Vec<_>>();
+    let artifacts = samples().into_iter().map(|sample| readux_nlp::morphology::collect(&sample.sources, &sample.morphemes).unwrap()).collect::<Vec<_>>();
     let chains = artifacts.iter().flat_map(|artifact| &artifact.chains).collect::<Vec<_>>();
     for surface in ["掲載された", "発展せしめる", "扱われます", "覗かれ", "しまって"] {
         assert!(chains.iter().any(|chain| chain.surface_form.contains(surface)), "活用链缺少 {surface}");
@@ -72,8 +72,8 @@ fn sample_formations_use_formal_tokens_and_keep_unusual_readings() {
         assert!(samples.iter().flat_map(|sample| &sample.morphemes).any(|token| token.surface == surface), "样例缺少 {surface}");
     }
     let dictionary_path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../data/dicts");
-    let dictionary = kotoclip_core::dictionary::lookup::DictionaryEngine::new(dictionary_path).unwrap();
-    let bindings = kotoclip_core::language_analysis::lookup_bindings(&dictionary, "方向転換", Some("ホウコウテンカン"));
+    let dictionary = readux_core::dictionary::lookup::DictionaryEngine::new(dictionary_path).unwrap();
+    let bindings = readux_core::language_analysis::lookup_bindings(&dictionary, "方向転換", Some("ホウコウテンカン"));
     assert!(!bindings.is_empty(), "方向転換应绑定本地词典整体记录");
     assert!(bindings.iter().all(|binding| !binding.entry_key.is_empty() && !binding.occurrence_id.is_empty()));
 }
@@ -86,13 +86,13 @@ fn ginza_verb_core_recovers_classical_verb_without_orphan_auxiliary() {
     let report: Value = serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
     let source = report["cases"][1]["document"]["sources"].as_array().unwrap().iter()
         .find(|source| source["provider"]["id"] == "ginza").unwrap();
-    let syntax = SyntaxArtifact { schema: kotoclip_nlp::syntax::SCHEMA.into(), segment_id: None,
+    let syntax = SyntaxArtifact { schema: readux_nlp::syntax::SCHEMA.into(), segment_id: None,
         provider: SyntaxProviderDescriptor { id: "ginza".into(), version: None, capabilities: vec![], license: None },
         text_sha256: text_digest(&sample.text), text_characters: sample.text.chars().count(), spans: vec![] };
     let mut ginza = SourceArtifact::from_syntax(&syntax, &sample.text).unwrap();
     ginza.nodes = serde_json::from_value::<Vec<SourceNode>>(source["nodes"].clone()).unwrap();
     ginza.relations = serde_json::from_value::<Vec<SourceRelation>>(source["relations"].clone()).unwrap();
-    let artifact = kotoclip_nlp::morphology::collect_with_external(
+    let artifact = readux_nlp::morphology::collect_with_external(
         &sample.sources, &sample.morphemes, std::slice::from_ref(&ginza)).unwrap();
     let chain = artifact.chains.iter().find(|chain| chain.surface_form == "流る").unwrap();
     assert_eq!(chain.dictionary_form, "流る");
@@ -113,12 +113,12 @@ fn ginza_verb_core_recovers_classical_verb_without_orphan_auxiliary() {
     assert!(artifact.chains.iter().any(|chain| chain.surface_form == "なり" && chain.status == "pending"));
     assert!(artifact.chains.iter().any(|chain| chain.surface_form == "送梅" && chain.status == "candidate"));
 
-    let without_ginza = kotoclip_nlp::morphology::collect(&sample.sources, &sample.morphemes).unwrap();
+    let without_ginza = readux_nlp::morphology::collect(&sample.sources, &sample.morphemes).unwrap();
     assert!(without_ginza.chains.iter().any(|chain| chain.surface_form == "る"));
 
     let verb = ginza.nodes.iter_mut().find(|node| node.surface == "流る").unwrap();
     verb.features["pos"] = Value::String("NOUN".into());
-    let noun_source = kotoclip_nlp::morphology::collect_with_external(
+    let noun_source = readux_nlp::morphology::collect_with_external(
         &sample.sources, &sample.morphemes, &[ginza]).unwrap();
     assert!(noun_source.chains.iter().any(|chain| chain.surface_form == "る"));
 }
@@ -144,19 +144,19 @@ fn sample_query_targets_preserve_source_and_derived_identity() {
 #[test]
 fn sample_grammar_and_correlative_rules_match_precise_ranges() {
     let samples = samples();
-    let grammar = kotoclip_core::language_rules::grammar().unwrap();
-    let expressions = kotoclip_core::language_rules::expressions().unwrap();
+    let grammar = readux_core::language_rules::grammar().unwrap();
+    let expressions = readux_core::language_rules::expressions().unwrap();
     let mut concepts = BTreeSet::new();
     let mut expression_ids = BTreeSet::new();
     for sample in &samples {
         for rule in grammar {
-            if !kotoclip_nlp::rules::matches(rule, &sample.text, &sample.morphemes, &sample.sources).unwrap().is_empty() {
+            if !readux_nlp::rules::matches(rule, &sample.text, &sample.morphemes, &sample.sources).unwrap().is_empty() {
                 if let Some(concept) = &rule.concept_id { concepts.insert(concept.clone()); }
             }
         }
         for rule in &expressions {
-            let found = kotoclip_nlp::rules::matches(rule, &sample.text, &sample.morphemes, &sample.sources).unwrap();
-            if found.iter().any(|matched| kotoclip_nlp::rules::respects_bunsetsu_gap(rule, matched, &sample.bunsetsu)) {
+            let found = readux_nlp::rules::matches(rule, &sample.text, &sample.morphemes, &sample.sources).unwrap();
+            if found.iter().any(|matched| readux_nlp::rules::respects_bunsetsu_gap(rule, matched, &sample.bunsetsu)) {
                 expression_ids.insert(rule.id.split(":variant:").next().unwrap().to_owned());
             }
         }

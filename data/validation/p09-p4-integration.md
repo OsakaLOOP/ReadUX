@@ -1,5 +1,5 @@
 # p09
-paragraph=9 | schema=kotoclip.unified-document.v8
+paragraph=9 | schema=readux.unified-document.v8
 
 ## 文本
 ラティメリアはきょろきょろと部屋を見渡すが、鏡の裏から覗かれてるとは気づかない。

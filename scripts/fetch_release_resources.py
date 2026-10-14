@@ -11,7 +11,7 @@ import zipfile
 
 
 def download(url: str, destination: Path) -> None:
-    request = Request(url, headers={"User-Agent": "kotoclip-release-builder"})
+    request = Request(url, headers={"User-Agent": "readux-release-builder"})
     with urlopen(request) as response, destination.open("wb") as stream:
         while block := response.read(8 * 1024 * 1024):
             stream.write(block)
@@ -51,7 +51,7 @@ def main() -> int:
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
-    with tempfile.TemporaryDirectory(prefix="kotoclip-resource-download-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="readux-resource-download-") as temporary:
         temporary_root = Path(temporary)
         nlp_root = extract(args.nlp_url, temporary_root / "nlp")
         for relative in ("nlp", "dict-sources", "scripts"):

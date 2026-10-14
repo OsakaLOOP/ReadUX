@@ -1,5 +1,5 @@
 [package]
-name = "kotoclip-core"
+name = "readux-core"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-kotoclip-nlp = { path = "../kotoclip-nlp" }
+readux-nlp = { path = "../readux-nlp" }
 vibrato = { path = "../../vendor/vibrato", version = "0.5.2" }
 aho-corasick = "1.1"
 rusqlite = { version = "0.31", features = ["bundled", "bundled-full"] }

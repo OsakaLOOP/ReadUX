@@ -41,7 +41,7 @@ def main() -> int:
         path = args.output / f"{name}.jsonl"
         write_jsonl(path, rows)
         paths.append(path)
-    manifest = build_manifest(paths, schema="kotoclip.unidic-training-input.v1", metadata={"source": str(args.input), "source_sha256": sha256_file(args.input), "dev_fraction": args.dev_fraction, "test_fraction": args.test_fraction, "counts": {name: len(rows) for name, rows in splits.items()}})
+    manifest = build_manifest(paths, schema="readux.unidic-training-input.v1", metadata={"source": str(args.input), "source_sha256": sha256_file(args.input), "dev_fraction": args.dev_fraction, "test_fraction": args.test_fraction, "counts": {name: len(rows) for name, rows in splits.items()}})
     manifest_path = args.output / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(manifest, ensure_ascii=False, indent=2))

@@ -59,22 +59,22 @@ def control_fields(update):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--binary", type=Path, default=ROOT / "target/debug/kotoclip-nlp.exe")
-    parser.add_argument("--portable", type=Path, default=ROOT / "packages/Kotoclip-insider-portable-win64")
+    parser.add_argument("--binary", type=Path, default=ROOT / "target/debug/readux-nlp.exe")
+    parser.add_argument("--portable", type=Path, default=ROOT / "packages/ReadUX-insider-portable-win64")
     parser.add_argument("--report", type=Path, default=ROOT / ".agents/analysis/reader-recovery.json")
     args = parser.parse_args()
     portable = args.portable.resolve()
     python = next(path for path in (portable / "python/python.exe", portable / "python/Scripts/python.exe") if path.is_file())
     text = "".join(f"検証番号{time.time_ns()}第{i}。七日は警察署へ向かった。彼女は窓の外を見ている。\n" for i in range(36))
     report = {}
-    with tempfile.TemporaryDirectory(prefix="kotoclip-recovery-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="readux-recovery-") as temporary:
         data = Path(temporary)
         shutil.copytree(portable / "dict-sources", data / "dict-sources")
         # 复用已有查询数据库；后端继续核验源包版本，恢复测试集中验证分析生命周期。
         shutil.copytree(ROOT / "data/dicts", data / "dicts")
-        environment = {**os.environ, "KOTOCLIP_DATA_DIR": str(data),
-                       "KOTOCLIP_UNIDIC_CWJ": str(portable / "nlp/cwj.dic"),
-                       "KOTOCLIP_UNIDIC_CSJ": str(portable / "nlp/csj.dic")}
+        environment = {**os.environ, "READUX_DATA_DIR": str(data),
+                       "READUX_UNIDIC_CWJ": str(portable / "nlp/cwj.dic"),
+                       "READUX_UNIDIC_CSJ": str(portable / "nlp/csj.dic")}
         config = {"ginza": {"python": str(data / "missing-python.exe"), "model": "ja_ginza", "enabled": True,
                             "timeout_seconds": 120, "dictionary": ""}, "analysis_timing_enabled": True}
         config_path = data / "providers.local.json"

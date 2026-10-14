@@ -1,9 +1,9 @@
 {
-  "protocol": "kotoclip.provider-process.v1",
+  "protocol": "readux.provider-process.v1",
   "event": "result",
   "request_id": "0",
   "result": {
-    "schema": "kotoclip.source-analysis.v1",
+    "schema": "readux.source-analysis.v1",
     "provider": {
       "id": "kwja",
       "version": "2.1.3",

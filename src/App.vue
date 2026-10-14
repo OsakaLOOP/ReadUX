@@ -90,7 +90,7 @@ function exportTiming() {
   const payload = JSON.stringify({ document_id: state.plan.id, text_version: state.text_version, progress: state.progress, units }, null, 2);
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
-  link.download = `kotoclip-analysis-${state.plan.id.replace(/[^\w-]/g, "-")}.json`;
+  link.download = `readux-analysis-${state.plan.id.replace(/[^\w-]/g, "-")}.json`;
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
@@ -301,14 +301,14 @@ function exportSelections() {
   const payload = JSON.stringify({ title: currentBook.value?.title || "文本阅读", text_version: sessionState.value?.text_version || "", selections: selections.value }, null, 2);
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([payload], { type: "application/json;charset=utf-8" }));
-  link.download = `${currentBook.value?.title || "kotoclip-selections"}.json`;
+  link.download = `${currentBook.value?.title || "readux-selections"}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
 
 async function importEpub() {
   if (!isTauri()) {
-    libraryError.value = "导入 EPUB 需要在 Kotoclip 桌面窗口中运行";
+    libraryError.value = "导入 EPUB 需要在 ReadUX 桌面窗口中运行";
     return;
   }
   const selected = await openFile({ multiple: false, filters: [{ name: "EPUB", extensions: ["epub"] }] });
@@ -418,12 +418,12 @@ async function leaveReader() {
 
 function appearanceUpdated(value: ReaderAppearance) {
   appearance.value = value;
-  localStorage.setItem("kotoclip.reader.appearance", JSON.stringify(value));
+  localStorage.setItem("readux.reader.appearance", JSON.stringify(value));
 }
 
 onMounted(() => {
   try {
-    const saved = localStorage.getItem("kotoclip.reader.appearance");
+    const saved = localStorage.getItem("readux.reader.appearance");
     if (saved) appearance.value = { ...DEFAULT_READER_APPEARANCE, ...JSON.parse(saved) };
   } catch { /* 使用默认排版 */ }
   void loadLibrary();

@@ -77,4 +77,4 @@ P4 的构词候选位于 `FormationNode.word`，成员来自 UniDic，范围主�
 
 代表用例覆盖 `見えなかった`、`記録された`、`分類し`、`読んでくださった`、`静かな`、`行くな`、`警察署`、数量表达和跨文节惯用语。每例同时检查实际范围、所属层、查询形式和解释；适用规则条件的用例检查修改前后结果。非连续用例覆盖跨句、跨段、引号及自由间隔。
 
-基础对象位于 [morphology.rs](../crates/kotoclip-nlp/src/morphology.rs)、[formation.rs](../crates/kotoclip-nlp/src/formation.rs)、[bunsetsu.rs](../crates/kotoclip-nlp/src/bunsetsu.rs)、[clause.rs](../crates/kotoclip-nlp/src/clause.rs)与[grammar.rs](../crates/kotoclip-nlp/src/grammar.rs)。知识资源位于 [grammar](../crates/kotoclip-core/resources/grammar/)。
+基础对象位于 [morphology.rs](../crates/readux-nlp/src/morphology.rs)、[formation.rs](../crates/readux-nlp/src/formation.rs)、[bunsetsu.rs](../crates/readux-nlp/src/bunsetsu.rs)、[clause.rs](../crates/readux-nlp/src/clause.rs)与[grammar.rs](../crates/readux-nlp/src/grammar.rs)。知识资源位于 [grammar](../crates/readux-core/resources/grammar/)。

@@ -194,9 +194,9 @@ P4 输出包含可追溯的来源证据、统一引用、活用链及构词候�
 
 本节只记录后续清理范围，本轮不修改实现。
 
-- 删除 `crates/kotoclip-nlp/src/rules.rs` 中的通用 `Rule`、`Atom`、`RuleMatch`、顺序扫描及 gap 检查。
-- 删除 `crates/kotoclip-core/src/language_rules.rs` 对语法目录、`expression_patterns.json` 和 `word_formation_patterns.json` 的通用规则适配。
-- 删除 `crates/kotoclip-core/src/language_analysis.rs` 的 `find`、`preview`、`rule_explanation`、`rule_evidence`、三段规则循环，以及 `apply_word_formations` 生成 candidate formation 的路径。
+- 删除 `crates/readux-nlp/src/rules.rs` 中的通用 `Rule`、`Atom`、`RuleMatch`、顺序扫描及 gap 检查。
+- 删除 `crates/readux-core/src/language_rules.rs` 对语法目录、`expression_patterns.json` 和 `word_formation_patterns.json` 的通用规则适配。
+- 删除 `crates/readux-core/src/language_analysis.rs` 的 `find`、`preview`、`rule_explanation`、`rule_evidence`、三段规则循环，以及 `apply_word_formations` 生成 candidate formation 的路径。
 - 删除 `analysis_engine.rs`、`analysis.rs`、`document_session.rs` 中的旧规则注入、预演、规则版本触发和 `user-rule` overlay 调用链。
 - 清理 `rule_store.rs` 及对应 IPC、前端类型和编辑组件中仅服务旧通用扫描的接口；适用条件的规则管理在 P5D 重新确定。
 - 删除 `expression_patterns.json`、`word_formation_patterns.json`；`lexical_candidate_patterns.json` 在确认没有独立消费方后删除。

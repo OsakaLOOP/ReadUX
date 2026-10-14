@@ -630,7 +630,7 @@ mod tests {
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        let root = std::env::temp_dir().join(format!("kotoclip-library-{nonce}"));
+        let root = std::env::temp_dir().join(format!("readux-library-{nonce}"));
         let source = root.join("fixture.epub");
         std::fs::create_dir_all(&root).unwrap();
         std::fs::write(&source, b"fixture-source").unwrap();

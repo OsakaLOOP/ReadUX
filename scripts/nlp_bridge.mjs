@@ -5,9 +5,9 @@ import { resolve } from 'node:path';
 // 本地验收服务器复用一个 Rust 进程，按顺序传递请求及响应。
 export function nlpBridge() {
   return {
-    name: 'kotoclip-nlp-bridge',
+    name: 'readux-nlp-bridge',
     configureServer(server) {
-      const executable = resolve('target/debug/kotoclip-nlp.exe');
+      const executable = resolve('target/debug/readux-nlp.exe');
       const child = spawn(executable, ['stdio'], { windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });
       const pending = [];
       let failed;

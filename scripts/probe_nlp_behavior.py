@@ -106,7 +106,7 @@ def unidic_probe(cases):
     requests = [(register, case) for register in ("cwj", "csj") for case in cases]
     payload = "".join(json.dumps({"command": "analyze", "register": register, "text": case["text"]}, ensure_ascii=False) + "\n" for register, case in requests)
     started = time.perf_counter()
-    process = subprocess.run([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"],
+    process = subprocess.run([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"],
                              input=payload, capture_output=True, encoding="utf-8", check=True, timeout=180)
     results = []
     for (register, case), line in zip(requests, process.stdout.splitlines(), strict=True):

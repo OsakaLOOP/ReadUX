@@ -50,35 +50,12 @@ const showAbout = ref(false);
       />
       <svg
         class="app-header__brand-name"
-        viewBox="275 65 507 130"
+        viewBox="0 0 525 120"
         role="img"
-        aria-label="Kotoclip"
+        aria-label="ReadUX"
         focusable="false"
       >
-        <g
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="14"
-        >
-          <g stroke="currentColor">
-            <path d="M282 72v88m0-28 40-36m-21 20 27 44" />
-            <circle cx="368" cy="128" r="32" />
-            <path d="M425 78v67q0 15 15 15m-33-57h39" />
-            <circle cx="489" cy="128" r="32" />
-          </g>
-          <g stroke="#39c5bb">
-            <path
-              d="M580 105c-8-8-18-12-29-12-21 0-35 15-35 35s14 35 35 35c11 0 21-4 29-12"
-            />
-            <path d="M619 72v73q0 15 15 15" />
-            <path d="M665 103v57" />
-            <path
-              d="M713 101v87m0-77c9-12 22-17 34-15 18 3 28 16 28 32 0 18-12 32-30 32-13 0-24-6-32-17"
-            />
-          </g>
-          <circle cx="665" cy="78" r="7" fill="#f5d547" stroke="none" />
-        </g>
+        <use href="/branding/readux-wordmark.svg#readux-wordmark" />
       </svg>
       <div v-if="title" class="app-header__page-identity">
         <strong>{{ title }}</strong>
@@ -94,8 +71,8 @@ const showAbout = ref(false);
       <button
         class="app-header__about"
         type="button"
-        title="关于 Kotoclip"
-        aria-label="关于 Kotoclip"
+        title="关于 ReadUX"
+        aria-label="关于 ReadUX"
         @click="showAbout = true"
       >
         <BadgeInfo :size="18" stroke-width="1.8" aria-hidden="true" />
@@ -118,7 +95,7 @@ const showAbout = ref(false);
       >
         <header class="about-dialog__header">
           <div>
-            <h2 id="about-dialog-title">关于 Kotoclip</h2>
+            <h2 id="about-dialog-title">关于 ReadUX</h2>
           </div>
           <button
             class="about-dialog__close"
@@ -132,7 +109,7 @@ const showAbout = ref(false);
         </header>
         <div class="about-dialog__body">
           <p>
-            Kotoclip 是面向日语原文沉浸式阅读与快捷语言语法分析的本地桌面应用。
+            ReadUX 是面向日语原文沉浸式阅读与快捷语言语法分析的本地桌面应用。
           </p>
           <h3>许可证</h3>
           <p>

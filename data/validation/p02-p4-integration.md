@@ -1,5 +1,5 @@
 # p02
-paragraph=2 | schema=kotoclip.unified-document.v8
+paragraph=2 | schema=readux.unified-document.v8
 
 ## 文本
 白南風は送梅の風なり。白光にして雲霧昂騰し、時によりて些か小雨を雑ゆ。欝すれども而も既に輝き、陰湿漸くに霽れて、愈に孟夏の青空を望む。その薫蒸するところ暑く、その蕩揺するところ、日に新にして流る。

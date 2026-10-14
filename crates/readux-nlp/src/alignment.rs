@@ -3,7 +3,7 @@ use crate::model::MorphemeToken;
 use crate::syntax::{SyntaxArtifact, SyntaxSpan};
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.provider-token-alignment.v2";
+pub const SCHEMA: &str = "readux.provider-token-alignment.v2";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

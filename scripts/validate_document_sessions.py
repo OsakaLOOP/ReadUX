@@ -10,11 +10,11 @@ from probe_nlp_behavior import ROOT, samples
 
 
 def main():
-    report = {"schema": "kotoclip.document-session-check.v1"}
-    with TemporaryDirectory(prefix="kotoclip-session-", dir=ROOT / "experiments") as data:
-        process = subprocess.Popen([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"],
+    report = {"schema": "readux.document-session-check.v1"}
+    with TemporaryDirectory(prefix="readux-session-", dir=ROOT / "experiments") as data:
+        process = subprocess.Popen([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",
-            env={**os.environ, "KOTOCLIP_DATA_DIR": data})
+            env={**os.environ, "READUX_DATA_DIR": data})
 
         def raw(value):
             process.stdin.write(json.dumps(value, ensure_ascii=False) + "\n"); process.stdin.flush()

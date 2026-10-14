@@ -9,7 +9,7 @@ import time
 
 from nlp_resources import file_resources, identify
 
-SCHEMA = "kotoclip.source-analysis.v1"
+SCHEMA = "readux.source-analysis.v1"
 
 
 def syntax_artifact(artifact, segment_id):
@@ -25,7 +25,7 @@ def syntax_artifact(artifact, segment_id):
             "source_id": artifact["text_sha256"], "surface": node["surface"],
             "labels": [f"{key}:{json.dumps(value, ensure_ascii=False, separators=(',', ':'))}" for key, value in sorted(node["features"].items())]})
     provider = artifact["provider"]
-    return {"schema": "kotoclip.syntax-artifact.v2", "segment_id": segment_id,
+    return {"schema": "readux.syntax-artifact.v2", "segment_id": segment_id,
         "provider": {"id": provider["id"], "version": provider["version"], "capabilities": provider["capabilities"], "license": None},
         "text_sha256": artifact["text_sha256"], "text_characters": artifact["text_characters"], "spans": spans}
 

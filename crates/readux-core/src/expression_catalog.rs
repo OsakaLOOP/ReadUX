@@ -1,5 +1,5 @@
 //! 内置表达目录的只读候选扫描器。
-use kotoclip_nlp::{expression::{ExpressionArtifact, ExpressionOccurrence, ExpressionStatus}, model::MorphemeToken};
+use readux_nlp::{expression::{ExpressionArtifact, ExpressionOccurrence, ExpressionStatus}, model::MorphemeToken};
 use serde::Deserialize;
 
 const PATTERNS_JSON: &str = include_str!("../resources/expression_patterns.json");
@@ -58,7 +58,7 @@ pub fn collect(text: &str, morphemes: &[MorphemeToken]) -> Result<ExpressionArti
             });
         }
     }
-    Ok(ExpressionArtifact { schema: kotoclip_nlp::expression::SCHEMA.into(), occurrences })
+    Ok(ExpressionArtifact { schema: readux_nlp::expression::SCHEMA.into(), occurrences })
 }
 
 #[cfg(test)]

@@ -1,9 +1,9 @@
 //! 文档坐标、分析窗口与出现锚点。规划阶段处理全文，模型按窗口执行。
-use kotoclip_nlp::{external::text_digest, model::RegisterRouting, prepare::{prepare_text, PreparationMap, PreparedText}, routing::{self, RegisterPolicy}};
+use readux_nlp::{external::text_digest, model::RegisterRouting, prepare::{prepare_text, PreparationMap, PreparedText}, routing::{self, RegisterPolicy}};
 use serde::{Deserialize, Serialize};
 use unicode_segmentation::UnicodeSegmentation;
 
-pub const VERSION: &str = "kotoclip.document-plan.v1";
+pub const VERSION: &str = "readux.document-plan.v1";
 pub const UNIT_CHARACTERS: usize = 768;
 pub const CONTEXT_CHARACTERS: usize = 192;
 
@@ -127,7 +127,7 @@ fn source_boundary(map: &PreparationMap, offset: usize) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kotoclip_nlp::model::Register;
+    use readux_nlp::model::Register;
 
     #[test]
     fn repeated_text_keeps_distinct_anchors_and_context_mapping() {

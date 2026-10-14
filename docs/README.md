@@ -1,6 +1,6 @@
 # 当前设计
 
-本组文档定义 Kotoclip 的统一目标模型。实施状态集中记录在 [TODO](TODO.md)，各模块正文采用目标协议描述，代码入口用于定位现有基础。
+本组文档定义 ReadUX 的统一目标模型。实施状态集中记录在 [TODO](TODO.md)，各模块正文采用目标协议描述，代码入口用于定位现有基础。
 
 ## 交付目标
 
@@ -21,6 +21,8 @@
 | [云端 SaaS 路线](cloud_saas_roadmap.md)            | BERT large 云端推理、订阅配额、容量成本与阶段 catalog       |
 | [首个云端部署实验](cloud_gpu_first_experiment.md) | 本地直连 RunPod、推理镜像、性能资源与实际费用实验 |
 | [GiNZA CUDA 测量](ginza_cuda_measurement.md) | RTX 3050 显存与批次上限、七种配置、量化差异及二十处人工复核 |
+| [GiNZA BERT 优化交接](ginza_optimization_handoff.md) | BERT 阶段模型、CPU 并行、GPU 批次/多流实测与 4060 Ti 后续任务 |
+| [GiNZA GPU 并行设计](ginza_gpu_parallel_design.md) | 4060 Ti 显存预算、批次、异步传输、并行边界与验收矩阵 |
 | [词典与解释](dictionary.md)                       | 下一模块的多粒度查询、词典验证、聚合与决定、表记矩阵和浮层 |
 | [书库与阅读器](reader.md)                         | EPUB、Markdown、章节、虚拟滚动与阅读进度                   |
 | [阅读器 Engine](reader_engine.md)                 | 应用生命周期、UniDic／GiNZA 管线、进度与词典气泡投影       |
@@ -33,6 +35,7 @@
 | [验收清单](acceptance.md)                         | 桌面场景、操作步骤、期望与异常恢复                         |
 | [NLP 行为基线](nlp_behavior.md)                   | 本机三来源输出观察与前期设计依据                           |
 | [P4 样本输出复核](p4_sample_review.md)            | 十段语料的原始词法、构词、语法证据与后续设计依据           |
+| [查词与阅读投影问题追踪](lookup_issue_tracking.md) | 根据实际样例登记查词、注音、活用和胶囊投影问题及修复判断     |
 
 ## 完整功能范围
 

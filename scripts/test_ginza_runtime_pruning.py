@@ -78,7 +78,7 @@ def main() -> int:
     args = parser.parse_args()
     candidates = args.candidates or DEFAULT_CANDIDATES
     result = {
-        "schema": "kotoclip.ginza-runtime-pruning.v1",
+        "schema": "readux.ginza-runtime-pruning.v1",
         "python": sys.version,
         "disable_transformer_entrypoints": args.disable_transformer_entrypoints,
         "results": [run_candidate(candidate, args.timeout, args.disable_transformer_entrypoints) for candidate in candidates],

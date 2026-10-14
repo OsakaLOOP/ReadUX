@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-pub const PREPARE_TEXT_PROTOCOL_VERSION: &str = "kotoclip.prepare-text.v4";
+pub const PREPARE_TEXT_PROTOCOL_VERSION: &str = "readux.prepare-text.v4";
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct RubyAnnotation {

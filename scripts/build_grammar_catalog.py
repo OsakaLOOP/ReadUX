@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""校验并编译 Kotoclip 语法目录与讲解库。"""
+"""校验并编译 ReadUX 语法目录与讲解库。"""
 
 from __future__ import annotations
 
@@ -13,8 +13,8 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = ROOT / "crates" / "kotoclip-core" / "resources" / "grammar" / "source"
-DEFAULT_OUTPUT = ROOT / "crates" / "kotoclip-core" / "resources" / "grammar" / "compiled"
+DEFAULT_SOURCE = ROOT / "crates" / "readux-core" / "resources" / "grammar" / "source"
+DEFAULT_OUTPUT = ROOT / "crates" / "readux-core" / "resources" / "grammar" / "compiled"
 STABLE_ID = re.compile(r"^[a-z][a-z0-9]*(?:[._][a-z0-9]+)+$")
 PLACEHOLDER = re.compile(r"\{\{([a-z][a-z0-9_]*)\}\}")
 ATOM_FIELDS = {
@@ -608,7 +608,7 @@ def main() -> None:
     parser.add_argument("--check", action="store_true", help="校验已提交编译产物是否最新")
     args = parser.parse_args()
     if args.check:
-        with tempfile.TemporaryDirectory(prefix="kotoclip-grammar-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="readux-grammar-") as temporary:
             temporary_output = Path(temporary)
             manifest = compile_catalog(args.source, temporary_output)
             names = ["grammar_catalog.json", "grammar_explanations.json", "grammar_search_index.json", "manifest.json"]

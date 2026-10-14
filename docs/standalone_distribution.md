@@ -74,7 +74,7 @@ GiNZA 环境中最大的文件包括 Sudachi `system.dic`、PyTorch CPU 动态�
 | Sudachi `system.dic` | `207.39 MiB` | GiNZA 所需词典数据；属于模型运行闭包中的核心数据 |
 | Python／spaCy 外部运行时 | 约 `200.68 MiB` | 可执行模块、动态库、Python 代码和元数据；属于首要裁剪对象 |
 | Python 解释器、DLL 与脚本 | `3.03 MiB` | 运行环境本体；适合改用更小的嵌入式发行方式 |
-| Kotoclip 核心二进制、脚本和清单 | 约 `29.17 MiB` | Rust/Tauri 程序和协议脚本 |
+| ReadUX 核心二进制、脚本和清单 | 约 `29.17 MiB` | Rust/Tauri 程序和协议脚本 |
 
 最小环境当前约 `475.85 MiB`；审计运行后会生成约 `10.56 MiB` 的 `.pyc`，发行构建必须在清理字节码后重新计量。运行时包中约 `88.93 MiB` 是 spaCy 等包内的 `.cpp` 源文件，约 `1.69 MiB` 是 `.pyi` 类型声明，约 `0.89 MiB` 是 `.pyx` 源文件，均不参与当前解释和推理，首轮裁剪可回收约 `91 MiB`。动态库、`.pyd`、模型文件、Sudachi 词典和实际导入的 Python 模块需要保留并通过隔离环境回归。
 
@@ -83,9 +83,9 @@ GiNZA 环境中最大的文件包括 Sudachi `system.dic`、PyTorch CPU 动态�
 ### 现有入口审计
 
 - `src-tauri/tauri.conf.json` 声明两份 UniDic、四个词典源包和三个 NLP Python 脚本为 Tauri 资源。
-- `scripts/run_channel.ps1` 的 insider 便携包复制 `Kotoclip.exe`、两份 UniDic、`*.kdict`、最小 Python 环境、provider 脚本和 `manifest.json`。
-- `src-tauri/src/lib.rs` 与 `crates/kotoclip-core/src/providers.rs` 支持便携目录下的 `nlp/*.dic`、`dict-sources`、`python/python.exe`、`python/Scripts/python.exe` 和 `_up_` 资源回退；运行时配置仍允许指向外部解释器。
-- `crates/kotoclip-core/src/providers.rs` 通过常驻 Python 子进程执行 GiNZA，并以逐行 JSON 协议传输分析请求和结果。该协议是后续优化和 Rust 替换的对照边界。
+- `scripts/run_channel.ps1` 的 insider 便携包复制 `ReadUX.exe`、两份 UniDic、`*.kdict`、最小 Python 环境、provider 脚本和 `manifest.json`。
+- `src-tauri/src/lib.rs` 与 `crates/readux-core/src/providers.rs` 支持便携目录下的 `nlp/*.dic`、`dict-sources`、`python/python.exe`、`python/Scripts/python.exe` 和 `_up_` 资源回退；运行时配置仍允许指向外部解释器。
+- `crates/readux-core/src/providers.rs` 通过常驻 Python 子进程执行 GiNZA，并以逐行 JSON 协议传输分析请求和结果。该协议是后续优化和 Rust 替换的对照边界。
 - `docs/development.md` 已更新为发行版默认使用包内 Python 运行时；开发渠道仍保留本机环境配置入口。
 
 ### P1 验收
@@ -100,11 +100,11 @@ GiNZA 环境中最大的文件包括 Sudachi `system.dic`、PyTorch CPU 动态�
 
 ### 交付结构
 
-目标结构为单一 Windows 便携目录，目录内的只读资源使用固定相对路径，用户数据写入系统应用数据目录或明确指定的 `KOTOCLIP_DATA_DIR`：
+目标结构为单一 Windows 便携目录，目录内的只读资源使用固定相对路径，用户数据写入系统应用数据目录或明确指定的 `READUX_DATA_DIR`：
 
 ```text
-Kotoclip/
-  Kotoclip.exe
+ReadUX/
+  ReadUX.exe
   nlp/
     cwj.dic
     csj.dic
@@ -241,7 +241,7 @@ Rust 重写的边界应以模型可替换性为原则：Rust 负责协议、缓�
 - [质量验收](quality.md)
 - [实施 TODO](TODO.md)
 - [资源运行时入口](../src-tauri/src/lib.rs)
-- [外部分析 worker](../crates/kotoclip-core/src/providers.rs)
+- [外部分析 worker](../crates/readux-core/src/providers.rs)
 - [便携构建脚本](../scripts/run_channel.ps1)
 - [GiNZA 运行时审计](../scripts/audit_ginza_runtime.py)
 - [GiNZA 依赖裁剪测试](../scripts/test_ginza_runtime_pruning.py)

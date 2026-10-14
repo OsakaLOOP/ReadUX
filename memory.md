@@ -1,13 +1,15 @@
 # 开发入口记忆
 
 - GiNZA CUDA 报告位于 `docs/ginza_cuda_measurement.md`；测量脚本为 `scripts/benchmark_ginza_cuda.py` 与 `scripts/compare_ginza_precision.py`。机器摘要及二十处人工复核位于 `data/validation/ginza_cuda_*.json`；本机完整核心记录归档为 `.agents/analysis/ginza-cuda-core-records.zip`，原始 `cuda-clean` 等重复输出可清理。正式微调权重为 `megagonlabs/transformers-ud-japanese-bert-large-ginza`。`experiments/ginza-cuda` 为指向 C 盘临时环境的 junction。
+- BERT 优化交接位于 `docs/ginza_optimization_handoff.md`；共享 GPU BERT、CPU 进程池、Cython 状态解码、双批次重叠和 GPU 多流实验入口分别为 `scripts/ginza_bert_engine.py`、`scripts/ginza_decode.pyx`、`scripts/benchmark_ginza_pipeline_suite.py`、`scripts/benchmark_ginza_gpu_concurrency.py`。固定 9068 token 语料的重叠 suite 为 2188 token/s，JSON 编码后 2019 token/s，输出与 FP16 基准一致；4060 Ti 设计和 GPU 50% CPU 比例仍交下一 agent。
+- GPU 并行设计位于 `docs/ginza_gpu_parallel_design.md`；生产路径固定 spaCy 原版状态解码，使用独立 non-blocking D2H 流、两个 pinned/shared buffer 槽、长度分桶、跨请求轮转和八个 CPU worker。3050 trace 的 GPU kernel active 1.19 s、完整 wall 5.44 s，4060 Ti 目标按 GPU 2.2×、CPU 1.5× 建模。
 
 - 阅读分析的异常恢复验证入口为 `scripts/test_reader_recovery.py`，使用独立数据目录验证解释器缺失、单元重试、进程重建和损坏缓存恢复。会话控制前端位于 `src/composables/useDocumentSession.ts`；`src/reader/session.ts` 的 `documentControlRequest` 按后端协议区分增量与完整快照命令。
 
-- 胶囊的词汇范围与作者注音查询由 `crates/kotoclip-core/src/dictionary/targets.rs` 生成；`src/reader/lookupPresentation.ts` 提供活用投影，`ReaderDocumentView.vue` 组合两者。问题样本的实测入口为 `scripts/inspect_lookup_cases.py`，通过本机词典索引和 CLI 查询保存证据。
+- 胶囊的词汇范围与作者注音查询由 `crates/readux-core/src/dictionary/targets.rs` 生成；`src/reader/lookupPresentation.ts` 提供活用投影，`ReaderDocumentView.vue` 组合两者。问题样本的实测入口为 `scripts/inspect_lookup_cases.py`，通过本机词典索引和 CLI 查询保存证据。
 
-- 正文窗口划分入口位于 `crates/kotoclip-core/src/document_plan.rs`；P4 小说性能采集入口位于 `scripts/benchmark_p4_novel.py`，十段测量结果默认保存在 `.agents/analysis/p4-novel-10.json`。
-- 当前本机结构来源由 `crates/kotoclip-core/src/providers.rs` 与 `scripts/nlp_provider.py` 调度 GiNZA；KWJA 的离线适配器位于 `scripts/kwja_adapter.py`，不进入桌面来源配置。
+- 正文窗口划分入口位于 `crates/readux-core/src/document_plan.rs`；P4 小说性能采集入口位于 `scripts/benchmark_p4_novel.py`，十段测量结果默认保存在 `.agents/analysis/p4-novel-10.json`。
+- 当前本机结构来源由 `crates/readux-core/src/providers.rs` 与 `scripts/nlp_provider.py` 调度 GiNZA；KWJA 的离线适配器位于 `scripts/kwja_adapter.py`，不进入桌面来源配置。
 - P4 活用链与整体构词的实现契约位于 `docs/p4_morphology_formation.md`。
 - `morphology.rs` 定义链、状态和 occurrence；`morphology_machine.rs` 执行连接判定；`linguistic_context.rs` 读取 GiNZA 正式词界、活用字段及关系。完整来源通过 `unify_with_sources` 接入。
 - 整体词保存在 `FormationNode.word`，由 `formation.rs` 生成，查询候选由 `lexical.rs` 提供。GiNZA 适配器的显式 compound 通常对应单个正式 token；跨正式 token 的构词需要读取 `compound` dependency。

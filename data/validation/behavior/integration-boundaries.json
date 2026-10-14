@@ -1879,7 +1879,7 @@
         }
       }
     ],
-    "schema": "kotoclip.source-analysis.v1",
+    "schema": "readux.source-analysis.v1",
     "text_characters": 31,
     "text_sha256": "16c81c8e1b9635f6648ae7717fef64b2d018c700a868e8f4452c0da22282082b"
   },
@@ -4189,7 +4189,7 @@
         }
       }
     ],
-    "schema": "kotoclip.source-analysis.v1",
+    "schema": "readux.source-analysis.v1",
     "text_characters": 31,
     "text_sha256": "16c81c8e1b9635f6648ae7717fef64b2d018c700a868e8f4452c0da22282082b"
   }

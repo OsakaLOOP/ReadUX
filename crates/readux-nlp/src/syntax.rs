@@ -43,7 +43,7 @@ pub struct AlignmentDiagnostic {
     pub matched_range: Option<[usize; 2]>,
 }
 
-pub const SCHEMA: &str = "kotoclip.syntax-artifact.v2";
+pub const SCHEMA: &str = "readux.syntax-artifact.v2";
 
 pub fn validate_identity(artifact: &SyntaxArtifact, text: &str) -> Result<(), String> {
     if artifact.schema != SCHEMA { return Err("artifact_schema_mismatch".into()); }
@@ -173,7 +173,7 @@ mod tests {
 
     #[test]
     fn parses_json_artifact() {
-        let json = r#"{"schema":"kotoclip.syntax-artifact.v1","provider":{"id":"ginza","version":"5.2.1","capabilities":["bunsetsu"],"license":"MIT"},"text_characters":2,"spans":[{"id":"b0","kind":"bunsetsu","char_range":[0,2],"head_char_range":null,"source_id":"x","surface":"甲。","labels":["基本句-主辞"]}]}"#;
+        let json = r#"{"schema":"readux.syntax-artifact.v1","provider":{"id":"ginza","version":"5.2.1","capabilities":["bunsetsu"],"license":"MIT"},"text_characters":2,"spans":[{"id":"b0","kind":"bunsetsu","char_range":[0,2],"head_char_range":null,"source_id":"x","surface":"甲。","labels":["基本句-主辞"]}]}"#;
         let artifact = parse_json(json).unwrap();
         assert_eq!(artifact.provider.id, "ginza");
         assert_eq!(artifact.spans[0].surface.as_deref(), Some("甲。"));
@@ -182,7 +182,7 @@ mod tests {
 
     #[test]
     fn parses_segment_artifact_bundle() {
-        let json = r#"{"schema":"kotoclip.kwja-syntax-artifacts.v1","artifacts":[{"segment_id":"source-collective","schema":"kotoclip.syntax-artifact.v1","provider":{"id":"kwja","version":"2.1.3","capabilities":[],"license":null},"text_characters":1,"spans":[]}] }"#;
+        let json = r#"{"schema":"readux.kwja-syntax-artifacts.v1","artifacts":[{"segment_id":"source-collective","schema":"readux.syntax-artifact.v1","provider":{"id":"kwja","version":"2.1.3","capabilities":[],"license":null},"text_characters":1,"spans":[]}] }"#;
         let bundle = parse_bundle_json(json).unwrap();
         assert_eq!(bundle.artifacts[0].segment_id.as_deref(), Some("source-collective"));
     }

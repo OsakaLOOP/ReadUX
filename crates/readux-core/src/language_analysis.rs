@@ -1,5 +1,5 @@
 //! 统一词元、结构证据和语言规则的应用层分析。
-use kotoclip_nlp::{
+use readux_nlp::{
     application::{ApplicationArtifact, Explanation, LexicalDecision, ReadingUnit},
     expression::{ExpressionOccurrence, ExpressionStatus},
     grammar::{GrammarOccurrence, GrammarStatus},
@@ -8,7 +8,7 @@ use kotoclip_nlp::{
 };
 use std::collections::{BTreeMap, BTreeSet};
 
-pub const VERSION: &str = "kotoclip.language-application.v1";
+pub const VERSION: &str = "readux.language-application.v1";
 
 pub fn apply(document: &mut UnifiedDocument, user_rules: &[Rule], rules_version: u64) -> Result<(), String> {
     let lexical = lexical_decisions(document);
@@ -52,9 +52,9 @@ pub fn apply(document: &mut UnifiedDocument, user_rules: &[Rule], rules_version:
     deduplicate_language_layers(document);
     let reading_units = reading_units(document, &lexical);
     document.application = ApplicationArtifact { version: VERSION.into(), rules_version, lexical, reading_units, explanations };
-    document.projection = kotoclip_nlp::projection::from_layers(&document.grammar, &document.expression);
+    document.projection = readux_nlp::projection::from_layers(&document.grammar, &document.expression);
     for explanation in &document.application.explanations {
-        document.projection.targets.push(kotoclip_nlp::projection::ProjectionTarget { id: format!("explanation:{}", explanation.id),
+        document.projection.targets.push(readux_nlp::projection::ProjectionTarget { id: format!("explanation:{}", explanation.id),
             char_range: explanation.char_range, layer: explanation.layer.clone(), source_id: explanation.source_id.clone(), status: explanation.status.clone() });
     }
     Ok(())
@@ -78,10 +78,10 @@ pub fn bind_lexical(document: &mut UnifiedDocument, dictionary: &crate::dictiona
     }
 }
 
-pub fn lookup_bindings(dictionary: &crate::dictionary::lookup::DictionaryEngine, surface: &str, reading: Option<&str>) -> Vec<kotoclip_nlp::application::DictionaryBinding> {
+pub fn lookup_bindings(dictionary: &crate::dictionary::lookup::DictionaryEngine, surface: &str, reading: Option<&str>) -> Vec<readux_nlp::application::DictionaryBinding> {
     let mut seen = BTreeSet::new();
     dictionary.lookup(surface, reading).into_iter().filter(|entry| seen.insert((entry.dict_name.clone(), entry.occurrence_id.clone()))).map(|entry| {
-        kotoclip_nlp::application::DictionaryBinding { dictionary: entry.dict_name, entry_key: entry.entry_key, occurrence_id: entry.occurrence_id,
+        readux_nlp::application::DictionaryBinding { dictionary: entry.dict_name, entry_key: entry.entry_key, occurrence_id: entry.occurrence_id,
             headword: entry.headword, reading: entry.reading.unwrap_or_default() }
     }).collect()
 }
@@ -169,7 +169,7 @@ fn rule_explanation(document: &UnifiedDocument, layer: &str, rule: &Rule, found:
 fn rule_evidence(document: &UnifiedDocument, rule: &Rule, found: &RuleMatch) -> Vec<String> {
     let mut evidence = vec![format!("rule:{}", rule.id)];
     evidence.extend(rule.source_refs.clone());
-    for entity in document.structure_graph.entities.iter().filter(|entity| entity.kind == kotoclip_nlp::external::NodeKind::BasicPhrase
+    for entity in document.structure_graph.entities.iter().filter(|entity| entity.kind == readux_nlp::external::NodeKind::BasicPhrase
         && entity.coverage.iter().any(|coverage| coverage.morpheme_indices.iter().any(|index| found.members.contains(index)))) {
         evidence.push(format!("{}:basic_phrase:{}", entity.provider, entity.source_id));
     }

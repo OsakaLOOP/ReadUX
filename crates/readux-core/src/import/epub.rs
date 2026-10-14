@@ -1851,7 +1851,7 @@ mod tests {
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        std::env::temp_dir().join(format!("kotoclip-{name}-{suffix}.epub"))
+        std::env::temp_dir().join(format!("readux-{name}-{suffix}.epub"))
     }
 
     fn start_file(writer: &mut ZipWriter<File>, name: &str, content: &str) {

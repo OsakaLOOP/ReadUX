@@ -10,11 +10,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    report = {"schema": "kotoclip.provider-resource-check.v1"}
-    with TemporaryDirectory(prefix="kotoclip-resources-", dir=ROOT / "experiments") as data:
-        process = subprocess.Popen([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"],
+    report = {"schema": "readux.provider-resource-check.v1"}
+    with TemporaryDirectory(prefix="readux-resources-", dir=ROOT / "experiments") as data:
+        process = subprocess.Popen([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            encoding="utf-8", env={**os.environ, "KOTOCLIP_DATA_DIR": data})
+            encoding="utf-8", env={**os.environ, "READUX_DATA_DIR": data})
 
         def request(value):
             process.stdin.write(json.dumps(value, ensure_ascii=False) + "\n")

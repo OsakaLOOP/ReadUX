@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const [source, output] = process.argv.slice(2);
 if (!source || !output) throw new Error('用法：node scripts/scan_ruby.mjs 正文路径 报告路径');
 const root = fileURLToPath(new URL('../', import.meta.url));
-const executable = fileURLToPath(new URL(`../target/debug/kotoclip-nlp${process.platform === 'win32' ? '.exe' : ''}`, import.meta.url));
+const executable = fileURLToPath(new URL(`../target/debug/readux-nlp${process.platform === 'win32' ? '.exe' : ''}`, import.meta.url));
 const lines = (await readFile(source, 'utf8')).split(/\r?\n/);
 const child = spawn(executable, ['stdio'], { cwd: root, stdio: ['pipe', 'pipe', 'inherit'], windowsHide: true });
 const responses = createInterface({ input: child.stdout });

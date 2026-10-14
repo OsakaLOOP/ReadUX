@@ -1,5 +1,5 @@
 //! 编译目录的 UniDic 条件适配与知识引用校验。
-use kotoclip_nlp::rules::{Atom, Rule};
+use readux_nlp::rules::{Atom, Rule};
 use serde_json::Value;
 use std::sync::OnceLock;
 

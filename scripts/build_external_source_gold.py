@@ -50,7 +50,7 @@ def main():
             "bunsetsu": normalized(g.get("bunsetsu", []), text),
         })
     output = {
-        "schema": "kotoclip.external-source-gold.v1",
+        "schema": "readux.external-source-gold.v1",
         "coordinate_system": "unicode_scalar",
         "annotation": {"status": "complete_external_adjudication", "primary": "GiNZA 5.2.1", "method": "provider 范围通过原文 surface 校验并归一化"},
         "segments": segments,

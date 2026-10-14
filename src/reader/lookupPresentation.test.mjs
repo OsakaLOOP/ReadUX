@@ -1,60 +1,77 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { dictionaryLookupFromSearch, readerCapsuleRanges, readerChains, readerMorphologyHits } from "./lookupPresentation.ts";
+import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations } from "./lookupPresentation.ts";
 
-test("胶囊采用已确认整体词，文节和候选整体不改变边界", () => {
-  const document = {
-    text: "東京へ行く", morphemes: [],
-    bunsetsu: { nodes: [{ id: "b1", status: "observed", char_range: [0, 5] }] },
-    formation: { nodes: [
-      { id: "whole", status: "observed", char_range: [0, 2], word: {} },
-      { id: "candidate", status: "candidate", char_range: [2, 5], word: {} },
-    ] },
-    morphology: { chains: [
-      { chain_id: "tokyo", role: "lexical", parent_chain_id: null, char_range: [0, 2] },
-      { chain_id: "go", role: "lexical", parent_chain_id: null, char_range: [3, 5] },
-    ] },
-  };
-  assert.deepEqual(readerCapsuleRanges(document), [{ id: "whole", range: [0, 2] }, { id: "go", range: [3, 5] }]);
+test("作者注音显示为平假名，读音匹配形式保持原样", () => {
+  assert.equal(displayReading("カタカナー"), "かたかなー");
 });
 
-test("词汇链与嵌套附属部分形成独立词边界", () => {
+test("胶囊范围包含词汇核心自身的完整活用链", () => {
+  const targets = [
+    { id: "nedaru", char_range: [0, 2], lexical_core_ids: ["root"], source_formation_ids: [] },
+  ];
+  const document = {
+    text: "ねだられる", morphemes: [], formation: { nodes: [] },
+    morphology: { chains: [
+      { chain_id: "root", role: "lexical", parent_chain_id: null, char_range: [0, 5] },
+      { chain_id: "passive", role: "functional", parent_chain_id: "root", char_range: [2, 5] },
+    ] },
+  };
+  assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "nedaru", range: [0, 5] }]);
+});
+
+test("ruby 显示范围采用验证后的最小词语范围", () => {
+  assert.deepEqual(readerRubyAnnotations(
+    [{ base: "以来放課後", reading: "ホウカゴ", char_range: [0, 5] }],
+    [{ base: "放課後", ruby_reading: "ホウカゴ", char_range: [2, 5], candidate_char_range: [0, 5] }],
+  ), [{ base: "放課後", reading: "ホウカゴ", char_range: [2, 5] }]);
+});
+
+test("每个查询目标只有一个胶囊身份，并覆盖其连续附属活用链", () => {
+  const targets = [
+    { id: "whole", char_range: [0, 4], lexical_core_ids: ["core"], source_formation_ids: [] },
+  ];
   const document = {
     text: "読んでいる", morphemes: [], formation: { nodes: [] },
-    bunsetsu: { nodes: [] },
     morphology: { chains: [
-      { chain_id: "core", role: "lexical", parent_chain_id: null, char_range: [0, 2] },
-      { chain_id: "aux", role: "functional", parent_chain_id: "core", char_range: [2, 3] },
-      { chain_id: "nested", role: "functional", parent_chain_id: "aux", char_range: [3, 5] },
+      { chain_id: "core", role: "lexical", parent_chain_id: null, char_range: [0, 4] },
+      { chain_id: "aux", role: "functional", parent_chain_id: "core", char_range: [4, 6] },
     ] },
   };
-  assert.deepEqual(readerCapsuleRanges(document), [{ id: "core", range: [0, 5] }]);
+  assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "whole", range: [0, 6] }]);
 });
 
-test("标点隔开词汇链，未确认整体不产生胶囊", () => {
+test("解释助词ん与相邻过去判断链共用胶囊边界", () => {
+  const targets = [
+    { id: "n", char_range: [5, 6], lexical_core_ids: [], source_formation_ids: [] },
+  ];
   const document = {
-    text: "読む。行く", morphemes: [{ surface: "。", pos: ["補助記号"], char_range: [2, 3] }],
-    formation: { nodes: [{ id: "pending", status: "candidate", char_range: [0, 6], word: {} }] },
+    text: "そうだったん", formation: { nodes: [] },
+    morphemes: [{ surface: "ん", lemma: "の", pos: ["助詞"], char_range: [5, 6] }],
     morphology: { chains: [
-      { chain_id: "read", role: "lexical", parent_chain_id: null, char_range: [0, 2] },
-      { chain_id: "invalid", role: "functional", parent_chain_id: "read", char_range: [3, 5] },
-      { chain_id: "go", role: "lexical", parent_chain_id: null, char_range: [3, 5] },
+      { chain_id: "past-copula", role: "functional", parent_chain_id: null, surface_form: "だった", lookup_form: "だ", char_range: [2, 5] },
     ] },
   };
-  assert.deepEqual(readerCapsuleRanges(document), [{ id: "read", range: [0, 2] }, { id: "go", range: [3, 5] }]);
+  assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "n", range: [2, 6] }]);
 });
 
-test("已确认整体优先于重叠的词汇链，剩余词汇仍可显示", () => {
+test("サ变て形说明显示原形到整体活用形", () => {
   const document = {
-    text: "食べている猫", morphemes: [],
-    formation: { nodes: [{ id: "whole", status: "observed", char_range: [0, 5], word: {} }] },
-    morphology: { chains: [
-      { chain_id: "eat", role: "lexical", parent_chain_id: null, char_range: [0, 2] },
-      { chain_id: "aux", role: "functional", parent_chain_id: "eat", char_range: [2, 5] },
-      { chain_id: "cat", role: "lexical", parent_chain_id: null, char_range: [5, 6] },
-    ] },
+    text: "力説して", formation: { nodes: [] },
+    morphology: {
+      chains: [{ chain_id: "sahen", role: "lexical", parent_chain_id: null, anchor_range: [0, 3],
+        surface_form: "力説して", lookup_form: "力説する", operators: [
+          { operator_id: "te", kind: "te_connection", label: "て形", description: "て形：て", char_range: [3, 4] },
+        ] }],
+      occurrences: [{ id: "occurrence:te", chain_id: "sahen", operator_ids: ["te"], kind: "te_connection",
+        char_range: [3, 4], hit_ranges: [[3, 4]], candidates: [] }],
+    },
   };
-  assert.deepEqual(readerCapsuleRanges(document), [{ id: "whole", range: [0, 5] }, { id: "cat", range: [5, 6] }]);
+  const [hit] = readerMorphologyHits([
+    { id: "whole", char_range: [0, 4], lexical_core_ids: ["sahen"], source_formation_ids: [] },
+  ], document);
+  assert.equal(hit.detail.title, "て形");
+  assert.equal(hit.detail.description, "力説する → 力説して");
 });
 
 test("按当前查询目标引用展示词形、连接和成员", () => {

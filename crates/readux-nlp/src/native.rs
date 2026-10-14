@@ -6,7 +6,7 @@ use crate::model::UnifiedDocument;
 use crate::syntax::SyntaxArtifact;
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "kotoclip.native-structure-provider.v1";
+pub const SCHEMA: &str = "readux.native-structure-provider.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct NativeModelManifest {
@@ -88,7 +88,7 @@ impl UnavailableNativeProvider {
                     "sentence".into(),
                     "dependency".into(),
                 ],
-                input_schema: "kotoclip.text.v1".into(),
+                input_schema: "readux.text.v1".into(),
                 output_schema: crate::syntax::SCHEMA.into(),
                 coordinate_system: "unicode_scalar".into(),
                 parameter_count: None,
@@ -146,7 +146,7 @@ mod tests {
             .unwrap_err();
         assert_eq!(error.status, NativeProviderStatus::Unsupported);
         assert_eq!(error.provider_id, "ginza-native");
-        assert_eq!(provider.manifest().input_schema, "kotoclip.text.v1");
+        assert_eq!(provider.manifest().input_schema, "readux.text.v1");
         assert_eq!(provider.manifest().installed_bytes, Some(296_437_312));
     }
 

@@ -1,5 +1,5 @@
 use super::{lookup::DictionaryEngine, lookup_state, model::{DictEntry, DictionaryLookup, DictionaryLookupTiming, PosTag}};
-use kotoclip_nlp::{model::{MorphemeToken, QueryForm, UnifiedDocument}, morphology::MorphologyRole};
+use readux_nlp::{model::{MorphemeToken, QueryForm, UnifiedDocument}, morphology::MorphologyRole};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
 
@@ -121,7 +121,7 @@ fn lexical(hint: &DictionaryMetadataHint) -> bool {
     hint.lexical_role == "independent" && hint.compatibility != "incompatible" && hint.grammar_functions.is_empty()
 }
 
-fn projected_core_indices(chain: &kotoclip_nlp::morphology::MorphologyChain, tokens: &[MorphemeToken]) -> Vec<usize> {
+fn projected_core_indices(chain: &readux_nlp::morphology::MorphologyChain, tokens: &[MorphemeToken]) -> Vec<usize> {
     let mut members = chain.core_morpheme_indices.clone();
     if chain.lookup_form.ends_with("する") && members.len() > 1
         && chain.operators.iter().any(|operator| operator.kind == "causative"
@@ -170,7 +170,7 @@ fn annotated_reading(document: &UnifiedDocument, chars: &[char], range: [usize; 
         cursor = ruby.char_range[1];
     }
     reading.push_str(&gap_reading([cursor, range[1]])?);
-    Some(kotoclip_nlp::prepare::normalize_reading(&reading))
+    Some(readux_nlp::prepare::normalize_reading(&reading))
 }
 
 pub fn metadata(entry: &DictEntry) -> DictionaryMetadataHint {
@@ -264,45 +264,84 @@ pub fn build_profiled(
     }
     for chain in &document.morphology.chains {
         for operator in &chain.operators {
-            if !overlaps(anchor_range, operator.char_range) || matches!(operator.kind.as_str(), "conjugation" | "initial_alternation" | "final_alternation") { continue; }
+            let sahen_body = chain.lookup_form.ends_with("する") && chain.core_morpheme_indices.first()
+                .and_then(|index| tokens.get(*index)).is_some_and(|token| token.pos[0].as_deref() == Some("名詞"));
+            if !overlaps(anchor_range, operator.char_range)
+                || matches!(operator.kind.as_str(), "initial_alternation" | "final_alternation")
+                || (operator.kind == "conjugation" && !sahen_body) { continue; }
             grammar.push(GrammarTarget { char_range: operator.char_range, context_range: chain.char_range,
                 normalized_form: operator.normalized_form.clone().unwrap_or_else(|| operator.kind.clone()),
                 concept_id: Some(operator.concept_id.clone()), chain_id: Some(chain.chain_id.clone()), display_form: operator.label.clone() });
         }
+        if chain.role == MorphologyRole::Lexical && chain.lookup_form.ends_with("する") {
+            for index in &chain.core_morpheme_indices {
+                let Some(token) = tokens.get(*index) else { continue; };
+                if token.lemma.as_deref() != Some("為る") { continue; }
+                grammar.push(GrammarTarget { char_range: token.char_range, context_range: chain.char_range,
+                    normalized_form: "する".into(), concept_id: Some("morphology.chain".into()),
+                    chain_id: Some(chain.chain_id.clone()), display_form: token.surface.clone() });
+            }
+        }
     }
     let valid = |range| contains(anchor_range, range) && !excluded.iter().any(|excluded| overlaps(*excluded, range));
+    let display_valid = |range: [usize; 2]| contains(anchor_range, range) && !tokens.iter().any(|token|
+        overlaps(token.char_range, range) && (matches!(token.pos[0].as_deref(), Some("記号" | "補助記号" | "空白"))
+            || token.surface.chars().any(char::is_whitespace)));
     let mut candidates: BTreeMap<[usize; 2], Candidate> = BTreeMap::new();
     for (index, token) in tokens.iter().enumerate().filter(|(_, token)| valid(token.char_range)) {
         let forms = token_forms(token);
         candidates.insert(token.char_range, Candidate { range: token.char_range, forms, members: vec![index], cores: Vec::new(),
             formations: Vec::new(), pos: Some(pos(token)), minimal: true, hints: Vec::new(), reason: String::new() });
     }
+    for (index, token) in tokens.iter().enumerate().filter(|(index, token)| functional_members.contains(index)
+        && token.surface == "なら" && token.lemma.as_deref() == Some("だ") && contains(anchor_range, token.char_range)) {
+        candidates.insert(token.char_range, Candidate { range: token.char_range, forms: token_forms(token), members: vec![index],
+            cores: Vec::new(), formations: Vec::new(), pos: Some(pos(token)), minimal: true, hints: Vec::new(), reason: String::new() });
+    }
     for chain in document.morphology.chains.iter().filter(|chain| chain.role == MorphologyRole::Lexical) {
         let projected_members = projected_core_indices(chain, tokens);
         let members = &projected_members;
         let Some(first) = members.first().and_then(|index| tokens.get(*index)) else { continue; };
         let Some(last) = members.last().and_then(|index| tokens.get(*index)) else { continue; };
-        let range = [first.char_range[0], last.char_range[1]];
-        if !valid(range) || members.windows(2).any(|pair| tokens[pair[0]].char_range[1] != tokens[pair[1]].char_range[0]) { continue; }
+        let sahen_body = chain.lookup_form.ends_with("する") && first.pos[0].as_deref() == Some("名詞")
+            && !chain.operators.iter().any(|operator| operator.kind == "causative");
+        let core_range = [first.char_range[0], last.char_range[1]];
+        let chain_surface = surface(&chars, chain.char_range);
+        let sahen_inflection = matches!(chain_surface.chars().last(), Some('る' | 'し' | 'た' | 'て'));
+        let range = if sahen_body && sahen_inflection { chain.char_range } else { core_range };
+        if !(if sahen_body { display_valid(range) } else { valid(range) })
+            || members.windows(2).any(|pair| tokens[pair[0]].char_range[1] != tokens[pair[1]].char_range[0]) { continue; }
         let canonical = chain.query_forms.iter().find(|query| query.form == chain.lookup_form).cloned()
             .unwrap_or_else(|| form(chain.lookup_form.clone(), None, "canonical"));
-        let mut forms = if members.len() == 1 && chain.core_morpheme_indices.len() == 1 { token_forms(first) } else { vec![canonical] };
-        if members.len() > 1 || chain.core_morpheme_indices.len() > 1 {
+        let mut forms = if sahen_body { vec![canonical] }
+            else if members.len() == 1 && chain.core_morpheme_indices.len() == 1 { token_forms(first) }
+            else { vec![canonical] };
+        if !sahen_body && (members.len() > 1 || chain.core_morpheme_indices.len() > 1) {
             forms.extend(chain.query_forms.iter().filter(|query| query.kind != "observed"
                 && !query.form.contains("為る") && query.form != surface(&chars, range)).cloned());
         }
-        if chain.lookup_form.ends_with("する") && first.pos[0].as_deref() == Some("名詞") {
+        if sahen_body {
             forms.extend(token_forms(first));
         }
-        let candidate = candidates.entry(range).or_insert_with(|| Candidate { range, forms: Vec::new(), members: members.clone(), cores: Vec::new(),
-            formations: Vec::new(), pos: Some(pos(first)), minimal: chain.status == "resolved" && chain.lookup_form != surface(&chars, range), hints: Vec::new(), reason: String::new() });
+        let query_members = if sahen_body { tokens.iter().enumerate().filter(|(_, token)| overlaps(range, token.char_range))
+            .map(|(index, _)| index).collect() } else { members.clone() };
+        let candidate = candidates.entry(range).or_insert_with(|| Candidate { range, forms: Vec::new(), members: query_members, cores: Vec::new(),
+            formations: Vec::new(), pos: (!sahen_body).then(|| pos(first)), minimal: chain.status == "resolved" && chain.lookup_form != surface(&chars, range), hints: Vec::new(), reason: String::new() });
         candidate.forms = unique_forms(forms);
         candidate.cores.push(chain.chain_id.clone());
-        if chain.lookup_form.ends_with("する") || first.pos[0].as_deref() == Some("動詞") { candidate.pos.as_mut().unwrap().major = "動詞".into(); }
+        if !sahen_body && (chain.lookup_form.ends_with("する") || first.pos[0].as_deref() == Some("動詞")) {
+            candidate.pos.as_mut().unwrap().major = "動詞".into();
+        }
     }
-    let atoms = candidates.values().filter(|candidate| candidate.members.len() == 1
+    let mut atoms = candidates.values().filter(|candidate| candidate.members.len() == 1
         && !matches!(candidate.pos.as_ref().map(|pos| pos.major.as_str()), Some("助詞" | "助動詞")))
         .cloned().collect::<Vec<_>>();
+    for (index, token) in tokens.iter().enumerate().filter(|(_, token)| token.surface == "と"
+        && token.pos[0].as_deref() == Some("助詞") && contains(anchor_range, token.char_range)) {
+        atoms.push(Candidate { range: token.char_range, forms: token_forms(token), members: vec![index], cores: Vec::new(),
+            formations: Vec::new(), pos: Some(pos(token)), minimal: true, hints: Vec::new(), reason: String::new() });
+    }
+    atoms.sort_by_key(|candidate| candidate.range);
     for start in 0..atoms.len() {
         for end in start + 1..atoms.len() {
             if atoms[end - 1].range[1] != atoms[end].range[0] { break; }
@@ -312,6 +351,10 @@ pub fn build_profiled(
                 forms.push(form(surface(&chars, range), atoms[start..=end].iter().map(|atom| tokens[atom.members[0]].reading.clone())
                     .collect::<Option<Vec<_>>>().map(|parts| parts.join("")), "sequence"));
                 forms.push(form(surface(&chars, range), None, "sequence_exact"));
+            }
+            let observed = surface(&chars, range);
+            if let Some(canonical) = match observed.as_str() { "ひとつ" => Some("一つ"), "ふたつ" => Some("二つ"), _ => None } {
+                forms.insert(0, form(canonical.into(), None, "canonical"));
             }
             let prefix = surface(&chars, [range[0], atoms[end].range[0]]);
             let prefix_reading = atoms[start..end].iter().map(|atom| tokens[atom.members[0]].reading.clone()).collect::<Option<Vec<_>>>().map(|parts| parts.join(""));
@@ -338,6 +381,24 @@ pub fn build_profiled(
             cores: Vec::new(), formations: Vec::new(), pos: None, minimal: true, hints: Vec::new(), reason: String::new() });
         candidate.forms.insert(0, form(surface(&chars, range), Some(reading), "author_ruby"));
         candidate.minimal = true;
+        let boundary_members = tokens.iter().enumerate().filter(|(_, token)|
+            token.char_range[0] >= range[0] && token.char_range[0] < range[1]).map(|(index, _)| index).collect::<Vec<_>>();
+        for first_index in boundary_members.iter().copied().skip(1) {
+            let boundary_range = [tokens[first_index].char_range[0], range[1]];
+            let members = boundary_members.iter().copied().filter(|index| overlaps(boundary_range, tokens[*index].char_range)).collect::<Vec<_>>();
+            if members.is_empty() || members.iter().any(|index| matches!(tokens[*index].pos[0].as_deref(), Some("動詞" | "形容詞" | "助動詞" | "助詞"))) {
+                continue;
+            }
+            let mut forms = vec![form(surface(&chars, boundary_range), None, "ruby_dictionary_boundary"),
+                form(surface(&chars, boundary_range), Some(ruby.ruby_reading.clone()), "author_ruby")];
+            if let Some(reading) = annotated_reading(document, &chars, boundary_range) {
+                forms.insert(0, form(surface(&chars, boundary_range), Some(reading), "author_ruby"));
+            }
+            let candidate = candidates.entry(boundary_range).or_insert_with(|| Candidate { range: boundary_range, forms: Vec::new(),
+                members, cores: Vec::new(), formations: Vec::new(), pos: None, minimal: true, hints: Vec::new(), reason: String::new() });
+            candidate.forms.extend(forms);
+            candidate.forms = unique_forms(std::mem::take(&mut candidate.forms));
+        }
     }
     for candidate in candidates.values_mut() {
         if candidate.forms.iter().any(|query| query.form == surface(&chars, candidate.range)) {
@@ -382,10 +443,11 @@ pub fn build_profiled(
     let mut outer = Vec::new();
     let mut cursor = anchor_range[0];
     while cursor < anchor_range[1] {
-        let next = candidates.iter().filter(|candidate| candidate.range[0] == cursor && candidate.minimal && candidate.reason == "author_ruby")
-            .max_by_key(|candidate| candidate.range[1])
-            .or_else(|| candidates.iter().filter(|candidate| candidate.range[0] == cursor && candidate.hints.iter().any(lexical))
-            .max_by_key(|candidate| (candidate.range[1], !candidate.cores.is_empty(), !candidate.formations.is_empty())))
+        let next = candidates.iter().filter(|candidate| candidate.range[0] == cursor && candidate.hints.iter().any(lexical))
+            .max_by_key(|candidate| (candidate.range[1], !candidate.cores.is_empty(), !candidate.formations.is_empty()))
+            .or_else(|| candidates.iter().filter(|candidate| candidate.range[0] == cursor && candidate.minimal && candidate.reason == "author_ruby"
+                && !candidates.iter().any(|other| other.range != candidate.range && contains(candidate.range, other.range) && other.hints.iter().any(lexical)))
+            .max_by_key(|candidate| candidate.range[1]))
             .or_else(|| candidates.iter().filter(|candidate| candidate.range[0] == cursor && candidate.minimal)
                 .max_by_key(|candidate| (!candidate.cores.is_empty(), candidate.range[1])));
         if let Some(candidate) = next {
@@ -395,9 +457,27 @@ pub fn build_profiled(
     }
     let mut inner = Vec::new();
     for parent in &outer {
+        let sahen_chain = document.morphology.chains.iter().find(|chain| chain.role == MorphologyRole::Lexical
+            && parent.lexical_core_ids.contains(&chain.chain_id) && chain.lookup_form.ends_with("する")
+            && chain.core_morpheme_indices.first().and_then(|index| tokens.get(*index))
+                .is_some_and(|token| token.pos[0].as_deref() == Some("名詞"))
+            && !chain.operators.iter().any(|operator| operator.kind == "causative"));
+        if let Some(chain) = sahen_chain {
+            let first = chain.core_morpheme_indices.first().and_then(|index| tokens.get(*index)).unwrap();
+            let canonical = chain.query_forms.iter().find(|query| query.form == chain.lookup_form).cloned()
+                .unwrap_or_else(|| form(chain.lookup_form.clone(), None, "canonical"));
+            let candidate = Candidate { range: parent.char_range,
+                forms: unique_forms(std::iter::once(canonical).chain(token_forms(first))),
+                members: tokens.iter().enumerate().filter(|(_, token)| overlaps(parent.char_range, token.char_range))
+                    .map(|(index, _)| index).collect(), cores: vec![chain.chain_id.clone()], formations: Vec::new(),
+                pos: Some(PosTag { major: "動詞".into(), sub1: String::new(), sub2: String::new(), sub3: String::new() }),
+                minimal: true, hints: parent.metadata_hints.clone(), reason: parent.reason.clone() };
+            inner.push(target(&candidate, &chars, tokens, Some(&parent.id), "queryable"));
+        }
         for candidate in candidates.iter().filter(|candidate| candidate.range != parent.char_range && contains(parent.char_range, candidate.range)) {
             if candidate.members.len() > 1 && !candidate.hints.iter().any(lexical) { continue; }
-            let component = candidate.members.iter().all(|index| tokens[*index].lemma.as_deref() == Some("為る")) && !parent.lexical_core_ids.is_empty()
+            if sahen_chain.is_some() && candidate.members.iter().all(|index| tokens[*index].lemma.as_deref() == Some("為る")) { continue; }
+            let component = (sahen_chain.is_some() && candidate.members.iter().all(|index| tokens[*index].lemma.as_deref() == Some("為る")))
                 || !candidate.minimal && !candidate.hints.iter().any(lexical);
             inner.push(target(candidate, &chars, tokens, Some(&parent.id), if component { "component" } else { "queryable" }));
         }
@@ -412,11 +492,12 @@ pub fn build_profiled(
             }
         }
     }
-    let pending = candidates.iter().filter(|candidate| !candidate.formations.is_empty() && !candidate.hints.iter().any(lexical))
+    let pending = candidates.iter().filter(|candidate| (!candidate.formations.is_empty() || !candidate.cores.is_empty())
+        && !candidate.hints.iter().any(lexical))
         .map(|candidate| target(candidate, &chars, tokens, None, if candidate.reason == "no_entry" { "pending" } else { "rejected" })).collect();
     let default_target_id = outer.iter().max_by_key(|target| (target.decision == "accepted", target.char_range[1] - target.char_range[0], std::cmp::Reverse(target.char_range[0])))
         .map(|target| target.id.clone());
-    Ok((LookupTargetGroup { schema: "kotoclip.lookup-targets.v1".into(), source_revision: kotoclip_nlp::external::text_digest(
+    Ok((LookupTargetGroup { schema: "readux.lookup-targets.v1".into(), source_revision: readux_nlp::external::text_digest(
         &serde_json::to_string(&(&document.id, &document.morphology, &document.formation, &document.ruby_validations)).map_err(|error| error.to_string())?),
         anchor_range, outer_targets: outer, inner_targets: inner, candidate_targets: pending, grammar_targets: grammar, excluded_ranges: excluded,
         coverage_status: "complete".into(), default_target_id }, timing))

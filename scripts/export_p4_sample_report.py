@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/validation/p4-sample-review.json"
-BINARY = ROOT / "target/debug/kotoclip-nlp.exe"
+BINARY = ROOT / "target/debug/readux-nlp.exe"
 
 def c(value):
     if value is None: return "o"
@@ -179,7 +179,7 @@ def live(text):
     with tempfile.TemporaryDirectory(prefix="p4-md-",dir=ROOT/"experiments") as d:
         data=Path(d); (data/"dict-sources").mkdir()
         for source in (ROOT/"data/dict-sources").glob("*.kdict"): os.link(source,data/"dict-sources"/source.name)
-        p=subprocess.Popen([str(BINARY),"stdio"],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding="utf-8",env={**os.environ,"KOTOCLIP_DATA_DIR":str(data)})
+        p=subprocess.Popen([str(BINARY),"stdio"],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding="utf-8",env={**os.environ,"READUX_DATA_DIR":str(data)})
         try:
             base=request(p,{"command":"analyze","text":text,"register":"cwj"})
             result=request(p,{"command":"enrich","analysis_id":base["id"]})

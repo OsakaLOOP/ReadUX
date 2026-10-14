@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.alignment-check.v1",
+  "schema": "readux.alignment-check.v1",
   "cases": [
     {
       "id": "news",

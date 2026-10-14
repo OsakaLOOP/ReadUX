@@ -4,7 +4,7 @@ use std::sync::LazyLock;
 /// 阅读器 Markdown 到 `analysisText` 的协议版本。
 ///
 /// 修改清理、块间距或正文保留规则时必须升版，并同步共享 fixture。
-pub const ANALYSIS_TEXT_PROTOCOL_VERSION: &str = "kotoclip.reader-analysis-text.v1";
+pub const ANALYSIS_TEXT_PROTOCOL_VERSION: &str = "readux.reader-analysis-text.v1";
 
 static FRONTMATTER: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?s)^\u{feff}?---\r?\n.*?\r?\n---(?:\r?\n|$)").unwrap());

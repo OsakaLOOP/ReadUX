@@ -3548,7 +3548,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -3557,7 +3557,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -5946,7 +5946,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -5955,7 +5955,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -6895,7 +6895,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -6904,7 +6904,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -17008,7 +17008,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -17017,7 +17017,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -21194,7 +21194,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -21203,7 +21203,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -22679,7 +22679,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -22688,7 +22688,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -24772,7 +24772,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -24781,7 +24781,7 @@
           "selected": "cwj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "4add7eb2de073611ff9a01f62b1ca07e157a559381d7de9ab0d060f786fcc5e7",
@@ -28776,7 +28776,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -28785,7 +28785,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -31174,7 +31174,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -31183,7 +31183,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -32123,7 +32123,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -32132,7 +32132,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -42278,7 +42278,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -42287,7 +42287,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -46482,7 +46482,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -46491,7 +46491,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -47967,7 +47967,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -47976,7 +47976,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",
@@ -50060,7 +50060,7 @@
               "surface_form": "。"
             }
           ],
-          "schema": "kotoclip.morphology-artifact.v1"
+          "schema": "readux.morphology-artifact.v1"
         },
         "provider_token_alignments": [],
         "routing": {
@@ -50069,7 +50069,7 @@
           "selected": "csj"
         },
         "ruby_validations": [],
-        "schema": "kotoclip.unified-document.v4",
+        "schema": "readux.unified-document.v4",
         "source": {
           "provider": {
             "dictionary_sha256": "24ed4e27613479ac9a45ec8669dfbf1dadfc75679dd5689db36b8783da3f7330",

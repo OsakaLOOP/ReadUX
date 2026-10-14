@@ -43,7 +43,7 @@ P0–P3 已完成基础接入；P4 提供 token、活用链和构词候选。P4 
 - [x] 扩展统一结果协议，明确文本身份、来源能力、对齐组、结构关系、查询目标和任务版本；同步 Rust 与 TypeScript 类型及序列化样本。统一文档 v6、会话更新 v1、来源实体／关系、查询目标和矩阵表记均已接入。
 - [x] 为现有工作区变更执行定向检查，核实 provider 状态、采集脚本和评估脚本的实际行为，再与模块接入修改分别提交。文档基线 `b5497f9`，既有 provider／实验变更 `ef7a4cb`，覆盖检查 `57fd098`；检查结果见实施记录。
 
-入口：[model.rs](../crates/kotoclip-nlp/src/model.rs)、[types/nlp.ts](../src/types/nlp.ts)、[analysis.rs](../crates/kotoclip-core/src/analysis.rs)。
+入口：[model.rs](../crates/readux-nlp/src/model.rs)、[types/nlp.ts](../src/types/nlp.ts)、[analysis.rs](../crates/readux-core/src/analysis.rs)。
 
 完成条件：每项功能有明确入口和验收场景，同一结果在 Rust、IPC 与前端具有一致身份及状态。
 
@@ -56,7 +56,7 @@ P0–P3 已完成基础接入；P4 提供 token、活用链和构词候选。P4 
 - [x] 输出完整的实际任务结果。GiNZA 保留 compound、bunsetsu、主辞和依存标签；KWJA 保留基本句、谓语、论元及启用任务的实体、照应和篇章关系。能力清单逐项对应输出。来源实体、原始 KNP、typed relation 与 checkpoint 任务清单进入 `external_sources`。
 - [x] 在 `AnalysisService` 的普通分析路径调用两项服务，先返回基础正文，再追加已校验的结构。增加桌面配置、运行状态和结构查看入口。Tauri 已验证自动结构追加、两来源切换、取消与重试；证据见 `data/validation/behavior/desktop.json`。
 
-入口：[analysis.rs](../crates/kotoclip-core/src/analysis.rs)、[native.rs](../crates/kotoclip-nlp/src/native.rs)、[collect_ginza_validation.py](../scripts/collect_ginza_validation.py)、[probe_kwja_provider.py](../scripts/probe_kwja_provider.py)、[src-tauri/src/lib.rs](../src-tauri/src/lib.rs)。
+入口：[analysis.rs](../crates/readux-core/src/analysis.rs)、[native.rs](../crates/readux-nlp/src/native.rs)、[collect_ginza_validation.py](../scripts/collect_ginza_validation.py)、[probe_kwja_provider.py](../scripts/probe_kwja_provider.py)、[src-tauri/src/lib.rs](../src-tauri/src/lib.rs)。
 
 当前完成条件：Tauri 窗口输入真实文本，GiNZA 服务实际执行，来源和结构结果可查看；连续请求复用模型，服务异常具有明确恢复路径。上方勾选项保留当时的双来源验收记录。
 
@@ -70,7 +70,7 @@ P0–P3 已完成基础接入；P4 提供 token、活用链和构词候选。P4 
 - [x] 分离主辞与依存目标，增加有类型的关系端点；分别保存基本句和小句。保留模型原始标签、来源节点、多个候选和选择理由。
 - [x] 定义多来源选择策略及稳定 ID，检查同范围证据合并、交叉边界、组合主辞、跨句关系和重复句定位。三组真实集成见 `alignment.json`；离线导入见 `offline-alignment.json`；桌面分组与选择显示见 `desktop.json`。
 
-入口：[prepare.rs](../crates/kotoclip-nlp/src/prepare.rs)、[syntax.rs](../crates/kotoclip-nlp/src/syntax.rs)、[alignment.rs](../crates/kotoclip-nlp/src/alignment.rs)、[structure.rs](../crates/kotoclip-nlp/src/structure.rs)、[unify.rs](../crates/kotoclip-nlp/src/unify.rs)。
+入口：[prepare.rs](../crates/readux-nlp/src/prepare.rs)、[syntax.rs](../crates/readux-nlp/src/syntax.rs)、[alignment.rs](../crates/readux-nlp/src/alignment.rs)、[structure.rs](../crates/readux-nlp/src/structure.rs)、[unify.rs](../crates/readux-nlp/src/unify.rs)。
 
 完成条件：真实两来源样本及人工边界用例覆盖所有映射类型；空白、ruby、标点规范化和 token 内部切点均有准确结果或明确诊断，关系引用可解析。
 
@@ -83,7 +83,7 @@ P0–P3 已完成基础接入；P4 提供 token、活用链和构词候选。P4 
 - [x] 建立版本化更新协议及前后端合并器，校验文本版本、任务代次和基准版本；目标引用随产物生命周期管理。
 - [x] 增加分层缓存、容量限制和资源失效规则。分离前台查询与后台分析，替换当前单服务互斥串行处理方式。
 
-入口：[analysis.rs](../crates/kotoclip-core/src/analysis.rs)、[analysis_progress.rs](../crates/kotoclip-core/src/analysis_progress.rs)、[services/nlp.ts](../src/services/nlp.ts)、[documentOperation.ts](../src/reader/documentOperation.ts)。
+入口：[analysis.rs](../crates/readux-core/src/analysis.rs)、[analysis_progress.rs](../crates/readux-core/src/analysis_progress.rs)、[services/nlp.ts](../src/services/nlp.ts)、[documentOperation.ts](../src/reader/documentOperation.ts)。
 
 完成条件：整本书可渐进分析，快速切书、取消、跳转和迟到结果保持一致；冷分析、缓存恢复和增量更新得到相同规范结果。
 
@@ -98,7 +98,7 @@ P0–P3 已完成基础接入；P4 提供 token、活用链和构词候选。P4 
 - [x] 人工核对十段来源质量，区分可靠字段、模型错误、统一诊断和后置派生污染。
 - [x] 生成十段报告，逐行呈现活用链与整体构词；完整 occurrence、状态与来源诊断保存在机器产物。
 
-入口：[sources.rs](../crates/kotoclip-nlp/src/sources.rs)、[external.rs](../crates/kotoclip-nlp/src/external.rs)、[alignment_group.rs](../crates/kotoclip-nlp/src/alignment_group.rs)与[structure_graph.rs](../crates/kotoclip-nlp/src/structure_graph.rs)。
+入口：[sources.rs](../crates/readux-nlp/src/sources.rs)、[external.rs](../crates/readux-nlp/src/external.rs)、[alignment_group.rs](../crates/readux-nlp/src/alignment_group.rs)与[structure_graph.rs](../crates/readux-nlp/src/structure_graph.rs)。
 
 完成条件：十段的三来源字段、范围、实体和关系可以追溯；对齐完整性与语言学正确性分别报告；外部来源错误和后置派生异常具有明确归因。
 
@@ -148,7 +148,7 @@ P4 必须保证 token、语法活用链和整体构词的对象及行为。依�
 - [ ] 结合词典收录、形态实现和句法关系识别连续／非连续表达，确定功能所有权、精确命中范围与跨句等适用边界；逐类验证结果和解释。
 - [ ] 为适合声明条件的语法与表达提供规则管理、预演、保存及更新后的重算；清理旧通用扫描及其遗留入口。完成 A09、A10。
 
-入口：[output.rs](../crates/kotoclip-core/src/output.rs)、[lookup.rs](../crates/kotoclip-core/src/dictionary/lookup.rs)、[useDictionary.ts](../src/composables/useDictionary.ts)、[useExplanationSession.ts](../src/composables/useExplanationSession.ts)、[ExplanationPopover.vue](../src/components/explanation/ExplanationPopover.vue)。
+入口：[output.rs](../crates/readux-core/src/output.rs)、[lookup.rs](../crates/readux-core/src/dictionary/lookup.rs)、[useDictionary.ts](../src/composables/useDictionary.ts)、[useExplanationSession.ts](../src/composables/useExplanationSession.ts)、[ExplanationPopover.vue](../src/components/explanation/ExplanationPopover.vue)。
 
 请注意: 在P4阶段, 不要提及规则或表达模块, 也不要尝试运行或接入. 除非用户明确提及.
 
@@ -163,7 +163,7 @@ P4 必须保证 token、语法活用链和整体构词的对象及行为。依�
 - [x] 在应用入口接入引导、书架、文本输入和阅读页面，恢复导入、分类、排序、详情、继续阅读、删除和打开书库目录。
 - [x] 将阅读胶囊、图片、虚拟行和选择操作接到新投影；恢复章节跳转、进度、排版、阅读时长和重启定位。语法与表达沿用后续扩展位。
 
-入口：[阅读器 Engine](reader_engine.md)、[core/lib.rs](../crates/kotoclip-core/src/lib.rs)、[library.rs](../crates/kotoclip-core/src/library.rs)、[epub.rs](../crates/kotoclip-core/src/import/epub.rs)、[App.vue](../src/App.vue)、[reader 组件](../src/components/reader/)。
+入口：[阅读器 Engine](reader_engine.md)、[core/lib.rs](../crates/readux-core/src/lib.rs)、[library.rs](../crates/readux-core/src/library.rs)、[epub.rs](../crates/readux-core/src/import/epub.rs)、[App.vue](../src/App.vue)、[reader 组件](../src/components/reader/)。
 
 完成条件：完整书籍从导入到继续阅读可用；图文、注音、章节、查词、语法与表达解释及排版在同一实际桌面流程中通过验收。
 
@@ -175,7 +175,7 @@ P4 必须保证 token、语法活用链和整体构词的对象及行为。依�
 - [x] 完成已知状态、曝光记录、选择、笔记和重启后按书籍／文本版本恢复；汉字知识和词典偏好留作后续扩展。
 - [x] 完成连续文本选择、笔记编辑和 JSON 导出，保留正文范围、词形、读音和上下文表记。
 
-入口：[阅读器 Engine](reader_engine.md)、[profile](../crates/kotoclip-core/src/profile/)、[export](../crates/kotoclip-core/src/export/)、[useSelection.ts](../src/composables/useSelection.ts)、[ExportPanel.vue](../src/components/ExportPanel.vue)。
+入口：[阅读器 Engine](reader_engine.md)、[profile](../crates/readux-core/src/profile/)、[export](../crates/readux-core/src/export/)、[useSelection.ts](../src/composables/useSelection.ts)、[ExportPanel.vue](../src/components/ExportPanel.vue)。
 
 完成条件：词汇状态、收藏等用户操作经过持久化与重启验证；后台重算及虚拟列表重绘保持曝光计数正确；导出可准确对应原文。
 
@@ -187,7 +187,7 @@ P4 必须保证 token、语法活用链和整体构词的对象及行为。依�
 - [ ] 接入本机端点、模型与凭据配置，提供主动触发、取消、错误提示和响应校验。
 - [ ] 展示候选引用与建议依据；用户在本次查询中选择候选，验证助手与本地查询的独立请求状态。
 
-入口：[llm](../crates/kotoclip-core/src/llm/)、[dictionaryAssistantPort.ts](../src/services/dictionaryAssistantPort.ts)、[types/llm.ts](../src/types/llm.ts)。
+入口：[llm](../crates/readux-core/src/llm/)、[dictionaryAssistantPort.ts](../src/services/dictionaryAssistantPort.ts)、[types/llm.ts](../src/types/llm.ts)。
 
 完成条件：一次真实消歧请求完成展示和本次查询的候选选择；服务失败时阅读和本地查询保持可用。
 
@@ -202,7 +202,7 @@ P4 必须保证 token、语法活用链和整体构词的对象及行为。依�
 - [ ] 先完成可靠的完整范围比较，再接入具有覆盖验证的局部规则选择；更新 `language_quality.py` 中已缺失的委托脚本入口。
 - [ ] 使用实际桌面流程测量冷／热启动、首批正文、结构追加、章节跳转、词典查询和规则更新，合计统计 Rust 与 Python 进程资源。
 
-入口：[quality-audit/src](../crates/kotoclip-quality-audit/src/)、[quality_audit.rs](../src-tauri/src/quality_audit.rs)、[质量界面](../src/components/quality/)、[language_quality.py](../scripts/language_quality.py)。
+入口：[quality-audit/src](../crates/readux-quality-audit/src/)、[quality_audit.rs](../src-tauri/src/quality_audit.rs)、[质量界面](../src/components/quality/)、[language_quality.py](../scripts/language_quality.py)。
 
 完成条件：已知语言变化可在机器报告和桌面两侧定位；局部比较与完整比较一致；资源与响应时间形成可复现的基线。
 

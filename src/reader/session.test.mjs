@@ -3,7 +3,7 @@ import test from 'node:test';
 import { documentControlRequest, openSession, mergeSession, matchesSessionGeneration } from './session.ts';
 
 const plan = { id: 'book', text_version: 'text-v1', units: [] };
-const initial = { schema: 'kotoclip.document-update.v1', session_id: 's1', text_version: 'text-v1', generation: 1,
+const initial = { schema: 'readux.document-update.v1', session_id: 's1', text_version: 'text-v1', generation: 1,
   base_revision: null, revision: 0, snapshot: true, paused: false, progress: { total: 1 }, changes: [{ unit_id: 'u1', stage: 'pending' }] };
 
 test('重试与取消请求遵循后端字段协议，范围与继续请求携带增量版本', () => {

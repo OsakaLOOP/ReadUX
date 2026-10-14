@@ -434,7 +434,7 @@ function managedLinkGroups(entry: DictEntry) {
 function handleDefinitionClick(event: MouseEvent) {
   const anchor = (event.target as HTMLElement).closest("a") as HTMLAnchorElement | null;
   if (!anchor) return;
-  const marker = "https://kotoclip.invalid/entry/";
+  const marker = "https://readux.invalid/entry/";
   if (anchor.href.startsWith(marker)) {
     event.preventDefault();
     emit("navigate", decodeURIComponent(anchor.href.slice(marker.length)));

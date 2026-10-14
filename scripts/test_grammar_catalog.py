@@ -19,7 +19,7 @@ def main() -> None:
         check=True,
     )
     manifest = json.loads(
-        (ROOT / "crates" / "kotoclip-core" / "resources" / "grammar" / "compiled" / "manifest.json").read_text(encoding="utf-8")
+        (ROOT / "crates" / "readux-core" / "resources" / "grammar" / "compiled" / "manifest.json").read_text(encoding="utf-8")
     )
     assert manifest["counts"]["concepts"] >= 60
     assert manifest["counts"]["rules"] >= 60

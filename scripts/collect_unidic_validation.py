@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "validation" / "unidic-2000.json"
-BIN = ROOT / "target" / "debug" / "kotoclip-nlp.exe"
+BIN = ROOT / "target" / "debug" / "readux-nlp.exe"
 OUT = ROOT / "experiments" / "unidic-provider-validation.json"
 
 def collect(segment):
@@ -36,7 +36,7 @@ def main():
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     data = json.loads(args.data.read_text(encoding="utf-8"))
-    output = {"schema": "kotoclip.unidic-provider-validation.v1", "provider": {"id": "unidic", "version": "2025.12", "status": "candidate_structure"}, "segments": [collect(s) for s in data["segments"]]}
+    output = {"schema": "readux.unidic-provider-validation.v1", "provider": {"id": "unidic", "version": "2025.12", "status": "candidate_structure"}, "segments": [collect(s) for s in data["segments"]]}
     args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(args.output), "tokens": sum(len(s["tokens"]) for s in output["segments"]), "sentences": sum(len(s["sentences"]) for s in output["segments"]), "clauses": sum(len(s["clauses"]) for s in output["segments"])}, ensure_ascii=False, indent=2))
 if __name__ == "__main__": main()

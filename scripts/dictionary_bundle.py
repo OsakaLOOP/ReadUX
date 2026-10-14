@@ -1,4 +1,4 @@
-"""生成 Kotoclip 可分发词典源包。"""
+"""生成 ReadUX 可分发词典源包。"""
 
 from __future__ import annotations
 

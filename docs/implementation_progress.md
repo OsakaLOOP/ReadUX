@@ -2,6 +2,8 @@
 
 更新日期：2026-09-24。完整范围以 [TODO](TODO.md) 和 [模块索引](README.md) 为准。各阶段记录实现、应用调用和验收证据。历史双来源记录保留原始测量与复核结论；当前运行链路仅使用 UniDic 和 GiNZA，KWJA 保留为离线研究材料。
 
+2026-10-13：BERT 推理优化实验完成阶段交接。共享 FP16 BERT、六路 CPU 解码、双批次 GPU/CPU 重叠在 9068 token 固定语料上达到 2188 token/s，字段转换和 JSON 编码后 2019 token/s；输出与 FP16 基准一致。详细流程模型、阶段变量、GPU 多流实测和 4060 Ti 后续任务见 [GiNZA BERT 优化交接](ginza_optimization_handoff.md)，机器摘要为 `data/validation/ginza_optimization_summary.json`。
+
 ## 阶段状态
 
 | 阶段 | 状态 | 已有证据 | 后续工作 |
@@ -37,12 +39,12 @@ Rust CLI 编译、Vue 类型检查和指定样本的真实词典查询通过。�
 | --- | --- |
 | `scripts/nlp_adapters.py` | 两来源结果适配、规范化来源映射、结构与有类型的关系 |
 | `scripts/nlp_provider.py` | 逐行 JSON 常驻进程，UTF-8、离线初始化、模型复用与诊断日志 |
-| `crates/kotoclip-nlp/src/external.rs` | 来源协议、摘要／坐标／引用校验、结构消费投影 |
-| `crates/kotoclip-core/src/providers.rs` | 本机配置、隐藏进程、请求 ID、超时、取消、退出与重启 |
+| `crates/readux-nlp/src/external.rs` | 来源协议、摘要／坐标／引用校验、结构消费投影 |
+| `crates/readux-core/src/providers.rs` | 本机配置、隐藏进程、请求 ID、超时、取消、退出与重启 |
 | `analysis.rs` 的 `enrich` | 在基础正文上追加真实来源及应用结构 |
 | `src/components/ProviderPanel.vue` | 模型配置、运行状态、实体／关系查看及重试 |
-| `crates/kotoclip-nlp/src/alignment_group.rs` | 以字符交集形成多对多分组，保存两侧 gap 和未匹配成员 |
-| `crates/kotoclip-nlp/src/structure_graph.rs` | 实体与组合主辞映射、关系诊断、同范围证据合并和默认选择 |
+| `crates/readux-nlp/src/alignment_group.rs` | 以字符交集形成多对多分组，保存两侧 gap 和未匹配成员 |
+| `crates/readux-nlp/src/structure_graph.rs` | 实体与组合主辞映射、关系诊断、同范围证据合并和默认选择 |
 | `scripts/emit_provider_syntax.py` | 两来源共用的连续结构导出入口 |
 | `scripts/nlp_resources.py` | 实际加载文件与 tokenizer 配置的内容身份、执行参数及资源清单 |
 
@@ -71,7 +73,7 @@ Rust CLI 编译、Vue 类型检查和指定样本的真实词典查询通过。�
 
 重复验证使用 `scripts/validate_nlp_integration.py`；可用 `--cases` 限定短例、`--output` 保存专项结果。桌面验证使用 `scripts/validate_provider_desktop.mjs`，连接开启本机调试端口 9222 的 WebView2 窗口。
 
-P2 协议提交为 `28ecdb2`，离线采集与导入提交为 `baeb927`。`kotoclip.unified-document.v5` 包含准备映射、作者注音、对齐组和统一结构图；连续导入为 `kotoclip.syntax-artifact.v2`。详细选择策略与坐标契约见 [分析来源与对齐](nlp_sources.md)。CLI 与桌面需分别执行 `cargo build -p kotoclip-core --bin kotoclip-nlp`、`cargo build -p tauri-app`，保证两个入口均采用当前协议。
+P2 协议提交为 `28ecdb2`，离线采集与导入提交为 `baeb927`。`readux.unified-document.v5` 包含准备映射、作者注音、对齐组和统一结构图；连续导入为 `readux.syntax-artifact.v2`。详细选择策略与坐标契约见 [分析来源与对齐](nlp_sources.md)。CLI 与桌面需分别执行 `cargo build -p readux-core --bin readux-nlp`、`cargo build -p tauri-app`，保证两个入口均采用当前协议。
 
 ## 接续顺序
 

@@ -1,5 +1,5 @@
 //! 本机模型进程管理。请求串行复用模型，取消和超时释放对应进程。
-use kotoclip_nlp::external::SourceArtifact;
+use readux_nlp::external::SourceArtifact;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::{
@@ -12,7 +12,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-const PROTOCOL: &str = "kotoclip.provider-process.v1";
+const PROTOCOL: &str = "readux.provider-process.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProviderConfig {
@@ -293,7 +293,7 @@ impl ProviderManager {
                     let worker = worker.lock().unwrap();
                     (worker.manifest["resource_digest"].as_str().unwrap_or("unknown").to_string(), worker.identity.clone())
                 };
-                let digest = kotoclip_nlp::external::text_digest(text);
+                let digest = readux_nlp::external::text_digest(text);
                 let key = format!("{id}:{identity}:{resource}:{digest}");
                 if let Some(artifact) = self.cache.lock().unwrap().get(&key) { cache_hit = true; return Ok((*artifact).clone()); }
                 let artifact = worker.lock().unwrap().analyze(text, &request_id, config.timeout_seconds, &self.cancellation, generation)?;

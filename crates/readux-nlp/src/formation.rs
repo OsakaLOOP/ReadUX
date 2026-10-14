@@ -3,7 +3,7 @@ use crate::{model::{MorphemeToken, QueryForm}, structure::{StructureArtifact, St
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
-pub const SCHEMA: &str = "kotoclip.formation-artifact.v2";
+pub const SCHEMA: &str = "readux.formation-artifact.v2";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

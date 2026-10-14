@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.unidic-semantic-training.v1",
+  "schema": "readux.unidic-semantic-training.v1",
   "model_id": "unidic-semantic-b",
   "architecture": {
     "encoder": "token_feature_transformer",

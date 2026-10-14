@@ -65,7 +65,7 @@ def main():
     annotation = gold.get('annotation', {})
     segment_status = annotation.get('segment_status', {})
     providers = {name: json.loads(path.read_text(encoding='utf-8')) for name, path in [('ginza', args.ginza), ('kwja', args.kwja), ('unidic', args.unidic)]}
-    report = {'schema': 'kotoclip.external-source-validation-report.v1', 'characters': sum(len(x['text']) for x in data['segments']), 'segments': {}, 'providers': {}}
+    report = {'schema': 'readux.external-source-validation-report.v1', 'characters': sum(len(x['text']) for x in data['segments']), 'segments': {}, 'providers': {}}
     for sid, expected in gold_by_id.items():
         report['segments'][sid] = {
             'independent_gold': sid == 'source-collective',

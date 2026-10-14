@@ -50,7 +50,7 @@ def main() -> None:
     by_id = {item["id"]: item["installed_bytes"] for item in resource_sets}
     total = sum(by_id.values())
     result = {
-        "schema": "kotoclip.native-provider-resource-measurement.v1",
+        "schema": "readux.native-provider-resource-measurement.v1",
         "resource_sets": resource_sets,
         "equivalent_provider_resources_bytes": total,
         "equivalent_provider_resources_mib": total / (1024 * 1024),

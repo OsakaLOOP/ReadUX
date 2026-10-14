@@ -148,7 +148,7 @@ function isKana(character: string): boolean {
     || character === "ー";
 }
 
-// 与 kotoclip-nlp/src/prepare.rs 的注音有效性和字符坐标保持一致。
+// 与 readux-nlp/src/prepare.rs 的注音有效性和字符坐标保持一致。
 function preparedCharacterLength(value: string): number {
   const characters = Array.from(value);
   const prepared: string[] = [];

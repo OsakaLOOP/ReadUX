@@ -58,8 +58,8 @@ def main():
     if len(paragraphs) != 10 or any(not paragraph for paragraph in paragraphs):
         raise ValueError("指定语料应包含十个非空段落")
     RAW.mkdir(parents=True, exist_ok=True)
-    report = {"schema": "kotoclip.p4-sample-review.v1", "source": str(source_path.relative_to(ROOT)),
-        "source_sha256": digest(source_path), "binary_sha256": digest(ROOT / "target/debug/kotoclip-nlp.exe"),
+    report = {"schema": "readux.p4-sample-review.v1", "source": str(source_path.relative_to(ROOT)),
+        "source_sha256": digest(source_path), "binary_sha256": digest(ROOT / "target/debug/readux-nlp.exe"),
         "git_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, encoding="utf-8").strip(),
         "date": time.strftime("%Y-%m-%d"), "method": "逐段保留上下文，经 open_document / poll_document 获取真实三来源结果；语言判断另见人工复核文档。",
         "cases": [], "controls": []}
@@ -70,9 +70,9 @@ def main():
         for source in (ROOT / "data/dict-sources").glob("*.kdict"):
             os.link(source, dictionary_sources / source.name)
         with (RAW / "stderr.log").open("w", encoding="utf-8") as stderr:
-            process = subprocess.Popen([str(ROOT / "target/debug/kotoclip-nlp.exe"), "stdio"],
+            process = subprocess.Popen([str(ROOT / "target/debug/readux-nlp.exe"), "stdio"],
                 cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=stderr, encoding="utf-8",
-                env={**os.environ, "KOTOCLIP_DATA_DIR": data})
+                env={**os.environ, "READUX_DATA_DIR": data})
             responses = queue.Queue()
 
             def read_responses():

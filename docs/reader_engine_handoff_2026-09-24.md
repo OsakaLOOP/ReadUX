@@ -2,7 +2,7 @@
 
 ## 目标与边界
 
-在当前 UniDic／GiNZA 分析管线和词典查询服务上完成 P6–P7 阅读器。继续使用本机已有的 `Kotoclip Library` 书库、EPUB 文件、图片和阅读进度。主界面采用重构前阅读器的布局及可复用组件，以当前 `DocumentSession` 和 `UnifiedDocument` 驱动正文、查询和交互。旧的分析入口、`useTokenization` 管线及其数据不进入新阅读流程。P4–P5 尚未完成的表达、语法扩展、词典筛选和排序留作后续开发。
+在当前 UniDic／GiNZA 分析管线和词典查询服务上完成 P6–P7 阅读器。继续使用本机已有的 `ReadUX Library` 书库、EPUB 文件、图片和阅读进度。主界面采用重构前阅读器的布局及可复用组件，以当前 `DocumentSession` 和 `UnifiedDocument` 驱动正文、查询和交互。旧的分析入口、`useTokenization` 管线及其数据不进入新阅读流程。P4–P5 尚未完成的表达、语法扩展、词典筛选和排序留作后续开发。
 
 正式设计见 [阅读器 Engine 与查询投影](reader_engine.md)，书库及交互要求见 [书库与阅读器](reader.md)、[词典与解释](dictionary.md)。用户最后明确要求保留本地书库接入，同时隔离旧分析和旧用户数据。
 
@@ -10,14 +10,14 @@
 
 当前代码只完成了后端接入的第一阶段，**阅读器尚未完成，也未经过桌面窗口验收**。
 
-- `crates/kotoclip-core/src/lib.rs` 已注册现存的 `import`、`library`、`reader_markdown`，并注册新增的 `reader_state`。
-- `crates/kotoclip-core/src/reader_state.rs` 新增词汇已知状态、曝光计数及按书籍／文本版本保存的选择与笔记。该服务尚无前端调用；尚未实现汉字知识、词典偏好、导出及曝光去重。
+- `crates/readux-core/src/lib.rs` 已注册现存的 `import`、`library`、`reader_markdown`，并注册新增的 `reader_state`。
+- `crates/readux-core/src/reader_state.rs` 新增词汇已知状态、曝光计数及按书籍／文本版本保存的选择与笔记。该服务尚无前端调用；尚未实现汉字知识、词典偏好、导出及曝光去重。
 - `src-tauri/src/reader_engine.rs` 新增应用协调对象，持有 `AnalysisService`、原有 `ReaderLibrary`、`ReaderState` 和当前文档会话。打开书籍时使用 `reader_markdown::compile_analysis_text` 生成正文，再调用 `AnalysisService::OpenDocument`。
 - `src-tauri/src/lib.rs` 已注册书架列表、EPUB 导入、书籍／文本打开、会话关闭、进度保存、书籍组织／重置／删除、词汇状态和选择记录等命令；原有 `nlp_request` 通过同一个 `AnalysisService` 工作。
 - `src/App.vue` 仍是现有 NLP 检查界面，**尚未接入任何新增的阅读器命令**。`useDocumentSession` 尚无采用宿主返回会话的入口；旧的 `AnalyzedTextItem.vue`、`ExportPanel.vue`、`rows.ts` 等组件仍引用已删除的 `useTokenization` 类型，不能直接连接到当前 NLP 结果。
 - 文档设计已写入 `docs/reader_engine.md`，并在 `docs/README.md`、`docs/architecture.md`、`docs/reader.md`、`docs/dictionary.md`、`docs/TODO.md`、`docs/implementation_progress.md` 建立入口。这些文档修改同样未提交。
 
-开始本轮开发前，工作区已有大量用户保留的 P4／P5 代码、测试、验证数据和文档修改，包括未跟踪的 `crates/kotoclip-core/src/dictionary/targets.rs`。这些内容是当前查询能力的基础，后续应在现有状态上继续开发，不能清理或覆盖。
+开始本轮开发前，工作区已有大量用户保留的 P4／P5 代码、测试、验证数据和文档修改，包括未跟踪的 `crates/readux-core/src/dictionary/targets.rs`。这些内容是当前查询能力的基础，后续应在现有状态上继续开发，不能清理或覆盖。
 
 ## 立即处理的问题
 
@@ -46,6 +46,6 @@
 - `App.vue` 已采用 `LibraryHome`、`ReaderSurface`、章节导航、排版、图片、进度和导出面板，接入书库、EPUB、Markdown、阅读会话及阅读进度。
 - `ReaderDocumentView.vue` 以 `buildReaderRows` 和 `@tanstack/vue-virtual` 渲染正文；分析单元完成基础结果后请求词典目标，悬浮查询核心词，非整体点击切换内部 token。
 - 已接入已知状态、曝光、连续文本选择、笔记持久化和 JSON 导出；P5D 表达／语法扩展及高级词典筛选排序继续保留为后续扩展位。
-- `npm run build`、`npm run test:ui`、`cargo check -p tauri-app` 和 `cargo test -p kotoclip-core --lib --tests` 已通过；真实桌面窗口验收仍属于交付前检查。
+- `npm run build`、`npm run test:ui`、`cargo check -p tauri-app` 和 `cargo test -p readux-core --lib --tests` 已通过；真实桌面窗口验收仍属于交付前检查。
 
 尚未执行新命令的实际调用、现有书籍打开、EPUB 导入、书库迁移、桌面端运行、完整前端构建或重启持久化验收。下一位开发者应从独立数据库路径及前端会话接线开始，完成后再开展分模块测试和桌面验证。

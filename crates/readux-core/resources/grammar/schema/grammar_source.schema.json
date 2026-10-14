@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kotoclip.local/schema/grammar-source-v1.json",
-  "title": "Kotoclip 语法知识源文件",
+  "$id": "https://readux.local/schema/grammar-source-v1.json",
+  "title": "ReadUX 语法知识源文件",
   "type": "array",
   "items": {
     "type": "object",

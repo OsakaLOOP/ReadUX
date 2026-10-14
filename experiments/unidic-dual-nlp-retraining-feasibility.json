@@ -1,5 +1,5 @@
 {
-  "schema": "kotoclip.unidic-dual-nlp-feasibility.v1",
+  "schema": "readux.unidic-dual-nlp-feasibility.v1",
   "stage": "analysis-and-design",
   "branch_scope": "independent-model-research",
   "coordinate_system": "unicode_scalar_half_open",

@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 import traceback
 
-PROTOCOL = "kotoclip.provider-process.v1"
+PROTOCOL = "readux.provider-process.v1"
 
 
 def emit(value):

@@ -1,5 +1,5 @@
 [package]
-name = "kotoclip-quality-audit"
+name = "readux-quality-audit"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,7 @@ edition = "2021"
 anyhow = "1"
 chrono = { version = "0.4", features = ["serde"] }
 flate2 = "1"
-kotoclip-core = { path = "../kotoclip-core" }
+readux-core = { path = "../readux-core" }
 rmp-serde = "1.3"
 rusqlite = { version = "0.31", features = ["bundled"] }
 serde = { version = "1", features = ["derive"] }

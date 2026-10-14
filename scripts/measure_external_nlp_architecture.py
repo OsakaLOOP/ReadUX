@@ -64,7 +64,7 @@ def main() -> int:
     parser.add_argument("--kwja-checkpoints", type=Path)
     parser.add_argument("--output", type=Path, default=Path("experiments/unidic-nlp-architecture.json"))
     args = parser.parse_args()
-    result = {"schema": "kotoclip.unidic-nlp-architecture.v1", "python": sys.version, "ginza": measure_ginza(args.ginza_model), "kwja": measure_kwja(args.kwja_checkpoints)}
+    result = {"schema": "readux.unidic-nlp-architecture.v1", "python": sys.version, "ginza": measure_ginza(args.ginza_model), "kwja": measure_kwja(args.kwja_checkpoints)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
