@@ -20,7 +20,7 @@ fn modern_inflections_and_functional_ownership() {
         ("来なかった。", "来なかった", "来る", vec!["negative", "past"]),
         ("成立した。", "成立した", "成立する", vec!["past"]),
         ("高くなかった。", "高くなかった", "高い", vec!["negative", "past"]),
-        ("静かな町だ。", "静かな", "静か", vec!["copula"]),
+        ("静かな町だ。", "静かな", "静か", vec!["attributive_na"]),
         ("行くな。", "行くな", "行く", vec!["prohibitive"]),
         ("読め。", "読め", "読む", vec!["imperative"]),
         ("読もう。", "読もう", "読む", vec!["volitional"]),
@@ -135,6 +135,36 @@ fn sentence_final_no_is_outside_the_predicate_chain() {
         assert!(doc.morphology.chains.iter().any(|chain| chain.surface_form.starts_with("読")
             && chain.operators.iter().any(|op| op.kind == "nominalization")), "{text}");
     }
+}
+
+#[test]
+fn ni_na_and_da_preserve_their_distinct_functions() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, surface, kind, form, display) in [
+        ("夢みたいに見える。", "に", "adverbial_ni", "に", "みたいに"),
+        ("夢みたいな話。", "な", "attributive_na", "な", "みたいな"),
+        ("夢みたいだ。", "だ", "copula", "だ", "みたいだ"),
+        ("鳥のように飛ぶ。", "に", "adverbial_ni", "に", "ように"),
+        ("鳥のような姿。", "な", "attributive_na", "な", "ような"),
+        ("鳥のようだ。", "だ", "copula", "だ", "ようだ"),
+        ("静かに歩く。", "に", "adverbial_ni", "に", "静かに"),
+        ("静かな町。", "な", "attributive_na", "な", "静かな"),
+        ("静かだ。", "だ", "copula", "だ", "静かだ"),
+    ] {
+        let doc = analyze(&service, text);
+        let token = doc.morphemes.iter().find(|token| token.surface == surface).unwrap();
+        let chain = doc.morphology.chains.iter().find(|chain| chain.operators.iter().any(|op| op.kind == kind && op.char_range == token.char_range)).unwrap();
+        let operators = chain.operators.iter().filter(|op| op.char_range == token.char_range).collect::<Vec<_>>();
+        assert_eq!(operators.len(), 1, "{text}");
+        assert_eq!(operators[0].normalized_form.as_deref(), Some(form));
+        assert!(readux_core::grammar_catalog::get(&operators[0].concept_id).is_ok());
+        assert!(chain.display_form.ends_with(display), "{text}: {}", chain.display_form);
+        assert_eq!(doc.morphology.occurrences.iter().filter(|occurrence| occurrence.char_range == token.char_range).count(), 1);
+    }
+    let doc = analyze(&service, "駅に行くな。");
+    assert!(!doc.morphology.occurrences.iter().any(|occurrence| matches!(occurrence.kind.as_str(), "adverbial_ni" | "attributive_na")));
+    assert!(doc.morphology.occurrences.iter().any(|occurrence| occurrence.kind == "prohibitive"));
 }
 
 #[test]

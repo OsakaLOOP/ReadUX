@@ -269,9 +269,13 @@ pub fn build_profiled(
             excluded.push(token.char_range);
             if functional {
                 let chain = document.morphology.chains.iter().find(|chain| chain.morpheme_indices.contains(&index));
-                grammar.push(GrammarTarget { char_range: token.char_range, context_range: chain.map_or(token.char_range, |chain| chain.char_range),
-                    normalized_form: token.lemma.clone().unwrap_or_else(|| token.surface.clone()), concept_id: None,
-                    chain_id: chain.map(|chain| chain.chain_id.clone()), display_form: token.surface.clone() });
+                let explained = chain.is_some_and(|chain| chain.operators.iter().any(|operator|
+                    !readux_nlp::morphology_config::is_inflection(&operator.kind) && contains(operator.char_range, token.char_range)));
+                if !explained {
+                    grammar.push(GrammarTarget { char_range: token.char_range, context_range: chain.map_or(token.char_range, |chain| chain.char_range),
+                        normalized_form: token.lemma.clone().unwrap_or_else(|| token.surface.clone()), concept_id: None,
+                        chain_id: chain.map(|chain| chain.chain_id.clone()), display_form: token.surface.clone() });
+                }
             }
         }
     }

@@ -25,6 +25,21 @@ fn surfaces(targets: &Value) -> Vec<String> {
 }
 
 #[test]
+fn recognized_forms_supply_their_own_grammar_query_targets() {
+    let service = service();
+    for (text, ending) in [("みたいに。", "に"), ("みたいな人。", "な"), ("みたいだ。", "だ"),
+        ("ように。", "に"), ("ような人。", "な"), ("ようだ。", "だ"), ("なれたら。", "たら"), ("読んだら。", "だら")] {
+        let (id, document) = analyze(&service, text);
+        let token = document["morphemes"].as_array().unwrap().iter().find(|token| token["surface"] == ending).unwrap();
+        let group = targets(&service, &id, &document);
+        let grammar = group["grammar_targets"].as_array().unwrap().iter().filter(|target| target["char_range"] == token["char_range"]).collect::<Vec<_>>();
+        assert_eq!(grammar.len(), 1, "{text}: {grammar:?}");
+        assert_eq!(grammar[0]["normalized_form"], ending);
+        assert!(grammar[0]["concept_id"].is_string());
+    }
+}
+
+#[test]
 fn p01_direction_and_causative_ranges_are_projected() {
     let service = service();
     let (id, document) = analyze(&service, "政治運動への方向転換。発展せしめる一転機をなした。");
@@ -197,7 +212,7 @@ fn sahen_query_object_covers_the_body_conjugation_and_retains_noun_fallback() {
             && child.surface == "力説" && child.matrix_request.is_some()), "{text} 缺少名词内部查询对象");
         assert!(group.grammar_targets.iter().any(|grammar| grammar.char_range[0] < expected_range[1]
             && expected_range[0] < grammar.char_range[1]
-            && (grammar_form == "する" || grammar.display_form.contains(grammar_form))),
+            && grammar.normalized_form == grammar_form),
             "{text} 缺少主体/变形语法目标：{:?}", group.grammar_targets);
         if grammar_form == "て" {
             assert!(group.grammar_targets.iter().any(|grammar| grammar.display_form == "て形"),

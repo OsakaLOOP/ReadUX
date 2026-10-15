@@ -20,6 +20,31 @@ test("条件词尾的显示覆盖完整たら与だら", () => {
   }
 });
 
+test("みたい和よう之后的に、な、だ分别显示对应功能与形式", () => {
+  for (const word of ["みたい", "よう"]) {
+    for (const [ending, kind, title] of [["に", "adverbial_ni", "连用修饰"], ["な", "attributive_na", "连体修饰"], ["だ", "copula", "断定"]]) {
+      const range = [word.length, word.length + 1];
+      const text = word + ending;
+      const document = {
+        text, formation: { nodes: [] },
+        morphemes: [{ surface: word, lemma: word, pos: ["形状詞"] }, { surface: ending, lemma: "だ", pos: ["助動詞"] }],
+        morphology: {
+          chains: [{ chain_id: "core", char_range: [0, text.length], lookup_form: word, surface_form: text,
+            operators: [{ operator_id: "ending", kind, char_range: range, source_morpheme_range: [1, 2] }] }],
+          occurrences: [{ id: "ending", chain_id: "core", operator_ids: ["ending"], hit_ranges: [range] }],
+        },
+      };
+      const targets = [{ id: "word", char_range: [0, word.length], lexical_core_ids: ["core"], source_formation_ids: [] }];
+      const hits = readerMorphologyHits(targets, document);
+      assert.equal(hits.length, 1);
+      assert.equal(hits[0].detail.title, title);
+      assert.equal(hits[0].detail.surface, ending);
+      assert.ok(hits[0].detail.description.includes(`→ ${text}`));
+      assert.deepEqual(readerCapsuleRanges(targets, document)[0].range, [0, text.length]);
+    }
+  }
+});
+
 test("作者注音显示为平假名，读音匹配形式保持原样", () => {
   assert.equal(displayReading("カタカナー"), "かたかなー");
 });
