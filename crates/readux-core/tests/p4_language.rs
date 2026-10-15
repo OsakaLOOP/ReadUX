@@ -70,6 +70,30 @@ fn modern_inflections_and_functional_ownership() {
 }
 
 #[test]
+fn yuku_forms_a_support_chain_after_te() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for text in ["散布されてゆく。", "代わられてゆく。", "広がってゆきました。", "読んでゆく。"] {
+        let doc = analyze(&service, text);
+        let chain = doc.morphology.chains.iter().find(|chain| chain.operators.iter().any(|op| op.kind == "te_yuku")).unwrap();
+        let parent = doc.morphology.chains.iter().find(|parent| Some(&parent.chain_id) == chain.parent_chain_id.as_ref()).unwrap();
+        assert_eq!(chain.role, MorphologyRole::Functional);
+        assert_eq!(chain.lookup_form, "ゆく");
+        assert_eq!(parent.char_range[1], chain.char_range[0]);
+        let occurrence = doc.morphology.occurrences.iter().find(|occurrence| occurrence.kind == "te_yuku").unwrap();
+        assert_eq!(occurrence.hit_ranges.len(), 2);
+        assert_eq!(occurrence.context_range[0], parent.char_range[0]);
+        let op = chain.operators.iter().find(|op| op.kind == "te_yuku").unwrap();
+        assert_eq!(op.normalized_form.as_deref(), Some("てゆく"));
+        assert!(readux_core::grammar_catalog::get(&op.concept_id).is_ok());
+    }
+    for text in ["学校へゆく。", "散布されて、ゆく。", "散布されて ゆく。"] {
+        let doc = analyze(&service, text);
+        assert!(doc.morphology.chains.iter().all(|chain| !chain.operators.iter().any(|op| op.kind == "te_yuku")), "{text}");
+    }
+}
+
+#[test]
 fn ginza_changes_core_boundaries_and_functional_status() {
     use readux_nlp::{external::{SourceArtifact, Endpoint, RelationKind, SourceRelation}, syntax::*};
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");

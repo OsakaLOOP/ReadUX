@@ -36,6 +36,7 @@
     "te_shimau": {"label": "てしまう","title": "てしまう","concept": "grammar.aspect.te_shimau","prototype": "てしまう","support": {"group": "te","bases": ["しまう","仕舞う"]},"connector": "te_connection","normalized": "てしまう"},
     "te_oku": {"label": "ておく","title": "ておく","concept": "grammar.aspect.te_oku","prototype": "ておく","support": {"group": "te","bases": ["おく","置く"]},"connector": "te_connection","normalized": "ておく"},
     "te_iku": {"label": "ていく","title": "ていく","concept": "grammar.direction.te_iku","prototype": "ていく","support": {"group": "te","bases": ["いく","行く"]},"connector": "te_connection","normalized": "ていく"},
+    "te_yuku": {"label": "てゆく","title": "てゆく","concept": "grammar.direction.te_iku","prototype": "てゆく","support": {"group": "te","bases": ["ゆく"]},"connector": "te_connection","normalized": "てゆく"},
     "te_kuru": {"label": "てくる","title": "てくる","concept": "grammar.direction.te_kuru","prototype": "てくる","support": {"group": "te","bases": ["くる","来る"]},"connector": "te_connection","normalized": "てくる"},
     "te_miru": {"label": "てみる","title": "てみる","concept": "grammar.modality.te_miru","prototype": "てみる","support": {"group": "te","bases": ["みる","見る"]},"connector": "te_connection","normalized": "てみる"},
     "te_kudasaru": {"label": "てくださる","title": "てくださる","concept": "grammar.benefactive.te_kudasaru","prototype": "てくださる","support": {"group": "te","bases": ["くださる","下さる"]},"connector": "te_connection","normalized": "てくださる"},
