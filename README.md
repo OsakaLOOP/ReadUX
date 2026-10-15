@@ -32,7 +32,7 @@ Most Japanese learning tools still rely on **IPADic**—a dictionary standard fr
 ### 2. All-in-One Dictionary & Grammar Companion
 
 - **Multi-Dictionary Aggregation:** Look up words across authoritative monolingual and bilingual dictionaries (with built-in adapters for _Daijirin_, _Shogakukan_, _Crown_, and `.kdict` bundles) in a single, clean inline view—no constant context switching between apps.
-- **In-Context Grammar Breakdown:** Automatically detects and explains grammar patterns right inside the sentence you are reading, backed by a curated catalog of rules, usages, and nuances.
+- **In-Context Grammar Breakdown:** Automatically detects and explains grammar patterns right inside the sentence you are reading, backed by FSM and a curated catalog of rules, usages, and nuances.
 - **Optional LLM Sense Disambiguation:** When a word has multiple subtle meanings, an optional context-aware LLM helper can highlight the exact definition that fits the current sentence. [TODO]
 
 ### 3. Continuous Exposure Tracking & Study Loop
@@ -61,12 +61,13 @@ ReadUX is built in Rust as a modular workspace:
 - [x] Ahead-of-time book/chapter analysis with persistent local caching
 - [x] UniDic + GiNZA linguistic pipeline with furigana-safe alignment
 - [x] Multi-dictionary aggregation (_Daijirin_, _Shogakukan_, _Crown_) & inline grammar catalog
+- [ ] Grammar and expression analysis based on FSM and rule sets(Improvement in progress)
 - [ ] Reading exposure & familiarity scoring engine across the complete library
 - [ ] **Anki Integration:** Direct export of mined words, context sentences, and grammar notes to Anki
-- [ ] **Continuous Learning Dashboard:** Long-term vocabulary/kanji growth visualization across your entire library
-- [ ] **BERT Large Inference Service:** Shared inference for full-book analysis and concurrent reading sessions (Half done)
-- [ ] **LLM Sense Disambiguation:** Context-aware selection of the most relevant dictionary sense
-- [ ] **Quality Audit:** Regression and baseline auditing integrated into the application workflow
+- [ ] **Continuous Learning Dashboard:** Long-term vocabulary/kanji growth evaluation and visualization across your entire library
+- [ ] **BERT Large Inference Service:** Online inference infra for full-book analysis and concurrent reading sessions (Half done)
+- [ ] **LLM Sense Disambiguation:** Context-aware selection of the most relevant dictionary sense, answer to user's questions
+- [ ] **Quality Audit:** Regression and baseline auditing integrated into the application workflow, and available to all
 
 ---
 
@@ -76,6 +77,8 @@ ReadUX is built in Rust as a modular workspace:
 # Clone the repository
 git clone https://github.com/OsakaLOOP/ReadUX.git
 cd ReadUX
+
+# Download dependencies too large to put into codebase from providers
 
 # Build in release mode
 cargo build --release
