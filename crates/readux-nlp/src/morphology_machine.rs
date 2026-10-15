@@ -140,13 +140,74 @@ fn merge_verb_core(chain: &mut MorphologyChain, atom: MorphologyChain, current: 
     chain.evidence.push(format!("ginza:{}:verb_core", node.id));
 }
 
+fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderToken], context: &Context<'_>) -> Option<&'static config::Sequence> {
+    CONFIG.sequences.iter().find(|rule| {
+        let end = index + rule.tokens.len();
+        end <= source.len() && previous.morpheme_range[1] == index && previous.char_range[1] == source[index].char_range[0]
+            && rule.forms.contains(&previous.final_state.form)
+            && (rule.categories.is_empty() || rule.categories.contains(&previous.final_state.category))
+            && rule.tokens.iter().zip(&source[index..end]).all(|(pattern, token)| pattern.matches(token))
+            && source[index..end].windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
+            // 既有补助结构允许插入助词，优先保留经句法确认的连接。
+            && !(end > index + 1 && source[index + 1..end].iter().all(insertion_token)
+                && source.get(end).is_some_and(|next| CONFIG.operators.values().any(|entry|
+                    entry.support.as_ref().is_some_and(|support| support.bases.iter().any(|base| base == identity(next))))
+                    && context.confirms_inserted_support(source[previous.core_morpheme_indices[0]].char_range,
+                        source[index].char_range, &source[index + 1..end].iter().map(|token| token.char_range).collect::<Vec<_>>(), next.char_range)))
+            && (!rule.terminal_only || source.get(end).is_none_or(|token|
+                field(token, 0) == "補助記号" && matches!(field(token, 1), "句点" | "括弧閉")))
+    })
+}
+
+/// 后项先完成自身活用，再按完整否定证据确认义务或禁止构式。
+fn link_predicates(chains: &mut [MorphologyChain], source: &[ProviderToken]) {
+    for index in 1..chains.len() {
+        let (before, after) = chains.split_at_mut(index);
+        let left = &mut before[index - 1];
+        let right = &mut after[0];
+        if right.parent_chain_id.is_some() || left.char_range[1] != right.char_range[0]
+            || left.morpheme_range[1] != right.morpheme_range[0] { continue; }
+        for rule in &CONFIG.predicate_links {
+            let Some(prefix) = left.operators.iter().find(|op| op.kind == rule.prefix && op.char_range[1] == left.char_range[1]).cloned() else { continue; };
+            if !rule.next.matches(&source[right.anchor_morpheme]) { continue; }
+            let body_end = if !rule.required_operators.is_empty() {
+                let Some(op) = right.operators.iter().find(|op| rule.required_operators.contains(&op.kind)) else { continue; };
+                op.source_morpheme_range[1]
+            } else { right.anchor_morpheme + 1 };
+            let mut construction = operator(left, right, rule.kind.clone(), &source[prefix.source_morpheme_range[0]]);
+            construction.source_morpheme_range = [prefix.source_morpheme_range[0], body_end];
+            construction.char_range = [prefix.char_range[0], source[body_end - 1].char_range[1]];
+            construction.state_before = prefix.state_before;
+            construction.state_after = state(&source[body_end - 1]);
+            construction.evidence.extend(prefix.evidence);
+            construction.evidence.push("connection:predicate_construction".into());
+            construction.output_state = format!("{}{}", left.surface_form, right.surface_form);
+            left.operators.retain(|op| op.operator_id != prefix.operator_id);
+            right.operators.retain(|op| op.source_morpheme_range[1] > body_end
+                || config::definition(&op.kind).is_some_and(|entry| entry.output_form.is_some())
+                || !config::is_inflection(&op.kind) && !rule.required_operators.contains(&op.kind));
+            right.operators.insert(0, construction);
+            right.role = MorphologyRole::Functional;
+            right.parent_chain_id = Some(left.chain_id.clone());
+            break;
+        }
+    }
+}
+
 pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], morphemes: &[MorphemeToken], external: &[SourceArtifact]) -> MorphologyArtifact {
     let context = Context::new(external);
     let mut chains: Vec<MorphologyChain> = Vec::new();
     let mut diagnostics = Vec::new();
-    for mut atom in atoms {
+    let mut atoms: std::collections::VecDeque<_> = atoms.into();
+    while let Some(mut atom) = atoms.pop_front() {
         let index = atom.anchor_morpheme;
         let current = &source[index];
+        let sequence = chains.last().and_then(|previous| suffix_sequence(previous, index, source, &context));
+        if let Some(rule) = sequence {
+            for _ in 1..rule.tokens.len() { merge(&mut atom, atoms.pop_front().expect("连续词尾成员缺失"), false); }
+            atom.operators.clear();
+            atom.evidence.extend(rule.phenomena.iter().cloned());
+        }
         atom.source_evidence = context.evidence(atom.char_range);
         if atom.final_state.conjugation_form.is_empty() {
             if let Some((ctype, cform)) = context.inflection(atom.char_range).and_then(|f| f.split_once(';')) {
@@ -170,14 +231,15 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                 && field(current, 0) == "助動詞")
                 .then(|| context.verb_core([previous.char_range[0], atom.char_range[1]], &source[first].surface))
                 .flatten();
-            if let Some(node) = verb_core {
+            if let Some(node) = verb_core.filter(|_| sequence.is_none()) {
                 merge_verb_core(previous, atom, current, node);
                 continue;
             }
             let members = context.core_members(morphemes, first);
-            let local_step = transition(previous, current, &context, source);
+            let local_step = sequence.map_or_else(|| transition(previous, current, &context, source),
+                |rule| Transition::Attach(vec![rule.kind.clone()]));
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
-            let step = if members.contains(&index) && !nominalization && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
+            let step = if sequence.is_none() && members.contains(&index) && !nominalization && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
             match step {
                 Transition::Core => {
                     previous.evidence.push("connection:lexical_core".into());
@@ -251,6 +313,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
         }
         chains.push(atom);
     }
+    link_predicates(&mut chains, source);
     let occurrences = chains.iter().flat_map(|chain| chain.operators.iter().filter(|op|
         !config::is_inflection(&op.kind))
         .map(|op| {

@@ -12,6 +12,8 @@ pub struct Config {
     pub operators: BTreeMap<String, Operator>,
     pub features: Vec<FeatureRule>,
     pub connections: Vec<ConnectionRule>,
+    #[serde(default)] pub sequences: Vec<Sequence>,
+    #[serde(default)] pub predicate_links: Vec<PredicateLink>,
     pub forms: Vec<FormRule>,
     pub insertion: Vec<TokenPattern>,
     pub presentation: serde_json::Value,
@@ -135,6 +137,26 @@ pub struct ConnectionCondition {
     pub functional: bool,
     pub auxiliary_relation: bool,
     pub sahen: bool,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Sequence {
+    pub kind: String,
+    pub tokens: Vec<TokenPattern>,
+    pub forms: Vec<ConnectionForm>,
+    #[serde(default)] pub categories: Vec<String>,
+    #[serde(default)] pub terminal_only: bool,
+    #[serde(default)] pub phenomena: Vec<String>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PredicateLink {
+    pub prefix: String,
+    pub next: TokenPattern,
+    pub kind: String,
+    pub required_operators: Vec<String>,
 }
 
 pub fn definition(kind: &str) -> Option<&'static Operator> { CONFIG.operators.get(kind) }

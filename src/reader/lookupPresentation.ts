@@ -272,6 +272,11 @@ function buildChainStepMap(
     // 终点：后续还有算子时以原型结束；末尾算子输出当前实际完整呈现形式
     const isLast = i === nonInflectionOperators.length - 1;
     let output = isLast ? (currentSlice || stepPrototype) : stepPrototype;
+    const enclosing = nonInflectionOperators.find(({ op: other }) => other.char_range && op.char_range
+      && other.char_range[0] < op.char_range[0] && op.char_range[1] <= other.char_range[1]);
+    if (enclosing?.op.char_range) output = characters.slice(rootStart, enclosing.op.char_range[1]).join("");
+    const observedStep = morphologyPresentation.observed_steps.includes(op.kind);
+    if (observedStep && currentSlice) output = currentSlice;
     if (!output) output = currentSlice || op.output_state || chain.surface_form;
 
     const desc = op.char_range ? transitionDescription(input, output) : (op.description || "");
@@ -288,7 +293,7 @@ function buildChainStepMap(
       normalizedForm: op.normalized_form ?? null,
     });
 
-    currentPrototype = isLast ? output : stepPrototype;
+    currentPrototype = isLast || enclosing || observedStep ? output : stepPrototype;
   }
 
   return result;
