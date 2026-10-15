@@ -539,8 +539,12 @@ function capsulesForParts(parts: TextPart[]): TextCapsule[] {
   const capsules: TextCapsule[] = [];
   for (const part of parts) {
     const previous = capsules[capsules.length - 1];
-    if (previous && previous.capsuleKey === part.capsuleKey && previous.parts[previous.parts.length - 1].range[1] === part.range[0]) {
+    const last = previous?.parts[previous.parts.length - 1];
+    // 完整注音共用显示容器，各片段保留原有的胶囊和查词身份。
+    if (previous && last && last.range[1] === part.range[0]
+      && (last.capsuleKey === part.capsuleKey || (part.annotation && last.annotation === part.annotation))) {
       previous.parts.push(part);
+      previous.capsuleKey ??= part.capsuleKey;
     } else {
       capsules.push({ key: part.key, capsuleKey: part.capsuleKey, parts: [part], runs: [] });
     }
