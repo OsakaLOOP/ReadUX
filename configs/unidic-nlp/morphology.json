@@ -109,7 +109,9 @@
     {"kind": "nominalization","token": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}}}
   ],
   "connections": [
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"forms": ["terminal","attributive"],"categories": ["動詞","形容詞","助動詞"]}],"kinds": ["nominalization"]},
+    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"forms": ["terminal","attributive"],"categories": ["動詞","形容詞","助動詞"],"following": {"equals": {"ctype": ["助動詞-ダ","助動詞-デス"]}}}],"kinds": ["nominalization"]},
+    {"action": "stop","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["終助詞"],"lemma": ["の"],"surface": ["の","ん"]}}},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"at_end": true},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"following": {"equals": {"pos": ["補助記号"],"sub": ["句点","括弧閉"]}}},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"following": {"equals": {"pos": ["助詞"],"sub": ["終助詞"]}}}]},
+    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"forms": ["terminal","attributive"],"categories": ["動詞","形容詞","助動詞"]}],"kinds": ["nominalization"]},
     {"action": "core","when": [{"next": {"equals": {"pos": ["動詞"],"base": ["する","為る"]},"contains": {"ctype": ["サ行変格"]}},"sahen": true}]},
     {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]},"contains": {"ctype": ["サ行変格"]}},"operators": ["enumerative"]},{"next": {"equals": {"pos": ["動詞"]},"contains": {"ctype": ["サ行変格"]}},"suffixes": ["たり","だり"]}],"support_group": "enumerative"},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}},"forms": ["stem"],"categories": ["形容詞","形状詞"]}],"kinds": ["nominalization"]},

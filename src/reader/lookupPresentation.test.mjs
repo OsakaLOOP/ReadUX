@@ -59,9 +59,10 @@ test("每个查询目标只有一个胶囊身份，并覆盖其连续附属活�
   assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "whole", range: [0, 6] }]);
 });
 
-test("解释助词ん归属谓语活用链，胶囊覆盖したん整体", () => {
+test("句末助词ん保持独立于谓语胶囊", () => {
   const targets = [
     { id: "suru", char_range: [0, 1], lexical_core_ids: ["predicate"], source_formation_ids: [] },
+    { id: "ending", char_range: [2, 3], lexical_core_ids: [], source_formation_ids: [] },
   ];
   const document = {
     text: "したん", formation: { nodes: [] },
@@ -69,10 +70,11 @@ test("解释助词ん归属谓语活用链，胶囊覆盖したん整体", () =>
       { surface: "た", lemma: "た", pos: ["助動詞"], char_range: [1, 2] },
       { surface: "ん", lemma: "の", pos: ["助詞", "準体助詞"], char_range: [2, 3] }],
     morphology: { chains: [
-      { chain_id: "predicate", role: "lexical", parent_chain_id: null, surface_form: "したん", lookup_form: "する", char_range: [0, 3], core_morpheme_indices: [0] },
+      { chain_id: "predicate", role: "lexical", parent_chain_id: null, surface_form: "した", lookup_form: "する", char_range: [0, 2], core_morpheme_indices: [0] },
+      { chain_id: "ending", role: "functional", parent_chain_id: null, surface_form: "ん", char_range: [2, 3], core_morpheme_indices: [2] },
     ] },
   };
-  assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "suru", range: [0, 3] }]);
+  assert.deepEqual(readerCapsuleRanges(targets, document), [{ id: "suru", range: [0, 2] }, { id: "ending", range: [2, 3] }]);
 });
 
 test("サ变て形说明显示原形到整体活用形", () => {

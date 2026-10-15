@@ -106,6 +106,18 @@ fn explanatory_no_joins_the_predicate_chain() {
 }
 
 #[test]
+fn final_no_stays_separate_even_when_tagged_as_a_nominalizer() {
+    for sub in ["準体助詞", "終助詞"] {
+        let specs = [verb("読む", "連体形-一般"),
+            Part { surface: "の", pos: "助詞", sub, ctype: "", cform: "", lemma: "の", orth_base: "の" }];
+        let artifact = run("読むの", &specs, &[]);
+        assert_eq!(artifact.chains.len(), 2);
+        assert_eq!(artifact.chains[0].surface_form, "読む");
+        assert!(artifact.chains[1].operators.is_empty());
+    }
+}
+
+#[test]
 fn synthetic_reconstruction_covers_thirty_contract_cases() {
     let ordinary = [
         ("読んだ", vec![verb("読ん", "連用形-撥音便"), Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "だ", orth_base: "だ" }], "past"),

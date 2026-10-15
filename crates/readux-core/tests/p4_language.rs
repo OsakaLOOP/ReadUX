@@ -117,6 +117,27 @@ fn tara_and_dara_are_complete_conditional_forms() {
 }
 
 #[test]
+fn sentence_final_no_is_outside_the_predicate_chain() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for text in ["なにそれ食べられるの？", "食べられるの", "読んだん？", "読んだの。", "「食べるの？」", "食べるのね。"] {
+        let doc = analyze(&service, text);
+        let index = doc.morphemes.iter().position(|token| token.lemma.as_deref() == Some("の")).unwrap();
+        let chain = doc.morphology.chains.iter().find(|chain| chain.morpheme_indices.contains(&index)).unwrap();
+        assert_eq!(chain.morpheme_indices, vec![index], "{text}");
+        assert!(chain.parent_chain_id.is_none());
+        assert!(chain.operators.is_empty());
+        assert!(!doc.morphology.occurrences.iter().any(|occurrence| occurrence.morpheme_indices.contains(&index)));
+        assert!(doc.grammar.occurrences.iter().any(|occurrence| occurrence.morpheme_indices.contains(&index)));
+    }
+    for text in ["読んだのだ。", "読んだんです。", "読んだのが好き。", "読むのをやめた。"] {
+        let doc = analyze(&service, text);
+        assert!(doc.morphology.chains.iter().any(|chain| chain.surface_form.starts_with("読")
+            && chain.operators.iter().any(|op| op.kind == "nominalization")), "{text}");
+    }
+}
+
+#[test]
 fn ginza_changes_core_boundaries_and_functional_status() {
     use readux_nlp::{external::{SourceArtifact, Endpoint, RelationKind, SourceRelation}, syntax::*};
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");

@@ -126,6 +126,8 @@ pub enum Action { Core, Attach, Support, Stop }
 pub struct ConnectionCondition {
     pub next: TokenPattern,
     pub last: TokenPattern,
+    pub following: Option<TokenPattern>,
+    pub at_end: bool,
     pub forms: Vec<ConnectionForm>,
     pub categories: Vec<String>,
     pub operators: Vec<String>,

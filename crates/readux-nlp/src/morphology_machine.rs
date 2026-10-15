@@ -12,7 +12,7 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
 
 fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
 
-enum Transition { Core, Attach(Vec<String>), Support(&'static str), Stop }
+enum Transition { Core, Attach(Vec<String>), Support(&'static str), Boundary, Stop }
 
 fn insertion_token(token: &ProviderToken) -> bool {
     CONFIG.insertion.iter().any(|pattern| pattern.matches(token))
@@ -31,10 +31,13 @@ fn bridge_support(previous: &MorphologyChain, index: usize, source: &[ProviderTo
 
 fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Context<'_>, source: &[ProviderToken]) -> Transition {
     let last = &source[previous.morpheme_range[1] - 1];
+    let following = source.get(next.index + 1);
     let aux_relation = context.relation(previous.char_range, next.char_range, &["aux", "cop"]).is_some();
     for rule in &CONFIG.connections {
         let matched = rule.when.iter().any(|condition| {
             condition.next.matches(next) && condition.last.matches(last)
+                && condition.following.as_ref().is_none_or(|pattern| following.is_some_and(|token| pattern.matches(token)))
+                && (!condition.at_end || following.is_none())
                 && (condition.forms.is_empty() || condition.forms.contains(&previous.final_state.form))
                 && (condition.categories.is_empty() || condition.categories.contains(&previous.final_state.category))
                 && (condition.operators.is_empty() || previous.operators.iter().any(|op| condition.operators.contains(&op.kind)))
@@ -48,7 +51,7 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
         if !matched { continue; }
         match rule.action {
             Action::Core => return Transition::Core,
-            Action::Stop => return Transition::Stop,
+            Action::Stop => return Transition::Boundary,
             Action::Attach => return Transition::Attach(if rule.kinds.is_empty() { semantic(next) } else { rule.kinds.clone() }),
             Action::Support => {
                 if let Some((kind, _)) = CONFIG.operators.iter().find(|(_, entry)| entry.support.as_ref()
@@ -174,7 +177,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
             let members = context.core_members(morphemes, first);
             let local_step = transition(previous, current, &context, source);
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
-            let step = if members.contains(&index) && !nominalization { Transition::Core } else { local_step };
+            let step = if members.contains(&index) && !nominalization && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
             match step {
                 Transition::Core => {
                     previous.evidence.push("connection:lexical_core".into());
@@ -230,7 +233,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     if !supported { diagnostics.push(format!("support_ownership_candidate:{}:{}", previous.chain_id, index)); }
                     linked = true;
                 }
-                Transition::Stop => {
+                Transition::Boundary | Transition::Stop => {
                     if context.relation(previous.char_range, atom.char_range, &["aux", "cop"]).is_some() {
                         diagnostics.push(format!("source_connection_conflict:{}:{}", previous.chain_id, index));
                         atom.status = "candidate".into();
