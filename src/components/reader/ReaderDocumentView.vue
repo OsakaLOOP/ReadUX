@@ -292,7 +292,7 @@ const chainOverview = computed(() => {
     name: [...new Set(specific.length ? specific : names)].join(" · ") || primary.conjugation || primary.role,
     conjugation: primary.conjugation,
     surface: activeHit.value?.target.decision === "selection" ? activeHit.value.target.surface : chains.map((chain) => chain.surface).join(""),
-    lemma: activeHit.value?.target.decision === "selection" ? activeHit.value.target.lookup_forms[0]?.form : primary.lemma,
+    lemma: activeHit.value?.target.decision === "selection" ? activeHit.value.target.lookup_forms[0]?.form : primary.lookupForm || primary.lemma,
     members: chains.flatMap((chain) => chain.members.map((member) => member.surface)),
   };
 });
@@ -1365,7 +1365,7 @@ function toggleEinkMode() {
       <template #summary>
         <div v-if="!relatedWord && chainOverview" class="reader-lookup__summary">
           <strong>{{ chainOverview.name }}</strong>
-          <span>{{ chainOverview.surface }}<template v-if="chainOverview.lemma && chainOverview.lemma !== chainOverview.surface"> → {{ chainOverview.lemma }}</template></span>
+          <span><template v-if="chainOverview.lemma && chainOverview.lemma !== chainOverview.surface">{{ chainOverview.lemma }} → </template>{{ chainOverview.surface }}</span>
           <small v-if="chainOverview.conjugation && chainOverview.name !== chainOverview.conjugation">{{ chainOverview.conjugation }}</small>
           <small v-if="chainOverview.members.length > 1">{{ chainOverview.members.join(' + ') }}</small>
         </div>

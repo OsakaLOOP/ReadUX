@@ -112,6 +112,40 @@ fn value(token: &crate::model::ProviderToken, index: usize) -> Option<String> {
 
 fn first(value: Option<String>, fallback: &str) -> String { value.unwrap_or_else(|| fallback.to_owned()) }
 
+/// UniDic 将五段动词的可能形式记作下一段基本表记，查询原型采用其词元。
+pub(crate) fn potential_lemma(token: &crate::model::ProviderToken) -> Option<QueryForm> {
+    if value(token, 0).as_deref() != Some("動詞") || !value(token, 4)?.starts_with("下一段") { return None; }
+    let lemma = value(token, 7)?;
+    let base = value(token, 10)?;
+    let derives = |original: &str, potential: &str| {
+        let Some(last) = original.chars().last() else { return false; };
+        let ending = match last {
+            'う' => "える", 'く' => "ける", 'ぐ' => "げる", 'す' => "せる", 'つ' => "てる",
+            'ぬ' => "ねる", 'ぶ' => "べる", 'む' => "める", 'る' => "れる",
+            'ウ' => "エル", 'ク' => "ケル", 'グ' => "ゲル", 'ス' => "セル", 'ツ' => "テル",
+            'ヌ' => "ネル", 'ブ' => "ベル", 'ム' => "メル", 'ル' => "レル", _ => return false,
+        };
+        potential == format!("{}{ending}", &original[..original.len() - last.len_utf8()])
+    };
+    let reading = value(token, 6);
+    let reading_matches = reading.as_deref().zip(value(token, 21).as_deref())
+        .is_some_and(|(original, potential)| derives(original, potential));
+    if !derives(&lemma, &base) && !reading_matches { return None; }
+    // 词元读法确认派生关系后，原型沿用基本表记中的汉字和假名，如帰れる→帰る。
+    let form = if derives(&lemma, &base) { lemma } else {
+        let mut characters = base.chars().collect::<Vec<_>>();
+        let ending = characters.pop()?;
+        characters.pop()?;
+        let mut original = reading.as_deref()?.chars().last()?;
+        if ending == 'る' && ('ァ'..='ヶ').contains(&original) {
+            original = char::from_u32(original as u32 - 0x60)?;
+        }
+        characters.push(original);
+        characters.into_iter().collect()
+    };
+    Some(QueryForm { kind: "potential_lemma".into(), form, reading_field: reading.as_ref().map(|_| "lForm".into()), reading })
+}
+
 /// 先保存原子活用，再按连接形和字符连续性建立所有权。
 pub fn collect(source_tokens: &[crate::model::ProviderToken], morphemes: &[MorphemeToken]) -> Result<MorphologyArtifact, String> {
     collect_with_external(source_tokens, morphemes, &[])
@@ -136,7 +170,8 @@ pub fn collect_with_external(
         let lemma = first(value(source, 7), &morpheme.surface);
         let dictionary_form = first(value(source, 10), &lemma);
         let lemma_form = lemma.clone();
-        let lookup_form = dictionary_form.clone();
+        let potential = potential_lemma(source);
+        let lookup_form = potential.as_ref().map_or_else(|| dictionary_form.clone(), |query| query.form.clone());
         let role = if matches!(pos_major.as_str(), "助詞" | "助動詞") { MorphologyRole::Functional } else { MorphologyRole::Lexical };
         let mut operators = Vec::new();
         for (kind, type_index, form_index, label) in [
@@ -152,8 +187,9 @@ pub fn collect_with_external(
             operators.push(MorphologyOperator {
                 operator_id: format!("morphology:{index}:{kind}"), kind: kind.into(),
                 source_morpheme_range: [index, index + 1], char_range: morpheme.char_range,
-                output_state, input_state: dictionary_form.clone(), concept_id: "morphology.chain".into(), confidence: 1.0,
-                evidence: vec![format!("unidic:{label}:{detail}")], candidates: Vec::new(),
+                output_state, input_state: lookup_form.clone(), concept_id: "morphology.chain".into(), confidence: 1.0,
+                evidence: if kind == "conjugation" && potential.is_some() { vec![format!("unidic:{label}:{detail}"), "unidic:potential".into()] }
+                    else { vec![format!("unidic:{label}:{detail}")] }, candidates: Vec::new(),
                 label: detail.clone(), description: format!("UniDic {label}字段：{detail}"),
                 state_before: MorphologyState { category: pos_major.clone(), form: if value(source,4).is_some() { ConnectionForm::Terminal } else { ConnectionForm::Stem },
                     conjugation_type: value(source,4).unwrap_or_default(), conjugation_form: "基本形".into() },
@@ -164,15 +200,20 @@ pub fn collect_with_external(
         let connection_forms = [value(source, 17), value(source, 18)].into_iter().flatten().collect();
         let mut evidence = vec!["provider:unidic".to_owned(), format!("pos1:{pos_major}")];
         if let Some(form) = value(source, 5) { evidence.push(format!("cForm:{form}")); }
+        let mut query_forms = morpheme.query_forms.clone();
+        if let Some(query) = potential {
+            query_forms.retain(|form| form.form != query.form);
+            query_forms.insert(0, query);
+        }
         chains.push(MorphologyChain {
             chain_id: format!("morphology:m{index}"), anchor_morpheme: index,
             anchor_range: morpheme.char_range, morpheme_range: [index, index + 1], char_range: morpheme.char_range,
             role, base_lexeme: lemma.clone(), surface_form: morpheme.surface.clone(),
-            display_form: dictionary_form.clone(), parent_chain_id: None,
+            display_form: lookup_form.clone(), parent_chain_id: None,
             dictionary_form, lemma_form, lookup_form, source_ranges: vec![morpheme.char_range],
             operators, connection_forms, evidence,
             morpheme_indices: vec![index], final_state: crate::morphology_machine::state(source),
-            core_morpheme_indices: vec![index], query_forms: morpheme.query_forms.clone(),
+            core_morpheme_indices: vec![index], query_forms,
             source_evidence: Vec::new(), status: "resolved".into(),
         });
     }
@@ -212,6 +253,14 @@ pub fn feature_concept(feature: &str) -> &str {
         "politeness_masu" => "morphology.politeness.masu", "politeness_desu" => "grammar.auxiliary.desu", "volitional" => "morphology.mood.volitional",
         "conditional" => "morphology.mood.conditional", "te_form" => "morphology.form.te", "de_form" => "morphology.form.de",
         "desire" => "morphology.modality.desire",
+        "te_iru" | "contracted_te_iru" => "grammar.aspect.te_iru",
+        "te_aru" => "grammar.aspect.te_aru", "te_oku" | "contracted_te_oku" => "grammar.aspect.te_oku",
+        "te_shimau" | "contracted_te_shimau" => "grammar.aspect.te_shimau",
+        "te_iku" => "grammar.direction.te_iku", "te_kuru" => "grammar.direction.te_kuru",
+        "te_miru" => "grammar.modality.te_miru", "te_kudasaru" => "grammar.benefactive.te_kudasaru",
+        "te_morau" => "grammar.benefactive.te_morau", "te_ageru" => "grammar.benefactive.te_ageru",
+        "te_kureru" => "grammar.benefactive.te_kureru", "te_yaru" => "grammar.benefactive.te_yaru",
+        "tari_suru" => "grammar.pattern.tari_suru",
         _ => "morphology.chain",
     }
 }
@@ -220,9 +269,12 @@ pub(crate) fn feature_label(feature: &str) -> &str {
     match feature { "past" => "过去", "negative" => "否定", "causative" => "使役", "passive_potential" => "受身等候选",
         "politeness_masu" | "politeness_desu" => "丁寧", "volitional" => "意向", "conditional" | "ba_connection" | "tara_condition" => "条件", "desire" => "愿望",
         "copula" | "copula_aru" => "判断", "nominalization" => "名词化", "obligation" => "当为", "te_form" | "te_connection" => "て形", "de_form" => "で形",
-        "imperative" => "命令", "prohibitive" => "禁止", "enumerative" => "列举", "concessive_connection" => "逆接",
-        "te_iru" | "contracted_te_iru" => "ている形式", "te_shimau" | "contracted_te_shimau" => "てしまう形式",
-        "te_oku" | "contracted_te_oku" => "ておく形式", "te_kudasaru" => "てくださる形式", "nagara_connection" => "ながら接续",
+        "imperative" => "命令", "prohibitive" => "禁止", "enumerative" => "列举", "tari_suru" => "たりする", "concessive_connection" => "逆接",
+        "te_iru" | "contracted_te_iru" => "ている", "te_aru" => "てある",
+        "te_shimau" | "contracted_te_shimau" => "てしまう", "te_oku" | "contracted_te_oku" => "ておく",
+        "te_iku" => "ていく", "te_kuru" => "てくる", "te_miru" => "てみる",
+        "te_kudasaru" => "てくださる", "te_morau" => "てもらう", "te_ageru" => "てあげる",
+        "te_kureru" => "てくれる", "te_yaru" => "てやる", "nagara_connection" => "ながら接続",
         "iterative_aspect" => "反复动作", _ => "活用" }
 }
 
@@ -239,6 +291,34 @@ mod tests {
             }
         }
         ProviderToken { index: 0, surface: "読ん".into(), char_range: [0, 2], byte_range: [0, 6], lexicon_type: "known".into(), left_id: 0, right_id: 0, word_cost: 0, total_cost: 0, raw_feature: String::new(), fields: values.into_iter().enumerate().map(|(index, value)| FeatureField { index, name: index.to_string(), label: String::new(), raw: value.clone(), value }).collect() }
+    }
+
+    #[test]
+    fn potential_forms_query_the_lexical_lemma() {
+        for (lemma, base) in [("立ち回る", "立ち回れる"), ("読む", "読める"), ("書く", "書ける"), ("泳ぐ", "泳げる"), ("話す", "話せる")] {
+            let token = source(&[("pos1", "動詞"), ("cType", "下一段-ラ行"), ("cForm", "未然形-一般"), ("lemma", lemma), ("orthBase", base)]);
+            let query = potential_lemma(&token).unwrap();
+            assert_eq!(query.form, lemma);
+            let morpheme = MorphemeToken { id: "m0".into(), source_index: 0, surface: token.surface.clone(), char_range: token.char_range,
+                pos: [Some("動詞".into()), None, None, None], lemma: Some(lemma.into()), reading: None, query_forms: Vec::new() };
+            let artifact = collect(&[token], &[morpheme]).unwrap();
+            let chain = &artifact.chains[0];
+            assert_eq!(chain.lookup_form, lemma);
+            assert_eq!(chain.dictionary_form, base);
+            assert_eq!(chain.operators[0].input_state, lemma);
+            assert_eq!(chain.query_forms[0].form, lemma);
+        }
+        for lemma in ["食べる", "見える", "教える"] {
+            assert!(potential_lemma(&source(&[("pos1", "動詞"), ("cType", "下一段-ア行"), ("lemma", lemma), ("orthBase", lemma)])).is_none());
+        }
+        for (lemma, base, reading, base_reading, expected) in [
+            ("返る", "帰れる", "カエル", "カエレル", "帰る"),
+            ("読む", "よめる", "ヨム", "ヨメル", "よむ"),
+        ] {
+            let token = source(&[("pos1", "動詞"), ("cType", "下一段-ラ行"), ("lemma", lemma), ("orthBase", base),
+                ("lForm", reading), ("kanaBase", base_reading)]);
+            assert_eq!(potential_lemma(&token).unwrap().form, expected);
+        }
     }
 
     #[test]

@@ -16,10 +16,19 @@ fn forms(values: Vec<String>) -> Vec<String> {
 }
 
 fn bases(mut values: Vec<String>) -> Vec<String> {
-    // 词元形与基本表记分别保留，目录中的假名补助用言映射到 UniDic 词元。
-    for (kana, lemma) in [("いる", "居る"), ("おる", "居る"), ("なる", "成る"), ("くださる", "下さる"),
-        ("しまう", "仕舞う"), ("みる", "見る"), ("くる", "来る"), ("いく", "行く"), ("いう", "言う"),
-        ("ない", "無い"), ("ぬ", "ず"), ("する", "為る")] {
+    for (kana, lemma) in [
+        ("いる", "居る"), ("おる", "居る"), ("ある", "有る"), ("おく", "置く"),
+        ("なる", "成る"), ("くださる", "下さる"), ("しまう", "仕舞う"),
+        ("みる", "見る"), ("くる", "来る"), ("いく", "行く"), ("いう", "言う"),
+        ("もらう", "貰う"), ("あげる", "上げる"), ("くれる", "呉れる"),
+        ("やる", "遣る"), ("ほしい", "欲しい"), ("ない", "無い"),
+        ("ぬ", "ず"), ("する", "為る"), ("とる", "取る"), ("みせる", "見せる"),
+        ("ごらん", "御覧"), ("たまらない", "堪らない"), ("やまない", "止まない"),
+        ("はじめる", "始める"), ("つづける", "続ける"), ("おわる", "終わる"),
+        ("おえる", "終える"), ("だす", "出す"), ("なおす", "直す"),
+        ("かける", "掛ける"), ("きる", "切る"), ("かねる", "兼ねる"),
+        ("そこなう", "損なう"), ("とおす", "通す"), ("ぬく", "抜く"), ("つくす", "尽くす"),
+    ] {
         if values.iter().any(|v| v == kana) { values.push(lemma.into()); }
     }
     values
@@ -149,6 +158,12 @@ pub fn word_formations() -> Result<Vec<Rule>, String> {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn maps_kana_auxiliary_lemmas_to_unidic_orthographic_lemmas() {
+        let mapped = super::bases(vec!["おく".into(), "いる".into(), "しまう".into()]);
+        for lemma in ["置く", "居る", "仕舞う"] { assert!(mapped.iter().any(|value| value == lemma)); }
+    }
+
     #[test]
     fn compiled_catalog_has_valid_unidic_rules() {
         assert!(super::grammar().unwrap().len() > 100);

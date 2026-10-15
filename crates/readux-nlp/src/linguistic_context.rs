@@ -40,6 +40,31 @@ impl<'a> Context<'a> {
         })
     }
 
+    pub fn depends_on(&self, dependent: [usize; 2], head: [usize; 2], labels: &[&str]) -> Option<SourceEvidence> {
+        let source = self.ginza?;
+        let dependents = self.tokens(dependent);
+        let heads = self.tokens(head);
+        source.relations.iter().find_map(|relation| {
+            if !labels.contains(&relation.label.as_str()) { return None; }
+            let (Endpoint::Node { id: from }, Endpoint::Node { id: to }) = (&relation.source, &relation.target) else { return None; };
+            (dependents.iter().any(|node| &node.id == from) && heads.iter().any(|node| &node.id == to))
+                .then(|| SourceEvidence { provider: "ginza".into(), node_id: None,
+                    relation_id: Some(relation.id.clone()), reason: relation.label.clone() })
+        })
+    }
+
+    pub fn confirms_inserted_support(
+        &self,
+        predicate: [usize; 2],
+        connector: [usize; 2],
+        inserted: &[[usize; 2]],
+        support: [usize; 2],
+    ) -> bool {
+        self.depends_on(connector, predicate, &["mark"]).is_some()
+            && self.depends_on(support, predicate, &["advcl", "aux", "xcomp"]).is_some()
+            && inserted.iter().all(|range| self.depends_on(*range, predicate, &["case", "mark"]).is_some())
+    }
+
     pub fn same_word(&self, left: [usize; 2], right: [usize; 2]) -> bool {
         self.tokens(left).iter().any(|n| n.text_ranges[0][0] <= left[0] && right[1] <= n.text_ranges[0][1])
     }

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-pub const SCHEMA: &str = "readux.unified-document.v8";
+pub const SCHEMA: &str = "readux.unified-document.v9";
 pub const FIELD_NAMES: [&str; 29] = [
     "pos1", "pos2", "pos3", "pos4", "cType", "cForm", "lForm", "lemma", "orth", "pron", "orthBase",
     "pronBase", "goshu", "iType", "iForm", "fType", "fForm", "iConType", "fConType", "type",

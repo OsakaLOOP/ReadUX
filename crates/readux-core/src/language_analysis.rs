@@ -14,6 +14,35 @@ pub fn apply(document: &mut UnifiedDocument, user_rules: &[Rule], rules_version:
     let lexical = lexical_decisions(document);
     let mut explanations = morphology_explanations(document);
     explanations.extend(structure_explanations(document));
+    let mut l2_grammar_concepts = BTreeSet::new();
+    for occurrence in document.morphology.occurrences.iter().filter(|occurrence| occurrence.kind.starts_with("te_")) {
+        let concept_id = document.morphology.chains.iter()
+            .find(|chain| chain.chain_id == occurrence.chain_id)
+            .and_then(|chain| chain.operators.iter().find(|operator| operator.kind == occurrence.kind))
+            .map(|operator| operator.concept_id.clone());
+        let Some(concept_id) = concept_id else { continue; };
+        l2_grammar_concepts.insert(concept_id.clone());
+        let id = format!("grammar:morphology:{}", occurrence.id);
+        document.grammar.occurrences.push(GrammarOccurrence {
+            id: id.clone(), concept_id: Some(concept_id), char_range: occurrence.char_range,
+            morpheme_indices: occurrence.morpheme_indices.clone(),
+            status: if occurrence.status == "resolved" { GrammarStatus::Observed } else { GrammarStatus::Candidate },
+            provider: "morphology-l2".into(), source_id: Some(occurrence.id.clone()),
+            labels: document.morphology.chains.iter().find(|chain| chain.chain_id == occurrence.chain_id)
+                .and_then(|chain| chain.operators.iter().find(|operator| operator.kind == occurrence.kind))
+                .map(|operator| vec![operator.label.clone()]).unwrap_or_default(),
+            evidence: occurrence.source_evidence.iter().map(|evidence| format!("{}:{}", evidence.provider, evidence.reason)).collect(),
+        });
+        explanations.push(Explanation {
+            id: format!("explanation:{id}"), layer: "grammar".into(), source_id: id,
+            char_range: occurrence.char_range, hit_ranges: occurrence.hit_ranges.clone(),
+            members: occurrence.morpheme_indices.clone(), captures: BTreeMap::new(),
+            chain_ids: vec![occurrence.chain_id.clone()], concept_id: document.grammar.occurrences.last().and_then(|item| item.concept_id.clone()),
+            sense_id: None, sense_candidates: Vec::new(), status: "observed".into(),
+            reason: "L2 活用链已确认补助用言构式".into(),
+            title: occurrence.kind.clone(), summary: occurrence.kind.clone(), evidence: Vec::new(),
+        });
+    }
 
     let mut grammar_rules = crate::language_rules::grammar()?.to_vec();
     let mut expression_rules = crate::language_rules::expressions()?;
@@ -28,6 +57,9 @@ pub fn apply(document: &mut UnifiedDocument, user_rules: &[Rule], rules_version:
     expression_rules.sort_by_key(|rule| std::cmp::Reverse(rule.priority));
 
     for rule in &grammar_rules {
+        if rule.kind == "grammar_construction" && rule.concept_id.as_ref().is_some_and(|concept| l2_grammar_concepts.contains(concept)) {
+            continue;
+        }
         for found in find(document, rule)? {
             let status = if rule.sense_ids.len() <= 1 { GrammarStatus::Observed } else { GrammarStatus::Candidate };
             let id = occurrence_id("grammar", rule, &found);

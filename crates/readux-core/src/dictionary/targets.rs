@@ -134,12 +134,12 @@ fn projected_core_indices(chain: &readux_nlp::morphology::MorphologyChain, token
 }
 
 fn token_forms(token: &MorphemeToken) -> Vec<QueryForm> {
-    let inflected = token.query_forms.iter().any(|query| query.kind == "base" && query.form != token.surface);
+    let inflected = token.query_forms.iter().any(|query| matches!(query.kind.as_str(), "base" | "potential_lemma") && query.form != token.surface);
     let mut forms = token.query_forms.iter().filter(|query| !inflected || query.kind != "observed")
         .filter(|query| inflected || query.reading.as_ref().zip(token.reading.as_ref()).is_none_or(|(reading, observed)|
             lookup_state::normalize_reading_identity(reading) == lookup_state::normalize_reading_identity(observed)))
         .cloned().collect::<Vec<_>>();
-    forms.sort_by_key(|query| if !inflected && query.kind == "observed" { 0 }
+    forms.sort_by_key(|query| if query.kind == "potential_lemma" || (!inflected && query.kind == "observed") { 0 }
         else { match query.kind.as_str() { "base" => 1, "lemma" => 2, _ => 3 } });
     if forms.is_empty() { forms.push(form(token.surface.clone(), token.reading.clone(), "observed")); }
     unique_forms(forms)
@@ -247,10 +247,22 @@ pub fn build_profiled(
             }
         }
     }
+    let te_ranges = document.morphology.chains.iter().filter_map(|chain| {
+        let parent = chain.parent_chain_id.as_ref().and_then(|id| document.morphology.chains.iter().find(|item| &item.chain_id == id))?;
+        let operator = chain.operators.iter().find(|operator| operator.kind.starts_with("te_") || operator.kind == "tari_suru")?;
+        let connector = parent.operators.iter().find(|item| item.kind == "te_connection" || item.kind == "enumerative")?;
+        let absorb_connector = parent.core_morpheme_indices.len() <= 1;
+        Some(([connector.char_range[0], operator.char_range[1]], chain.chain_id.clone(), absorb_connector))
+    }).collect::<Vec<_>>();
     let mut excluded = Vec::new();
     let mut grammar = Vec::new();
     for (index, token) in tokens.iter().enumerate() {
         if !overlaps(anchor_range, token.char_range) { continue; }
+        if let Some((range, _, true)) = te_ranges.iter().find(|(range, _, absorb)| *absorb && overlaps(*range, token.char_range)) {
+            excluded.push(token.char_range);
+            if !contains(anchor_range, *range) { continue; }
+            continue;
+        }
         let functional = functional_members.contains(&index);
         if functional || matches!(token.pos[0].as_deref(), Some("記号" | "補助記号" | "空白")) || token.surface.chars().any(char::is_whitespace) {
             excluded.push(token.char_range);
@@ -264,12 +276,14 @@ pub fn build_profiled(
     }
     for chain in &document.morphology.chains {
         for operator in &chain.operators {
+            let construction_range = te_ranges.iter().find(|(_, chain_id, absorb)| *absorb && chain_id == &chain.chain_id).map(|(range, _, _)| *range);
+            let target_range = construction_range.unwrap_or(operator.char_range);
             let sahen_body = chain.lookup_form.ends_with("する") && chain.core_morpheme_indices.first()
                 .and_then(|index| tokens.get(*index)).is_some_and(|token| token.pos[0].as_deref() == Some("名詞"));
-            if !overlaps(anchor_range, operator.char_range)
+            if !overlaps(anchor_range, target_range)
                 || matches!(operator.kind.as_str(), "initial_alternation" | "final_alternation")
                 || (operator.kind == "conjugation" && !sahen_body) { continue; }
-            grammar.push(GrammarTarget { char_range: operator.char_range, context_range: chain.char_range,
+            grammar.push(GrammarTarget { char_range: target_range, context_range: chain.char_range,
                 normalized_form: operator.normalized_form.clone().unwrap_or_else(|| operator.kind.clone()),
                 concept_id: Some(operator.concept_id.clone()), chain_id: Some(chain.chain_id.clone()), display_form: operator.label.clone() });
         }
@@ -409,8 +423,64 @@ pub fn build_profiled(
         }
     }
     for node in &document.formation.nodes {
-        if let Some(candidate) = candidates.get_mut(&node.char_range) {
+        if contains(anchor_range, node.char_range) {
+            let candidate = candidates.entry(node.char_range).or_insert_with(|| Candidate {
+                range: node.char_range, forms: Vec::new(), members: node.morpheme_indices.clone(),
+                cores: Vec::new(), formations: Vec::new(),
+                pos: node.word.as_ref().and_then(|w| w.output_pos.first().and_then(|p| p.as_ref()).map(|p| PosTag { major: p.clone(), sub1: String::new(), sub2: String::new(), sub3: String::new() })),
+                minimal: false, hints: Vec::new(), reason: String::new() });
             candidate.formations.push(node.id.clone());
+            if let Some(word) = &node.word {
+                candidate.forms.extend(word.query_forms.clone());
+                candidate.forms = unique_forms(std::mem::take(&mut candidate.forms));
+            }
+        }
+    }
+    for chain in document.morphology.chains.iter().filter(|chain| chain.role == MorphologyRole::Functional) {
+        let is_renyo = chain.operators.iter().any(|op| {
+            matches!(op.kind.as_str(), "excessive" | "inceptive" | "continuative_aspect" | "terminative"
+                | "iterative_aspect" | "inchoative" | "corrective" | "incomplete" | "completion"
+                | "reluctance" | "failure" | "missed_opportunity" | "tari_suru")
+        });
+        if !is_renyo { continue; }
+        let Some(parent_id) = &chain.parent_chain_id else { continue; };
+        let root_lexical = {
+            let mut cur = chain.parent_chain_id.as_ref();
+            let mut root = None;
+            while let Some(id) = cur {
+                if let Some(c) = document.morphology.chains.iter().find(|item| &item.chain_id == id) {
+                    if c.role == MorphologyRole::Lexical { root = Some(c); break; }
+                    cur = c.parent_chain_id.as_ref();
+                } else { break; }
+            }
+            root
+        };
+        let Some(parent) = root_lexical.or_else(|| document.morphology.chains.iter().find(|c| &c.chain_id == parent_id)) else { continue; };
+        let compound_core_end = chain.core_morpheme_indices.last()
+            .and_then(|&i| tokens.get(i)).map(|t| t.char_range[1]).unwrap_or(chain.char_range[1]);
+        let compound_core_range = [parent.char_range[0], compound_core_end];
+        let has_subsequent_inflection = chain.char_range[1] > compound_core_end;
+        let compound_full_range = [parent.char_range[0], chain.char_range[1]];
+        for (range, with_inflection) in [(compound_core_range, false), (compound_full_range, true)] {
+            if !contains(anchor_range, range) { continue; }
+            if with_inflection && !has_subsequent_inflection { continue; }
+            let compound_canonical = format!("{}{}", parent.surface_form, chain.dictionary_form);
+            let compound_surface = surface(&chars, range);
+            let forms = vec![
+                form(compound_canonical.clone(), None, "compound_canonical"),
+                form(compound_surface.clone(), None, "compound_surface"),
+            ];
+            let members: Vec<usize> = tokens.iter().enumerate()
+                .filter(|(_, t)| overlaps(range, t.char_range)).map(|(i, _)| i).collect();
+            let candidate = candidates.entry(range).or_insert_with(|| Candidate {
+                range, forms: Vec::new(), members: members.clone(),
+                cores: vec![parent.chain_id.clone(), chain.chain_id.clone()],
+                formations: Vec::new(),
+                pos: Some(PosTag { major: "動詞".into(), sub1: String::new(), sub2: String::new(), sub3: String::new() }),
+                minimal: false, hints: Vec::new(), reason: String::new() });
+            candidate.forms.extend(forms);
+            candidate.forms = unique_forms(std::mem::take(&mut candidate.forms));
+            if !candidate.cores.contains(&parent.chain_id) { candidate.cores.push(parent.chain_id.clone()); }
         }
     }
     let database_started = std::time::Instant::now();

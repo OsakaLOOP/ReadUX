@@ -37,6 +37,8 @@
 
 ## 代码与数据依据
 
+2026-10-15 补充：`立ち回れない` 的 UniDic 词元为 `立ち回る`，基本表记为 `立ち回れる`，当前词形为 `立ち回れ`。查询与活用推导采用词元对应的原型表记；可能动词基本表记、下一段活用字段及来源证据继续保留。识别同时要求下一段活用和五段词尾到 e 段＋る的对应关系，可按基本表记或词元读法确认。读法确认时原型沿用基本表记的汉字和假名，如 UniDic 的 `帰れる` 词元为 `返る`，查询原型仍为 `帰る`。同类的 `読む／読める`、`書く／書ける` 等采用相同规则，`食べる`、`見える`、`聞こえる` 等独立动词保持原有查询原型。正式分析和首选词典条目的回归入口为 `scripts/test_reader_morphology.py`；两个气泡均显示 `立ち回る → 立ち回れ（る→れ）`。
+
 - 查询候选、功能成员排除、连续组合、作者注音候选和外层贪心覆盖集中在 [`crates/readux-core/src/dictionary/targets.rs`](../crates/readux-core/src/dictionary/targets.rs) 的 `build_profiled`、`projected_core_indices` 和 `target`。
 - 胶囊范围由 [`src/reader/lookupPresentation.ts`](../src/reader/lookupPresentation.ts) 的 `readerCapsuleRanges` 独立生成，文本分段在 `ReaderDocumentView.vue` 的 `capsulesForParts` 再次切分。
 - 活用连接和 operator 范围由 [`crates/readux-nlp/src/morphology_machine.rs`](../crates/readux-nlp/src/morphology_machine.rs) 生成；整体词形拼接由 [`crates/readux-nlp/src/formation.rs`](../crates/readux-nlp/src/formation.rs) 的 `attach_words` 完成。

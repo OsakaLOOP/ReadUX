@@ -44,6 +44,69 @@ fn semantic(t: &ProviderToken) -> Vec<String> {
 
 enum Transition { Core, Attach(Vec<String>), Support(&'static str), Stop }
 
+fn renyō_compound_kind(base: &str) -> Option<&'static str> {
+    match base {
+        "すぎる" | "過ぎる" => Some("excessive"),
+        "はじめる" | "始める" => Some("inceptive"),
+        "つづける" | "続ける" => Some("continuative_aspect"),
+        "おわる" | "終わる" | "おえる" | "終える" => Some("terminative"),
+        "まくる" | "捲る" => Some("iterative_aspect"),
+        "だす" | "出す" => Some("inchoative"),
+        "なおす" | "直す" => Some("corrective"),
+        "かける" | "掛ける" => Some("incomplete"),
+        "きる" | "切る" => Some("completion"),
+        "かねる" | "兼ねる" => Some("reluctance"),
+        "そこなう" | "損なう" => Some("failure"),
+        "そびれる" => Some("missed_opportunity"),
+        "とおす" | "通す" => Some("continuative_aspect"),
+        "ぬく" | "抜く" => Some("completion"),
+        "つくす" | "尽くす" => Some("completion"),
+        _ => None,
+    }
+}
+
+fn te_support_kind(base: &str) -> Option<&'static str> {
+    match base {
+        "いる" | "居る" | "おる" | "居る-オル" => Some("te_iru"),
+        "ある" | "有る" | "在る" => Some("te_aru"),
+        "しまう" | "仕舞う" => Some("te_shimau"),
+        "おく" | "置く" => Some("te_oku"),
+        "いく" | "行く" => Some("te_iku"),
+        "くる" | "来る" => Some("te_kuru"),
+        "みる" | "見る" => Some("te_miru"),
+        "くださる" | "下さる" => Some("te_kudasaru"),
+        "もらう" | "貰う" => Some("te_morau"),
+        "あげる" | "上げる" => Some("te_ageru"),
+        "くれる" | "呉れる" => Some("te_kureru"),
+        "やる" | "遣る" => Some("te_yaru"),
+        "ほしい" | "欲しい" => Some("te_hoshii"),
+        "ごらん" | "御覧" => Some("te_goran"),
+        "みせる" | "見せる" => Some("te_miseru"),
+        "たまらない" | "堪らない" => Some("te_tamaranai"),
+        "ならない" | "成らない" => Some("te_naranai"),
+        "やまない" | "止まない" => Some("te_yamanai"),
+        _ => None,
+    }
+}
+
+fn insertion_token(token: &ProviderToken) -> bool {
+    let pos = field(token, 0);
+    let sub = field(token, 1);
+    matches!(pos, "助詞" | "副詞") && (sub.contains("副助詞") || sub.contains("係助詞")
+        || matches!(token.surface.as_str(), "は" | "も" | "さえ" | "こそ" | "だけ" | "まで" | "しか" | "すら" | "なんて" | "など"))
+}
+
+fn bridge_support(previous: &MorphologyChain, index: usize, source: &[ProviderToken], context: &Context<'_>) -> bool {
+    if previous.final_state.form != ConnectionForm::Te || previous.morpheme_range[1] >= index { return false; }
+    let Some(connector) = previous.operators.iter().rev().find(|operator| operator.kind == "te_connection").map(|operator| operator.char_range) else { return false; };
+    let inserted = (previous.morpheme_range[1]..index).map(|i| &source[i]).collect::<Vec<_>>();
+    if inserted.is_empty() || inserted.iter().any(|token| !insertion_token(token)) { return false; }
+    let Some(predicate_index) = previous.core_morpheme_indices.first() else { return false; };
+    let Some(predicate) = source.get(*predicate_index).map(|token| token.char_range) else { return false; };
+    context.confirms_inserted_support(predicate, connector,
+        &inserted.iter().map(|token| token.char_range).collect::<Vec<_>>(), source[index].char_range)
+}
+
 fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Context<'_>, source: &[ProviderToken]) -> Transition {
     use ConnectionForm::*;
     let last = &source[previous.morpheme_range[1] - 1];
@@ -53,17 +116,18 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
     let sahen = field(last, 0) == "名詞" && (field(last, 2).contains("サ変") || context.tag(last.char_range).is_some_and(|tag| tag.contains("サ変")))
         && pos == "動詞" && ctype.contains("サ行変格") && matches!(base, "する" | "為る");
     if sahen { return Transition::Core; }
+    let tari_suru = (previous.operators.iter().any(|op| op.kind == "enumerative")
+        || previous.surface_form.ends_with("たり") || previous.surface_form.ends_with("だり"))
+        && pos == "動詞" && ctype.contains("サ行変格") && matches!(base, "する" | "為る");
+    if tari_suru { return Transition::Support("tari_suru"); }
     if pos == "接尾辞" && base == "さ" && *form == Stem
         && matches!(previous.final_state.category.as_str(), "形容詞" | "形状詞") {
         return Transition::Attach(vec!["nominalization".into()]);
     }
     if pos=="接尾辞" && matches!(form, Continuative | Stem) && matches!(previous.final_state.category.as_str(),"動詞"|"形容詞"|"形状詞")
         && matches!(base,"やすい"|"易い"|"にくい"|"難い"|"づらい"|"辛い"|"さ") { return Transition::Core; }
-    if *form==Continuative && pos=="動詞" && field(next,1).starts_with("非自立") {
-        let kind=match base { "すぎる"|"過ぎる"=>Some("excessive"), "はじめる"|"始める"=>Some("inceptive"),
-            "つづける"|"続ける"=>Some("continuative_aspect"), "おわる"|"終わる"=>Some("terminative"),
-            "まくる"|"捲る"=>Some("iterative_aspect"), _=>None };
-        if let Some(kind)=kind { return Transition::Support(kind); }
+    if *form == Continuative && matches!(pos, "動詞" | "助動詞" | "接尾辞") {
+        if let Some(kind) = renyō_compound_kind(base) { return Transition::Support(kind); }
     }
     if matches!(pos, "動詞" | "助動詞") && matches!(base, "てる" | "でる" | "ちゃう" | "じゃう" | "とく" | "どく")
         && matches!(form, Continuative | Te) {
@@ -73,14 +137,7 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
         return Transition::Attach(vec!["copula_aru".into()]);
     }
     if *form == Te && matches!(pos, "動詞" | "形容詞" | "助動詞") {
-        let function = match base {
-            "いる" | "居る" | "おる" | "居る-オル" => Some("te_iru"), "ある" | "有る" => Some("te_aru"),
-            "しまう" | "仕舞う" => Some("te_shimau"), "おく" | "置く" => Some("te_oku"),
-            "いく" | "行く" => Some("te_iku"), "くる" | "来る" => Some("te_kuru"),
-            "みる" | "見る" => Some("te_miru"), "くださる" | "下さる" => Some("te_kudasaru"),
-            "もらう" | "貰う" => Some("te_morau"), "あげる" | "上げる" => Some("te_ageru"),
-            "くれる" | "呉れる" => Some("te_kureru"), "ほしい" | "欲しい" => Some("te_hoshii"), _ => None,
-        };
+        let function = te_support_kind(base);
         if let Some(function) = function {
             if field(next, 1).starts_with("非自立") || context.auxiliary(next.char_range) || context.functional_position(next.char_range) || aux_relation {
                 return Transition::Support(function);
@@ -95,7 +152,12 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
     let attach = if pos == "助動詞" {
         if matches!(base, "れる" | "られる" | "せる" | "させる" | "しめる") { *form == Irrealis }
         else if matches!(ctype, "助動詞-ナイ" | "助動詞-ヌ" | "助動詞-ズ") { *form == Irrealis }
-        else if matches!(ctype, "助動詞-タ" | "助動詞-マス" | "助動詞-タイ") { *form == Continuative }
+        else if matches!(ctype, "助動詞-タ" | "助動詞-マス" | "助動詞-タイ") {
+            if (next.surface == "たり" || next.surface == "だり") && matches!(form, Continuative | Other) {
+                return Transition::Attach(vec!["enumerative".into()]);
+            }
+            *form == Continuative
+        }
         else if ctype == "助動詞-ダ" { nominal }
         else if ctype == "助動詞-デス" { nominal || matches!(form, Terminal | Attributive) }
         else if base=="たがる" { *form==Continuative }
@@ -112,7 +174,9 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
             "て" | "で" if *form == Continuative => Some("te_connection"),
             "ば" if *form == Conditional => Some("ba_connection"),
             "ながら" if *form == Continuative => Some("nagara_connection"),
-            "ど" | "ども" if *form == Conditional => Some("concessive_connection"), _ => None,
+            "ど" | "ども" if *form == Conditional => Some("concessive_connection"),
+            "たり" | "だり" if matches!(form, Continuative | Other) => Some("enumerative"),
+            _ => None,
         };
         if let Some(kind) = kind { return Transition::Attach(vec![kind.into()]); }
     }
@@ -128,9 +192,16 @@ fn operator(chain: &MorphologyChain, atom: &MorphologyChain, kind: String) -> Mo
         input_state: chain.surface_form.clone(), output_state: format!("{}{}", chain.surface_form, atom.surface_form),
         state_before: chain.final_state.clone(), state_after: atom.final_state.clone(),
         normalized_form: match kind.as_str() {
+            "te_iru" => Some("ている".into()), "te_aru" => Some("てある".into()),
+            "te_shimau" => Some("てしまう".into()), "te_oku" => Some("ておく".into()),
+            "te_iku" => Some("ていく".into()), "te_kuru" => Some("てくる".into()),
+            "te_miru" => Some("てみる".into()), "te_kudasaru" => Some("てくださる".into()),
+            "te_morau" => Some("てもらう".into()), "te_ageru" => Some("てあげる".into()),
+            "te_kureru" => Some("てくれる".into()), "te_yaru" => Some("てやる".into()),
             "contracted_te_iru" => Some("ている".into()),
             "contracted_te_shimau" => Some("てしまう".into()),
             "contracted_te_oku" => Some("ておく".into()),
+            "tari_suru" => Some("たりする".into()),
             _ => None,
         },
         concept_id: feature_concept(&kind).into(), confidence: 1.0, evidence: atom.evidence.clone(),
@@ -222,7 +293,12 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
             }
         }
         let mut linked = false;
-        if let Some(previous) = chains.last_mut().filter(|p| p.char_range[1] == atom.char_range[0] && p.morpheme_range[1] == index) {
+        let previous_index = chains.iter().enumerate().rev()
+            .find(|(_, chain)| bridge_support(chain, index, source, &context)).map(|(i, _)| i)
+            .or_else(|| chains.len().checked_sub(1)
+                .filter(|&i| chains[i].char_range[1] == atom.char_range[0] && chains[i].morpheme_range[1] == index));
+        if let Some(previous_index) = previous_index {
+            let previous = &mut chains[previous_index];
             let first = previous.core_morpheme_indices[0];
             let verb_core = (previous.morpheme_indices.len() == 1 && field(&source[first], 0) == "名詞"
                 && field(current, 0) == "助動詞")
@@ -269,7 +345,8 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     atom.parent_chain_id = Some(previous.chain_id.clone());
                     atom.operators.push(operator(previous, &atom, kind.into()));
                     let relation = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "advcl", "xcomp"]);
-                    let supported = relation.is_some() || context.same_word(previous.char_range, atom.char_range)
+                    let bridged = bridge_support(previous, index, source, &context);
+                    let supported = bridged || relation.is_some() || context.same_word(previous.char_range, atom.char_range)
                         || context.same_bunsetsu(previous.char_range, atom.char_range);
                     atom.status = if supported { "resolved" } else { "candidate" }.into();
                     if let Some(e) = relation { atom.source_evidence.push(e); }
@@ -279,7 +356,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                             atom.source_evidence.push(crate::linguistic_context::SourceEvidence {provider:"ginza".into(),node_id:Some(node.id.clone()),relation_id:None,reason:"support_bunsetsu".into()});
                         }
                     }
-                    let expanded=match kind { "contracted_te_iru"=>Some(("いる","イル")),"contracted_te_shimau"=>Some(("しまう","シマウ")),"contracted_te_oku"=>Some(("おく","オク")),_=>None };
+                    let expanded=match kind { "contracted_te_iru"=>Some(("いる","イル")),"contracted_te_shimau"=>Some(("しまう","シマウ")),"contracted_te_oku"=>Some(("おく","オク")),"tari_suru"=>Some(("する","スル")),_=>None };
                     if let Some((base,reading))=expanded {
                         atom.display_form=atom.operators.last().and_then(|op| op.normalized_form.clone()).unwrap();
                         atom.dictionary_form=base.into(); atom.lookup_form=base.into();
@@ -319,6 +396,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         hit_ranges.insert(0,connector.char_range);
                         members.splice(0..0,connector.source_morpheme_range[0]..connector.source_morpheme_range[1]);
                         operator_ids.insert(0,connector.operator_id.clone());
+                        members.sort_unstable();
                     }
                 }
             }
@@ -327,8 +405,9 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                 let Some(ancestor)=chains.iter().find(|c| &c.chain_id==id) else { break; };
                 context_range[0]=ancestor.char_range[0]; parent=ancestor.parent_chain_id.as_ref();
             }
+            let char_range = if hit_ranges.len() > 1 { [hit_ranges[0][0], op.char_range[1]] } else { op.char_range };
             MorphologyOccurrence { id: format!("occurrence:{}", op.operator_id), chain_id: chain.chain_id.clone(), operator_ids,
-                kind: op.kind.clone(), char_range: [hit_ranges[0][0],op.char_range[1]], context_range, hit_ranges,
+                kind: op.kind.clone(), char_range, context_range, hit_ranges,
                 morpheme_indices: members, candidates: op.candidates.clone(), status: chain.status.clone(), source_evidence: chain.source_evidence.clone() }
         })).collect();
     MorphologyArtifact { schema: SCHEMA.into(), chains, occurrences, diagnostics }

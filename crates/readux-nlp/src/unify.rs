@@ -101,6 +101,10 @@ fn assemble(
                 }
             }
         }
+        if let Some(query) = crate::morphology::potential_lemma(token) {
+            forms.retain(|form| form.form != query.form);
+            forms.insert(0, query);
+        }
         morphemes.push(MorphemeToken {
             id: format!("m{}", token.index),
             source_index: token.index,
