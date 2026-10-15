@@ -24,6 +24,16 @@ interface Token {
 export const morphologyPresentation = configuration.presentation;
 export const operatorDefinitions: Record<string, OperatorDefinition> = configuration.operators;
 
+export function morphologyTags(kind: string, cform = "", evidence: string[] = []): string[] {
+  const labels = operatorDefinitions[kind]?.support?.group === "contracted" ? [morphologyPresentation.contraction_label] : [];
+  for (const rule of morphologyPresentation.phenomena) {
+    const marked = rule.evidence !== undefined && evidence.includes(rule.evidence);
+    const observed = rule.cform_contains.some((value) => cform.includes(value));
+    if (marked || observed) labels.push(rule.label);
+  }
+  return [...new Set(labels)];
+}
+
 export function configuredPrototype(kind: string, token?: Token): string {
   const entry = operatorDefinitions[kind];
   if (!entry) return "";

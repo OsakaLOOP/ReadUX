@@ -17,7 +17,7 @@ test("缩略形式标签仅用于实际缩约，规范原型继续作为副标�
       },
     };
     const [hit] = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
-    assert.equal(hit.detail.tag, contracted ? "缩略形式" : null, kind);
+    assert.deepEqual(hit.detail.tags, contracted ? ["缩略形式"] : [], kind);
     assert.equal(hit.detail.surface, prototype);
   }
 });

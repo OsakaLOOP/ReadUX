@@ -1,5 +1,5 @@
 import type { DictionaryLookup } from "../types";
-import { configuredPrototype, morphologyPresentation, operatorDefinitions } from "./morphologyConfig.ts";
+import { configuredPrototype, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
 
 export interface ReaderChainSummary {
@@ -20,7 +20,7 @@ export interface ReaderMorphologyDetail {
   title: string;
   surface: string;
   description: string;
-  tag: string | null;
+  tags: string[];
   candidates: string[];
 }
 
@@ -393,6 +393,7 @@ function syntheticConjugationStep(
     label: conjugationFormLabel(state.conjugation_form, state.form),
     description: transitionDescription(chain.lookup_form, output),
     normalizedForm: null,
+    tags: morphologyTags("conjugation", state.conjugation_form),
   };
 }
 
@@ -504,7 +505,7 @@ export function readerMorphologyHits(
       title: step ? step.conceptTitle : grammaticalConceptTitle(operator),
       surface: step ? step.prototypeForm : operatorPrototypeForm(operator, document.morphemes),
       description: step ? step.description : (operator.description || ""),
-      tag: operatorDefinitions[operator.kind]?.support?.group === "contracted" ? morphologyPresentation.contraction_label : null,
+      tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
       candidates: occurrence.candidates ?? [],
     };
     return (occurrence.hit_ranges ?? []).map((range) => ({ range, targetId: target.id, detail }));
@@ -524,7 +525,7 @@ export function readerMorphologyHits(
         title: synthetic.label,
         surface: characters.slice(...syntheticRange).join(""),
         description: synthetic.description,
-        tag: null,
+        tags: synthetic.tags,
         candidates: [],
       },
     }] : [];
@@ -539,7 +540,7 @@ export function readerMorphologyHits(
             title: step.conceptTitle,
             surface: step.prototypeForm || characters.slice(operator.char_range[0], operator.char_range[1]).join(""),
             description: step.description,
-            tag: null,
+            tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
             candidates: [],
           },
         };

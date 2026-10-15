@@ -1390,14 +1390,14 @@ function toggleEinkMode() {
         <div v-if="activeDetail && !componentWord" class="reader-lookup__detail">
           <strong>{{ activeDetail.title }}</strong>
           <span v-if="activeDetail.description">{{ activeDetail.description }}</span>
-          <span v-if="activeDetail.tag" class="reader-lookup__tag">{{ activeDetail.tag }}</span>
+          <span v-for="tag in activeDetail.tags" :key="tag" class="reader-lookup__tag">{{ tag }}</span>
         </div>
         <p v-if="componentError" class="reader-lookup__error">{{ componentError }}</p>
       </template>
     </TooltipPanel>
     <ReaderExplanationBubble v-if="activeDetail && !relatedWord && !componentHit" id="reader-morphology-detail" :show="Boolean(activeHit) && Boolean(activeDetail)" :x="detailPosition.x" :y="detailPosition.y" :width="detailPosition.width" :max-height="detailPosition.maxHeight" :title="activeDetail.title" :surface="activeDetail.surface" @enter="cancelCloseLookup" @leave="scheduleCloseLookup">
       <p v-if="activeDetail.description">{{ activeDetail.description }}</p>
-      <span v-if="activeDetail.tag" class="reader-lookup__tag">{{ activeDetail.tag }}</span>
+      <span v-for="tag in activeDetail.tags" :key="tag" class="reader-lookup__tag">{{ tag }}</span>
       <p v-if="activeDetail.candidates.length">可能含义：{{ activeDetail.candidates.join('、') }}</p>
     </ReaderExplanationBubble>
 
@@ -1449,7 +1449,7 @@ function toggleEinkMode() {
 .reader-lookup__summary span, .reader-lookup__summary small { overflow-wrap: anywhere; color: var(--text-secondary); font-family: var(--font-ja); }
 .reader-lookup__detail { display: grid; gap: 2px; color: var(--text-secondary); font-size: .75rem; }
 .reader-lookup__detail strong { color: var(--accent-color); }
-.reader-lookup__tag { display: inline-block; justify-self: start; max-width: 100%; box-sizing: border-box; padding: 1px 6px; border: 1px solid var(--glass-border); border-radius: 4px; color: var(--text-secondary); font-size: .72rem; }
+.reader-lookup__tag { display: inline-block; justify-self: start; max-width: 100%; box-sizing: border-box; margin-right: 4px; padding: 1px 6px; border: 1px solid var(--glass-border); border-radius: 4px; color: var(--text-secondary); font-size: .72rem; }
 .reader-lookup__state { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
 .reader-lookup__state button { padding: 4px 8px; border: 1px solid var(--border-color); border-radius: 4px; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: .75rem; }
 .reader-lookup__state button:hover { border-color: var(--accent-color); color: var(--accent-color); }

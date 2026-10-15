@@ -156,6 +156,13 @@
   ],
   "presentation": {
     "contraction_label": "缩略形式",
+    "phenomena": [
+      {"label": "イ音便","cform_contains": ["イ音便"]},
+      {"label": "促音便","cform_contains": ["促音便"]},
+      {"label": "撥音便","cform_contains": ["撥音便"]},
+      {"label": "ウ音便","cform_contains": ["ウ音便"]},
+      {"label": "缩略形式","cform_contains": ["融合"],"evidence": "phenomenon:contraction"}
+    ],
     "form_labels": {"stem": "词干","irrealis": "未然形","continuative": "连用形","terminal": "终止形","attributive": "连体形","conditional": "假定形","imperative": "命令形","volitional": "意向形","te": "て形"},
     "raw_form_labels": {"未然形": "未然形","連用形": "连用形","終止形": "终止形","連体形": "连体形","仮定形": "假定形","已然形": "已然形","命令形": "命令形","意志推量形": "意向形"},
     "families": {"五段": "五段活用","一段": "一段活用","サ行変格": "サ变活用","カ行変格": "カ变活用"},
