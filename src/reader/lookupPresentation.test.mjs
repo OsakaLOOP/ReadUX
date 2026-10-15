@@ -2,6 +2,26 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations } from "./lookupPresentation.ts";
 
+test("缩略形式标签仅用于实际缩约，规范原型继续作为副标题", () => {
+  for (const [kind, prototype, contracted] of [
+    ["contracted_te_iru", "ている", true], ["contracted_te_shimau", "てしまう", true], ["contracted_te_oku", "ておく", true],
+    ["te_iru", "ている", false], ["te_yuku", "てゆく", false], ["tari_suru", "たりする", false],
+    ["passive_potential", "られる", false], ["tara_condition", "たら", false], ["copula", "だ", false],
+  ]) {
+    const document = {
+      text: "読んでる", morphemes: [], formation: { nodes: [] }, morphology: {
+        chains: [{ chain_id: "core", lookup_form: "読む", surface_form: "読ん", operators: [
+          { operator_id: "op", kind, normalized_form: prototype, char_range: [2, 4] },
+        ] }],
+        occurrences: [{ id: "occ", chain_id: "core", kind, operator_ids: ["op"], hit_ranges: [[2, 4]] }],
+      },
+    };
+    const [hit] = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
+    assert.equal(hit.detail.tag, contracted ? "缩略形式" : null, kind);
+    assert.equal(hit.detail.surface, prototype);
+  }
+});
+
 test("条件词尾的显示覆盖完整たら与だら", () => {
   for (const [text, lemma, ending] of [["なれたら", "なる", "たら"], ["読んだら", "読む", "だら"]]) {
     const operator = { operator_id: "condition", kind: "tara_condition", label: "条件", char_range: [2, 4], source_morpheme_range: [1, 2] };

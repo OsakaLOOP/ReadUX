@@ -12,6 +12,7 @@ interface OperatorDefinition {
   prototype: string;
   normalized?: string;
   token_lemma?: boolean;
+  support?: { group: string };
   variants?: { token: TokenPattern; form: string }[];
 }
 interface Token {
