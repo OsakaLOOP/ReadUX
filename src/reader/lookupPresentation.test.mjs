@@ -2,6 +2,24 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations } from "./lookupPresentation.ts";
 
+test("条件词尾的显示覆盖完整たら与だら", () => {
+  for (const [text, lemma, ending] of [["なれたら", "なる", "たら"], ["読んだら", "読む", "だら"]]) {
+    const operator = { operator_id: "condition", kind: "tara_condition", label: "条件", char_range: [2, 4], source_morpheme_range: [1, 2] };
+    const document = {
+      text, morphemes: [{ surface: text.slice(0, 2), lemma }, { surface: ending, lemma: "た", pos: ["助動詞"] }],
+      formation: { nodes: [] }, morphology: {
+        chains: [{ chain_id: "core", char_range: [0, 4], lookup_form: lemma, surface_form: text, operators: [operator] }],
+        occurrences: [{ id: "condition", chain_id: "core", operator_ids: ["condition"], hit_ranges: [[2, 4]] }],
+      },
+    };
+    const hits = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
+    assert.equal(hits.length, 1);
+    assert.equal(hits[0].detail.title, "条件");
+    assert.equal(hits[0].detail.surface, ending);
+    assert.deepEqual(hits[0].range, [2, 4]);
+  }
+});
+
 test("作者注音显示为平假名，读音匹配形式保持原样", () => {
   assert.equal(displayReading("カタカナー"), "かたかなー");
 });

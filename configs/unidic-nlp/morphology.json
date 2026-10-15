@@ -24,7 +24,7 @@
     "difficulty": {"label": "活用","title": "困难","concept": "morphology.chain","prototype": "にくい","variants": [{"token": {"contains": {"surface": ["づらい"]}},"form": "づらい"},{"token": {"contains": {"lemma": ["づらい"]}},"form": "づらい"}]},
     "nominalization": {"label": "名词化","title": "名词化","concept": "morphology.chain","prototype": "さ","variants": [{"token": {"equals": {"lemma": ["の"]}},"form": "の"}],"output_category": "名詞"},
     "ba_connection": {"label": "条件","title": "条件","concept": "morphology.chain","prototype": "ば"},
-    "tara_condition": {"label": "条件","title": "条件","concept": "morphology.chain","prototype": "たら"},
+    "tara_condition": {"label": "条件","title": "条件","concept": "morphology.chain","prototype": "たら","variants": [{"token": {"equals": {"surface": ["だら"]}},"form": "だら"}]},
     "nagara_connection": {"label": "ながら接続","title": "伴随","concept": "morphology.chain","prototype": "ながら"},
     "concessive_connection": {"label": "逆接","title": "逆接","concept": "morphology.chain","prototype": "ど","variants": [{"token": {"equals": {"surface": ["ども"]}},"form": "ども"}]},
     "te_connection": {"label": "て形","title": "て形","concept": "morphology.chain","prototype": "て","variants": [{"token": {"equals": {"surface": ["で"]}},"form": "で"}],"output_form": "te"},
@@ -68,7 +68,7 @@
     "missed_opportunity": {"label": "活用","title": "错失机会","concept": "morphology.chain","prototype": "そびれる","token_lemma": true,"support": {"group": "continuative","bases": ["そびれる"]},"compound_candidate": true}
   },
   "features": [
-    {"kind": "past","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ"]}}},
+    {"kind": "past","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ"]}},"exclude": [{"starts_with": {"cform": ["仮定形","已然形"]}},{"contains": {"cform": ["融合"]}}]},
     {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}},
     {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ヌ"]}}},
     {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ズ"]}}},
@@ -82,8 +82,8 @@
     {"kind": "passive_potential","token": {"equals": {"pos": ["助動詞"],"lemma": ["れる","られる"]}}},
     {"kind": "causative","token": {"equals": {"pos": ["助動詞"],"lemma": ["せる","させる","しめる"]}}},
     {"kind": "volitional","token": {"starts_with": {"cform": ["意志推量形"]}}},
-    {"kind": "conditional","token": {"starts_with": {"cform": ["仮定形","已然形"]}}},
-    {"kind": "tara_condition","token": {"equals": {"ctype": ["助動詞-タ"]},"contains": {"cform": ["融合"]}}},
+    {"kind": "conditional","token": {"starts_with": {"cform": ["仮定形","已然形"]}},"exclude": [{"equals": {"ctype": ["助動詞-タ"]}}]},
+    {"kind": "tara_condition","token": {"equals": {"ctype": ["助動詞-タ"]},"contains": {"cform": ["仮定形","已然形","融合"]}}},
     {"kind": "enumerative","token": {"equals": {"ctype": ["助動詞-タ"],"surface": ["たり"]},"contains": {"cform": ["一般"]}}},
     {"kind": "te_form","token": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["て"]}}},
     {"kind": "de_form","token": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["で"]}}},

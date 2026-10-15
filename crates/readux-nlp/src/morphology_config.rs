@@ -98,7 +98,11 @@ impl TokenPattern {
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct FeatureRule { pub kind: String, pub token: TokenPattern }
+pub struct FeatureRule {
+    pub kind: String,
+    pub token: TokenPattern,
+    #[serde(default)] pub exclude: Vec<TokenPattern>,
+}
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -147,7 +151,8 @@ pub fn prototype(kind: &str, token: &ProviderToken) -> Option<String> {
 pub fn features(token: &ProviderToken) -> Vec<String> {
     let mut kinds = Vec::new();
     for rule in &CONFIG.features {
-        if rule.token.matches(token) && !kinds.contains(&rule.kind) { kinds.push(rule.kind.clone()); }
+        if rule.token.matches(token) && !rule.exclude.iter().any(|pattern| pattern.matches(token))
+            && !kinds.contains(&rule.kind) { kinds.push(rule.kind.clone()); }
     }
     kinds
 }

@@ -94,6 +94,29 @@ fn yuku_forms_a_support_chain_after_te() {
 }
 
 #[test]
+fn tara_and_dara_are_complete_conditional_forms() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, ending) in [("なれたら。", "たら"), ("食べたら。", "たら"), ("読んだら。", "だら"),
+        ("静かだったら。", "たら"), ("なれたらいいな。", "たら")] {
+        let doc = analyze(&service, text);
+        let occurrence = doc.morphology.occurrences.iter().find(|occurrence| occurrence.kind == "tara_condition").unwrap();
+        let surface: String = doc.text.chars().skip(occurrence.char_range[0]).take(occurrence.char_range[1] - occurrence.char_range[0]).collect();
+        assert_eq!(surface, ending);
+        assert_eq!(occurrence.hit_ranges, vec![occurrence.char_range]);
+        let operators = doc.morphology.chains.iter().flat_map(|chain| &chain.operators)
+            .filter(|op| op.char_range == occurrence.char_range).collect::<Vec<_>>();
+        assert_eq!(operators.len(), 1, "{text}");
+        assert_eq!(operators[0].normalized_form.as_deref(), Some(ending));
+    }
+    for (text, kind) in [("読んだ。", "past"), ("読めば。", "ba_connection")] {
+        let doc = analyze(&service, text);
+        assert!(doc.morphology.occurrences.iter().any(|occurrence| occurrence.kind == kind));
+        assert!(!doc.morphology.occurrences.iter().any(|occurrence| occurrence.kind == "tara_condition"));
+    }
+}
+
+#[test]
 fn ginza_changes_core_boundaries_and_functional_status() {
     use readux_nlp::{external::{SourceArtifact, Endpoint, RelationKind, SourceRelation}, syntax::*};
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
