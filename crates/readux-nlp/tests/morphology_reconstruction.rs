@@ -83,6 +83,29 @@ fn aux(surface: &'static str, lemma: &'static str, orth_base: &'static str) -> P
 }
 
 #[test]
+fn explanatory_no_joins_the_predicate_chain() {
+    for (surface, sub) in [("ん", "準体助詞"), ("の", "準体助詞"), ("ん", "終助詞")] {
+        let specs = [
+            Part { surface: "し", pos: "動詞", sub: "非自立可能", ctype: "サ行変格", cform: "連用形-一般", lemma: "為る", orth_base: "する" },
+            Part { surface: "た", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "連体形-一般", lemma: "た", orth_base: "た" },
+            Part { surface, pos: "助詞", sub, ctype: "", cform: "", lemma: "の", orth_base: surface },
+            Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-ダ", cform: "終止形-一般", lemma: "だ", orth_base: "だ" },
+        ];
+        let text = format!("した{surface}だ");
+        let artifact = run(&text, &specs, &[]);
+        assert_eq!(artifact.chains.len(), 1, "{text}");
+        let chain = &artifact.chains[0];
+        assert_eq!(chain.surface_form, text);
+        assert_eq!(chain.lookup_form, "する");
+        assert_eq!(chain.core_morpheme_indices, vec![0]);
+        assert!(chain.operators.iter().any(|operator| operator.kind == "nominalization"));
+    }
+    let specs = [verb("読む", "連体形-一般"),
+        Part { surface: "の", pos: "助詞", sub: "格助詞", ctype: "", cform: "", lemma: "の", orth_base: "の" }];
+    assert_eq!(run("読むの", &specs, &[]).chains.len(), 2);
+}
+
+#[test]
 fn synthetic_reconstruction_covers_thirty_contract_cases() {
     let ordinary = [
         ("読んだ", vec![verb("読ん", "連用形-撥音便"), Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "だ", orth_base: "だ" }], "past"),

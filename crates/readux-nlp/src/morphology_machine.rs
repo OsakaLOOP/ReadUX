@@ -112,6 +112,12 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
     let last = &source[previous.morpheme_range[1] - 1];
     let form = &previous.final_state.form;
     let pos = field(next, 0); let base = identity(next); let ctype = field(next, 4);
+    if pos == "助詞" && matches!(field(next, 1), "準体助詞" | "終助詞")
+        && field(next, 7) == "の" && matches!(next.surface.as_str(), "の" | "ん")
+        && matches!(form, Terminal | Attributive)
+        && matches!(previous.final_state.category.as_str(), "動詞" | "形容詞" | "助動詞") {
+        return Transition::Attach(vec!["nominalization".into()]);
+    }
     let aux_relation = context.relation(previous.char_range, next.char_range, &["aux", "cop"]).is_some();
     let sahen = field(last, 0) == "名詞" && (field(last, 2).contains("サ変") || context.tag(last.char_range).is_some_and(|tag| tag.contains("サ変")))
         && pos == "動詞" && ctype.contains("サ行変格") && matches!(base, "する" | "為る");

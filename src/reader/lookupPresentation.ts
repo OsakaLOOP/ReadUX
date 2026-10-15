@@ -64,14 +64,6 @@ export function readerCapsuleRanges(
         end = Math.max(end, chainRange[1]);
       }
     }
-    const token = document.morphemes?.find((item) => item.char_range && item.char_range[0] === start && item.surface === "ん"
-      && item.lemma === "の" && item.pos?.[0] === "助詞");
-    if (token) {
-      const precedingCopula = chains.find((chain) => chain.role === "functional" && (chain.char_range ?? chain.anchor_range)?.[1] === start
-        && chain.lookup_form === "だ" && chain.surface_form?.endsWith("た"));
-      const copulaRange = precedingCopula?.char_range ?? precedingCopula?.anchor_range;
-      if (copulaRange) start = copulaRange[0];
-    }
     for (let changed = true; changed;) {
       changed = false;
       for (const chain of chains) {
@@ -311,7 +303,7 @@ export function operatorPrototypeForm(
       if (tokenSurface.includes("づらい") || tokenLemma.includes("づらい")) return "づらい";
       return "にくい";
     case "nominalization":
-      return "さ";
+      return tokenLemma === "の" ? "の" : "さ";
     case "ba_connection":
       return "ば";
     case "tara_condition":
