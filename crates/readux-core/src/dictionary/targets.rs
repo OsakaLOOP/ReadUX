@@ -249,8 +249,9 @@ pub fn build_profiled(
     }
     let te_ranges = document.morphology.chains.iter().filter_map(|chain| {
         let parent = chain.parent_chain_id.as_ref().and_then(|id| document.morphology.chains.iter().find(|item| &item.chain_id == id))?;
-        let operator = chain.operators.iter().find(|operator| operator.kind.starts_with("te_") || operator.kind == "tari_suru")?;
-        let connector = parent.operators.iter().find(|item| item.kind == "te_connection" || item.kind == "enumerative")?;
+        let (operator, connector_kind) = chain.operators.iter().find_map(|operator|
+            readux_nlp::morphology_config::definition(&operator.kind).and_then(|entry| entry.connector.as_ref()).map(|kind| (operator, kind)))?;
+        let connector = parent.operators.iter().find(|item| &item.kind == connector_kind)?;
         let absorb_connector = parent.core_morpheme_indices.len() <= 1;
         Some(([connector.char_range[0], operator.char_range[1]], chain.chain_id.clone(), absorb_connector))
     }).collect::<Vec<_>>();
@@ -438,9 +439,7 @@ pub fn build_profiled(
     }
     for chain in document.morphology.chains.iter().filter(|chain| chain.role == MorphologyRole::Functional) {
         let is_renyo = chain.operators.iter().any(|op| {
-            matches!(op.kind.as_str(), "excessive" | "inceptive" | "continuative_aspect" | "terminative"
-                | "iterative_aspect" | "inchoative" | "corrective" | "incomplete" | "completion"
-                | "reluctance" | "failure" | "missed_opportunity" | "tari_suru")
+            readux_nlp::morphology_config::definition(&op.kind).is_some_and(|entry| entry.compound_candidate)
         });
         if !is_renyo { continue; }
         let Some(parent_id) = &chain.parent_chain_id else { continue; };

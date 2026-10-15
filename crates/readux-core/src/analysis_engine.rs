@@ -118,7 +118,7 @@ impl AnalysisEngine {
         }
         let resources: Vec<_> = routing.runs.iter().map(|run| providers[&run.selected].metadata()).collect();
         let key = format!("base:{}", readux_nlp::external::text_digest(&serde_json::to_string(&(
-            readux_nlp::model::SCHEMA, &prepared.mapping.source_sha256, &routing, resources, artifacts, &grammar, &expression,
+            readux_nlp::model::SCHEMA, readux_nlp::morphology_config::SOURCE, &prepared.mapping.source_sha256, &routing, resources, artifacts, &grammar, &expression,
         )).map_err(|e| e.to_string())?));
         let cached = self.documents.lock().unwrap().get(&key);
         if let Some(document) = cached {
@@ -183,7 +183,7 @@ impl AnalysisEngine {
             .filter_map(Result::ok).map(|entry| resource_identity(&entry.path())).collect::<Vec<_>>();
         dictionaries.sort_by_key(Value::to_string);
         Ok(readux_nlp::external::text_digest(&serde_json::to_string(&(
-            "readux.complete-unit.v5", readux_nlp::model::SCHEMA, env!("CARGO_PKG_VERSION"),
+            "readux.complete-unit.v5", readux_nlp::model::SCHEMA, env!("CARGO_PKG_VERSION"), readux_nlp::morphology_config::SOURCE,
             &prepared.mapping.source_sha256, routing, range, self.external.lock().unwrap().cache_identity()?, resources, dictionaries,
         )).map_err(|e| e.to_string())?))
     }

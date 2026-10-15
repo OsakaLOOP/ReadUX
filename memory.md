@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 活用链的规则、概念路由、原型与展示统一在 `configs/unidic-nlp/morphology.json`；Rust 读取入口为 `morphology_config.rs`，前端适配为 `src/reader/morphologyConfig.ts`，维护指导见 `docs/morphology_configuration.md`。配置内容参与完整分析缓存标识。
+
 - GiNZA CUDA 报告位于 `docs/ginza_cuda_measurement.md`；测量脚本为 `scripts/benchmark_ginza_cuda.py` 与 `scripts/compare_ginza_precision.py`。机器摘要及二十处人工复核位于 `data/validation/ginza_cuda_*.json`；本机完整核心记录归档为 `.agents/analysis/ginza-cuda-core-records.zip`，原始 `cuda-clean` 等重复输出可清理。正式微调权重为 `megagonlabs/transformers-ud-japanese-bert-large-ginza`。`experiments/ginza-cuda` 为指向 C 盘临时环境的 junction。
 - BERT 优化交接位于 `docs/ginza_optimization_handoff.md`；共享 GPU BERT、CPU 进程池、Cython 状态解码、双批次重叠和 GPU 多流实验入口分别为 `scripts/ginza_bert_engine.py`、`scripts/ginza_decode.pyx`、`scripts/benchmark_ginza_pipeline_suite.py`、`scripts/benchmark_ginza_gpu_concurrency.py`。固定 9068 token 语料的重叠 suite 为 2188 token/s，JSON 编码后 2019 token/s，输出与 FP16 基准一致；4060 Ti 设计和 GPU 50% CPU 比例仍交下一 agent。
 - GPU 并行设计位于 `docs/ginza_gpu_parallel_design.md`；生产路径固定 spaCy 原版状态解码，使用独立 non-blocking D2H 流、两个 pinned/shared buffer 槽、长度分桶、跨请求轮转和八个 CPU worker。3050 trace 的 GPU kernel active 1.19 s、完整 wall 5.44 s，4060 Ti 目标按 GPU 2.2×、CPU 1.5× 建模。

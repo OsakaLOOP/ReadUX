@@ -6,6 +6,7 @@
 
 | 依据 | 对应内容 |
 | --- | --- |
+| [活用链配置](configs/unidic-nlp/morphology.json)与[活用验收](crates/readux-core/tests/p4_language.rs) | 2026-10-15 使用本机 UniDic 核对「ゆく」「たら／だら」「の／ん」「に／な／だ」的分词、活用字段与链归属；维护指导见 [活用链配置](docs/morphology_configuration.md)。 |
 | [词典问题样本采集](scripts/inspect_lookup_cases.py)与[本机词典缓存](data/dicts) | 2026-09-28 核对「橋場／羽柴」「軒／ケン」「戸外／ソト」「内外／ウチ」的索引、词头和服务输出；记录保存在 `.agents/analysis/lookup-cases-before.json` 与 `lookup-cases-after.json`。 |
 | [七日の喰い神研究文本](file:///D:/Downloads/epub-exp/source/七日の喰い神%20%28ガガガ文庫%29%20%28カミツキレイニー%29/output.md) | 本机小说语料；P4 性能测量选取第一话开头约一万字符，语料摘要和划分范围保存在测量结果中。 |
 | 2026-09-21 用户确认 | 完成模块接入、恢复完整桌面功能；允许使用本机 Python 环境、外部模型和词典 |

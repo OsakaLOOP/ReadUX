@@ -16,6 +16,7 @@
 | [分析来源与对齐](nlp_sources.md)                  | UniDic 字段、GiNZA、字符坐标、token 对齐                   |
 | [语言分析](language_analysis.md)                  | 活用、构词、文节、小句、语法、表达与规则                   |
 | [P4 活用链与整体构词](p4_morphology_formation.md) | 多来源协作、活用状态机、occurrence、整体查询对象和十段验收 |
+| [活用链配置](morphology_configuration.md) | 统一规则、概念路由、原型与展示的维护指导 |
 | [P4 完成范围与后续开发对齐](p4_handoff.md)        | 当前完成证据、原任务归属、P4 独立待核验项及下游查询问题    |
 | [P4 小说性能测量](p4_novel_performance.md)        | 第一话前约一万字符的十段测量、分窗校验及阶段耗时           |
 | [云端 SaaS 路线](cloud_saas_roadmap.md)            | BERT large 云端推理、订阅配额、容量成本与阶段 catalog       |

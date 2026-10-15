@@ -1,4 +1,5 @@
 import type { DictionaryLookup } from "../types";
+import { configuredPrototype, morphologyPresentation, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
 
 export interface ReaderChainSummary {
@@ -107,11 +108,7 @@ export function readerRubyAnnotations(
   return [...resolved, ...unresolved].sort((left, right) => left.char_range[0] - right.char_range[0]);
 }
 
-const formLabels: Record<string, string> = {
-  stem: "词干", irrealis: "未然形", continuative: "连用形", terminal: "终止形",
-  attributive: "连体形", conditional: "假定形", imperative: "命令形",
-  volitional: "意向形", te: "て形",
-};
+const formLabels: Record<string, string> = morphologyPresentation.form_labels;
 
 export function displayReading(reading: string) {
   return Array.from(reading, (character) => {
@@ -121,20 +118,18 @@ export function displayReading(reading: string) {
 }
 
 function grammaticalLabel(value: string) {
-  return ({ "丁寧": "礼貌", "受身等候选": "被动／可能等", "接续": "接续" } as Record<string, string>)[value] ?? value;
+  return (morphologyPresentation.label_aliases as Record<string, string>)[value] ?? value;
 }
 
 function conjugationLabel(type = "", form = "", category = "", stateForm = "") {
-  const family = type.startsWith("五段") ? "五段活用" : type.startsWith("一段") ? "一段活用"
-    : type.startsWith("サ行変格") ? "サ变活用" : type.startsWith("カ行変格") ? "カ变活用" : "";
-  const formName = Object.entries({ "未然形": "未然形", "連用形": "连用形", "終止形": "终止形", "連体形": "连体形", "仮定形": "假定形", "已然形": "已然形", "命令形": "命令形", "意志推量形": "意向形" })
-    .find(([prefix]) => form.startsWith(prefix))?.[1] ?? formLabels[stateForm] ?? "";
-  return [family || (category === "形容詞" ? "形容词" : ""), formName].filter(Boolean).join(" · ");
+  const family = Object.entries(morphologyPresentation.families).find(([prefix]) => type.startsWith(prefix))?.[1]
+    ?? (morphologyPresentation.category_labels as Record<string, string>)[category] ?? "";
+  return [family, conjugationFormLabel(form, stateForm, "")].filter(Boolean).join(" · ");
 }
 
-function conjugationFormLabel(form = "", stateForm = "") {
-  return Object.entries({ "未然形": "未然形", "連用形": "连用形", "終止形": "终止形", "連体形": "连体形", "仮定形": "假定形", "已然形": "已然形", "命令形": "命令形", "意志推量形": "意向形" })
-    .find(([prefix]) => form.startsWith(prefix))?.[1] ?? formLabels[stateForm] ?? "活用";
+function conjugationFormLabel(form = "", stateForm = "", fallback = "活用") {
+  return Object.entries(morphologyPresentation.raw_form_labels).find(([prefix]) => form.startsWith(prefix))?.[1]
+    ?? formLabels[stateForm] ?? fallback;
 }
 
 function chainRoot(chains: ReadonlyArray<MorphologyChain>, chain: MorphologyChain) {
@@ -161,87 +156,7 @@ function transitionDescription(input: string, output: string) {
 }
 
 export function grammaticalConceptTitle(operator: MorphologyOperator): string {
-  switch (operator.kind) {
-    case "negative":
-      return "否定形";
-    case "passive_potential":
-      return "可能、被动等";
-    case "causative":
-      return "使役";
-    case "past":
-      return "过去";
-    case "politeness_masu":
-    case "politeness_desu":
-      return "敬体";
-    case "desire":
-      return "愿望";
-    case "volitional":
-      return "意向形";
-    case "obligation":
-      return "当为";
-    case "negative_volitional":
-      return "否定意向";
-    case "desire_outward":
-      return "外向愿望";
-    case "sou_modality":
-      return "样态 / 传闻";
-    case "you_modality":
-    case "mitai_modality":
-    case "rashii_modality":
-      return "推量";
-    case "copula":
-    case "copula_aru":
-      return "断定";
-    case "ease":
-      return "容易";
-    case "difficulty":
-      return "困难";
-    case "nominalization":
-      return "名词化";
-    case "ba_connection":
-    case "tara_condition":
-      return "条件";
-    case "nagara_connection":
-      return "伴随（ながら）";
-    case "concessive_connection":
-      return "逆接";
-    case "te_connection":
-    case "te_form":
-    case "de_form":
-      return "て形";
-    case "prohibitive":
-      return "禁止";
-    case "enumerative":
-      return "列举";
-    case "tari_suru":
-      return "列举·举例";
-    case "excessive":
-      return "过度";
-    case "inceptive":
-      return "动作开始";
-    case "continuative_aspect":
-      return "动作持续";
-    case "terminative":
-      return "动作完了";
-    case "iterative_aspect":
-      return "反复动作";
-    case "inchoative":
-      return "开始发生";
-    case "corrective":
-      return "重新进行";
-    case "incomplete":
-      return "动作未完";
-    case "completion":
-      return "彻底完成";
-    case "reluctance":
-      return "难以做出";
-    case "failure":
-      return "失败 / 错过";
-    case "missed_opportunity":
-      return "错失机会";
-    default:
-      return grammaticalLabel(operator.label) || "活用";
-  }
+  return operatorDefinitions[operator.kind]?.title || grammaticalLabel(operator.label) || "活用";
 }
 
 export function operatorPrototypeForm(
@@ -249,149 +164,8 @@ export function operatorPrototypeForm(
   morphemes?: ReadonlyArray<{ surface: string; lemma?: string | null; pos?: (string | null)[] }>,
 ): string {
   if (operator.normalized_form) return operator.normalized_form;
-  const token = morphemes && operator.source_morpheme_range
-    ? morphemes.slice(operator.source_morpheme_range[0], operator.source_morpheme_range[1])[0]
-    : undefined;
-  const tokenLemma = token?.lemma || "";
-  const tokenSurface = token?.surface || "";
-
-  switch (operator.kind) {
-    case "negative":
-      if (tokenLemma === "ぬ" || tokenSurface === "ぬ") return "ぬ";
-      if (tokenLemma === "ず" || tokenSurface === "ず") return "ず";
-      return "ない";
-    case "past":
-      return "た";
-    case "politeness_masu":
-      return "ます";
-    case "politeness_desu":
-      return "です";
-    case "desire":
-      return "たい";
-    case "causative":
-      if (tokenLemma.includes("させる") || tokenSurface.startsWith("させ")) return "させる";
-      if (tokenLemma.includes("しめる") || tokenSurface.startsWith("しめ")) return "しめる";
-      return "せる";
-    case "passive_potential":
-      if (tokenLemma.includes("られる") || tokenSurface.startsWith("られ")) return "られる";
-      return "れる";
-    case "volitional":
-      if (tokenSurface.startsWith("よう") || tokenLemma.includes("よう")) return "よう";
-      return "う";
-    case "obligation":
-      if (tokenLemma.includes("べし") || tokenSurface.includes("べし")) return "べし";
-      return "べきだ";
-    case "negative_volitional":
-      return "まい";
-    case "desire_outward":
-      return "たがる";
-    case "sou_modality":
-      return "そうだ";
-    case "you_modality":
-      return "ようだ";
-    case "mitai_modality":
-      return "みたいだ";
-    case "rashii_modality":
-      return "らしい";
-    case "copula":
-      return "だ";
-    case "copula_aru":
-      return "である";
-    case "ease":
-      return "やすい";
-    case "difficulty":
-      if (tokenSurface.includes("づらい") || tokenLemma.includes("づらい")) return "づらい";
-      return "にくい";
-    case "nominalization":
-      return tokenLemma === "の" ? "の" : "さ";
-    case "ba_connection":
-      return "ば";
-    case "tara_condition":
-      return "たら";
-    case "nagara_connection":
-      return "ながら";
-    case "concessive_connection":
-      return tokenSurface === "ども" ? "ども" : "ど";
-    case "te_connection":
-    case "te_form":
-      return tokenSurface === "で" ? "で" : "て";
-    case "de_form":
-      return "で";
-    case "prohibitive":
-      return "な";
-    case "enumerative":
-      return "たり";
-    case "tari_suru":
-      return "たりする";
-    case "te_iru":
-    case "contracted_te_iru":
-      return "ている";
-    case "te_aru":
-      return "てある";
-    case "te_shimau":
-    case "contracted_te_shimau":
-      return "てしまう";
-    case "te_oku":
-    case "contracted_te_oku":
-      return "ておく";
-    case "te_iku":
-      return "ていく";
-    case "te_kuru":
-      return "てくる";
-    case "te_miru":
-      return "てみる";
-    case "te_kudasaru":
-      return "てくださる";
-    case "te_morau":
-      return "てもらう";
-    case "te_ageru":
-      return "てあげる";
-    case "te_kureru":
-      return "てくれる";
-    case "te_yaru":
-      return "てやる";
-    case "te_hoshii":
-      return "てほしい";
-    case "te_goran":
-      return "てごらん";
-    case "te_miseru":
-      return "てみせる";
-    case "te_tamaranai":
-      return "てたまらない";
-    case "te_naranai":
-      return "てならない";
-    case "te_yamanai":
-      return "てやまない";
-    case "excessive":
-      return "すぎる";
-    case "inceptive":
-      return tokenLemma || "始める";
-    case "continuative_aspect":
-      return tokenLemma || "続ける";
-    case "terminative":
-      return tokenLemma || "終わる";
-    case "iterative_aspect":
-      return tokenLemma || "まくる";
-    case "inchoative":
-      return tokenLemma || "出す";
-    case "corrective":
-      return tokenLemma || "直す";
-    case "incomplete":
-      return tokenLemma || "掛ける";
-    case "completion":
-      return tokenLemma || "切る";
-    case "reluctance":
-      return tokenLemma || "兼ねる";
-    case "failure":
-      return tokenLemma || "損なう";
-    case "missed_opportunity":
-      return tokenLemma || "そびれる";
-    default:
-      if (tokenLemma && (token?.pos?.[0] === "動詞" || token?.pos?.[0] === "助動詞")) {
-        return tokenLemma;
-      }
-      return grammaticalLabel(operator.label) || "活用";
-  }
+  const token = morphemes && operator.source_morpheme_range ? morphemes[operator.source_morpheme_range[0]] : undefined;
+  return configuredPrototype(operator.kind, token) || token?.lemma || grammaticalLabel(operator.label) || "活用";
 }
 
 // 兼容已有导出的别名
@@ -399,13 +173,10 @@ export const operatorPrototypeTitle = operatorPrototypeForm;
 
 function combinePrototype(prefix: string, prototype: string): string {
   if (!prefix) return prototype;
-  if (prototype.startsWith("て") && (prefix.endsWith("て") || prefix.endsWith("で"))) {
-    const connector = prefix.endsWith("で") ? "で" : "て";
-    return prefix.slice(0, -1) + connector + prototype.slice(1);
-  }
-  if (prototype.startsWith("たり") && (prefix.endsWith("たり") || prefix.endsWith("だり"))) {
-    const connector = prefix.endsWith("だり") ? "だり" : "たり";
-    return prefix.slice(0, -2) + connector + prototype.slice(2);
+  for (const join of morphologyPresentation.prototype_joins) {
+    if (!prototype.startsWith(join.prefix)) continue;
+    const ending = join.endings.find((ending) => prefix.endsWith(ending));
+    if (ending) return prefix.slice(0, -ending.length) + ending + prototype.slice(join.prefix.length);
   }
   return `${prefix}${prototype}`;
 }
@@ -448,7 +219,7 @@ function buildChainStepMap(
 
   const nonInflectionOperators = familyChains
     .flatMap((c) => (c.operators ?? []).map((op) => ({ op, chain: c })))
-    .filter(({ op }) => !["conjugation", "initial_alternation", "final_alternation"].includes(op.kind))
+    .filter(({ op }) => !morphologyPresentation.inflections.includes(op.kind))
     .sort((a, b) => {
       const aStart = a.op.char_range ? a.op.char_range[0] : 0;
       const bStart = b.op.char_range ? b.op.char_range[0] : 0;
@@ -529,7 +300,7 @@ function resolveOperatorStep(
   document: UnifiedDocument,
   chains: ReadonlyArray<MorphologyChain>,
 ): DerivedStepInfo {
-  if (["conjugation", "initial_alternation", "final_alternation"].includes(operator.kind)) {
+  if (morphologyPresentation.inflections.includes(operator.kind)) {
     const characters = Array.from(document.text ?? "");
     const charRange = operator.char_range || chain.char_range;
     const output = charRange
@@ -608,7 +379,7 @@ function syntheticConjugationStep(
   document: UnifiedDocument,
   visibleOperators: ReadonlyArray<MorphologyOperator>,
 ) {
-  if (visibleOperators.some((operator) => ["conjugation", "initial_alternation", "final_alternation"].includes(operator.kind))) return null;
+  if (visibleOperators.some((operator) => morphologyPresentation.inflections.includes(operator.kind))) return null;
   const next = (chain.operators ?? []).find((operator) => operator.char_range ? operator.char_range[0] >= targetEnd : false)
     ?? visibleOperators[0];
   const state = next?.state_before;
@@ -668,7 +439,7 @@ export function readerChains(
       const state = visibleState(chain, targetEnd);
       return conjugationLabel(state?.conjugation_type, state?.conjugation_form, state?.category, state?.form);
     })(),
-    formName: [...new Set(visibleOperators(chain).filter((operator) => !["conjugation", "initial_alternation", "final_alternation"].includes(operator.kind))
+    formName: [...new Set(visibleOperators(chain).filter((operator) => !morphologyPresentation.inflections.includes(operator.kind))
       .map((operator) => grammaticalLabel(operator.label)).filter(Boolean))].join(" · "),
     connections: (chain.connection_forms ?? []).filter((value) => value && value !== "*"),
     members: (chain.morpheme_indices ?? []).filter((index) => (document.morphemes?.[index]?.char_range?.[1] ?? 0) <= targetEnd).flatMap((index) => {

@@ -221,61 +221,15 @@ pub fn collect_with_external(
 }
 
 pub fn features(token: &crate::model::ProviderToken) -> Vec<String> {
-    let pos = value(token, 0).unwrap_or_default();
-    let kind = value(token, 4).unwrap_or_default();
-    let form = value(token, 5).unwrap_or_default();
-    let mut result = Vec::new();
-    if pos == "助動詞" {
-        for (needle, feature) in [("助動詞-タ", "past"), ("助動詞-ナイ", "negative"), ("助動詞-ヌ", "negative"),
-            ("助動詞-ズ", "negative"), ("助動詞-マス", "politeness_masu"), ("助動詞-デス", "politeness_desu"),
-            ("助動詞-タイ", "desire"), ("助動詞-ダ", "copula"), ("助動詞-デアル", "copula"),
-            ("助動詞-ム", "volitional"), ("助動詞-ベシ", "obligation")] {
-            if kind == needle { result.push(feature.into()); }
-        }
-        let lemma = value(token, 7).unwrap_or_default();
-        if matches!(lemma.as_str(), "れる" | "られる") { result.push("passive_potential".into()); }
-        if matches!(lemma.as_str(), "せる" | "させる" | "しめる") { result.push("causative".into()); }
-    }
-    if form.starts_with("意志推量形") { result.push("volitional".into()); }
-    if form.starts_with("仮定形") || form.starts_with("已然形") { result.push("conditional".into()); }
-    if kind == "助動詞-タ" && form.contains("融合") { result.push("tara_condition".into()); }
-    if kind == "助動詞-タ" && form.contains("一般") && token.surface == "たり" { result.push("enumerative".into()); }
-    if pos == "助詞" && value(token, 1).as_deref() == Some("接続助詞") {
-        match token.surface.as_str() { "て" => result.push("te_form".into()), "で" => result.push("de_form".into()), "ば" => result.push("conditional".into()), _ => {} }
-    }
-    result
+    crate::morphology_config::features(token)
 }
 
 pub fn feature_concept(feature: &str) -> &str {
-    match feature {
-        "past" => "morphology.tense.past", "negative" => "morphology.polarity.negative",
-        "causative" => "morphology.voice.causative", "passive_potential" => "morphology.voice.passive_potential",
-        "politeness_masu" => "morphology.politeness.masu", "politeness_desu" => "grammar.auxiliary.desu", "volitional" => "morphology.mood.volitional",
-        "conditional" => "morphology.mood.conditional", "te_form" => "morphology.form.te", "de_form" => "morphology.form.de",
-        "desire" => "morphology.modality.desire",
-        "te_iru" | "contracted_te_iru" => "grammar.aspect.te_iru",
-        "te_aru" => "grammar.aspect.te_aru", "te_oku" | "contracted_te_oku" => "grammar.aspect.te_oku",
-        "te_shimau" | "contracted_te_shimau" => "grammar.aspect.te_shimau",
-        "te_iku" => "grammar.direction.te_iku", "te_kuru" => "grammar.direction.te_kuru",
-        "te_miru" => "grammar.modality.te_miru", "te_kudasaru" => "grammar.benefactive.te_kudasaru",
-        "te_morau" => "grammar.benefactive.te_morau", "te_ageru" => "grammar.benefactive.te_ageru",
-        "te_kureru" => "grammar.benefactive.te_kureru", "te_yaru" => "grammar.benefactive.te_yaru",
-        "tari_suru" => "grammar.pattern.tari_suru",
-        _ => "morphology.chain",
-    }
+    crate::morphology_config::definition(feature).map_or("morphology.chain", |entry| entry.concept.as_str())
 }
 
 pub(crate) fn feature_label(feature: &str) -> &str {
-    match feature { "past" => "过去", "negative" => "否定", "causative" => "使役", "passive_potential" => "受身等候选",
-        "politeness_masu" | "politeness_desu" => "丁寧", "volitional" => "意向", "conditional" | "ba_connection" | "tara_condition" => "条件", "desire" => "愿望",
-        "copula" | "copula_aru" => "判断", "nominalization" => "名词化", "obligation" => "当为", "te_form" | "te_connection" => "て形", "de_form" => "で形",
-        "imperative" => "命令", "prohibitive" => "禁止", "enumerative" => "列举", "tari_suru" => "たりする", "concessive_connection" => "逆接",
-        "te_iru" | "contracted_te_iru" => "ている", "te_aru" => "てある",
-        "te_shimau" | "contracted_te_shimau" => "てしまう", "te_oku" | "contracted_te_oku" => "ておく",
-        "te_iku" => "ていく", "te_kuru" => "てくる", "te_miru" => "てみる",
-        "te_kudasaru" => "てくださる", "te_morau" => "てもらう", "te_ageru" => "てあげる",
-        "te_kureru" => "てくれる", "te_yaru" => "てやる", "nagara_connection" => "ながら接続",
-        "iterative_aspect" => "反复动作", _ => "活用" }
+    crate::morphology_config::definition(feature).map_or("活用", |entry| entry.label.as_str())
 }
 
 #[cfg(test)]

@@ -129,7 +129,7 @@ test("活用部分的两个命中范围共用核心词查询目标", () => {
   assert.deepEqual(hits.map((hit) => [hit.range, hit.targetId]), [
     [[2, 3], "word"], [[3, 5], "word"],
   ]);
-  assert.equal(hits[0].detail.title, "ている形式");
+  assert.equal(hits[0].detail.title, "ている");
   assert.equal(hits[0].detail.surface, "ている");
   const [preferred] = readerMorphologyHits([
     { id: "inner", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] },
