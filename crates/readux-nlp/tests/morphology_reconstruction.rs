@@ -118,6 +118,28 @@ fn final_no_stays_separate_even_when_tagged_as_a_nominalizer() {
 }
 
 #[test]
+fn nominalizing_sa_joins_the_negative_auxiliary_stem() {
+    let specs = [
+        Part { surface: "底", pos: "名詞", sub: "普通名詞", ctype: "", cform: "", lemma: "底", orth_base: "底" },
+        Part { surface: "知れ", pos: "動詞", sub: "一般", ctype: "下一段-ラ行", cform: "未然形-一般", lemma: "知れる", orth_base: "知れる" },
+        Part { surface: "な", pos: "助動詞", sub: "", ctype: "助動詞-ナイ", cform: "語幹-一般", lemma: "ない", orth_base: "ない" },
+        Part { surface: "さ", pos: "接尾辞", sub: "名詞的", ctype: "", cform: "", lemma: "さ", orth_base: "さ" },
+    ];
+    let artifact = run("底知れなさ", &specs, &[]);
+    let chain = artifact.chains.iter().find(|chain| chain.core_morpheme_indices.contains(&1)).unwrap();
+    assert_eq!(chain.surface_form, "知れなさ");
+    assert_eq!(chain.morpheme_indices, vec![1, 2, 3]);
+    assert_eq!(chain.core_morpheme_indices, vec![1]);
+    assert_eq!(chain.lookup_form, "知れる");
+    assert_eq!(chain.final_state.category, "名詞");
+    assert!(chain.operators.iter().any(|op| op.kind == "negative"));
+    let occurrence = artifact.occurrences.iter().find(|occurrence| occurrence.kind == "nominalization").unwrap();
+    assert_eq!(occurrence.chain_id, chain.chain_id);
+    assert_eq!(occurrence.hit_ranges, vec![[4, 5]]);
+    assert_eq!(occurrence.context_range, [1, 5]);
+}
+
+#[test]
 fn deshou_is_conjectural_after_predicates_and_nominals() {
     for prefix in [
         verb("読む", "終止形-一般"),
