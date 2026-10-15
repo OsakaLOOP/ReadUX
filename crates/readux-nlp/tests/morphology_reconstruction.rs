@@ -118,6 +118,28 @@ fn final_no_stays_separate_even_when_tagged_as_a_nominalizer() {
 }
 
 #[test]
+fn deshou_is_conjectural_after_predicates_and_nominals() {
+    for prefix in [
+        verb("読む", "終止形-一般"),
+        Part { surface: "明日", pos: "名詞", sub: "普通名詞", ctype: "", cform: "", lemma: "明日", orth_base: "明日" },
+        Part { surface: "高い", pos: "形容詞", sub: "一般", ctype: "形容詞", cform: "終止形-一般", lemma: "高い", orth_base: "高い" },
+    ] {
+        for surface in ["でしょう", "でしょ"] {
+            let text = format!("{}{surface}", prefix.surface);
+            let specs = [prefix.clone(), Part { surface, pos: "助動詞", sub: "", ctype: "助動詞-デス",
+                cform: "意志推量形", lemma: "です", orth_base: "です" }];
+            let artifact = run(&text, &specs, &[]);
+            assert_eq!(artifact.chains.len(), 1, "{text}");
+            let operators = artifact.chains[0].operators.iter().filter(|op| op.source_morpheme_range == [1, 2]).collect::<Vec<_>>();
+            assert_eq!(operators.len(), 1, "{text}");
+            assert_eq!(operators[0].kind, "deshou_modality");
+            assert_eq!(operators[0].normalized_form.as_deref(), Some("でしょう"));
+            assert_eq!(operators[0].concept_id, "grammar.auxiliary.desu");
+        }
+    }
+}
+
+#[test]
 fn synthetic_reconstruction_covers_thirty_contract_cases() {
     let ordinary = [
         ("読んだ", vec![verb("読ん", "連用形-撥音便"), Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "だ", orth_base: "だ" }], "past"),

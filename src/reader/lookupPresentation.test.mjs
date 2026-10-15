@@ -6,7 +6,7 @@ test("缩略形式标签仅用于实际缩约，规范原型继续作为副标�
   for (const [kind, prototype, contracted] of [
     ["contracted_te_iru", "ている", true], ["contracted_te_shimau", "てしまう", true], ["contracted_te_oku", "ておく", true],
     ["te_iru", "ている", false], ["te_yuku", "てゆく", false], ["tari_suru", "たりする", false],
-    ["passive_potential", "られる", false], ["tara_condition", "たら", false], ["copula", "だ", false],
+    ["passive_potential", "られる", false], ["tara_condition", "たら", false], ["copula", "だ", false], ["deshou_modality", "でしょう", false],
   ]) {
     const document = {
       text: "読んでる", morphemes: [], formation: { nodes: [] }, morphology: {
