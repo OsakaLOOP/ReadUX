@@ -35,6 +35,10 @@
     "prohibitive": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "な"},
     "enumerative": {"label": "列举","title": "列举","concept": "morphology.chain","prototype": "たり"},
     "exemplification": {"label": "举例","title": "举例","concept": "morphology.chain","prototype": "とか","output_form": "other"},
+    "nominal_change_ni": {"label": "变化接续","title": "变化接续","concept": "grammar.functional.naru","prototype": "に","output_form": "other"},
+    "ni_naru": {"label": "になる","title": "变化","concept": "grammar.functional.naru","prototype": "になる","support": {"group": "nominal_change","bases": ["なる","成る"]},"connector": "nominal_change_ni"},
+    "adjectival_naru": {"label": "くなる","title": "变化","concept": "grammar.functional.naru","prototype": "なる","support": {"group": "adjectival_change","bases": ["なる","成る"]}},
+    "kamoshirenai": {"label": "可能性","title": "可能性","concept": "grammar.modality.kamo","prototype": "かもしれない"},
     "imperative": {"label": "命令","title": "命令","concept": "morphology.chain","prototype": ""},
     "te_iru": {"label": "ている","title": "ている","concept": "grammar.aspect.te_iru","prototype": "ている","support": {"group": "te","bases": ["いる","居る","おる","居る-オル"]},"connector": "te_connection","normalized": "ている"},
     "te_aru": {"label": "てある","title": "てある","concept": "grammar.aspect.te_aru","prototype": "てある","support": {"group": "te","bases": ["ある","有る","在る"]},"connector": "te_connection","normalized": "てある"},
@@ -58,8 +62,8 @@
     "contracted_te_iru": {"label": "ている","title": "ている","concept": "grammar.aspect.te_iru","prototype": "ている","normalized": "ている","support": {"group": "contracted","bases": ["てる","でる"],"expanded": ["いる","イル"]}},
     "contracted_te_shimau": {"label": "てしまう","title": "てしまう","concept": "grammar.aspect.te_shimau","prototype": "てしまう","normalized": "てしまう","support": {"group": "contracted","bases": ["ちゃう","じゃう"],"expanded": ["しまう","シマウ"]}},
     "contracted_te_oku": {"label": "ておく","title": "ておく","concept": "grammar.aspect.te_oku","prototype": "ておく","normalized": "ておく","support": {"group": "contracted","bases": ["とく","どく"],"expanded": ["おく","オク"]}},
-    "tari_suru": {"label": "たりする","title": "列举·举例","concept": "grammar.pattern.tari_suru","prototype": "たりする","normalized": "たりする","support": {"group": "enumerative","bases": ["する","為る"],"expanded": ["する","スル"]},"connector": "enumerative","compound_candidate": true},
-    "tari_dekiru": {"label": "たりできる","title": "列举·可能","concept": "grammar.pattern.tari_suru","prototype": "たりできる","normalized": "たりできる","support": {"group": "enumerative","bases": ["できる","出来る"]},"connector": "enumerative"},
+    "tari_suru": {"label": "たりする","title": "列举·举例","concept": "grammar.particle.tari","prototype": "たりする","normalized": "たりする","support": {"group": "enumerative","bases": ["する","為る"],"expanded": ["する","スル"]},"connector": "enumerative","compound_candidate": true},
+    "tari_dekiru": {"label": "たりできる","title": "列举·可能","concept": "grammar.particle.tari","prototype": "たりできる","normalized": "たりできる","support": {"group": "enumerative","bases": ["できる","出来る"]},"connector": "enumerative"},
     "excessive": {"label": "活用","title": "过度","concept": "morphology.chain","prototype": "すぎる","token_lemma": false,"support": {"group": "continuative","bases": ["すぎる","過ぎる"]},"compound_candidate": true},
     "inceptive": {"label": "活用","title": "动作开始","concept": "morphology.chain","prototype": "始める","token_lemma": true,"support": {"group": "continuative","bases": ["はじめる","始める"]},"compound_candidate": true},
     "continuative_aspect": {"label": "活用","title": "动作持续","concept": "morphology.chain","prototype": "続ける","token_lemma": true,"support": {"group": "continuative","bases": ["つづける","続ける","とおす","通す"]},"compound_candidate": true},
@@ -144,6 +148,7 @@
     {"kind": "nominalization","token": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}}}
   ],
   "sequences": [
+    {"kind": "kamoshirenai","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["も"]}},{"equals": {"pos": ["動詞"],"base": ["しれる","知れる"]},"starts_with": {"cform": ["未然形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]},
     {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}},{"equals": {"pos": ["助詞"],"sub": ["副助詞"],"surface": ["か"]}}],"forms": ["stem","other"],"operators": ["enumerative"]},
     {"kind": "keredomo_connection","tokens": [{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["けれど"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["も"]}}],"forms": ["terminal","attributive"]},
     {"kind": "noni_connection","tokens": [{"equals": {"pos": ["助詞"],"sub": ["準体助詞"],"surface": ["の"]}},{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}}],"forms": ["attributive"]},
@@ -188,6 +193,9 @@
     {"action": "core","when": [{"next": {"equals": {"pos": ["動詞"],"base": ["する","為る"]},"contains": {"ctype": ["サ行変格"]}},"sahen": true}]},
     {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"operators": ["enumerative"]}],"support_group": "enumerative"},
     {"action": "core","when": [{"next": {"equals": {"pos": ["接尾辞"],"sub": ["名詞的"]}},"forms": ["stem"],"categories": ["名詞","代名詞"]}]},
+    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}},"forms": ["stem"],"categories": ["名詞","代名詞","形状詞"],"following": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}}}],"kinds": ["nominal_change_ni"]},
+    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"last": {"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}},"operators": ["nominal_change_ni"]}],"support_group": "nominal_change"},
+    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"last": {"equals": {"ctype": ["形容詞","助動詞-ナイ"]},"starts_with": {"cform": ["連用形-一般"]}},"forms": ["continuative"],"categories": ["形容詞","助動詞"]}],"support_group": "adjectival_change"},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}},"forms": ["stem"],"categories": ["形容詞","形状詞"]},{"next": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}},"last": {"equals": {"ctype": ["助動詞-ナイ"]}},"forms": ["stem"],"categories": ["助動詞"]}],"kinds": ["nominalization"]},
     {"action": "core","when": [{"next": {"equals": {"pos": ["接尾辞"],"base": ["やすい","易い","にくい","難い","づらい","辛い","さ"]}},"forms": ["continuative","stem"],"categories": ["動詞","形容詞","形状詞"]}]},
     {"action": "support","when": [{"next": {"equals": {"pos": ["動詞","助動詞","接尾辞"]}},"forms": ["continuative"]}],"support_group": "continuative"},
@@ -239,6 +247,6 @@
     "category_labels": {"形容詞": "形容词"},
     "label_aliases": {"丁寧": "礼貌","受身等候选": "被动／可能等","接续": "接续"},
     "inflections": ["conjugation","initial_alternation","final_alternation"],
-    "prototype_joins": [{"prefix": "て","endings": ["て","で"]},{"prefix": "たり","endings": ["たり","だり"]}]
+    "prototype_joins": [{"prefix": "て","endings": ["て","で"]},{"prefix": "たり","endings": ["たり","だり"]},{"prefix": "に","endings": ["に"]}]
   }
 }
