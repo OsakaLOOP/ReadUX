@@ -137,7 +137,7 @@ test("サ变て形说明显示原形到整体活用形", () => {
   const [hit] = readerMorphologyHits([
     { id: "whole", char_range: [0, 4], lexical_core_ids: ["sahen"], source_formation_ids: [] },
   ], document);
-  assert.equal(hit.detail.title, "て形");
+  assert.equal(hit.detail.title, "接续形");
   assert.equal(hit.detail.description, "力説する → 力説して（する→して）");
 });
 
@@ -194,7 +194,7 @@ test("活用部分的两个命中范围共用核心词查询目标", () => {
   assert.deepEqual(hits.map((hit) => [hit.range, hit.targetId]), [
     [[2, 3], "word"], [[3, 5], "word"],
   ]);
-  assert.equal(hits[0].detail.title, "ている");
+  assert.equal(hits[0].detail.title, "进行／状态持续");
   assert.equal(hits[0].detail.surface, "ている");
   const [preferred] = readerMorphologyHits([
     { id: "inner", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] },
