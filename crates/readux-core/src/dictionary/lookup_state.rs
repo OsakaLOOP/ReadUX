@@ -293,6 +293,8 @@ pub fn entry_matches_form(entry: &DictEntry, form: &str) -> bool {
     entry_forms(entry)
         .into_iter()
         .any(|candidate| normalize_form_identity(&candidate) == target)
+        || entry.match_evidence.as_ref().is_some_and(|evidence| evidence.kind == "explicit_alias"
+            && evidence.dictionary_local && normalize_form_identity(&evidence.query_form) == target)
 }
 
 pub fn entry_matches_reading(entry: &DictEntry, requested_reading: Option<&str>) -> bool {

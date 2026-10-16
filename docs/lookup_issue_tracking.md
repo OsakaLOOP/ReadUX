@@ -51,6 +51,8 @@
 
 ## BERT 与词典实测补充
 
+2026-10-16「めいっぱい」：本机 UniDic 书面语与口语词典均分析为名词性接尾辞「め」和副词「いっぱい」。Crown、三省堂与小学馆的 `aliases` 表均有「めいっぱい」到「目一杯」原始记录的映射，主动搜索可查询整体。连续候选的批量命中检查包含别名，但精确查询与表记归属检查缺少相应处理，整体因而未进入外层对象。精确查询现按同一词典的显式别名解析，并保存原查询形、词典范围与读音证据；表记归属检查据此接受整体，正文范围仍为完整的「めいっぱい」。
+
 - 昨日的 CUDA 实验基线见[GiNZA CUDA 测量](ginza_cuda_measurement.md)，日期为 2026-10-13；其中记录 RTX 3050 Laptop GPU、PyTorch `2.7.1+cu128`、CUDA 可用及 `ja-ginza-bert-large 5.3.0`。本次复用 `experiments/ginza-cuda/Scripts/python.exe` 与 `scripts/benchmark_ginza_optimized.py`，FP16 实测确认 `torch.cuda.is_available()` 为 `True`，两条例句共 16 token，重复输出一致，峰值分配约 659 MiB。
 - BERT 原始输出保存在 `.agents/analysis/bert-target-output.json`；输出显示 `かくして` 在独立句与上下文句中均为 `かく` ADV、`し` VERB（lemma `する`，连用形）、`て` SCONJ。应用服务的 token 与目标复现保存在 `.agents/analysis/kakushite-lookup-targets.json`，整体范围未生成 `かくして` 目标。
 - `.agents/analysis/lookup-dictionary-audit.jsonl` 由本机正式查词服务查询三套数据库，词条均为精确表记命中结果。`かくして` 命中三省堂与小学馆，`もうじき`、`じゃなくて`、完整示例 `的にだっけ` 未命中；`ちょこんと`、`びりっと`、`ひとつ`、`ふたつ`、`なら` 均有相应词条。占位符 `○○` 未提供实际词干，`しい` 后缀命中不能替代完整表达验证。

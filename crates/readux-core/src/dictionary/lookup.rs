@@ -710,11 +710,24 @@ impl DictionaryEngine {
         let mut timing = DictionaryLookupTiming::default();
         let mut entries = Vec::new();
         let mut seen = HashSet::new();
+        let alias_reading = reading.filter(|value| !value.is_empty() && *value != "*")
+            .or_else(|| is_kana_query(form).then_some(form));
         for database_index in 0..self.databases.len() {
             for entry in
                 self.lookup_exact_in_database(database_index, form, "exact_form", &mut timing)
             {
                 if is_substantive(&entry) && seen.insert(entry.occurrence_id.clone()) {
+                    entries.push(entry);
+                }
+            }
+            // 连续候选沿词典自身的别名查询，例如めいっぱい→目一杯。
+            for target in self.redirect_targets_in_database(database_index, form, &mut timing) {
+                for mut entry in self.lookup_exact_in_database(database_index, &target, "explicit_alias", &mut timing) {
+                    if !is_substantive(&entry) || !lookup_state::entry_matches_reading(&entry, alias_reading)
+                        || !seen.insert(entry.occurrence_id.clone()) { continue; }
+                    if let Some(evidence) = entry.match_evidence.as_mut() {
+                        evidence.query_form = form.to_string();
+                    }
                     entries.push(entry);
                 }
             }

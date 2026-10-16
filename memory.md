@@ -9,6 +9,7 @@
 - 阅读分析的异常恢复验证入口为 `scripts/test_reader_recovery.py`，使用独立数据目录验证解释器缺失、单元重试、进程重建和损坏缓存恢复。会话控制前端位于 `src/composables/useDocumentSession.ts`；`src/reader/session.ts` 的 `documentControlRequest` 按后端协议区分增量与完整快照命令。
 
 - 胶囊的词汇范围与作者注音查询由 `crates/readux-core/src/dictionary/targets.rs` 生成；`src/reader/lookupPresentation.ts` 提供活用投影，`ReaderDocumentView.vue` 组合两者。问题样本的实测入口为 `scripts/inspect_lookup_cases.py`，通过本机词典索引和 CLI 查询保存证据。
+- 连续词汇的词典别名由 `dictionary/lookup.rs` 的 `lookup_exact_form_profiled_with_pos` 解析；`lookup_state.rs` 的 `entry_matches_form` 接受带原查询形及词典范围的显式别名证据。「めいっぱい」的整体词条为「目一杯」，UniDic 可将其切为接尾辞「め」与副词「いっぱい」。
 - 可能动词的词元选择由 `morphology.rs` 的 `potential_lemma` 判定，条件为 UniDic 下一段活用与词元到基本表记的五段可能形式对应关系。`scripts/test_reader_morphology.py` 通过正式服务验证查询首选词条及普通动词对照。
 
 - 正文窗口划分入口位于 `crates/readux-core/src/document_plan.rs`；P4 小说性能采集入口位于 `scripts/benchmark_p4_novel.py`，十段测量结果默认保存在 `.agents/analysis/p4-novel-10.json`。
