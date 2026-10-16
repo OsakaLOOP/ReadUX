@@ -7,6 +7,8 @@
     "politeness_masu": {"label": "丁寧","title": "敬体","concept": "morphology.politeness.masu","prototype": "ます"},
     "politeness_desu": {"label": "丁寧","title": "敬体","concept": "grammar.auxiliary.desu","prototype": "です"},
     "deshou_modality": {"label": "推量","title": "推量","concept": "grammar.auxiliary.desu","prototype": "でしょう"},
+    "darou_modality": {"label": "推量","title": "推量","concept": "grammar.auxiliary.da","prototype": "だろう"},
+    "darou_question": {"label": "推量疑问","title": "推量疑问","concept": "grammar.auxiliary.da","prototype": "だろうか"},
     "desire": {"label": "愿望","title": "愿望","concept": "morphology.modality.desire","prototype": "たい"},
     "volitional": {"label": "意向","title": "意向形","concept": "morphology.mood.volitional","prototype": "う","variants": [{"token": {"starts_with": {"surface": ["よう"]}},"form": "よう"},{"token": {"contains": {"lemma": ["よう"]}},"form": "よう"}]},
     "obligation": {"label": "当为","title": "当为","concept": "morphology.chain","prototype": "べきだ","variants": [{"token": {"contains": {"lemma": ["べし"]}},"form": "べし"},{"token": {"contains": {"surface": ["べし"]}},"form": "べし"}]},
@@ -105,6 +107,7 @@
     "prohibition_tewa_condition_dame": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "てはだめ","variants": [{"token": {"equals": {"surface": ["で","じゃ"]}},"form": "ではだめ"}]}
   },
   "features": [
+    {"kind": "darou_modality","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}}},
     {"kind": "past","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ"]}},"exclude": [{"starts_with": {"cform": ["仮定形","已然形"]}},{"contains": {"cform": ["融合"]}}]},
     {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}},
     {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ヌ"]}}},
@@ -115,13 +118,13 @@
     {"kind": "desire","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タイ"]}}},
     {"kind": "adverbial_ni","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["に"]},"starts_with": {"cform": ["連用形"]}}},
     {"kind": "attributive_na","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["な"]},"starts_with": {"cform": ["連体形"]}}},
-    {"kind": "copula","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]}},"exclude": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["に"]},"starts_with": {"cform": ["連用形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["な"]},"starts_with": {"cform": ["連体形"]}}]},
+    {"kind": "copula","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]}},"exclude": [{"starts_with": {"cform": ["意志推量形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["に"]},"starts_with": {"cform": ["連用形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["な"]},"starts_with": {"cform": ["連体形"]}}]},
     {"kind": "copula","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デアル"]}}},
     {"kind": "volitional","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ム"]}}},
     {"kind": "obligation","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ベシ"]}}},
     {"kind": "passive_potential","token": {"equals": {"pos": ["助動詞"],"lemma": ["れる","られる"]}}},
     {"kind": "causative","token": {"equals": {"pos": ["助動詞"],"lemma": ["せる","させる","しめる"]}}},
-    {"kind": "volitional","token": {"starts_with": {"cform": ["意志推量形"]}},"exclude": [{"equals": {"ctype": ["助動詞-デス"]}}]},
+    {"kind": "volitional","token": {"starts_with": {"cform": ["意志推量形"]}},"exclude": [{"equals": {"ctype": ["助動詞-デス","助動詞-ダ"]}}]},
     {"kind": "conditional","token": {"starts_with": {"cform": ["仮定形","已然形"]}},"exclude": [{"equals": {"ctype": ["助動詞-タ"]}}]},
     {"kind": "tara_condition","token": {"equals": {"ctype": ["助動詞-タ"]},"contains": {"cform": ["仮定形","已然形","融合"]}}},
     {"kind": "enumerative","token": {"equals": {"ctype": ["助動詞-タ"],"surface": ["たり"]},"contains": {"cform": ["一般"]}}},
@@ -149,6 +152,7 @@
     {"kind": "nominalization","token": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}}}
   ],
   "sequences": [
+    {"kind": "darou_question","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},{"equals": {"pos": ["助詞"],"sub": ["終助詞"],"surface": ["か"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]},
     {"kind": "kamoshirenai","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["も"]}},{"equals": {"pos": ["動詞"],"base": ["しれる","知れる"]},"starts_with": {"cform": ["未然形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]},
     {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}},{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}}],"forms": ["stem","other","terminal","attributive"],"operators": ["enumerative"],"phenomena": ["phenomenon:insertion"]},
     {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞"],"surface": ["とか"]}}],"forms": ["stem","other","terminal","attributive"],"operators": ["enumerative"],"phenomena": ["phenomenon:insertion"]},
@@ -184,6 +188,7 @@
     {"prefix": "tewa_condition","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "prohibition_tewa_condition_dame","required_operators": []}
   ],
   "connections": [
+    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]}],"kinds": ["darou_modality"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["けど","けれど"]}},"forms": ["terminal","attributive"]}],"kinds": ["kedo_connection"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["が"]}},"forms": ["terminal","attributive"]}],"kinds": ["ga_connection"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["から"]}},"forms": ["terminal","attributive"]}],"kinds": ["kara_connection"]},
