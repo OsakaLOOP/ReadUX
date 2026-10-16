@@ -162,6 +162,26 @@ fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderT
     })
 }
 
+/// 已由句法确认的跨助词连接，为实际插入成员建立说明和父链归属。
+fn annotate_insertions(chains: &mut [MorphologyChain], source: &[ProviderToken], context: &Context<'_>) {
+    let insertions: Vec<_> = chains.iter().filter_map(|child| {
+        let parent = chains.iter().find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())?;
+        bridge_support(parent, child.anchor_morpheme, source, context)
+            .then(|| (parent.clone(), parent.morpheme_range[1]..child.anchor_morpheme))
+    }).collect();
+    for (parent, members) in insertions {
+        for index in members {
+            let Some(chain) = chains.iter_mut().find(|chain| chain.morpheme_indices == [index] && chain.parent_chain_id.is_none()) else { continue; };
+            chain.evidence.push("phenomenon:insertion".into());
+            chain.final_state = parent.final_state.clone();
+            let op = operator(&parent, chain, "insertion".into(), &source[index]);
+            chain.operators.push(op);
+            chain.parent_chain_id = Some(parent.chain_id.clone());
+            chain.role = MorphologyRole::Functional;
+        }
+    }
+}
+
 /// 后项先完成自身活用，再按完整否定证据确认义务或禁止构式。
 fn link_predicates(chains: &mut [MorphologyChain], source: &[ProviderToken]) {
     for index in 1..chains.len() {
@@ -259,6 +279,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                 Transition::Attach(mut kinds) => {
                     let before = previous.final_state.clone();
                     for entry in kinds.iter().filter_map(|kind| config::definition(kind)) {
+                        if entry.preserve_state { atom.final_state = before.clone(); }
                         if let Some(category) = &entry.output_category { atom.final_state.category = category.clone(); }
                         if let Some(form) = &entry.output_form { atom.final_state.form = form.clone(); }
                         if before.category == "形状詞" {
@@ -317,6 +338,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
         }
         chains.push(atom);
     }
+    annotate_insertions(&mut chains, source, &context);
     link_predicates(&mut chains, source);
     let occurrences = chains.iter().flat_map(|chain| chain.operators.iter().filter(|op|
         !config::is_inflection(&op.kind))

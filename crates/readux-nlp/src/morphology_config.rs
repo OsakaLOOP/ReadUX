@@ -35,6 +35,7 @@ pub struct Operator {
     pub connector: Option<String>,
     pub output_category: Option<String>,
     pub output_form: Option<ConnectionForm>,
+    pub preserve_state: bool,
     pub display_suffix: Option<String>,
 }
 
