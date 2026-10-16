@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { useVirtualizer, type Virtualizer } from "@tanstack/vue-virtual";
-import { BriefcaseBusiness, ListTree, LoaderCircle, Moon, RotateCcw, Settings2, Type } from "@lucide/vue";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, ListTree, LoaderCircle, Moon, RotateCcw, Search, Settings2, Type, X } from "@lucide/vue";
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
 import TooltipPanel from "../TooltipPanel.vue";
 import DictionarySettingsPanel from "../dictionary/DictionarySettingsPanel.vue";
@@ -12,6 +12,7 @@ import ReaderExplanationBubble from "./ReaderExplanationBubble.vue";
 import ReaderImageBlock from "./ReaderImageBlock.vue";
 import ReaderNavigationPanel from "./ReaderNavigationPanel.vue";
 import ReaderProgressBar from "./ReaderProgressBar.vue";
+import ReaderSurface from "./ReaderSurface.vue";
 import { isTauri } from "@tauri-apps/api/core";
 import { nlpRequest } from "../../services/nlp";
 import { readerRequest } from "../../services/reader";
@@ -117,6 +118,11 @@ interface SelectionDraft {
   reading: string;
 }
 
+interface FindMatch {
+  start: number;
+  end: number;
+}
+
 const props = defineProps<{
   readerDocument: ReaderDocument;
   session: DocumentSession;
@@ -148,6 +154,10 @@ const showNavigation = ref(false);
 const showAppearance = ref(false);
 const showExport = ref(false);
 const showDictionarySettings = ref(false);
+const showFind = ref(false);
+const findQuery = ref("");
+const findActiveIndex = ref(0);
+const findInput = ref<HTMLInputElement | null>(null);
 const einkMode = ref(false);
 const groups = shallowRef(new Map<string, UnitLookup>());
 const pendingTargets = new Set<string>();
@@ -208,6 +218,34 @@ const rows = computed<ReaderRow[]>(() => buildReaderRows(
 ));
 const prepared = computed(() => props.session.plan.prepared);
 const preparedCharacters = computed(() => Array.from(prepared.value.text));
+const documentCharacters = computed(() => Array.from(props.readerDocument.analysisText));
+const findMatches = computed<FindMatch[]>(() => {
+  const query = Array.from(findQuery.value);
+  const text = documentCharacters.value;
+  if (!query.length || query.length > text.length) return [];
+  const matches: FindMatch[] = [];
+  for (let start = 0; start <= text.length - query.length;) {
+    let matched = true;
+    for (let offset = 0; offset < query.length; offset++) {
+      if (text[start + offset] !== query[offset]) {
+        matched = false;
+        break;
+      }
+    }
+    if (matched) {
+      matches.push({ start, end: start + query.length });
+      start += query.length;
+    } else {
+      start++;
+    }
+  }
+  return matches;
+});
+const findStatusLabel = computed(() => {
+  if (!findQuery.value) return "输入文本";
+  if (!findMatches.value.length) return "未找到";
+  return `${findActiveIndex.value + 1} / ${findMatches.value.length}`;
+});
 const rowElements = new Map<string, HTMLElement>();
 
 function estimateRow(index: number): number {
@@ -498,6 +536,12 @@ function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
     boundaries.add(Math.max(block.charRange[0], highlight[0]));
     boundaries.add(Math.min(block.charRange[1], highlight[1]));
   }
+  const findHighlights = findMatches.value.filter((match) =>
+    match.start < block.charRange[1] && match.end > block.charRange[0]);
+  for (const match of findHighlights) {
+    boundaries.add(Math.max(block.charRange[0], match.start));
+    boundaries.add(Math.min(block.charRange[1], match.end));
+  }
   const capsules = lookups.flatMap((lookup) => lookup.capsules).filter((capsule) =>
     capsule.range[0] < block.charRange[1] && capsule.range[1] > block.charRange[0]);
   if (selection) capsules.unshift({ key: selection.key, range: selection.range });
@@ -611,6 +655,57 @@ const mergeRange = computed<[number, number] | null>(() => {
 });
 const highlightedRange = computed(() => mergeRange.value
   ?? mergedHit.value?.range ?? null);
+
+function findMatchClass(range: [number, number]): string {
+  const matches = findMatches.value;
+  if (!matches.length) return "";
+  const active = matches[findActiveIndex.value];
+  if (active && range[0] < active.end && range[1] > active.start) return "reader-find-match--active";
+  return matches.some((match) => range[0] < match.end && range[1] > match.start)
+    ? "reader-find-match"
+    : "";
+}
+
+function openFind() {
+  showFind.value = true;
+  closeLookup();
+  void nextTick().then(() => {
+    findInput.value?.focus();
+    findInput.value?.select();
+    revealFindMatch();
+  });
+}
+
+function closeFind() {
+  showFind.value = false;
+  findInput.value?.blur();
+}
+
+function clearFind() {
+  findQuery.value = "";
+  findActiveIndex.value = 0;
+  void nextTick().then(() => findInput.value?.focus());
+}
+
+function revealFindMatch() {
+  const matches = findMatches.value;
+  if (!matches.length) return;
+  const match = matches[findActiveIndex.value];
+  const rowIndex = rowIndexForOffset(rows.value, match.start);
+  virtualizer.value.scrollToIndex(rowIndex, { align: "center" });
+  currentOffset.value = match.start;
+  void nextTick().then(() => {
+    const active = scrollElement.value?.querySelector<HTMLElement>("[data-find-active='true']");
+    active?.scrollIntoView({ block: "center", behavior: "auto" });
+  });
+}
+
+function navigateFind(direction: 1 | -1) {
+  const matches = findMatches.value;
+  if (!matches.length) return;
+  findActiveIndex.value = (findActiveIndex.value + direction + matches.length) % matches.length;
+  revealFindMatch();
+}
 
 function capsuleRange(part: TextPart): [number, number] {
   return part.hit?.unit.capsules.find((capsule) => capsule.key === part.capsuleKey)?.range ?? part.hit?.range ?? part.range;
@@ -1247,6 +1342,25 @@ function handleEscape(event: KeyboardEvent) {
   if (event.key === "Escape") { cancelMerge(); closeLookup(); }
 }
 
+function handleKeyboard(event: KeyboardEvent) {
+  const modifier = event.ctrlKey || event.metaKey;
+  if (modifier && event.key.toLowerCase() === "f") {
+    event.preventDefault();
+    openFind();
+    return;
+  }
+  if (!showFind.value) return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeFind();
+    return;
+  }
+  if (event.key === "Enter" || event.key === "F3") {
+    event.preventDefault();
+    navigateFind(event.shiftKey ? -1 : 1);
+  }
+}
+
 watch(() => props.session, () => {
   const drag = mergeDrag.value;
   if (drag && !lookupIsCurrent(drag.unit)) cancelMerge();
@@ -1267,6 +1381,10 @@ watch([() => props.session.session_id, () => props.session.revision, () => props
 watch(() => [props.readerDocument.analysisText, props.appearance.fontSize, props.appearance.lineHeight, props.appearance.contentWidth], () => {
   virtualizer.value.measure();
 });
+watch([findQuery, () => props.readerDocument.analysisText], () => {
+  findActiveIndex.value = 0;
+  void nextTick().then(revealFindMatch);
+});
 onMounted(() => {
   window.addEventListener("blur", cancelMerge);
   document.addEventListener("pointermove", moveMerge);
@@ -1275,6 +1393,7 @@ onMounted(() => {
   document.addEventListener("pointermove", monitorLookupPointer);
   document.addEventListener("pointerdown", dismissLookup);
   document.addEventListener("keydown", handleEscape);
+  document.addEventListener("keydown", handleKeyboard);
   window.addEventListener("resize", handleLookupResize);
   lastProgressAt = Date.now();
   try {
@@ -1295,6 +1414,7 @@ onBeforeUnmount(() => {
   closeLookup();
   document.removeEventListener("pointerdown", dismissLookup);
   document.removeEventListener("keydown", handleEscape);
+  document.removeEventListener("keydown", handleKeyboard);
   window.removeEventListener("resize", handleLookupResize);
   clearTimeout(rangeTimer);
   clearTimeout(hoverTimer);
@@ -1316,6 +1436,7 @@ function toggleEinkMode() {
         <div class="reader-view__actions">
           <button type="button" :title="currentChapter" aria-label="章节" @click="showNavigation = true"><ListTree :size="17" aria-hidden="true" /><span class="reader-view__chapter">{{ currentChapter }}</span></button>
           <button type="button" title="阅读排版" aria-label="阅读排版" @click="showAppearance = true"><Type :size="17" aria-hidden="true" /></button>
+          <button type="button" title="查找正文 (Ctrl+F)" aria-label="查找正文" @click="openFind"><Search :size="17" aria-hidden="true" /></button>
           <button type="button" title="词典设置" aria-label="词典设置" @click="showDictionarySettings = true"><Settings2 :size="17" aria-hidden="true" /></button>
           <button type="button" :title="`选择与导出（${selections.length}）`" aria-label="选择与导出" @click="showExport = true"><BriefcaseBusiness :size="17" aria-hidden="true" /><span v-if="selections.length" class="reader-view__count">{{ selections.length }}</span></button>
           <button type="button" title="墨水屏模式" aria-label="墨水屏模式" :aria-pressed="einkMode" @click="toggleEinkMode"><Moon :size="17" aria-hidden="true" /></button>
@@ -1347,10 +1468,11 @@ function toggleEinkMode() {
                   v-for="part in run.parts"
                   :key="part.key"
                   class="reader-capsule__part"
-                  :class="{ 'reader-capsule__part--lookup': part.hit, 'reader-capsule__part--merging': highlightedRange && part.range[0] < highlightedRange[1] && part.range[1] > highlightedRange[0] }"
+                  :class="[{ 'reader-capsule__part--lookup': part.hit, 'reader-capsule__part--merging': highlightedRange && part.range[0] < highlightedRange[1] && part.range[1] > highlightedRange[0] }, findMatchClass(part.range)]"
                   :data-part-key="part.key"
                   :data-char-start="part.range[0]"
                   :data-char-end="part.range[1]"
+                  :data-find-active="findMatchClass(part.range) === 'reader-find-match--active' ? 'true' : undefined"
                   :data-lookup-key="part.hit ? `${part.hit.unit.unit.unit_id}:${part.hit.target.parent_outer_id || part.hit.target.id}` : undefined"
                   @pointerenter="part.hit ? scheduleLookup(part.hit, $event, part.detail) : scheduleCloseLookup($event)"
                   @pointerleave="leavePart"
@@ -1407,6 +1529,31 @@ function toggleEinkMode() {
       <button type="button" class="reader-selection-action__cancel" @click="clearPendingSelection">取消</button>
       <button type="button" @click="savePendingSelection">保存选择</button>
     </div>
+    <ReaderSurface :show="showFind" variant="modal" title="查找正文" label="查找正文" @close="closeFind">
+      <div class="reader-find">
+        <div class="reader-find__form">
+          <Search :size="17" aria-hidden="true" />
+          <input
+            ref="findInput"
+            v-model="findQuery"
+            type="search"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="查找正文"
+            placeholder="查找正文"
+            @keydown.enter.prevent="navigateFind($event.shiftKey ? -1 : 1)"
+          />
+          <button v-if="findQuery" type="button" title="清除查找" aria-label="清除查找" @click="clearFind"><X :size="16" aria-hidden="true" /></button>
+        </div>
+        <div class="reader-find__footer">
+          <span aria-live="polite">{{ findStatusLabel }}</span>
+          <div class="reader-find__navigation">
+            <button type="button" title="上一个匹配项" aria-label="上一个匹配项" :disabled="!findMatches.length" @click="navigateFind(-1)"><ChevronUp :size="17" aria-hidden="true" /></button>
+            <button type="button" title="下一个匹配项" aria-label="下一个匹配项" :disabled="!findMatches.length" @click="navigateFind(1)"><ChevronDown :size="17" aria-hidden="true" /></button>
+          </div>
+        </div>
+      </div>
+    </ReaderSurface>
     <ReaderNavigationPanel :show="showNavigation" :chapters="readerDocument.chapters" :current-id="readerDocument.chapters.find((item) => item.title === currentChapter)?.id" @close="showNavigation = false" @navigate="navigate" />
     <ReaderAppearancePanel :show="showAppearance" :appearance="appearance" @close="showAppearance = false" @update="emit('updateAppearance', $event)" />
     <DictionarySettingsPanel :show="showDictionarySettings" :settings="dictionarySettings" @close="showDictionarySettings = false" @reorder="updateDictionaryOrder" />
@@ -1424,6 +1571,18 @@ function toggleEinkMode() {
 .reader-view__lookup-error button { flex: 0 0 auto; border: 0; background: transparent; color: var(--accent-color); cursor: pointer; }
 .reader-view__chapter { max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .75rem; }
 .reader-view__count { font-size: .65rem; }
+.reader-find { display: grid; gap: 10px; padding: 8px 18px 16px; }
+.reader-find__form { display: flex; min-width: 0; align-items: center; gap: 7px; padding: 3px 7px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-muted); }
+.reader-find__form:focus-within { border-color: var(--accent-color); box-shadow: 0 0 0 2px var(--accent-light); }
+.reader-find__form input { min-width: 0; flex: 1; padding: 6px 2px; border: 0; outline: 0; background: transparent; color: var(--text-primary); font: .92rem/1.4 var(--font-ja); }
+.reader-find__form input::-webkit-search-cancel-button { display: none; }
+.reader-find__form button, .reader-find__navigation button { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); cursor: pointer; }
+.reader-find__form button:hover, .reader-find__navigation button:hover:not(:disabled) { background: var(--accent-light); color: var(--accent-color); }
+.reader-find__navigation button:disabled { cursor: default; opacity: .38; }
+.reader-find__footer { display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: .76rem; }
+.reader-find__navigation { display: flex; gap: 2px; }
+.reader-find-match { border-radius: 2px; background: color-mix(in srgb, var(--accent-color) 18%, transparent); }
+.reader-find-match--active { border-radius: 2px; background: var(--accent-color); color: var(--bg-primary); }
 .reader-view__scroll { min-height: 0; flex: 1; overflow: auto; overflow-anchor: none; scrollbar-gutter: stable; padding: 42px 24px 92px; }
 .reader-view__content { margin: 0 auto; color: var(--text-primary); font-family: var(--font-ja); }
 .reader-row-layer { position: relative; width: 100%; }
