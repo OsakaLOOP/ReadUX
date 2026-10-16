@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowLeft, BadgeInfo, BookOpen, X } from "@lucide/vue";
+import { ArrowLeft, BadgeInfo, X } from "@lucide/vue";
 import { ref } from "vue";
 
 withDefaults(
@@ -42,15 +42,9 @@ const showAbout = ref(false);
       >
         <ArrowLeft :size="19" aria-hidden="true" />
       </button>
-      <BookOpen
-        class="app-header__brand-icon"
-        :size="24"
-        stroke-width="1.8"
-        aria-hidden="true"
-      />
       <svg
         class="app-header__brand-name"
-        viewBox="0 0 525 120"
+        viewBox="0 0 428 120"
         role="img"
         aria-label="ReadUX"
         focusable="false"
@@ -196,17 +190,11 @@ const showAbout = ref(false);
   color: var(--accent-color);
 }
 
-.app-header__brand-icon {
-  flex: 0 0 auto;
-  color: var(--accent-color);
-}
-
 .app-header__brand-name {
   display: block;
   flex: 0 0 auto;
-  height: 22px;
-  width: auto;
-  color: var(--accent-color);
+  height: 34px;
+  width: 121px;
 }
 
 .app-header__brand-description {
