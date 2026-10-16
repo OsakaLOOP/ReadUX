@@ -43,13 +43,22 @@ const showAbout = ref(false);
         <ArrowLeft :size="19" aria-hidden="true" />
       </button>
       <svg
-        class="app-header__brand-name"
-        viewBox="0 0 357.25 120"
+        :class="[
+          'app-header__brand-name',
+          { 'app-header__brand-name--mark': collapseBrand },
+        ]"
+        :viewBox="collapseBrand ? '0 0 120 120' : '0 0 357.25 120'"
         role="img"
         aria-label="ReadUX"
         focusable="false"
       >
-        <use href="/branding/readux-wordmark.svg#readux-wordmark" />
+        <use
+          :href="
+            collapseBrand
+              ? '/branding/readux-mark.svg#readux-mark'
+              : '/branding/readux-wordmark.svg#readux-wordmark'
+          "
+        />
       </svg>
       <div v-if="title" class="app-header__page-identity">
         <strong>{{ title }}</strong>
@@ -63,6 +72,7 @@ const showAbout = ref(false);
     <div class="app-header__actions">
       <slot name="actions" />
       <button
+        v-if="!collapseBrand"
         class="app-header__about"
         type="button"
         title="关于 ReadUX"
@@ -103,8 +113,27 @@ const showAbout = ref(false);
         </header>
         <div class="about-dialog__body">
           <p>
-            ReadUX 是面向日语原文沉浸式阅读与快捷语言语法分析的本地桌面应用。
+            ReadUX 是面向日语原文沉浸式阅读与快捷语言语法分析的本地桌面应用, 以
+            redux——整合完善你需要的一切日语阅读功能为目标, 并提供良好、快捷的 UX
+            交互. 目前完成的主要功能有: 快速 NLP 分析; 智能分词和悬浮查词;
+            语法活用识别.
           </p>
+          <h3>关于作者</h3>
+          你可以叫我 Loopo, 这是
+          <a
+            href="https://github.com/OsakaLOOP"
+            target="_blank"
+            rel="noreferrer"
+            >我的Github</a
+          >, 和
+          <a href="https://www.loopo.cc/" target="_blank" rel="noreferrer"
+            >我的博客</a
+          >, 以及<a
+            href="https://ifdian.net/a/OsakaLOOP"
+            target="_blank"
+            rel="noreferrer"
+            >我的爱发电主页</a
+          >.
           <h3>许可证</h3>
           <p>
             项目代码采用 MIT License, 文本见发行包中的
@@ -195,6 +224,10 @@ const showAbout = ref(false);
   flex: 0 0 auto;
   height: 34px;
   width: 101.22px;
+}
+
+.app-header__brand-name--mark {
+  width: 34px;
 }
 
 .app-header__brand-description {
@@ -363,10 +396,6 @@ const showAbout = ref(false);
   .app-header {
     padding-right: 12px;
     padding-left: 12px;
-  }
-
-  .app-header--collapsible .app-header__brand-name {
-    display: none;
   }
 
   .app-header--collapsible .app-header__page-identity {

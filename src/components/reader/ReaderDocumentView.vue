@@ -1,8 +1,28 @@
 <script setup lang="ts">
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { useVirtualizer, type Virtualizer } from "@tanstack/vue-virtual";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, ListTree, LoaderCircle, Moon, RotateCcw, Search, Settings2, Type, X } from "@lucide/vue";
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
+import {
+  BriefcaseBusiness,
+  ChevronDown,
+  ChevronUp,
+  ListTree,
+  LoaderCircle,
+  Moon,
+  RotateCcw,
+  Search,
+  Settings2,
+  Type,
+  X,
+} from "@lucide/vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  watch,
+} from "vue";
 import TooltipPanel from "../TooltipPanel.vue";
 import DictionarySettingsPanel from "../dictionary/DictionarySettingsPanel.vue";
 import AppHeader from "../common/AppHeader.vue";
@@ -16,15 +36,55 @@ import ReaderSurface from "./ReaderSurface.vue";
 import { isTauri } from "@tauri-apps/api/core";
 import { nlpRequest } from "../../services/nlp";
 import { readerRequest } from "../../services/reader";
-import { isSessionGenerationError, matchesSessionGeneration, type AnalysisUnit, type DocumentSession, type UnitUpdate } from "../../reader/session";
-import { buildReaderRows, rowCharacterOffset, rowIndexForOffset, type ReaderRow, type ReaderTextRow } from "../../reader/rows";
+import {
+  isSessionGenerationError,
+  matchesSessionGeneration,
+  type AnalysisUnit,
+  type DocumentSession,
+  type UnitUpdate,
+} from "../../reader/session";
+import {
+  buildReaderRows,
+  rowCharacterOffset,
+  rowIndexForOffset,
+  type ReaderRow,
+  type ReaderTextRow,
+} from "../../reader/rows";
+import { findTextMatches, type FindMatch } from "../../reader/find";
 import { readingEstimate, type ReaderAppearance } from "../../reader/reading";
-import { estimateReaderRow, resolveReaderRowMeasurement } from "../../reader/virtualization";
-import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations, type ReaderMorphologyDetail, type ReaderMorphologyHit } from "../../reader/lookupPresentation";
-import { constrainMergeRange, mergedLookupTarget, selectionExcludedRanges } from "../../reader/mergeLookup";
-import { explanationPanelWidth, isWithinPanelGroupTriangle, measureIntrinsicPanel, placeExplanationPanels, snapshotRect, type Size } from "../../explanation/geometry";
+import {
+  estimateReaderRow,
+  resolveReaderRowMeasurement,
+} from "../../reader/virtualization";
+import {
+  dictionaryLookupFromSearch,
+  displayReading,
+  readerCapsuleRanges,
+  readerChains,
+  readerMorphologyHits,
+  readerRubyAnnotations,
+  type ReaderMorphologyDetail,
+  type ReaderMorphologyHit,
+} from "../../reader/lookupPresentation";
+import {
+  constrainMergeRange,
+  mergedLookupTarget,
+  selectionExcludedRanges,
+} from "../../reader/mergeLookup";
+import {
+  explanationPanelWidth,
+  isWithinPanelGroupTriangle,
+  measureIntrinsicPanel,
+  placeExplanationPanels,
+  snapshotRect,
+  type Size,
+} from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
-import { resourceKey, type LibraryBook, type LibraryResource } from "../../reader/library";
+import {
+  resourceKey,
+  type LibraryBook,
+  type LibraryResource,
+} from "../../reader/library";
 import type { ReaderDocument, ReaderTextBlock } from "../../reader/document";
 import type { DictionaryLookup, DictionarySettings } from "../../types";
 import type { QueryOutput, UnifiedDocument } from "../../types/nlp";
@@ -48,7 +108,11 @@ interface LookupTarget {
 interface LookupGroup {
   outer_targets: LookupTarget[];
   inner_targets: LookupTarget[];
-  grammar_targets: { char_range: [number, number]; display_form: string; normalized_form: string }[];
+  grammar_targets: {
+    char_range: [number, number];
+    display_form: string;
+    normalized_form: string;
+  }[];
   coverage_status: string;
 }
 
@@ -118,11 +182,6 @@ interface SelectionDraft {
   reading: string;
 }
 
-interface FindMatch {
-  start: number;
-  end: number;
-}
-
 const props = defineProps<{
   readerDocument: ReaderDocument;
   session: DocumentSession;
@@ -172,7 +231,9 @@ const componentBusy = ref(false);
 const componentError = ref("");
 const componentWord = ref("");
 const componentSearch = shallowRef<QueryOutput | null>(null);
-const componentHistory = ref<{ query: DictionaryLookup; word: string; search: QueryOutput | null }[]>([]);
+const componentHistory = ref<
+  { query: DictionaryLookup; word: string; search: QueryOutput | null }[]
+>([]);
 const activeDetail = ref<ReaderMorphologyDetail | null>(null);
 const activeQuery = shallowRef<DictionaryLookup | null>(null);
 const queryBusy = ref(false);
@@ -188,10 +249,20 @@ const dictionaryNames = ref<string[]>([]);
 const dictionaryOrder = ref<string[]>([]);
 const dictionarySettings = computed<DictionarySettings>(() => ({
   available_dictionaries: dictionaryNames.value,
-  dictionary_order: [...dictionaryOrder.value.filter((name) => dictionaryNames.value.includes(name)), ...dictionaryNames.value.filter((name) => !dictionaryOrder.value.includes(name))],
-  default_dictionary: dictionaryOrder.value[0] ?? dictionaryNames.value[0] ?? null,
+  dictionary_order: [
+    ...dictionaryOrder.value.filter((name) =>
+      dictionaryNames.value.includes(name),
+    ),
+    ...dictionaryNames.value.filter(
+      (name) => !dictionaryOrder.value.includes(name),
+    ),
+  ],
+  default_dictionary:
+    dictionaryOrder.value[0] ?? dictionaryNames.value[0] ?? null,
 }));
-const lookupHistory = ref<{ query: DictionaryLookup; word: string; search: QueryOutput | null }[]>([]);
+const lookupHistory = ref<
+  { query: DictionaryLookup; word: string; search: QueryOutput | null }[]
+>([]);
 let queryGeneration = 0;
 let componentGeneration = 0;
 let disposed = false;
@@ -210,39 +281,23 @@ let pendingCapsule: HTMLElement | null = null;
 let progressTimer: ReturnType<typeof setTimeout> | undefined;
 let lastProgressAt = Date.now();
 
-const rows = computed<ReaderRow[]>(() => buildReaderRows(
-  props.readerDocument.blocks.filter((block): block is ReaderTextBlock => block.kind !== "image"),
-  props.readerDocument,
-  resolveImage,
-  true,
-));
+const rows = computed<ReaderRow[]>(() =>
+  buildReaderRows(
+    props.readerDocument.blocks.filter(
+      (block): block is ReaderTextBlock => block.kind !== "image",
+    ),
+    props.readerDocument,
+    resolveImage,
+    true,
+  ),
+);
 const prepared = computed(() => props.session.plan.prepared);
 const preparedCharacters = computed(() => Array.from(prepared.value.text));
-const documentCharacters = computed(() => Array.from(props.readerDocument.analysisText));
 const findMatches = computed<FindMatch[]>(() => {
-  const query = Array.from(findQuery.value);
-  const text = documentCharacters.value;
-  if (!query.length || query.length > text.length) return [];
-  const matches: FindMatch[] = [];
-  for (let start = 0; start <= text.length - query.length;) {
-    let matched = true;
-    for (let offset = 0; offset < query.length; offset++) {
-      if (text[start + offset] !== query[offset]) {
-        matched = false;
-        break;
-      }
-    }
-    if (matched) {
-      matches.push({ start, end: start + query.length });
-      start += query.length;
-    } else {
-      start++;
-    }
-  }
-  return matches;
+  return findTextMatches(prepared.value.text, findQuery.value);
 });
 const findStatusLabel = computed(() => {
-  if (!findQuery.value) return "输入文本";
+  if (!findQuery.value) return "请先输入文本";
   if (!findMatches.value.length) return "未找到";
   return `${findActiveIndex.value + 1} / ${findMatches.value.length}`;
 });
@@ -251,32 +306,53 @@ const rowElements = new Map<string, HTMLElement>();
 function estimateRow(index: number): number {
   const row = rows.value[index];
   const images = row?.kind === "image" ? row.items : [];
-  const imageWidth = row?.kind === "image" && row.layout === "pair"
-    ? images.reduce((total, item) => total + (item.intrinsicWidth ?? 0), 0)
-    : images[0]?.intrinsicWidth;
+  const imageWidth =
+    row?.kind === "image" && row.layout === "pair"
+      ? images.reduce((total, item) => total + (item.intrinsicWidth ?? 0), 0)
+      : images[0]?.intrinsicWidth;
   return estimateReaderRow({
     kind: row?.kind ?? "text",
     heading: row?.kind === "text" && Boolean(row.heading),
     viewportHeight: scrollElement.value?.clientHeight ?? window.innerHeight,
     fontSize: props.appearance.fontSize,
     lineHeight: props.appearance.lineHeight,
-    contentWidth: Math.min(props.appearance.contentWidth, Math.max(0, (scrollElement.value?.clientWidth ?? window.innerWidth) - (window.innerWidth <= 700 ? 32 : 48))),
+    contentWidth: Math.min(
+      props.appearance.contentWidth,
+      Math.max(
+        0,
+        (scrollElement.value?.clientWidth ?? window.innerWidth) -
+          (window.innerWidth <= 700 ? 32 : 48),
+      ),
+    ),
     text: row?.kind === "text" ? row.paragraph.text : undefined,
     paragraphGap: props.appearance.paragraphGap,
     imageWidth,
-    imageHeight: images.reduce((height, item) => Math.max(height, item.intrinsicHeight ?? 0), 0) || undefined,
+    imageHeight:
+      images.reduce(
+        (height, item) => Math.max(height, item.intrinsicHeight ?? 0),
+        0,
+      ) || undefined,
     imageLayout: row?.kind === "image" ? row.layout : undefined,
-    hasCaption: row?.kind === "image" && row.layout !== "symbols" && images.some((item) => Boolean(item.image.title || item.image.alt)),
+    hasCaption:
+      row?.kind === "image" &&
+      row.layout !== "symbols" &&
+      images.some((item) => Boolean(item.image.title || item.image.alt)),
   });
 }
 
-function measureReaderRow(element: HTMLElement, entry: ResizeObserverEntry | undefined, instance: Virtualizer<HTMLElement, HTMLElement>): number {
+function measureReaderRow(
+  element: HTMLElement,
+  entry: ResizeObserverEntry | undefined,
+  instance: Virtualizer<HTMLElement, HTMLElement>,
+): number {
   const index = Number(element.dataset.index);
   const row = rows.value[index];
   const observedSize = entry?.borderBoxSize?.[0]?.blockSize;
   return resolveReaderRowMeasurement({
     kind: row?.kind ?? "text",
-    imageState: element.querySelector<HTMLElement>("[data-image-state]")?.dataset.imageState,
+    imageState:
+      element.querySelector<HTMLElement>("[data-image-state]")?.dataset
+        .imageState,
     cachedSize: row ? instance.itemSizeCache.get(row.key) : undefined,
     estimatedSize: row?.kind === "image" ? estimateRow(index) : 0,
     observedSize,
@@ -284,77 +360,148 @@ function measureReaderRow(element: HTMLElement, entry: ResizeObserverEntry | und
   });
 }
 
-const virtualizer = useVirtualizer<HTMLElement, HTMLElement>(computed(() => ({
-  count: rows.value.length,
-  getScrollElement: () => scrollElement.value,
-  getItemKey: (index: number) => rows.value[index]?.key ?? index,
-  estimateSize: estimateRow,
-  measureElement: measureReaderRow,
-  scrollMargin: 42,
-  overscan: 6,
-})));
-virtualizer.value.shouldAdjustScrollPositionOnItemSizeChange = (item, _delta, instance) =>
-  item.end <= (instance.scrollOffset ?? 0);
-const visibleRows = computed(() => virtualizer.value.getVirtualItems().map((item) => ({ item, row: rows.value[item.index] })).filter((value) => value.row));
+const virtualizer = useVirtualizer<HTMLElement, HTMLElement>(
+  computed(() => ({
+    count: rows.value.length,
+    getScrollElement: () => scrollElement.value,
+    getItemKey: (index: number) => rows.value[index]?.key ?? index,
+    estimateSize: estimateRow,
+    measureElement: measureReaderRow,
+    scrollMargin: 42,
+    overscan: 6,
+  })),
+);
+virtualizer.value.shouldAdjustScrollPositionOnItemSizeChange = (
+  item,
+  _delta,
+  instance,
+) => item.end <= (instance.scrollOffset ?? 0);
+const visibleRows = computed(() =>
+  virtualizer.value
+    .getVirtualItems()
+    .map((item) => ({ item, row: rows.value[item.index] }))
+    .filter((value) => value.row),
+);
 const visibleRange = computed<[number, number]>(() => {
   const ranges = visibleRows.value
-    .map(({ row }) => row.kind === "text" ? row.paragraph.charRange : null)
+    .map(({ row }) => (row.kind === "text" ? row.paragraph.charRange : null))
     .filter((range): range is [number, number] => Boolean(range));
   if (ranges.length === 0) return [0, 1536];
-  return [Math.max(0, Math.min(...ranges.map((range) => range[0])) - 768), Math.max(...ranges.map((range) => range[1])) + 768];
+  return [
+    Math.max(0, Math.min(...ranges.map((range) => range[0])) - 768),
+    Math.max(...ranges.map((range) => range[1])) + 768,
+  ];
 });
 const currentOffset = ref(props.initialOffset);
-const estimate = computed(() => readingEstimate(currentOffset.value, preparedCharacters.value.length));
+const estimate = computed(() =>
+  readingEstimate(currentOffset.value, preparedCharacters.value.length),
+);
 const currentChapter = computed(() => {
-  const chapters = props.readerDocument.chapters.filter((chapter) => chapter.charOffset <= currentOffset.value);
+  const chapters = props.readerDocument.chapters.filter(
+    (chapter) => chapter.charOffset <= currentOffset.value,
+  );
   return chapters[chapters.length - 1]?.title || "正文";
 });
 const readableCount = computed(() => props.session.progress.complete);
 const statusLabel = computed(() => {
   if (props.session.progress.failed) return "部分分析失败";
   if (props.session.paused) return "分析已暂停";
-  if (props.session.progress.complete === props.session.progress.total && props.session.progress.pending > 0) return "恢复阅读内容";
-  if (props.session.progress.complete >= props.session.progress.total && props.session.progress.total > 0) return "分析完成";
+  if (
+    props.session.progress.complete === props.session.progress.total &&
+    props.session.progress.pending > 0
+  )
+    return "恢复阅读内容";
+  if (
+    props.session.progress.complete >= props.session.progress.total &&
+    props.session.progress.total > 0
+  )
+    return "分析完成";
   return `已分析 ${readableCount.value}/${props.session.progress.total}`;
 });
-const chainSummaries = computed(() => activeHit.value
-  ? readerChains(activeHit.value.target, activeHit.value.selectionDocument ?? activeHit.value.unit.unit.document)
-  : []);
+const chainSummaries = computed(() =>
+  activeHit.value
+    ? readerChains(
+        activeHit.value.target,
+        activeHit.value.selectionDocument ?? activeHit.value.unit.unit.document,
+      )
+    : [],
+);
 const chainOverview = computed(() => {
   const chains = chainSummaries.value;
-  const primary = chains.find((chain) => chain.role === "词汇核心") ?? chains[0];
+  const primary =
+    chains.find((chain) => chain.role === "词汇核心") ?? chains[0];
   if (!primary) return null;
-  const names = chains.flatMap((chain) => chain.formName.split(" · ").filter(Boolean));
+  const names = chains.flatMap((chain) =>
+    chain.formName.split(" · ").filter(Boolean),
+  );
   const specific = names.filter((name) => name !== "接续");
   return {
-    name: [...new Set(specific.length ? specific : names)].join(" · ") || primary.conjugation || primary.role,
+    name:
+      [...new Set(specific.length ? specific : names)].join(" · ") ||
+      primary.conjugation ||
+      primary.role,
     conjugation: primary.conjugation,
-    surface: activeHit.value?.target.decision === "selection" ? activeHit.value.target.surface : chains.map((chain) => chain.surface).join(""),
-    lemma: activeHit.value?.target.decision === "selection" ? activeHit.value.target.lookup_forms[0]?.form : primary.lookupForm || primary.lemma,
-    members: chains.flatMap((chain) => chain.members.map((member) => member.surface)),
+    surface:
+      activeHit.value?.target.decision === "selection"
+        ? activeHit.value.target.surface
+        : chains.map((chain) => chain.surface).join(""),
+    lemma:
+      activeHit.value?.target.decision === "selection"
+        ? activeHit.value.target.lookup_forms[0]?.form
+        : primary.lookupForm || primary.lemma,
+    members: chains.flatMap((chain) =>
+      chain.members.map((member) => member.surface),
+    ),
   };
 });
-function createUnitLookup(unitPlan: AnalysisUnit, unit: UnitUpdate, group: LookupGroup): UnitLookup {
+function createUnitLookup(
+  unitPlan: AnalysisUnit,
+  unit: UnitUpdate,
+  group: LookupGroup,
+): UnitLookup {
   const offset = unitPlan.context_range[0];
   const [start, end] = localLookupRange(unitPlan, unit.document!);
-  const globalRange = (range: [number, number]): [number, number] => [range[0] + offset, range[1] + offset];
+  const globalRange = (range: [number, number]): [number, number] => [
+    range[0] + offset,
+    range[1] + offset,
+  ];
   return {
-    sessionId: props.session.session_id, generation: props.session.generation,
-    unit, group, contextOffset: offset, range: unitPlan.anchor.char_range,
+    sessionId: props.session.session_id,
+    generation: props.session.generation,
+    unit,
+    group,
+    contextOffset: offset,
+    range: unitPlan.anchor.char_range,
     capsules: readerCapsuleRanges(group.outer_targets, unit.document!)
       .filter((capsule) => capsule.range[0] >= start && capsule.range[1] <= end)
-      .map((capsule) => ({ key: `${unit.unit_id}:${capsule.id}`, range: globalRange(capsule.range) })),
+      .map((capsule) => ({
+        key: `${unit.unit_id}:${capsule.id}`,
+        range: globalRange(capsule.range),
+      })),
     morphology: readerMorphologyHits(
-      [...group.inner_targets.filter((target) => target.decision === "queryable"), ...group.outer_targets], unit.document,
-    ).filter((hit) => hit.range[0] >= start && hit.range[1] <= end)
+      [
+        ...group.inner_targets.filter(
+          (target) => target.decision === "queryable",
+        ),
+        ...group.outer_targets,
+      ],
+      unit.document,
+    )
+      .filter((hit) => hit.range[0] >= start && hit.range[1] <= end)
       .map((hit) => ({ ...hit, range: globalRange(hit.range) })),
   };
 }
 
 function resolveImage(source: string) {
-  const resource = props.resources.find((item) => resourceKey(item.href) === resourceKey(source));
+  const resource = props.resources.find(
+    (item) => resourceKey(item.href) === resourceKey(source),
+  );
   if (!resource) return undefined;
-  return { src: isTauri() ? convertFileSrc(resource.path) : resource.path, width: resource.width, height: resource.height };
+  return {
+    src: isTauri() ? convertFileSrc(resource.path) : resource.path,
+    width: resource.width,
+    height: resource.height,
+  };
 }
 
 function measureRow(node: unknown, key: string) {
@@ -373,14 +520,21 @@ async function measureSettledImage(key: string) {
   const element = rowElements.get(key);
   if (!element?.isConnected) return;
   const index = Number(element.dataset.index);
-  if (rows.value[index]?.key === key) virtualizer.value.resizeItem(index, measureReaderRow(element, undefined, virtualizer.value));
+  if (rows.value[index]?.key === key)
+    virtualizer.value.resizeItem(
+      index,
+      measureReaderRow(element, undefined, virtualizer.value),
+    );
 }
 
 function documentUnit(unitId: string): UnitUpdate | undefined {
   return props.session.units[unitId];
 }
 
-function localLookupRange(unit: AnalysisUnit, document: NonNullable<UnitUpdate["document"]>): [number, number] {
+function localLookupRange(
+  unit: AnalysisUnit,
+  document: NonNullable<UnitUpdate["document"]>,
+): [number, number] {
   const offset = unit.context_range[0];
   return [
     Math.max(0, unit.anchor.char_range[0] - offset),
@@ -388,14 +542,25 @@ function localLookupRange(unit: AnalysisUnit, document: NonNullable<UnitUpdate["
   ];
 }
 
-async function loadTargets(unitPlan: typeof props.session.plan.units[number], unit: UnitUpdate) {
+async function loadTargets(
+  unitPlan: (typeof props.session.plan.units)[number],
+  unit: UnitUpdate,
+) {
   if (!unit.document || unit.stage !== "complete") return;
   const sessionId = props.session.session_id;
   const generation = props.session.generation;
   const key = `${sessionId}:${generation}:${unit.unit_id}:${unit.artifact_revision}`;
-  if (groups.value.has(key) || pendingTargets.has(key) || targetErrors.value.has(key)) return;
+  if (
+    groups.value.has(key) ||
+    pendingTargets.has(key) ||
+    targetErrors.value.has(key)
+  )
+    return;
   if (unit.lookup) {
-    groups.value = new Map(groups.value).set(key, createUnitLookup(unitPlan, unit, unit.lookup as LookupGroup));
+    groups.value = new Map(groups.value).set(
+      key,
+      createUnitLookup(unitPlan, unit, unit.lookup as LookupGroup),
+    );
     return;
   }
   pendingTargets.add(key);
@@ -409,20 +574,38 @@ async function loadTargets(unitPlan: typeof props.session.plan.units[number], un
       artifact_revision: unit.artifact_revision,
       range: localLookupRange(unitPlan, unit.document),
     });
-    if (disposed || !matchesSessionGeneration(props.session, sessionId, generation)
-      || props.session.units[unit.unit_id]?.artifact_revision !== unit.artifact_revision
-      || !props.session.units[unit.unit_id]?.document) return;
-    groups.value = new Map(groups.value).set(key, createUnitLookup(unitPlan, unit, group));
+    if (
+      disposed ||
+      !matchesSessionGeneration(props.session, sessionId, generation) ||
+      props.session.units[unit.unit_id]?.artifact_revision !==
+        unit.artifact_revision ||
+      !props.session.units[unit.unit_id]?.document
+    )
+      return;
+    groups.value = new Map(groups.value).set(
+      key,
+      createUnitLookup(unitPlan, unit, group),
+    );
     if (targetErrors.value.has(key)) {
       const errors = new Map(targetErrors.value);
       errors.delete(key);
       targetErrors.value = errors;
     }
   } catch (error) {
-    if (!disposed && matchesSessionGeneration(props.session, sessionId, generation)
-      && props.session.units[unit.unit_id]?.artifact_revision === unit.artifact_revision) {
-      if (isSessionGenerationError(error)) { emit("sync"); return; }
-      targetErrors.value = new Map(targetErrors.value).set(key, error instanceof Error ? error.message : String(error));
+    if (
+      !disposed &&
+      matchesSessionGeneration(props.session, sessionId, generation) &&
+      props.session.units[unit.unit_id]?.artifact_revision ===
+        unit.artifact_revision
+    ) {
+      if (isSessionGenerationError(error)) {
+        emit("sync");
+        return;
+      }
+      targetErrors.value = new Map(targetErrors.value).set(
+        key,
+        error instanceof Error ? error.message : String(error),
+      );
     }
   } finally {
     pendingTargets.delete(key);
@@ -432,21 +615,38 @@ async function loadTargets(unitPlan: typeof props.session.plan.units[number], un
 async function syncTargets(retry = false) {
   if (retry) targetErrors.value = new Map();
   if (targetErrors.value.size) {
-    const validKeys = new Set(Object.values(props.session.units).filter((unit) => unit.stage === "complete" && unit.document)
-      .map((unit) => `${props.session.session_id}:${props.session.generation}:${unit.unit_id}:${unit.artifact_revision}`));
-    const errors = new Map([...targetErrors.value].filter(([key]) => validKeys.has(key)));
+    const validKeys = new Set(
+      Object.values(props.session.units)
+        .filter((unit) => unit.stage === "complete" && unit.document)
+        .map(
+          (unit) =>
+            `${props.session.session_id}:${props.session.generation}:${unit.unit_id}:${unit.artifact_revision}`,
+        ),
+    );
+    const errors = new Map(
+      [...targetErrors.value].filter(([key]) => validKeys.has(key)),
+    );
     if (errors.size !== targetErrors.value.size) targetErrors.value = errors;
   }
-  const retained = new Map([...groups.value].filter(([, lookup]) => {
-    const current = documentUnit(lookup.unit.unit_id);
-    return current?.document && current.stage === "complete" && current.artifact_revision === lookup.unit.artifact_revision;
-  }));
+  const retained = new Map(
+    [...groups.value].filter(([, lookup]) => {
+      const current = documentUnit(lookup.unit.unit_id);
+      return (
+        current?.document &&
+        current.stage === "complete" &&
+        current.artifact_revision === lookup.unit.artifact_revision
+      );
+    }),
+  );
   if (retained.size !== groups.value.size) groups.value = retained;
   const tasks = props.session.plan.units
     .map((unitPlan) => [unitPlan, documentUnit(unitPlan.id)] as const)
-    .filter((item): item is [typeof props.session.plan.units[number], UnitUpdate] => Boolean(item[1])
-      && item[0].anchor.char_range[1] > visibleRange.value[0]
-      && item[0].anchor.char_range[0] < visibleRange.value[1])
+    .filter(
+      (item): item is [(typeof props.session.plan.units)[number], UnitUpdate] =>
+        Boolean(item[1]) &&
+        item[0].anchor.char_range[1] > visibleRange.value[0] &&
+        item[0].anchor.char_range[0] < visibleRange.value[1],
+    )
     .map(([unitPlan, unit]) => loadTargets(unitPlan, unit));
   await Promise.all(tasks);
 }
@@ -454,13 +654,19 @@ async function syncTargets(retry = false) {
 function requestVisibleUnits() {
   clearTimeout(rangeTimer);
   if (!visibleRows.value.length || props.session.paused) return;
-  const visible = props.session.plan.units.filter((unit) =>
-    unit.anchor.char_range[1] > visibleRange.value[0] && unit.anchor.char_range[0] < visibleRange.value[1]);
+  const visible = props.session.plan.units.filter(
+    (unit) =>
+      unit.anchor.char_range[1] > visibleRange.value[0] &&
+      unit.anchor.char_range[0] < visibleRange.value[1],
+  );
   const key = `${props.session.session_id}:${visible[0]?.id}:${visible[visible.length - 1]?.id}`;
   if (key === requestedRange || !visible.length) return;
   rangeTimer = setTimeout(() => {
     requestedRange = key;
-    emit("range", [visible[0].anchor.char_range[0], visible[visible.length - 1].anchor.char_range[1]]);
+    emit("range", [
+      visible[0].anchor.char_range[0],
+      visible[visible.length - 1].anchor.char_range[1],
+    ]);
   }, 120);
 }
 
@@ -470,11 +676,23 @@ function unitLookups(): UnitLookup[] {
 
 function lookupIsCurrent(lookup: UnitLookup): boolean {
   const current = props.session.units[lookup.unit.unit_id];
-  return !disposed && matchesSessionGeneration(props.session, lookup.sessionId, lookup.generation)
-    && current?.stage === "complete" && current.artifact_revision === lookup.unit.artifact_revision && Boolean(current.document);
+  return (
+    !disposed &&
+    matchesSessionGeneration(
+      props.session,
+      lookup.sessionId,
+      lookup.generation,
+    ) &&
+    current?.stage === "complete" &&
+    current.artifact_revision === lookup.unit.artifact_revision &&
+    Boolean(current.document)
+  );
 }
 
-function hitsForBlock(block: ReaderTextBlock, lookups = unitLookups()): TargetHit[] {
+function hitsForBlock(
+  block: ReaderTextBlock,
+  lookups = unitLookups(),
+): TargetHit[] {
   const hits: TargetHit[] = [];
   for (const lookup of lookups) {
     for (const target of lookup.group.outer_targets) {
@@ -482,18 +700,32 @@ function hitsForBlock(block: ReaderTextBlock, lookups = unitLookups()): TargetHi
         target.char_range[0] + lookup.contextOffset,
         target.char_range[1] + lookup.contextOffset,
       ];
-      if (range[1] <= block.charRange[0] || range[0] >= block.charRange[1]) continue;
+      if (range[1] <= block.charRange[0] || range[0] >= block.charRange[1])
+        continue;
       const children = lookup.group.inner_targets
         .filter((child) => child.parent_outer_id === target.id)
-        .map((child) => ({ ...child, char_range: [child.char_range[0] + lookup.contextOffset, child.char_range[1] + lookup.contextOffset] as [number, number] }));
-      hits.push({ key: `${lookup.unit.unit_id}:${target.id}`, unit: lookup, target, range, children });
+        .map((child) => ({
+          ...child,
+          char_range: [
+            child.char_range[0] + lookup.contextOffset,
+            child.char_range[1] + lookup.contextOffset,
+          ] as [number, number],
+        }));
+      hits.push({
+        key: `${lookup.unit.unit_id}:${target.id}`,
+        unit: lookup,
+        target,
+        range,
+        children,
+      });
     }
     for (const grammar of lookup.group.grammar_targets) {
       const range: [number, number] = [
         grammar.char_range[0] + lookup.contextOffset,
         grammar.char_range[1] + lookup.contextOffset,
       ];
-      if (range[1] <= block.charRange[0] || range[0] >= block.charRange[1]) continue;
+      if (range[1] <= block.charRange[0] || range[0] >= block.charRange[1])
+        continue;
       const target: LookupTarget = {
         id: `grammar:${lookup.unit.unit_id}:${grammar.char_range[0]}:${grammar.char_range[1]}`,
         parent_outer_id: null,
@@ -507,76 +739,183 @@ function hitsForBlock(block: ReaderTextBlock, lookups = unitLookups()): TargetHi
         decision: "grammar",
         reason: grammar.normalized_form,
       };
-      hits.push({ key: `${lookup.unit.unit_id}:${target.id}`, unit: lookup, target, range, children: [] });
+      hits.push({
+        key: `${lookup.unit.unit_id}:${target.id}`,
+        unit: lookup,
+        target,
+        range,
+        children: [],
+      });
     }
   }
-  return hits.sort((left, right) => left.range[0] - right.range[0] || right.range[1] - left.range[1]);
+  return hits.sort(
+    (left, right) =>
+      left.range[0] - right.range[0] || right.range[1] - left.range[1],
+  );
 }
 
 function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
   const block = row.paragraph;
   const outerHits = hitsForBlock(block, lookups);
   const hits = outerHits;
-  const selection = mergedHit.value && mergedHit.value.range[0] < block.charRange[1] && mergedHit.value.range[1] > block.charRange[0] ? mergedHit.value : null;
+  const selection =
+    mergedHit.value &&
+    mergedHit.value.range[0] < block.charRange[1] &&
+    mergedHit.value.range[1] > block.charRange[0]
+      ? mergedHit.value
+      : null;
   if (selection) hits.unshift(selection);
-  const details = lookups.flatMap((lookup) => lookup.morphology.map((hit) => ({ ...hit, lookup })))
-    .filter((item) => item.range[0] < block.charRange[1] && item.range[1] > block.charRange[0])
-    .filter((item) => !selection || item.range[1] <= selection.range[0] || item.range[0] >= selection.range[1])
-    .map((item) => ({ ...item, hit: hits.find((hit) => hit.unit === item.lookup && hit.target.id === item.targetId)
-      ?? hits.find((hit) => hit.unit === item.lookup && hit.target.decision === "grammar"
-        && hit.range[0] < item.range[1] && hit.range[1] > item.range[0])
-      ?? null }))
+  const details = lookups
+    .flatMap((lookup) => lookup.morphology.map((hit) => ({ ...hit, lookup })))
+    .filter(
+      (item) =>
+        item.range[0] < block.charRange[1] &&
+        item.range[1] > block.charRange[0],
+    )
+    .filter(
+      (item) =>
+        !selection ||
+        item.range[1] <= selection.range[0] ||
+        item.range[0] >= selection.range[1],
+    )
+    .map((item) => ({
+      ...item,
+      hit:
+        hits.find(
+          (hit) => hit.unit === item.lookup && hit.target.id === item.targetId,
+        ) ??
+        hits.find(
+          (hit) =>
+            hit.unit === item.lookup &&
+            hit.target.decision === "grammar" &&
+            hit.range[0] < item.range[1] &&
+            hit.range[1] > item.range[0],
+        ) ??
+        null,
+    }))
     .filter((item) => item.hit)
-    .sort((left, right) => (left.range[1] - left.range[0]) - (right.range[1] - right.range[0]));
-  if (selection?.selectionDocument) details.unshift(...readerMorphologyHits([selection.target], selection.selectionDocument)
-    .map((item) => ({ ...item, range: [item.range[0] + selection.range[0], item.range[1] + selection.range[0]] as [number, number], lookup: selection.unit, hit: selection })));
+    .sort(
+      (left, right) =>
+        left.range[1] - left.range[0] - (right.range[1] - right.range[0]),
+    );
+  if (selection?.selectionDocument)
+    details.unshift(
+      ...readerMorphologyHits(
+        [selection.target],
+        selection.selectionDocument,
+      ).map((item) => ({
+        ...item,
+        range: [
+          item.range[0] + selection.range[0],
+          item.range[1] + selection.range[0],
+        ] as [number, number],
+        lookup: selection.unit,
+        hit: selection,
+      })),
+    );
   const boundaries = new Set<number>([block.charRange[0], block.charRange[1]]);
   const highlight = highlightedRange.value;
-  if (highlight && highlight[0] < block.charRange[1] && highlight[1] > block.charRange[0]) {
+  if (
+    highlight &&
+    highlight[0] < block.charRange[1] &&
+    highlight[1] > block.charRange[0]
+  ) {
     boundaries.add(Math.max(block.charRange[0], highlight[0]));
     boundaries.add(Math.min(block.charRange[1], highlight[1]));
   }
-  const findHighlights = findMatches.value.filter((match) =>
-    match.start < block.charRange[1] && match.end > block.charRange[0]);
+  const findHighlights = findMatches.value.filter(
+    (match) =>
+      match.start < block.charRange[1] && match.end > block.charRange[0],
+  );
   for (const match of findHighlights) {
     boundaries.add(Math.max(block.charRange[0], match.start));
     boundaries.add(Math.min(block.charRange[1], match.end));
   }
-  const capsules = lookups.flatMap((lookup) => lookup.capsules).filter((capsule) =>
-    capsule.range[0] < block.charRange[1] && capsule.range[1] > block.charRange[0]);
-  if (selection) capsules.unshift({ key: selection.key, range: selection.range });
-  const componentRanges = outerHits.flatMap((outer) => outer.children.map((child) => ({ range: child.char_range })));
+  const capsules = lookups
+    .flatMap((lookup) => lookup.capsules)
+    .filter(
+      (capsule) =>
+        capsule.range[0] < block.charRange[1] &&
+        capsule.range[1] > block.charRange[0],
+    );
+  if (selection)
+    capsules.unshift({ key: selection.key, range: selection.range });
+  const componentRanges = outerHits.flatMap((outer) =>
+    outer.children.map((child) => ({ range: child.char_range })),
+  );
   for (const hit of [...hits, ...componentRanges, ...details, ...capsules]) {
-    if (hit.range[0] >= block.charRange[1] || hit.range[1] <= block.charRange[0]) continue;
+    if (
+      hit.range[0] >= block.charRange[1] ||
+      hit.range[1] <= block.charRange[0]
+    )
+      continue;
     boundaries.add(Math.max(block.charRange[0], hit.range[0]));
     boundaries.add(Math.min(block.charRange[1], hit.range[1]));
   }
-  const validations = lookups.flatMap((lookup) => lookup.unit.document!.ruby_validations.map((validation) => ({
-    ...validation,
-    char_range: [validation.char_range[0] + lookup.contextOffset, validation.char_range[1] + lookup.contextOffset] as [number, number],
-    candidate_char_range: [validation.candidate_char_range[0] + lookup.contextOffset, validation.candidate_char_range[1] + lookup.contextOffset] as [number, number],
-  })));
-  const annotations = readerRubyAnnotations(prepared.value.annotations, validations).filter((annotation) =>
-    annotation.char_range[0] >= block.charRange[0] && annotation.char_range[1] <= block.charRange[1]);
+  const validations = lookups.flatMap((lookup) =>
+    lookup.unit.document!.ruby_validations.map((validation) => ({
+      ...validation,
+      char_range: [
+        validation.char_range[0] + lookup.contextOffset,
+        validation.char_range[1] + lookup.contextOffset,
+      ] as [number, number],
+      candidate_char_range: [
+        validation.candidate_char_range[0] + lookup.contextOffset,
+        validation.candidate_char_range[1] + lookup.contextOffset,
+      ] as [number, number],
+    })),
+  );
+  const annotations = readerRubyAnnotations(
+    prepared.value.annotations,
+    validations,
+  ).filter(
+    (annotation) =>
+      annotation.char_range[0] >= block.charRange[0] &&
+      annotation.char_range[1] <= block.charRange[1],
+  );
   for (const annotation of annotations) {
     boundaries.add(annotation.char_range[0]);
     boundaries.add(annotation.char_range[1]);
   }
   const points = [...boundaries].sort((left, right) => left - right);
-  return points.slice(0, -1).map((start, index) => {
-    const end = points[index + 1];
-    const detail = details.find((candidate) => candidate.range[0] <= start && end <= candidate.range[1]);
-    const candidateHit = selection && selection.range[0] <= start && end <= selection.range[1] ? selection
-      : detail?.hit ?? hits.find((candidate) => candidate.range[0] <= start && end <= candidate.range[1]) ?? null;
-    const hit = candidateHit?.target.decision === "grammar" && !detail ? null : candidateHit;
-    const annotation = annotations.find((annotation) => annotation.char_range[0] <= start && end <= annotation.char_range[1]);
-    const capsule = capsules.find((candidate) => candidate.range[0] <= start && end <= candidate.range[1]);
-    return {
-      key: `${block.id}:${start}`, text: preparedCharacters.value.slice(start, end).join(""), annotation,
-      range: [start, end] as [number, number], hit, detail: detail?.detail ?? null,
-      capsuleKey: capsule?.key ?? null,
-    };
-  }).filter((part) => part.text.length > 0);
+  return points
+    .slice(0, -1)
+    .map((start, index) => {
+      const end = points[index + 1];
+      const detail = details.find(
+        (candidate) => candidate.range[0] <= start && end <= candidate.range[1],
+      );
+      const candidateHit =
+        selection && selection.range[0] <= start && end <= selection.range[1]
+          ? selection
+          : (detail?.hit ??
+            hits.find(
+              (candidate) =>
+                candidate.range[0] <= start && end <= candidate.range[1],
+            ) ??
+            null);
+      const hit =
+        candidateHit?.target.decision === "grammar" && !detail
+          ? null
+          : candidateHit;
+      const annotation = annotations.find(
+        (annotation) =>
+          annotation.char_range[0] <= start && end <= annotation.char_range[1],
+      );
+      const capsule = capsules.find(
+        (candidate) => candidate.range[0] <= start && end <= candidate.range[1],
+      );
+      return {
+        key: `${block.id}:${start}`,
+        text: preparedCharacters.value.slice(start, end).join(""),
+        annotation,
+        range: [start, end] as [number, number],
+        hit,
+        detail: detail?.detail ?? null,
+        capsuleKey: capsule?.key ?? null,
+      };
+    })
+    .filter((part) => part.text.length > 0);
 }
 
 function capsulesForParts(parts: TextPart[]): TextCapsule[] {
@@ -585,12 +924,22 @@ function capsulesForParts(parts: TextPart[]): TextCapsule[] {
     const previous = capsules[capsules.length - 1];
     const last = previous?.parts[previous.parts.length - 1];
     // 完整注音共用显示容器，各片段保留原有的胶囊和查词身份。
-    if (previous && last && last.range[1] === part.range[0]
-      && (last.capsuleKey === part.capsuleKey || (part.annotation && last.annotation === part.annotation))) {
+    if (
+      previous &&
+      last &&
+      last.range[1] === part.range[0] &&
+      (last.capsuleKey === part.capsuleKey ||
+        (part.annotation && last.annotation === part.annotation))
+    ) {
       previous.parts.push(part);
       previous.capsuleKey ??= part.capsuleKey;
     } else {
-      capsules.push({ key: part.key, capsuleKey: part.capsuleKey, parts: [part], runs: [] });
+      capsules.push({
+        key: part.key,
+        capsuleKey: part.capsuleKey,
+        parts: [part],
+        runs: [],
+      });
     }
   }
   for (const capsule of capsules) capsule.runs = runsForParts(capsule.parts);
@@ -601,35 +950,69 @@ function runsForParts(parts: TextPart[]): TextRun[] {
   const groups: TextPart[][] = [];
   for (const part of parts) {
     const previous = groups[groups.length - 1];
-    if (previous && previous[0].annotation === part.annotation) previous.push(part);
+    if (previous && previous[0].annotation === part.annotation)
+      previous.push(part);
     else groups.push([part]);
   }
   return groups.map((group) => ({
-    key: group[0].key, reading: group[0].annotation ? displayReading(group[0].annotation.reading) : undefined, parts: group,
+    key: group[0].key,
+    reading: group[0].annotation
+      ? displayReading(group[0].annotation.reading)
+      : undefined,
+    parts: group,
   }));
 }
 
-let rowProjectionCache = new Map<ReaderTextRow, {
-  lookups: UnitLookup[];
-  prepared: typeof prepared.value;
-  selection: TargetHit | null;
-  highlight: string;
-  capsules: TextCapsule[];
-}>();
+let rowProjectionCache = new Map<
+  ReaderTextRow,
+  {
+    lookups: UnitLookup[];
+    prepared: typeof prepared.value;
+    selection: TargetHit | null;
+    highlight: string;
+    capsules: TextCapsule[];
+  }
+>();
 const visibleCapsules = computed(() => {
   const lookups = unitLookups();
   const next: typeof rowProjectionCache = new Map();
   const result = new Map<string, TextCapsule[]>();
   for (const { row } of visibleRows.value) {
     if (row.kind !== "text") continue;
-    const relevant = lookups.filter((lookup) => lookup.range[0] < row.paragraph.charRange[1] && lookup.range[1] > row.paragraph.charRange[0]);
-    const selection = mergedHit.value && mergedHit.value.range[0] < row.paragraph.charRange[1] && mergedHit.value.range[1] > row.paragraph.charRange[0] ? mergedHit.value : null;
+    const relevant = lookups.filter(
+      (lookup) =>
+        lookup.range[0] < row.paragraph.charRange[1] &&
+        lookup.range[1] > row.paragraph.charRange[0],
+    );
+    const selection =
+      mergedHit.value &&
+      mergedHit.value.range[0] < row.paragraph.charRange[1] &&
+      mergedHit.value.range[1] > row.paragraph.charRange[0]
+        ? mergedHit.value
+        : null;
     const range = highlightedRange.value;
-    const highlight = range && range[0] < row.paragraph.charRange[1] && range[1] > row.paragraph.charRange[0] ? range.join(":") : "";
+    const highlight =
+      range &&
+      range[0] < row.paragraph.charRange[1] &&
+      range[1] > row.paragraph.charRange[0]
+        ? range.join(":")
+        : "";
     let entry = rowProjectionCache.get(row);
-    if (!entry || entry.prepared !== prepared.value || entry.selection !== selection || entry.highlight !== highlight
-      || entry.lookups.length !== relevant.length || entry.lookups.some((lookup, index) => lookup !== relevant[index])) {
-      entry = { lookups: relevant, prepared: prepared.value, selection, highlight, capsules: capsulesForParts(partsFor(row, relevant)) };
+    if (
+      !entry ||
+      entry.prepared !== prepared.value ||
+      entry.selection !== selection ||
+      entry.highlight !== highlight ||
+      entry.lookups.length !== relevant.length ||
+      entry.lookups.some((lookup, index) => lookup !== relevant[index])
+    ) {
+      entry = {
+        lookups: relevant,
+        prepared: prepared.value,
+        selection,
+        highlight,
+        capsules: capsulesForParts(partsFor(row, relevant)),
+      };
     }
     next.set(row, entry);
     result.set(row.key, entry.capsules);
@@ -638,29 +1021,49 @@ const visibleCapsules = computed(() => {
   return result;
 });
 
-const visibleParts = computed(() => new Map([...visibleCapsules.value.values()]
-  .flatMap((capsules) => capsules.flatMap((capsule) => capsule.parts))
-  .map((part) => [part.key, part])));
+const visibleParts = computed(
+  () =>
+    new Map(
+      [...visibleCapsules.value.values()]
+        .flatMap((capsules) => capsules.flatMap((capsule) => capsule.parts))
+        .map((part) => [part.key, part]),
+    ),
+);
 const mergeRange = computed<[number, number] | null>(() => {
   const drag = mergeDrag.value;
   if (!drag?.moved) return null;
   const start = capsuleRange(drag.start);
   const end = capsuleRange(drag.end);
-  const range: [number, number] = drag.free ? [Math.min(drag.anchor, drag.focus), Math.max(drag.anchor, drag.focus)] : [
-    Math.max(drag.block.charRange[0], Math.min(start[0], end[0])),
-    Math.min(drag.block.charRange[1], Math.max(start[1], end[1])),
-  ];
-  const excluded = unitLookups().flatMap((lookup) => selectionExcludedRanges(lookup.unit.document!, lookup.contextOffset));
-  return constrainMergeRange(preparedCharacters.value, range, drag.free ? drag.focus < drag.anchor ? drag.anchor - 1 : drag.anchor : drag.start.range[0], excluded);
+  const range: [number, number] = drag.free
+    ? [Math.min(drag.anchor, drag.focus), Math.max(drag.anchor, drag.focus)]
+    : [
+        Math.max(drag.block.charRange[0], Math.min(start[0], end[0])),
+        Math.min(drag.block.charRange[1], Math.max(start[1], end[1])),
+      ];
+  const excluded = unitLookups().flatMap((lookup) =>
+    selectionExcludedRanges(lookup.unit.document!, lookup.contextOffset),
+  );
+  return constrainMergeRange(
+    preparedCharacters.value,
+    range,
+    drag.free
+      ? drag.focus < drag.anchor
+        ? drag.anchor - 1
+        : drag.anchor
+      : drag.start.range[0],
+    excluded,
+  );
 });
-const highlightedRange = computed(() => mergeRange.value
-  ?? mergedHit.value?.range ?? null);
+const highlightedRange = computed(
+  () => mergeRange.value ?? mergedHit.value?.range ?? null,
+);
 
 function findMatchClass(range: [number, number]): string {
   const matches = findMatches.value;
   if (!matches.length) return "";
   const active = matches[findActiveIndex.value];
-  if (active && range[0] < active.end && range[1] > active.start) return "reader-find-match--active";
+  if (active && range[0] < active.end && range[1] > active.start)
+    return "reader-find-match--active";
   return matches.some((match) => range[0] < match.end && range[1] > match.start)
     ? "reader-find-match"
     : "";
@@ -695,7 +1098,9 @@ function revealFindMatch() {
   virtualizer.value.scrollToIndex(rowIndex, { align: "center" });
   currentOffset.value = match.start;
   void nextTick().then(() => {
-    const active = scrollElement.value?.querySelector<HTMLElement>("[data-find-active='true']");
+    const active = scrollElement.value?.querySelector<HTMLElement>(
+      "[data-find-active='true']",
+    );
     active?.scrollIntoView({ block: "center", behavior: "auto" });
   });
 }
@@ -703,55 +1108,123 @@ function revealFindMatch() {
 function navigateFind(direction: 1 | -1) {
   const matches = findMatches.value;
   if (!matches.length) return;
-  findActiveIndex.value = (findActiveIndex.value + direction + matches.length) % matches.length;
+  findActiveIndex.value =
+    (findActiveIndex.value + direction + matches.length) % matches.length;
   revealFindMatch();
 }
 
 function capsuleRange(part: TextPart): [number, number] {
-  return part.hit?.unit.capsules.find((capsule) => capsule.key === part.capsuleKey)?.range ?? part.hit?.range ?? part.range;
+  return (
+    part.hit?.unit.capsules.find((capsule) => capsule.key === part.capsuleKey)
+      ?.range ??
+    part.hit?.range ??
+    part.range
+  );
 }
 
 function pointerTextOffset(event: PointerEvent): number | null {
-  const caret = (document as Document & { caretRangeFromPoint(x: number, y: number): Range | null }).caretRangeFromPoint(event.clientX, event.clientY);
-  return caret ? selectionOffset(caret.startContainer, caret.startOffset) : null;
+  const caret = (
+    document as Document & {
+      caretRangeFromPoint(x: number, y: number): Range | null;
+    }
+  ).caretRangeFromPoint(event.clientX, event.clientY);
+  return caret
+    ? selectionOffset(caret.startContainer, caret.startOffset)
+    : null;
 }
 
-function startMerge(part: TextPart, block: ReaderTextBlock, event: PointerEvent) {
+function startMerge(
+  part: TextPart,
+  block: ReaderTextBlock,
+  event: PointerEvent,
+) {
   suppressPartClick = false;
-  if (event.button !== 0 || !event.isPrimary || event.pointerType === "touch") return;
-  if (mergedHit.value && part.hit?.key === mergedHit.value.key && !event.shiftKey) return;
-  const unit = part.hit?.unit ?? (event.shiftKey ? unitLookups().find((lookup) => lookup.range[0] <= part.range[0] && part.range[0] < lookup.range[1]) : undefined);
+  if (event.button !== 0 || !event.isPrimary || event.pointerType === "touch")
+    return;
+  if (
+    mergedHit.value &&
+    part.hit?.key === mergedHit.value.key &&
+    !event.shiftKey
+  )
+    return;
+  const unit =
+    part.hit?.unit ??
+    (event.shiftKey
+      ? unitLookups().find(
+          (lookup) =>
+            lookup.range[0] <= part.range[0] && part.range[0] < lookup.range[1],
+        )
+      : undefined);
   if (!unit || !lookupIsCurrent(unit)) return;
   const anchor = event.shiftKey ? pointerTextOffset(event) : part.range[0];
   if (anchor === null) return;
-  const excluded = selectionExcludedRanges(unit.unit.document!, unit.contextOffset);
-  if (!constrainMergeRange(preparedCharacters.value, part.range, Math.min(anchor, part.range[1] - 1), excluded)) return;
+  const excluded = selectionExcludedRanges(
+    unit.unit.document!,
+    unit.contextOffset,
+  );
+  if (
+    !constrainMergeRange(
+      preparedCharacters.value,
+      part.range,
+      Math.min(anchor, part.range[1] - 1),
+      excluded,
+    )
+  )
+    return;
   event.preventDefault();
   closeLookup();
   clearPendingSelection();
   const source = event.currentTarget as HTMLElement;
   scrollElement.value?.setPointerCapture(event.pointerId);
-  mergeDrag.value = { pointerId: event.pointerId, source, block, start: part, end: part, x: event.clientX, y: event.clientY, moved: false, unit, free: event.shiftKey, anchor, focus: anchor };
+  mergeDrag.value = {
+    pointerId: event.pointerId,
+    source,
+    block,
+    start: part,
+    end: part,
+    x: event.clientX,
+    y: event.clientY,
+    moved: false,
+    unit,
+    free: event.shiftKey,
+    anchor,
+    focus: anchor,
+  };
 }
 
 function moveMerge(event: PointerEvent) {
   const drag = mergeDrag.value;
   if (!drag || event.pointerId !== drag.pointerId) return;
-  if (!drag.moved && Math.hypot(event.clientX - drag.x, event.clientY - drag.y) < 5) return;
+  if (
+    !drag.moved &&
+    Math.hypot(event.clientX - drag.x, event.clientY - drag.y) < 5
+  )
+    return;
   event.preventDefault();
-  const element = document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>("[data-part-key]");
-  const part = element ? visibleParts.value.get(element.dataset.partKey!) : undefined;
-  if (!part || element?.closest<HTMLElement>("[data-block-id]")?.dataset.blockId !== drag.block.id) return;
+  const element = document
+    .elementFromPoint(event.clientX, event.clientY)
+    ?.closest<HTMLElement>("[data-part-key]");
+  const part = element
+    ? visibleParts.value.get(element.dataset.partKey!)
+    : undefined;
+  if (
+    !part ||
+    element?.closest<HTMLElement>("[data-block-id]")?.dataset.blockId !==
+      drag.block.id
+  )
+    return;
   const focus = drag.free ? pointerTextOffset(event) : part.range[1];
   if (focus === null) return;
-  if (!drag.moved || part.key !== drag.end.key || focus !== drag.focus) mergeDrag.value = { ...drag, end: part, focus, moved: true };
+  if (!drag.moved || part.key !== drag.end.key || focus !== drag.focus)
+    mergeDrag.value = { ...drag, end: part, focus, moved: true };
 }
 
 function cancelMerge() {
   const drag = mergeDrag.value;
   if (drag?.moved) suppressPartClick = true;
   mergeDrag.value = null;
-  if (drag && scrollElement.value?.hasPointerCapture(drag.pointerId)) scrollElement.value.releasePointerCapture(drag.pointerId);
+  if (drag && scrollElement.value?.hasPointerCapture(drag.pointerId))
+    scrollElement.value.releasePointerCapture(drag.pointerId);
 }
 
 function finishMerge(event: PointerEvent) {
@@ -764,35 +1237,63 @@ function finishMerge(event: PointerEvent) {
   suppressPartClick = true;
   event.preventDefault();
   if (!lookupIsCurrent(drag.unit)) return;
-  const source = document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>("[data-part-key]") ?? drag.source;
+  const source =
+    document
+      .elementFromPoint(event.clientX, event.clientY)
+      ?.closest<HTMLElement>("[data-part-key]") ?? drag.source;
   activeCapsule = source.closest<HTMLElement>(".reader-capsule") ?? source;
   positionLookupAt(snapshotRect(source.getBoundingClientRect()));
   const target: LookupTarget = {
-    id: `selection:${range[0]}:${range[1]}`, parent_outer_id: null,
-    char_range: [0, range[1] - range[0]], reason: "selection",
-    surface: preparedCharacters.value.slice(...range).join(""), decision: "selection",
-    morpheme_ids: [], lexical_core_ids: [], source_formation_ids: [], lookup_forms: [], reading_evidence: [],
+    id: `selection:${range[0]}:${range[1]}`,
+    parent_outer_id: null,
+    char_range: [0, range[1] - range[0]],
+    reason: "selection",
+    surface: preparedCharacters.value.slice(...range).join(""),
+    decision: "selection",
+    morpheme_ids: [],
+    lexical_core_ids: [],
+    source_formation_ids: [],
+    lookup_forms: [],
+    reading_evidence: [],
   };
   componentHit.value = null;
   componentQuery.value = null;
   ++componentGeneration;
-  const hit: TargetHit = { key: `${drag.unit.unit.unit_id}:${target.id}`, unit: drag.unit, target, range, children: [] };
+  const hit: TargetHit = {
+    key: `${drag.unit.unit.unit_id}:${target.id}`,
+    unit: drag.unit,
+    target,
+    range,
+    children: [],
+  };
   mergedHit.value = hit;
   void queryTarget(hit);
   void nextTick().then(() => {
-    const element = scrollElement.value?.querySelector<HTMLElement>(`[data-lookup-key="${hit.key}"]`);
-    if (mergedHit.value?.key === hit.key && element) activeCapsule = element.closest<HTMLElement>(".reader-capsule") ?? element;
+    const element = scrollElement.value?.querySelector<HTMLElement>(
+      `[data-lookup-key="${hit.key}"]`,
+    );
+    if (mergedHit.value?.key === hit.key && element)
+      activeCapsule =
+        element.closest<HTMLElement>(".reader-capsule") ?? element;
   });
 }
 
 function clickPart(part: TextPart, event: MouseEvent) {
-  if (suppressPartClick) { suppressPartClick = false; return; }
-  if (part.hit && part.hit.target.decision !== "grammar") openLookup(part.hit, event.currentTarget as HTMLElement, part.range, null);
-  else if (part.hit && part.detail) scheduleLookup(part.hit, event, part.detail);
+  if (suppressPartClick) {
+    suppressPartClick = false;
+    return;
+  }
+  if (part.hit && part.hit.target.decision !== "grammar")
+    openLookup(part.hit, event.currentTarget as HTMLElement, part.range, null);
+  else if (part.hit && part.detail)
+    scheduleLookup(part.hit, event, part.detail);
 }
 
 function selectionOffset(node: Node, offset: number): number | null {
-  const element = node.nodeType === Node.ELEMENT_NODE ? node as Element : node.parentElement;
+  const element =
+    node.nodeType === Node.ELEMENT_NODE
+      ? (node as Element)
+      : node.parentElement;
   if (element?.closest("rt, rp")) return null;
   const part = element?.closest<HTMLElement>("[data-char-start]");
   if (!part || !scrollElement.value?.contains(part)) return null;
@@ -808,18 +1309,29 @@ function selectionOffset(node: Node, offset: number): number | null {
 
 function selectedRange(): [number, number] | null {
   const selection = window.getSelection();
-  if (!selection || selection.isCollapsed || !scrollElement.value || !selection.rangeCount) return null;
+  if (
+    !selection ||
+    selection.isCollapsed ||
+    !scrollElement.value ||
+    !selection.rangeCount
+  )
+    return null;
   const range = selection.getRangeAt(0);
   if (!scrollElement.value.contains(range.commonAncestorContainer)) return null;
   const anchor = selectionOffset(range.startContainer, range.startOffset);
   const focus = selectionOffset(range.endContainer, range.endOffset);
-  return anchor === null || focus === null ? null : [Math.min(anchor, focus), Math.max(anchor, focus)];
+  return anchor === null || focus === null
+    ? null
+    : [Math.min(anchor, focus), Math.max(anchor, focus)];
 }
 
 function copySelection(event: ClipboardEvent) {
   const range = selectedRange();
   if (!range || range[0] === range[1] || !event.clipboardData) return;
-  event.clipboardData.setData("text/plain", preparedCharacters.value.slice(...range).join(""));
+  event.clipboardData.setData(
+    "text/plain",
+    preparedCharacters.value.slice(...range).join(""),
+  );
   event.preventDefault();
 }
 
@@ -832,12 +1344,28 @@ function captureSelection() {
   while (end > start && /\s/u.test(preparedCharacters.value[end - 1])) end--;
   const surface = preparedCharacters.value.slice(start, end).join("");
   if (!surface) return;
-  const block = props.readerDocument.blocks.find((item): item is ReaderTextBlock => item.kind !== "image" && item.charRange[0] <= start && start < item.charRange[1])
-    || props.readerDocument.blocks.find((item): item is ReaderTextBlock => item.kind !== "image");
+  const block =
+    props.readerDocument.blocks.find(
+      (item): item is ReaderTextBlock =>
+        item.kind !== "image" &&
+        item.charRange[0] <= start &&
+        start < item.charRange[1],
+    ) ||
+    props.readerDocument.blocks.find(
+      (item): item is ReaderTextBlock => item.kind !== "image",
+    );
   if (!block) return;
   const hit = hitsForBlock(block);
-  const form = hit.find((item) => item.range[0] <= start && start < item.range[1])?.target.lookup_forms[0];
-  pendingSelection.value = { start, end, surface, baseForm: form?.form || "", reading: form?.reading || "" };
+  const form = hit.find(
+    (item) => item.range[0] <= start && start < item.range[1],
+  )?.target.lookup_forms[0];
+  pendingSelection.value = {
+    start,
+    end,
+    surface,
+    baseForm: form?.form || "",
+    reading: form?.reading || "",
+  };
 }
 
 function clearPendingSelection() {
@@ -869,13 +1397,24 @@ function refreshLookupPosition() {
   if (!anchor) return;
   const companion = lookupCompanion.value;
   const width = explanationPanelWidth(window.innerWidth, Boolean(companion));
-  const dictionaryWidth = companion === "component" ? Math.min(365, width) : width;
-  const dictionarySize = intrinsicLookupPanelSize("reader-dictionary", { width: dictionaryWidth, height: 420 });
-  const companionSize = companion === "component"
-    ? intrinsicLookupPanelSize("reader-component-dictionary", { width: dictionaryWidth, height: 420 })
-    : companion === "detail"
-      ? intrinsicLookupPanelSize("reader-morphology-detail", { width: Math.min(310, width), height: 240 })
-      : undefined;
+  const dictionaryWidth =
+    companion === "component" ? Math.min(365, width) : width;
+  const dictionarySize = intrinsicLookupPanelSize("reader-dictionary", {
+    width: dictionaryWidth,
+    height: 420,
+  });
+  const companionSize =
+    companion === "component"
+      ? intrinsicLookupPanelSize("reader-component-dictionary", {
+          width: dictionaryWidth,
+          height: 420,
+        })
+      : companion === "detail"
+        ? intrinsicLookupPanelSize("reader-morphology-detail", {
+            width: Math.min(310, width),
+            height: 240,
+          })
+        : undefined;
   const placement = placeExplanationPanels(
     anchor,
     anchor,
@@ -884,10 +1423,20 @@ function refreshLookupPosition() {
     companion ? dictionarySize : undefined,
   );
   const dictionary = companion ? placement.whole! : placement.component;
-  lookupPosition.value = { x: dictionary.left, y: dictionary.top, width: dictionary.width, maxHeight: dictionary.maxHeight };
+  lookupPosition.value = {
+    x: dictionary.left,
+    y: dictionary.top,
+    width: dictionary.width,
+    maxHeight: dictionary.maxHeight,
+  };
   if (companion) {
     const detail = placement.component;
-    componentPosition.value = { x: detail.left, y: detail.top, width: detail.width, maxHeight: detail.maxHeight };
+    componentPosition.value = {
+      x: detail.left,
+      y: detail.top,
+      width: detail.width,
+      maxHeight: detail.maxHeight,
+    };
     detailPosition.value = componentPosition.value;
   }
 }
@@ -899,14 +1448,19 @@ function observeLookupPosition() {
     document.getElementById("reader-component-dictionary"),
     document.getElementById("reader-morphology-detail"),
     document.querySelector('[data-explanation-content="reader-dictionary"]'),
-    document.querySelector('[data-explanation-content="reader-component-dictionary"]'),
+    document.querySelector(
+      '[data-explanation-content="reader-component-dictionary"]',
+    ),
   ].filter((element): element is Element => Boolean(element));
   if (!elements.length) return;
   lookupPositionObserver = new ResizeObserver(refreshLookupPosition);
   elements.forEach((element) => lookupPositionObserver?.observe(element));
 }
 
-function positionLookupAt(anchor: ReturnType<typeof snapshotRect>, companion: "component" | "detail" | null = null) {
+function positionLookupAt(
+  anchor: ReturnType<typeof snapshotRect>,
+  companion: "component" | "detail" | null = null,
+) {
   lookupAnchor.value = anchor;
   lookupCompanion.value = companion;
   refreshLookupPosition();
@@ -917,11 +1471,19 @@ function positionLookupAt(anchor: ReturnType<typeof snapshotRect>, companion: "c
 }
 
 function orderedLookup(lookup: DictionaryLookup): DictionaryLookup {
-  dictionaryNames.value = [...new Set([...dictionaryNames.value, ...lookup.dictionary_names])];
+  dictionaryNames.value = [
+    ...new Set([...dictionaryNames.value, ...lookup.dictionary_names]),
+  ];
   return {
     ...lookup,
-    dictionary_names: [...dictionaryOrder.value.filter((name) => lookup.dictionary_names.includes(name)),
-      ...lookup.dictionary_names.filter((name) => !dictionaryOrder.value.includes(name))],
+    dictionary_names: [
+      ...dictionaryOrder.value.filter((name) =>
+        lookup.dictionary_names.includes(name),
+      ),
+      ...lookup.dictionary_names.filter(
+        (name) => !dictionaryOrder.value.includes(name),
+      ),
+    ],
   };
 }
 
@@ -929,26 +1491,58 @@ function updateDictionaryOrder(order: string[]) {
   dictionaryOrder.value = order;
   localStorage.setItem("readux.reader.dictionaryOrder", JSON.stringify(order));
   if (activeQuery.value) activeQuery.value = orderedLookup(activeQuery.value);
-  if (componentQuery.value) componentQuery.value = orderedLookup(componentQuery.value);
+  if (componentQuery.value)
+    componentQuery.value = orderedLookup(componentQuery.value);
 }
 
-function componentForHit(hit: TargetHit, range: [number, number], detail: ReaderMorphologyDetail | null): TargetHit | null {
+function componentForHit(
+  hit: TargetHit,
+  range: [number, number],
+  detail: ReaderMorphologyDetail | null,
+): TargetHit | null {
   const outer = outerForHit(hit);
   if (detail || outer.target.decision === "selection") return null;
-  const child = outer.children.filter((target) => target.decision === "queryable"
-    && target.char_range[0] <= range[0] && range[1] <= target.char_range[1])
-    .sort((left, right) => (left.char_range[1] - left.char_range[0]) - (right.char_range[1] - right.char_range[0]))[0];
-  return child ? { key: `${outer.key}:${child.id}`, unit: outer.unit, target: child, range: child.char_range, children: [] } : null;
+  const child = outer.children
+    .filter(
+      (target) =>
+        target.decision === "queryable" &&
+        target.char_range[0] <= range[0] &&
+        range[1] <= target.char_range[1],
+    )
+    .sort(
+      (left, right) =>
+        left.char_range[1] -
+        left.char_range[0] -
+        (right.char_range[1] - right.char_range[0]),
+    )[0];
+  return child
+    ? {
+        key: `${outer.key}:${child.id}`,
+        unit: outer.unit,
+        target: child,
+        range: child.char_range,
+        children: [],
+      }
+    : null;
 }
 
-function openLookup(hit: TargetHit, source: HTMLElement, range: [number, number], detail: ReaderMorphologyDetail | null) {
+function openLookup(
+  hit: TargetHit,
+  source: HTMLElement,
+  range: [number, number],
+  detail: ReaderMorphologyDetail | null,
+) {
   if (mergedHit.value?.key === hit.key) detail ??= activeDetail.value;
   const outer = outerForHit(hit);
   const component = componentForHit(hit, range, detail);
   activeCapsule = source.closest<HTMLElement>(".reader-capsule") ?? source;
-  positionLookupAt(snapshotRect(source.getBoundingClientRect()), component ? "component" : detail ? "detail" : null);
+  positionLookupAt(
+    snapshotRect(source.getBoundingClientRect()),
+    component ? "component" : detail ? "detail" : null,
+  );
   activeDetail.value = detail;
-  if (activeHit.value?.key !== outer.key || relatedWord.value) void queryTarget(outer);
+  if (activeHit.value?.key !== outer.key || relatedWord.value)
+    void queryTarget(outer);
   if (componentHit.value?.key !== component?.key) {
     componentHit.value = component;
     componentQuery.value = null;
@@ -976,36 +1570,67 @@ async function queryComponent(hit: TargetHit, selectedForm?: string) {
       target_id: hit.target.id,
       selected_form: selectedForm || null,
     });
-    if (generation === componentGeneration && lookupIsCurrent(hit.unit)) componentQuery.value = orderedLookup(result);
+    if (generation === componentGeneration && lookupIsCurrent(hit.unit))
+      componentQuery.value = orderedLookup(result);
   } catch (error) {
-    if (generation === componentGeneration) componentError.value = error instanceof Error ? error.message : String(error);
+    if (generation === componentGeneration)
+      componentError.value =
+        error instanceof Error ? error.message : String(error);
   } finally {
     if (generation === componentGeneration) componentBusy.value = false;
   }
 }
 
-function scheduleLookup(hit: TargetHit, event: MouseEvent, detail: ReaderMorphologyDetail | null) {
-  if (mergedHit.value || mergeDrag.value || event.buttons !== 0 || !lookupIsCurrent(hit.unit) || (hit.target.decision === "grammar" && !detail) || window.getSelection()?.isCollapsed === false) return;
+function scheduleLookup(
+  hit: TargetHit,
+  event: MouseEvent,
+  detail: ReaderMorphologyDetail | null,
+) {
+  if (
+    mergedHit.value ||
+    mergeDrag.value ||
+    event.buttons !== 0 ||
+    !lookupIsCurrent(hit.unit) ||
+    (hit.target.decision === "grammar" && !detail) ||
+    window.getSelection()?.isCollapsed === false
+  )
+    return;
   cancelCloseLookup();
   clearTimeout(hoverTimer);
   pendingCapsule = null;
   const source = event.currentTarget as HTMLElement;
   const capsule = source.closest<HTMLElement>(".reader-capsule") ?? source;
   const anchor = snapshotRect(source.getBoundingClientRect());
-  const range: [number, number] = [Number(source.dataset.charStart), Number(source.dataset.charEnd)];
+  const range: [number, number] = [
+    Number(source.dataset.charStart),
+    Number(source.dataset.charEnd),
+  ];
   const outer = outerForHit(hit);
   const component = componentForHit(hit, range, detail);
-  if (activeHit.value?.key === outer.key && componentHit.value?.key === component?.key && !relatedWord.value) {
+  if (
+    activeHit.value?.key === outer.key &&
+    componentHit.value?.key === component?.key &&
+    !relatedWord.value
+  ) {
     activeCapsule = capsule;
     activeDetail.value = detail;
-    positionLookupAt(anchor, component ? "component" : detail ? "detail" : null);
+    positionLookupAt(
+      anchor,
+      component ? "component" : detail ? "detail" : null,
+    );
     return;
   }
   const open = () => {
-    if (!capsule.isConnected || !lookupIsCurrent(hit.unit) || window.getSelection()?.isCollapsed === false) return;
+    if (
+      !capsule.isConnected ||
+      !lookupIsCurrent(hit.unit) ||
+      window.getSelection()?.isCollapsed === false
+    )
+      return;
     pendingCapsule = null;
     activeCapsule = capsule;
-    if (hit.target.decision !== "grammar") openLookup(hit, source, range, detail);
+    if (hit.target.decision !== "grammar")
+      openLookup(hit, source, range, detail);
     else {
       ++queryGeneration;
       ++componentGeneration;
@@ -1023,12 +1648,21 @@ function scheduleLookup(hit: TargetHit, event: MouseEvent, detail: ReaderMorphol
 function scheduleCloseLookup(event?: PointerEvent) {
   if (mergedHit.value) return;
   if (event) pointerPosition = { x: event.clientX, y: event.clientY };
-  if (event && insideLookupRegion(event.relatedTarget, event.clientX, event.clientY)) return;
+  if (
+    event &&
+    insideLookupRegion(event.relatedTarget, event.clientX, event.clientY)
+  )
+    return;
   if (closeTimer !== undefined) return;
   closeTimer = setTimeout(() => {
-    if (pointerPosition && insideLookupRegion(
-      document.elementFromPoint(pointerPosition.x, pointerPosition.y), pointerPosition.x, pointerPosition.y,
-    )) {
+    if (
+      pointerPosition &&
+      insideLookupRegion(
+        document.elementFromPoint(pointerPosition.x, pointerPosition.y),
+        pointerPosition.x,
+        pointerPosition.y,
+      )
+    ) {
       cancelCloseLookup();
       return;
     }
@@ -1043,35 +1677,60 @@ function cancelCloseLookup() {
 
 function pointerInLookupTriangle(x: number, y: number): boolean {
   const panels = [
-    ...document.querySelectorAll<HTMLElement>('[data-explanation-panel^="reader-"]'),
+    ...document.querySelectorAll<HTMLElement>(
+      '[data-explanation-panel^="reader-"]',
+    ),
     document.getElementById("reader-morphology-detail"),
   ].filter((panel): panel is HTMLElement => Boolean(panel));
-  return panels.some((panel, index) => panels.slice(index + 1).some((other) => isWithinPanelGroupTriangle(
-    x,
-    y,
-    snapshotRect(panel.getBoundingClientRect()),
-    snapshotRect(other.getBoundingClientRect()),
-  )));
+  return panels.some((panel, index) =>
+    panels
+      .slice(index + 1)
+      .some((other) =>
+        isWithinPanelGroupTriangle(
+          x,
+          y,
+          snapshotRect(panel.getBoundingClientRect()),
+          snapshotRect(other.getBoundingClientRect()),
+        ),
+      ),
+  );
 }
 
-function insideLookupRegion(target: EventTarget | null, x?: number, y?: number): boolean {
-  const part = target instanceof Element ? target.closest<HTMLElement>("[data-lookup-key]") : null;
+function insideLookupRegion(
+  target: EventTarget | null,
+  x?: number,
+  y?: number,
+): boolean {
+  const part =
+    target instanceof Element
+      ? target.closest<HTMLElement>("[data-lookup-key]")
+      : null;
   if (part && part.dataset.lookupKey === activeHit.value?.key) {
     activeCapsule = part.closest<HTMLElement>(".reader-capsule") ?? part;
     return true;
   }
-  const insideElement = target instanceof Node && Boolean(activeCapsule?.contains(target)
-    || document.getElementById("reader-dictionary")?.contains(target)
-    || document.getElementById("reader-component-dictionary")?.contains(target)
-    || document.getElementById("reader-morphology-detail")?.contains(target));
-  return insideElement || (x !== undefined && y !== undefined && pointerInLookupTriangle(x, y));
+  const insideElement =
+    target instanceof Node &&
+    Boolean(
+      activeCapsule?.contains(target) ||
+      document.getElementById("reader-dictionary")?.contains(target) ||
+      document
+        .getElementById("reader-component-dictionary")
+        ?.contains(target) ||
+      document.getElementById("reader-morphology-detail")?.contains(target),
+    );
+  return (
+    insideElement ||
+    (x !== undefined && y !== undefined && pointerInLookupTriangle(x, y))
+  );
 }
 
 function monitorLookupPointer(event: PointerEvent) {
   pointerPosition = { x: event.clientX, y: event.clientY };
   if (!activeHit.value || mergedHit.value) return;
   const target = document.elementFromPoint(event.clientX, event.clientY);
-  if (insideLookupRegion(target, event.clientX, event.clientY)) cancelCloseLookup();
+  if (insideLookupRegion(target, event.clientX, event.clientY))
+    cancelCloseLookup();
   else scheduleCloseLookup(event);
 }
 
@@ -1080,7 +1739,11 @@ function leaveCapsule(event: PointerEvent) {
     clearTimeout(hoverTimer);
     pendingCapsule = null;
   }
-  if (activeHit.value && !insideLookupRegion(event.relatedTarget, event.clientX, event.clientY)) scheduleCloseLookup(event);
+  if (
+    activeHit.value &&
+    !insideLookupRegion(event.relatedTarget, event.clientX, event.clientY)
+  )
+    scheduleCloseLookup(event);
 }
 
 function leavePart() {
@@ -1090,13 +1753,27 @@ function leavePart() {
 
 function outerForHit(hit: TargetHit): TargetHit {
   if (!hit.target.parent_outer_id) return hit;
-  const parent = hit.unit.group.outer_targets.find((target) => target.id === hit.target.parent_outer_id);
+  const parent = hit.unit.group.outer_targets.find(
+    (target) => target.id === hit.target.parent_outer_id,
+  );
   if (!parent) return hit;
   return {
-    key: `${hit.unit.unit.unit_id}:${parent.id}`, unit: hit.unit, target: parent,
-    range: [parent.char_range[0] + hit.unit.contextOffset, parent.char_range[1] + hit.unit.contextOffset],
-    children: hit.unit.group.inner_targets.filter((target) => target.parent_outer_id === parent.id)
-      .map((target) => ({ ...target, char_range: [target.char_range[0] + hit.unit.contextOffset, target.char_range[1] + hit.unit.contextOffset] as [number, number] })),
+    key: `${hit.unit.unit.unit_id}:${parent.id}`,
+    unit: hit.unit,
+    target: parent,
+    range: [
+      parent.char_range[0] + hit.unit.contextOffset,
+      parent.char_range[1] + hit.unit.contextOffset,
+    ],
+    children: hit.unit.group.inner_targets
+      .filter((target) => target.parent_outer_id === parent.id)
+      .map((target) => ({
+        ...target,
+        char_range: [
+          target.char_range[0] + hit.unit.contextOffset,
+          target.char_range[1] + hit.unit.contextOffset,
+        ] as [number, number],
+      })),
   };
 }
 
@@ -1115,21 +1792,38 @@ async function queryTarget(hit: TargetHit, selectedForm?: string) {
     if (hit.target.decision === "selection") {
       if (!hit.selectionDocument) {
         const document = await nlpRequest<UnifiedDocument>({
-          command: "analyze_routed", text: hit.target.surface,
-          policy: hit.unit.unit.document?.routing.selected ?? props.session.plan.routing.requested,
+          command: "analyze_routed",
+          text: hit.target.surface,
+          policy:
+            hit.unit.unit.document?.routing.selected ??
+            props.session.plan.routing.requested,
         });
-        if (generation !== queryGeneration || !lookupIsCurrent(hit.unit)) return;
-        hit = { ...hit, target: { ...hit.target, ...mergedLookupTarget(document) }, selectionDocument: document };
+        if (generation !== queryGeneration || !lookupIsCurrent(hit.unit))
+          return;
+        hit = {
+          ...hit,
+          target: { ...hit.target, ...mergedLookupTarget(document) },
+          selectionDocument: document,
+        };
         mergedHit.value = hit;
         activeHit.value = hit;
-        activeDetail.value = readerMorphologyHits([hit.target], document)[0]?.detail ?? null;
-        if (lookupAnchor.value) positionLookupAt(lookupAnchor.value, activeDetail.value ? "detail" : null);
+        activeDetail.value =
+          readerMorphologyHits([hit.target], document)[0]?.detail ?? null;
+        if (lookupAnchor.value)
+          positionLookupAt(
+            lookupAnchor.value,
+            activeDetail.value ? "detail" : null,
+          );
       }
-      const word = selectedForm || hit.target.lookup_forms[0]?.form || hit.target.surface;
+      const word =
+        selectedForm || hit.target.lookup_forms[0]?.form || hit.target.surface;
       const result = await nlpRequest<QueryOutput>({ command: "search", word });
       if (generation !== queryGeneration || !lookupIsCurrent(hit.unit)) return;
       relatedSearch.value = result;
-      activeQuery.value = orderedLookup({ ...dictionaryLookupFromSearch(result, word), observed_form: hit.target.surface });
+      activeQuery.value = orderedLookup({
+        ...dictionaryLookupFromSearch(result, word),
+        observed_form: hit.target.surface,
+      });
     } else {
       const result = await nlpRequest<DictionaryLookup>({
         command: "query_lookup_document",
@@ -1150,13 +1844,20 @@ async function queryTarget(hit: TargetHit, selectedForm?: string) {
       if (generation !== queryGeneration) return;
       if (!exposedTargets.has(hit.key)) {
         exposedTargets.add(hit.key);
-        void readerRequest("reader_expose", { base: form.form, reading: form.reading || "" }).catch(() => undefined);
+        void readerRequest("reader_expose", {
+          base: form.form,
+          reading: form.reading || "",
+        }).catch(() => undefined);
       }
     }
   } catch (error) {
     if (generation === queryGeneration) {
-      if (isSessionGenerationError(error)) { closeLookup(); emit("sync"); }
-      else queryError.value = error instanceof Error ? error.message : String(error);
+      if (isSessionGenerationError(error)) {
+        closeLookup();
+        emit("sync");
+      } else
+        queryError.value =
+          error instanceof Error ? error.message : String(error);
     }
   } finally {
     if (generation === queryGeneration) queryBusy.value = false;
@@ -1196,23 +1897,41 @@ function closeLookup() {
 function selectLookupForm(formId: string) {
   const form = activeQuery.value?.forms.find((item) => item.form_id === formId);
   if (!form || !activeHit.value) return;
-  if (relatedSearch.value) activeQuery.value = orderedLookup({
-    ...dictionaryLookupFromSearch(relatedSearch.value, relatedWord.value || activeQuery.value!.query, formId),
-    observed_form: relatedWord.value || activeHit.value.target.surface,
-  });
+  if (relatedSearch.value)
+    activeQuery.value = orderedLookup({
+      ...dictionaryLookupFromSearch(
+        relatedSearch.value,
+        relatedWord.value || activeQuery.value!.query,
+        formId,
+      ),
+      observed_form: relatedWord.value || activeHit.value.target.surface,
+    });
   else void queryTarget(activeHit.value, form.display_form);
 }
 
 function selectComponentForm(formId: string) {
-  const form = componentQuery.value?.forms.find((item) => item.form_id === formId);
+  const form = componentQuery.value?.forms.find(
+    (item) => item.form_id === formId,
+  );
   if (!form || !componentHit.value) return;
-  if (componentSearch.value) componentQuery.value = orderedLookup(dictionaryLookupFromSearch(componentSearch.value, componentWord.value, formId));
+  if (componentSearch.value)
+    componentQuery.value = orderedLookup(
+      dictionaryLookupFromSearch(
+        componentSearch.value,
+        componentWord.value,
+        formId,
+      ),
+    );
   else void queryComponent(componentHit.value, form.display_form);
 }
 
 async function navigateComponent(word: string) {
   if (!componentQuery.value) return;
-  const previous = { query: componentQuery.value, word: componentWord.value, search: componentSearch.value };
+  const previous = {
+    query: componentQuery.value,
+    word: componentWord.value,
+    search: componentSearch.value,
+  };
   const generation = ++componentGeneration;
   componentBusy.value = true;
   componentError.value = "";
@@ -1222,9 +1941,13 @@ async function navigateComponent(word: string) {
     componentHistory.value = [...componentHistory.value, previous];
     componentWord.value = word;
     componentSearch.value = result;
-    componentQuery.value = orderedLookup(dictionaryLookupFromSearch(result, word));
+    componentQuery.value = orderedLookup(
+      dictionaryLookupFromSearch(result, word),
+    );
   } catch (error) {
-    if (generation === componentGeneration) componentError.value = error instanceof Error ? error.message : String(error);
+    if (generation === componentGeneration)
+      componentError.value =
+        error instanceof Error ? error.message : String(error);
   } finally {
     if (generation === componentGeneration) componentBusy.value = false;
   }
@@ -1244,7 +1967,11 @@ function backComponent() {
 
 async function navigateLookup(word: string) {
   if (!activeQuery.value) return;
-  const previous = { query: activeQuery.value, word: relatedWord.value, search: relatedSearch.value };
+  const previous = {
+    query: activeQuery.value,
+    word: relatedWord.value,
+    search: relatedSearch.value,
+  };
   const generation = ++queryGeneration;
   queryBusy.value = true;
   queryError.value = "";
@@ -1256,7 +1983,8 @@ async function navigateLookup(word: string) {
     relatedSearch.value = result;
     activeQuery.value = orderedLookup(dictionaryLookupFromSearch(result, word));
   } catch (error) {
-    if (generation === queryGeneration) queryError.value = error instanceof Error ? error.message : String(error);
+    if (generation === queryGeneration)
+      queryError.value = error instanceof Error ? error.message : String(error);
   } finally {
     if (generation === queryGeneration) queryBusy.value = false;
   }
@@ -1274,9 +2002,16 @@ function backLookup() {
   queryBusy.value = false;
 }
 
-async function refreshWord(baseForm: string, reading: string, generation: number) {
+async function refreshWord(
+  baseForm: string,
+  reading: string,
+  generation: number,
+) {
   try {
-    const result = await readerRequest<{ known: boolean; exposures: number }>("reader_word", { base: baseForm, reading });
+    const result = await readerRequest<{ known: boolean; exposures: number }>(
+      "reader_word",
+      { base: baseForm, reading },
+    );
     if (generation === queryGeneration) wordState.value = result;
   } catch {
     if (generation === queryGeneration) wordState.value = null;
@@ -1288,10 +2023,14 @@ async function markWord(known: boolean) {
   const form = activeHit.value?.target.lookup_forms[0];
   if (!form || relatedWord.value) return;
   try {
-    const result = await readerRequest<{ known: boolean; exposures: number }>("reader_mark", { base: form.form, reading: form.reading || "", known });
+    const result = await readerRequest<{ known: boolean; exposures: number }>(
+      "reader_mark",
+      { base: form.form, reading: form.reading || "", known },
+    );
     if (generation === queryGeneration) wordState.value = result;
   } catch (error) {
-    if (generation === queryGeneration) queryError.value = error instanceof Error ? error.message : String(error);
+    if (generation === queryGeneration)
+      queryError.value = error instanceof Error ? error.message : String(error);
   }
 }
 
@@ -1301,8 +2040,11 @@ function handleScroll() {
   cancelMerge();
   if (mergedHit.value) handleLookupResize();
   else closeLookup();
-  const firstVisible = virtualizer.value.getVirtualItems().find((item) => item.end > element.scrollTop);
-  if (firstVisible) currentOffset.value = rowCharacterOffset(rows.value[firstVisible.index]);
+  const firstVisible = virtualizer.value
+    .getVirtualItems()
+    .find((item) => item.end > element.scrollTop);
+  if (firstVisible)
+    currentOffset.value = rowCharacterOffset(rows.value[firstVisible.index]);
   clearTimeout(progressTimer);
   progressTimer = setTimeout(() => {
     const now = Date.now();
@@ -1313,15 +2055,29 @@ function handleScroll() {
 }
 
 function handleLookupResize() {
-  if (!mergedHit.value) { closeLookup(); return; }
-  const element = scrollElement.value?.querySelector<HTMLElement>(`[data-lookup-key="${mergedHit.value.key}"]`);
-  if (element) lookupAnchor.value = snapshotRect(element.getBoundingClientRect());
+  if (!mergedHit.value) {
+    closeLookup();
+    return;
+  }
+  const element = scrollElement.value?.querySelector<HTMLElement>(
+    `[data-lookup-key="${mergedHit.value.key}"]`,
+  );
+  if (element)
+    lookupAnchor.value = snapshotRect(element.getBoundingClientRect());
   refreshLookupPosition();
 }
 
 function navigate(chapter: { charOffset: number }) {
-  const headingIndex = rows.value.findIndex((row) => row.kind === "text" && row.heading?.charOffset === chapter.charOffset);
-  virtualizer.value.scrollToIndex(headingIndex >= 0 ? headingIndex : rowIndexForOffset(rows.value, chapter.charOffset), { align: "start" });
+  const headingIndex = rows.value.findIndex(
+    (row) =>
+      row.kind === "text" && row.heading?.charOffset === chapter.charOffset,
+  );
+  virtualizer.value.scrollToIndex(
+    headingIndex >= 0
+      ? headingIndex
+      : rowIndexForOffset(rows.value, chapter.charOffset),
+    { align: "start" },
+  );
   currentOffset.value = chapter.charOffset;
   showNavigation.value = false;
 }
@@ -1329,7 +2085,10 @@ function navigate(chapter: { charOffset: number }) {
 async function restoreOffset() {
   await nextTick();
   if (!scrollElement.value || !props.initialOffset) return;
-  virtualizer.value.scrollToIndex(rowIndexForOffset(rows.value, props.initialOffset), { align: "start" });
+  virtualizer.value.scrollToIndex(
+    rowIndexForOffset(rows.value, props.initialOffset),
+    { align: "start" },
+  );
   currentOffset.value = props.initialOffset;
 }
 
@@ -1339,7 +2098,10 @@ function dismissLookup(event: PointerEvent) {
 }
 
 function handleEscape(event: KeyboardEvent) {
-  if (event.key === "Escape") { cancelMerge(); closeLookup(); }
+  if (event.key === "Escape") {
+    cancelMerge();
+    closeLookup();
+  }
 }
 
 function handleKeyboard(event: KeyboardEvent) {
@@ -1361,27 +2123,57 @@ function handleKeyboard(event: KeyboardEvent) {
   }
 }
 
-watch(() => props.session, () => {
-  const drag = mergeDrag.value;
-  if (drag && !lookupIsCurrent(drag.unit)) cancelMerge();
-  if (activeHit.value && !lookupIsCurrent(activeHit.value.unit)) closeLookup();
-}, { flush: "sync" });
-watch(() => [showNavigation.value, showAppearance.value, showExport.value, showDictionarySettings.value], () => closeLookup());
+watch(
+  () => props.session,
+  () => {
+    const drag = mergeDrag.value;
+    if (drag && !lookupIsCurrent(drag.unit)) cancelMerge();
+    if (activeHit.value && !lookupIsCurrent(activeHit.value.unit))
+      closeLookup();
+  },
+  { flush: "sync" },
+);
+watch(
+  () => [
+    showNavigation.value,
+    showAppearance.value,
+    showExport.value,
+    showDictionarySettings.value,
+  ],
+  () => closeLookup(),
+);
 
-watch([() => props.session.session_id, () => props.session.revision, () => props.session.generation,
-  () => visibleRange.value[0], () => visibleRange.value[1]], ([sessionId, , generation], previous) => {
-  if (!previous || sessionId !== previous[0] || generation !== previous[2]) {
-    requestedRange = "";
-    groups.value = new Map();
-    targetErrors.value = new Map();
-  }
-  void syncTargets();
-  requestVisibleUnits();
-}, { immediate: true });
-watch(() => [props.readerDocument.analysisText, props.appearance.fontSize, props.appearance.lineHeight, props.appearance.contentWidth], () => {
-  virtualizer.value.measure();
-});
-watch([findQuery, () => props.readerDocument.analysisText], () => {
+watch(
+  [
+    () => props.session.session_id,
+    () => props.session.revision,
+    () => props.session.generation,
+    () => visibleRange.value[0],
+    () => visibleRange.value[1],
+  ],
+  ([sessionId, , generation], previous) => {
+    if (!previous || sessionId !== previous[0] || generation !== previous[2]) {
+      requestedRange = "";
+      groups.value = new Map();
+      targetErrors.value = new Map();
+    }
+    void syncTargets();
+    requestVisibleUnits();
+  },
+  { immediate: true },
+);
+watch(
+  () => [
+    props.readerDocument.analysisText,
+    props.appearance.fontSize,
+    props.appearance.lineHeight,
+    props.appearance.contentWidth,
+  ],
+  () => {
+    virtualizer.value.measure();
+  },
+);
+watch([findQuery, () => prepared.value.text], () => {
   findActiveIndex.value = 0;
   void nextTick().then(revealFindMatch);
 });
@@ -1397,9 +2189,14 @@ onMounted(() => {
   window.addEventListener("resize", handleLookupResize);
   lastProgressAt = Date.now();
   try {
-    const saved = JSON.parse(localStorage.getItem("readux.reader.dictionaryOrder") || "[]");
-    if (Array.isArray(saved) && saved.every((name) => typeof name === "string")) dictionaryOrder.value = saved;
-  } catch { dictionaryOrder.value = []; }
+    const saved = JSON.parse(
+      localStorage.getItem("readux.reader.dictionaryOrder") || "[]",
+    );
+    if (Array.isArray(saved) && saved.every((name) => typeof name === "string"))
+      dictionaryOrder.value = saved;
+  } catch {
+    dictionaryOrder.value = [];
+  }
   void restoreOffset();
 });
 onBeforeUnmount(() => {
@@ -1431,17 +2228,91 @@ function toggleEinkMode() {
 
 <template>
   <section class="reader-view">
-    <AppHeader show-back collapse-brand back-label="返回书架" :title="book?.title || readerDocument.metadata.title || '文本阅读'" :description="readerDocument.metadata.author || statusLabel" @back="emit('back')">
+    <AppHeader
+      show-back
+      collapse-brand
+      back-label="返回书架"
+      :title="book?.title || readerDocument.metadata.title || '文本阅读'"
+      :description="readerDocument.metadata.author || statusLabel"
+      @back="emit('back')"
+    >
       <template #actions>
         <div class="reader-view__actions">
-          <button type="button" :title="currentChapter" aria-label="章节" @click="showNavigation = true"><ListTree :size="17" aria-hidden="true" /><span class="reader-view__chapter">{{ currentChapter }}</span></button>
-          <button type="button" title="阅读排版" aria-label="阅读排版" @click="showAppearance = true"><Type :size="17" aria-hidden="true" /></button>
-          <button type="button" title="查找正文 (Ctrl+F)" aria-label="查找正文" @click="openFind"><Search :size="17" aria-hidden="true" /></button>
-          <button type="button" title="词典设置" aria-label="词典设置" @click="showDictionarySettings = true"><Settings2 :size="17" aria-hidden="true" /></button>
-          <button type="button" :title="`选择与导出（${selections.length}）`" aria-label="选择与导出" @click="showExport = true"><BriefcaseBusiness :size="17" aria-hidden="true" /><span v-if="selections.length" class="reader-view__count">{{ selections.length }}</span></button>
-          <button type="button" title="墨水屏模式" aria-label="墨水屏模式" :aria-pressed="einkMode" @click="toggleEinkMode"><Moon :size="17" aria-hidden="true" /></button>
-          <button v-if="session.paused" type="button" title="继续分析" aria-label="继续分析" @click="emit('continue')"><LoaderCircle :size="17" aria-hidden="true" /></button>
-          <button v-if="session.progress.failed" type="button" :disabled="retrying" title="重试失败单元" aria-label="重试失败单元" @click="emit('retry')"><RotateCcw :size="17" aria-hidden="true" /></button>
+          <button
+            type="button"
+            :title="currentChapter"
+            aria-label="章节"
+            @click="showNavigation = true"
+          >
+            <ListTree :size="17" aria-hidden="true" /><span
+              class="reader-view__chapter"
+              >{{ currentChapter }}</span
+            >
+          </button>
+          <button
+            type="button"
+            title="阅读排版"
+            aria-label="阅读排版"
+            @click="showAppearance = true"
+          >
+            <Type :size="17" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            title="全文查找 (Ctrl+F)"
+            aria-label="全文查找"
+            @click="openFind"
+          >
+            <Search :size="17" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            title="词典设置"
+            aria-label="词典设置"
+            @click="showDictionarySettings = true"
+          >
+            <Settings2 :size="17" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            :title="`选择与导出（${selections.length}）`"
+            aria-label="选择与导出"
+            @click="showExport = true"
+          >
+            <BriefcaseBusiness :size="17" aria-hidden="true" /><span
+              v-if="selections.length"
+              class="reader-view__count"
+              >{{ selections.length }}</span
+            >
+          </button>
+          <button
+            type="button"
+            title="墨水屏模式"
+            aria-label="墨水屏模式"
+            :aria-pressed="einkMode"
+            @click="toggleEinkMode"
+          >
+            <Moon :size="17" aria-hidden="true" />
+          </button>
+          <button
+            v-if="session.paused"
+            type="button"
+            title="继续分析"
+            aria-label="继续分析"
+            @click="emit('continue')"
+          >
+            <LoaderCircle :size="17" aria-hidden="true" />
+          </button>
+          <button
+            v-if="session.progress.failed"
+            type="button"
+            :disabled="retrying"
+            title="重试失败单元"
+            aria-label="重试失败单元"
+            @click="emit('retry')"
+          >
+            <RotateCcw :size="17" aria-hidden="true" />
+          </button>
         </div>
       </template>
     </AppHeader>
@@ -1451,85 +2322,276 @@ function toggleEinkMode() {
       <button type="button" @click="void syncTargets(true)">重试</button>
     </div>
 
-    <div ref="scrollElement" class="reader-view__scroll" @scroll.passive="handleScroll" @mouseup="captureSelection" @keyup="captureSelection" @copy="copySelection">
-      <main class="reader-view__content" :style="{ maxWidth: `${appearance.contentWidth}px`, fontSize: `${appearance.fontSize}px`, lineHeight: appearance.lineHeight, '--reader-paragraph-gap': `${appearance.paragraphGap}px` }">
-        <div class="reader-row-layer" :style="{ height: `${virtualizer.getTotalSize()}px` }">
-          <section v-for="visible in visibleRows" :key="visible.row.key" :ref="(node) => measureRow(node, visible.row.key)" class="reader-row" :data-index="visible.item.index" :style="{ transform: `translateY(${visible.item.start - 42}px)` }">
-            <ReaderImageBlock v-if="visible.row.kind === 'image'" :items="visible.row.items" :layout="visible.row.layout" class="reader-view__image" @settled="measureSettledImage(visible.row.key)" />
-            <section v-else class="reader-view__paragraph" :class="{ 'reader-view__heading': visible.row.heading }" :data-char-start="visible.row.paragraph.charRange[0]" :data-block-id="visible.row.paragraph.id">
+    <div
+      ref="scrollElement"
+      class="reader-view__scroll"
+      @scroll.passive="handleScroll"
+      @mouseup="captureSelection"
+      @keyup="captureSelection"
+      @copy="copySelection"
+    >
+      <main
+        class="reader-view__content"
+        :style="{
+          maxWidth: `${appearance.contentWidth}px`,
+          fontSize: `${appearance.fontSize}px`,
+          lineHeight: appearance.lineHeight,
+          '--reader-paragraph-gap': `${appearance.paragraphGap}px`,
+        }"
+      >
+        <div
+          class="reader-row-layer"
+          :style="{ height: `${virtualizer.getTotalSize()}px` }"
+        >
+          <section
+            v-for="visible in visibleRows"
+            :key="visible.row.key"
+            :ref="(node) => measureRow(node, visible.row.key)"
+            class="reader-row"
+            :data-index="visible.item.index"
+            :style="{ transform: `translateY(${visible.item.start - 42}px)` }"
+          >
+            <ReaderImageBlock
+              v-if="visible.row.kind === 'image'"
+              :items="visible.row.items"
+              :layout="visible.row.layout"
+              class="reader-view__image"
+              @settled="measureSettledImage(visible.row.key)"
+            />
+            <section
+              v-else
+              class="reader-view__paragraph"
+              :class="{ 'reader-view__heading': visible.row.heading }"
+              :data-char-start="visible.row.paragraph.charRange[0]"
+              :data-block-id="visible.row.paragraph.id"
+            >
               <component :is="visible.row.heading ? 'h2' : 'p'">
                 <span
                   v-for="capsule in visibleCapsules.get(visible.row.key) ?? []"
                   :key="capsule.key"
                   class="reader-capsule"
-                  :class="{ 'reader-capsule--group': capsule.capsuleKey, 'reader-capsule--merged': mergedHit && capsule.capsuleKey === mergedHit.key }"
+                  :class="{
+                    'reader-capsule--group': capsule.capsuleKey,
+                    'reader-capsule--merged':
+                      mergedHit && capsule.capsuleKey === mergedHit.key,
+                  }"
                   @pointerleave="leaveCapsule"
-                ><component v-for="run in capsule.runs" :key="run.key" :is="run.reading ? 'ruby' : 'span'"><span
-                  v-for="part in run.parts"
-                  :key="part.key"
-                  class="reader-capsule__part"
-                  :class="[{ 'reader-capsule__part--lookup': part.hit, 'reader-capsule__part--merging': highlightedRange && part.range[0] < highlightedRange[1] && part.range[1] > highlightedRange[0] }, findMatchClass(part.range)]"
-                  :data-part-key="part.key"
-                  :data-char-start="part.range[0]"
-                  :data-char-end="part.range[1]"
-                  :data-find-active="findMatchClass(part.range) === 'reader-find-match--active' ? 'true' : undefined"
-                  :data-lookup-key="part.hit ? `${part.hit.unit.unit.unit_id}:${part.hit.target.parent_outer_id || part.hit.target.id}` : undefined"
-                  @pointerenter="part.hit ? scheduleLookup(part.hit, $event, part.detail) : scheduleCloseLookup($event)"
-                  @pointerleave="leavePart"
-                  @pointerdown="startMerge(part, visible.row.paragraph, $event)"
-                  @click="clickPart(part, $event)"
-                >{{ part.text }}</span><rt v-if="run.reading">{{ run.reading }}</rt></component></span>
+                  ><component
+                    v-for="run in capsule.runs"
+                    :key="run.key"
+                    :is="run.reading ? 'ruby' : 'span'"
+                    ><span
+                      v-for="part in run.parts"
+                      :key="part.key"
+                      class="reader-capsule__part"
+                      :class="[
+                        {
+                          'reader-capsule__part--lookup': part.hit,
+                          'reader-capsule__part--merging':
+                            highlightedRange &&
+                            part.range[0] < highlightedRange[1] &&
+                            part.range[1] > highlightedRange[0],
+                        },
+                        findMatchClass(part.range),
+                      ]"
+                      :data-part-key="part.key"
+                      :data-char-start="part.range[0]"
+                      :data-char-end="part.range[1]"
+                      :data-find-active="
+                        findMatchClass(part.range) ===
+                        'reader-find-match--active'
+                          ? 'true'
+                          : undefined
+                      "
+                      :data-lookup-key="
+                        part.hit
+                          ? `${part.hit.unit.unit.unit_id}:${part.hit.target.parent_outer_id || part.hit.target.id}`
+                          : undefined
+                      "
+                      @pointerenter="
+                        part.hit
+                          ? scheduleLookup(part.hit, $event, part.detail)
+                          : scheduleCloseLookup($event)
+                      "
+                      @pointerleave="leavePart"
+                      @pointerdown="
+                        startMerge(part, visible.row.paragraph, $event)
+                      "
+                      @click="clickPart(part, $event)"
+                      >{{ part.text }}</span
+                    ><rt v-if="run.reading">{{ run.reading }}</rt></component
+                  ></span
+                >
               </component>
             </section>
           </section>
         </div>
       </main>
-
     </div>
 
-    <TooltipPanel :show="Boolean(activeHit) && activeHit?.target.decision !== 'grammar'" :x="lookupPosition.x" :y="lookupPosition.y" :width="lookupPosition.width" :max-height="lookupPosition.maxHeight" :token="null" :headword="relatedWord || activeHit?.target.surface" :lookup="activeQuery" :loading="queryBusy" :can-go-back="lookupHistory.length > 0" :summary-visible="!relatedWord && Boolean(chainOverview)" :kind-label="componentHit ? '整体' : undefined" panel-id="reader-dictionary" @enter="cancelCloseLookup" @leave="scheduleCloseLookup" @close="closeLookup" @back="backLookup" @select-form="selectLookupForm" @navigate="void navigateLookup($event)">
+    <TooltipPanel
+      :show="Boolean(activeHit) && activeHit?.target.decision !== 'grammar'"
+      :x="lookupPosition.x"
+      :y="lookupPosition.y"
+      :width="lookupPosition.width"
+      :max-height="lookupPosition.maxHeight"
+      :token="null"
+      :headword="relatedWord || activeHit?.target.surface"
+      :lookup="activeQuery"
+      :loading="queryBusy"
+      :can-go-back="lookupHistory.length > 0"
+      :summary-visible="!relatedWord && Boolean(chainOverview)"
+      :kind-label="componentHit ? '整体' : undefined"
+      panel-id="reader-dictionary"
+      @enter="cancelCloseLookup"
+      @leave="scheduleCloseLookup"
+      @close="closeLookup"
+      @back="backLookup"
+      @select-form="selectLookupForm"
+      @navigate="void navigateLookup($event)"
+    >
       <template #summary>
-        <div v-if="!relatedWord && chainOverview" class="reader-lookup__summary">
+        <div
+          v-if="!relatedWord && chainOverview"
+          class="reader-lookup__summary"
+        >
           <strong>{{ chainOverview.name }}</strong>
-          <span><template v-if="chainOverview.lemma && chainOverview.lemma !== chainOverview.surface">{{ chainOverview.lemma }} → </template>{{ chainOverview.surface }}</span>
-          <small v-if="chainOverview.conjugation && chainOverview.name !== chainOverview.conjugation">{{ chainOverview.conjugation }}</small>
-          <small v-if="chainOverview.members.length > 1">{{ chainOverview.members.join(' + ') }}</small>
+          <span
+            ><template
+              v-if="
+                chainOverview.lemma &&
+                chainOverview.lemma !== chainOverview.surface
+              "
+              >{{ chainOverview.lemma }} → </template
+            >{{ chainOverview.surface }}</span
+          >
+          <small
+            v-if="
+              chainOverview.conjugation &&
+              chainOverview.name !== chainOverview.conjugation
+            "
+            >{{ chainOverview.conjugation }}</small
+          >
+          <small v-if="chainOverview.members.length > 1">{{
+            chainOverview.members.join(" + ")
+          }}</small>
         </div>
       </template>
       <template #context>
         <div v-if="activeHit" class="reader-lookup__context">
           <div v-if="wordState && !relatedWord" class="reader-lookup__state">
-            <span>{{ wordState.known ? '已知' : '未标记' }} · 曝光 {{ wordState.exposures }}</span>
-            <button v-if="!wordState.known" type="button" @click="void markWord(true)">标为已知</button>
-            <button v-else type="button" @click="void markWord(false)">标为未掌握</button>
+            <span
+              >{{ wordState.known ? "已知" : "未标记" }} · 曝光
+              {{ wordState.exposures }}</span
+            >
+            <button
+              v-if="!wordState.known"
+              type="button"
+              @click="void markWord(true)"
+            >
+              标为已知
+            </button>
+            <button v-else type="button" @click="void markWord(false)">
+              标为未掌握
+            </button>
           </div>
           <p v-if="queryError" class="reader-lookup__error">{{ queryError }}</p>
         </div>
       </template>
     </TooltipPanel>
-    <TooltipPanel v-if="componentHit" :show="Boolean(activeHit)" :x="componentPosition.x" :y="componentPosition.y" :width="componentPosition.width" :max-height="componentPosition.maxHeight" :token="null" :headword="componentWord || componentHit.target.surface" :lookup="componentQuery" :loading="componentBusy" :can-go-back="componentHistory.length > 0" kind-label="组分" panel-id="reader-component-dictionary" @enter="cancelCloseLookup" @leave="scheduleCloseLookup" @close="closeLookup" @back="backComponent" @select-form="selectComponentForm" @navigate="void navigateComponent($event)">
+    <TooltipPanel
+      v-if="componentHit"
+      :show="Boolean(activeHit)"
+      :x="componentPosition.x"
+      :y="componentPosition.y"
+      :width="componentPosition.width"
+      :max-height="componentPosition.maxHeight"
+      :token="null"
+      :headword="componentWord || componentHit.target.surface"
+      :lookup="componentQuery"
+      :loading="componentBusy"
+      :can-go-back="componentHistory.length > 0"
+      kind-label="组分"
+      panel-id="reader-component-dictionary"
+      @enter="cancelCloseLookup"
+      @leave="scheduleCloseLookup"
+      @close="closeLookup"
+      @back="backComponent"
+      @select-form="selectComponentForm"
+      @navigate="void navigateComponent($event)"
+    >
       <template #context>
-        <div v-if="activeDetail && !componentWord" class="reader-lookup__detail">
+        <div
+          v-if="activeDetail && !componentWord"
+          class="reader-lookup__detail"
+        >
           <strong>{{ activeDetail.title }}</strong>
-          <span v-if="activeDetail.description">{{ activeDetail.description }}</span>
-          <span v-for="tag in activeDetail.tags" :key="tag" class="reader-lookup__tag">{{ tag }}</span>
+          <span v-if="activeDetail.description">{{
+            activeDetail.description
+          }}</span>
+          <span
+            v-for="tag in activeDetail.tags"
+            :key="tag"
+            class="reader-lookup__tag"
+            >{{ tag }}</span
+          >
         </div>
-        <p v-if="componentError" class="reader-lookup__error">{{ componentError }}</p>
+        <p v-if="componentError" class="reader-lookup__error">
+          {{ componentError }}
+        </p>
       </template>
     </TooltipPanel>
-    <ReaderExplanationBubble v-if="activeDetail && !relatedWord && !componentHit" id="reader-morphology-detail" :show="Boolean(activeHit) && Boolean(activeDetail)" :x="detailPosition.x" :y="detailPosition.y" :width="detailPosition.width" :max-height="detailPosition.maxHeight" :title="activeDetail.title" :surface="activeDetail.surface" @enter="cancelCloseLookup" @leave="scheduleCloseLookup">
+    <ReaderExplanationBubble
+      v-if="activeDetail && !relatedWord && !componentHit"
+      id="reader-morphology-detail"
+      :show="Boolean(activeHit) && Boolean(activeDetail)"
+      :x="detailPosition.x"
+      :y="detailPosition.y"
+      :width="detailPosition.width"
+      :max-height="detailPosition.maxHeight"
+      :title="activeDetail.title"
+      :surface="activeDetail.surface"
+      @enter="cancelCloseLookup"
+      @leave="scheduleCloseLookup"
+    >
       <p v-if="activeDetail.description">{{ activeDetail.description }}</p>
-      <span v-for="tag in activeDetail.tags" :key="tag" class="reader-lookup__tag">{{ tag }}</span>
-      <p v-if="activeDetail.candidates.length">可能含义：{{ activeDetail.candidates.join('、') }}</p>
+      <span
+        v-for="tag in activeDetail.tags"
+        :key="tag"
+        class="reader-lookup__tag"
+        >{{ tag }}</span
+      >
+      <p v-if="activeDetail.candidates.length">
+        可能含义：{{ activeDetail.candidates.join("、") }}
+      </p>
     </ReaderExplanationBubble>
 
-    <ReaderProgressBar :percent="estimate.percent" :current-chapter="currentChapter" :remaining-label="`剩余 ${estimate.remainingCharacters} 字符`" :completion-label="estimate.completionLabel" />
+    <ReaderProgressBar
+      :percent="estimate.percent"
+      :current-chapter="currentChapter"
+      :remaining-label="`剩余 ${estimate.remainingCharacters} 字符`"
+      :completion-label="estimate.completionLabel"
+    />
     <div v-if="pendingSelection" class="reader-selection-action">
-      <span>已选择 {{ pendingSelection.end - pendingSelection.start }} 字符</span>
-      <button type="button" class="reader-selection-action__cancel" @click="clearPendingSelection">取消</button>
+      <span
+        >已选择 {{ pendingSelection.end - pendingSelection.start }} 字符</span
+      >
+      <button
+        type="button"
+        class="reader-selection-action__cancel"
+        @click="clearPendingSelection"
+      >
+        取消
+      </button>
       <button type="button" @click="savePendingSelection">保存选择</button>
     </div>
-    <ReaderSurface :show="showFind" variant="modal" title="查找正文" label="查找正文" @close="closeFind">
+    <ReaderSurface
+      :show="showFind"
+      variant="modal"
+      title="全文查找"
+      label="全文查找"
+      @close="closeFind"
+    >
       <div class="reader-find">
         <div class="reader-find__form">
           <Search :size="17" aria-hidden="true" />
@@ -1539,80 +2601,393 @@ function toggleEinkMode() {
             type="search"
             autocomplete="off"
             spellcheck="false"
-            aria-label="查找正文"
-            placeholder="查找正文"
+            aria-label="全文查找"
+            placeholder="全文查找"
             @keydown.enter.prevent="navigateFind($event.shiftKey ? -1 : 1)"
           />
-          <button v-if="findQuery" type="button" title="清除查找" aria-label="清除查找" @click="clearFind"><X :size="16" aria-hidden="true" /></button>
+          <button
+            v-if="findQuery"
+            type="button"
+            title="清除查找"
+            aria-label="清除查找"
+            @click="clearFind"
+          >
+            <X :size="16" aria-hidden="true" />
+          </button>
         </div>
         <div class="reader-find__footer">
           <span aria-live="polite">{{ findStatusLabel }}</span>
           <div class="reader-find__navigation">
-            <button type="button" title="上一个匹配项" aria-label="上一个匹配项" :disabled="!findMatches.length" @click="navigateFind(-1)"><ChevronUp :size="17" aria-hidden="true" /></button>
-            <button type="button" title="下一个匹配项" aria-label="下一个匹配项" :disabled="!findMatches.length" @click="navigateFind(1)"><ChevronDown :size="17" aria-hidden="true" /></button>
+            <button
+              type="button"
+              title="上一个匹配项"
+              aria-label="上一个匹配项"
+              :disabled="!findMatches.length"
+              @click="navigateFind(-1)"
+            >
+              <ChevronUp :size="17" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              title="下一个匹配项"
+              aria-label="下一个匹配项"
+              :disabled="!findMatches.length"
+              @click="navigateFind(1)"
+            >
+              <ChevronDown :size="17" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
     </ReaderSurface>
-    <ReaderNavigationPanel :show="showNavigation" :chapters="readerDocument.chapters" :current-id="readerDocument.chapters.find((item) => item.title === currentChapter)?.id" @close="showNavigation = false" @navigate="navigate" />
-    <ReaderAppearancePanel :show="showAppearance" :appearance="appearance" @close="showAppearance = false" @update="emit('updateAppearance', $event)" />
-    <DictionarySettingsPanel :show="showDictionarySettings" :settings="dictionarySettings" @close="showDictionarySettings = false" @reorder="updateDictionaryOrder" />
-    <ExportPanel :show="showExport" :selections="selections" @close="showExport = false" @remove="emit('removeSelection', $event)" @clear-all="emit('clearSelections')" @update-note="updateSelection" @export="exportSelections" />
+    <ReaderNavigationPanel
+      :show="showNavigation"
+      :chapters="readerDocument.chapters"
+      :current-id="
+        readerDocument.chapters.find((item) => item.title === currentChapter)
+          ?.id
+      "
+      @close="showNavigation = false"
+      @navigate="navigate"
+    />
+    <ReaderAppearancePanel
+      :show="showAppearance"
+      :appearance="appearance"
+      @close="showAppearance = false"
+      @update="emit('updateAppearance', $event)"
+    />
+    <DictionarySettingsPanel
+      :show="showDictionarySettings"
+      :settings="dictionarySettings"
+      @close="showDictionarySettings = false"
+      @reorder="updateDictionaryOrder"
+    />
+    <ExportPanel
+      :show="showExport"
+      :selections="selections"
+      @close="showExport = false"
+      @remove="emit('removeSelection', $event)"
+      @clear-all="emit('clearSelections')"
+      @update-note="updateSelection"
+      @export="exportSelections"
+    />
   </section>
 </template>
 
 <style scoped>
-.reader-view { position: relative; display: flex; min-height: 0; flex: 1; flex-direction: column; background: var(--bg-primary); }
-.reader-view__actions { display: flex; align-items: center; gap: 4px; }
-.reader-view__actions button { position: relative; display: inline-flex; min-width: 32px; height: 32px; align-items: center; justify-content: center; gap: 6px; padding: 0 6px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); cursor: pointer; }
-.reader-view__actions button:hover, .reader-view__actions button[aria-pressed="true"] { background: var(--accent-light); color: var(--accent-color); }
-.reader-view__lookup-error { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 14px; color: var(--novelty-high-text); font-size: .75rem; }
-.reader-view__lookup-error span { min-width: 0; overflow-wrap: anywhere; }
-.reader-view__lookup-error button { flex: 0 0 auto; border: 0; background: transparent; color: var(--accent-color); cursor: pointer; }
-.reader-view__chapter { max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .75rem; }
-.reader-view__count { font-size: .65rem; }
-.reader-find { display: grid; gap: 10px; padding: 8px 18px 16px; }
-.reader-find__form { display: flex; min-width: 0; align-items: center; gap: 7px; padding: 3px 7px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-muted); }
-.reader-find__form:focus-within { border-color: var(--accent-color); box-shadow: 0 0 0 2px var(--accent-light); }
-.reader-find__form input { min-width: 0; flex: 1; padding: 6px 2px; border: 0; outline: 0; background: transparent; color: var(--text-primary); font: .92rem/1.4 var(--font-ja); }
-.reader-find__form input::-webkit-search-cancel-button { display: none; }
-.reader-find__form button, .reader-find__navigation button { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); cursor: pointer; }
-.reader-find__form button:hover, .reader-find__navigation button:hover:not(:disabled) { background: var(--accent-light); color: var(--accent-color); }
-.reader-find__navigation button:disabled { cursor: default; opacity: .38; }
-.reader-find__footer { display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: .76rem; }
-.reader-find__navigation { display: flex; gap: 2px; }
-.reader-find-match { border-radius: 2px; background: color-mix(in srgb, var(--accent-color) 18%, transparent); }
-.reader-find-match--active { border-radius: 2px; background: var(--accent-color); color: var(--bg-primary); }
-.reader-view__scroll { min-height: 0; flex: 1; overflow: auto; overflow-anchor: none; scrollbar-gutter: stable; padding: 42px 24px 92px; }
-.reader-view__content { margin: 0 auto; color: var(--text-primary); font-family: var(--font-ja); }
-.reader-row-layer { position: relative; width: 100%; }
-.reader-row { position: absolute; top: 0; left: 0; width: 100%; }
-.reader-view__paragraph { margin: 0 0 var(--reader-paragraph-gap, 20px); }
-.reader-view__paragraph p, .reader-view__paragraph h2 { white-space: pre-wrap; overflow-wrap: anywhere; }
-.reader-view__heading { margin-top: 34px; }
-.reader-view__heading h2 { margin-bottom: 18px; color: var(--accent-color); font-size: 1.25em; font-weight: 600; }
-.reader-view__image { max-width: 100%; margin: 24px auto; }
-.reader-capsule { display: inline; }
-.reader-capsule--group { border-radius: var(--radius-sm); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.reader-capsule--group:hover { outline: 1px solid var(--border-color); }
-.reader-capsule--merged { outline: 1px solid var(--accent-color); }
-.reader-capsule__part--lookup { cursor: pointer; }
-.reader-capsule__part--merging { background: var(--accent-light); text-decoration: underline; text-decoration-color: var(--accent-color); }
-.reader-capsule__part { white-space: pre-wrap; }
-.reader-selection-action { position: fixed; z-index: 42; bottom: 56px; left: 50%; display: flex; align-items: center; gap: 10px; padding: 7px 10px 7px 13px; border: 1px solid var(--border-color); border-radius: 999px; background: var(--bg-primary); box-shadow: var(--shadow-sm); transform: translateX(-50%); color: var(--text-secondary); font-size: .75rem; }
-.reader-selection-action button { padding: 5px 9px; border: 0; border-radius: 999px; background: var(--accent-color); color: #fff; cursor: pointer; font-size: .74rem; }
-.reader-selection-action__cancel { background: transparent !important; color: var(--text-secondary) !important; }
-.reader-lookup__context { padding-bottom: 6px; }
-.reader-lookup__summary { display: grid; min-width: 0; gap: 2px; font-size: .75rem; }
-.reader-lookup__summary strong { color: var(--accent-color); }
-.reader-lookup__summary span, .reader-lookup__summary small { overflow-wrap: anywhere; color: var(--text-secondary); font-family: var(--font-ja); }
-.reader-lookup__detail { display: grid; gap: 2px; color: var(--text-secondary); font-size: .75rem; }
-.reader-lookup__detail strong { color: var(--accent-color); }
-.reader-lookup__tag { display: inline-block; justify-self: start; max-width: 100%; box-sizing: border-box; margin-right: 4px; padding: 1px 6px; border: 1px solid var(--glass-border); border-radius: 4px; color: var(--text-secondary); font-size: .72rem; }
-.reader-lookup__state { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
-.reader-lookup__state button { padding: 4px 8px; border: 1px solid var(--border-color); border-radius: 4px; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: .75rem; }
-.reader-lookup__state button:hover { border-color: var(--accent-color); color: var(--accent-color); }
-.reader-lookup__state { align-items: center; justify-content: space-between; color: var(--text-muted); font-size: .72rem; }
-.reader-lookup__error { margin: 8px 0; color: var(--novelty-high-text); font-size: .8rem; }
-@media (max-width: 700px) { .reader-view__chapter { display: none; } .reader-view__scroll { padding-inline: 16px; } }
+.reader-view {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+.reader-view__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.reader-view__actions button {
+  position: relative;
+  display: inline-flex;
+  min-width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.reader-view__actions button:hover,
+.reader-view__actions button[aria-pressed="true"] {
+  background: var(--accent-light);
+  color: var(--accent-color);
+}
+.reader-view__lookup-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 14px;
+  color: var(--novelty-high-text);
+  font-size: 0.75rem;
+}
+.reader-view__lookup-error span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.reader-view__lookup-error button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--accent-color);
+  cursor: pointer;
+}
+.reader-view__chapter {
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+}
+.reader-view__count {
+  font-size: 0.65rem;
+}
+.reader-find {
+  display: grid;
+  gap: 10px;
+  padding: 8px 18px 16px;
+}
+.reader-find__form {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 7px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+}
+.reader-find__form:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+.reader-find__form input {
+  min-width: 0;
+  flex: 1;
+  padding: 6px 2px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font: 0.92rem/1.4 var(--font-ja);
+}
+.reader-find__form input::-webkit-search-cancel-button {
+  display: none;
+}
+.reader-find__form button,
+.reader-find__navigation button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.reader-find__form button:hover,
+.reader-find__navigation button:hover:not(:disabled) {
+  background: var(--accent-light);
+  color: var(--accent-color);
+}
+.reader-find__navigation button:disabled {
+  cursor: default;
+  opacity: 0.38;
+}
+.reader-find__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+.reader-find__navigation {
+  display: flex;
+  gap: 2px;
+}
+.reader-find-match {
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent-color) 18%, transparent);
+}
+.reader-find-match--active {
+  border-radius: 2px;
+  background: var(--accent-color);
+  color: var(--bg-primary);
+}
+.reader-view__scroll {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  overflow-anchor: none;
+  scrollbar-gutter: stable;
+  padding: 42px 24px 92px;
+}
+.reader-view__content {
+  margin: 0 auto;
+  color: var(--text-primary);
+  font-family: var(--font-ja);
+}
+.reader-row-layer {
+  position: relative;
+  width: 100%;
+}
+.reader-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.reader-view__paragraph {
+  margin: 0 0 var(--reader-paragraph-gap, 20px);
+}
+.reader-view__paragraph p,
+.reader-view__paragraph h2 {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.reader-view__heading {
+  margin-top: 34px;
+}
+.reader-view__heading h2 {
+  margin-bottom: 18px;
+  color: var(--accent-color);
+  font-size: 1.25em;
+  font-weight: 600;
+}
+.reader-view__image {
+  max-width: 100%;
+  margin: 24px auto;
+}
+.reader-capsule {
+  display: inline;
+}
+.reader-capsule--group {
+  border-radius: var(--radius-sm);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.reader-capsule--group:hover {
+  outline: 1px solid var(--border-color);
+}
+.reader-capsule--merged {
+  outline: 1px solid var(--accent-color);
+}
+.reader-capsule__part--lookup {
+  cursor: pointer;
+}
+.reader-capsule__part--merging {
+  background: var(--accent-light);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+}
+.reader-capsule__part {
+  white-space: pre-wrap;
+}
+.reader-selection-action {
+  position: fixed;
+  z-index: 42;
+  bottom: 56px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px 7px 13px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(-50%);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+.reader-selection-action button {
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.74rem;
+}
+.reader-selection-action__cancel {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+}
+.reader-lookup__context {
+  padding-bottom: 6px;
+}
+.reader-lookup__summary {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+  font-size: 0.75rem;
+}
+.reader-lookup__summary strong {
+  color: var(--accent-color);
+}
+.reader-lookup__summary span,
+.reader-lookup__summary small {
+  overflow-wrap: anywhere;
+  color: var(--text-secondary);
+  font-family: var(--font-ja);
+}
+.reader-lookup__detail {
+  display: grid;
+  gap: 2px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+.reader-lookup__detail strong {
+  color: var(--accent-color);
+}
+.reader-lookup__tag {
+  display: inline-block;
+  justify-self: start;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-right: 4px;
+  padding: 1px 6px;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+}
+.reader-lookup__state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 8px 0;
+}
+.reader-lookup__state button {
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+.reader-lookup__state button:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+.reader-lookup__state {
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+.reader-lookup__error {
+  margin: 8px 0;
+  color: var(--novelty-high-text);
+  font-size: 0.8rem;
+}
+@media (max-width: 700px) {
+  .reader-view__chapter {
+    display: none;
+  }
+  .reader-view__scroll {
+    padding-inline: 16px;
+  }
+}
 </style>
