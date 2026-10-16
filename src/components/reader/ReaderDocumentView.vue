@@ -1081,6 +1081,8 @@ function openFind() {
 
 function closeFind() {
   showFind.value = false;
+  findQuery.value = "";
+  findActiveIndex.value = 0;
   findInput.value?.blur();
 }
 
