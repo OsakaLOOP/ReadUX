@@ -149,8 +149,10 @@ fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderT
             && (rule.operators.is_empty() || previous.operators.iter().any(|op| rule.operators.contains(&op.kind)))
             && rule.tokens.iter().zip(&source[index..end]).all(|(pattern, token)| pattern.matches(token))
             && source[index..end].windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
-            // 既有补助结构允许插入助词，优先保留经句法确认的连接。
+            // 首项能形成て形时，优先保留经句法确认的助词插入补助连接。
             && !(end > index + 1 && source[index + 1..end].iter().all(insertion_token)
+                && matches!(transition(previous, &source[index], context, source),
+                    Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "te_connection"))
                 && source.get(end).is_some_and(|next| CONFIG.operators.values().any(|entry|
                     entry.support.as_ref().is_some_and(|support| support.bases.iter().any(|base| base == identity(next))))
                     && context.confirms_inserted_support(source[previous.core_morpheme_indices[0]].char_range,
