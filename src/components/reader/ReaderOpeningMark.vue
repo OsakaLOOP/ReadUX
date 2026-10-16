@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { BookOpenText } from "@lucide/vue";
-
 withDefaults(defineProps<{ size?: "small" | "large" }>(), { size: "large" });
 </script>
 
 <template>
   <span class="reader-opening-mark" :class="`reader-opening-mark--${size}`" aria-hidden="true">
-    <BookOpenText :size="size === 'small' ? 23 : 28" stroke-width="2.5" />
+    <img
+      src="/branding/readux-mark.svg"
+      :width="size === 'small' ? 32 : 40"
+      :height="size === 'small' ? 32 : 40"
+      alt=""
+    />
   </span>
 </template>
 
