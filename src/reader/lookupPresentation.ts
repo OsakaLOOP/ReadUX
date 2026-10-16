@@ -181,6 +181,20 @@ function combinePrototype(prefix: string, prototype: string): string {
   return `${prefix}${prototype}`;
 }
 
+function contractedStepOutput(operator: MorphologyOperator, document: UnifiedDocument, rootStart: number, currentSlice: string): string | null {
+  const tags = morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence);
+  if (!currentSlice || !tags.includes(morphologyPresentation.contraction_label)) return null;
+  const range = operator.source_morpheme_range;
+  const last = range ? document.morphemes?.[range[1] - 1] : undefined;
+  const restoreTail = operatorDefinitions[operator.kind]?.support?.group === "contracted"
+    || Boolean(range && range[1] - range[0] > 1);
+  const base = restoreTail ? last?.query_forms?.find((form) => form.kind === "base")?.form : undefined;
+  // 缩略身份保留在本步骤；后续有屈折时，用末词元的基本表记承接，如じゃっ→じゃう。
+  return base && last?.char_range
+    ? Array.from(document.text ?? "").slice(rootStart, last.char_range[0]).join("") + base
+    : currentSlice;
+}
+
 export interface DerivedStepInfo {
   operatorId: string;
   kind: string;
@@ -246,7 +260,7 @@ function buildChainStepMap(
 
   // 若核心词未单独作为屈折步骤展示（例如サ变力説して），首个变形的起点承接辞书原形
   const initialBase = hasCoreInflection ? coreBase : (rootLemma || coreBase);
-  let currentPrototype = initialBase;
+  let currentForm = initialBase;
 
   for (let i = 0; i < nonInflectionOperators.length; i++) {
     const { op, chain } = nonInflectionOperators[i];
@@ -263,8 +277,8 @@ function buildChainStepMap(
       ? characters.slice(rootStart, op.char_range[1]).join("")
       : "";
 
-    // 起点：第 0 个算子从 initialBase 出发；后续算子从上一个的原型开始
-    const input = i === 0 ? initialBase : currentPrototype;
+    // 起点承接上一步实际显示的结果，包括该步骤已经完成的缩略。
+    const input = currentForm;
 
     // 当前算子的现实原型形式（以该算子的现实原型结束，如 読まない、読み始める、読んでおく）
     const stepPrototype = combinePrototype(precedingSlice || coreBase, prototypeForm);
@@ -277,6 +291,8 @@ function buildChainStepMap(
     if (enclosing?.op.char_range) output = characters.slice(rootStart, enclosing.op.char_range[1]).join("");
     const observedStep = morphologyPresentation.observed_steps.includes(op.kind);
     if (observedStep && currentSlice) output = currentSlice;
+    const contractedOutput = contractedStepOutput(op, document, rootStart, currentSlice);
+    if (!isLast && contractedOutput) output = contractedOutput;
     if (!output) output = currentSlice || op.output_state || chain.surface_form;
 
     const desc = op.char_range ? transitionDescription(input, output) : (op.description || "");
@@ -293,7 +309,7 @@ function buildChainStepMap(
       normalizedForm: op.normalized_form ?? null,
     });
 
-    currentPrototype = isLast || enclosing || observedStep ? output : stepPrototype;
+    currentForm = output;
   }
 
   return result;
