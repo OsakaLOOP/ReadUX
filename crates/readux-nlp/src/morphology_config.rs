@@ -80,6 +80,14 @@ pub fn identity(token: &ProviderToken) -> &str {
     if base.is_empty() { field(token, 7) } else { base }
 }
 
+pub fn support_kind(group: &str, token: &ProviderToken) -> Option<&'static str> {
+    let potential = crate::morphology::potential_lemma(token);
+    CONFIG.operators.iter().find(|(_, entry)| entry.support.as_ref().is_some_and(|support|
+        support.group == group && support.bases.iter().any(|base| base == identity(token)
+            || potential.as_ref().is_some_and(|query| &query.form == base))))
+        .map(|(kind, _)| kind.as_str())
+}
+
 impl TokenField {
     fn value<'a>(&self, token: &'a ProviderToken) -> &'a str {
         match self {

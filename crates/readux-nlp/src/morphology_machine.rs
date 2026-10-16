@@ -55,8 +55,7 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
             Action::Stop => return Transition::Boundary,
             Action::Attach => return Transition::Attach(if rule.kinds.is_empty() { semantic(next) } else { rule.kinds.clone() }),
             Action::Support => {
-                if let Some((kind, _)) = CONFIG.operators.iter().find(|(_, entry)| entry.support.as_ref()
-                    .is_some_and(|support| support.group == rule.support_group && support.bases.iter().any(|base| base == identity(next)))) {
+                if let Some(kind) = config::support_kind(&rule.support_group, next) {
                     return Transition::Support(kind);
                 }
             }
@@ -241,7 +240,8 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
             let local_step = sequence.map_or_else(|| transition(previous, current, &context, source),
                 |rule| Transition::Attach(vec![rule.kind.clone()]));
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
-            let step = if sequence.is_none() && members.contains(&index) && !nominalization && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
+            let semantic_connection = nominalization || matches!(&local_step, Transition::Support(_));
+            let step = if sequence.is_none() && members.contains(&index) && !semantic_connection && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
             match step {
                 Transition::Core => {
                     previous.evidence.push("connection:lexical_core".into());
