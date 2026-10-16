@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 120" role="img" aria-labelledby="title desc" focusable="false">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 357.25 120" role="img" aria-labelledby="title desc" focusable="false">
   <title id="title">ReadUX 字标</title>
   <desc id="desc">蓝色圆端 Read 字形，搭配青绿色 U 盾牌与黄绿色 X 交叉双剑；盾心为黄色「あァ」。</desc>
   <g id="readux-wordmark">
-    <g fill="none" stroke="#4d79b8" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <g transform="translate(4.75 15) scale(.75)" fill="none" stroke="#4d79b8" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
       <path d="M24 96V24h33c27 0 27 38 0 38H24m33 0 27 34"/>
       <path transform="translate(-4 0)" d="M158 89c-6 6-14 9-23 9-16 0-27-11-27-28 0-18 11-29 25-29 15 0 25 10 25 24q0 4-4 4h-46"/>
       <path transform="translate(-4 0)" d="M235 69a27 27 0 1 1-54 0 27 27 0 1 1 54 0m0-27v55"/>
       <path transform="translate(-1 0)" d="M306 69a27 27 0 1 1-54 0 27 27 0 1 1 54 0m0-47v75"/>
     </g>
-    <g id="readux-mark" transform="translate(310 0)">
+    <g id="readux-mark" transform="translate(237.25 0)">
       <g fill="#b9ce32">
         <path d="M24.808837 53.252788L26.886680 54.815660L25.684471 56.414001L30.644035 60.144391L35.452872 53.751028L38.010217 55.674563L34.000000 60.075891L93.600000 110.000000L80.800000 105.729613L28.400000 66.054433L25.988124 71.657970L23.430779 69.734435L28.239616 63.341072L23.280052 59.610682L22.077843 61.209023L20.000000 59.646151Z"/>
         <path d="M95.137628 52.351219L93.072987 53.931489L94.288580 55.519675L89.331411 59.313878L84.469040 52.961135L81.927943 54.906084L86.000000 59.197341L26.400000 110.000000L39.200000 105.654464L91.600000 65.281091L94.083872 70.787941L96.624969 68.842992L91.762597 62.490249L96.719766 58.696047L97.935359 60.284232L100.000000 58.703962Z"/>

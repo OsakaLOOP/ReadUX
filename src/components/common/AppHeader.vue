@@ -44,7 +44,7 @@ const showAbout = ref(false);
       </button>
       <svg
         class="app-header__brand-name"
-        viewBox="0 0 430 120"
+        viewBox="0 0 357.25 120"
         role="img"
         aria-label="ReadUX"
         focusable="false"
@@ -194,7 +194,7 @@ const showAbout = ref(false);
   display: block;
   flex: 0 0 auto;
   height: 34px;
-  width: 122px;
+  width: 101.22px;
 }
 
 .app-header__brand-description {
