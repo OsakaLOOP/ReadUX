@@ -361,3 +361,34 @@
     - GPU 并行实测
   - 面向 4060 Ti 的分析输入与剩余任务
   - 文件入口与复现
+
+## 语法与活用链分析重构来源与索引（2026-10-16）
+
+| 来源 | 链接/路径 | 对应内容 |
+| --- | --- | --- |
+| 活用链配置 | [configs/unidic-nlp/morphology.json](configs/unidic-nlp/morphology.json) | L2 算子(95)、特征(42)、序列(14)、谓词连接(12)、连接规则(29)、活用形映射(9)及插入模式(2) |
+| 活用状态机 | [crates/readux-nlp/src/morphology_machine.rs](crates/readux-nlp/src/morphology_machine.rs) | 连续词尾合并、verb_core 动词核心合并、插入助词 bridge_support 与谓词构式连接 |
+| 编译语法目录 | [crates/readux-core/resources/grammar/compiled/grammar_catalog.json](crates/readux-core/resources/grammar/compiled/grammar_catalog.json) | L3 语法概念(113)、义项(162)、实现(125)与规则(125) |
+| 表达模式库 | [crates/readux-core/resources/expression_patterns.json](crates/readux-core/resources/expression_patterns.json) | 连续惯用模式(15)与呼应非连续模式(12) |
+| 语法应用层分析 | [crates/readux-core/src/language_analysis.rs](crates/readux-core/src/language_analysis.rs) | L2 补助用言投影、L2/L3 概念互斥过滤、声明式规则匹配与解释生成 |
+| 词元假名适配表 | [crates/readux-core/src/language_rules.rs](crates/readux-core/src/language_rules.rs) | 36 组假名到汉字 lemma 映射及 UniDic 词元规范化 |
+
+- [语法与活用链分析现状及重构架构分析](docs/grammar_morphology_architecture_analysis.md)
+  - 1. 概述与设计定位
+  - 2. 识别模式的范围与清单统计
+    - 2.1 L2 活用链系统
+    - 2.2 L3 语法表达系统
+  - 3. 规则的存储形式与存储位置
+    - 3.1 L2 规则存储：configs/unidic-nlp/morphology.json
+    - 3.2 L3 语法与表达规则存储
+  - 4. 全面架构分析梳理
+    - 4.1 数据流与生命周期流程
+    - 4.2 核心数据结构与抽象
+  - 5. 现状评估、存在问题与重构动因
+    - 5.1 痛点一：L2 有限状态机与 L3 规则匹配器的职责割裂与边界重叠
+    - 5.2 痛点二：句法约束硬编码，缺乏统一声明式图匹配能力
+    - 5.3 痛点三：词元（Lemma）还原与表记适配的隐式字典依赖
+    - 5.4 痛点四：多源分词粒度冲突的启发式修补
+    - 5.5 痛点五：规则的可维护性与自动化验证闭环
+  - 6. 重构架构设计建议（Blueprint）
+
