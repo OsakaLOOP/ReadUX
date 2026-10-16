@@ -41,6 +41,7 @@
     "nominal_change_ni": {"label": "变化接续","title": "变化接续","concept": "grammar.functional.naru","prototype": "に","output_form": "other"},
     "ni_naru": {"label": "になる","title": "变化","concept": "grammar.functional.naru","prototype": "になる","support": {"group": "nominal_change","bases": ["なる","成る"]},"connector": "nominal_change_ni"},
     "adjectival_naru": {"label": "くなる","title": "变化","concept": "grammar.functional.naru","prototype": "なる","support": {"group": "adjectival_change","bases": ["なる","成る"]}},
+    "hazu_modality": {"label": "预期","title": "预期判断","concept": "morphology.chain","prototype": "はず","output_category": "名詞","output_form": "stem"},
     "kamoshirenai": {"label": "可能性","title": "可能性","concept": "grammar.modality.kamo","prototype": "かもしれない"},
     "imperative": {"label": "命令","title": "命令","concept": "morphology.chain","prototype": ""},
     "te_iru": {"label": "ている","title": "进行／状态持续","concept": "grammar.aspect.te_iru","prototype": "ている","support": {"group": "te","bases": ["いる","居る","おる","居る-オル"]},"connector": "te_connection","normalized": "ている"},
@@ -188,6 +189,7 @@
     {"prefix": "tewa_condition","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "prohibition_tewa_condition_dame","required_operators": []}
   ],
   "connections": [
+    {"action": "attach","when": [{"next": {"equals": {"pos": ["名詞"],"lemma": ["筈","はず"]}},"forms": ["attributive"],"categories": ["動詞","形容詞","助動詞"]}],"kinds": ["hazu_modality"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]}],"kinds": ["darou_modality"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["けど","けれど"]}},"forms": ["terminal","attributive"]}],"kinds": ["kedo_connection"]},
     {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["が"]}},"forms": ["terminal","attributive"]}],"kinds": ["ga_connection"]},
