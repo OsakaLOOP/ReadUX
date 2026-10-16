@@ -146,6 +146,7 @@ pub struct Sequence {
     pub tokens: Vec<TokenPattern>,
     pub forms: Vec<ConnectionForm>,
     #[serde(default)] pub categories: Vec<String>,
+    #[serde(default)] pub operators: Vec<String>,
     #[serde(default)] pub terminal_only: bool,
     #[serde(default)] pub phenomena: Vec<String>,
 }

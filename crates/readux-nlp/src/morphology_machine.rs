@@ -7,7 +7,8 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
     let raw = field(t, 5);
     let form = CONFIG.forms.iter().find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
         .map(|rule| rule.form.clone()).unwrap_or_else(|| if raw.is_empty() { ConnectionForm::Stem } else { ConnectionForm::Other });
-    MorphologyState { category: field(t, 0).into(), form, conjugation_type: field(t, 4).into(), conjugation_form: raw.into() }
+    let category = if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" { "名詞" } else { field(t, 0) };
+    MorphologyState { category: category.into(), form, conjugation_type: field(t, 4).into(), conjugation_form: raw.into() }
 }
 
 fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
@@ -146,6 +147,7 @@ fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderT
         end <= source.len() && previous.morpheme_range[1] == index && previous.char_range[1] == source[index].char_range[0]
             && rule.forms.contains(&previous.final_state.form)
             && (rule.categories.is_empty() || rule.categories.contains(&previous.final_state.category))
+            && (rule.operators.is_empty() || previous.operators.iter().any(|op| rule.operators.contains(&op.kind)))
             && rule.tokens.iter().zip(&source[index..end]).all(|(pattern, token)| pattern.matches(token))
             && source[index..end].windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
             // 既有补助结构允许插入助词，优先保留经句法确认的连接。
