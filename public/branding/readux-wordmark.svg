@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 120" role="img" aria-labelledby="title desc" focusable="false">
   <title id="title">ReadUX 字标</title>
-  <desc id="desc">蓝黑色圆端 Read 字形，搭配青绿色 U 盾牌与黄绿色 X 交叉双剑；盾心为黄色「あァ」。</desc>
+  <desc id="desc">蓝色圆端 Read 字形，搭配青绿色 U 盾牌与黄绿色 X 交叉双剑；盾心为黄色「あァ」。</desc>
   <g id="readux-wordmark">
-    <g fill="none" stroke="#1f3a5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <g fill="none" stroke="#4d79b8" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
       <path d="M24 96V24h33c27 0 27 38 0 38H24m33 0 27 34"/>
       <path transform="translate(-4 0)" d="M158 89c-6 6-14 9-23 9-16 0-27-11-27-28 0-18 11-29 25-29 15 0 25 10 25 24q0 4-4 4h-46"/>
       <path transform="translate(-4 0)" d="M235 69a27 27 0 1 1-54 0 27 27 0 1 1 54 0m0-27v55"/>
