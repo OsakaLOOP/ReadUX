@@ -30,7 +30,7 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 `scripts/nlp_resources.py` 记录实际资源内容的 SHA-256、路径和大小。GiNZA 清单包含模型及 Sudachi 资源，并结合依赖版本、执行参数形成 `resource_digest`，随完整来源结果传输。`provider_status.configured` 表示解释器与适配器路径存在，`available` 表示模型已经成功初始化。
 
-`npm run dev` 进入仓库 dev 渠道；`npm run insider` 构建并组织便携包。渠道脚本管理构建目录和遗留进程，具体行为见 [run_channel.ps1](../scripts/run_channel.ps1)。
+`npm run dev` 使用开发资源配置启动桌面应用；`npm run insider` 准备独立运行资源、以 release 配置生成 `target/release/ReadUX.exe`，再组织 Windows 便携包，产物位于 `packages/ReadUX-insider-portable-win64.zip`。具体行为见 [run_channel.ps1](../scripts/run_channel.ps1)。
 
 ## 当前资源定位
 
@@ -44,7 +44,7 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 | GiNZA 实验环境 | `experiments/ginza311`，由本机配置选择解释器 |
 | GiNZA 最小环境 | `experiments/ginza-minimal`，由 `scripts/build_ginza_minimal_env.py` 生成 |
 
-桌面 release 使用便携目录中的 `nlp/cwj.dic`、`nlp/csj.dic`、`dict-sources`、`python` 和 `scripts`，查询缓存使用应用数据目录。发行版默认路径支持 `python/python.exe` 和 Python 虚拟环境标准路径 `python/Scripts/python.exe`。
+桌面 release 从安装目录读取 `nlp/cwj.dic`、`nlp/csj.dic`、`dict-sources`、`python` 和 `scripts`，查询缓存使用应用数据目录。`scripts/prepare_installer_resources.py` 将本地 GiNZA 环境转换为独立 Python 解释器、标准库与模型包；安装资源统一写入 `release-resources`，Windows 解释器为 `python/python.exe`。
 
 词典源目录按应用数据目录、便携目录和 Tauri 资源目录依次查找，候选目录必须包含 `.kdict` 源包。空目录会继续查找后续候选，包内源包用于核验并重建应用数据目录中的查询数据库。
 
@@ -71,7 +71,17 @@ python scripts/test_dictionary_schema.py
 
 核心测试覆盖已注册模块；模块恢复时将其测试纳入编译和执行。前端构建包含 TypeScript 检查与 Vite 打包。语法资源或词典 schema 改动时执行各自专项检查。
 
-GitHub Actions 使用 `src-tauri/tauri.github-release.conf.json` 构建发行包。`.kdict` 是发行包的词典源格式，四个源包已被 Git 跟踪；UniDic 与 GiNZA 资源由 `resources-v1` Release 中的一个共用 `nlp` ZIP 和两个平台 Python ZIP 提供，正式发布只执行 `scripts/fetch_release_resources.py` 下载与解压。现有便携包可通过 `scripts/split_portable_resources.py` 拆出这些上传文件。`scripts/package_portable.py` 将 no-bundle 可执行文件和资源压缩为 ZIP，不生成 MSI、NSIS、DMG 或其他安装包。本地 `tauri.conf.json` 继续使用开发环境中的 `.dic` 资源。推送 `v*` 标签后，Actions 在 Windows x64 和 macOS arm64 runner 上构建并创建 GitHub Release，手动运行工作流只生成构建产物。
+GitHub Actions 使用 `src-tauri/tauri.github-release.conf.json` 构建 Windows x64 便携包与 macOS arm64 DMG。`.kdict` 是发行包的词典源格式，四个源包已被 Git 跟踪；UniDic 与 GiNZA 资源由 `resources-v1` Release 提供，`scripts/fetch_release_resources.py` 下载资源并转换 Windows 虚拟环境。资源 ZIP 作为构建输入，应用发行产物为便携包。推送与 `package.json` 版本一致的 `v*` 标签后创建 GitHub Release；手动运行工作流生成构建产物。
+
+## Windows 便携运行
+
+便携包直接运行目录中的 `ReadUX.exe`，程序、UniDic、词典源包、Python 运行时与 provider 脚本使用固定相对路径。应用标识固定为 `com.readux.app`，版本从根目录 `package.json` 读取，Rust 包版本同步维护。Windows Job Object 管理分析进程，解释器使用 `-B`，避免在便携目录生成字节码缓存。
+
+用户配置、阅读状态和查询缓存位于系统应用数据目录 `com.readux.app`，书库位于文档目录 `ReadUX Library`。升级保留这些目录；卸载默认保留应用数据，用户可在卸载界面选择清除应用数据，书库独立保留。`READUX_DATA_DIR` 指定的目录由使用者管理。
+
+Windows EXE 使用 `src-tauri/icons/icon.ico`。`src-tauri/src/windows_icons.rs` 从 EXE 资源编号 32512 加载系统尺寸的大、小图标，分别用于任务栏和标题栏。
+
+`scripts/verify_windows_icons.ps1` 核对 EXE 内全部 ICO 帧，并启动程序读取窗口大、小图标；Windows CI 在构建后执行同一检查，报告默认写入 `.agents/analysis/windows-icons.json`。
 
 资源 Release 的资产名称固定为：
 

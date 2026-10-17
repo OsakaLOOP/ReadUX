@@ -74,10 +74,36 @@ impl ProviderSettings {
 
 struct Worker {
     child: Child,
+    #[cfg(windows)]
+    _job: std::os::windows::io::OwnedHandle,
     input: ChildStdin,
     output: Receiver<Result<Value, String>>,
     manifest: Value,
     identity: String,
+}
+
+/// 主程序退出或被安装器结束时，Windows 同步释放所属分析进程。
+#[cfg(windows)]
+fn worker_job(child: &Child) -> std::io::Result<std::os::windows::io::OwnedHandle> {
+    use std::os::windows::io::{AsRawHandle, FromRawHandle, OwnedHandle};
+    use windows_sys::Win32::System::JobObjects::{
+        AssignProcessToJobObject, CreateJobObjectW, SetInformationJobObject,
+        JobObjectExtendedLimitInformation, JOBOBJECT_EXTENDED_LIMIT_INFORMATION,
+        JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE,
+    };
+    unsafe {
+        let handle = CreateJobObjectW(std::ptr::null(), std::ptr::null());
+        if handle.is_null() { return Err(std::io::Error::last_os_error()); }
+        let job = OwnedHandle::from_raw_handle(handle);
+        let mut limits: JOBOBJECT_EXTENDED_LIMIT_INFORMATION = std::mem::zeroed();
+        limits.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+        if SetInformationJobObject(handle, JobObjectExtendedLimitInformation,
+            &limits as *const _ as *const _, std::mem::size_of_val(&limits) as u32) == 0
+            || AssignProcessToJobObject(handle, child.as_raw_handle()) == 0 {
+            return Err(std::io::Error::last_os_error());
+        }
+        Ok(job)
+    }
 }
 
 fn worker_identity(id: &str, config: &ProviderConfig, script: &Path) -> String {
@@ -89,7 +115,7 @@ impl Worker {
     fn start(id: &str, config: &ProviderConfig, script: &Path, log: &Path, cancel: &AtomicU64, generation: u64) -> Result<Self, String> {
         let identity = worker_identity(id, config, script);
         let mut command = Command::new(&config.python);
-        command.args(["-X", "utf8", "-u"]).arg(script)
+        command.args(["-B", "-X", "utf8", "-u"]).arg(script)
             .args(["--provider", id, "--model", &config.model])
             .stdin(Stdio::piped()).stdout(Stdio::piped())
             .stderr(Stdio::from(File::create(log).map_err(|e| format!("无法创建来源日志：{e}"))?));
@@ -100,6 +126,15 @@ impl Worker {
             command.creation_flags(0x08000000);
         }
         let mut child = command.spawn().map_err(|e| format!("无法启动 {}：{e}", config.python.display()))?;
+        #[cfg(windows)]
+        let job = match worker_job(&child) {
+            Ok(job) => job,
+            Err(error) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(format!("无法管理分析进程：{error}"));
+            }
+        };
         let input = child.stdin.take().unwrap();
         let output = child.stdout.take().unwrap();
         let (sender, receiver) = mpsc::channel();
@@ -109,7 +144,10 @@ impl Worker {
                 if sender.send(value).is_err() { break; }
             }
         });
-        let mut worker = Self { child, input, output: receiver, manifest: Value::Null, identity };
+        let mut worker = Self { child, input, output: receiver, manifest: Value::Null, identity,
+            #[cfg(windows)]
+            _job: job,
+        };
         let ready = worker.receive(config.timeout_seconds, cancel, generation)?;
         if ready["event"] != "ready" { return Err(ready["error"].as_str().unwrap_or("来源初始化失败").into()); }
         worker.manifest = ready["manifest"].clone();

@@ -42,23 +42,21 @@ const showAbout = ref(false);
       >
         <ArrowLeft :size="19" aria-hidden="true" />
       </button>
+      <img
+        class="app-header__brand-logo"
+        src="/branding/readux-mark.svg"
+        alt=""
+        aria-hidden="true"
+      />
       <svg
-        :class="[
-          'app-header__brand-name',
-          { 'app-header__brand-name--mark': collapseBrand },
-        ]"
-        :viewBox="collapseBrand ? '0 0 120 120' : '0 0 357.25 120'"
+        v-if="!collapseBrand"
+        class="app-header__wordmark"
+        viewBox="0 0 357.25 120"
         role="img"
         aria-label="ReadUX"
         focusable="false"
       >
-        <use
-          :href="
-            collapseBrand
-              ? '/branding/readux-mark.svg#readux-mark'
-              : '/branding/readux-wordmark.svg#readux-wordmark'
-          "
-        />
+        <use href="/branding/readux-wordmark.svg#readux-wordmark" />
       </svg>
       <div v-if="title" class="app-header__page-identity">
         <strong>{{ title }}</strong>
@@ -219,15 +217,19 @@ const showAbout = ref(false);
   color: var(--accent-color);
 }
 
-.app-header__brand-name {
+.app-header__brand-logo {
   display: block;
   flex: 0 0 auto;
-  height: 34px;
-  width: 101.22px;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
 }
 
-.app-header__brand-name--mark {
-  width: 34px;
+.app-header__wordmark {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 126px;
+  height: 38px;
 }
 
 .app-header__brand-description {

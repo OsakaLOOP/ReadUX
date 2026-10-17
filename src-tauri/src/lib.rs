@@ -1,4 +1,6 @@
 mod reader_engine;
+#[cfg(windows)]
+mod windows_icons;
 
 use readux_core::analysis::{Request, ResourcePaths, Response};
 use readux_core::reader_state::{SavedSelection, WordState};
@@ -133,6 +135,11 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
+            #[cfg(windows)]
+            if let Some(window) = app.get_webview_window("main") {
+                windows_icons::apply(&window)?;
+            }
+
             let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..");
             let paths = if cfg!(debug_assertions) {
                 ResourcePaths::development(&root)

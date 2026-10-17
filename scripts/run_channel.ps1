@@ -46,93 +46,34 @@ function Clear-TargetIfOverLimit {
 
 function Stop-PackagedExecutable([string]$ExecutablePath) {
     $fullPath = [System.IO.Path]::GetFullPath($ExecutablePath)
-    $processes = Get-Process -ErrorAction SilentlyContinue
-
-    foreach ($process in $processes) {
-        try {
-            $processPath = [System.IO.Path]::GetFullPath($process.Path)
-        } catch {
-            continue
-        }
-
+    foreach ($process in (Get-Process -ErrorAction SilentlyContinue)) {
+        try { $processPath = [System.IO.Path]::GetFullPath($process.Path) } catch { continue }
         if ([string]::Equals($processPath, $fullPath, [System.StringComparison]::OrdinalIgnoreCase)) {
             Stop-Process -Id $process.Id -Force
-            if (-not $process.WaitForExit(5000)) {
-                throw "packaged executable process did not exit: $fullPath"
-            }
-        }
-    }
-
-    if (Test-Path -LiteralPath $fullPath) {
-        for ($attempt = 0; $attempt -lt 20; $attempt++) {
-            try {
-                $stream = [System.IO.File]::Open($fullPath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
-                $stream.Dispose()
-                return
-            } catch [System.IO.IOException] {
-                if ($attempt -eq 19) {
-                    throw
-                }
-                Start-Sleep -Milliseconds 100
-            }
+            if (-not $process.WaitForExit(5000)) { throw "ReadUX.exe 未退出：$fullPath" }
         }
     }
 }
 
 function Create-InsiderPackage {
-    $packageRoot = Join-Path $workspace "packages"
-    $packageName = "ReadUX-insider-portable-win64"
-    $packageDir = Join-Path $packageRoot $packageName
-    $archive = Join-Path $packageRoot ($packageName + ".zip")
-    $workspaceRoot = (Resolve-Path $workspace).Path.TrimEnd("\")
+    $binary = Join-Path $workspace "target\release\ReadUX.exe"
+    if (-not (Test-Path -LiteralPath $binary)) { throw "发行程序缺失：$binary" }
+    Stop-PackagedExecutable $binary
+    & python -X utf8 "scripts\package_portable.py" --target windows-x64 --binary "target/release/ReadUX.exe" --output "packages" --name "ReadUX-insider-portable-win64"
+    if ($LASTEXITCODE -ne 0) { throw "便携包生成失败：$LASTEXITCODE" }
+}
 
-    foreach ($path in @($packageRoot, $packageDir, $archive)) {
-        $fullPath = [System.IO.Path]::GetFullPath($path)
-        if (-not $fullPath.StartsWith($workspaceRoot + "\", [System.StringComparison]::OrdinalIgnoreCase)) {
-            throw "refusing to write a package outside the workspace."
-        }
-    }
-
-    New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
-
-    $bundleDirectory = Join-Path $workspace "data\dict-sources"
-    $requiredBundles = @("starter.kdict", "daijirin.kdict", "shogakukan.kdict", "crown.kdict")
-    $missingBundles = @($requiredBundles | Where-Object { -not (Test-Path -LiteralPath (Join-Path $bundleDirectory $_)) })
-    if ($missingBundles.Count -gt 0) {
-        throw "missing tracked dictionary bundles: $($missingBundles -join ', ')"
-    }
-
-    $minimalGinza = Join-Path $workspace "experiments\ginza-minimal"
-    $minimalPython = Join-Path $minimalGinza "Scripts\python.exe"
+function Prepare-InstallerResources {
+    $minimalPython = Join-Path $workspace "experiments\ginza-minimal\Scripts\python.exe"
     $minimalManifest = Join-Path $workspace "experiments\ginza-minimal-manifest.json"
     if (-not (Test-Path -LiteralPath $minimalPython) -or -not (Test-Path -LiteralPath $minimalManifest)) {
-        & python "scripts\build_ginza_minimal_env.py" --source "experiments\ginza311" --output "experiments\ginza-minimal"
-        if ($LASTEXITCODE -ne 0) {
-            throw "minimal GiNZA environment build failed with exit code $LASTEXITCODE"
-        }
+        & python -X utf8 "scripts\build_ginza_minimal_env.py" --source "experiments\ginza311" --output "experiments\ginza-minimal"
+        if ($LASTEXITCODE -ne 0) { throw "GiNZA 环境准备失败：$LASTEXITCODE" }
     }
-
-    $packagedExecutable = Join-Path $packageDir "ReadUX.exe"
-    Stop-PackagedExecutable $packagedExecutable
-    if (Test-Path -LiteralPath $packageDir) {
-        Remove-Item -LiteralPath $packageDir -Recurse -Force
-    }
-    New-Item -ItemType Directory -Force -Path $packageDir, (Join-Path $packageDir "nlp"), (Join-Path $packageDir "dict-sources"), (Join-Path $packageDir "python"), (Join-Path $packageDir "scripts") | Out-Null
-    Copy-Item -LiteralPath "target\release\tauri-app.exe" -Destination $packagedExecutable -Force
-    Copy-Item -LiteralPath "experiments\unidic-source\unidic-cwj-202512.vibrato.dic" -Destination (Join-Path $packageDir "nlp\cwj.dic") -Force
-    Copy-Item -LiteralPath "experiments\unidic-source\unidic-csj-202512.vibrato.dic" -Destination (Join-Path $packageDir "nlp\csj.dic") -Force
-    Copy-Item -Path (Join-Path $minimalGinza "*") -Destination (Join-Path $packageDir "python") -Recurse -Force
-    Copy-Item -LiteralPath "scripts\nlp_provider.py", "scripts\nlp_adapters.py", "scripts\nlp_resources.py" -Destination (Join-Path $packageDir "scripts") -Force
-    Copy-Item -LiteralPath $minimalManifest -Destination (Join-Path $packageDir "manifest.json") -Force
-    $dictionaryBundles = Get-ChildItem -LiteralPath $bundleDirectory -File -Filter "*.kdict" | Sort-Object Name
-    if (-not $dictionaryBundles) {
-        throw "no .kdict dictionary bundles found in $bundleDirectory"
-    }
-    foreach ($bundle in $dictionaryBundles) {
-        Copy-Item -LiteralPath $bundle.FullName -Destination (Join-Path $packageDir "dict-sources\$($bundle.Name)") -Force
-    }
-    Compress-Archive -Path (Join-Path $packageDir "*") -DestinationPath $archive -Force
-    Write-Output "package: $archive"
+    & python -X utf8 "scripts\prepare_installer_resources.py"
+    if ($LASTEXITCODE -ne 0) { throw "安装资源准备失败：$LASTEXITCODE" }
+    & npm.cmd run verify:release-resources -- --require-generated
+    if ($LASTEXITCODE -ne 0) { throw "安装资源校验失败：$LASTEXITCODE" }
 }
 
 try {
@@ -143,17 +84,16 @@ try {
     if ($Channel -eq "dev") {
         $env:CARGO_INCREMENTAL = "1"
         Remove-Item Env:VITE_BUILD_CHANNEL -ErrorAction SilentlyContinue
-        & npm.cmd run tauri -- dev
+        & npm.cmd run tauri -- dev --config src-tauri/tauri.dev.conf.json
     } else {
         $env:CARGO_INCREMENTAL = "0"
         $env:VITE_BUILD_CHANNEL = "insider"
+        Prepare-InstallerResources
         & npm.cmd run tauri -- build --no-bundle
+        if ($LASTEXITCODE -eq 0) { Create-InsiderPackage }
     }
 
     $exitCode = $LASTEXITCODE
-    if ($Channel -eq "insider" -and $exitCode -eq 0) {
-        Create-InsiderPackage
-    }
 } finally {
     Remove-Item Env:CARGO_TARGET_DIR -ErrorAction SilentlyContinue
     Remove-Item Env:CARGO_INCREMENTAL -ErrorAction SilentlyContinue

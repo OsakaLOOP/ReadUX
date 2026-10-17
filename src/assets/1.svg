@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="37 46 437 437" width="100%" height="100%">
+  <defs>
+    <!-- 1. 武士兜背景渐变：暗红线源下移 1/3（y1 从 210 下移至 310），向右侧玄黑铁甲过渡 -->
+    <linearGradient id="kabuto-left-crimson" gradientUnits="userSpaceOnUse" x1="110" y1="310" x2="410" y2="465">
+      <stop offset="0%" stop-color="#430c10" />
+      <stop offset="14%" stop-color="#2f0b0f" />
+      <stop offset="42%" stop-color="#130a18" />
+      <stop offset="75%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0B111E" />
+    </linearGradient>
+
+    <!-- 2. 锹形前立 U（左半）：流光亮金至琥珀金 -->
+    <linearGradient id="kuwagata-left-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="48%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- 锹形前立 U（右半）：暖阳金至深赤金 -->
+    <linearGradient id="kuwagata-right-gold" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="52%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+
+    <!-- 3. 极简无护手武士刀渐变（左下至右上：玄黑刀柄渐变 -> 偏灰至亮银刀身） -->
+    <linearGradient id="katana-unified-a" gradientUnits="userSpaceOnUse" x1="88" y1="475" x2="368" y2="251">
+      <stop offset="0%" stop-color="#141a27" />
+      <stop offset="18%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#8195b1" />
+      <stop offset="62%" stop-color="#c1cdde" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <!-- 极简无护手武士刀渐变（右下至左上：玄黑刀柄渐变 -> 偏灰至亮银刀身） -->
+    <linearGradient id="katana-unified-b" gradientUnits="userSpaceOnUse" x1="424" y1="475" x2="144" y2="251">
+      <stop offset="0%" stop-color="#05070B" />
+      <stop offset="21%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#64748B" />
+      <stop offset="62%" stop-color="#aab9d1" />
+      <stop offset="100%" stop-color="#eff3f8" />
+    </linearGradient>
+
+    <!-- 4. 刀身正中高光过渡（左下至右上：同步下移 9px 后的坐标） -->
+    <linearGradient id="highlight-taper-a" gradientUnits="userSpaceOnUse" x1="170" y1="418" x2="354" y2="240">
+      <stop offset="0%" stop-color="#6d7e96" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#f3f8fc" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+    </linearGradient>
+
+    <!-- 刀身正中高光过渡（右下至左上：同步下移 9px 后的坐标） -->
+    <linearGradient id="highlight-taper-b" gradientUnits="userSpaceOnUse" x1="342" y1="418" x2="158" y2="240">
+      <stop offset="0%" stop-color="#64748B" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#F8FAFC" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+    </linearGradient>
+
+    <!-- 刀根金色铜套（Habaki） -->
+    <linearGradient id="habaki-brass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(-23.68 0) scale(1.0925 1)">
+  <!-- ==================== 1. 唯一背景层：日本武士兜（Kabuto） ==================== -->
+  <path fill-rule="evenodd"
+        d="M 242 94
+           C 247 92, 251 90, 256 88
+           C 261 90, 265 92, 270 94
+           C 304 104, 330 130, 346 168
+           C 370 162, 394 154, 416 146
+           C 420 163, 424 180, 428 196
+           C 411 203, 395 210, 378 216
+           C 398 242, 418 270, 434 298
+           C 427 300, 421 302, 414 304
+           C 430 328, 444 352, 456 374
+           C 422 392, 384 404, 344 410
+           C 330 404, 316 398, 302 392
+           C 287 407, 271 421, 256 436
+           C 241 421, 225 407, 210 392
+           C 196 398, 182 404, 168 410
+           C 128 404, 90 392, 56 374
+           C 68 352, 82 328, 98 304
+           C 91 302, 85 300, 78 298
+           C 94 270, 114 242, 134 216
+           C 117 210, 101 203, 84 196
+           C 88 180, 92 163, 96 146
+           C 118 154, 142 162, 166 168
+           C 182 130, 208 104, 242 94 Z
+           M 176 248
+           C 198 253, 220 259, 242 264
+           C 241 267, 239 271, 238 274
+           C 222 271, 205 267, 189 264
+           C 184 259, 180 253, 176 248 Z
+           M 336 248
+           C 314 253, 292 259, 270 264
+           C 271 267, 273 271, 274 274
+           C 290 271, 307 267, 323 264
+           C 328 259, 332 253, 336 248 Z"
+        fill="url(#kabuto-left-crimson)" />
+
+<!-- ==================== 2. 额顶核心层：黄金锹形前立「U」（外弧中段新增控制锚点，维持宽度并向外拓展） ==================== -->
+  <!-- 左半翼：外弧经中段锚点 (148, 174) 分为下凸弧与上凹拓展弧 -->
+  <path d="M 256 238
+           C 204 238, 164 212, 148 174
+           C 132 136, 122 110, 102 92
+           C 111 89, 120 88, 128 87
+           C 124 73, 120 60, 116 46
+           C 132 52, 146 60, 160 68
+           C 158 75, 156 82, 154 89
+           C 161 87, 169 86, 176 85
+           C 162 146, 192 200, 256 200
+           C 256 213, 256 225, 256 238 Z"
+        fill="url(#kuwagata-left-gold)" />
+
+  <!-- 右半翼：对称外弧经中段锚点 (364, 174) 分为上凹拓展弧与下凸弧 -->
+  <path d="M 256 200
+           C 320 200, 350 146, 336 85
+           C 343 86, 351 87, 358 89
+           C 356 82, 354 75, 352 68
+           C 366 60, 380 52, 396 46
+           C 392 60, 388 73, 384 87
+           C 392 88, 401 89, 410 92
+           C 390 110, 380 136, 364 174
+           C 348 212, 308 238, 256 238
+           C 256 225, 256 213, 256 200 Z"
+        fill="url(#kuwagata-right-gold)" />
+
+  <!-- ==================== 3. 极简无护手几何双打刀「X」（平滑单曲面 + 锥度高光） ==================== -->
+  <!-- 3A. 右斜武士刀（左下至右上） -->
+  <g id="katana-bottom-left-to-top-right">
+    <!-- 从柄底至刀尖一气呵成的无护手弧形曲面 -->
+    <path d="M 356 239
+             C 354 247, 351 254, 346 261
+             C 294 329, 230 392, 163 437
+             C 140 452, 116 468, 93 483
+             C 89 478, 85 472, 82 467
+             C 105 452, 128 437, 151 422
+             C 220 377, 284 315, 336 248
+             C 343 244, 350 241, 356 239 Z"
+          fill="url(#katana-unified-a)"
+          stroke="#090D16"
+          stroke-width="1.5"
+          stroke-linejoin="round" />
+
+    <!-- 由柄向尖变细、变亮的弧形锥度高光 -->
+    <path d="M 169.5 417.2
+             C 235 371, 298 309, 353.5 240.5
+             C 299.2 310.2, 236.5 372.8, 171.2 419.2
+             C 170.6 418.5, 170.0 417.8, 169.5 417.2 Z"
+          fill="url(#highlight-taper-a)" />
+  </g>
+
+  <!-- 3B. 左斜武士刀（右下至左上） -->
+  <g id="katana-bottom-right-to-top-left">
+    <!-- 从柄底至刀尖一气呵成的无护手弧形曲面 -->
+    <path d="M 156 239
+             C 158 247, 161 254, 166 261
+             C 218 329, 282 392, 349 437
+             C 372 452, 396 468, 419 483
+             C 423 478, 427 472, 430 467
+             C 407 452, 384 437, 361 422
+             C 292 377, 228 315, 176 248
+             C 169 244, 162 241, 156 239 Z"
+          fill="url(#katana-unified-b)"
+          stroke="#090D16"
+          stroke-width="1.5"
+          stroke-linejoin="round" />
+
+    <!-- 由柄向尖变细、变亮的弧形锥度高光 -->
+    <path d="M 342.5 417.2
+             C 277 371, 214 309, 158.5 240.5
+             C 212.8 310.2, 275.5 372.8, 340.8 419.2
+             C 341.4 418.5, 342.0 417.8, 342.5 417.2 Z"
+          fill="url(#highlight-taper-b)" />
+  </g>
+  </g>
+</svg>

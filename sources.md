@@ -292,6 +292,34 @@
 
 来源为用户提供的学校 eScience 中心收费表。该方案须经课题组办理，已退出部署路线。历史报价：2080Ti 为 0.6 元/卡/小时，3080 为 0.7 元/卡/小时。
 
+## Windows 安装与图标管理（2026-10-16）
+
+- [Tauri Windows Installer](https://v2.tauri.app/distribute/windows-installer/)
+  - Building
+    - Build Windows apps on Linux and macOS
+    - Building for 32-bit or ARM
+  - Supporting Windows 7
+  - FIPS Compliance
+  - WebView2 Installation Options
+    - Downloaded Bootstrapper
+    - Embedded Bootstrapper
+    - Offline Installer
+    - Fixed Version
+    - Skipping Installation
+  - Minimum Webview2 version
+  - Customizing the WiX Installer
+    - Installer Template
+    - Internationalization
+  - Customizing the NSIS Installer
+    - Installer Template
+    - Extending the Installer
+    - Install Modes
+    - Internationalization
+- [Tauri CLI 2.11.4 NSIS 模板](https://github.com/tauri-apps/tauri/blob/tauri-cli-v2.11.4/crates/tauri-bundler/src/bundle/windows/nsis/installer.nsi)：版本比较、覆盖升级、注册表、快捷方式与卸载数据选项。
+- [Tauri NSIS 工具宏](https://github.com/tauri-apps/tauri/blob/tauri-cli-v2.11.4/crates/tauri-bundler/src/bundle/windows/nsis/utils.nsh)：进程检查与快捷方式 AppUserModelID。
+- [Tao 0.35.3 Windows 窗口实现](https://docs.rs/crate/tao/0.35.3/source/src/platform_impl/windows/window.rs)：窗口小图标与任务栏大图标的独立设置；本机 Cargo 源码已复核。
+- [Windows WM_SETICON](https://learn.microsoft.com/en-us/windows/win32/winmsg/wm-seticon)、[Job Objects](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects)：任务栏图标与分析进程生命周期接口。
+
 ## 旧字规范化来源
 
 - [kyujitai.js 1.3.0](https://github.com/hakatashi/kyujitai.js)，MIT License；仓库副本：`vendor/kyujitai.js`。Rust 前置归一化使用 `dist/kyujitai.json` 的 `kyuji` 字符映射；`douon` 词语规则保留给后置词汇层。

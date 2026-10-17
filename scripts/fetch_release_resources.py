@@ -9,6 +9,8 @@ import tempfile
 from urllib.request import Request, urlopen
 import zipfile
 
+from prepare_installer_resources import copy_python_runtime
+
 
 def download(url: str, destination: Path) -> None:
     request = Request(url, headers={"User-Agent": "readux-release-builder"})
@@ -57,7 +59,7 @@ def main() -> int:
         for relative in ("nlp", "dict-sources", "scripts"):
             copy_required(nlp_root, relative, output)
         python_root = extract(args.python_url, temporary_root / "python")
-        copy_required(python_root, "python", output)
+        copy_python_runtime(python_root / "python", output / "python")
         copy_required(python_root, "manifest.json", output, "python-manifest.json")
     print(f"已准备发行资源：{output}")
     return 0

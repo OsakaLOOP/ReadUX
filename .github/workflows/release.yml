@@ -19,13 +19,15 @@ jobs:
           - name: windows-x64
             os: windows-latest
             target: x86_64-pc-windows-msvc
-            binary: tauri-app.exe
+            bundles: none
+            artifact: ReadUX-insider-portable-win64.zip
             nlp_asset: ReadUX-insider-portable-nlp.zip
             python_asset: ReadUX-insider-portable-windows-x64-python.zip
           - name: macos-arm64
             os: macos-14
             target: aarch64-apple-darwin
-            binary: tauri-app
+            bundles: dmg
+            artifact: dmg/*.dmg
             nlp_asset: ReadUX-insider-portable-nlp.zip
             python_asset: ReadUX-insider-portable-macos-arm64-python.zip
     runs-on: ${{ matrix.os }}
@@ -70,22 +72,31 @@ jobs:
       - name: Verify generated release dependencies
         run: npm run verify:release-resources -- --require-generated
 
-      - name: Build desktop executable
+      - name: Build Windows desktop executable
+        if: runner.os == 'Windows'
         run: npm run tauri -- build --target ${{ matrix.target }} --config src-tauri/tauri.github-release.conf.json --no-bundle
 
-      - name: Create portable ZIP
-        run: >-
-          python scripts/package_portable.py
-          --target ${{ matrix.name }}
-          --binary target/${{ matrix.target }}/release/${{ matrix.binary }}
-          --output release-packages
-          --name ReadUX-${{ matrix.name }}
+      - name: Build macOS desktop package
+        if: runner.os == 'macOS'
+        run: npm run tauri -- build --target ${{ matrix.target }} --config src-tauri/tauri.github-release.conf.json --bundles dmg
 
-      - name: Upload portable ZIP
+      - name: Package Windows portable archive
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -X utf8 scripts/package_portable.py --target windows-x64 --binary target/${{ matrix.target }}/release/ReadUX.exe --output target/${{ matrix.target }}/release --name ReadUX-insider-portable-win64
+
+      - name: Verify Windows executable and taskbar icons
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./scripts/verify_windows_icons.ps1 -Executable target/${{ matrix.target }}/release/ReadUX.exe
+
+      - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
           name: readux-${{ matrix.name }}
-          path: release-packages/ReadUX-${{ matrix.name }}.zip
+          path: target/${{ matrix.target }}/release/bundle/${{ matrix.artifact }}
           if-no-files-found: error
           retention-days: 14
 
@@ -95,7 +106,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download portable ZIPs
+      - name: Download installers
         uses: actions/download-artifact@v4
         with:
           path: release-assets

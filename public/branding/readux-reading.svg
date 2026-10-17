@@ -1,0 +1,545 @@
+<svg id="samurai-reading-svg" xmlns="http://www.w3.org/2000/svg" viewBox="37 46 437 437" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --book-back-color: #7F1D1D;        /* 封底纯色（可随时通过 CSS 或 JS 替换） */
+        --book-front-bg-color: #1E293B;    /* 封面底色 */
+        --book-spine-color: #450A0A;       /* 书脊颜色 */
+        --book-duration: 2.2s;             /* 书本进入+打开总时长 */
+        --book-play-state: running;        /* JS 可切换为 paused / running */
+      }
+
+      /* ==================== Transition 转场过渡准备 ==================== */
+      #kabuto-helmet,
+      #kuwagata-left,
+      #kuwagata-right,
+      #katana-bottom-left-to-top-right,
+      #katana-bottom-right-to-top-left,
+      #katana-blade-a,
+      #katana-blade-b,
+      #katana-highlight-a,
+      #katana-highlight-b,
+      #book-back-cover,
+      #book-front-cover-base {
+        transition: d 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                    fill 0.4s ease,
+                    opacity 0.4s ease;
+      }
+
+      #samurai-reading-svg.is-paused * {
+        animation-play-state: paused !important;
+      }
+
+      /* ==================== 书本（1.2 倍放大）“右侧平进 -> 同步展开”关键帧 ==================== */
+      #book-root {
+        transform-origin: 296px 380px;
+        animation: book-enter-move var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 封面（右翼）：内部包含右半厚度，水平原地不动 */
+      #book-front-cover-wing {
+        transform-origin: 301px 380px;
+        animation: book-front-open var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 封底（左翼）：内部包含左半厚度，厚度的宽与封底 100% 固连同步缩放与旋转 */
+      #book-back-cover-wing {
+        transform-origin: 296px 380px;
+        animation: book-back-open var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 书脊：与翻开完全同步显现 */
+      #book-spine-group {
+        transform-origin: 296px 380px;
+        animation: book-spine-open var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 左半厚度：以封底顶边内角 (291, 296) 为原点，沿封底顶边斜率贴合，42% 准时与封底同步从下往上生长 */
+      #book-pages-left {
+        transform-origin: 291px 296px;
+        animation: book-thickness-left-rise var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 右半厚度：以封面顶边内角 (301, 296) 为原点，沿封面顶边斜率贴合，42% 准时与封面同步从下往上生长 */
+      #book-pages-right {
+        transform-origin: 301px 296px;
+        animation: book-thickness-right-rise var(--book-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-play-state: var(--book-play-state);
+      }
+
+      /* 1. 整体位移与 1.2 倍放大：打开后右侧、下侧均到底，左眼露出一小截 */
+      @keyframes book-enter-move {
+        0% {
+          transform: translate(165px, 14px) scale(1.2);
+          opacity: 0;
+        }
+        12% {
+          opacity: 1;
+        }
+        42% {
+          transform: translate(-55px, 14px) scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(15px, 14px) scale(1.2);
+          opacity: 1;
+        }
+      }
+
+      /* 2. 封面姿态：0%~42% 补偿 9.55deg 仰角使其平行正对镜头，42%~100% 展开 */
+      @keyframes book-front-open {
+        0%, 42% {
+          transform: skewY(9.55deg) scaleX(1.04);
+        }
+        100% {
+          transform: skewY(0deg) scaleX(1);
+        }
+      }
+
+      /* 3. 封底姿态：42%~100% 无中间停顿，直接同步展开 */
+      @keyframes book-back-open {
+        0%, 42% {
+          transform: translateX(5px) scaleX(0) skewY(-9.55deg);
+          opacity: 0;
+        }
+        42.5% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(0px) scaleX(1) skewY(0deg);
+          opacity: 1;
+        }
+      }
+
+      /* 4. 书脊展开：42%~100% 同步展开 */
+      @keyframes book-spine-open {
+        0%, 42% {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        42.5% {
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+
+      /* 5A. 左页厚度从下往上出现：0%~42% 沿封底顶边斜线 (+9.55deg) 压平为 0，42%~100% 同步向上长出 */
+      @keyframes book-thickness-left-rise {
+        0%, 42% {
+          transform: skewY(9.55deg) scaleY(0);
+        }
+        100% {
+          transform: skewY(0deg) scaleY(1);
+        }
+      }
+
+      /* 5B. 右页厚度从下往上出现：0%~42% 沿封面顶边斜线 (-9.55deg) 压平为 0，42%~100% 同步向上长出 */
+      @keyframes book-thickness-right-rise {
+        0%, 42% {
+          transform: skewY(-9.55deg) scaleY(0);
+        }
+        100% {
+          transform: skewY(0deg) scaleY(1);
+        }
+      }
+    </style>
+
+    <!-- 1. 武士兜背景渐变 -->
+    <linearGradient id="kabuto-left-crimson" gradientUnits="userSpaceOnUse" x1="110" y1="310" x2="410" y2="465">
+      <stop offset="0%" stop-color="#430c10" />
+      <stop offset="14%" stop-color="#2f0b0f" />
+      <stop offset="42%" stop-color="#130a18" />
+      <stop offset="75%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0B111E" />
+    </linearGradient>
+
+    <!-- 2. 锹形前立 U（左半）：流光亮金至琥珀金 -->
+    <linearGradient id="kuwagata-left-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="48%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- 锹形前立 U（右半）：暖阳金至深赤金 -->
+    <linearGradient id="kuwagata-right-gold" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="52%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+
+    <!-- 3. 垂直收起于左侧的武士刀渐变（A：外侧刀，下柄至上尖） -->
+    <linearGradient id="katana-unified-a" gradientUnits="userSpaceOnUse" x1="80" y1="468" x2="72" y2="120">
+      <stop offset="0%" stop-color="#141a27" />
+      <stop offset="18%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#8195b1" />
+      <stop offset="62%" stop-color="#c1cdde" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <!-- 垂直收起于左侧的武士刀渐变（B：内侧刀，下柄至上尖） -->
+    <linearGradient id="katana-unified-b" gradientUnits="userSpaceOnUse" x1="96" y1="468" x2="88" y2="120">
+      <stop offset="0%" stop-color="#05070B" />
+      <stop offset="21%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#64748B" />
+      <stop offset="62%" stop-color="#aab9d1" />
+      <stop offset="100%" stop-color="#eff3f8" />
+    </linearGradient>
+
+    <!-- 4. 垂直刀身正中高光过渡（A & B） -->
+    <linearGradient id="highlight-taper-a" gradientUnits="userSpaceOnUse" x1="72" y1="371" x2="80" y2="123">
+      <stop offset="0%" stop-color="#6d7e96" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#f3f8fc" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+    </linearGradient>
+
+    <linearGradient id="highlight-taper-b" gradientUnits="userSpaceOnUse" x1="88" y1="371" x2="96" y2="123">
+      <stop offset="0%" stop-color="#64748B" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#F8FAFC" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+    </linearGradient>
+
+    <!-- 刀根金色铜套（Habaki） -->
+    <linearGradient id="habaki-brass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- 5. 书本专用渐变与可替换封面裁剪路径 -->
+    <linearGradient id="book-pages-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0" />
+      <stop offset="38%" stop-color="#FFFBEB" />
+      <stop offset="50%" stop-color="#CBD5E1" />
+      <stop offset="62%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <linearGradient id="book-cover-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.14" />
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.32" />
+    </linearGradient>
+
+    <!-- 封面曲线多边形裁剪区域：保证任何替换进去的图片或图形都严丝合缝贴合封面形状 -->
+    <clipPath id="book-front-cover-clip">
+      <path id="book-front-cover-clip-path"
+            d="M 301 296
+               C 336 282, 372 276, 408 278
+               C 412 331, 414 383, 416 436
+               C 380 434, 338 439, 301 450
+               C 303 399, 303 347, 301 296 Z" />
+    </clipPath>
+  </defs>
+
+  <g id="scene-root" transform="translate(-23.68 0) scale(1.0925 1)">
+    <!-- ==================== 1. 背景层：日本武士兜（Kabuto，眼部改为弧形眯着的笑眼，位置与节点数不变） ==================== -->
+    <path id="kabuto-helmet"
+          fill-rule="evenodd"
+          d="M 242 94
+             C 247 92, 251 90, 256 88
+             C 261 90, 265 92, 270 94
+             C 304 104, 330 130, 346 168
+             C 370 162, 394 154, 416 146
+             C 420 163, 424 180, 428 196
+             C 411 203, 395 210, 378 216
+             C 398 242, 418 270, 434 298
+             C 427 300, 421 302, 414 304
+             C 430 328, 444 352, 456 374
+             C 422 392, 384 404, 344 410
+             C 330 404, 316 398, 302 392
+             C 287 407, 271 421, 256 436
+             C 241 421, 225 407, 210 392
+             C 196 398, 182 404, 168 410
+             C 128 404, 90 392, 56 374
+             C 68 352, 82 328, 98 304
+             C 91 302, 85 300, 78 298
+             C 94 270, 114 242, 134 216
+             C 117 210, 101 203, 84 196
+             C 88 180, 92 163, 96 146
+             C 118 154, 142 162, 166 168
+             C 182 130, 208 104, 242 94 Z
+             M 176 265
+             C 194 241, 224 241, 242 265
+             C 241 268, 238 270, 235 268
+             C 220 251, 198 251, 183 268
+             C 180 270, 177 268, 176 265 Z
+             M 336 265
+             C 318 241, 288 241, 270 265
+             C 271 268, 274 270, 277 268
+             C 292 251, 314 251, 329 268
+             C 332 270, 335 268, 336 265 Z"
+          fill="url(#kabuto-left-crimson)" />
+
+    <!-- ==================== 2. 额顶核心层：黄金锹形前立「U」 ==================== -->
+    <path id="kuwagata-left"
+          d="M 256 238
+             C 204 238, 164 212, 148 174
+             C 132 136, 122 110, 102 92
+             C 111 89, 120 88, 128 87
+             C 124 73, 120 60, 116 46
+             C 132 52, 146 60, 160 68
+             C 158 75, 156 82, 154 89
+             C 161 87, 169 86, 176 85
+             C 162 146, 192 200, 256 200
+             C 256 213, 256 225, 256 238 Z"
+          fill="url(#kuwagata-left-gold)" />
+
+    <path id="kuwagata-right"
+          d="M 256 200
+             C 320 200, 350 146, 336 85
+             C 343 86, 351 87, 358 89
+             C 356 82, 354 75, 352 68
+             C 366 60, 380 52, 396 46
+             C 392 60, 388 73, 384 87
+             C 392 88, 401 89, 410 92
+             C 390 110, 380 136, 364 174
+             C 348 212, 308 238, 256 238
+             C 256 225, 256 213, 256 200 Z"
+          fill="url(#kuwagata-right-gold)" />
+
+    <!-- ==================== 3. 垂直收起并靠拢于左侧边缘的双打刀 ==================== -->
+    <!-- 3A. 外侧武士刀（原左下至右上刀，现垂直靠左外侧） -->
+    <g id="katana-bottom-left-to-top-right">
+      <path id="katana-blade-a"
+            d="M 80.0 120.0
+               C 76.9 126.6, 74.6 133.3, 73.3 141.4
+               C 62.6 223.2, 59.4 310.4, 66.2 388.4
+               C 68.7 414.9, 71.2 442.7, 73.8 469.2
+               C 77.9 468.9, 82.5 467.9, 86.2 466.8
+               C 83.7 440.5, 81.2 414.0, 78.6 387.5
+               C 71.0 308.6, 73.7 221.5, 84.5 140.4
+               C 83.4 132.8, 81.9 125.7, 80.0 120.0 Z"
+            fill="url(#katana-unified-a)"
+            stroke="#090D16"
+            stroke-width="1.5"
+            stroke-linejoin="round" />
+
+      <!-- 由柄向尖变细、变亮的弧形锥度高光 -->
+      <path id="katana-highlight-a"
+            d="M 73.0 371.0
+               C 67.5 293.4, 70.7 207.4, 80.3 122.8
+               C 69.6 207.3, 66.0 293.4, 71.4 371.0
+               C 71.9 371.0, 72.5 371.0, 73.0 371.0 Z"
+            fill="url(#highlight-taper-a)" />
+    </g>
+
+    <!-- 3B. 内侧武士刀（原右下至左上刀，现垂直靠拢于外侧刀右旁） -->
+    <g id="katana-bottom-right-to-top-left">
+      <path id="katana-blade-b"
+            d="M 96.0 120.0
+               C 92.9 126.6, 90.6 133.3, 89.3 141.4
+               C 78.6 223.2, 75.4 310.4, 82.2 388.4
+               C 84.7 414.9, 87.2 442.7, 89.8 469.2
+               C 93.9 468.9, 98.5 467.9, 102.2 466.8
+               C 99.7 440.5, 97.2 414.0, 94.6 387.5
+               C 87.0 308.6, 89.7 221.5, 100.5 140.4
+               C 99.4 132.8, 97.9 125.7, 96.0 120.0 Z"
+            fill="url(#katana-unified-b)"
+            stroke="#090D16"
+            stroke-width="1.5"
+            stroke-linejoin="round" />
+
+      <!-- 由柄向尖变细、变亮的弧形锥度高光 -->
+      <path id="katana-highlight-b"
+            d="M 89.0 371.0
+               C 83.5 293.4, 86.7 207.4, 96.3 122.8
+               C 85.6 207.3, 82.0 293.4, 87.4 371.0
+               C 87.9 371.0, 88.5 371.0, 89.0 371.0 Z"
+            fill="url(#highlight-taper-b)" />
+    </g>
+
+    <!-- ==================== 4. 新增层：中间靠右的打开书本（曲线多边形 + 可替换封面/封底 + 入场展开动画） ==================== -->
+    <!-- ==================== 4. 新增层：中间靠右的打开书本（1.42倍放大，右下到底，厚度与封底/封面固连） ==================== -->
+    <!-- ==================== 4. 新增层：中间靠右的打开书本（1.2倍放大，左右严格对称，厚度贴合同步生长） ==================== -->
+    <!-- ==================== 4. 新增层：中间靠右的打开书本（微调底部边界与裁剪对齐） ==================== -->
+    <g id="book-root">
+      <!-- 4A. 封底翼（左半翼） -->
+      <g id="book-back-cover-wing">
+        <!-- 左半书页厚度 -->
+        <g id="book-pages-left">
+          <path id="book-pages-top-left"
+                d="M 291 297
+                   C 293 295, 295 292, 296 290
+                   C 262 264, 224 258, 189 266
+                   C 188 270, 187 275, 187 279
+                   C 220 277, 256 283, 291 297 Z"
+                fill="url(#book-pages-grad)"
+                stroke="#090D16"
+                stroke-width="1.4"
+                stroke-linejoin="round" />
+
+          <path id="book-pages-riffle-left"
+                d="M 294 292 C 260 269, 223 263, 188 270
+                   M 292 295 C 258 274, 221 268, 188 275"
+                fill="none"
+                stroke="#94A3B8"
+                stroke-width="0.85"
+                stroke-linecap="round" />
+        </g>
+
+        <!-- 封底主体（下沿上收至 436~450，放大后刚好贴底不越界） -->
+        <path id="book-back-cover"
+              d="M 291 296
+                 C 256 282, 220 276, 184 278
+                 C 180 331, 178 383, 176 436
+                 C 212 434, 254 439, 291 450
+                 C 289 399, 289 347, 291 296 Z"
+              fill="var(--book-back-color, #7F1D1D)"
+              stroke="#090D16"
+              stroke-width="1.6"
+              stroke-linejoin="round" />
+
+        <!-- 封底压边暗纹 -->
+        <path id="book-back-cover-trim"
+              d="M 282 304
+                 C 252 292, 221 287, 192 289
+                 C 189 334, 187 380, 185 426
+                 C 216 425, 252 430, 282 439
+                 C 280 394, 280 349, 282 304 Z"
+              fill="none"
+              stroke="#FDE047"
+              stroke-opacity="0.28"
+              stroke-width="1.2"
+              stroke-linejoin="round" />
+      </g>
+
+      <!-- 4B. 封面翼（右半翼） -->
+      <g id="book-front-cover-wing">
+        <!-- 右半书页厚度 -->
+        <g id="book-pages-right">
+          <path id="book-pages-top-right"
+                d="M 301 297
+                   C 299 295, 297 292, 296 290
+                   C 330 264, 368 258, 403 266
+                   C 404 270, 405 275, 405 279
+                   C 372 277, 336 283, 301 297 Z"
+                fill="url(#book-pages-grad)"
+                stroke="#090D16"
+                stroke-width="1.4"
+                stroke-linejoin="round" />
+
+          <path id="book-pages-riffle-right"
+                d="M 298 292 C 332 269, 369 263, 404 270
+                   M 300 295 C 334 274, 371 268, 404 275"
+                fill="none"
+                stroke="#94A3B8"
+                stroke-width="0.85"
+                stroke-linecap="round" />
+        </g>
+
+        <!-- 封面裁剪组 -->
+        <g id="book-front-cover" clip-path="url(#book-front-cover-clip)">
+          <!-- 1. 封面底色层 -->
+          <path id="book-front-cover-base"
+                d="M 301 296
+                   C 336 282, 372 276, 408 278
+                   C 412 331, 414 383, 416 436
+                   C 380 434, 338 439, 301 450
+                   C 303 399, 303 347, 301 296 Z"
+                fill="var(--book-front-bg-color, #1E293B)" />
+
+          <!-- 2. 可替换封面内容层 -->
+          <g id="book-front-cover-replaceable">
+            <!-- 默认封面图案：武士金纹框 -->
+            <path id="book-front-default-frame"
+                  d="M 310 304
+                     C 340 292, 371 287, 400 289
+                     C 403 334, 405 380, 407 426
+                     C 376 425, 340 430, 310 439
+                     C 312 394, 312 349, 310 304 Z"
+                  fill="none"
+                  stroke="url(#habaki-brass)"
+                  stroke-width="1.4"
+                  stroke-linejoin="round" />
+
+            <!-- 默认封面中心家纹/徽章 -->
+            <path id="book-front-default-emblem"
+                  d="M 358 336
+                     C 370 332, 381 341, 382 355
+                     C 383 369, 372 383, 358 387
+                     C 344 391, 333 382, 332 368
+                     C 331 354, 342 340, 358 336 Z
+                     M 358 346
+                     C 349 349, 343 357, 344 365
+                     C 345 373, 351 378, 358 376
+                     C 365 374, 371 366, 370 358
+                     C 369 350, 363 344, 358 346 Z"
+                  fill="url(#habaki-brass)"
+                  fill-rule="evenodd" />
+
+            <!-- 默认封面竖排书名题签框 -->
+            <path id="book-front-default-title-plate"
+                  d="M 380 300
+                     C 386 299, 391 299, 396 299
+                     C 398 319, 399 339, 400 359
+                     C 395 359, 389 360, 383 361
+                     C 382 341, 381 321, 380 300 Z"
+                  fill="#FEF08A"
+                  stroke="#B45309"
+                  stroke-width="1" />
+
+            <!-- 预留封面图片标签 -->
+            <image id="book-front-cover-image"
+                   x="300" y="274" width="118" height="178"
+                   preserveAspectRatio="xMidYMid slice"
+                   href="" />
+          </g>
+
+          <!-- 3. 封面曲面光泽层 -->
+          <path id="book-front-cover-gloss"
+                d="M 301 296
+                   C 336 282, 372 276, 408 278
+                   C 412 331, 414 383, 416 436
+                   C 380 434, 338 439, 301 450
+                   C 303 399, 303 347, 301 296 Z"
+                fill="url(#book-cover-sheen)"
+                pointer-events="none" />
+        </g>
+
+        <!-- 封面外轮廓描边 -->
+        <path id="book-front-cover-border"
+              d="M 301 296
+                 C 336 282, 372 276, 408 278
+                 C 412 331, 414 383, 416 436
+                 C 380 434, 338 439, 301 450
+                 C 303 399, 303 347, 301 296 Z"
+              fill="none"
+              stroke="#090D16"
+              stroke-width="1.6"
+              stroke-linejoin="round" />
+      </g>
+
+      <!-- 4C. 中心书脊（底部收至 450~453，放大后恰好位于视图底边内侧） -->
+      <g id="book-spine-group">
+        <path id="book-spine"
+              d="M 290 296
+                 C 294 292, 298 292, 302 296
+                 C 304 347, 304 399, 302 450
+                 C 298 453, 294 453, 290 450
+                 C 288 399, 288 347, 290 296 Z"
+              fill="var(--book-spine-color, #450A0A)"
+              stroke="#090D16"
+              stroke-width="1.5"
+              stroke-linejoin="round" />
+
+        <!-- 书脊金线装饰 -->
+        <path id="book-spine-ribs"
+              d="M 290 318 C 294 315, 298 315, 302 318
+                 M 289 373 C 294 370, 298 370, 303 373
+                 M 290 428 C 294 425, 298 425, 302 428"
+              fill="none"
+              stroke="url(#habaki-brass)"
+              stroke-width="1.4"
+              stroke-linecap="round" />
+      </g>
+    </g>
+  </g>
+</svg>

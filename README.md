@@ -86,3 +86,5 @@ cargo build --release
 # Run the test & linguistic quality audit suite
 cargo test --workspace
 ```
+
+Windows 便携包使用 `npm run insider` 构建，产物位于 `packages/ReadUX-insider-portable-win64.zip`；程序本体为 `target/release/ReadUX.exe`。依赖准备与运行资源见 [开发与桌面交付](docs/development.md)。

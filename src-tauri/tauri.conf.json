@@ -1,7 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "ReadUX",
-  "version": "0.1.2",
+  "mainBinaryName": "ReadUX",
+  "version": "../package.json",
   "identifier": "com.readux.app",
   "build": {
     "beforeDevCommand": "npm run frontend:dev",
@@ -29,18 +30,20 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
-    "resources": [
-      "../experiments/unidic-source/unidic-cwj-202512.vibrato.dic",
-      "../experiments/unidic-source/unidic-csj-202512.vibrato.dic",
-      "../data/dict-sources/starter.kdict",
-      "../data/dict-sources/daijirin.kdict",
-      "../data/dict-sources/shogakukan.kdict",
-      "../data/dict-sources/crown.kdict",
-      "../scripts/nlp_provider.py",
-      "../scripts/nlp_adapters.py",
-      "../scripts/nlp_resources.py"
-    ],
+    "targets": [],
+    "publisher": "ReadUX",
+    "license": "MIT",
+    "resources": {
+      "../release-resources/nlp/": "nlp/",
+      "../release-resources/python/": "python/",
+      "../release-resources/python-manifest.json": "manifest.json",
+      "../data/dict-sources/": "dict-sources/",
+      "../scripts/nlp_provider.py": "scripts/nlp_provider.py",
+      "../scripts/nlp_adapters.py": "scripts/nlp_adapters.py",
+      "../scripts/nlp_resources.py": "scripts/nlp_resources.py",
+      "../LICENSE": "LICENSE.txt",
+      "../THIRD_PARTY_NOTICES.md": "THIRD_PARTY_NOTICES.md"
+    },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

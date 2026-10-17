@@ -1,266 +1,4476 @@
 {
   "operators": {
-    "negative": {"label": "否定","title": "否定形","concept": "morphology.polarity.negative","prototype": "ない","variants": [{"token": {"equals": {"lemma": ["ぬ"]}},"form": "ぬ"},{"token": {"equals": {"surface": ["ぬ"]}},"form": "ぬ"},{"token": {"equals": {"lemma": ["ず"]}},"form": "ず"},{"token": {"equals": {"surface": ["ず"]}},"form": "ず"}]},
-    "passive_potential": {"label": "受身等候选","title": "可能、被动等","concept": "morphology.voice.passive_potential","prototype": "れる","variants": [{"token": {"contains": {"lemma": ["られる"]}},"form": "られる"},{"token": {"starts_with": {"surface": ["られ"]}},"form": "られる"}],"candidates": ["受身","可能","尊敬","自発"]},
-    "causative": {"label": "使役","title": "使役","concept": "morphology.voice.causative","prototype": "せる","variants": [{"token": {"contains": {"lemma": ["させる"]}},"form": "させる"},{"token": {"contains": {"lemma": ["しめる"]}},"form": "しめる"},{"token": {"starts_with": {"surface": ["させ"]}},"form": "させる"},{"token": {"starts_with": {"surface": ["しめ"]}},"form": "しめる"}]},
-    "past": {"label": "过去","title": "过去","concept": "morphology.tense.past","prototype": "た"},
-    "politeness_masu": {"label": "丁寧","title": "敬体","concept": "morphology.politeness.masu","prototype": "ます"},
-    "politeness_desu": {"label": "丁寧","title": "敬体","concept": "grammar.auxiliary.desu","prototype": "です"},
-    "deshou_modality": {"label": "推量","title": "推量","concept": "grammar.auxiliary.desu","prototype": "でしょう"},
-    "darou_modality": {"label": "推量","title": "推量","concept": "grammar.auxiliary.da","prototype": "だろう"},
-    "darou_question": {"label": "推量疑问","title": "推量疑问","concept": "grammar.auxiliary.da","prototype": "だろうか"},
-    "desire": {"label": "愿望","title": "愿望","concept": "morphology.modality.desire","prototype": "たい"},
-    "volitional": {"label": "意向","title": "意向形","concept": "morphology.mood.volitional","prototype": "う","variants": [{"token": {"starts_with": {"surface": ["よう"]}},"form": "よう"},{"token": {"contains": {"lemma": ["よう"]}},"form": "よう"}]},
-    "obligation": {"label": "当为","title": "当为","concept": "morphology.chain","prototype": "べきだ","variants": [{"token": {"contains": {"lemma": ["べし"]}},"form": "べし"},{"token": {"contains": {"surface": ["べし"]}},"form": "べし"}]},
-    "conditional": {"label": "条件","title": "条件","concept": "morphology.mood.conditional","prototype": ""},
-    "te_form": {"label": "て形","title": "接续形","concept": "morphology.form.te","prototype": "て","variants": [{"token": {"equals": {"surface": ["で"]}},"form": "で"}]},
-    "de_form": {"label": "で形","title": "接续形","concept": "morphology.form.de","prototype": "で"},
-    "negative_volitional": {"label": "活用","title": "否定意向","concept": "morphology.chain","prototype": "まい"},
-    "desire_outward": {"label": "活用","title": "外向愿望","concept": "morphology.chain","prototype": "たがる"},
-    "sou_modality": {"label": "活用","title": "样态 / 传闻","concept": "morphology.chain","prototype": "そうだ"},
-    "you_modality": {"label": "活用","title": "推量","concept": "morphology.chain","prototype": "ようだ"},
-    "mitai_modality": {"label": "活用","title": "推量","concept": "morphology.chain","prototype": "みたいだ"},
-    "rashii_modality": {"label": "活用","title": "推量","concept": "morphology.chain","prototype": "らしい"},
-    "copula": {"label": "判断","title": "断定","concept": "grammar.auxiliary.da","prototype": "だ","display_suffix": "だ"},
-    "adverbial_ni": {"label": "连用修饰","title": "连用修饰","concept": "morphology.form.continuative","prototype": "に","display_suffix": "に"},
-    "attributive_na": {"label": "连体修饰","title": "连体修饰","concept": "morphology.form.adjectival_attributive","prototype": "な","display_suffix": "な"},
-    "copula_aru": {"label": "判断","title": "断定","concept": "morphology.chain","prototype": "である"},
-    "ease": {"label": "活用","title": "容易","concept": "morphology.chain","prototype": "やすい"},
-    "difficulty": {"label": "活用","title": "困难","concept": "morphology.chain","prototype": "にくい","variants": [{"token": {"contains": {"surface": ["づらい"]}},"form": "づらい"},{"token": {"contains": {"lemma": ["づらい"]}},"form": "づらい"}]},
-    "nominalization": {"label": "名词化","title": "名词化","concept": "morphology.chain","prototype": "さ","variants": [{"token": {"equals": {"lemma": ["の"]}},"form": "の"}],"output_category": "名詞"},
-    "ba_connection": {"label": "条件","title": "条件","concept": "morphology.chain","prototype": "ば"},
-    "tara_condition": {"label": "条件","title": "条件","concept": "morphology.chain","prototype": "たら","variants": [{"token": {"equals": {"surface": ["だら"]}},"form": "だら"}]},
-    "nagara_connection": {"label": "ながら接続","title": "伴随","concept": "morphology.chain","prototype": "ながら"},
-    "tsutsu_connection": {"label": "つつ接続","title": "伴随·持续","concept": "morphology.chain","prototype": "つつ"},
-    "concessive_connection": {"label": "逆接","title": "逆接","concept": "morphology.chain","prototype": "ど","variants": [{"token": {"equals": {"surface": ["ども"]}},"form": "ども"}]},
-    "te_connection": {"label": "て形","title": "接续形","concept": "morphology.chain","prototype": "て","variants": [{"token": {"equals": {"surface": ["で"]}},"form": "で"}],"output_form": "te"},
-    "prohibitive": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "な"},
-    "enumerative": {"label": "列举","title": "列举","concept": "morphology.chain","prototype": "たり"},
-    "insertion": {"label": "插入语","title": "插入语","concept": "morphology.chain","prototype": "","token_lemma": true,"preserve_state": true},
-    "exemplification": {"label": "举例","title": "举例","concept": "morphology.chain","prototype": "とか","preserve_state": true},
-    "nominal_change_ni": {"label": "变化接续","title": "变化接续","concept": "grammar.functional.naru","prototype": "に","output_form": "other"},
-    "ni_naru": {"label": "になる","title": "变化","concept": "grammar.functional.naru","prototype": "になる","support": {"group": "nominal_change","bases": ["なる","成る"]},"connector": "nominal_change_ni"},
-    "adjectival_naru": {"label": "くなる","title": "变化","concept": "grammar.functional.naru","prototype": "なる","support": {"group": "adjectival_change","bases": ["なる","成る"]}},
-    "hazu_modality": {"label": "预期","title": "预期判断","concept": "morphology.chain","prototype": "はず","output_category": "名詞","output_form": "stem"},
-    "degree": {"label": "程度","title": "程度／约量","concept": "morphology.chain","prototype": "くらい","output_category": "名詞","output_form": "stem","variants": [{"token": {"equals": {"surface": ["ぐらい"]}},"form": "ぐらい"}]},
-    "kamoshirenai": {"label": "可能性","title": "可能性","concept": "grammar.modality.kamo","prototype": "かもしれない"},
-    "imperative": {"label": "命令","title": "命令","concept": "morphology.chain","prototype": ""},
-    "te_iru": {"label": "ている","title": "进行／状态持续","concept": "grammar.aspect.te_iru","prototype": "ている","support": {"group": "te","bases": ["いる","居る","おる","居る-オル"]},"connector": "te_connection","normalized": "ている"},
-    "te_aru": {"label": "てある","title": "结果存续","concept": "grammar.aspect.te_aru","prototype": "てある","support": {"group": "te","bases": ["ある","有る","在る"]},"connector": "te_connection","normalized": "てある"},
-    "te_shimau": {"label": "てしまう","title": "完成／遗憾","concept": "grammar.aspect.te_shimau","prototype": "てしまう","support": {"group": "te","bases": ["しまう","仕舞う"]},"connector": "te_connection","normalized": "てしまう"},
-    "te_oku": {"label": "ておく","title": "预先处置／保持","concept": "grammar.aspect.te_oku","prototype": "ておく","support": {"group": "te","bases": ["おく","置く"]},"connector": "te_connection","normalized": "ておく"},
-    "te_iku": {"label": "ていく","title": "远离／持续发展","concept": "grammar.direction.te_iku","prototype": "ていく","support": {"group": "te","bases": ["いく","行く"]},"connector": "te_connection","normalized": "ていく"},
-    "te_yuku": {"label": "てゆく","title": "远离／持续发展","concept": "grammar.direction.te_iku","prototype": "てゆく","support": {"group": "te","bases": ["ゆく"]},"connector": "te_connection","normalized": "てゆく"},
-    "te_kuru": {"label": "てくる","title": "趋近／逐渐显现","concept": "grammar.direction.te_kuru","prototype": "てくる","support": {"group": "te","bases": ["くる","来る"]},"connector": "te_connection","normalized": "てくる"},
-    "te_miru": {"label": "てみる","title": "尝试","concept": "grammar.modality.te_miru","prototype": "てみる","support": {"group": "te","bases": ["みる","見る"]},"connector": "te_connection","normalized": "てみる"},
-    "te_kudasaru": {"label": "てくださる","title": "受惠（尊敬）","concept": "grammar.benefactive.te_kudasaru","prototype": "てくださる","support": {"group": "te","bases": ["くださる","下さる"]},"connector": "te_connection","normalized": "てくださる"},
-    "te_morau": {"label": "てもらう","title": "受惠／请求","concept": "grammar.benefactive.te_morau","prototype": "てもらう","support": {"group": "te","bases": ["もらう","貰う"]},"connector": "te_connection","normalized": "てもらう"},
-    "te_ageru": {"label": "てあげる","title": "给予","concept": "grammar.benefactive.te_ageru","prototype": "てあげる","support": {"group": "te","bases": ["あげる","上げる"]},"connector": "te_connection","normalized": "てあげる"},
-    "te_kureru": {"label": "てくれる","title": "受惠","concept": "grammar.benefactive.te_kureru","prototype": "てくれる","support": {"group": "te","bases": ["くれる","呉れる"]},"connector": "te_connection","normalized": "てくれる"},
-    "te_yaru": {"label": "てやる","title": "给予","concept": "grammar.benefactive.te_yaru","prototype": "てやる","support": {"group": "te","bases": ["やる","遣る"]},"connector": "te_connection","normalized": "てやる"},
-    "te_hoshii": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てほしい","support": {"group": "te","bases": ["ほしい","欲しい"]},"connector": "te_connection"},
-    "te_goran": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てごらん","support": {"group": "te","bases": ["ごらん","御覧"]},"connector": "te_connection"},
-    "te_miseru": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てみせる","support": {"group": "te","bases": ["みせる","見せる"]},"connector": "te_connection"},
-    "te_tamaranai": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てたまらない","support": {"group": "te","bases": ["たまらない","堪らない"]},"connector": "te_connection"},
-    "te_naranai": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てならない","support": {"group": "te","bases": ["ならない","成らない"]},"connector": "te_connection"},
-    "te_yamanai": {"label": "活用","title": "活用","concept": "morphology.chain","prototype": "てやまない","support": {"group": "te","bases": ["やまない","止まない"]},"connector": "te_connection"},
-    "contracted_te_iru": {"label": "ている","title": "进行／状态持续","concept": "grammar.aspect.te_iru","prototype": "ている","normalized": "ている","support": {"group": "contracted","bases": ["てる","でる"],"expanded": ["いる","イル"]}},
-    "contracted_te_shimau": {"label": "てしまう","title": "完成／遗憾","concept": "grammar.aspect.te_shimau","prototype": "てしまう","normalized": "てしまう","support": {"group": "contracted","bases": ["ちゃう","じゃう"],"expanded": ["しまう","シマウ"]}},
-    "contracted_te_oku": {"label": "ておく","title": "预先处置／保持","concept": "grammar.aspect.te_oku","prototype": "ておく","normalized": "ておく","support": {"group": "contracted","bases": ["とく","どく"],"expanded": ["おく","オク"]}},
-    "tari_suru": {"label": "たりする","title": "列举·举例","concept": "grammar.particle.tari","prototype": "たりする","normalized": "たりする","support": {"group": "enumerative","bases": ["する","為る"],"expanded": ["する","スル"]},"connector": "enumerative","compound_candidate": true},
-    "tari_dekiru": {"label": "たりできる","title": "列举·可能","concept": "grammar.particle.tari","prototype": "たりできる","normalized": "たりできる","support": {"group": "enumerative","bases": ["できる","出来る"]},"connector": "enumerative"},
-    "excessive": {"label": "活用","title": "过度","concept": "morphology.chain","prototype": "すぎる","token_lemma": false,"support": {"group": "continuative","bases": ["すぎる","過ぎる"]},"compound_candidate": true},
-    "inceptive": {"label": "活用","title": "动作开始","concept": "morphology.chain","prototype": "始める","token_lemma": true,"support": {"group": "continuative","bases": ["はじめる","始める"]},"compound_candidate": true},
-    "continuative_aspect": {"label": "活用","title": "动作持续","concept": "morphology.chain","prototype": "続ける","token_lemma": true,"support": {"group": "continuative","bases": ["つづける","続ける","とおす","通す"]},"compound_candidate": true},
-    "terminative": {"label": "活用","title": "动作完了","concept": "morphology.chain","prototype": "終わる","token_lemma": true,"support": {"group": "continuative","bases": ["おわる","終わる","おえる","終える"]},"compound_candidate": true},
-    "iterative_aspect": {"label": "反复动作","title": "反复动作","concept": "morphology.chain","prototype": "まくる","token_lemma": true,"support": {"group": "continuative","bases": ["まくる","捲る"]},"compound_candidate": true},
-    "inchoative": {"label": "活用","title": "开始发生","concept": "morphology.chain","prototype": "出す","token_lemma": true,"support": {"group": "continuative","bases": ["だす","出す"]},"compound_candidate": true},
-    "corrective": {"label": "活用","title": "重新进行","concept": "morphology.chain","prototype": "直す","token_lemma": true,"support": {"group": "continuative","bases": ["なおす","直す"]},"compound_candidate": true},
-    "incomplete": {"label": "活用","title": "动作未完","concept": "morphology.chain","prototype": "掛ける","token_lemma": true,"support": {"group": "continuative","bases": ["かける","掛ける"]},"compound_candidate": true},
-    "completion": {"label": "活用","title": "彻底完成","concept": "morphology.chain","prototype": "切る","token_lemma": true,"support": {"group": "continuative","bases": ["きる","切る","ぬく","抜く","つくす","尽くす"]},"compound_candidate": true},
-    "reluctance": {"label": "活用","title": "难以做出","concept": "morphology.chain","prototype": "兼ねる","token_lemma": true,"support": {"group": "continuative","bases": ["かねる","兼ねる"]},"compound_candidate": true},
-    "failure": {"label": "活用","title": "失败 / 错过","concept": "morphology.chain","prototype": "損なう","token_lemma": true,"support": {"group": "continuative","bases": ["そこなう","損なう"]},"compound_candidate": true},
-    "missed_opportunity": {"label": "活用","title": "错失机会","concept": "morphology.chain","prototype": "そびれる","token_lemma": true,"support": {"group": "continuative","bases": ["そびれる"]},"compound_candidate": true},
-    "kedo_connection": {"label": "逆接","title": "逆接","concept": "grammar.connective.kedo","prototype": "けど","output_form": "other","variants": [{"token": {"equals": {"surface": ["けれど"]}},"form": "けれど"}]},
-    "keredomo_connection": {"label": "逆接","title": "逆接","concept": "grammar.connective.kedo","prototype": "けれども","output_form": "other"},
-    "ga_connection": {"label": "逆接","title": "逆接","concept": "morphology.chain","prototype": "が","output_form": "other"},
-    "noni_connection": {"label": "のに接续","title": "逆接／用途与评价","concept": "grammar.connective.noni","prototype": "のに","output_form": "other","candidates": ["逆接","用途・评价"]},
-    "kara_connection": {"label": "原因","title": "原因","concept": "grammar.particle.kara","prototype": "から","output_form": "other"},
-    "node_connection": {"label": "原因","title": "原因","concept": "morphology.chain","prototype": "ので","output_form": "other"},
-    "to_condition": {"label": "条件","title": "条件","concept": "morphology.mood.conditional","prototype": "と","output_form": "conditional"},
-    "nara_condition": {"label": "条件","title": "条件","concept": "morphology.mood.conditional","prototype": "なら","output_form": "conditional"},
-    "negative_ba": {"label": "否定条件","title": "否定条件","concept": "morphology.mood.conditional","prototype": "なければ","output_form": "conditional"},
-    "negative_tewa": {"label": "否定条件","title": "否定条件","concept": "morphology.mood.conditional","prototype": "なくては","output_form": "conditional"},
-    "negative_to": {"label": "否定条件","title": "否定条件","concept": "morphology.mood.conditional","prototype": "ないと","output_form": "conditional"},
-    "tewa_condition": {"label": "取立条件","title": "取立条件","concept": "morphology.mood.conditional","prototype": "ては","output_form": "conditional","variants": [{"token": {"equals": {"surface": ["で","じゃ"]}},"form": "では"}]},
-    "negative_de": {"label": "否定接续","title": "否定接续","concept": "morphology.chain","prototype": "ないで","output_form": "other"},
-    "negative_zuni": {"label": "否定接续","title": "否定接续","concept": "morphology.chain","prototype": "ずに","output_form": "other"},
-    "necessity_negative_ba_naru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なければならない"},
-    "necessity_negative_ba_ikeru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なければいけない"},
-    "necessity_negative_ba_dame": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なければだめ"},
-    "necessity_negative_tewa_naru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なくてはならない"},
-    "necessity_negative_tewa_ikeru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なくてはいけない"},
-    "necessity_negative_tewa_dame": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "なくてはだめ"},
-    "necessity_negative_to_naru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "ないとならない"},
-    "necessity_negative_to_ikeru": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "ないといけない"},
-    "necessity_negative_to_dame": {"label": "义务","title": "义务","concept": "grammar.obligation.nakereba_naranai","prototype": "ないとだめ"},
-    "prohibition_tewa_condition_naru": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "てはならない","variants": [{"token": {"equals": {"surface": ["で","じゃ"]}},"form": "ではならない"}]},
-    "prohibition_tewa_condition_ikeru": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "てはいけない","variants": [{"token": {"equals": {"surface": ["で","じゃ"]}},"form": "ではいけない"}]},
-    "prohibition_tewa_condition_dame": {"label": "禁止","title": "禁止","concept": "morphology.chain","prototype": "てはだめ","variants": [{"token": {"equals": {"surface": ["で","じゃ"]}},"form": "ではだめ"}]}
+    "negative": {
+      "label": "否定",
+      "title": "否定形",
+      "concept": "morphology.polarity.negative",
+      "prototype": "ない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "ぬ"
+              ]
+            }
+          },
+          "form": "ぬ"
+        },
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ぬ"
+              ]
+            }
+          },
+          "form": "ぬ"
+        },
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "ず"
+              ]
+            }
+          },
+          "form": "ず"
+        },
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ず"
+              ]
+            }
+          },
+          "form": "ず"
+        }
+      ]
+    },
+    "passive_potential": {
+      "label": "受身等候选",
+      "title": "可能、被动等",
+      "concept": "morphology.voice.passive_potential",
+      "prototype": "れる",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "られる"
+              ]
+            }
+          },
+          "form": "られる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "られ"
+              ]
+            }
+          },
+          "form": "られる"
+        }
+      ],
+      "candidates": [
+        "受身",
+        "可能",
+        "尊敬",
+        "自発"
+      ]
+    },
+    "causative": {
+      "label": "使役",
+      "title": "使役",
+      "concept": "morphology.voice.causative",
+      "prototype": "せる",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "させる"
+              ]
+            }
+          },
+          "form": "させる"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "しめる"
+              ]
+            }
+          },
+          "form": "しめる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "させ"
+              ]
+            }
+          },
+          "form": "させる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "しめ"
+              ]
+            }
+          },
+          "form": "しめる"
+        }
+      ]
+    },
+    "past": {
+      "label": "过去",
+      "title": "过去",
+      "concept": "morphology.tense.past",
+      "prototype": "た"
+    },
+    "politeness_masu": {
+      "label": "丁寧",
+      "title": "敬体",
+      "concept": "morphology.politeness.masu",
+      "prototype": "ます"
+    },
+    "politeness_desu": {
+      "label": "丁寧",
+      "title": "敬体",
+      "concept": "grammar.auxiliary.desu",
+      "prototype": "です"
+    },
+    "deshou_modality": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.auxiliary.desu",
+      "prototype": "でしょう"
+    },
+    "darou_modality": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だろう"
+    },
+    "darou_question": {
+      "label": "推量疑问",
+      "title": "推量疑问",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だろうか"
+    },
+    "desire": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "morphology.modality.desire",
+      "prototype": "たい"
+    },
+    "volitional": {
+      "label": "意向",
+      "title": "意向形",
+      "concept": "morphology.mood.volitional",
+      "prototype": "う",
+      "variants": [
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "よう"
+              ]
+            }
+          },
+          "form": "よう"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "よう"
+              ]
+            }
+          },
+          "form": "よう"
+        }
+      ]
+    },
+    "obligation": {
+      "label": "当为",
+      "title": "当为",
+      "concept": "morphology.chain",
+      "prototype": "べきだ",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "べし"
+              ]
+            }
+          },
+          "form": "べし"
+        },
+        {
+          "token": {
+            "contains": {
+              "surface": [
+                "べし"
+              ]
+            }
+          },
+          "form": "べし"
+        }
+      ]
+    },
+    "conditional": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": ""
+    },
+    "te_form": {
+      "label": "て形",
+      "title": "接续形",
+      "concept": "morphology.form.te",
+      "prototype": "て",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "form": "で"
+        }
+      ]
+    },
+    "de_form": {
+      "label": "で形",
+      "title": "接续形",
+      "concept": "morphology.form.de",
+      "prototype": "で"
+    },
+    "negative_volitional": {
+      "label": "活用",
+      "title": "否定意向",
+      "concept": "morphology.chain",
+      "prototype": "まい"
+    },
+    "desire_outward": {
+      "label": "活用",
+      "title": "外向愿望",
+      "concept": "morphology.chain",
+      "prototype": "たがる"
+    },
+    "sou_modality": {
+      "label": "活用",
+      "title": "样态 / 传闻",
+      "concept": "morphology.chain",
+      "prototype": "そうだ"
+    },
+    "you_modality": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "morphology.chain",
+      "prototype": "ようだ"
+    },
+    "mitai_modality": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "morphology.chain",
+      "prototype": "みたいだ"
+    },
+    "rashii_modality": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "morphology.chain",
+      "prototype": "らしい"
+    },
+    "copula": {
+      "label": "判断",
+      "title": "断定",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だ",
+      "display_suffix": "だ"
+    },
+    "adverbial_ni": {
+      "label": "连用修饰",
+      "title": "连用修饰",
+      "concept": "morphology.form.continuative",
+      "prototype": "に",
+      "display_suffix": "に"
+    },
+    "attributive_na": {
+      "label": "连体修饰",
+      "title": "连体修饰",
+      "concept": "morphology.form.adjectival_attributive",
+      "prototype": "な",
+      "display_suffix": "な"
+    },
+    "copula_aru": {
+      "label": "判断",
+      "title": "断定",
+      "concept": "morphology.chain",
+      "prototype": "である"
+    },
+    "ease": {
+      "label": "活用",
+      "title": "容易",
+      "concept": "morphology.chain",
+      "prototype": "やすい"
+    },
+    "difficulty": {
+      "label": "活用",
+      "title": "困难",
+      "concept": "morphology.chain",
+      "prototype": "にくい",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "surface": [
+                "づらい"
+              ]
+            }
+          },
+          "form": "づらい"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "づらい"
+              ]
+            }
+          },
+          "form": "づらい"
+        }
+      ]
+    },
+    "nominalization": {
+      "label": "名词化",
+      "title": "名词化",
+      "concept": "morphology.chain",
+      "prototype": "さ",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "の"
+              ]
+            }
+          },
+          "form": "の"
+        }
+      ],
+      "output_category": "名詞"
+    },
+    "ba_connection": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.chain",
+      "prototype": "ば"
+    },
+    "tara_condition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.chain",
+      "prototype": "たら",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "だら"
+              ]
+            }
+          },
+          "form": "だら"
+        }
+      ]
+    },
+    "nagara_connection": {
+      "label": "ながら接続",
+      "title": "伴随",
+      "concept": "morphology.chain",
+      "prototype": "ながら"
+    },
+    "tsutsu_connection": {
+      "label": "つつ接続",
+      "title": "伴随·持续",
+      "concept": "morphology.chain",
+      "prototype": "つつ"
+    },
+    "concessive_connection": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "morphology.chain",
+      "prototype": "ど",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ども"
+              ]
+            }
+          },
+          "form": "ども"
+        }
+      ]
+    },
+    "te_connection": {
+      "label": "て形",
+      "title": "接续形",
+      "concept": "morphology.chain",
+      "prototype": "て",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "form": "で"
+        }
+      ],
+      "output_form": "te"
+    },
+    "prohibitive": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "morphology.chain",
+      "prototype": "な"
+    },
+    "enumerative": {
+      "label": "列举",
+      "title": "列举",
+      "concept": "morphology.chain",
+      "prototype": "たり"
+    },
+    "insertion": {
+      "label": "插入语",
+      "title": "插入语",
+      "concept": "morphology.chain",
+      "prototype": "",
+      "token_lemma": true,
+      "preserve_state": true
+    },
+    "exemplification": {
+      "label": "举例",
+      "title": "举例",
+      "concept": "morphology.chain",
+      "prototype": "とか",
+      "preserve_state": true
+    },
+    "nominal_change_ni": {
+      "label": "变化接续",
+      "title": "变化接续",
+      "concept": "grammar.functional.naru",
+      "prototype": "に",
+      "output_form": "other"
+    },
+    "ni_naru": {
+      "label": "になる",
+      "title": "变化",
+      "concept": "grammar.functional.naru",
+      "prototype": "になる",
+      "support": {
+        "group": "nominal_change",
+        "bases": [
+          "なる",
+          "成る"
+        ]
+      },
+      "connector": "nominal_change_ni"
+    },
+    "adjectival_naru": {
+      "label": "くなる",
+      "title": "变化",
+      "concept": "grammar.functional.naru",
+      "prototype": "なる",
+      "support": {
+        "group": "adjectival_change",
+        "bases": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "hazu_modality": {
+      "label": "预期",
+      "title": "预期判断",
+      "concept": "morphology.chain",
+      "prototype": "はず",
+      "output_category": "名詞",
+      "output_form": "stem"
+    },
+    "degree": {
+      "label": "程度",
+      "title": "程度／约量",
+      "concept": "morphology.chain",
+      "prototype": "くらい",
+      "output_category": "名詞",
+      "output_form": "stem",
+      "variants": [{"token": {"equals": {"surface": ["ぐらい"]}},"form": "ぐらい"}]
+    },
+    "kamoshirenai": {
+      "label": "可能性",
+      "title": "可能性",
+      "concept": "grammar.modality.kamo",
+      "prototype": "かもしれない"
+    },
+    "imperative": {
+      "label": "命令",
+      "title": "命令",
+      "concept": "morphology.chain",
+      "prototype": ""
+    },
+    "te_iru": {
+      "label": "ている",
+      "title": "进行／状态持续",
+      "concept": "grammar.aspect.te_iru",
+      "prototype": "ている",
+      "support": {
+        "group": "te",
+        "bases": [
+          "いる",
+          "居る",
+          "おる",
+          "居る-オル"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ている"
+    },
+    "te_aru": {
+      "label": "てある",
+      "title": "结果存续",
+      "concept": "grammar.aspect.te_aru",
+      "prototype": "てある",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ある",
+          "有る",
+          "在る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てある"
+    },
+    "te_shimau": {
+      "label": "てしまう",
+      "title": "完成／遗憾／感慨",
+      "concept": "grammar.aspect.te_shimau",
+      "prototype": "てしまう",
+      "support": {
+        "group": "te",
+        "bases": [
+          "しまう",
+          "仕舞う"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てしまう"
+    },
+    "te_oku": {
+      "label": "ておく",
+      "title": "预先处置／保持",
+      "concept": "grammar.aspect.te_oku",
+      "prototype": "ておく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "おく",
+          "置く"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ておく"
+    },
+    "te_iku": {
+      "label": "ていく",
+      "title": "远离／持续发展",
+      "concept": "grammar.direction.te_iku",
+      "prototype": "ていく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "いく",
+          "行く"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ていく"
+    },
+    "te_yuku": {
+      "label": "てゆく",
+      "title": "远离／持续发展",
+      "concept": "grammar.direction.te_iku",
+      "prototype": "てゆく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ゆく"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てゆく"
+    },
+    "te_kuru": {
+      "label": "てくる",
+      "title": "趋近／逐渐显现",
+      "concept": "grammar.direction.te_kuru",
+      "prototype": "てくる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くる",
+          "来る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくる"
+    },
+    "te_miru": {
+      "label": "てみる",
+      "title": "尝试",
+      "concept": "grammar.modality.te_miru",
+      "prototype": "てみる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "みる",
+          "見る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てみる"
+    },
+    "te_kudasaru": {
+      "label": "てくださる",
+      "title": "受惠（尊敬）",
+      "concept": "grammar.benefactive.te_kudasaru",
+      "prototype": "てくださる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くださる",
+          "下さる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくださる"
+    },
+    "te_morau": {
+      "label": "てもらう",
+      "title": "受惠／请求",
+      "concept": "grammar.benefactive.te_morau",
+      "prototype": "てもらう",
+      "support": {
+        "group": "te",
+        "bases": [
+          "もらう",
+          "貰う"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てもらう"
+    },
+    "te_ageru": {
+      "label": "てあげる",
+      "title": "给予",
+      "concept": "grammar.benefactive.te_ageru",
+      "prototype": "てあげる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "あげる",
+          "上げる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てあげる"
+    },
+    "te_kureru": {
+      "label": "てくれる",
+      "title": "受惠",
+      "concept": "grammar.benefactive.te_kureru",
+      "prototype": "てくれる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くれる",
+          "呉れる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくれる"
+    },
+    "te_yaru": {
+      "label": "てやる",
+      "title": "给予",
+      "concept": "grammar.benefactive.te_yaru",
+      "prototype": "てやる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "やる",
+          "遣る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てやる"
+    },
+    "te_hoshii": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てほしい",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ほしい",
+          "欲しい"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "te_goran": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てごらん",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ごらん",
+          "御覧"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "te_miseru": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てみせる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "みせる",
+          "見せる"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "te_tamaranai": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てたまらない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "たまらない",
+          "堪らない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "te_naranai": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てならない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ならない",
+          "成らない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "te_yamanai": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "morphology.chain",
+      "prototype": "てやまない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "やまない",
+          "止まない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "contracted_te_iru": {
+      "label": "ている",
+      "title": "进行／状态持续",
+      "concept": "grammar.aspect.te_iru",
+      "prototype": "ている",
+      "normalized": "ている",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "てる",
+          "でる"
+        ],
+        "expanded": [
+          "いる",
+          "イル"
+        ]
+      }
+    },
+    "contracted_te_shimau": {
+      "label": "てしまう",
+      "title": "完成／遗憾／感慨",
+      "concept": "grammar.aspect.te_shimau",
+      "prototype": "てしまう",
+      "normalized": "てしまう",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "ちゃう",
+          "じゃう"
+        ],
+        "expanded": [
+          "しまう",
+          "シマウ"
+        ]
+      }
+    },
+    "contracted_te_oku": {
+      "label": "ておく",
+      "title": "预先处置／保持",
+      "concept": "grammar.aspect.te_oku",
+      "prototype": "ておく",
+      "normalized": "ておく",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "とく",
+          "どく"
+        ],
+        "expanded": [
+          "おく",
+          "オク"
+        ]
+      }
+    },
+    "tari_suru": {
+      "label": "たりする",
+      "title": "列举·举例",
+      "concept": "grammar.particle.tari",
+      "prototype": "たりする",
+      "normalized": "たりする",
+      "support": {
+        "group": "enumerative",
+        "bases": [
+          "する",
+          "為る"
+        ],
+        "expanded": [
+          "する",
+          "スル"
+        ]
+      },
+      "connector": "enumerative",
+      "compound_candidate": true
+    },
+    "tari_dekiru": {
+      "label": "たりできる",
+      "title": "列举·可能",
+      "concept": "grammar.particle.tari",
+      "prototype": "たりできる",
+      "normalized": "たりできる",
+      "support": {
+        "group": "enumerative",
+        "bases": [
+          "できる",
+          "出来る"
+        ]
+      },
+      "connector": "enumerative"
+    },
+    "excessive": {
+      "label": "活用",
+      "title": "过度",
+      "concept": "morphology.chain",
+      "prototype": "すぎる",
+      "token_lemma": false,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "すぎる",
+          "過ぎる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "inceptive": {
+      "label": "活用",
+      "title": "动作开始",
+      "concept": "morphology.chain",
+      "prototype": "始める",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "はじめる",
+          "始める"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "continuative_aspect": {
+      "label": "活用",
+      "title": "动作持续",
+      "concept": "morphology.chain",
+      "prototype": "続ける",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "つづける",
+          "続ける",
+          "とおす",
+          "通す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "terminative": {
+      "label": "活用",
+      "title": "动作完了",
+      "concept": "morphology.chain",
+      "prototype": "終わる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "おわる",
+          "終わる",
+          "おえる",
+          "終える"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "iterative_aspect": {
+      "label": "反复动作",
+      "title": "反复动作",
+      "concept": "morphology.chain",
+      "prototype": "まくる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "まくる",
+          "捲る"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "inchoative": {
+      "label": "活用",
+      "title": "开始发生",
+      "concept": "morphology.chain",
+      "prototype": "出す",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "だす",
+          "出す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "corrective": {
+      "label": "活用",
+      "title": "重新进行",
+      "concept": "morphology.chain",
+      "prototype": "直す",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "なおす",
+          "直す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "incomplete": {
+      "label": "活用",
+      "title": "动作未完",
+      "concept": "morphology.chain",
+      "prototype": "掛ける",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "かける",
+          "掛ける"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "completion": {
+      "label": "活用",
+      "title": "彻底完成",
+      "concept": "morphology.chain",
+      "prototype": "切る",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "きる",
+          "切る",
+          "ぬく",
+          "抜く",
+          "つくす",
+          "尽くす"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "reluctance": {
+      "label": "活用",
+      "title": "难以做出",
+      "concept": "morphology.chain",
+      "prototype": "兼ねる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "かねる",
+          "兼ねる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "failure": {
+      "label": "活用",
+      "title": "失败 / 错过",
+      "concept": "morphology.chain",
+      "prototype": "損なう",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "そこなう",
+          "損なう"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "missed_opportunity": {
+      "label": "活用",
+      "title": "错失机会",
+      "concept": "morphology.chain",
+      "prototype": "そびれる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "そびれる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "kedo_connection": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.kedo",
+      "prototype": "けど",
+      "output_form": "other",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "けれど"
+              ]
+            }
+          },
+          "form": "けれど"
+        }
+      ]
+    },
+    "keredomo_connection": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.kedo",
+      "prototype": "けれども",
+      "output_form": "other"
+    },
+    "ga_connection": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "morphology.chain",
+      "prototype": "が",
+      "output_form": "other"
+    },
+    "noni_connection": {
+      "label": "のに接续",
+      "title": "逆接／用途与评价",
+      "concept": "grammar.connective.noni",
+      "prototype": "のに",
+      "output_form": "other",
+      "candidates": [
+        "逆接",
+        "用途・评价"
+      ]
+    },
+    "kara_connection": {
+      "label": "原因",
+      "title": "原因",
+      "concept": "grammar.particle.kara",
+      "prototype": "から",
+      "output_form": "other"
+    },
+    "node_connection": {
+      "label": "原因",
+      "title": "原因",
+      "concept": "morphology.chain",
+      "prototype": "ので",
+      "output_form": "other"
+    },
+    "to_condition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "と",
+      "output_form": "conditional"
+    },
+    "nara_condition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なら",
+      "output_form": "conditional"
+    },
+    "negative_ba": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なければ",
+      "output_form": "conditional"
+    },
+    "negative_tewa": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なくては",
+      "output_form": "conditional"
+    },
+    "negative_to": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "ないと",
+      "output_form": "conditional"
+    },
+    "tewa_condition": {
+      "label": "取立条件",
+      "title": "取立条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "ては",
+      "output_form": "conditional",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "では"
+        }
+      ]
+    },
+    "negative_de": {
+      "label": "否定接续",
+      "title": "否定接续",
+      "concept": "morphology.chain",
+      "prototype": "ないで",
+      "output_form": "other"
+    },
+    "negative_zuni": {
+      "label": "否定接续",
+      "title": "否定接续",
+      "concept": "morphology.chain",
+      "prototype": "ずに",
+      "output_form": "other"
+    },
+    "necessity_negative_ba_naru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければならない"
+    },
+    "necessity_negative_ba_ikeru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければいけない"
+    },
+    "necessity_negative_ba_dame": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければだめ"
+    },
+    "necessity_negative_tewa_naru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはならない"
+    },
+    "necessity_negative_tewa_ikeru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはいけない"
+    },
+    "necessity_negative_tewa_dame": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはだめ"
+    },
+    "necessity_negative_to_naru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないとならない"
+    },
+    "necessity_negative_to_ikeru": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないといけない"
+    },
+    "necessity_negative_to_dame": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないとだめ"
+    },
+    "prohibition_tewa_condition_naru": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "morphology.chain",
+      "prototype": "てはならない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではならない"
+        }
+      ]
+    },
+    "prohibition_tewa_condition_ikeru": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "morphology.chain",
+      "prototype": "てはいけない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではいけない"
+        }
+      ]
+    },
+    "prohibition_tewa_condition_dame": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "morphology.chain",
+      "prototype": "てはだめ",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではだめ"
+        }
+      ]
+    }
   },
   "features": [
-    {"kind": "darou_modality","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}}},
-    {"kind": "past","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ"]}},"exclude": [{"starts_with": {"cform": ["仮定形","已然形"]}},{"contains": {"cform": ["融合"]}}]},
-    {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}},
-    {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ヌ"]}}},
-    {"kind": "negative","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ズ"]}}},
-    {"kind": "politeness_masu","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-マス"]}}},
-    {"kind": "deshou_modality","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デス"]},"starts_with": {"cform": ["意志推量形"]}}},
-    {"kind": "politeness_desu","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デス"]}},"exclude": [{"starts_with": {"cform": ["意志推量形"]}}]},
-    {"kind": "desire","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タイ"]}}},
-    {"kind": "adverbial_ni","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["に"]},"starts_with": {"cform": ["連用形"]}}},
-    {"kind": "attributive_na","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["な"]},"starts_with": {"cform": ["連体形"]}}},
-    {"kind": "copula","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]}},"exclude": [{"starts_with": {"cform": ["意志推量形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["に"]},"starts_with": {"cform": ["連用形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["な"]},"starts_with": {"cform": ["連体形"]}}]},
-    {"kind": "copula","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デアル"]}}},
-    {"kind": "volitional","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ム"]}}},
-    {"kind": "obligation","token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ベシ"]}}},
-    {"kind": "passive_potential","token": {"equals": {"pos": ["助動詞"],"lemma": ["れる","られる"]}}},
-    {"kind": "causative","token": {"equals": {"pos": ["助動詞"],"lemma": ["せる","させる","しめる"]}}},
-    {"kind": "volitional","token": {"starts_with": {"cform": ["意志推量形"]}},"exclude": [{"equals": {"ctype": ["助動詞-デス","助動詞-ダ"]}}]},
-    {"kind": "conditional","token": {"starts_with": {"cform": ["仮定形","已然形"]}},"exclude": [{"equals": {"ctype": ["助動詞-タ"]}}]},
-    {"kind": "tara_condition","token": {"equals": {"ctype": ["助動詞-タ"]},"contains": {"cform": ["仮定形","已然形","融合"]}}},
-    {"kind": "enumerative","token": {"equals": {"ctype": ["助動詞-タ"],"surface": ["たり"]},"contains": {"cform": ["一般"]}}},
-    {"kind": "te_form","token": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["て"]}}},
-    {"kind": "de_form","token": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["で"]}}},
-    {"kind": "conditional","token": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ば"]}}},
-    {"kind": "imperative","token": {"starts_with": {"cform": ["命令形"]}}},
-    {"kind": "negative","token": {"equals": {"pos": ["形容詞"],"base": ["ない","無い"]}}},
-    {"kind": "sou_modality","token": {"equals": {"pos": ["助動詞"],"base": ["そう","そうだ"]}}},
-    {"kind": "sou_modality","token": {"equals": {"pos": ["形状詞"],"base": ["そう","そうだ"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "you_modality","token": {"equals": {"pos": ["助動詞"],"base": ["よう","ようだ"]}}},
-    {"kind": "you_modality","token": {"equals": {"pos": ["形状詞"],"base": ["よう","ようだ"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "mitai_modality","token": {"equals": {"pos": ["助動詞"],"base": ["みたい","みたいだ"]}}},
-    {"kind": "mitai_modality","token": {"equals": {"pos": ["形状詞"],"base": ["みたい","みたいだ"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "rashii_modality","token": {"equals": {"pos": ["助動詞"],"base": ["らしい"]}}},
-    {"kind": "rashii_modality","token": {"equals": {"pos": ["形状詞"],"base": ["らしい"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "obligation","token": {"equals": {"pos": ["助動詞"],"base": ["べし","べきだ"]}}},
-    {"kind": "obligation","token": {"equals": {"pos": ["形状詞"],"base": ["べし","べきだ"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "negative_volitional","token": {"equals": {"pos": ["助動詞"],"base": ["まい"]}}},
-    {"kind": "negative_volitional","token": {"equals": {"pos": ["形状詞"],"base": ["まい"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "desire_outward","token": {"equals": {"pos": ["助動詞"],"base": ["たがる"]}}},
-    {"kind": "desire_outward","token": {"equals": {"pos": ["形状詞"],"base": ["たがる"]},"contains": {"sub": ["助動詞"]}}},
-    {"kind": "ease","token": {"equals": {"pos": ["接尾辞"],"base": ["やすい","易い"]}}},
-    {"kind": "difficulty","token": {"equals": {"pos": ["接尾辞"],"base": ["にくい","難い","づらい","辛い"]}}},
-    {"kind": "nominalization","token": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}}}
+    {
+      "kind": "darou_modality",
+      "token": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}}
+    },
+    {
+      "kind": "past",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-タ"
+          ]
+        }
+      },
+      "exclude": [
+        {
+          "starts_with": {
+            "cform": [
+              "仮定形",
+              "已然形"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "cform": [
+              "融合"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "negative",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ナイ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "negative",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ヌ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "negative",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ズ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "politeness_masu",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-マス"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "deshou_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-デス"
+          ]
+        },
+        "starts_with": {
+          "cform": [
+            "意志推量形"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "politeness_desu",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-デス"
+          ]
+        }
+      },
+      "exclude": [
+        {
+          "starts_with": {
+            "cform": [
+              "意志推量形"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "desire",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-タイ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "adverbial_ni",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ],
+          "surface": [
+            "に"
+          ]
+        },
+        "starts_with": {
+          "cform": [
+            "連用形"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "attributive_na",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ],
+          "surface": [
+            "な"
+          ]
+        },
+        "starts_with": {
+          "cform": [
+            "連体形"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "copula",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ]
+        }
+      },
+      "exclude": [
+        {"starts_with": {"cform": ["意志推量形"]}},
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "に"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "連用形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "な"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "連体形"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "copula",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-デアル"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "volitional",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ム"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "obligation",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ベシ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "passive_potential",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "lemma": [
+            "れる",
+            "られる"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "causative",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "lemma": [
+            "せる",
+            "させる",
+            "しめる"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "volitional",
+      "token": {
+        "starts_with": {
+          "cform": [
+            "意志推量形"
+          ]
+        }
+      },
+      "exclude": [
+        {
+          "equals": {
+            "ctype": [
+              "助動詞-デス",
+              "助動詞-ダ"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "conditional",
+      "token": {
+        "starts_with": {
+          "cform": [
+            "仮定形",
+            "已然形"
+          ]
+        }
+      },
+      "exclude": [
+        {
+          "equals": {
+            "ctype": [
+              "助動詞-タ"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "tara_condition",
+      "token": {
+        "equals": {
+          "ctype": [
+            "助動詞-タ"
+          ]
+        },
+        "contains": {
+          "cform": [
+            "仮定形",
+            "已然形",
+            "融合"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "enumerative",
+      "token": {
+        "equals": {
+          "ctype": [
+            "助動詞-タ"
+          ],
+          "surface": [
+            "たり"
+          ]
+        },
+        "contains": {
+          "cform": [
+            "一般"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "te_form",
+      "token": {
+        "equals": {
+          "pos": [
+            "助詞"
+          ],
+          "sub": [
+            "接続助詞"
+          ],
+          "surface": [
+            "て"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "de_form",
+      "token": {
+        "equals": {
+          "pos": [
+            "助詞"
+          ],
+          "sub": [
+            "接続助詞"
+          ],
+          "surface": [
+            "で"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "conditional",
+      "token": {
+        "equals": {
+          "pos": [
+            "助詞"
+          ],
+          "sub": [
+            "接続助詞"
+          ],
+          "surface": [
+            "ば"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "imperative",
+      "token": {
+        "starts_with": {
+          "cform": [
+            "命令形"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "negative",
+      "token": {
+        "equals": {
+          "pos": [
+            "形容詞"
+          ],
+          "base": [
+            "ない",
+            "無い"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "sou_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "そう",
+            "そうだ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "sou_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "そう",
+            "そうだ"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "you_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "よう",
+            "ようだ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "you_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "よう",
+            "ようだ"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "mitai_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "みたい",
+            "みたいだ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "mitai_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "みたい",
+            "みたいだ"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "rashii_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "らしい"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "rashii_modality",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "らしい"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "obligation",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "べし",
+            "べきだ"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "obligation",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "べし",
+            "べきだ"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "negative_volitional",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "まい"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "negative_volitional",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "まい"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "desire_outward",
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "base": [
+            "たがる"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "desire_outward",
+      "token": {
+        "equals": {
+          "pos": [
+            "形状詞"
+          ],
+          "base": [
+            "たがる"
+          ]
+        },
+        "contains": {
+          "sub": [
+            "助動詞"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "ease",
+      "token": {
+        "equals": {
+          "pos": [
+            "接尾辞"
+          ],
+          "base": [
+            "やすい",
+            "易い"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "difficulty",
+      "token": {
+        "equals": {
+          "pos": [
+            "接尾辞"
+          ],
+          "base": [
+            "にくい",
+            "難い",
+            "づらい",
+            "辛い"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "nominalization",
+      "token": {
+        "equals": {
+          "pos": [
+            "接尾辞"
+          ],
+          "base": [
+            "さ"
+          ]
+        }
+      }
+    }
   ],
   "sequences": [
-    {"kind": "darou_question","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},{"equals": {"pos": ["助詞"],"sub": ["終助詞"],"surface": ["か"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]},
-    {"kind": "kamoshirenai","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["も"]}},{"equals": {"pos": ["動詞"],"base": ["しれる","知れる"]},"starts_with": {"cform": ["未然形"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]},
-    {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}},{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}}],"forms": ["stem","other","terminal","attributive"],"operators": ["enumerative"],"phenomena": ["phenomenon:insertion"]},
-    {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞"],"surface": ["とか"]}}],"forms": ["stem","other","terminal","attributive"],"operators": ["enumerative"],"phenomena": ["phenomenon:insertion"]},
-    {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}},{"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"],"phenomena": ["phenomenon:insertion"]},
-    {"kind": "exemplification","tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞"],"surface": ["とか"]}}],"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"],"phenomena": ["phenomenon:insertion"]},
-    {"kind": "keredomo_connection","tokens": [{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["けれど"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["も"]}}],"forms": ["terminal","attributive"]},
-    {"kind": "noni_connection","tokens": [{"equals": {"pos": ["助詞"],"sub": ["準体助詞"],"surface": ["の"]}},{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}}],"forms": ["attributive"]},
-    {"kind": "node_connection","tokens": [{"equals": {"pos": ["助詞"],"sub": ["準体助詞"],"surface": ["の"]}},{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["で"]}}],"forms": ["attributive"]},
-    {"kind": "negative_ba","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["仮定形"]}},{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ば"]}}],"forms": ["irrealis","continuative"]},
-    {"kind": "negative_ba","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"contains": {"cform": ["融合"]}}],"forms": ["irrealis","continuative"],"phenomena": ["phenomenon:contraction"]},
-    {"kind": "negative_tewa","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["連用形"]}},{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["て"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["は"]}}],"forms": ["irrealis","continuative"]},
-    {"kind": "negative_tewa","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["連用形"]}},{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ちゃ"]}}],"forms": ["irrealis","continuative"],"phenomena": ["phenomenon:contraction"]},
-    {"kind": "negative_to","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["終止形"]}},{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["と"]}}],"forms": ["irrealis","continuative"]},
-    {"kind": "negative_to","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["終止形"]}},{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}}],"forms": ["irrealis","continuative"],"terminal_only": true},
-    {"kind": "negative_de","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ"]},"starts_with": {"cform": ["終止形"]}},{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["で"]}}],"forms": ["irrealis","continuative"]},
-    {"kind": "negative_zuni","tokens": [{"equals": {"pos": ["助動詞"],"surface": ["ず"],"ctype": ["助動詞-ヌ","助動詞-ズ"]}},{"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}}],"forms": ["irrealis"]},
-    {"kind": "tewa_condition","tokens": [{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["て","で"]}},{"equals": {"pos": ["助詞"],"sub": ["係助詞"],"surface": ["は"]}}],"forms": ["continuative"]},
-    {"kind": "tewa_condition","tokens": [{"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ちゃ","じゃ"]}}],"forms": ["continuative"],"phenomena": ["phenomenon:contraction"]},
-    {"kind": "nara_condition","tokens": [{"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"],"surface": ["なら"]}}],"forms": ["stem","terminal","attributive"],"categories": ["動詞","形容詞","助動詞","名詞","形状詞","代名詞"]}
+    {
+      "kind": "darou_question",
+      "tokens": [
+        {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},
+        {"equals": {"pos": ["助詞"],"sub": ["終助詞"],"surface": ["か"]}}
+      ],
+      "forms": ["stem","terminal","attributive"],
+      "categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]
+    },
+    {
+      "kind": "kamoshirenai",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞",
+              "終助詞"
+            ],
+            "surface": [
+              "か"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "係助詞"
+            ],
+            "surface": [
+              "も"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "動詞"
+            ],
+            "base": [
+              "しれる",
+              "知れる"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "未然形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ]
+    },
+    {
+      "kind": "exemplification",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "と"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞",
+              "終助詞"
+            ],
+            "surface": [
+              "か"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "stem",
+        "other",
+        "terminal",
+        "attributive"
+      ],
+      "operators": [
+        "enumerative"
+      ],
+      "phenomena": ["phenomenon:insertion"]
+    },
+    {
+      "kind": "exemplification",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞"
+            ],
+            "surface": [
+              "とか"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "stem",
+        "other",
+        "terminal",
+        "attributive"
+      ],
+      "operators": [
+        "enumerative"
+      ],
+      "phenomena": ["phenomenon:insertion"]
+    },
+    {
+      "kind": "exemplification",
+      "tokens": [
+        {"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["と"]}},
+        {"equals": {"pos": ["助詞"],"sub": ["副助詞","終助詞"],"surface": ["か"]}}
+      ],
+      "forms": ["stem","terminal","attributive"],
+      "categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"],
+      "phenomena": ["phenomenon:insertion"]
+    },
+    {
+      "kind": "exemplification",
+      "tokens": [{"equals": {"pos": ["助詞"],"sub": ["副助詞"],"surface": ["とか"]}}],
+      "forms": ["stem","terminal","attributive"],
+      "categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"],
+      "phenomena": ["phenomenon:insertion"]
+    },
+    {
+      "kind": "keredomo_connection",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "けれど"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "係助詞"
+            ],
+            "surface": [
+              "も"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "terminal",
+        "attributive"
+      ]
+    },
+    {
+      "kind": "noni_connection",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞"
+            ],
+            "surface": [
+              "の"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "に"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "attributive"
+      ]
+    },
+    {
+      "kind": "node_connection",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞"
+            ],
+            "surface": [
+              "の"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "attributive"
+      ]
+    },
+    {
+      "kind": "negative_ba",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "仮定形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ば"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ]
+    },
+    {
+      "kind": "negative_ba",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "contains": {
+            "cform": [
+              "融合"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ],
+      "phenomena": [
+        "phenomenon:contraction"
+      ]
+    },
+    {
+      "kind": "negative_tewa",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "連用形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "て"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "係助詞"
+            ],
+            "surface": [
+              "は"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ]
+    },
+    {
+      "kind": "negative_tewa",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "連用形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ちゃ"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ],
+      "phenomena": [
+        "phenomenon:contraction"
+      ]
+    },
+    {
+      "kind": "negative_to",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "終止形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "と"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ]
+    },
+    {
+      "kind": "negative_to",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "終止形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "と"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ],
+      "terminal_only": true
+    },
+    {
+      "kind": "negative_de",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "終止形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis",
+        "continuative"
+      ]
+    },
+    {
+      "kind": "negative_zuni",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "surface": [
+              "ず"
+            ],
+            "ctype": [
+              "助動詞-ヌ",
+              "助動詞-ズ"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "に"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "irrealis"
+      ]
+    },
+    {
+      "kind": "tewa_condition",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "て",
+              "で"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "係助詞"
+            ],
+            "surface": [
+              "は"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "continuative"
+      ]
+    },
+    {
+      "kind": "tewa_condition",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ちゃ",
+              "じゃ"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "continuative"
+      ],
+      "phenomena": [
+        "phenomenon:contraction"
+      ]
+    },
+    {
+      "kind": "nara_condition",
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "なら"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "categories": [
+        "動詞",
+        "形容詞",
+        "助動詞",
+        "名詞",
+        "形状詞",
+        "代名詞"
+      ]
+    }
   ],
   "predicate_links": [
-    {"prefix": "negative_ba","next": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}},"kind": "necessity_negative_ba_naru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_ba","next": {"equals": {"pos": ["動詞"],"base": ["いける","行ける"]}},"kind": "necessity_negative_ba_ikeru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_ba","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "necessity_negative_ba_dame","required_operators": []},
-    {"prefix": "negative_tewa","next": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}},"kind": "necessity_negative_tewa_naru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_tewa","next": {"equals": {"pos": ["動詞"],"base": ["いける","行ける"]}},"kind": "necessity_negative_tewa_ikeru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_tewa","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "necessity_negative_tewa_dame","required_operators": []},
-    {"prefix": "negative_to","next": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}},"kind": "necessity_negative_to_naru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_to","next": {"equals": {"pos": ["動詞"],"base": ["いける","行ける"]}},"kind": "necessity_negative_to_ikeru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "negative_to","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "necessity_negative_to_dame","required_operators": []},
-    {"prefix": "tewa_condition","next": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}},"kind": "prohibition_tewa_condition_naru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "tewa_condition","next": {"equals": {"pos": ["動詞"],"base": ["いける","行ける"]}},"kind": "prohibition_tewa_condition_ikeru","required_operators": ["negative","negative_ba","negative_to","negative_tewa","negative_de"]},
-    {"prefix": "tewa_condition","next": {"equals": {"pos": ["名詞","形状詞"],"base": ["だめ","駄目","ダメ"]}},"kind": "prohibition_tewa_condition_dame","required_operators": []}
+    {
+      "prefix": "negative_ba",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "なる",
+            "成る"
+          ]
+        }
+      },
+      "kind": "necessity_negative_ba_naru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_ba",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "いける",
+            "行ける"
+          ]
+        }
+      },
+      "kind": "necessity_negative_ba_ikeru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_ba",
+      "next": {
+        "equals": {
+          "pos": [
+            "名詞",
+            "形状詞"
+          ],
+          "base": [
+            "だめ",
+            "駄目",
+            "ダメ"
+          ]
+        }
+      },
+      "kind": "necessity_negative_ba_dame",
+      "required_operators": []
+    },
+    {
+      "prefix": "negative_tewa",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "なる",
+            "成る"
+          ]
+        }
+      },
+      "kind": "necessity_negative_tewa_naru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_tewa",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "いける",
+            "行ける"
+          ]
+        }
+      },
+      "kind": "necessity_negative_tewa_ikeru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_tewa",
+      "next": {
+        "equals": {
+          "pos": [
+            "名詞",
+            "形状詞"
+          ],
+          "base": [
+            "だめ",
+            "駄目",
+            "ダメ"
+          ]
+        }
+      },
+      "kind": "necessity_negative_tewa_dame",
+      "required_operators": []
+    },
+    {
+      "prefix": "negative_to",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "なる",
+            "成る"
+          ]
+        }
+      },
+      "kind": "necessity_negative_to_naru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_to",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "いける",
+            "行ける"
+          ]
+        }
+      },
+      "kind": "necessity_negative_to_ikeru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "negative_to",
+      "next": {
+        "equals": {
+          "pos": [
+            "名詞",
+            "形状詞"
+          ],
+          "base": [
+            "だめ",
+            "駄目",
+            "ダメ"
+          ]
+        }
+      },
+      "kind": "necessity_negative_to_dame",
+      "required_operators": []
+    },
+    {
+      "prefix": "tewa_condition",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "なる",
+            "成る"
+          ]
+        }
+      },
+      "kind": "prohibition_tewa_condition_naru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "tewa_condition",
+      "next": {
+        "equals": {
+          "pos": [
+            "動詞"
+          ],
+          "base": [
+            "いける",
+            "行ける"
+          ]
+        }
+      },
+      "kind": "prohibition_tewa_condition_ikeru",
+      "required_operators": [
+        "negative",
+        "negative_ba",
+        "negative_to",
+        "negative_tewa",
+        "negative_de"
+      ]
+    },
+    {
+      "prefix": "tewa_condition",
+      "next": {
+        "equals": {
+          "pos": [
+            "名詞",
+            "形状詞"
+          ],
+          "base": [
+            "だめ",
+            "駄目",
+            "ダメ"
+          ]
+        }
+      },
+      "kind": "prohibition_tewa_condition_dame",
+      "required_operators": []
+    }
   ],
   "connections": [
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["名詞"],"lemma": ["筈","はず"]}},"forms": ["attributive"],"categories": ["動詞","形容詞","助動詞"]}],"kinds": ["hazu_modality"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["副助詞"],"lemma": ["くらい"]}},"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]}],"kinds": ["degree"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},"forms": ["stem","terminal","attributive"],"categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]}],"kinds": ["darou_modality"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["けど","けれど"]}},"forms": ["terminal","attributive"]}],"kinds": ["kedo_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["が"]}},"forms": ["terminal","attributive"]}],"kinds": ["ga_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["から"]}},"forms": ["terminal","attributive"]}],"kinds": ["kara_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["と"]}},"forms": ["terminal","attributive"]}],"kinds": ["to_condition"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["のに"]}},"forms": ["terminal","attributive"]}],"kinds": ["noni_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ので"]}},"forms": ["terminal","attributive"]}],"kinds": ["node_connection"]},
-
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"forms": ["terminal","attributive"],"categories": ["動詞","形容詞","助動詞"],"following": {"equals": {"ctype": ["助動詞-ダ","助動詞-デス"]}}}],"kinds": ["nominalization"]},
-    {"action": "stop","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["終助詞"],"lemma": ["の"],"surface": ["の","ん"]}}},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"at_end": true},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"following": {"equals": {"pos": ["補助記号"],"sub": ["句点","括弧閉"]}}},{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞","終助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"following": {"equals": {"pos": ["助詞"],"sub": ["終助詞"]}}}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["準体助詞"],"lemma": ["の"],"surface": ["の","ん"]}},"forms": ["terminal","attributive"],"categories": ["動詞","形容詞","助動詞"]}],"kinds": ["nominalization"]},
-    {"action": "core","when": [{"next": {"equals": {"pos": ["動詞"],"base": ["する","為る"]},"contains": {"ctype": ["サ行変格"]}},"sahen": true}]},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"operators": ["enumerative"]}],"support_group": "enumerative"},
-    {"action": "core","when": [{"next": {"equals": {"pos": ["接尾辞"],"sub": ["名詞的"]}},"forms": ["stem"],"categories": ["名詞","代名詞"]}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}},"forms": ["stem"],"categories": ["名詞","代名詞","形状詞"],"following": {"equals": {"pos": ["動詞"],"base": ["なる","成る"]}}}],"kinds": ["nominal_change_ni"]},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"last": {"equals": {"pos": ["助詞"],"sub": ["格助詞"],"surface": ["に"]}},"operators": ["nominal_change_ni"]}],"support_group": "nominal_change"},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞"]}},"last": {"equals": {"ctype": ["形容詞","助動詞-ナイ"]},"starts_with": {"cform": ["連用形-一般"]}},"forms": ["continuative"],"categories": ["形容詞","助動詞"]}],"support_group": "adjectival_change"},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}},"forms": ["stem"],"categories": ["形容詞","形状詞"]},{"next": {"equals": {"pos": ["接尾辞"],"base": ["さ"]}},"last": {"equals": {"ctype": ["助動詞-ナイ"]}},"forms": ["stem"],"categories": ["助動詞"]}],"kinds": ["nominalization"]},
-    {"action": "core","when": [{"next": {"equals": {"pos": ["接尾辞"],"base": ["やすい","易い","にくい","難い","づらい","辛い","さ"]}},"forms": ["continuative","stem"],"categories": ["動詞","形容詞","形状詞"]}]},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞","助動詞","接尾辞"]}},"forms": ["continuative"]}],"support_group": "continuative"},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞","助動詞"]}},"forms": ["continuative","te"]}],"support_group": "contracted"},
-    {"action": "attach","when": [{"next": {"equals": {"base": ["ある","有る"]}},"last": {"equals": {"ctype": ["助動詞-ダ"],"surface": ["で"]}}}],"kinds": ["copula_aru"]},
-    {"action": "support","when": [{"next": {"equals": {"pos": ["動詞","形容詞","助動詞"]}},"forms": ["te"],"functional": true}],"support_group": "te"},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["形状詞"],"base": ["そう","よう","みたい"]},"contains": {"sub": ["助動詞"]}},"forms": ["continuative","terminal","attributive"]},{"next": {"equals": {"pos": ["形状詞"],"base": ["そう","よう","みたい"]},"contains": {"sub": ["助動詞"]}},"forms": ["stem"],"categories": ["形容詞"]}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"base": ["れる","られる","せる","させる","しめる"]}},"forms": ["irrealis"]},{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ","助動詞-ヌ","助動詞-ズ"]}},"forms": ["irrealis"]}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ","助動詞-マス","助動詞-タイ"],"surface": ["たり","だり"]}},"forms": ["continuative","other"]}],"kinds": ["enumerative"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-タ","助動詞-マス","助動詞-タイ"]}},"forms": ["continuative"]},{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]}},"categories": ["名詞","形状詞","代名詞"]},{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デス"]}},"categories": ["名詞","形状詞","代名詞"]},{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-デス"]}},"forms": ["terminal","attributive"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["たがる"]}},"forms": ["continuative"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["まい"]}},"forms": ["terminal","attributive","irrealis","continuative"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["そう","そうだ"]}},"categories": ["名詞","形状詞","代名詞"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["そう","そうだ"]}},"forms": ["continuative","terminal","attributive"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["よう","ようだ","らしい","べし","べきだ"]}},"categories": ["名詞","形状詞","代名詞"]},{"next": {"equals": {"pos": ["助動詞"],"base": ["よう","ようだ","らしい","べし","べきだ"]}},"forms": ["terminal","attributive"]}]},
-    {"action": "stop","when": [{"next": {"equals": {"pos": ["助動詞"],"base": ["れる","られる","せる","させる","しめる","たがる","まい","そう","そうだ","よう","ようだ","らしい","べし","べきだ"]}}},{"next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ナイ","助動詞-ヌ","助動詞-ズ","助動詞-タ","助動詞-マス","助動詞-タイ","助動詞-ダ","助動詞-デス"]}}}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助動詞"]}},"forms": ["irrealis","continuative","terminal","attributive","conditional","imperative","volitional"],"auxiliary_relation": true},{"next": {"equals": {"pos": ["形容詞"],"base": ["ない","無い"]}},"forms": ["continuative"],"categories": ["形容詞","助動詞"]}]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["て","で"]}},"forms": ["continuative"]}],"kinds": ["te_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ば"]}},"forms": ["conditional"]}],"kinds": ["ba_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ながら"]}},"forms": ["continuative"]}],"kinds": ["nagara_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["つつ"]}},"forms": ["continuative"]}],"kinds": ["tsutsu_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞"],"surface": ["ど","ども"]}},"forms": ["conditional"]}],"kinds": ["concessive_connection"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["接続助詞","副助詞"],"surface": ["たり","だり"]}},"forms": ["continuative","other"]}],"kinds": ["enumerative"]},
-    {"action": "attach","when": [{"next": {"equals": {"pos": ["助詞"],"sub": ["終助詞"],"surface": ["な"]}},"forms": ["terminal","attributive"]}],"kinds": ["prohibitive"]}
+    {
+      "action": "attach",
+      "when": [{
+        "next": {"equals": {"pos": ["名詞"],"lemma": ["筈","はず"]}},
+        "forms": ["attributive"],
+        "categories": ["動詞","形容詞","助動詞"]
+      }],
+      "kinds": ["hazu_modality"]
+    },
+    {
+      "action": "attach",
+      "when": [{
+        "next": {"equals": {"pos": ["助詞"],"sub": ["副助詞"],"lemma": ["くらい"]}},
+        "forms": ["stem","terminal","attributive"],
+        "categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]
+      }],
+      "kinds": ["degree"]
+    },
+    {
+      "action": "attach",
+      "when": [{
+        "next": {"equals": {"pos": ["助動詞"],"ctype": ["助動詞-ダ"]},"starts_with": {"cform": ["意志推量形"]}},
+        "forms": ["stem","terminal","attributive"],
+        "categories": ["名詞","代名詞","形状詞","動詞","形容詞","助動詞"]
+      }],
+      "kinds": ["darou_modality"]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "けど",
+                "けれど"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "kedo_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "が"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "ga_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "から"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "kara_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "と"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "to_condition"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "のに"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "noni_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "ので"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "node_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "準体助詞",
+                "終助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ],
+          "categories": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ],
+          "following": {
+            "equals": {
+              "ctype": [
+                "助動詞-ダ",
+                "助動詞-デス"
+              ]
+            }
+          }
+        }
+      ],
+      "kinds": [
+        "nominalization"
+      ]
+    },
+    {
+      "action": "stop",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "終助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          }
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "準体助詞",
+                "終助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "at_end": true
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "準体助詞",
+                "終助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "following": {
+            "equals": {
+              "pos": [
+                "補助記号"
+              ],
+              "sub": [
+                "句点",
+                "括弧閉"
+              ]
+            }
+          }
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "準体助詞",
+                "終助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "following": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "終助詞"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "準体助詞"
+              ],
+              "lemma": [
+                "の"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ],
+          "categories": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ]
+        }
+      ],
+      "kinds": [
+        "nominalization"
+      ]
+    },
+    {
+      "action": "core",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞"
+              ],
+              "base": [
+                "する",
+                "為る"
+              ]
+            },
+            "contains": {
+              "ctype": [
+                "サ行変格"
+              ]
+            }
+          },
+          "sahen": true
+        }
+      ]
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞"
+              ]
+            }
+          },
+          "operators": [
+            "enumerative"
+          ]
+        }
+      ],
+      "support_group": "enumerative"
+    },
+    {
+      "action": "core",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "接尾辞"
+              ],
+              "sub": [
+                "名詞的"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "代名詞"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "格助詞"
+              ],
+              "surface": [
+                "に"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "代名詞",
+            "形状詞"
+          ],
+          "following": {
+            "equals": {
+              "pos": [
+                "動詞"
+              ],
+              "base": [
+                "なる",
+                "成る"
+              ]
+            }
+          }
+        }
+      ],
+      "kinds": [
+        "nominal_change_ni"
+      ]
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞"
+              ]
+            }
+          },
+          "last": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "格助詞"
+              ],
+              "surface": [
+                "に"
+              ]
+            }
+          },
+          "operators": [
+            "nominal_change_ni"
+          ]
+        }
+      ],
+      "support_group": "nominal_change"
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞"
+              ]
+            }
+          },
+          "last": {
+            "equals": {
+              "ctype": [
+                "形容詞",
+                "助動詞-ナイ"
+              ]
+            },
+            "starts_with": {
+              "cform": [
+                "連用形-一般"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "形容詞",
+            "助動詞"
+          ]
+        }
+      ],
+      "support_group": "adjectival_change"
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "接尾辞"
+              ],
+              "base": [
+                "さ"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "形容詞",
+            "形状詞"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "接尾辞"
+              ],
+              "base": [
+                "さ"
+              ]
+            }
+          },
+          "last": {
+            "equals": {
+              "ctype": [
+                "助動詞-ナイ"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "助動詞"
+          ]
+        }
+      ],
+      "kinds": [
+        "nominalization"
+      ]
+    },
+    {
+      "action": "core",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "接尾辞"
+              ],
+              "base": [
+                "やすい",
+                "易い",
+                "にくい",
+                "難い",
+                "づらい",
+                "辛い",
+                "さ"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "stem"
+          ],
+          "categories": [
+            "動詞",
+            "形容詞",
+            "形状詞"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞",
+                "助動詞",
+                "接尾辞"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        }
+      ],
+      "support_group": "continuative"
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞",
+                "助動詞"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "te"
+          ]
+        }
+      ],
+      "support_group": "contracted"
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "base": [
+                "ある",
+                "有る"
+              ]
+            }
+          },
+          "last": {
+            "equals": {
+              "ctype": [
+                "助動詞-ダ"
+              ],
+              "surface": [
+                "で"
+              ]
+            }
+          }
+        }
+      ],
+      "kinds": [
+        "copula_aru"
+      ]
+    },
+    {
+      "action": "support",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "動詞",
+                "形容詞",
+                "助動詞"
+              ]
+            }
+          },
+          "forms": [
+            "te"
+          ],
+          "functional": true
+        }
+      ],
+      "support_group": "te"
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "形状詞"
+              ],
+              "base": [
+                "そう",
+                "よう",
+                "みたい"
+              ]
+            },
+            "contains": {
+              "sub": [
+                "助動詞"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "terminal",
+            "attributive"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "形状詞"
+              ],
+              "base": [
+                "そう",
+                "よう",
+                "みたい"
+              ]
+            },
+            "contains": {
+              "sub": [
+                "助動詞"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "形容詞"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "れる",
+                "られる",
+                "せる",
+                "させる",
+                "しめる"
+              ]
+            }
+          },
+          "forms": [
+            "irrealis"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-ナイ",
+                "助動詞-ヌ",
+                "助動詞-ズ"
+              ]
+            }
+          },
+          "forms": [
+            "irrealis"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-タ",
+                "助動詞-マス",
+                "助動詞-タイ"
+              ],
+              "surface": [
+                "たり",
+                "だり"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "other"
+          ]
+        }
+      ],
+      "kinds": [
+        "enumerative"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-タ",
+                "助動詞-マス",
+                "助動詞-タイ"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-ダ"
+              ]
+            }
+          },
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-デス"
+              ]
+            }
+          },
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-デス"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "たがる"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "まい"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive",
+            "irrealis",
+            "continuative"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "そう",
+                "そうだ"
+              ]
+            }
+          },
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "そう",
+                "そうだ"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "terminal",
+            "attributive"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "よう",
+                "ようだ",
+                "らしい",
+                "べし",
+                "べきだ"
+              ]
+            }
+          },
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "よう",
+                "ようだ",
+                "らしい",
+                "べし",
+                "べきだ"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "stop",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "base": [
+                "れる",
+                "られる",
+                "せる",
+                "させる",
+                "しめる",
+                "たがる",
+                "まい",
+                "そう",
+                "そうだ",
+                "よう",
+                "ようだ",
+                "らしい",
+                "べし",
+                "べきだ"
+              ]
+            }
+          }
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ],
+              "ctype": [
+                "助動詞-ナイ",
+                "助動詞-ヌ",
+                "助動詞-ズ",
+                "助動詞-タ",
+                "助動詞-マス",
+                "助動詞-タイ",
+                "助動詞-ダ",
+                "助動詞-デス"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助動詞"
+              ]
+            }
+          },
+          "forms": [
+            "irrealis",
+            "continuative",
+            "terminal",
+            "attributive",
+            "conditional",
+            "imperative",
+            "volitional"
+          ],
+          "auxiliary_relation": true
+        },
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "形容詞"
+              ],
+              "base": [
+                "ない",
+                "無い"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "形容詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "て",
+                "で"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        }
+      ],
+      "kinds": [
+        "te_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "ば"
+              ]
+            }
+          },
+          "forms": [
+            "conditional"
+          ]
+        }
+      ],
+      "kinds": [
+        "ba_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "ながら"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        }
+      ],
+      "kinds": [
+        "nagara_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "つつ"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ]
+        }
+      ],
+      "kinds": [
+        "tsutsu_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "ど",
+                "ども"
+              ]
+            }
+          },
+          "forms": [
+            "conditional"
+          ]
+        }
+      ],
+      "kinds": [
+        "concessive_connection"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞",
+                "副助詞"
+              ],
+              "surface": [
+                "たり",
+                "だり"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "other"
+          ]
+        }
+      ],
+      "kinds": [
+        "enumerative"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "終助詞"
+              ],
+              "surface": [
+                "な"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "prohibitive"
+      ]
+    }
   ],
   "forms": [
-    {"prefixes": ["未然形"],"form": "irrealis"},
-    {"prefixes": ["連用形"],"form": "continuative"},
-    {"prefixes": ["終止形"],"form": "terminal"},
-    {"prefixes": ["連体形"],"form": "attributive"},
-    {"prefixes": ["仮定形"],"form": "conditional"},
-    {"prefixes": ["已然形"],"form": "conditional"},
-    {"prefixes": ["命令形"],"form": "imperative"},
-    {"prefixes": ["意志推量形"],"form": "volitional"},
-    {"prefixes": ["語幹"],"form": "stem"}
+    {
+      "prefixes": [
+        "未然形"
+      ],
+      "form": "irrealis"
+    },
+    {
+      "prefixes": [
+        "連用形"
+      ],
+      "form": "continuative"
+    },
+    {
+      "prefixes": [
+        "終止形"
+      ],
+      "form": "terminal"
+    },
+    {
+      "prefixes": [
+        "連体形"
+      ],
+      "form": "attributive"
+    },
+    {
+      "prefixes": [
+        "仮定形"
+      ],
+      "form": "conditional"
+    },
+    {
+      "prefixes": [
+        "已然形"
+      ],
+      "form": "conditional"
+    },
+    {
+      "prefixes": [
+        "命令形"
+      ],
+      "form": "imperative"
+    },
+    {
+      "prefixes": [
+        "意志推量形"
+      ],
+      "form": "volitional"
+    },
+    {
+      "prefixes": [
+        "語幹"
+      ],
+      "form": "stem"
+    }
   ],
   "insertion": [
-    {"equals": {"pos": ["助詞","副詞"]},"contains": {"sub": ["副助詞","係助詞"]}},
-    {"equals": {"pos": ["助詞","副詞"],"surface": ["は","も","さえ","こそ","だけ","まで","しか","すら","なんて","など"]}}
+    {
+      "equals": {
+        "pos": [
+          "助詞",
+          "副詞"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "副助詞",
+          "係助詞"
+        ]
+      }
+    },
+    {
+      "equals": {
+        "pos": [
+          "助詞",
+          "副詞"
+        ],
+        "surface": [
+          "は",
+          "も",
+          "さえ",
+          "こそ",
+          "だけ",
+          "まで",
+          "しか",
+          "すら",
+          "なんて",
+          "など"
+        ]
+      }
+    }
   ],
   "presentation": {
     "contraction_label": "缩略形式",
-    "observed_steps": ["politeness_desu"],
+    "observed_steps": [
+      "politeness_desu"
+    ],
     "phenomena": [
       {"label": "插入语","cform_contains": [],"evidence": "phenomenon:insertion"},
-      {"label": "イ音便","cform_contains": ["イ音便"]},
-      {"label": "促音便","cform_contains": ["促音便"]},
-      {"label": "撥音便","cform_contains": ["撥音便"]},
-      {"label": "ウ音便","cform_contains": ["ウ音便"]},
-      {"label": "缩略形式","cform_contains": ["融合"],"evidence": "phenomenon:contraction"}
+      {
+        "label": "イ音便",
+        "cform_contains": [
+          "イ音便"
+        ]
+      },
+      {
+        "label": "促音便",
+        "cform_contains": [
+          "促音便"
+        ]
+      },
+      {
+        "label": "撥音便",
+        "cform_contains": [
+          "撥音便"
+        ]
+      },
+      {
+        "label": "ウ音便",
+        "cform_contains": [
+          "ウ音便"
+        ]
+      },
+      {
+        "label": "缩略形式",
+        "cform_contains": [
+          "融合"
+        ],
+        "evidence": "phenomenon:contraction"
+      }
     ],
-    "form_labels": {"stem": "词干","irrealis": "未然形","continuative": "连用形","terminal": "终止形","attributive": "连体形","conditional": "假定形","imperative": "命令形","volitional": "意向形","te": "て形"},
-    "raw_form_labels": {"未然形": "未然形","連用形": "连用形","終止形": "终止形","連体形": "连体形","仮定形": "假定形","已然形": "已然形","命令形": "命令形","意志推量形": "意向形"},
-    "families": {"五段": "五段活用","一段": "一段活用","サ行変格": "サ变活用","カ行変格": "カ变活用"},
-    "category_labels": {"形容詞": "形容词"},
-    "label_aliases": {"丁寧": "礼貌","受身等候选": "被动／可能等","接续": "接续"},
-    "inflections": ["conjugation","initial_alternation","final_alternation"],
-    "prototype_joins": [{"prefix": "て","endings": ["て","で"]},{"prefix": "たり","endings": ["たり","だり"]},{"prefix": "に","endings": ["に"]}]
+    "form_labels": {
+      "stem": "词干",
+      "irrealis": "未然形",
+      "continuative": "连用形",
+      "terminal": "终止形",
+      "attributive": "连体形",
+      "conditional": "假定形",
+      "imperative": "命令形",
+      "volitional": "意向形",
+      "te": "て形"
+    },
+    "raw_form_labels": {
+      "未然形": "未然形",
+      "連用形": "连用形",
+      "終止形": "终止形",
+      "連体形": "连体形",
+      "仮定形": "假定形",
+      "已然形": "已然形",
+      "命令形": "命令形",
+      "意志推量形": "意向形"
+    },
+    "families": {
+      "五段": "五段活用",
+      "一段": "一段活用",
+      "サ行変格": "サ变活用",
+      "カ行変格": "カ变活用"
+    },
+    "category_labels": {
+      "形容詞": "形容词"
+    },
+    "label_aliases": {
+      "丁寧": "礼貌",
+      "受身等候选": "被动／可能等",
+      "接续": "接续"
+    },
+    "inflections": [
+      "conjugation",
+      "initial_alternation",
+      "final_alternation"
+    ],
+    "prototype_joins": [
+      {
+        "prefix": "て",
+        "endings": [
+          "て",
+          "で"
+        ]
+      },
+      {
+        "prefix": "たり",
+        "endings": [
+          "たり",
+          "だり"
+        ]
+      },
+      {
+        "prefix": "に",
+        "endings": [
+          "に"
+        ]
+      }
+    ]
   }
 }
