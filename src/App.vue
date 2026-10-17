@@ -47,6 +47,9 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
+const returningToLibrary = ref(false);
+const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
+const headerReading = computed(() => view.value === "reader" && !returningToLibrary.value);
 const progressTransitioning = ref(false);
 const timingEnabled = ref(true);
 const timingSaving = ref(false);
@@ -115,24 +118,7 @@ async function revealReader() {
   const generation = openGeneration;
   await readerViewTransition.settled();
   if (generation !== openGeneration || view.value !== "reader" || !readerReady.value) return;
-  const transitionDocument = document as Document & { startViewTransition?: (update: () => Promise<void>) => ManagedViewTransition };
-  if (!transitionDocument.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    readerVisible.value = true;
-    return;
-  }
-  progressTransitioning.value = true;
-  try {
-    const transition = transitionDocument.startViewTransition(async () => {
-      readerVisible.value = true;
-      await nextTick();
-    });
-    readerViewTransition.track(transition);
-    await transition.finished;
-  } catch {
-    if (generation === openGeneration && view.value === "reader") readerVisible.value = true;
-  } finally {
-    progressTransitioning.value = false;
-  }
+  readerVisible.value = true;
 }
 
 async function loadLibrary(blocking = true) {
@@ -175,10 +161,12 @@ async function openBook(id: string) {
     if (generation !== openGeneration) return;
     readerEntered.value = false;
     openingSummary.value = summary;
+    const bookAnimation = headerRef.value?.playBookAnimation(true) || Promise.resolve();
     currentDocument.value = null;
     readerPreparing.value = true;
     await transitionToReader();
     if (generation !== openGeneration) return;
+    await bookAnimation;
     const book = await readerRequest<LibraryBook>("reader_open_book", { id });
     if (generation !== openGeneration) return;
     currentBook.value = book;
@@ -197,6 +185,7 @@ async function openBook(id: string) {
       readerPreparing.value = false;
       openingSummary.value = null;
       view.value = "library";
+      void headerRef.value?.playBookAnimation(false);
       libraryError.value = error instanceof Error ? error.message : String(error);
     }
   } finally {
@@ -379,6 +368,10 @@ function coverUrl(book: LibraryBookSummary) {
   return book.coverPath && isTauri() ? convertFileSrc(book.coverPath) : undefined;
 }
 
+const headerBook = computed(() => openingSummary.value || currentBook.value || books.value.find((book) => book.id === openingBookId.value) || null);
+const headerCoverUrl = computed(() => headerBook.value ? coverUrl(headerBook.value) || "" : "");
+const headerCoverKey = computed(() => headerBook.value ? `${headerBook.value.id}:${headerCoverUrl.value}` : "");
+
 async function saveProgress(offset: number, chapter: string | null, seconds: number) {
   if (!currentBook.value) return;
   try {
@@ -400,15 +393,20 @@ async function saveProgress(offset: number, chapter: string | null, seconds: num
 async function leaveReader() {
   ++openGeneration;
   await readerViewTransition.finish();
+  const shouldCloseBook = Boolean(currentBook.value || openingSummary.value);
+  returningToLibrary.value = true;
   readerPreparing.value = false;
   readerVisible.value = false;
   progressTransitioning.value = false;
+  await nextTick();
+  if (shouldCloseBook) await headerRef.value?.playBookAnimation(false);
   openingBookId.value = null;
   openingSummary.value = null;
   currentBook.value = null;
   currentDocument.value = null;
   selections.value = [];
   view.value = "library";
+  returningToLibrary.value = false;
   let closeError = "";
   try { await closeSession(); }
   catch (error) { closeError = error instanceof Error ? error.message : String(error); }
@@ -437,8 +435,19 @@ onBeforeUnmount(() => { readerViewTransition.dispose(); void closeSession(); });
 
 <template>
   <div class="reader-app">
-    <AppHeader v-if="view === 'library'" description="日语生肉阅读助手" />
-    <AppHeader v-else-if="!readerVisible" show-back collapse-brand back-label="返回书架" :title="openingSummary?.title || currentBook?.title || '文本阅读'" :description="currentDocument?.metadata.author || ''" @back="void leaveReader()" />
+    <AppHeader
+      ref="headerRef"
+      v-show="view === 'library' || !readerVisible || returningToLibrary"
+      :show-back="headerReading"
+      :collapse-brand="headerReading"
+      :reading-mode="headerReading"
+      :back-label="'返回书架'"
+      :title="headerReading ? openingSummary?.title || currentBook?.title || '文本阅读' : ''"
+      :description="headerReading ? currentDocument?.metadata.author || '' : '日语生肉阅读助手'"
+      :cover-src="headerCoverUrl"
+      :cover-key="headerCoverKey"
+      @back="void leaveReader()"
+    />
     <LibraryHome
       v-if="view === 'library'"
       :books="books"

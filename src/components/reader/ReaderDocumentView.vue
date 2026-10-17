@@ -193,6 +193,8 @@ const props = defineProps<{
   retrying: boolean;
 }>();
 
+const readerCoverSrc = computed(() => props.book?.coverPath && isTauri() ? convertFileSrc(props.book.coverPath) : "");
+
 const emit = defineEmits<{
   back: [];
   progress: [offset: number, chapter: string | null, seconds: number];
@@ -2233,9 +2235,12 @@ function toggleEinkMode() {
     <AppHeader
       show-back
       collapse-brand
+      reading-mode
       back-label="返回书架"
       :title="book?.title || readerDocument.metadata.title || '文本阅读'"
       :description="readerDocument.metadata.author || statusLabel"
+      :cover-src="readerCoverSrc"
+      :cover-key="book ? `${book.id}:${readerCoverSrc}` : ''"
       @back="emit('back')"
     >
       <template #actions>
