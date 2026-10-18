@@ -104,8 +104,8 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "阅读图标 IPC 验证失败" }
         $readingBig = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]1, [IntPtr]::Zero)
         $readingSmall = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]::Zero, [IntPtr]::Zero)
-        if ($readingBig -eq [IntPtr]::Zero -or $readingBig -eq $big -or $readingSmall -ne $small) {
-            throw "阅读图标未正确替换任务栏大图标"
+        if ($readingBig -eq [IntPtr]::Zero -or $readingBig -eq $big -or $readingSmall -ne $readingBig) {
+            throw "阅读图标未正确替换窗口的大、小图标"
         }
         Add-Type -AssemblyName System.Drawing
         $bitmap = [System.Drawing.Icon]::FromHandle($readingBig).ToBitmap()
@@ -114,8 +114,9 @@ try {
         & node (Join-Path $PSScriptRoot "verify_taskbar_ipc.mjs") $endpoint $readingPath $PlaywrightModule "restore"
         if ($LASTEXITCODE -ne 0) { throw "默认图标恢复 IPC 验证失败" }
         $restored = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]1, [IntPtr]::Zero)
-        if ($restored -ne $big) { throw "默认任务栏图标未恢复" }
-        $result.reading = @{big=$readingBig.ToInt64(); restored=$restored.ToInt64(); titlebarUnchanged=$true}
+        $restoredSmall = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]::Zero, [IntPtr]::Zero)
+        if ($restored -ne $big -or $restoredSmall -ne $small) { throw "默认窗口图标未恢复" }
+        $result.reading = @{big=$readingBig.ToInt64(); small=$readingSmall.ToInt64(); restored=$restored.ToInt64(); restoredSmall=$restoredSmall.ToInt64()}
     }
     $reportPath = [IO.Path]::GetFullPath((Join-Path $workspace $Report))
     [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($reportPath)) | Out-Null

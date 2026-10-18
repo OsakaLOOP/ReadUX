@@ -1,4 +1,4 @@
-//! 默认使用 EXE 内嵌图标，阅读时按封面替换任务栏大图标。
+//! 默认使用 EXE 内嵌图标，阅读时按封面替换窗口的大、小图标。
 
 use std::sync::Mutex;
 use windows_sys::Win32::{
@@ -15,7 +15,7 @@ pub fn apply(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::error::Er
 }
 
 fn apply_embedded(hwnd: HWND) -> Result<(), Box<dyn std::error::Error>> {
-    // Tauri 的 set_icon 仅设置 ICON_SMALL；任务栏需要独立设置 ICON_BIG。
+    // 任务栏可能选用大图标或小图标，两者保持相同的阅读状态。
     // 32512 是 tauri-build 的 ICO 资源编号；LR_SHARED 图标由 Windows 管理生命周期。
     unsafe {
         let module = GetModuleHandleW(std::ptr::null());
@@ -72,7 +72,9 @@ fn replace(hwnd: HWND, state: &TaskbarIconState, rgba: Option<Vec<u8>>, size: u3
     let mut current = state.0.lock().map_err(|error| error.to_string())?;
     if let Some(rgba) = rgba {
         let icon = create_icon(rgba, size)?;
-        unsafe { SendMessageW(hwnd, WM_SETICON, ICON_BIG as usize, icon.0 as isize); }
+        for kind in [ICON_BIG, ICON_SMALL] {
+            unsafe { SendMessageW(hwnd, WM_SETICON, kind as usize, icon.0 as isize); }
+        }
         // Windows 已开始使用新图标，随后释放本应用持有的上一张图标。
         *current = Some(icon);
     } else {
@@ -92,7 +94,7 @@ mod tests {
     use windows_sys::Win32::UI::WindowsAndMessaging::{CreateWindowExW, DestroyWindow, WM_GETICON};
 
     #[test]
-    fn taskbar_icon_replaces_preserving_small_icon() {
+    fn taskbar_icon_replaces_both_sizes() {
         unsafe {
             let hwnd = CreateWindowExW(0, windows_sys::w!("STATIC"), windows_sys::w!("ReadUX 图标测试"),
                 0, 0, 0, 100, 100, std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null());
@@ -104,15 +106,16 @@ mod tests {
                 SendMessageW(hwnd, WM_SETICON, kind as usize, default as isize);
             }
             let original = SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0);
-            let small = SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0);
             let state = TaskbarIconState::default();
             replace(hwnd, &state, Some(vec![255; 32 * 32 * 4]), 32).unwrap();
             let first = SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0);
             assert_ne!(first, 0);
             assert_ne!(first, original);
-            assert_eq!(SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0), small);
+            assert_eq!(SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0), first);
             replace(hwnd, &state, Some(vec![128; 32 * 32 * 4]), 32).unwrap();
-            assert_ne!(SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0), first);
+            let second = SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0);
+            assert_ne!(second, first);
+            assert_eq!(SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0), second);
             DestroyWindow(hwnd);
         }
     }

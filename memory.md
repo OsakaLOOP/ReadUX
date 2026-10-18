@@ -35,4 +35,4 @@
 - 阅读器 Engine 生命周期、UniDic／GiNZA 分析进度和词典气泡投影协议位于 `docs/reader_engine.md`；外层词汇范围由词典确认的整体词或未覆盖的独立词构成，悬浮时并排查询外层词条与当前位置的最小可查询组分。
 - 阅读器应用入口为 `src/App.vue`，正文投影和虚拟行位于 `src/components/reader/ReaderDocumentView.vue`，宿主调用适配位于 `src/services/reader.ts`；新用户状态文件为 `reader-state.sqlite`，选择与笔记类型位于 `src/types/reader.ts`。
 - 独立桌面发行版的资源、打包和优化追踪位于 `docs/standalone_distribution.md`；现代语 UniDic 与 GiNZA 运行时的第一轮审计入口为 `scripts/audit_ginza_runtime.py`。
-- 便携发行入口为 `npm run insider` 与 `.github/workflows/release.yml`，输出 Windows 便携 ZIP 和 macOS DMG。本地 `scripts/prepare_installer_resources.py`、CI 的 `scripts/fetch_release_resources.py` 准备 `release-resources`，Windows venv 须转换为独立解释器。`target/release/ReadUX.exe` 与便携目录共用同一 release 构建；任务栏大图标由 `src-tauri/src/windows_icons.rs` 使用 EXE 内嵌 ICO 设置。
+- 便携发行入口为 `npm run insider` 与 `.github/workflows/release.yml`，输出 Windows 便携 ZIP 和 macOS DMG。本地 `scripts/prepare_installer_resources.py`、CI 的 `scripts/fetch_release_resources.py` 准备 `release-resources`，Windows venv 须转换为独立解释器。`target/release/ReadUX.exe` 与便携目录共用同一 release 构建；窗口图标入口为 `src-tauri/src/windows_icons.rs`，阅读状态同步更新 `ICON_BIG` 与 `ICON_SMALL`，Windows 任务栏可能选用任一尺寸。
