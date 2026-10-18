@@ -18,7 +18,6 @@ import { readerRequest } from "./services/reader";
 import { nlpRequest } from "./services/nlp";
 import type { SavedSelection } from "./types/reader";
 import { readerAnalysisProgress } from "./reader/readerProgress";
-import { createViewTransitionGuard, type ManagedViewTransition } from "./reader/viewTransition";
 import "./styles/main.css";
 
 type View = "library" | "reader";
@@ -49,7 +48,7 @@ const readerEntered = ref(false);
 const readerVisible = ref(false);
 const returningToLibrary = ref(false);
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
-const headerReading = computed(() => view.value === "reader" && !returningToLibrary.value);
+const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);
 const timingEnabled = ref(true);
 const timingSaving = ref(false);
@@ -67,7 +66,6 @@ watch(readerReady, (ready) => {
   }
 });
 const readerAnalysisActive = computed(() => view.value === "reader" && (!readerVisible.value || progressTransitioning.value || readerProgress.value.phase !== "completed"));
-const readerViewTransition = createViewTransitionGuard();
 let openGeneration = 0;
 
 async function toggleTiming() {
@@ -99,24 +97,13 @@ function exportTiming() {
 }
 
 async function transitionToReader() {
-  const transitionDocument = document as Document & { startViewTransition?: (update: () => Promise<void>) => ManagedViewTransition };
-  if (!transitionDocument.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    view.value = "reader";
-    await nextTick();
-    return;
-  }
-  const transition = transitionDocument.startViewTransition(async () => {
-    view.value = "reader";
-    await nextTick();
-  });
-  readerViewTransition.track(transition);
-  await transition.updateCallbackDone;
+  view.value = "reader";
+  await nextTick();
 }
 
 async function revealReader() {
   if (readerVisible.value) return;
   const generation = openGeneration;
-  await readerViewTransition.settled();
   if (generation !== openGeneration || view.value !== "reader" || !readerReady.value) return;
   readerVisible.value = true;
 }
@@ -161,12 +148,10 @@ async function openBook(id: string) {
     if (generation !== openGeneration) return;
     readerEntered.value = false;
     openingSummary.value = summary;
-    const bookAnimation = headerRef.value?.playBookAnimation(true) || Promise.resolve();
     currentDocument.value = null;
     readerPreparing.value = true;
     await transitionToReader();
     if (generation !== openGeneration) return;
-    await bookAnimation;
     const book = await readerRequest<LibraryBook>("reader_open_book", { id });
     if (generation !== openGeneration) return;
     currentBook.value = book;
@@ -392,14 +377,12 @@ async function saveProgress(offset: number, chapter: string | null, seconds: num
 
 async function leaveReader() {
   ++openGeneration;
-  await readerViewTransition.finish();
-  const shouldCloseBook = Boolean(currentBook.value || openingSummary.value);
   returningToLibrary.value = true;
   readerPreparing.value = false;
   readerVisible.value = false;
   progressTransitioning.value = false;
   await nextTick();
-  if (shouldCloseBook) await headerRef.value?.playBookAnimation(false);
+  await headerRef.value?.playBookAnimation(false);
   openingBookId.value = null;
   openingSummary.value = null;
   currentBook.value = null;
@@ -430,24 +413,29 @@ onMounted(() => {
     .catch((error) => { libraryError.value = String(error); });
 });
 
-onBeforeUnmount(() => { readerViewTransition.dispose(); void closeSession(); });
+onBeforeUnmount(() => { void closeSession(); });
 </script>
 
 <template>
   <div class="reader-app">
     <AppHeader
       ref="headerRef"
-      v-show="view === 'library' || !readerVisible || returningToLibrary"
+      animate-identity
+      taskbar-icon
       :show-back="headerReading"
       :collapse-brand="headerReading"
-      :reading-mode="headerReading"
+      :reading-mode="headerReading && !returningToLibrary"
       :back-label="'返回书架'"
-      :title="headerReading ? openingSummary?.title || currentBook?.title || '文本阅读' : ''"
-      :description="headerReading ? currentDocument?.metadata.author || '' : '日语生肉阅读助手'"
+      :title="headerReading ? openingSummary?.title || currentBook?.title || currentDocument?.metadata.title || '文本阅读' : ''"
+      :description="headerReading ? currentDocument?.metadata.author || headerBook?.author || '' : '日语生肉阅读助手'"
       :cover-src="headerCoverUrl"
       :cover-key="headerCoverKey"
       @back="void leaveReader()"
-    />
+    >
+      <template #actions>
+        <div id="reader-header-actions" v-show="readerVisible" />
+      </template>
+    </AppHeader>
     <LibraryHome
       v-if="view === 'library'"
       :books="books"

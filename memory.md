@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- header 动画入口为 `src/components/common/ReadingMark.vue`，统一 SVG 位于 `src/branding/readux-animated.svg`，生成脚本为 `scripts/generate_header_mark.py`，时序控制为 `src/reader/markPlayback.ts`。`npm run frontend:dev` 使用独立占位书架预览，入口为 `src/dev/HeaderAnimationPreview.vue`，支持打开、关闭及播放中反向操作；该模式独立于后端书库与 NLP 服务。
+
 - 书架打开动画的徽标入口为 `src/components/reader/ReaderOpeningMark.vue`，书架与阅读加载页共用。Windows EXE 图标由 `src-tauri/build.rs` 嵌入，`icons` 目录须显式声明为 Cargo 构建依赖；仅生成 ICO 或构建前端不会更新 EXE。
 
 - 品牌矢量源为 `public/branding/readux-wordmark.svg`，其中 `readux-mark` 组定义独立 UX 图标。`python -X utf8 scripts/generate_branding.py` 提取 logo，并通过 Tauri CLI 同步网页 PNG 与 `src-tauri/icons/`。header 入口为 `src/components/common/AppHeader.vue`；假名使用 Noto Sans JP Bold 的矢量轮廓。

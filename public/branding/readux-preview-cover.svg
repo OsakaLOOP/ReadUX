@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420">
+  <rect width="300" height="420" fill="#395d51" />
+  <path d="M24 0v420" stroke="#243e35" stroke-width="10" />
+  <path d="M46 28h226v364H46z" fill="none" stroke="#e8dfa8" stroke-width="2" />
+  <path d="M70 270h178M70 282h128" stroke="#e8dfa8" stroke-width="2" />
+  <text x="157" y="136" text-anchor="middle" fill="#fffdf4" font-family="serif" font-size="25">窓辺の一日</text>
+  <text x="157" y="181" text-anchor="middle" fill="#e8dfa8" font-family="sans-serif" font-size="15">サンプル</text>
+  <text x="157" y="359" text-anchor="middle" fill="#e8dfa8" font-family="sans-serif" font-size="14">ReadUX</text>
+</svg>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ArrowLeft, BadgeInfo, X } from "@lucide/vue";
-import readingMarkSource from "../../../public/branding/readux-mark.svg?raw";
-import readingSource from "../../../public/branding/readux-reading.svg?raw";
-import { nextTick, onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
+import ReadingMark from "./ReadingMark.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -11,9 +10,11 @@ const props = withDefaults(
     collapseBrand?: boolean;
     title?: string;
     description?: string;
+    readingMode?: boolean;
     coverSrc?: string;
     coverKey?: string;
-    readingMode?: boolean;
+    animateIdentity?: boolean;
+    taskbarIcon?: boolean;
   }>(),
   {
     showBack: false,
@@ -21,225 +22,30 @@ const props = withDefaults(
     collapseBrand: false,
     title: "",
     description: "",
+    readingMode: false,
     coverSrc: "",
     coverKey: "",
-    readingMode: false,
+    animateIdentity: false,
+    taskbarIcon: false,
   },
 );
 
 const emit = defineEmits<{ back: [] }>();
 const showAbout = ref(false);
-const readingMarkHost = ref<HTMLSpanElement | null>(null);
-const readingMark = ref<SVGSVGElement | null>(null);
-let readingSvg: SVGSVGElement | null = null;
-let bookAnimations: Animation[] = [];
-let animationRun = Promise.resolve();
-let animationGeneration = 0;
-let coverRevision = 0;
-const coverColorStorageKey = "readux.cover-representative-colors";
-const sharedTransitionIds = [
-  "kabuto-helmet",
-  "kuwagata-left",
-  "kuwagata-right",
-  "katana-blade-a",
-  "katana-highlight-a",
-  "katana-blade-b",
-  "katana-highlight-b",
-] as const;
-let readingMarkVisible = false;
-
-function readStoredCoverColor(key: string) {
-  if (!key) return null;
-  try {
-    const stored = JSON.parse(localStorage.getItem(coverColorStorageKey) || "{}") as Record<string, unknown>;
-    return typeof stored[key] === "string" ? stored[key] : null;
-  } catch {
-    return null;
+const wordmarkHref = "/branding/readux-wordmark.svg#readux-wordmark";
+const markRef = ref<InstanceType<typeof ReadingMark> | null>(null);
+const bookTitle = ref(props.title);
+const bookDescription = ref(props.title ? props.description : "");
+const brandDescription = ref(props.title ? "" : props.description);
+watch(() => [props.title, props.description], () => {
+  if (props.title) {
+    bookTitle.value = props.title;
+    bookDescription.value = props.description;
+  } else {
+    brandDescription.value = props.description;
   }
-}
-
-function storeCoverColor(key: string, color: string) {
-  if (!key) return;
-  try {
-    const stored = JSON.parse(localStorage.getItem(coverColorStorageKey) || "{}") as Record<string, unknown>;
-    stored[key] = color;
-    localStorage.setItem(coverColorStorageKey, JSON.stringify(stored));
-  } catch {
-    // 本地存储不可用时仍保留当前 SVG 的颜色。
-  }
-}
-
-function updateReadingCover() {
-  if (!readingSvg) return;
-  const image = readingSvg.querySelector<SVGImageElement>("#book-front-cover-image");
-  const revision = ++coverRevision;
-  readingSvg.style.removeProperty("--book-back-color");
-  if (!props.coverSrc) {
-    image?.removeAttribute("href");
-    return;
-  }
-  image?.setAttribute("href", props.coverSrc);
-  const storedColor = readStoredCoverColor(props.coverKey);
-  if (storedColor) {
-    readingSvg.style.setProperty("--book-back-color", storedColor);
-    return;
-  }
-
-  const source = new Image();
-  source.onload = () => {
-    if (revision !== coverRevision || !readingSvg) return;
-    try {
-      const canvas = document.createElement("canvas");
-      canvas.width = 32;
-      canvas.height = 32;
-      const context = canvas.getContext("2d", { willReadFrequently: true });
-      if (!context) return;
-      context.drawImage(source, 0, 0, canvas.width, canvas.height);
-      const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
-      const colors = new Map<number, { count: number; red: number; green: number; blue: number }>();
-      for (let index = 0; index < data.length; index += 4) {
-        const red = data[index];
-        const green = data[index + 1];
-        const blue = data[index + 2];
-        if (data[index + 3] < 160 || (red + green + blue) / 3 < 18 || (red + green + blue) / 3 > 246) continue;
-        const key = (red >> 4) << 8 | (green >> 4) << 4 | (blue >> 4);
-        const bucket = colors.get(key) || { count: 0, red: 0, green: 0, blue: 0 };
-        bucket.count += 1;
-        bucket.red += red;
-        bucket.green += green;
-        bucket.blue += blue;
-        colors.set(key, bucket);
-      }
-      const dominant = [...colors.values()].sort((left, right) => right.count - left.count)[0];
-      if (!dominant) return;
-      const channel = (value: number) => Math.round(value / dominant.count).toString(16).padStart(2, "0");
-      const color = `#${channel(dominant.red)}${channel(dominant.green)}${channel(dominant.blue)}`;
-      readingSvg.style.setProperty("--book-back-color", color);
-      storeCoverColor(props.coverKey, color);
-    } catch {
-      readingSvg.style.removeProperty("--book-back-color");
-    }
-  };
-  source.src = props.coverSrc;
-}
-
-function setSharedTransitionNames(svg: SVGSVGElement, prefix: string) {
-  for (const id of sharedTransitionIds) {
-    const node = svg.querySelector<SVGGraphicsElement>(`#${id}`);
-    if (node) node.style.viewTransitionName = `${prefix}-${id}`;
-  }
-}
-
-function setReadingVisibility(visible: boolean) {
-  readingMarkVisible = visible;
-  if (readingMark.value) readingMark.value.style.display = visible ? "none" : "block";
-  if (readingSvg) readingSvg.style.display = visible ? "block" : "none";
-}
-
-async function switchReadingMark(visible: boolean) {
-  if (!readingMark.value || !readingSvg || readingMarkVisible === visible) {
-    setReadingVisibility(visible);
-    return;
-  }
-  const transitionDocument = document as Document & {
-    startViewTransition?: (update: () => void) => { updateCallbackDone: Promise<void> };
-  };
-  if (!transitionDocument.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setReadingVisibility(visible);
-    return;
-  }
-  const transition = transitionDocument.startViewTransition(() => setReadingVisibility(visible));
-  await transition.updateCallbackDone.catch(() => undefined);
-}
-
-async function playBookAnimation(open: boolean) {
-  const generation = ++animationGeneration;
-  await nextTick();
-  if (!readingSvg) return;
-  updateReadingCover();
-  if (open) await switchReadingMark(true);
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reducedMotion) {
-    if (!bookAnimations.length) {
-      bookAnimations = readingSvg.querySelector<SVGGElement>("#book-root")
-        ?.getAnimations({ subtree: true }) ?? [];
-    }
-    for (const animation of bookAnimations) {
-      animation.pause();
-      const duration = Number(animation.effect?.getTiming().duration) || 0;
-      animation.currentTime = open ? duration : 0;
-    }
-    readingSvg.style.setProperty("--book-play-state", "paused");
-    readingSvg.classList.remove("is-paused");
-    if (!open) await switchReadingMark(false);
-    return;
-  }
-
-  readingSvg.style.setProperty("--book-play-state", "paused");
-  readingSvg.classList.add("is-paused");
-  if (!bookAnimations.length) {
-    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-    bookAnimations = readingSvg.querySelector<SVGGElement>("#book-root")
-      ?.getAnimations({ subtree: true }) ?? [];
-    for (const animation of bookAnimations) {
-      animation.pause();
-      const duration = Number(animation.effect?.getTiming().duration) || 0;
-      animation.currentTime = props.readingMode ? duration : 0;
-    }
-  }
-  readingSvg.style.setProperty("--book-play-state", "running");
-  readingSvg.classList.remove("is-paused");
-  const animations = bookAnimations;
-  for (const animation of animations) {
-    const duration = Number(animation.effect?.getTiming().duration) || 0;
-    if (open && animation.currentTime === null) animation.currentTime = 0;
-    if (open && animation.currentTime === 0) animation.playbackRate = 1;
-    if (!open && animation.currentTime === null) animation.currentTime = duration;
-    if (!open && animation.currentTime === 0) continue;
-    if (open && animation.currentTime === duration) continue;
-    animation.playbackRate = open ? 1 : -1;
-    animation.play();
-  }
-  animationRun = Promise.all(animations.map((animation) => animation.finished.catch(() => undefined)))
-    .then(() => {
-      if (generation !== animationGeneration) return;
-      for (const animation of animations) animation.pause();
-      readingSvg?.style.setProperty("--book-play-state", "paused");
-      readingSvg?.classList.add("is-paused");
-    });
-  await animationRun;
-  if (!open) await switchReadingMark(false);
-}
-
-onMounted(() => {
-  const markParsed = new DOMParser().parseFromString(readingMarkSource, "image/svg+xml").documentElement;
-  const readingParsed = new DOMParser().parseFromString(readingSource, "image/svg+xml").documentElement;
-  if (!(markParsed instanceof SVGSVGElement) || !(readingParsed instanceof SVGSVGElement) || !readingMarkHost.value) return;
-  readingMark.value = document.importNode(markParsed, true) as SVGSVGElement;
-  readingSvg = document.importNode(readingParsed, true) as SVGSVGElement;
-  readingMark.value.classList.add("app-header__mark-svg");
-  readingSvg.classList.add("app-header__reading-svg", "is-paused");
-  readingSvg.style.setProperty("--book-play-state", "paused");
-  readingSvg.setAttribute("focusable", "false");
-  readingMark.value.setAttribute("focusable", "false");
-  setSharedTransitionNames(readingMark.value, "readux-shared");
-  setSharedTransitionNames(readingSvg, "readux-shared");
-  readingMarkHost.value.replaceChildren(readingMark.value, readingSvg);
-  setReadingVisibility(props.readingMode);
-  updateReadingCover();
-  void nextTick().then(() => {
-    const root = readingSvg?.querySelector<SVGGElement>("#book-root");
-    bookAnimations = root?.getAnimations({ subtree: true }) ?? [];
-    for (const animation of bookAnimations) {
-      animation.pause();
-      const duration = Number(animation.effect?.getTiming().duration) || 0;
-      animation.currentTime = props.readingMode ? duration : 0;
-    }
-  });
 });
-
-watch(() => [props.coverSrc, props.coverKey], updateReadingCover);
-defineExpose({ playBookAnimation });
+defineExpose({ playBookAnimation: (open: boolean) => markRef.value?.playBookAnimation(open) ?? Promise.resolve() });
 </script>
 
 <template>
@@ -248,12 +54,14 @@ defineExpose({ playBookAnimation });
     :class="{
       'app-header--collapsible': collapseBrand,
       'app-header--has-title': Boolean(title),
+      'app-header--animated': animateIdentity,
+      'app-header--back-visible': showBack,
     }"
   >
     <div class="app-header__identity">
       <button
+        v-if="showBack || animateIdentity"
         class="app-header__back"
-        :class="{ 'app-header__back--visible': showBack }"
         type="button"
         :title="backLabel"
         :aria-label="backLabel"
@@ -264,29 +72,35 @@ defineExpose({ playBookAnimation });
       >
         <ArrowLeft :size="19" aria-hidden="true" />
       </button>
-      <span ref="readingMarkHost" class="app-header__reading-mark" aria-hidden="true" />
+      <ReadingMark
+        ref="markRef"
+        class="app-header__brand-logo"
+        :reading="props.readingMode"
+        :cover-src="props.coverSrc"
+        :cover-key="props.coverKey"
+        :taskbar-icon="taskbarIcon"
+      />
       <svg
+        v-if="!collapseBrand || animateIdentity"
         class="app-header__wordmark"
-        :class="{ 'app-header__wordmark--collapsed': collapseBrand }"
         viewBox="0 0 357.25 120"
         role="img"
+        :aria-hidden="collapseBrand"
         aria-label="ReadUX"
         focusable="false"
       >
-        <use href="/branding/readux-wordmark.svg#readux-wordmark" />
+        <use :href="wordmarkHref" />
       </svg>
-      <span
-        class="app-header__divider"
-        :class="{ 'app-header__divider--visible': title || description }"
-        aria-hidden="true"
-      />
-      <Transition name="app-header-title">
-        <div v-if="title" key="title" class="app-header__page-identity">
-          <strong>{{ title }}</strong>
-          <span v-if="description">{{ description }}</span>
+      <span v-if="title || description || animateIdentity" class="app-header__divider" aria-hidden="true" />
+      <div class="app-header__copy">
+        <div v-if="title || animateIdentity" class="app-header__page-identity" :aria-hidden="!title">
+          <strong>{{ animateIdentity ? bookTitle : title }}</strong>
+          <span v-if="animateIdentity ? bookDescription : description">{{ animateIdentity ? bookDescription : description }}</span>
         </div>
-        <span v-else-if="description" key="description" class="app-header__brand-description">{{ description }}</span>
-      </Transition>
+        <span v-if="(!title && description) || animateIdentity" class="app-header__brand-description" :aria-hidden="Boolean(title)">{{
+          animateIdentity ? brandDescription : description
+        }}</span>
+      </div>
       <slot name="version" />
     </div>
     <div class="app-header__actions">
@@ -423,28 +237,15 @@ defineExpose({ playBookAnimation });
 
 .app-header__back {
   display: grid;
-  width: 0;
+  width: 32px;
   height: 32px;
   flex: 0 0 auto;
   place-items: center;
-  margin-right: -8px;
-  overflow: hidden;
+  padding: 0;
   border: 0;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  opacity: 0;
-  transform: translateX(-7px);
-  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    margin-right 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 220ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.app-header__back--visible {
-  width: 32px;
-  margin-right: 0;
-  opacity: 1;
-  transform: translateX(0);
 }
 
 .app-header__back:hover,
@@ -453,45 +254,11 @@ defineExpose({ playBookAnimation });
   color: var(--accent-color);
 }
 
-.app-header__reading-mark {
+.app-header__brand-logo {
   display: block;
   flex: 0 0 auto;
-  width: 48px;
+  width: 44px;
   height: 44px;
-}
-
-.app-header__reading-mark :deep(svg) {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-:global(::view-transition-group(readux-shared-kabuto-helmet)),
-:global(::view-transition-group(readux-shared-kuwagata-left)),
-:global(::view-transition-group(readux-shared-kuwagata-right)),
-:global(::view-transition-group(readux-shared-katana-blade-a)),
-:global(::view-transition-group(readux-shared-katana-highlight-a)),
-:global(::view-transition-group(readux-shared-katana-blade-b)),
-:global(::view-transition-group(readux-shared-katana-highlight-b)) {
-  animation-duration: 620ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-:global(::view-transition-old(readux-shared-kabuto-helmet)),
-:global(::view-transition-new(readux-shared-kabuto-helmet)),
-:global(::view-transition-old(readux-shared-kuwagata-left)),
-:global(::view-transition-new(readux-shared-kuwagata-left)),
-:global(::view-transition-old(readux-shared-kuwagata-right)),
-:global(::view-transition-new(readux-shared-kuwagata-right)),
-:global(::view-transition-old(readux-shared-katana-blade-a)),
-:global(::view-transition-new(readux-shared-katana-blade-a)),
-:global(::view-transition-old(readux-shared-katana-highlight-a)),
-:global(::view-transition-new(readux-shared-katana-highlight-a)),
-:global(::view-transition-old(readux-shared-katana-blade-b)),
-:global(::view-transition-new(readux-shared-katana-blade-b)),
-:global(::view-transition-old(readux-shared-katana-highlight-b)),
-:global(::view-transition-new(readux-shared-katana-highlight-b)) {
-  mix-blend-mode: normal;
 }
 
 .app-header__wordmark {
@@ -499,31 +266,23 @@ defineExpose({ playBookAnimation });
   flex: 0 0 auto;
   width: 126px;
   height: 38px;
-  opacity: 1;
-  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
-}
-
-.app-header__wordmark--collapsed {
-  width: 0;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .app-header__divider {
   width: 1px;
   height: 22px;
   flex: 0 0 auto;
-  margin-right: 2px;
   background: var(--border-color);
-  opacity: 0;
-  transform: scaleY(0.72);
-  transition: opacity 220ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.app-header__divider--visible {
-  opacity: 1;
-  transform: scaleY(1);
+.app-header__copy {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  perspective: 600px;
 }
+
+.app-header__copy > * { grid-area: 1 / 1; }
 
 .app-header__brand-description {
   min-width: 0;
@@ -542,21 +301,6 @@ defineExpose({ playBookAnimation });
   line-height: 1.25;
 }
 
-.app-header-title-enter-active,
-.app-header-title-leave-active {
-  transition: opacity 220ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.app-header-title-enter-from {
-  opacity: 0;
-  transform: translateY(9px);
-}
-
-.app-header-title-leave-to {
-  opacity: 0;
-  transform: translateY(9px);
-}
-
 .app-header__page-identity strong,
 .app-header__page-identity span {
   overflow: hidden;
@@ -572,6 +316,84 @@ defineExpose({ playBookAnimation });
 .app-header__page-identity span {
   color: var(--text-muted);
   font-size: 0.72rem;
+}
+
+.app-header--animated .app-header__back {
+  width: 0;
+  margin-right: -8px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-20px);
+  transition: width 220ms ease, margin-right 220ms ease, opacity 140ms ease, transform 180ms ease, visibility 0s 180ms;
+}
+
+.app-header--animated.app-header--back-visible .app-header__back {
+  width: 32px;
+  margin-right: 0;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition: width 220ms ease, margin-right 220ms ease;
+  animation: header-back-enter 260ms both;
+}
+
+.app-header--animated .app-header__wordmark {
+  transition: width 220ms cubic-bezier(.2, .65, .3, 1), margin-right 220ms ease, opacity 140ms ease;
+}
+
+.app-header--animated.app-header--collapsible .app-header__wordmark {
+  width: 0;
+  margin-right: -8px;
+  opacity: 0;
+}
+
+.app-header--animated .app-header__divider {
+  transform: scaleY(.8);
+  transition: transform 220ms ease;
+}
+
+.app-header--animated.app-header--has-title .app-header__divider { transform: scaleY(1); }
+
+.app-header--animated .app-header__page-identity {
+  opacity: 0;
+  transform: translateY(12px) rotateX(-65deg);
+  transform-origin: 50% 100%;
+  transition: opacity 120ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+
+.app-header--animated.app-header--has-title .app-header__page-identity {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+  transition: opacity 360ms 260ms ease, transform 460ms 260ms cubic-bezier(.2, .65, .3, 1);
+  pointer-events: auto;
+}
+
+.app-header--animated .app-header__brand-description {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 220ms 220ms ease, transform 220ms 220ms ease;
+}
+
+.app-header--animated.app-header--has-title .app-header__brand-description {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 100ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+
+@keyframes header-back-enter {
+  0% { opacity: 0; transform: translateX(-20px); }
+  70% { opacity: 1; transform: translateX(3px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-header.app-header--animated :is(.app-header__back, .app-header__wordmark, .app-header__divider, .app-header__page-identity, .app-header__brand-description) {
+    transition: none;
+    animation: none;
+  }
 }
 
 .app-header__actions {
@@ -706,20 +528,6 @@ defineExpose({ playBookAnimation });
 
   .app-header--collapsible .app-header__page-identity {
     max-width: 34vw;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .app-header__back,
-  .app-header__wordmark,
-  .app-header__divider,
-  .app-header-title-enter-active,
-  .app-header-title-leave-active {
-    transition-duration: 0.01ms !important;
-  }
-
-  .app-header__reading-mark :deep(svg *) {
-    transition-duration: 0.01ms !important;
   }
 }
 </style>

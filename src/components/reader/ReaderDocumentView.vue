@@ -25,7 +25,6 @@ import {
 } from "vue";
 import TooltipPanel from "../TooltipPanel.vue";
 import DictionarySettingsPanel from "../dictionary/DictionarySettingsPanel.vue";
-import AppHeader from "../common/AppHeader.vue";
 import ExportPanel from "../ExportPanel.vue";
 import ReaderAppearancePanel from "./ReaderAppearancePanel.vue";
 import ReaderExplanationBubble from "./ReaderExplanationBubble.vue";
@@ -192,8 +191,6 @@ const props = defineProps<{
   selections: SavedSelection[];
   retrying: boolean;
 }>();
-
-const readerCoverSrc = computed(() => props.book?.coverPath && isTauri() ? convertFileSrc(props.book.coverPath) : "");
 
 const emit = defineEmits<{
   back: [];
@@ -403,22 +400,6 @@ const currentChapter = computed(() => {
     (chapter) => chapter.charOffset <= currentOffset.value,
   );
   return chapters[chapters.length - 1]?.title || "正文";
-});
-const readableCount = computed(() => props.session.progress.complete);
-const statusLabel = computed(() => {
-  if (props.session.progress.failed) return "部分分析失败";
-  if (props.session.paused) return "分析已暂停";
-  if (
-    props.session.progress.complete === props.session.progress.total &&
-    props.session.progress.pending > 0
-  )
-    return "恢复阅读内容";
-  if (
-    props.session.progress.complete >= props.session.progress.total &&
-    props.session.progress.total > 0
-  )
-    return "分析完成";
-  return `已分析 ${readableCount.value}/${props.session.progress.total}`;
 });
 const chainSummaries = computed(() =>
   activeHit.value
@@ -2232,18 +2213,7 @@ function toggleEinkMode() {
 
 <template>
   <section class="reader-view">
-    <AppHeader
-      show-back
-      collapse-brand
-      reading-mode
-      back-label="返回书架"
-      :title="book?.title || readerDocument.metadata.title || '文本阅读'"
-      :description="readerDocument.metadata.author || statusLabel"
-      :cover-src="readerCoverSrc"
-      :cover-key="book ? `${book.id}:${readerCoverSrc}` : ''"
-      @back="emit('back')"
-    >
-      <template #actions>
+    <Teleport to="#reader-header-actions">
         <div class="reader-view__actions">
           <button
             type="button"
@@ -2321,8 +2291,7 @@ function toggleEinkMode() {
             <RotateCcw :size="17" aria-hidden="true" />
           </button>
         </div>
-      </template>
-    </AppHeader>
+    </Teleport>
 
     <div v-if="targetError" class="reader-view__lookup-error" role="alert">
       <span>查词加载失败：{{ targetError }}</span>

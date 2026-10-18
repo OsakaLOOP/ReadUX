@@ -14,6 +14,12 @@
 npx tauri dev
 ```
 
+前端动画开发使用 `npm run frontend:dev`，浏览器直接显示带占位书籍的书架。点击书籍或右上角的打开、关闭按钮，即可预览完整 header 动画，包括播放期间反向操作。该入口通过 Vite 热更新，独立于 Rust、书库和 NLP 服务。
+
+header 的统一动画资源为 `src/branding/readux-animated.svg`，由 `python -X utf8 scripts/generate_header_mark.py` 从两种品牌姿态生成。`ReadingMark.vue` 挂载单个 SVG，`markPlayback.ts` 统一控制 2.2 秒时间轴。眼睛与刀身在前 45%（约 1 秒）完成变换，使用较弱的缓动；书本保持前 42% 进入、后 58% 展开的节奏。各部分同时触发，由速度差形成先后顺序。路径或书本设计调整后执行生成脚本。
+
+`npm run test:header` 验证初始姿态、路径插值、打开与关闭、重复操作、减少动态效果设置以及桌面和窄屏截图。需要可用的 Playwright，沿用 `PLAYWRIGHT_MODULE` 指定本机模块路径，`READUX_TEST_URL` 可覆盖预览地址。
+
 当前 CLI 支持如下命令：
 
 ```powershell

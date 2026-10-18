@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="37 46 437 437" width="100%" height="100%" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="kabuto-left-crimson" gradientUnits="userSpaceOnUse" x1="110" y1="310" x2="410" y2="465">
+      <stop offset="0%" stop-color="#430c10" />
+      <stop offset="14%" stop-color="#2f0b0f" />
+      <stop offset="42%" stop-color="#130a18" />
+      <stop offset="75%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0B111E" />
+    </linearGradient>
+    <linearGradient id="kuwagata-left-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="48%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <linearGradient id="kuwagata-right-gold" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="52%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+    <linearGradient id="katana-unified-a" gradientUnits="userSpaceOnUse" x1="88" y1="475" x2="368" y2="251">
+      <stop offset="0%" stop-color="#141a27" />
+      <stop offset="18%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#8195b1" />
+      <stop offset="62%" stop-color="#c1cdde" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+      <animate attributeName="x1" values="88;80;80" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="x2" values="368;72;72" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y1" values="475;468;468" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y2" values="251;120;120" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </linearGradient>
+    <linearGradient id="katana-unified-b" gradientUnits="userSpaceOnUse" x1="424" y1="475" x2="144" y2="251">
+      <stop offset="0%" stop-color="#05070B" />
+      <stop offset="21%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#64748B" />
+      <stop offset="62%" stop-color="#aab9d1" />
+      <stop offset="100%" stop-color="#eff3f8" />
+      <animate attributeName="x1" values="424;96;96" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="x2" values="144;88;88" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y1" values="475;468;468" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y2" values="251;120;120" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </linearGradient>
+    <linearGradient id="highlight-taper-a" gradientUnits="userSpaceOnUse" x1="170" y1="418" x2="354" y2="240">
+      <stop offset="0%" stop-color="#6d7e96" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#f3f8fc" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+      <animate attributeName="x1" values="170;72;72" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="x2" values="354;80;80" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y1" values="418;371;371" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y2" values="240;123;123" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </linearGradient>
+    <linearGradient id="highlight-taper-b" gradientUnits="userSpaceOnUse" x1="342" y1="418" x2="158" y2="240">
+      <stop offset="0%" stop-color="#64748B" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#F8FAFC" stop-opacity="0.68" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1" />
+      <animate attributeName="x1" values="342;88;88" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="x2" values="158;96;96" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y1" values="418;371;371" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      <animate attributeName="y2" values="240;123;123" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </linearGradient>
+    <linearGradient id="habaki-brass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <linearGradient id="book-pages-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0" />
+      <stop offset="38%" stop-color="#FFFBEB" />
+      <stop offset="50%" stop-color="#CBD5E1" />
+      <stop offset="62%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="book-cover-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.14" />
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.32" />
+    </linearGradient>
+    <clipPath id="book-front-cover-clip">
+      <path id="book-front-cover-clip-path" d="M 301 296                C 336 282, 372 276, 408 278                C 412 331, 414 383, 416 436                C 380 434, 338 439, 301 450                C 303 399, 303 347, 301 296 Z" />
+    </clipPath>
+  </defs>
+  <g id="scene-root" transform="translate(-23.68 0) scale(1.0925 1)">
+    <path id="kabuto-helmet" fill-rule="evenodd" d="M 242 94            C 247 92, 251 90, 256 88            C 261 90, 265 92, 270 94            C 304 104, 330 130, 346 168            C 370 162, 394 154, 416 146            C 420 163, 424 180, 428 196            C 411 203, 395 210, 378 216            C 398 242, 418 270, 434 298            C 427 300, 421 302, 414 304            C 430 328, 444 352, 456 374            C 422 392, 384 404, 344 410            C 330 404, 316 398, 302 392            C 287 407, 271 421, 256 436            C 241 421, 225 407, 210 392            C 196 398, 182 404, 168 410            C 128 404, 90 392, 56 374            C 68 352, 82 328, 98 304            C 91 302, 85 300, 78 298            C 94 270, 114 242, 134 216            C 117 210, 101 203, 84 196            C 88 180, 92 163, 96 146            C 118 154, 142 162, 166 168            C 182 130, 208 104, 242 94 Z            M 176 248            C 198 253, 220 259, 242 264            C 241 267, 239 271, 238 274            C 222 271, 205 267, 189 264            C 184 259, 180 253, 176 248 Z            M 336 248            C 314 253, 292 259, 270 264            C 271 267, 273 271, 274 274            C 290 271, 307 267, 323 264            C 328 259, 332 253, 336 248 Z" fill="url(#kabuto-left-crimson)">
+      <animate attributeName="d" values="M 242 94            C 247 92, 251 90, 256 88            C 261 90, 265 92, 270 94            C 304 104, 330 130, 346 168            C 370 162, 394 154, 416 146            C 420 163, 424 180, 428 196            C 411 203, 395 210, 378 216            C 398 242, 418 270, 434 298            C 427 300, 421 302, 414 304            C 430 328, 444 352, 456 374            C 422 392, 384 404, 344 410            C 330 404, 316 398, 302 392            C 287 407, 271 421, 256 436            C 241 421, 225 407, 210 392            C 196 398, 182 404, 168 410            C 128 404, 90 392, 56 374            C 68 352, 82 328, 98 304            C 91 302, 85 300, 78 298            C 94 270, 114 242, 134 216            C 117 210, 101 203, 84 196            C 88 180, 92 163, 96 146            C 118 154, 142 162, 166 168            C 182 130, 208 104, 242 94 Z            M 176 248            C 198 253, 220 259, 242 264            C 241 267, 239 271, 238 274            C 222 271, 205 267, 189 264            C 184 259, 180 253, 176 248 Z            M 336 248            C 314 253, 292 259, 270 264            C 271 267, 273 271, 274 274            C 290 271, 307 267, 323 264            C 328 259, 332 253, 336 248 Z;M 242 94              C 247 92, 251 90, 256 88              C 261 90, 265 92, 270 94              C 304 104, 330 130, 346 168              C 370 162, 394 154, 416 146              C 420 163, 424 180, 428 196              C 411 203, 395 210, 378 216              C 398 242, 418 270, 434 298              C 427 300, 421 302, 414 304              C 430 328, 444 352, 456 374              C 422 392, 384 404, 344 410              C 330 404, 316 398, 302 392              C 287 407, 271 421, 256 436              C 241 421, 225 407, 210 392              C 196 398, 182 404, 168 410              C 128 404, 90 392, 56 374              C 68 352, 82 328, 98 304              C 91 302, 85 300, 78 298              C 94 270, 114 242, 134 216              C 117 210, 101 203, 84 196              C 88 180, 92 163, 96 146              C 118 154, 142 162, 166 168              C 182 130, 208 104, 242 94 Z              M 176 265              C 194 241, 224 241, 242 265              C 241 268, 238 270, 235 268              C 220 251, 198 251, 183 268              C 180 270, 177 268, 176 265 Z              M 336 265              C 318 241, 288 241, 270 265              C 271 268, 274 270, 277 268              C 292 251, 314 251, 329 268              C 332 270, 335 268, 336 265 Z;M 242 94              C 247 92, 251 90, 256 88              C 261 90, 265 92, 270 94              C 304 104, 330 130, 346 168              C 370 162, 394 154, 416 146              C 420 163, 424 180, 428 196              C 411 203, 395 210, 378 216              C 398 242, 418 270, 434 298              C 427 300, 421 302, 414 304              C 430 328, 444 352, 456 374              C 422 392, 384 404, 344 410              C 330 404, 316 398, 302 392              C 287 407, 271 421, 256 436              C 241 421, 225 407, 210 392              C 196 398, 182 404, 168 410              C 128 404, 90 392, 56 374              C 68 352, 82 328, 98 304              C 91 302, 85 300, 78 298              C 94 270, 114 242, 134 216              C 117 210, 101 203, 84 196              C 88 180, 92 163, 96 146              C 118 154, 142 162, 166 168              C 182 130, 208 104, 242 94 Z              M 176 265              C 194 241, 224 241, 242 265              C 241 268, 238 270, 235 268              C 220 251, 198 251, 183 268              C 180 270, 177 268, 176 265 Z              M 336 265              C 318 241, 288 241, 270 265              C 271 268, 274 270, 277 268              C 292 251, 314 251, 329 268              C 332 270, 335 268, 336 265 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </path>
+    <path id="kuwagata-left" d="M 256 238            C 204 238, 164 212, 148 174            C 132 136, 122 110, 102 92            C 111 89, 120 88, 128 87            C 124 73, 120 60, 116 46            C 132 52, 146 60, 160 68            C 158 75, 156 82, 154 89            C 161 87, 169 86, 176 85            C 162 146, 192 200, 256 200            C 256 213, 256 225, 256 238 Z" fill="url(#kuwagata-left-gold)">
+      <animate attributeName="d" values="M 256 238            C 204 238, 164 212, 148 174            C 132 136, 122 110, 102 92            C 111 89, 120 88, 128 87            C 124 73, 120 60, 116 46            C 132 52, 146 60, 160 68            C 158 75, 156 82, 154 89            C 161 87, 169 86, 176 85            C 162 146, 192 200, 256 200            C 256 213, 256 225, 256 238 Z;M 256 238              C 204 238, 164 212, 148 174              C 132 136, 122 110, 102 92              C 111 89, 120 88, 128 87              C 124 73, 120 60, 116 46              C 132 52, 146 60, 160 68              C 158 75, 156 82, 154 89              C 161 87, 169 86, 176 85              C 162 146, 192 200, 256 200              C 256 213, 256 225, 256 238 Z;M 256 238              C 204 238, 164 212, 148 174              C 132 136, 122 110, 102 92              C 111 89, 120 88, 128 87              C 124 73, 120 60, 116 46              C 132 52, 146 60, 160 68              C 158 75, 156 82, 154 89              C 161 87, 169 86, 176 85              C 162 146, 192 200, 256 200              C 256 213, 256 225, 256 238 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </path>
+    <path id="kuwagata-right" d="M 256 200            C 320 200, 350 146, 336 85            C 343 86, 351 87, 358 89            C 356 82, 354 75, 352 68            C 366 60, 380 52, 396 46            C 392 60, 388 73, 384 87            C 392 88, 401 89, 410 92            C 390 110, 380 136, 364 174            C 348 212, 308 238, 256 238            C 256 225, 256 213, 256 200 Z" fill="url(#kuwagata-right-gold)">
+      <animate attributeName="d" values="M 256 200            C 320 200, 350 146, 336 85            C 343 86, 351 87, 358 89            C 356 82, 354 75, 352 68            C 366 60, 380 52, 396 46            C 392 60, 388 73, 384 87            C 392 88, 401 89, 410 92            C 390 110, 380 136, 364 174            C 348 212, 308 238, 256 238            C 256 225, 256 213, 256 200 Z;M 256 200              C 320 200, 350 146, 336 85              C 343 86, 351 87, 358 89              C 356 82, 354 75, 352 68              C 366 60, 380 52, 396 46              C 392 60, 388 73, 384 87              C 392 88, 401 89, 410 92              C 390 110, 380 136, 364 174              C 348 212, 308 238, 256 238              C 256 225, 256 213, 256 200 Z;M 256 200              C 320 200, 350 146, 336 85              C 343 86, 351 87, 358 89              C 356 82, 354 75, 352 68              C 366 60, 380 52, 396 46              C 392 60, 388 73, 384 87              C 392 88, 401 89, 410 92              C 390 110, 380 136, 364 174              C 348 212, 308 238, 256 238              C 256 225, 256 213, 256 200 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+    </path>
+    <g id="katana-bottom-left-to-top-right">
+      <path id="katana-blade-a" d="M 356 239              C 354 247, 351 254, 346 261              C 294 329, 230 392, 163 437              C 140 452, 116 468, 93 483              C 89 478, 85 472, 82 467              C 105 452, 128 437, 151 422              C 220 377, 284 315, 336 248              C 343 244, 350 241, 356 239 Z" fill="url(#katana-unified-a)" stroke="#090D16" stroke-width="1.5" stroke-linejoin="round">
+        <animate attributeName="d" values="M 356 239              C 354 247, 351 254, 346 261              C 294 329, 230 392, 163 437              C 140 452, 116 468, 93 483              C 89 478, 85 472, 82 467              C 105 452, 128 437, 151 422              C 220 377, 284 315, 336 248              C 343 244, 350 241, 356 239 Z;M 80.0 120.0                C 76.9 126.6, 74.6 133.3, 73.3 141.4                C 62.6 223.2, 59.4 310.4, 66.2 388.4                C 68.7 414.9, 71.2 442.7, 73.8 469.2                C 77.9 468.9, 82.5 467.9, 86.2 466.8                C 83.7 440.5, 81.2 414.0, 78.6 387.5                C 71.0 308.6, 73.7 221.5, 84.5 140.4                C 83.4 132.8, 81.9 125.7, 80.0 120.0 Z;M 80.0 120.0                C 76.9 126.6, 74.6 133.3, 73.3 141.4                C 62.6 223.2, 59.4 310.4, 66.2 388.4                C 68.7 414.9, 71.2 442.7, 73.8 469.2                C 77.9 468.9, 82.5 467.9, 86.2 466.8                C 83.7 440.5, 81.2 414.0, 78.6 387.5                C 71.0 308.6, 73.7 221.5, 84.5 140.4                C 83.4 132.8, 81.9 125.7, 80.0 120.0 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      </path>
+      <path id="katana-highlight-a" d="M 169.5 417.2              C 235 371, 298 309, 353.5 240.5              C 299.2 310.2, 236.5 372.8, 171.2 419.2              C 170.6 418.5, 170.0 417.8, 169.5 417.2 Z" fill="url(#highlight-taper-a)">
+        <animate attributeName="d" values="M 169.5 417.2              C 235 371, 298 309, 353.5 240.5              C 299.2 310.2, 236.5 372.8, 171.2 419.2              C 170.6 418.5, 170.0 417.8, 169.5 417.2 Z;M 73.0 371.0                C 67.5 293.4, 70.7 207.4, 80.3 122.8                C 69.6 207.3, 66.0 293.4, 71.4 371.0                C 71.9 371.0, 72.5 371.0, 73.0 371.0 Z;M 73.0 371.0                C 67.5 293.4, 70.7 207.4, 80.3 122.8                C 69.6 207.3, 66.0 293.4, 71.4 371.0                C 71.9 371.0, 72.5 371.0, 73.0 371.0 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      </path>
+    </g>
+    <g id="katana-bottom-right-to-top-left">
+      <path id="katana-blade-b" d="M 156 239              C 158 247, 161 254, 166 261              C 218 329, 282 392, 349 437              C 372 452, 396 468, 419 483              C 423 478, 427 472, 430 467              C 407 452, 384 437, 361 422              C 292 377, 228 315, 176 248              C 169 244, 162 241, 156 239 Z" fill="url(#katana-unified-b)" stroke="#090D16" stroke-width="1.5" stroke-linejoin="round">
+        <animate attributeName="d" values="M 156 239              C 158 247, 161 254, 166 261              C 218 329, 282 392, 349 437              C 372 452, 396 468, 419 483              C 423 478, 427 472, 430 467              C 407 452, 384 437, 361 422              C 292 377, 228 315, 176 248              C 169 244, 162 241, 156 239 Z;M 96.0 120.0                C 92.9 126.6, 90.6 133.3, 89.3 141.4                C 78.6 223.2, 75.4 310.4, 82.2 388.4                C 84.7 414.9, 87.2 442.7, 89.8 469.2                C 93.9 468.9, 98.5 467.9, 102.2 466.8                C 99.7 440.5, 97.2 414.0, 94.6 387.5                C 87.0 308.6, 89.7 221.5, 100.5 140.4                C 99.4 132.8, 97.9 125.7, 96.0 120.0 Z;M 96.0 120.0                C 92.9 126.6, 90.6 133.3, 89.3 141.4                C 78.6 223.2, 75.4 310.4, 82.2 388.4                C 84.7 414.9, 87.2 442.7, 89.8 469.2                C 93.9 468.9, 98.5 467.9, 102.2 466.8                C 99.7 440.5, 97.2 414.0, 94.6 387.5                C 87.0 308.6, 89.7 221.5, 100.5 140.4                C 99.4 132.8, 97.9 125.7, 96.0 120.0 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      </path>
+      <path id="katana-highlight-b" d="M 342.5 417.2              C 277 371, 214 309, 158.5 240.5              C 212.8 310.2, 275.5 372.8, 340.8 419.2              C 341.4 418.5, 342.0 417.8, 342.5 417.2 Z" fill="url(#highlight-taper-b)">
+        <animate attributeName="d" values="M 342.5 417.2              C 277 371, 214 309, 158.5 240.5              C 212.8 310.2, 275.5 372.8, 340.8 419.2              C 341.4 418.5, 342.0 417.8, 342.5 417.2 Z;M 89.0 371.0                C 83.5 293.4, 86.7 207.4, 96.3 122.8                C 85.6 207.3, 82.0 293.4, 87.4 371.0                C 87.9 371.0, 88.5 371.0, 89.0 371.0 Z;M 89.0 371.0                C 83.5 293.4, 86.7 207.4, 96.3 122.8                C 85.6 207.3, 82.0 293.4, 87.4 371.0                C 87.9 371.0, 88.5 371.0, 89.0 371.0 Z" keyTimes="0;0.45;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.2 0 0.7 1;0.2 0 0.7 1" />
+      </path>
+    </g>
+    <g id="book-root">
+      <g transform="translate(296 380) scale(1.2) translate(-296 -380)">
+        <g id="book-back-cover-wing">
+          <g transform="translate(296 380)">
+            <g>
+              <animateTransform attributeName="transform" values="5 0;5 0;0 0" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="translate" />
+              <g>
+                <animateTransform attributeName="transform" values="0 1;0 1;1 1" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="scale" />
+                <g>
+                  <animateTransform attributeName="transform" values="-9.55;-9.55;0" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="skewY" />
+                  <g transform="translate(-296 -380)">
+                    <g id="book-pages-left">
+                      <g transform="translate(291 296)">
+                        <g>
+                          <animateTransform attributeName="transform" values="9.55;9.55;0" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="skewY" />
+                          <g>
+                            <animateTransform attributeName="transform" values="1 0;1 0;1 1" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="scale" />
+                            <g transform="translate(-291 -296)">
+                              <path id="book-pages-top-left" d="M 291 297                    C 293 295, 295 292, 296 290                    C 262 264, 224 258, 189 266                    C 188 270, 187 275, 187 279                    C 220 277, 256 283, 291 297 Z" fill="url(#book-pages-grad)" stroke="#090D16" stroke-width="1.4" stroke-linejoin="round" />
+                              <path id="book-pages-riffle-left" d="M 294 292 C 260 269, 223 263, 188 270                    M 292 295 C 258 274, 221 268, 188 275" fill="none" stroke="#94A3B8" stroke-width="0.85" stroke-linecap="round" />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <path id="book-back-cover" d="M 291 296                  C 256 282, 220 276, 184 278                  C 180 331, 178 383, 176 436                  C 212 434, 254 439, 291 450                  C 289 399, 289 347, 291 296 Z" fill="var(--book-back-color, #7F1D1D)" stroke="#090D16" stroke-width="1.6" stroke-linejoin="round" />
+                    <path id="book-back-cover-trim" d="M 282 304                  C 252 292, 221 287, 192 289                  C 189 334, 187 380, 185 426                  C 216 425, 252 430, 282 439                  C 280 394, 280 349, 282 304 Z" fill="none" stroke="#FDE047" stroke-opacity="0.28" stroke-width="1.2" stroke-linejoin="round" />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g id="book-front-cover-wing">
+          <g transform="translate(301 380)">
+            <g>
+              <animateTransform attributeName="transform" values="9.55;9.55;0" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="skewY" />
+              <g>
+                <animateTransform attributeName="transform" values="1.04 1;1.04 1;1 1" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="scale" />
+                <g transform="translate(-301 -380)">
+                  <g id="book-pages-right">
+                    <g transform="translate(301 296)">
+                      <g>
+                        <animateTransform attributeName="transform" values="-9.55;-9.55;0" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="skewY" />
+                        <g>
+                          <animateTransform attributeName="transform" values="1 0;1 0;1 1" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="scale" />
+                          <g transform="translate(-301 -296)">
+                            <path id="book-pages-top-right" d="M 301 297                    C 299 295, 297 292, 296 290                    C 330 264, 368 258, 403 266                    C 404 270, 405 275, 405 279                    C 372 277, 336 283, 301 297 Z" fill="url(#book-pages-grad)" stroke="#090D16" stroke-width="1.4" stroke-linejoin="round" />
+                            <path id="book-pages-riffle-right" d="M 298 292 C 332 269, 369 263, 404 270                    M 300 295 C 334 274, 371 268, 404 275" fill="none" stroke="#94A3B8" stroke-width="0.85" stroke-linecap="round" />
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g id="book-front-cover" clip-path="url(#book-front-cover-clip)">
+                    <path id="book-front-cover-base" d="M 301 296                    C 336 282, 372 276, 408 278                    C 412 331, 414 383, 416 436                    C 380 434, 338 439, 301 450                    C 303 399, 303 347, 301 296 Z" fill="var(--book-front-bg-color, #1E293B)" />
+                    <g id="book-front-cover-replaceable">
+                      <path id="book-front-default-frame" d="M 310 304                      C 340 292, 371 287, 400 289                      C 403 334, 405 380, 407 426                      C 376 425, 340 430, 310 439                      C 312 394, 312 349, 310 304 Z" fill="none" stroke="url(#habaki-brass)" stroke-width="1.4" stroke-linejoin="round" />
+                      <path id="book-front-default-emblem" d="M 358 336                      C 370 332, 381 341, 382 355                      C 383 369, 372 383, 358 387                      C 344 391, 333 382, 332 368                      C 331 354, 342 340, 358 336 Z                      M 358 346                      C 349 349, 343 357, 344 365                      C 345 373, 351 378, 358 376                      C 365 374, 371 366, 370 358                      C 369 350, 363 344, 358 346 Z" fill="url(#habaki-brass)" fill-rule="evenodd" />
+                      <path id="book-front-default-title-plate" d="M 380 300                      C 386 299, 391 299, 396 299                      C 398 319, 399 339, 400 359                      C 395 359, 389 360, 383 361                      C 382 341, 381 321, 380 300 Z" fill="#FEF08A" stroke="#B45309" stroke-width="1" />
+                      <image id="book-front-cover-image" x="300" y="274" width="118" height="178" preserveAspectRatio="xMidYMid slice" />
+                    </g>
+                    <path id="book-front-cover-gloss" d="M 301 296                    C 336 282, 372 276, 408 278                    C 412 331, 414 383, 416 436                    C 380 434, 338 439, 301 450                    C 303 399, 303 347, 301 296 Z" fill="url(#book-cover-sheen)" pointer-events="none" />
+                  </g>
+                  <path id="book-front-cover-border" d="M 301 296                  C 336 282, 372 276, 408 278                  C 412 331, 414 383, 416 436                  C 380 434, 338 439, 301 450                  C 303 399, 303 347, 301 296 Z" fill="none" stroke="#090D16" stroke-width="1.6" stroke-linejoin="round" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g id="book-spine-group">
+          <g transform="translate(296 380)">
+            <g>
+              <animateTransform attributeName="transform" values="0 1;0 1;1 1" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="scale" />
+              <g transform="translate(-296 -380)">
+                <path id="book-spine" d="M 290 296                  C 294 292, 298 292, 302 296                  C 304 347, 304 399, 302 450                  C 298 453, 294 453, 290 450                  C 288 399, 288 347, 290 296 Z" fill="var(--book-spine-color, #450A0A)" stroke="#090D16" stroke-width="1.5" stroke-linejoin="round" />
+                <path id="book-spine-ribs" d="M 290 318 C 294 315, 298 315, 302 318                  M 289 373 C 294 370, 298 370, 303 373                  M 290 428 C 294 425, 298 425, 302 428" fill="none" stroke="url(#habaki-brass)" stroke-width="1.4" stroke-linecap="round" />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <animateTransform attributeName="transform" values="165 14;-55 14;15 14" keyTimes="0;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" type="translate" />
+      <animate attributeName="opacity" values="0;1;1;1" keyTimes="0;0.12;0.42;1" dur="2.2s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1" />
+    </g>
+  </g>
+</svg>

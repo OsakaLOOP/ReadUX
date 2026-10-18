@@ -7,8 +7,8 @@ import { nlpBridge } from "./scripts/nlp_bridge.mjs";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
-export default defineConfig(async () => ({
-  plugins: [vue(), nlpBridge()],
+export default defineConfig(async ({ mode }) => ({
+  plugins: [vue(), ...(mode === "frontend" ? [] : [nlpBridge()])],
 
   optimizeDeps: {
     include: ["@lucide/vue", "@tanstack/vue-virtual", "vue"]
