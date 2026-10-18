@@ -2,6 +2,7 @@
 import { onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
 import source from "../../branding/readux-animated.svg?raw";
 import { createMarkPlayback } from "../../reader/markPlayback";
+import { representativeCoverColor } from "../../reader/coverColor";
 import { updateTaskbarIcon } from "../../services/taskbarIcon";
 
 const props = withDefaults(defineProps<{ reading?: boolean; coverSrc?: string; coverKey?: string; taskbarIcon?: boolean }>(), {
@@ -13,7 +14,7 @@ let svg: SVGSVGElement | null = null;
 let playback: ReturnType<typeof createMarkPlayback> | null = null;
 let coverRevision = 0;
 let presentationRevision = 0;
-const coverColorStorageKey = "readux.cover-representative-colors";
+const coverColorStorageKey = "readux.cover-representative-colors-v2";
 
 function readStoredCoverColor(key: string) {
   if (!key) return null;
@@ -68,24 +69,8 @@ async function updateReadingCover() {
     if (!context) return;
     context.drawImage(source, 0, 0, canvas.width, canvas.height);
     const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
-    const colors = new Map<number, { count: number; red: number; green: number; blue: number }>();
-    for (let index = 0; index < data.length; index += 4) {
-      const red = data[index];
-      const green = data[index + 1];
-      const blue = data[index + 2];
-      if (data[index + 3] < 160 || (red + green + blue) / 3 < 18 || (red + green + blue) / 3 > 246) continue;
-      const key = (red >> 4) << 8 | (green >> 4) << 4 | (blue >> 4);
-      const bucket = colors.get(key) || { count: 0, red: 0, green: 0, blue: 0 };
-      bucket.count += 1;
-      bucket.red += red;
-      bucket.green += green;
-      bucket.blue += blue;
-      colors.set(key, bucket);
-    }
-    const dominant = [...colors.values()].sort((left, right) => right.count - left.count)[0];
-    if (!dominant) return;
-    const channel = (value: number) => Math.round(value / dominant.count).toString(16).padStart(2, "0");
-    const color = `#${channel(dominant.red)}${channel(dominant.green)}${channel(dominant.blue)}`;
+    const color = representativeCoverColor(data);
+    if (!color) return;
     svg.style.setProperty("--book-back-color", color);
     storeCoverColor(props.coverKey, color);
   } catch {
