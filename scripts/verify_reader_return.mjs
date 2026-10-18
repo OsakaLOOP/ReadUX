@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { mkdir } from "node:fs/promises";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || process.argv[2] || "playwright");
+await mkdir(".agents/header-animation", { recursive: true });
 const browser = await chromium.launch({ channel: "msedge", headless: true });
 try {
   for (const viewport of [{ width: 1440, height: 960 }, { width: 390, height: 844 }]) {
