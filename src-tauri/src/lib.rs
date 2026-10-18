@@ -92,6 +92,24 @@ async fn reader_open_text(state: State<'_, AppState>, text: String) -> Result<se
 fn reader_close(state: State<'_, AppState>) { state.reader.close(); }
 
 #[tauri::command]
+fn set_reading_taskbar_icon(
+    window: tauri::WebviewWindow,
+    #[cfg(windows)] state: State<'_, windows_icons::TaskbarIconState>,
+    rgba: Option<Vec<u8>>,
+    size: u32,
+) -> Result<(), String> {
+    #[cfg(windows)]
+    { windows_icons::update(&window, &state, rgba, size) }
+    #[cfg(not(windows))]
+    {
+        let icon = rgba.map(|rgba| tauri::image::Image::new_owned(rgba, size, size))
+            .or_else(|| window.app_handle().default_window_icon().cloned());
+        if let Some(icon) = icon { window.set_icon(icon).map_err(|error| error.to_string())?; }
+        Ok(())
+    }
+}
+
+#[tauri::command]
 fn reader_progress(state: State<'_, AppState>, id: String, offset: usize, total: usize, chapter: Option<String>, seconds: u64) -> Result<readux_core::library::LibraryBookSummary, String> {
     state.reader.progress(&id, offset, total, chapter.as_deref(), seconds)
 }
@@ -136,8 +154,11 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
             #[cfg(windows)]
-            if let Some(window) = app.get_webview_window("main") {
-                windows_icons::apply(&window)?;
+            {
+                app.manage(windows_icons::TaskbarIconState::default());
+                if let Some(window) = app.get_webview_window("main") {
+                    windows_icons::apply(&window)?;
+                }
             }
 
             let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..");
@@ -203,7 +224,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![nlp_request, search_grammar_catalog, get_grammar_concept, cancel_external,
             reader_library, reader_book_summary, reader_import, reader_open_book, reader_open_text, reader_close, reader_progress,
             reader_organize, reader_reset, reader_remove, reader_word, reader_mark, reader_expose,
-            reader_selections, reader_save_selection, reader_delete_selection, reader_clear_selections])
+            reader_selections, reader_save_selection, reader_delete_selection, reader_clear_selections, set_reading_taskbar_icon])
         .run(tauri::generate_context!())
         .expect("桌面应用启动失败");
 }

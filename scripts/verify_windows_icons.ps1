@@ -1,7 +1,10 @@
 param(
     [Parameter(Mandatory = $true)][string]$Executable,
     [string]$Installer,
-    [string]$Report = ".agents/analysis/windows-icons.json"
+    [string]$Report = ".agents/analysis/windows-icons.json",
+    [string]$ReadingIcon,
+    [string]$PlaywrightModule = $env:PLAYWRIGHT_MODULE,
+    [int]$DebugPort = 9345
 )
 
 $ErrorActionPreference = "Stop"
@@ -61,10 +64,20 @@ $result = @{executable=(Assert-ExecutableIcon $Executable)}
 if ($Installer) { $result.installer = Assert-ExecutableIcon $Installer }
 $executablePath = (Resolve-Path -LiteralPath $Executable).Path
 $oldData = $env:READUX_DATA_DIR
+$oldBrowserArguments = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
 $probeData = Join-Path ([IO.Path]::GetTempPath()) ("readux-icon-" + [Guid]::NewGuid().ToString("N"))
+if (-not [IO.Path]::GetFullPath($probeData).StartsWith([IO.Path]::GetFullPath([IO.Path]::GetTempPath()), [StringComparison]::OrdinalIgnoreCase)) {
+    throw "图标测试的数据目录超出临时目录范围"
+}
 try {
     $env:READUX_DATA_DIR = $probeData
-    $process = Start-Process -FilePath $executablePath -PassThru
+    if ($ReadingIcon) {
+        if (Get-NetTCPConnection -State Listen -LocalPort $DebugPort -ErrorAction SilentlyContinue) {
+            throw "图标测试端口已占用：$DebugPort"
+        }
+        $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = "--remote-debugging-port=$DebugPort"
+    }
+    $process = Start-Process -FilePath $executablePath -WindowStyle Hidden -PassThru
     $small = [IntPtr]::Zero
     $big = [IntPtr]::Zero
     for ($attempt = 0; $attempt -lt 80; $attempt++) {
@@ -79,6 +92,31 @@ try {
     }
     if ($small -eq [IntPtr]::Zero -or $big -eq [IntPtr]::Zero) { throw "主窗口缺少标题栏或任务栏图标" }
     $result.window = @{small=$small.ToInt64(); big=$big.ToInt64(); title=$process.MainWindowTitle}
+    if ($ReadingIcon) {
+        $endpoint = "http://127.0.0.1:$DebugPort"
+        $ready = $false
+        for ($attempt = 0; $attempt -lt 80; $attempt++) {
+            try { $null = Invoke-RestMethod "$endpoint/json/version"; $ready = $true; break } catch { Start-Sleep -Milliseconds 250 }
+        }
+        if (-not $ready) { throw "图标测试无法连接 WebView2" }
+        $readingPath = (Resolve-Path -LiteralPath $ReadingIcon).Path
+        & node (Join-Path $PSScriptRoot "verify_taskbar_ipc.mjs") $endpoint $readingPath $PlaywrightModule "reading"
+        if ($LASTEXITCODE -ne 0) { throw "阅读图标 IPC 验证失败" }
+        $readingBig = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]1, [IntPtr]::Zero)
+        $readingSmall = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]::Zero, [IntPtr]::Zero)
+        if ($readingBig -eq [IntPtr]::Zero -or $readingBig -eq $big -or $readingSmall -ne $small) {
+            throw "阅读图标未正确替换任务栏大图标"
+        }
+        Add-Type -AssemblyName System.Drawing
+        $bitmap = [System.Drawing.Icon]::FromHandle($readingBig).ToBitmap()
+        try { $bitmap.Save((Join-Path (Split-Path $readingPath) "native-reading-taskbar.png"), [System.Drawing.Imaging.ImageFormat]::Png) }
+        finally { $bitmap.Dispose() }
+        & node (Join-Path $PSScriptRoot "verify_taskbar_ipc.mjs") $endpoint $readingPath $PlaywrightModule "restore"
+        if ($LASTEXITCODE -ne 0) { throw "默认图标恢复 IPC 验证失败" }
+        $restored = [ReadUXIconCheck]::SendMessage($process.MainWindowHandle, 0x7F, [IntPtr]1, [IntPtr]::Zero)
+        if ($restored -ne $big) { throw "默认任务栏图标未恢复" }
+        $result.reading = @{big=$readingBig.ToInt64(); restored=$restored.ToInt64(); titlebarUnchanged=$true}
+    }
     $reportPath = [IO.Path]::GetFullPath((Join-Path $workspace $Report))
     [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($reportPath)) | Out-Null
     [IO.File]::WriteAllText($reportPath, ($result | ConvertTo-Json -Depth 5), [Text.UTF8Encoding]::new($false))
@@ -89,5 +127,6 @@ try {
         if (-not $process.WaitForExit(5000)) { Stop-Process -Id $process.Id -Force }
     }
     $env:READUX_DATA_DIR = $oldData
+    $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $oldBrowserArguments
     if (Test-Path -LiteralPath $probeData) { Remove-Item -LiteralPath $probeData -Recurse -Force }
 }
