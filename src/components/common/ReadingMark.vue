@@ -95,7 +95,12 @@ async function updateReadingCover() {
 
 async function updatePresentation() {
   const revision = ++presentationRevision;
-  if (props.taskbarIcon && !props.reading) void updateTaskbarIcon(null);
+  if (!props.reading) {
+    // 关闭期间保留封面，供同一 SVG 倒放。
+    ++coverRevision;
+    if (props.taskbarIcon) void updateTaskbarIcon(null);
+    return;
+  }
   await updateReadingCover();
   if (revision !== presentationRevision || !props.taskbarIcon || !props.reading || !svg) return;
   await updateTaskbarIcon(svg);

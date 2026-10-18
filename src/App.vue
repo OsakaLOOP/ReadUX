@@ -46,7 +46,6 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
-const returningToLibrary = ref(false);
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
 const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);
@@ -377,19 +376,15 @@ async function saveProgress(offset: number, chapter: string | null, seconds: num
 
 async function leaveReader() {
   ++openGeneration;
-  returningToLibrary.value = true;
+  view.value = "library";
   readerPreparing.value = false;
   readerVisible.value = false;
   progressTransitioning.value = false;
-  await nextTick();
-  await headerRef.value?.playBookAnimation(false);
   openingBookId.value = null;
   openingSummary.value = null;
   currentBook.value = null;
   currentDocument.value = null;
   selections.value = [];
-  view.value = "library";
-  returningToLibrary.value = false;
   let closeError = "";
   try { await closeSession(); }
   catch (error) { closeError = error instanceof Error ? error.message : String(error); }
@@ -424,7 +419,7 @@ onBeforeUnmount(() => { void closeSession(); });
       taskbar-icon
       :show-back="headerReading"
       :collapse-brand="headerReading"
-      :reading-mode="headerReading && !returningToLibrary"
+      :reading-mode="headerReading"
       :back-label="'返回书架'"
       :title="headerReading ? openingSummary?.title || currentBook?.title || currentDocument?.metadata.title || '文本阅读' : ''"
       :description="headerReading ? currentDocument?.metadata.author || headerBook?.author || '' : '日语生肉阅读助手'"
