@@ -8,6 +8,9 @@ import { morphemeLookupTarget, type MorphemeLookupTarget } from "../utils/dictio
 
 type LookupWord = (request: DictionaryLookupRequest) => Promise<DictionaryLookup | null>;
 
+let activeSessionOwner: symbol | null = null;
+let activeSessionClose: ((reason: string) => void) | null = null;
+
 const HOVER_LOOKUP_DELAY_MS = 48;
 const WHOLE_LOOKUP_DELAY_MS = 220;
 
@@ -18,6 +21,7 @@ interface SourceIdentity {
 }
 
 export function useExplanationSession(lookupWord: LookupWord) {
+  const sessionOwner = Symbol("explanation-session");
   const visible = ref(false);
   const activeSource = ref<SourceIdentity | null>(null);
   const componentToken = ref<AnnotatedToken | null>(null);
@@ -46,6 +50,14 @@ export function useExplanationSession(lookupWord: LookupWord) {
   let wholeGeneration = 0;
   const resultCache = new Map<string, DictionaryLookup | null>();
   const inflightCache = new Map<string, Promise<DictionaryLookup | null>>();
+
+  function activateSession() {
+    if (activeSessionOwner !== sessionOwner) {
+      activeSessionClose?.("superseded-by-new-source");
+      activeSessionOwner = sessionOwner;
+      activeSessionClose = (reason) => closeAll(reason);
+    }
+  }
 
   const hasWholePanel = computed(() => wholeLoading.value || Boolean(wholeLookup.value));
   const renderGate = computed(() => deriveExplanationRenderGate({
@@ -190,6 +202,10 @@ export function useExplanationSession(lookupWord: LookupWord) {
     grammarElement = null;
     ++componentGeneration;
     ++wholeGeneration;
+    if (activeSessionOwner === sessionOwner) {
+      activeSessionOwner = null;
+      activeSessionClose = null;
+    }
     publishSession("close-all", reason);
     publishScene("close-all");
   }
@@ -200,6 +216,7 @@ export function useExplanationSession(lookupWord: LookupWord) {
     capsule: HTMLElement,
     morpheme: HTMLElement,
   ) {
+    activateSession();
     cancelClose("focus-morpheme");
     grammarVisible.value = false;
     grammarTag.value = null;
@@ -239,6 +256,7 @@ export function useExplanationSession(lookupWord: LookupWord) {
   }
 
   function focusGrammar(tag: GrammarTag, badge: HTMLElement) {
+    activateSession();
     cancelClose("focus-grammar");
     visible.value = false;
     grammarTag.value = tag;
