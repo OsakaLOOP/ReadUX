@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { BookOpen, BookX } from "@lucide/vue";
+import { BookOpen, BookX, GraduationCap } from "@lucide/vue";
 import { ref } from "vue";
 import AppHeader from "../components/common/AppHeader.vue";
+import GrammarGuidePanel from "../components/grammar/GrammarGuidePanel.vue";
 import "../styles/main.css";
 
 const reading = ref(false);
+const grammarGuideOpen = ref(true);
 </script>
 
 <template>
@@ -23,6 +25,16 @@ const reading = ref(false);
       @back="reading = false"
     >
       <template #actions>
+        <button
+          class="preview-guide"
+          type="button"
+          title="打开日文语法指南"
+          aria-label="打开日文语法指南"
+          @click="grammarGuideOpen = true"
+        >
+          <GraduationCap :size="17" aria-hidden="true" />
+          <span>语法指南</span>
+        </button>
         <button
           class="preview-toggle"
           type="button"
@@ -51,6 +63,7 @@ const reading = ref(false);
         </button>
       </section>
     </main>
+    <GrammarGuidePanel :show="grammarGuideOpen" @close="grammarGuideOpen = false" />
   </div>
 </template>
 
@@ -67,5 +80,7 @@ const reading = ref(false);
 .preview-reading p { margin: 0 0 1.4em; font-family: var(--font-ja); }
 .preview-toggle { display: grid; width: 32px; height: 32px; flex: 0 0 auto; place-items: center; border: 0; background: transparent; color: var(--text-secondary); cursor: pointer; }
 .preview-toggle:hover { color: var(--accent-color); }
+.preview-guide { display: inline-flex; min-height: 34px; align-items: center; gap: 6px; padding: 0 9px; border: 1px solid var(--border-color); border-radius: 5px; background: var(--bg-primary); color: var(--text-secondary); cursor: pointer; font-size: 12px; }
+.preview-guide:hover { border-color: var(--accent-color); color: var(--accent-color); }
 @media (max-width: 520px) { .preview-workspace { padding: 24px 16px; } }
 </style>

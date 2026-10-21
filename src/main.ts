@@ -1,5 +1,4 @@
 import { createApp } from "vue";
-import { isTauri } from "@tauri-apps/api/core";
 
 (window as any).__main_loaded_time = Date.now();
 console.log(
@@ -8,7 +7,7 @@ console.log(
   (window as any).__main_loaded_time - (window as any).__boot_start_time
 );
 
-const application = import.meta.env.DEV && import.meta.env.MODE === "frontend" && !isTauri()
+const application = import.meta.env.DEV && import.meta.env.MODE === "frontend"
   ? import("./dev/HeaderAnimationPreview.vue")
   : import("./App.vue");
 
