@@ -9,7 +9,7 @@
     "acceptance": "cargo build -p readux-core --bin readux-nlp && vite --host 127.0.0.1 --port 1420",
     "dev": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel dev",
     "verify:release-resources": "node scripts/check_release_resources.mjs",
-    "frontend:dev": "vite --mode frontend",
+    "frontend:dev": "vite --mode frontend --port 5173",
     "build": "vue-tsc --noEmit && vite build",
     "insider": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel insider",
     "test:ui": "node --test --experimental-strip-types src/explanation/*.test.mjs src/reader/*.test.mjs src/utils/*.test.mjs",
