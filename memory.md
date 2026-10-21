@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 语法指南展示设计位于 `docs/grammar_guide_display.md`，1.1 讲解及 59 条例句规格位于 `docs/grammar_guide_1_1.md`；原稿为 `D:\DCMT\dev notes\ReadUX 日文语法指南.md`，完整标题索引见 `sources.md`。指南先复用现有词典、活用链与固定例句教学标注。正式阅读器的胶囊渲染入口为 `ReaderDocumentView.vue` 中的 `reader-capsule` 与 ruby runs，投影在 `src/reader/lookupPresentation.ts`；`BunsetsuCapsule.vue` 使用另一套 `AnnotatedToken`，两者的数据结构分别见 `src/types/nlp.ts` 与 `src/types/index.ts`。
+
 - header 动画入口为 `src/components/common/ReadingMark.vue`，统一 SVG 位于 `src/branding/readux-animated.svg`，生成脚本为 `scripts/generate_header_mark.py`，时序控制为 `src/reader/markPlayback.ts`。`npm run frontend:dev` 使用独立占位书架预览，入口为 `src/dev/HeaderAnimationPreview.vue`，支持打开、关闭及播放中反向操作；该模式独立于后端书库与 NLP 服务。
 
 - 封面代表色由 `src/reader/coverColor.ts` 按色度、明度和透明度连续加权计算，灰度封面保留自身颜色；缓存位于 `readux.cover-representative-colors-v2`。`scripts/verify_reader_return.mjs` 在正式应用入口验证书架即时返回、加载页移除和 header 封面倒放。
