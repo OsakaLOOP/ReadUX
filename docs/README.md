@@ -25,8 +25,8 @@
 | [GiNZA BERT 优化交接](ginza_optimization_handoff.md) | BERT 阶段模型、CPU 并行、GPU 批次/多流实测与 4060 Ti 后续任务 |
 | [GiNZA GPU 并行设计](ginza_gpu_parallel_design.md) | 4060 Ti 显存预算、批次、异步传输、并行边界与验收矩阵 |
 | [词典与解释](dictionary.md)                       | 下一模块的多粒度查询、词典验证、聚合与决定、表记矩阵和浮层 |
-| [语法指南展示与交互](grammar_guide_display.md) | Markdown 与交互胶囊混排、中文对照、全词注音、教学分类及来源术语；设计稿 |
-| [语法指南 1.1 内容规格](grammar_guide_1_1.md) | 实词、虚词、助词与例外的讲解、59 条例句、覆盖矩阵及验收；设计稿 |
+| [语法指南展示与交互](grammar_guide_display.md) | 原稿混排、胶囊 JSON 预生成、后台审阅修改与加载、显示开关；设计稿 |
+| [语法指南 1.1 内容规格](grammar_guide_1_1.md) | 原稿原文、例句插入关系、19 条原例与 70 条补充例句、核心验收指标；设计稿 |
 | [书库与阅读器](reader.md)                         | EPUB、Markdown、章节、虚拟滚动与阅读进度                   |
 | [阅读器 Engine](reader_engine.md)                 | 应用生命周期、UniDic／GiNZA 管线、进度与词典气泡投影       |
 | [用户状态与输出](user_state.md)                   | 画像、选择、收藏、导出和词典助手                           |

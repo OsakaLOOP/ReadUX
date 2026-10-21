@@ -1,6 +1,6 @@
 # 开发入口记忆
 
-- 语法指南展示设计位于 `docs/grammar_guide_display.md`，1.1 讲解及 59 条例句规格位于 `docs/grammar_guide_1_1.md`；原稿为 `D:\DCMT\dev notes\ReadUX 日文语法指南.md`，完整标题索引见 `sources.md`。指南先复用现有词典、活用链与固定例句教学标注。正式阅读器的胶囊渲染入口为 `ReaderDocumentView.vue` 中的 `reader-capsule` 与 ruby runs，投影在 `src/reader/lookupPresentation.ts`；`BunsetsuCapsule.vue` 使用另一套 `AnnotatedToken`，两者的数据结构分别见 `src/types/nlp.ts` 与 `src/types/index.ts`。
+- 语法指南设计位于 `docs/grammar_guide_display.md`，1.1 原稿、19 条原稿例句与 1.1-01 至 1.1-70 共 70 条补充例句规格位于 `docs/grammar_guide_1_1.md`。原稿为 `D:\DCMT\dev notes\ReadUX 日文语法指南.md`，用户明确要求逐字保留原稿。第一阶段只确定原稿混排和例句清单；固定讲解文字不进入例句卡片，语法说明来自生成并审阅的标签。后续静态 JSON 保存词典正文、活用说明、注音、分类和目标，前台使用指定版本。正式阅读器胶囊入口为 `ReaderDocumentView.vue` 的 `reader-capsule` 与 ruby runs，生成阶段可复用 `src/reader/lookupPresentation.ts`；`BunsetsuCapsule.vue` 使用 `src/types/index.ts` 的 `AnnotatedToken`，相关数据结构见 `src/types/nlp.ts`。
 
 - header 动画入口为 `src/components/common/ReadingMark.vue`，统一 SVG 位于 `src/branding/readux-animated.svg`，生成脚本为 `scripts/generate_header_mark.py`，时序控制为 `src/reader/markPlayback.ts`。`npm run frontend:dev` 使用独立占位书架预览，入口为 `src/dev/HeaderAnimationPreview.vue`，支持打开、关闭及播放中反向操作；该模式独立于后端书库与 NLP 服务。
 
