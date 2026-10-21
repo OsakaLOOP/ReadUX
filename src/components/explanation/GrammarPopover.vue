@@ -11,6 +11,7 @@ const props = defineProps<{
   show: boolean;
   tag: GrammarTag | null;
   anchor: RectSnapshot | null;
+  presentation?: "reader" | "guide";
 }>();
 
 const emit = defineEmits<{
@@ -45,7 +46,11 @@ const kindLabel = computed(() => ({
   unknown: "语法",
 })[props.tag?.occurrence_kind ?? "unknown"]);
 
+const displayKindLabel = computed(() => props.tag?.teaching_label || kindLabel.value);
+
 const summary = computed(() => selectedSense.value?.label || explanation.value?.function_summary || props.tag?.description || "");
+
+const learningNote = computed(() => props.tag?.learning_note?.trim() || "");
 
 function normalizeForm(value: string) {
   return value.replace(/[〜～○…（）()／/・\s]/g, "").toLocaleLowerCase();
@@ -165,13 +170,14 @@ watch(
     <header class="popover-header">
       <div class="heading-copy">
         <span class="eyebrow">
-          {{ kindLabel }}<template v-if="tag.jlpt_level"> · JLPT N{{ tag.jlpt_level }}</template>
+          {{ displayKindLabel }}<template v-if="tag.jlpt_level"> · JLPT N{{ tag.jlpt_level }}</template>
         </span>
         <h2>{{ explanation?.title || tag.name_ja }}</h2>
       </div>
     </header>
 
-    <p class="core-summary">{{ summary }}</p>
+    <p v-if="summary && (presentation !== 'guide' || summary !== displayKindLabel)" class="core-summary">{{ summary }}</p>
+    <p v-if="presentation === 'guide' && learningNote" class="learning-note">{{ learningNote }}</p>
 
     <div v-if="tag.sense_candidates.length > 1" class="sense-options" aria-label="语义候选">
       <button
@@ -233,7 +239,7 @@ watch(
       </button>
     </div>
 
-    <footer v-if="explanation" class="popover-footer">
+    <footer v-if="explanation && presentation !== 'guide'" class="popover-footer">
       <GrammarTrustBadges
         :provenance="explanation.provenance"
         :review-status="reviewStatus"
@@ -251,6 +257,7 @@ watch(
 .eyebrow { color: var(--text-muted); font: 750 .66rem/1.3 var(--font-ui); letter-spacing: .025em; }
 h2 { margin: 2px 0 0; color: #1769aa; font-size: 1.18rem; line-height: 1.35; }
 .core-summary { margin: 9px 0 0; color: var(--text-primary); font-size: .93rem; line-height: 1.65; }
+.learning-note { margin: 6px 0 0; color: var(--text-secondary); font-size: .8rem; line-height: 1.55; }
 .sense-options { display: flex; flex-wrap: wrap; gap: 0 13px; margin-top: 10px; padding-top: 9px; border-top: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent); }
 button { border: 1px solid var(--border-color); border-radius: 999px; background: transparent; color: var(--text-secondary); cursor: pointer; font: inherit; }
 .sense-options button { padding: 2px 0 4px; border: 0; border-radius: 0; color: var(--text-muted); font-size: .74rem; }

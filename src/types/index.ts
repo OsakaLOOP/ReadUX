@@ -51,6 +51,10 @@ export interface GrammarTag {
   selected_sense_id: string | null;
   sense_candidates: GrammarSenseCandidate[];
   explanation: ResolvedGrammarExplanation | null;
+  teaching_class?: "content" | "functional" | "particle" | "other";
+  teaching_label?: string | null;
+  source_pos?: string | null;
+  learning_note?: string | null;
 }
 export type MorphologyChainRole = "lexical" | "functional";
 export interface MorphologyOperator {

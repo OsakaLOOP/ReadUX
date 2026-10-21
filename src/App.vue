@@ -47,7 +47,7 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
-const grammarGuideOpen = ref(!isTauri());
+const grammarGuideOpen = ref(!isTauri() || new URLSearchParams(window.location.search).get("view") === "grammar-guide");
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
 const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);

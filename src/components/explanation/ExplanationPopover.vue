@@ -20,6 +20,7 @@ const props = defineProps<{
   componentLabel: string;
   panelPrefix?: string;
   shortcutsEnabled?: boolean;
+  presentation?: "reader" | "guide";
 }>();
 
 const emit = defineEmits<{
@@ -176,6 +177,7 @@ onBeforeUnmount(() => {
     kind-label="整体"
     :can-go-back="wholeCanGoBack"
     :shortcuts-enabled="false"
+    :presentation="presentation"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
     @navigate="emit('navigateWhole', $event)"
@@ -195,6 +197,7 @@ onBeforeUnmount(() => {
     :kind-label="componentLabel"
     :can-go-back="componentCanGoBack"
     :shortcuts-enabled="enableShortcuts"
+    :presentation="presentation"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
     @navigate="emit('navigateComponent', $event)"

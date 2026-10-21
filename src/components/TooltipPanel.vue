@@ -41,6 +41,7 @@ const props = defineProps<{
   summaryVisible?: boolean;
   panelId: string;
   shortcutsEnabled?: boolean;
+  presentation?: "reader" | "guide";
 }>();
 
 const emit = defineEmits<{
@@ -75,6 +76,32 @@ const formattedPos = computed(() => {
 });
 
 const morphologySteps = computed(() => buildMorphologySteps(morphologyChain.value));
+function guideMorphologyLabel(value: string) {
+  const parts = value.split("/");
+  const conjugation = parts[0] ?? value;
+  const form = parts[1] ?? "";
+  const conjugationLabel = conjugation
+    .replace(/^下一段-.*$/, "下一段动词")
+    .replace(/^上一段-.*$/, "上一段动词")
+    .replace(/^五段-.*$/, "五段动词")
+    .replace(/^一段-.*$/, "一段动词")
+    .replace(/^サ行変格$/, "サ变动词")
+    .replace(/^カ行変格$/, "カ变动词");
+  const formLabel = form
+    .replace(/^終止形(?:-.*)?$/, "终止形")
+    .replace(/^連用形(?:-.*)?$/, "连用形")
+    .replace(/^未然形(?:-.*)?$/, "未然形")
+    .replace(/^仮定形(?:-.*)?$/, "假定形")
+    .replace(/^連体形(?:-.*)?$/, "连体形");
+  return [conjugationLabel, formLabel].filter(Boolean).join(" · ");
+}
+const displayMorphologySteps = computed(() => props.presentation === "guide"
+  ? morphologySteps.value.map((step) => ({ ...step, label: guideMorphologyLabel(step.label || step.output_state), description: "" }))
+  : morphologySteps.value);
+
+const guideTags = computed(() => props.presentation === "guide"
+  ? props.token?.bunsetsu.grammar_tags.filter((tag) => tag.teaching_label || tag.description) ?? []
+  : []);
 
 const showMorphologySummary = computed(() => {
   const chain = morphologyChain.value;
@@ -456,7 +483,7 @@ function handleDefinitionClick(event: MouseEvent) {
       @pointerleave="emit('leave', $event)"
       @wheel.stop
     >
-      <div class="tooltip-content" :data-explanation-content="panelId">
+      <div class="tooltip-content" :data-explanation-content="panelId" :data-presentation="presentation || 'reader'">
         <header class="tooltip-header">
           <button v-if="canGoBack" type="button" class="back-button" aria-label="返回上一词条" @click="emit('back')"><ChevronLeft :size="20" aria-hidden="true" /></button>
           <div class="header-grid" :class="{ 'header-grid--single': !showContextSummary }">
@@ -477,7 +504,7 @@ function handleDefinitionClick(event: MouseEvent) {
               <slot name="summary" />
               <template v-if="showMorphologySummary && morphologyChain && isSourceQuery">
                 <strong v-if="morphologyChain.surface_form !== sourceLemma" class="current-form">{{ morphologyChain.surface_form }}</strong>
-                <div v-for="step in morphologySteps" :key="step.operator_id" class="morphology-step">
+                <div v-for="step in displayMorphologySteps" :key="step.operator_id" class="morphology-step">
                   <b>{{ step.label || step.output_state }}</b>
                   <span v-if="step.description">{{ step.description }}</span>
                 </div>
@@ -485,6 +512,16 @@ function handleDefinitionClick(event: MouseEvent) {
             </div>
           </div>
         </header>
+
+        <section v-if="guideTags.length" class="guide-tag-list" aria-label="语法标签">
+          <article v-for="tag in guideTags" :key="tag.occurrence_id" class="guide-tag-item">
+            <div class="guide-tag-item__heading">
+              <strong>{{ tag.teaching_label || tag.name_ja }}</strong>
+              <span v-if="tag.source_pos && presentation !== 'guide'">{{ tag.source_pos }}</span>
+            </div>
+            <p v-if="tag.learning_note || tag.description">{{ tag.learning_note || tag.description }}</p>
+          </article>
+        </section>
 
           <slot name="context" />
 
@@ -573,6 +610,12 @@ function handleDefinitionClick(event: MouseEvent) {
 .tooltip-section { border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 6px; }
 .tooltip-header + :deep(.dictionary-choice-bar) { margin-top: 0; padding-top: 9px; border-top: 0; }
 .tooltip-header + :deep(.form-selector) { margin-top: 0; padding-top: 9px; border-top: 0; }
+.tooltip-content[data-presentation="guide"] .guide-tag-list { display: grid; gap: 8px; margin: 8px 0; }
+.tooltip-content[data-presentation="guide"] .guide-tag-item { padding: 8px 9px; border-left: 2px solid var(--accent-color); background: color-mix(in srgb, var(--accent-color) 5%, var(--bg-primary)); }
+.tooltip-content[data-presentation="guide"] .guide-tag-item__heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 8px; }
+.tooltip-content[data-presentation="guide"] .guide-tag-item__heading strong { color: var(--text-primary); font-size: .78rem; }
+.tooltip-content[data-presentation="guide"] .guide-tag-item__heading span { color: var(--text-muted); font-size: .66rem; }
+.tooltip-content[data-presentation="guide"] .guide-tag-item p { margin: 3px 0 0; color: var(--text-secondary); font-size: .75rem; line-height: 1.5; }
 .definition-viewport.is-loading { overflow: hidden; }
 .definition-skeleton { height: 100%; }
 .relation-list { display: flex; flex-wrap: wrap; gap: 6px; }

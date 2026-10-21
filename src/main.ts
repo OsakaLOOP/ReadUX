@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { isTauri } from "@tauri-apps/api/core";
 
 (window as any).__main_loaded_time = Date.now();
 console.log(
@@ -7,11 +8,14 @@ console.log(
   (window as any).__main_loaded_time - (window as any).__boot_start_time
 );
 
-const application = import.meta.env.DEV && import.meta.env.MODE === "frontend"
+const application = import.meta.env.DEV && !isTauri()
   ? import("./dev/HeaderAnimationPreview.vue")
   : import("./App.vue");
 
-void application.then(({ default: Application }) => createApp(Application).mount("#app"))
+void application.then(({ default: Application }) => {
+  createApp(Application).mount("#app");
+  document.querySelector(".boot-screen")?.remove();
+})
   .catch((error: unknown) => {
     console.error("ReadUX 启动失败", error);
     const status = document.querySelector(".boot-screen span");
