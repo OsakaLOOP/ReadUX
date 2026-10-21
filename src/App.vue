@@ -8,6 +8,7 @@ import AnalysisProgressPanel from "./components/AnalysisProgressPanel.vue";
 import AppHeader from "./components/common/AppHeader.vue";
 import LibraryHome from "./components/reader/LibraryHome.vue";
 import ReaderDocumentView from "./components/reader/ReaderDocumentView.vue";
+import GrammarGuidePanel from "./components/grammar/GrammarGuidePanel.vue";
 import ReaderOpeningMark from "./components/reader/ReaderOpeningMark.vue";
 import ReaderSurface from "./components/reader/ReaderSurface.vue";
 import { useDocumentSession } from "./composables/useDocumentSession";
@@ -46,6 +47,7 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
+const grammarGuideOpen = ref(false);
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
 const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);
@@ -443,6 +445,7 @@ onBeforeUnmount(() => { void closeSession(); });
       @import="void importEpub()"
       @open="void openBook($event)"
       @input="openTextInput"
+      @grammar-guide="grammarGuideOpen = true"
       @reveal="void revealLibrary()"
       @reveal-book="void revealBook($event)"
       @remove="void removeBook($event)"
@@ -505,6 +508,7 @@ onBeforeUnmount(() => { void closeSession(); });
         <button type="button" @click="void startText()">开始阅读</button>
       </div>
     </ReaderSurface>
+    <GrammarGuidePanel :show="grammarGuideOpen" @close="grammarGuideOpen = false" />
   </div>
 </template>
 

@@ -8,6 +8,7 @@ import {
   FileText,
   FileUp,
   FolderOpen,
+  GraduationCap,
   Info,
   MoreHorizontal,
   Palette,
@@ -34,6 +35,7 @@ const emit = defineEmits<{
   import: [];
   open: [id: string];
   input: [];
+  grammarGuide: [];
   reveal: [];
   remove: [book: LibraryBookSummary];
   revealBook: [book: LibraryBookSummary];
@@ -417,6 +419,10 @@ watch(shelfTotalPages, (pageCount) => {
           <span>{{ libraryPath || '正在读取书库位置…' }}</span>
         </button>
       </div>
+      <button class="grammar-guide-entry" type="button" @click="emit('grammarGuide')">
+        <GraduationCap :size="17" aria-hidden="true" />
+        <span>语法指南</span>
+      </button>
     </div>
 
     <p v-if="error" class="library-error" role="alert">{{ error }}</p>
@@ -758,6 +764,21 @@ watch(shelfTotalPages, (pageCount) => {
   margin: 0 auto 34px;
   max-width: 1180px;
 }
+
+.grammar-guide-entry {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.grammar-guide-entry:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
 h1 {
   font-size: 1.65rem;
