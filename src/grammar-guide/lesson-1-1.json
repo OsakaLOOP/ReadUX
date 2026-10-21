@@ -1,0 +1,4668 @@
+{
+  "lessonId": "grammar-1.1",
+  "title": "认识实词、虚词、助词",
+  "version": 1,
+  "status": "reviewed",
+  "sourceMarkdown": "### 1.1 认识实词、虚词、助词\n\n日语的句子是由大大小小的 **组成单元** 连接而成的。这些单元既作为词语有 **特定的含义**，又在句子的特定位置中扮演 **语法的身份**。当然, 这么讲可能有些过于抽象, 我只想简单强调作为语言的共性, 下面我们将深入这些方面, 讲解单元的分类与使用的规则.\n\n我将采取一个对汉语母语者来说最易懂的分类法, 大体上, 这些单元总可归为 **实词, 虚词和助词** 中的一类. \n\n其中, 实词和虚词都是 **词语性** 的, 也就是在统计意义上, 有 **确定的含义和指代对象的集合**. 在句子中, 他们因为其位置和与其他词语的关系, 根据语法规则决定了此处唯一表现出来的义项 [[或者, 涉及双关等修辞或诗歌表达, 则是少数几个高度相关的义项激活]]; 即便脱离句子单独拎出来, 义项也只是回到模糊, 而非消失, 其词义本身依然是 **独立可理解** 的. 实词包含名词、动词、形容词、副词等, 在句中可以 **独立充当成分** 甚至 **单独成句**. 汉语母语者需要注意, 虚词的「虚」并不在于其意义的抽象或者细微, 而在于句中 **虚词必须附属于实词, 为其「追加」或「改写」意义**, 在后面将会讲解, 虚词的词义就对应这里更改的部分: [[#3.1 黏着 实词与虚词的接续和组合变形]]. 一般, 虚词的意义属于抽象的状态或情态变化, 但不能因为一个词是形容词或者副词, 或者指代和描述抽象概念, 就认定他是虚词. \n\n实词和虚词最明显的区别在于, 实词常常具有一个写成汉字的核心, 可能会额外露出来一些平假名, 但其核心意义由汉字承载; 或者, 直接是一堆片假名组成的外来词. 而虚词, 则常规上完全写成平假名. 这个规律对 70% 以上的情况都成立, 出版物尤其遵守这个规则, 线下你可能会碰到一些非要把虚词写成汉字的嘉豪. 在句子中, 实词承担着出现的核心人物、对象、事件、地点、状态等信息, 虚词补充了句子的语法功能和联系. 了解了这一点, 你就可以快速通过实词把握一句话中的核心结构和内容大意. \n\n[[虚词的来源和演变(大量虚词由一些抽象的实词演化而来, 并且改变了写法, 原本有汉字对应), 以及汉字/假名规则的例外]]\n\n而助词是标记性的, 大多数没有实际含义, 而且在句中 **不能独立存在**, **本身不描述具体的事物、动作或状态**, 在句中也不能独立存在.  在日语中, 助词插入或附着在一个位置, 也就确定了前面一个词甚至整个范围内, 在句子中的语法身份和功能, 让你扫一眼就能明白. 一般地, 助词也完全是平假名.\n\n传统上可能把助词和虚词统称为「附属语」, 与实词即「自立语」相对, 其唯一分类标准为能否独立成句. 但虚词和助词实际有很大不同, 因为虚词仍然有明确的语源, 且自身仍有可分析的概念含义,  负责「向内」补充和改造实词的状态（如『不』『想』『过去』）, 而助词是纯粹的结构标记, 负责「向外」搭建词语与句子之间的连接关系. \n\n此外, 感动词, 终助词, 篇章助词等辅助性的词汇兼有几个方面的特征, 暂不能很好地放入实虚助三分框架, 这些我们后续会从形态、功能、用法等方面进一步理解.\n\n同样的词, 作为实词和虚词出现时, 写法也会相应地不同.(いる等特殊例子规范始终写作假名)\n\n|        |                        |                              |\n| ------ | ---------------------- | ---------------------------- |\n| **訳**  | 遅刻の**訳**を聞く（听迟到的理由）    | 飲む**わけ**にはいかない / そういう**わけ**で |\n| **事**  | 大事な**事**を忘れた（忘了重要的事）   | 泳ぐ**こと**ができる / 行く**こと**にする   |\n| **物**  | 甘い**物**を食べる（吃甜食）       | 昔はよく遊んだ**もの**だ（表怀旧感叹的情态）     |\n| **所**  | 静かな**所**に住む（住在安静的地方）   | 今食べている**ところ**だ（表进行体的虚词）      |\n| **居る** | 部屋に**居る**（人在房间里，存在动词）  | 食べて**いる**（表持续体貌的虚词）          |\n| **見る** | 映画を**見る**（看电影，视觉动词）    | 食べて**みる**（表尝试体的虚词）           |\n| **付く** | 席に**着く** / 味がつく（附着，实词） | これ**について**（固化为复合助词）          |\n - 在 部屋にいる 中，UD 标注为 **VERB（实词动词）**。\n    \n- 在 食べている 中，UD 标注为 **AUX（虚词/助动词）**\n",
+  "placements": [
+    {
+      "afterBlock": 1,
+      "group": "P01",
+      "exampleIds": [
+        "E01",
+        "E02"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 2,
+      "group": "P02",
+      "exampleIds": [
+        "E03"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 3,
+      "group": "P03 · P04 · P05 · P06",
+      "exampleIds": [
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E58",
+        "E08",
+        "E09",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 4,
+      "group": "P07",
+      "exampleIds": [
+        "E22",
+        "E23",
+        "E24",
+        "E25"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 5,
+      "group": "P08",
+      "exampleIds": [
+        "E26",
+        "E27",
+        "E28"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 6,
+      "group": "P09",
+      "exampleIds": [
+        "E29",
+        "E30",
+        "E31",
+        "E32",
+        "E33"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 7,
+      "group": "P10",
+      "exampleIds": [
+        "E34",
+        "E35"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 8,
+      "group": "P11",
+      "exampleIds": [
+        "E36",
+        "E37",
+        "E38",
+        "E39",
+        "E40"
+      ],
+      "layout": "list",
+      "anchor": ""
+    },
+    {
+      "afterBlock": 9,
+      "group": "P12",
+      "exampleIds": [
+        "E41",
+        "E42",
+        "E43",
+        "E44",
+        "E45",
+        "E46",
+        "E47",
+        "E48",
+        "E49",
+        "E50",
+        "E51",
+        "E52",
+        "E53",
+        "E54",
+        "E55",
+        "E59",
+        "E56",
+        "E57"
+      ],
+      "layout": "list",
+      "anchor": ""
+    }
+  ],
+  "originalExamples": [
+    {
+      "id": "O01",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "遅刻の訳を聞く",
+      "kana": "",
+      "note": "訳：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O02",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "飲むわけにはいかない",
+      "kana": "",
+      "note": "訳：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O03",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "そういうわけで",
+      "kana": "",
+      "note": "訳：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O04",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "大事な事を忘れた",
+      "kana": "",
+      "note": "事：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O05",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "泳ぐことができる",
+      "kana": "",
+      "note": "事：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O06",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "行くことにする",
+      "kana": "",
+      "note": "事：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O07",
+      "group": "原稿例",
+      "source": "物",
+      "ja": "甘い物を食べる",
+      "kana": "",
+      "note": "物：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O08",
+      "group": "原稿例",
+      "source": "物",
+      "ja": "昔はよく遊んだものだ",
+      "kana": "",
+      "note": "物：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O09",
+      "group": "原稿例",
+      "source": "所",
+      "ja": "静かな所に住む",
+      "kana": "",
+      "note": "所：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O10",
+      "group": "原稿例",
+      "source": "所",
+      "ja": "今食べているところだ",
+      "kana": "",
+      "note": "所：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O11",
+      "group": "原稿例",
+      "source": "居る",
+      "ja": "部屋に居る",
+      "kana": "",
+      "note": "居る：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O12",
+      "group": "原稿例",
+      "source": "居る",
+      "ja": "食べている",
+      "kana": "",
+      "note": "居る：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O13",
+      "group": "原稿例",
+      "source": "見る",
+      "ja": "映画を見る",
+      "kana": "",
+      "note": "見る：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O14",
+      "group": "原稿例",
+      "source": "見る",
+      "ja": "食べてみる",
+      "kana": "",
+      "note": "見る：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O15",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "席に着く",
+      "kana": "",
+      "note": "付く：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O16",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "味がつく",
+      "kana": "",
+      "note": "付く：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O17",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "これについて",
+      "kana": "",
+      "note": "付く：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O18",
+      "group": "原稿例",
+      "source": "UD 列表",
+      "ja": "部屋にいる",
+      "kana": "",
+      "note": "UD 列表：原稿中的例句，表记与上下文保持原样。"
+    },
+    {
+      "id": "O19",
+      "group": "原稿例",
+      "source": "UD 列表",
+      "ja": "食べている",
+      "kana": "",
+      "note": "UD 列表：原稿中的例句，表记与上下文保持原样。"
+    }
+  ],
+  "examples": [
+    {
+      "id": "E01",
+      "group": "P01",
+      "ja": "太郎が花子を呼ぶ。",
+      "kana": "たろうがはなこをよぶ。",
+      "zh": "太郎叫花子。",
+      "note": "太郎、花子、呼ぶ为实词；が、を为助词。が标示本句呼叫者，を标示呼叫对象",
+      "focus": [
+        "太郎が花子を呼ぶ。"
+      ],
+      "capsules": [
+        {
+          "id": "E01-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E01-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E01-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "太郎が花子を呼ぶ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E01-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "太郎が花子を呼ぶ。",
+          "reading": "たろうがはなこをよぶ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E01-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E01-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E01-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E01-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "太郎、花子、呼ぶ为实词；が、を为助词。が标示本句呼叫者，を标示呼叫对象",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E02",
+      "group": "P01",
+      "ja": "花子が太郎を呼ぶ。",
+      "kana": "はなこがたろうをよぶ。",
+      "zh": "花子叫太郎。",
+      "note": "与 E01 对照，词语的词汇义相同，人物在本句中的角色改变",
+      "focus": [
+        "花子が太郎を呼ぶ。"
+      ],
+      "capsules": [
+        {
+          "id": "E02-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E02-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E02-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "花子が太郎を呼ぶ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E02-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "花子が太郎を呼ぶ。",
+          "reading": "はなこがたろうをよぶ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E02-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E02-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E02-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E02-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "与 E01 对照，词语的词汇义相同，人物在本句中的角色改变",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E03",
+      "group": "P02",
+      "ja": "水を飲んだ。",
+      "kana": "みずをのんだ。",
+      "zh": "喝了水。",
+      "note": "水、飲ん〔饮用〕为实词；を为助词；だ〔た的浊音形式〕为过去助动词，归虚词",
+      "focus": [
+        "水を飲んだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E03-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E03-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E03-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "水を飲んだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E03-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "水を飲んだ。",
+          "reading": "みずをのんだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E03-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E03-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E03-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E03-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "水、飲ん〔饮用〕为实词；を为助词；だ〔た的浊音形式〕为过去助动词，归虚词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E04",
+      "group": "P03",
+      "ja": "本を読む。",
+      "kana": "ほんをよむ。",
+      "zh": "读书。",
+      "note": "読む在本例表示阅读文字，归实词动词",
+      "focus": [
+        "本を読む。"
+      ],
+      "capsules": [
+        {
+          "id": "E04-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "E04-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E04-whole",
+          "range": [
+            0,
+            5
+          ],
+          "text": "本を読む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E04-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            5
+          ],
+          "base": "本を読む。",
+          "reading": "ほんをよむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E04-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "E04-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E04-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E04-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "読む在本例表示阅读文字，归实词动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E05",
+      "group": "P03",
+      "ja": "空気を読む。",
+      "kana": "くうきをよむ。",
+      "zh": "察言观色。",
+      "note": "与 E04 对照，空気を読む按整体表达说明；词典仍可查询内部词语",
+      "focus": [
+        "空気を読む。"
+      ],
+      "capsules": [
+        {
+          "id": "E05-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E05-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E05-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "空気を読む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E05-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "空気を読む。",
+          "reading": "くうきをよむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E05-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E05-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E05-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E05-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "与 E04 对照，空気を読む按整体表达说明；词典仍可查询内部词语",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E06",
+      "group": "P03",
+      "ja": "今日は学校に行かない。",
+      "kana": "きょうはがっこうにいかない。",
+      "zh": "今天不去学校。",
+      "note": "ない表示否定，归虚词·助动词；行か的词汇核心为行く",
+      "focus": [
+        "今日は学校に行かない。"
+      ],
+      "capsules": [
+        {
+          "id": "E06-whole",
+          "range": [
+            0,
+            11
+          ],
+          "partIds": [
+            "E06-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E06-whole",
+          "range": [
+            0,
+            11
+          ],
+          "text": "今日は学校に行かない。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E06-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            11
+          ],
+          "base": "今日は学校に行かない。",
+          "reading": "きょうはがっこうにいかない。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E06-target",
+          "range": [
+            0,
+            11
+          ],
+          "detailId": "E06-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E06-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E06-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ない表示否定，归虚词·助动词；行か的词汇核心为行く",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E07",
+      "group": "P03",
+      "ja": "明日は学校に行きたい。",
+      "kana": "あしたはがっこうにいきたい。",
+      "zh": "明天想去学校。",
+      "note": "たい表示愿望，归虚词·助动词；与 E06 比较附加意义",
+      "focus": [
+        "明日は学校に行きたい。"
+      ],
+      "capsules": [
+        {
+          "id": "E07-whole",
+          "range": [
+            0,
+            11
+          ],
+          "partIds": [
+            "E07-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E07-whole",
+          "range": [
+            0,
+            11
+          ],
+          "text": "明日は学校に行きたい。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E07-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            11
+          ],
+          "base": "明日は学校に行きたい。",
+          "reading": "あしたはがっこうにいきたい。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E07-target",
+          "range": [
+            0,
+            11
+          ],
+          "detailId": "E07-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E07-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E07-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "たい表示愿望，归虚词·助动词；与 E06 比较附加意义",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E58",
+      "group": "P03",
+      "ja": "この橋は、町と町、人と人をつないでいる。",
+      "kana": "このはしは、まちとまち、ひととひとをつないでいる。",
+      "zh": "这座桥连接城镇，也联系着人与人。",
+      "note": "つなぐ同时涉及地理连接与人际联系，修辞语境激活相近义项；重点为つないでいる",
+      "focus": [
+        "この橋は、町と町、人と人をつないでいる。"
+      ],
+      "capsules": [
+        {
+          "id": "E58-whole",
+          "range": [
+            0,
+            20
+          ],
+          "partIds": [
+            "E58-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E58-whole",
+          "range": [
+            0,
+            20
+          ],
+          "text": "この橋は、町と町、人と人をつないでいる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E58-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            20
+          ],
+          "base": "この橋は、町と町、人と人をつないでいる。",
+          "reading": "このはしは、まちとまち、ひととひとをつないでいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E58-target",
+          "range": [
+            0,
+            20
+          ],
+          "detailId": "E58-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E58-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E58-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "つなぐ同时涉及地理连接与人际联系，修辞语境激活相近义项；重点为つないでいる",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E08",
+      "group": "P04",
+      "ja": "雨。",
+      "kana": "あめ。",
+      "zh": "下雨了。",
+      "note": "场景说明：望向窗外时的简短观察；名词独立构成话语",
+      "focus": [
+        "雨。"
+      ],
+      "capsules": [
+        {
+          "id": "E08-whole",
+          "range": [
+            0,
+            2
+          ],
+          "partIds": [
+            "E08-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E08-whole",
+          "range": [
+            0,
+            2
+          ],
+          "text": "雨。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E08-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            2
+          ],
+          "base": "雨。",
+          "reading": "あめ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E08-target",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "E08-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E08-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E08-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "场景说明：望向窗外时的简短观察；名词独立构成话语",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E09",
+      "group": "P04",
+      "ja": "行け！",
+      "kana": "いけ！",
+      "zh": "去！",
+      "note": "行く的命令形，词汇核心和活用共同构成完整命令",
+      "focus": [
+        "行け！"
+      ],
+      "capsules": [
+        {
+          "id": "E09-whole",
+          "range": [
+            0,
+            3
+          ],
+          "partIds": [
+            "E09-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E09-whole",
+          "range": [
+            0,
+            3
+          ],
+          "text": "行け！",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E09-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            3
+          ],
+          "base": "行け！",
+          "reading": "いけ！"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E09-target",
+          "range": [
+            0,
+            3
+          ],
+          "detailId": "E09-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E09-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E09-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "行く的命令形，词汇核心和活用共同构成完整命令",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E10",
+      "group": "P04",
+      "ja": "寒い。",
+      "kana": "さむい。",
+      "zh": "好冷。",
+      "note": "い形容词直接作谓语，表达说话者感受",
+      "focus": [
+        "寒い。"
+      ],
+      "capsules": [
+        {
+          "id": "E10-whole",
+          "range": [
+            0,
+            3
+          ],
+          "partIds": [
+            "E10-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E10-whole",
+          "range": [
+            0,
+            3
+          ],
+          "text": "寒い。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E10-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            3
+          ],
+          "base": "寒い。",
+          "reading": "さむい。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E10-target",
+          "range": [
+            0,
+            3
+          ],
+          "detailId": "E10-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E10-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E10-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "い形容词直接作谓语，表达说话者感受",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E11",
+      "group": "P05",
+      "ja": "猫が走る。",
+      "kana": "ねこがはしる。",
+      "zh": "猫在跑。",
+      "note": "猫为名词，走る为动词，均归实词",
+      "focus": [
+        "猫が走る。"
+      ],
+      "capsules": [
+        {
+          "id": "E11-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "E11-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E11-whole",
+          "range": [
+            0,
+            5
+          ],
+          "text": "猫が走る。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E11-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            5
+          ],
+          "base": "猫が走る。",
+          "reading": "ねこがはしる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E11-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "E11-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E11-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E11-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "猫为名词，走る为动词，均归实词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E12",
+      "group": "P05",
+      "ja": "高い山が見える。",
+      "kana": "たかいやまがみえる。",
+      "zh": "能看见高山。",
+      "note": "高い为い形容词，描述山的性质",
+      "focus": [
+        "高い山が見える。"
+      ],
+      "capsules": [
+        {
+          "id": "E12-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E12-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E12-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "高い山が見える。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E12-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "高い山が見える。",
+          "reading": "たかいやまがみえる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E12-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E12-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E12-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E12-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "高い为い形容词，描述山的性质",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E13",
+      "group": "P05",
+      "ja": "ゆっくり歩く。",
+      "kana": "ゆっくりあるく。",
+      "zh": "慢慢地走。",
+      "note": "ゆっくり为副词，歩く为动词，均归实词",
+      "focus": [
+        "ゆっくり歩く。"
+      ],
+      "capsules": [
+        {
+          "id": "E13-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E13-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E13-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "ゆっくり歩く。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E13-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "ゆっくり歩く。",
+          "reading": "ゆっくりあるく。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E13-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E13-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E13-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E13-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ゆっくり为副词，歩く为动词，均归实词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E14",
+      "group": "P05",
+      "ja": "希望を持つ。",
+      "kana": "きぼうをもつ。",
+      "zh": "怀有希望。",
+      "note": "希望为表示抽象概念的名词，归实词",
+      "focus": [
+        "希望を持つ。"
+      ],
+      "capsules": [
+        {
+          "id": "E14-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E14-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E14-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "希望を持つ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E14-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "希望を持つ。",
+          "reading": "きぼうをもつ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E14-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E14-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E14-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E14-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "希望为表示抽象概念的名词，归实词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E15",
+      "group": "P05",
+      "ja": "とても嬉しい。",
+      "kana": "とてもうれしい。",
+      "zh": "非常开心。",
+      "note": "とても为副词，嬉しい为い形容词，均归实词",
+      "focus": [
+        "とても嬉しい。"
+      ],
+      "capsules": [
+        {
+          "id": "E15-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E15-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E15-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "とても嬉しい。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E15-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "とても嬉しい。",
+          "reading": "とてもうれしい。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E15-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E15-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E15-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E15-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "とても为副词，嬉しい为い形容词，均归实词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E16",
+      "group": "P06",
+      "ja": "本を読む。",
+      "kana": "ほんをよむ。",
+      "zh": "读书。",
+      "note": "对照基准，読む为词汇核心",
+      "focus": [
+        "本を読む。"
+      ],
+      "capsules": [
+        {
+          "id": "E16-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "E16-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E16-whole",
+          "range": [
+            0,
+            5
+          ],
+          "text": "本を読む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E16-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            5
+          ],
+          "base": "本を読む。",
+          "reading": "ほんをよむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E16-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "E16-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E16-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E16-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "对照基准，読む为词汇核心",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E17",
+      "group": "P06",
+      "ja": "本を読みたい。",
+      "kana": "ほんをよみたい。",
+      "zh": "想读书。",
+      "note": "たい：愿望，虚词·助动词",
+      "focus": [
+        "本を読みたい。"
+      ],
+      "capsules": [
+        {
+          "id": "E17-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E17-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E17-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "本を読みたい。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E17-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "本を読みたい。",
+          "reading": "ほんをよみたい。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E17-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E17-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E17-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E17-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "たい：愿望，虚词·助动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E18",
+      "group": "P06",
+      "ja": "本を読まない。",
+      "kana": "ほんをよまない。",
+      "zh": "不读书。",
+      "note": "ない：否定，虚词·助动词",
+      "focus": [
+        "本を読まない。"
+      ],
+      "capsules": [
+        {
+          "id": "E18-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E18-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E18-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "本を読まない。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E18-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "本を読まない。",
+          "reading": "ほんをよまない。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E18-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E18-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E18-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E18-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ない：否定，虚词·助动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E19",
+      "group": "P06",
+      "ja": "本を読んだ。",
+      "kana": "ほんをよんだ。",
+      "zh": "读了书。",
+      "note": "だ对应た：过去，虚词·助动词",
+      "focus": [
+        "本を読んだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E19-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E19-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E19-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "本を読んだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E19-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "本を読んだ。",
+          "reading": "ほんをよんだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E19-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E19-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E19-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E19-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "だ对应た：过去，虚词·助动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E20",
+      "group": "P06",
+      "ja": "今、本を読んでいる。",
+      "kana": "いま、ほんをよんでいる。",
+      "zh": "现在正在读书。",
+      "note": "いる：补助动词，虚词；て保留助词类别",
+      "focus": [
+        "今、本を読んでいる。"
+      ],
+      "capsules": [
+        {
+          "id": "E20-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "E20-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E20-whole",
+          "range": [
+            0,
+            10
+          ],
+          "text": "今、本を読んでいる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E20-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            10
+          ],
+          "base": "今、本を読んでいる。",
+          "reading": "いま、ほんをよんでいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E20-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "E20-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E20-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E20-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "いる：补助动词，虚词；て保留助词类别",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E21",
+      "group": "P06",
+      "ja": "この本を読んでみる。",
+      "kana": "このほんをよんでみる。",
+      "zh": "试着读读这本书。",
+      "note": "みる：补助动词，虚词；この作为实词·连体词显示",
+      "focus": [
+        "この本を読んでみる。"
+      ],
+      "capsules": [
+        {
+          "id": "E21-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "E21-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E21-whole",
+          "range": [
+            0,
+            10
+          ],
+          "text": "この本を読んでみる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E21-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            10
+          ],
+          "base": "この本を読んでみる。",
+          "reading": "このほんをよんでみる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E21-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "E21-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E21-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E21-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "みる：补助动词，虚词；この作为实词·连体词显示",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E22",
+      "group": "P07",
+      "ja": "学校でパンを食べた。",
+      "kana": "がっこうでぱんをたべた。",
+      "zh": "在学校吃了面包。",
+      "note": "学校：汉字名词；パン：片假名名词；食べ：汉字与送假名；で、を、た：平假名功能成分",
+      "focus": [
+        "学校でパンを食べた。"
+      ],
+      "capsules": [
+        {
+          "id": "E22-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "E22-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E22-whole",
+          "range": [
+            0,
+            10
+          ],
+          "text": "学校でパンを食べた。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E22-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            10
+          ],
+          "base": "学校でパンを食べた。",
+          "reading": "がっこうでぱんをたべた。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E22-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "E22-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E22-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E22-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "学校：汉字名词；パン：片假名名词；食べ：汉字与送假名；で、を、た：平假名功能成分",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E23",
+      "group": "P07",
+      "ja": "ここにいる。",
+      "kana": "ここにいる。",
+      "zh": "在这里。",
+      "note": "ここ为代词，いる为存在动词，均属实词；实词可以完全写为假名",
+      "focus": [
+        "ここにいる。"
+      ],
+      "capsules": [
+        {
+          "id": "E23-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E23-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E23-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "ここにいる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E23-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "ここにいる。",
+          "reading": "ここにいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E23-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E23-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E23-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E23-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ここ为代词，いる为存在动词，均属实词；实词可以完全写为假名",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E24",
+      "group": "P07",
+      "ja": "おいしいパンをゆっくり食べる。",
+      "kana": "おいしいぱんをゆっくりたべる。",
+      "zh": "慢慢地吃美味的面包。",
+      "note": "おいしい和ゆっくり为假名实词，语法身份可通过词类查看",
+      "focus": [
+        "おいしいパンをゆっくり食べる。"
+      ],
+      "capsules": [
+        {
+          "id": "E24-whole",
+          "range": [
+            0,
+            15
+          ],
+          "partIds": [
+            "E24-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E24-whole",
+          "range": [
+            0,
+            15
+          ],
+          "text": "おいしいパンをゆっくり食べる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E24-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            15
+          ],
+          "base": "おいしいパンをゆっくり食べる。",
+          "reading": "おいしいぱんをゆっくりたべる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E24-target",
+          "range": [
+            0,
+            15
+          ],
+          "detailId": "E24-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E24-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E24-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "おいしい和ゆっくり为假名实词，语法身份可通过词类查看",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E25",
+      "group": "P07",
+      "ja": "本を読んで居る。",
+      "kana": "ほんをよんでいる。",
+      "zh": "正在读书。",
+      "note": "与 E20 的いる用法相同；本例特意保留汉字表记，展示书写变体，教材常规采用いる",
+      "focus": [
+        "本を読んで居る。"
+      ],
+      "capsules": [
+        {
+          "id": "E25-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E25-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E25-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "本を読んで居る。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E25-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "本を読んで居る。",
+          "reading": "ほんをよんでいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E25-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E25-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E25-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E25-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "与 E20 的いる用法相同；本例特意保留汉字表记，展示书写变体，教材常规采用いる",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E26",
+      "group": "P08",
+      "ja": "庭に猫がいる。",
+      "kana": "にわにねこがいる。",
+      "zh": "院子里有猫。",
+      "note": "いる表示存在，实词·动词",
+      "focus": [
+        "庭に猫がいる。"
+      ],
+      "capsules": [
+        {
+          "id": "E26-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E26-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E26-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "庭に猫がいる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E26-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "庭に猫がいる。",
+          "reading": "にわにねこがいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E26-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E26-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E26-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E26-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "いる表示存在，实词·动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E27",
+      "group": "P08",
+      "ja": "猫が眠っている。",
+      "kana": "ねこがねむっている。",
+      "zh": "猫在睡觉。",
+      "note": "いる作补助动词，虚词；眠る提供睡眠动作内容",
+      "focus": [
+        "猫が眠っている。"
+      ],
+      "capsules": [
+        {
+          "id": "E27-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E27-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E27-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "猫が眠っている。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E27-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "猫が眠っている。",
+          "reading": "ねこがねむっている。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E27-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E27-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E27-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E27-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "いる作补助动词，虚词；眠る提供睡眠动作内容",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E28",
+      "group": "P08",
+      "ja": "新しい料理を作ってみる。",
+      "kana": "あたらしいりょうりをつくってみる。",
+      "zh": "试着做一道新菜。",
+      "note": "みる表示尝试，虚词；与 P12 的 E53 视觉动词对照",
+      "focus": [
+        "新しい料理を作ってみる。"
+      ],
+      "capsules": [
+        {
+          "id": "E28-whole",
+          "range": [
+            0,
+            12
+          ],
+          "partIds": [
+            "E28-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E28-whole",
+          "range": [
+            0,
+            12
+          ],
+          "text": "新しい料理を作ってみる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E28-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            12
+          ],
+          "base": "新しい料理を作ってみる。",
+          "reading": "あたらしいりょうりをつくってみる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E28-target",
+          "range": [
+            0,
+            12
+          ],
+          "detailId": "E28-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E28-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E28-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "みる表示尝试，虚词；与 P12 的 E53 视觉动词对照",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E29",
+      "group": "P09",
+      "ja": "太郎が本を読む。",
+      "kana": "たろうがほんをよむ。",
+      "zh": "太郎读书。",
+      "note": "が附于太郎，を附于本，观察两个受标记范围",
+      "focus": [
+        "太郎が本を読む。"
+      ],
+      "capsules": [
+        {
+          "id": "E29-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E29-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E29-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "太郎が本を読む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E29-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "太郎が本を読む。",
+          "reading": "たろうがほんをよむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E29-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E29-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E29-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E29-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "が附于太郎，を附于本，观察两个受标记范围",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E30",
+      "group": "P09",
+      "ja": "本は太郎が読む。",
+      "kana": "ほんはたろうがよむ。",
+      "zh": "这本书由太郎来读。",
+      "note": "は标示话题本；本在本句中与読む构成阅读对象关系",
+      "focus": [
+        "本は太郎が読む。"
+      ],
+      "capsules": [
+        {
+          "id": "E30-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E30-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E30-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "本は太郎が読む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E30-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "本は太郎が読む。",
+          "reading": "ほんはたろうがよむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E30-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E30-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E30-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E30-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "は标示话题本；本在本句中与読む构成阅读对象关系",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E31",
+      "group": "P09",
+      "ja": "太郎だけが来た。",
+      "kana": "たろうだけがきた。",
+      "zh": "只有太郎来了。",
+      "note": "だけ限定太郎，が继续标示本句角色；助词可以叠加",
+      "focus": [
+        "太郎だけが来た。"
+      ],
+      "capsules": [
+        {
+          "id": "E31-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E31-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E31-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "太郎だけが来た。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E31-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "太郎だけが来た。",
+          "reading": "たろうだけがきた。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E31-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E31-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E31-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E31-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "だけ限定太郎，が继续标示本句角色；助词可以叠加",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E32",
+      "group": "P09",
+      "ja": "パンと牛乳を買う。",
+      "kana": "ぱんとぎゅうにゅうをかう。",
+      "zh": "买面包和牛奶。",
+      "note": "と连接パン与牛乳，を作用于整个并列名词组",
+      "focus": [
+        "パンと牛乳を買う。"
+      ],
+      "capsules": [
+        {
+          "id": "E32-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E32-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E32-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "パンと牛乳を買う。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E32-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "パンと牛乳を買う。",
+          "reading": "ぱんとぎゅうにゅうをかう。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E32-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E32-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E32-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E32-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "と连接パン与牛乳，を作用于整个并列名词组",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E33",
+      "group": "P09",
+      "ja": "本を読んで寝る。",
+      "kana": "ほんをよんでねる。",
+      "zh": "读完书就睡觉。",
+      "note": "て对应表面で，连接两个动作；动词分别为読む、寝る",
+      "focus": [
+        "本を読んで寝る。"
+      ],
+      "capsules": [
+        {
+          "id": "E33-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E33-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E33-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "本を読んで寝る。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E33-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "本を読んで寝る。",
+          "reading": "ほんをよんでねる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E33-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E33-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E33-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E33-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "て对应表面で，连接两个动作；动词分别为読む、寝る",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E34",
+      "group": "P10",
+      "ja": "学生が本を読んだ。",
+      "kana": "がくせいがほんをよんだ。",
+      "zh": "学生读了书。",
+      "note": "学校文法的自立语学生、本、読む；附属语が、を、た。指南再区分助词が／を与虚词た",
+      "focus": [
+        "学生が本を読んだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E34-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E34-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E34-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "学生が本を読んだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E34-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "学生が本を読んだ。",
+          "reading": "がくせいがほんをよんだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E34-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E34-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E34-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E34-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "学校文法的自立语学生、本、読む；附属语が、を、た。指南再区分助词が／を与虚词た",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E35",
+      "group": "P10",
+      "ja": "学生だ。",
+      "kana": "がくせいだ。",
+      "zh": "是学生。",
+      "note": "学生提供身份内容；だ为判断助动词，归虚词；句末位置在功能说明中显示",
+      "focus": [
+        "学生だ。"
+      ],
+      "capsules": [
+        {
+          "id": "E35-whole",
+          "range": [
+            0,
+            4
+          ],
+          "partIds": [
+            "E35-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E35-whole",
+          "range": [
+            0,
+            4
+          ],
+          "text": "学生だ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E35-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            4
+          ],
+          "base": "学生だ。",
+          "reading": "がくせいだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E35-target",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "E35-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E35-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E35-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "学生提供身份内容；だ为判断助动词，归虚词；句末位置在功能说明中显示",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E36",
+      "group": "P11",
+      "ja": "はい。",
+      "kana": "はい。",
+      "zh": "是的。",
+      "note": "はい：其他·应答感叹，词典细类按实际记录显示",
+      "focus": [
+        "はい。"
+      ],
+      "capsules": [
+        {
+          "id": "E36-whole",
+          "range": [
+            0,
+            3
+          ],
+          "partIds": [
+            "E36-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E36-whole",
+          "range": [
+            0,
+            3
+          ],
+          "text": "はい。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E36-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            3
+          ],
+          "base": "はい。",
+          "reading": "はい。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E36-target",
+          "range": [
+            0,
+            3
+          ],
+          "detailId": "E36-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E36-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E36-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "はい：其他·应答感叹，词典细类按实际记录显示",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E37",
+      "group": "P11",
+      "ja": "ああ、きれいだ。",
+      "kana": "ああ、きれいだ。",
+      "zh": "啊，真漂亮。",
+      "note": "ああ为感动词；きれい为实词な形容词；だ为虚词判断助动词",
+      "focus": [
+        "ああ、きれいだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E37-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E37-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E37-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "ああ、きれいだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E37-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "ああ、きれいだ。",
+          "reading": "ああ、きれいだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E37-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E37-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E37-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E37-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ああ为感动词；きれい为实词な形容词；だ为虚词判断助动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E38",
+      "group": "P11",
+      "ja": "いい天気だね。",
+      "kana": "いいてんきだね。",
+      "zh": "天气真好啊。",
+      "note": "ね：其他·语气，来源词类为终助词；だ仍归虚词",
+      "focus": [
+        "いい天気だね。"
+      ],
+      "capsules": [
+        {
+          "id": "E38-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E38-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E38-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "いい天気だね。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E38-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "いい天気だね。",
+          "reading": "いいてんきだね。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E38-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E38-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E38-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E38-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ね：其他·语气，来源词类为终助词；だ仍归虚词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E39",
+      "group": "P11",
+      "ja": "もう帰るよ。",
+      "kana": "もうかえるよ。",
+      "zh": "我要回去了。",
+      "note": "よ：其他·语气，表达告知；もう为实词副词",
+      "focus": [
+        "もう帰るよ。"
+      ],
+      "capsules": [
+        {
+          "id": "E39-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E39-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E39-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "もう帰るよ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E39-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "もう帰るよ。",
+          "reading": "もうかえるよ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E39-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E39-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E39-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E39-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "よ：其他·语气，表达告知；もう为实词副词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E40",
+      "group": "P11",
+      "ja": "雨が降っている。しかし、出かける。",
+      "kana": "あめがふっている。しかし、でかける。",
+      "zh": "正在下雨。不过，还是要出门。",
+      "note": "しかし：其他·篇章连接，来源词类为接续词；前句提供必要对照语境",
+      "focus": [
+        "雨が降っている。しかし、出かける。"
+      ],
+      "capsules": [
+        {
+          "id": "E40-whole",
+          "range": [
+            0,
+            17
+          ],
+          "partIds": [
+            "E40-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E40-whole",
+          "range": [
+            0,
+            17
+          ],
+          "text": "雨が降っている。しかし、出かける。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E40-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            17
+          ],
+          "base": "雨が降っている。しかし、出かける。",
+          "reading": "あめがふっている。しかし、でかける。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E40-target",
+          "range": [
+            0,
+            17
+          ],
+          "detailId": "E40-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E40-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E40-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "しかし：其他·篇章连接，来源词类为接续词；前句提供必要对照语境",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E41",
+      "group": "P12",
+      "ja": "遅刻の訳を聞く。",
+      "kana": "ちこくのわけをきく。",
+      "zh": "询问迟到的理由。",
+      "note": "訳〔わけ〕：实词·名词",
+      "focus": [
+        "遅刻の訳を聞く。"
+      ],
+      "capsules": [
+        {
+          "id": "E41-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E41-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E41-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "遅刻の訳を聞く。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E41-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "遅刻の訳を聞く。",
+          "reading": "ちこくのわけをきく。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E41-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E41-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E41-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E41-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "訳〔わけ〕：实词·名词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E42",
+      "group": "P12",
+      "ja": "医者に止められているので、酒を飲むわけにはいかない。",
+      "kana": "いしゃにとめられているので、さけをのむわけにはいかない。",
+      "zh": "医生不让喝酒，所以我不能喝。",
+      "note": "わけ：虚词·形式名词；飲むわけにはいかない的整体教学范围独立于内部词性",
+      "focus": [
+        "医者に止められているので、酒を飲むわけにはいかない。"
+      ],
+      "capsules": [
+        {
+          "id": "E42-whole",
+          "range": [
+            0,
+            26
+          ],
+          "partIds": [
+            "E42-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E42-whole",
+          "range": [
+            0,
+            26
+          ],
+          "text": "医者に止められているので、酒を飲むわけにはいかない。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E42-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            26
+          ],
+          "base": "医者に止められているので、酒を飲むわけにはいかない。",
+          "reading": "いしゃにとめられているので、さけをのむわけにはいかない。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E42-target",
+          "range": [
+            0,
+            26
+          ],
+          "detailId": "E42-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E42-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E42-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "わけ：虚词·形式名词；飲むわけにはいかない的整体教学范围独立于内部词性",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E43",
+      "group": "P12",
+      "ja": "そういうわけで、今日は休みます。",
+      "kana": "そういうわけで、きょうはやすみます。",
+      "zh": "基于这个原因，今天请假。",
+      "note": "わけ：本例标为虚词·形式名词；そういうわけで整体说明前因承接",
+      "focus": [
+        "そういうわけで、今日は休みます。"
+      ],
+      "capsules": [
+        {
+          "id": "E43-whole",
+          "range": [
+            0,
+            16
+          ],
+          "partIds": [
+            "E43-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E43-whole",
+          "range": [
+            0,
+            16
+          ],
+          "text": "そういうわけで、今日は休みます。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E43-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            16
+          ],
+          "base": "そういうわけで、今日は休みます。",
+          "reading": "そういうわけで、きょうはやすみます。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E43-target",
+          "range": [
+            0,
+            16
+          ],
+          "detailId": "E43-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E43-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E43-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "わけ：本例标为虚词·形式名词；そういうわけで整体说明前因承接",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E44",
+      "group": "P12",
+      "ja": "大事な事を忘れた。",
+      "kana": "だいじなことをわすれた。",
+      "zh": "忘了一件重要的事。",
+      "note": "事：实词·名词；大事な中的大事为な形容词用法",
+      "focus": [
+        "大事な事を忘れた。"
+      ],
+      "capsules": [
+        {
+          "id": "E44-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E44-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E44-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "大事な事を忘れた。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E44-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "大事な事を忘れた。",
+          "reading": "だいじなことをわすれた。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E44-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E44-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E44-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E44-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "事：实词·名词；大事な中的大事为な形容词用法",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E45",
+      "group": "P12",
+      "ja": "泳ぐことができる。",
+      "kana": "およぐことができる。",
+      "zh": "会游泳。",
+      "note": "こと：虚词·形式名词，前接范围为泳ぐ；が保持助词类别",
+      "focus": [
+        "泳ぐことができる。"
+      ],
+      "capsules": [
+        {
+          "id": "E45-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E45-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E45-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "泳ぐことができる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E45-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "泳ぐことができる。",
+          "reading": "およぐことができる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E45-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E45-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E45-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E45-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "こと：虚词·形式名词，前接范围为泳ぐ；が保持助词类别",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E46",
+      "group": "P12",
+      "ja": "来年、日本に行くことにする。",
+      "kana": "らいねん、にほんにいくことにする。",
+      "zh": "决定明年去日本。",
+      "note": "こと：虚词·形式名词；に保持助词类别；决定用法由教材解释",
+      "focus": [
+        "来年、日本に行くことにする。"
+      ],
+      "capsules": [
+        {
+          "id": "E46-whole",
+          "range": [
+            0,
+            14
+          ],
+          "partIds": [
+            "E46-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E46-whole",
+          "range": [
+            0,
+            14
+          ],
+          "text": "来年、日本に行くことにする。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E46-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            14
+          ],
+          "base": "来年、日本に行くことにする。",
+          "reading": "らいねん、にほんにいくことにする。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E46-target",
+          "range": [
+            0,
+            14
+          ],
+          "detailId": "E46-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E46-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E46-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "こと：虚词·形式名词；に保持助词类别；决定用法由教材解释",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E47",
+      "group": "P12",
+      "ja": "甘い物を食べる。",
+      "kana": "あまいものをたべる。",
+      "zh": "吃甜食。",
+      "note": "物：实词·名词",
+      "focus": [
+        "甘い物を食べる。"
+      ],
+      "capsules": [
+        {
+          "id": "E47-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E47-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E47-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "甘い物を食べる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E47-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "甘い物を食べる。",
+          "reading": "あまいものをたべる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E47-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E47-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E47-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E47-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "物：实词·名词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E48",
+      "group": "P12",
+      "ja": "子供の頃は、よく川で遊んだものだ。",
+      "kana": "こどものころは、よくかわであそんだものだ。",
+      "zh": "小时候常常在河里玩，真令人怀念。",
+      "note": "もの：虚词·形式名词；たものだ为回顾往事的教学范围，よく为实词副词",
+      "focus": [
+        "子供の頃は、よく川で遊んだものだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E48-whole",
+          "range": [
+            0,
+            17
+          ],
+          "partIds": [
+            "E48-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E48-whole",
+          "range": [
+            0,
+            17
+          ],
+          "text": "子供の頃は、よく川で遊んだものだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E48-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            17
+          ],
+          "base": "子供の頃は、よく川で遊んだものだ。",
+          "reading": "こどものころは、よくかわであそんだものだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E48-target",
+          "range": [
+            0,
+            17
+          ],
+          "detailId": "E48-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E48-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E48-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "もの：虚词·形式名词；たものだ为回顾往事的教学范围，よく为实词副词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E49",
+      "group": "P12",
+      "ja": "静かな所に住む。",
+      "kana": "しずかなところにすむ。",
+      "zh": "住在安静的地方。",
+      "note": "所：实词·名词；静かな作为整体实词显示连体活用",
+      "focus": [
+        "静かな所に住む。"
+      ],
+      "capsules": [
+        {
+          "id": "E49-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E49-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E49-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "静かな所に住む。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E49-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "静かな所に住む。",
+          "reading": "しずかなところにすむ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E49-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E49-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E49-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E49-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "所：实词·名词；静かな作为整体实词显示连体活用",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E50",
+      "group": "P12",
+      "ja": "今、ご飯を食べているところだ。",
+      "kana": "いま、ごはんをたべているところだ。",
+      "zh": "现在正在吃饭。",
+      "note": "ところ：虚词·形式名词；いる为补助动词；だ为判断助动词",
+      "focus": [
+        "今、ご飯を食べているところだ。"
+      ],
+      "capsules": [
+        {
+          "id": "E50-whole",
+          "range": [
+            0,
+            15
+          ],
+          "partIds": [
+            "E50-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E50-whole",
+          "range": [
+            0,
+            15
+          ],
+          "text": "今、ご飯を食べているところだ。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E50-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            15
+          ],
+          "base": "今、ご飯を食べているところだ。",
+          "reading": "いま、ごはんをたべているところだ。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E50-target",
+          "range": [
+            0,
+            15
+          ],
+          "detailId": "E50-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E50-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E50-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "ところ：虚词·形式名词；いる为补助动词；だ为判断助动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E51",
+      "group": "P12",
+      "ja": "猫は部屋にいる。",
+      "kana": "ねこはへやにいる。",
+      "zh": "猫在房间里。",
+      "note": "いる：实词·存在动词；词典可显示居る表记",
+      "focus": [
+        "猫は部屋にいる。"
+      ],
+      "capsules": [
+        {
+          "id": "E51-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E51-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E51-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "猫は部屋にいる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E51-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "猫は部屋にいる。",
+          "reading": "ねこはへやにいる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E51-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E51-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E51-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E51-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "いる：实词·存在动词；词典可显示居る表记",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E52",
+      "group": "P12",
+      "ja": "猫はご飯を食べている。",
+      "kana": "ねこはごはんをたべている。",
+      "zh": "猫正在吃饭。",
+      "note": "いる：虚词·补助动词；食べる为词汇核心",
+      "focus": [
+        "猫はご飯を食べている。"
+      ],
+      "capsules": [
+        {
+          "id": "E52-whole",
+          "range": [
+            0,
+            11
+          ],
+          "partIds": [
+            "E52-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E52-whole",
+          "range": [
+            0,
+            11
+          ],
+          "text": "猫はご飯を食べている。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E52-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            11
+          ],
+          "base": "猫はご飯を食べている。",
+          "reading": "ねこはごはんをたべている。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E52-target",
+          "range": [
+            0,
+            11
+          ],
+          "detailId": "E52-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E52-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E52-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "いる：虚词·补助动词；食べる为词汇核心",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E53",
+      "group": "P12",
+      "ja": "映画を見る。",
+      "kana": "えいがをみる。",
+      "zh": "看电影。",
+      "note": "見る：实词·动词",
+      "focus": [
+        "映画を見る。"
+      ],
+      "capsules": [
+        {
+          "id": "E53-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "E53-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E53-whole",
+          "range": [
+            0,
+            6
+          ],
+          "text": "映画を見る。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E53-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            6
+          ],
+          "base": "映画を見る。",
+          "reading": "えいがをみる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E53-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "E53-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E53-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E53-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "見る：实词·动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E54",
+      "group": "P12",
+      "ja": "この料理を食べてみる。",
+      "kana": "このりょうりをたべてみる。",
+      "zh": "尝尝这道菜。",
+      "note": "みる：虚词·补助动词；て保持助词类别",
+      "focus": [
+        "この料理を食べてみる。"
+      ],
+      "capsules": [
+        {
+          "id": "E54-whole",
+          "range": [
+            0,
+            11
+          ],
+          "partIds": [
+            "E54-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E54-whole",
+          "range": [
+            0,
+            11
+          ],
+          "text": "この料理を食べてみる。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E54-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            11
+          ],
+          "base": "この料理を食べてみる。",
+          "reading": "このりょうりをたべてみる。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E54-target",
+          "range": [
+            0,
+            11
+          ],
+          "detailId": "E54-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E54-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E54-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "みる：虚词·补助动词；て保持助词类别",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E55",
+      "group": "P12",
+      "ja": "服に泥が付く。",
+      "kana": "ふくにどろがつく。",
+      "zh": "衣服上沾上泥。",
+      "note": "付く：实词·动词",
+      "focus": [
+        "服に泥が付く。"
+      ],
+      "capsules": [
+        {
+          "id": "E55-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "E55-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E55-whole",
+          "range": [
+            0,
+            7
+          ],
+          "text": "服に泥が付く。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E55-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            7
+          ],
+          "base": "服に泥が付く。",
+          "reading": "ふくにどろがつく。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E55-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "E55-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E55-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E55-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "付く：实词·动词",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E59",
+      "group": "P12",
+      "ja": "スープに味がつく。",
+      "kana": "すーぷにあじがつく。",
+      "zh": "汤有了味道。",
+      "note": "つく：实词·动词；对应付く的词汇用法，假名书写",
+      "focus": [
+        "スープに味がつく。"
+      ],
+      "capsules": [
+        {
+          "id": "E59-whole",
+          "range": [
+            0,
+            9
+          ],
+          "partIds": [
+            "E59-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E59-whole",
+          "range": [
+            0,
+            9
+          ],
+          "text": "スープに味がつく。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E59-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            9
+          ],
+          "base": "スープに味がつく。",
+          "reading": "すーぷにあじがつく。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E59-target",
+          "range": [
+            0,
+            9
+          ],
+          "detailId": "E59-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E59-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E59-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "つく：实词·动词；对应付く的词汇用法，假名书写",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E56",
+      "group": "P12",
+      "ja": "この問題について話す。",
+      "kana": "このもんだいについてはなす。",
+      "zh": "谈论这个问题。",
+      "note": "について：整体归助词·复合助词；原子に／つい／て按来源显示",
+      "focus": [
+        "この問題について話す。"
+      ],
+      "capsules": [
+        {
+          "id": "E56-whole",
+          "range": [
+            0,
+            11
+          ],
+          "partIds": [
+            "E56-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E56-whole",
+          "range": [
+            0,
+            11
+          ],
+          "text": "この問題について話す。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E56-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            11
+          ],
+          "base": "この問題について話す。",
+          "reading": "このもんだいについてはなす。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E56-target",
+          "range": [
+            0,
+            11
+          ],
+          "detailId": "E56-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E56-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E56-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "について：整体归助词·复合助词；原子に／つい／て按来源显示",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "E57",
+      "group": "P12",
+      "ja": "自分の席に着く。",
+      "kana": "じぶんのせきにつく。",
+      "zh": "坐到自己的座位上。",
+      "note": "着く：实词·动词，与付く采用不同词元和词典查询",
+      "focus": [
+        "自分の席に着く。"
+      ],
+      "capsules": [
+        {
+          "id": "E57-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "E57-whole"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "E57-whole",
+          "range": [
+            0,
+            8
+          ],
+          "text": "自分の席に着く。",
+          "teachingClass": "other",
+          "classLabel": "整句观察",
+          "term": "整句",
+          "focus": true,
+          "detailId": "E57-detail"
+        }
+      ],
+      "ruby": [
+        {
+          "range": [
+            0,
+            8
+          ],
+          "base": "自分の席に着く。",
+          "reading": "じぶんのせきにつく。"
+        }
+      ],
+      "targets": [
+        {
+          "id": "E57-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "E57-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "E57-whole"
+          ]
+        }
+      ],
+      "detail": {
+        "id": "E57-detail",
+        "label": "例句整体",
+        "sourceLabel": "原稿例句规格",
+        "teachingClass": "待按成分审阅",
+        "note": "着く：实词·动词，与付く采用不同词元和词典查询",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "dictionaryEntries": [],
+      "morphology": []
+    }
+  ],
+  "generatedFrom": {
+    "specification": "docs/grammar_guide_1_1.md",
+    "sourceText": "原稿原文代码块",
+    "generation": "scripts/build_grammar_guide_package.mjs",
+    "review": "依据例句插入关系、日文与中文对照逐条校读；词典快照和细分词法标注待后台审阅填写。"
+  }
+}
