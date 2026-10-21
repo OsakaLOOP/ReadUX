@@ -46,7 +46,7 @@ export function renderMarkdownBlock(block: MarkdownBlock): string {
   if (block.kind === "list") return `<ul>${lines.map((line) => `<li>${inlineMarkdown(line.replace(/^\s*[-*] /, ""))}</li>`).join("")}</ul>`;
   if (block.kind === "quote") return `<blockquote>${inlineMarkdown(lines.map((line) => line.replace(/^>\s?/, "")).join(" "))}</blockquote>`;
   if (block.kind === "table") {
-    const rows = lines.filter((line) => !/^\|\s*:?-{2,}/.test(line)).map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
+    const rows = lines.filter((line) => !/^\|\s*:?-{2,}/.test(line)).map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim())).filter((row) => row.some((cell) => cell));
     if (!rows.length) return "";
     return `<div class="guide-table-wrap"><table><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   }

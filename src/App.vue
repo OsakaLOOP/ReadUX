@@ -47,7 +47,7 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
-const grammarGuideOpen = ref(false);
+const grammarGuideOpen = ref(!isTauri());
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
 const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);
@@ -404,10 +404,14 @@ onMounted(() => {
     const saved = localStorage.getItem("readux.reader.appearance");
     if (saved) appearance.value = { ...DEFAULT_READER_APPEARANCE, ...JSON.parse(saved) };
   } catch { /* 使用默认排版 */ }
-  void loadLibrary();
-  void nlpRequest<{ settings: { analysis_timing_enabled: boolean } }>({ command: "provider_status" })
-    .then((result) => { timingEnabled.value = result.settings.analysis_timing_enabled; })
-    .catch((error) => { libraryError.value = String(error); });
+  if (isTauri()) {
+    void loadLibrary();
+    void nlpRequest<{ settings: { analysis_timing_enabled: boolean } }>({ command: "provider_status" })
+      .then((result) => { timingEnabled.value = result.settings.analysis_timing_enabled; })
+      .catch((error) => { libraryError.value = String(error); });
+  } else {
+    libraryLoading.value = false;
+  }
 });
 
 onBeforeUnmount(() => { void closeSession(); });
@@ -431,6 +435,10 @@ onBeforeUnmount(() => { void closeSession(); });
     >
       <template #actions>
         <div id="reader-header-actions" v-show="readerVisible" />
+        <button v-if="view === 'library'" class="grammar-guide-header" type="button" @click="grammarGuideOpen = true">
+          <BookMarked :size="16" aria-hidden="true" />
+          <span>语法指南</span>
+        </button>
       </template>
     </AppHeader>
     <LibraryHome
@@ -445,7 +453,6 @@ onBeforeUnmount(() => { void closeSession(); });
       @import="void importEpub()"
       @open="void openBook($event)"
       @input="openTextInput"
-      @grammar-guide="grammarGuideOpen = true"
       @reveal="void revealLibrary()"
       @reveal-book="void revealBook($event)"
       @remove="void removeBook($event)"
@@ -514,6 +521,8 @@ onBeforeUnmount(() => { void closeSession(); });
 
 <style scoped>
 .reader-app { display: flex; min-height: 0; height: 100vh; flex-direction: column; overflow: hidden; background: var(--bg-primary); }
+.grammar-guide-header { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 10px; border: 1px solid var(--border-color); border-radius: 5px; background: var(--bg-primary); color: var(--text-secondary); cursor: pointer; font-size: 12px; }
+.grammar-guide-header:hover { border-color: var(--accent-color); color: var(--accent-color); }
 .reader-progress { position: fixed; z-index: 50; top: 70px; right: 18px; width: min(560px, calc(100vw - 36px)); pointer-events: none; }
 .reader-progress :deep(.analysis-progress-panel) { pointer-events: auto; }
 .reader-progress__diagnostics { display: flex; justify-content: flex-end; gap: 8px; margin-top: 5px; pointer-events: auto; }
