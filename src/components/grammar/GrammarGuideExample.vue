@@ -1,145 +1,227 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from "vue";
-import type {
-  AnnotatedToken,
-  DictionaryLookupRequest,
-  GrammarDictionaryTarget,
-} from "../../types";
-import { useExplanationInteraction } from "../../composables/useExplanationInteraction";
-import { useExplanationSession } from "../../composables/useExplanationSession";
-import type { RectSnapshot } from "../../explanation/geometry";
-import type { GuideLookupSnapshot } from "../../grammar-guide/types";
-import AnalyzedTextItem from "../reader/AnalyzedTextItem.vue";
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import type { DictionaryLookup } from "../../types";
+import type { GuideReaderSnapshot } from "../../grammar-guide/types";
+import { guideLinkedLookup, hydrateGuideLookup } from "../../grammar-guide/dictionary";
+import { chainGrammarLookups, grammarMorphemeLookup } from "../../grammar/particleEntries";
+import { componentForRange, projectReaderSentence, type LookupTarget } from "../../reader/capsuleProjection";
+import { kanjiRubySegments, readerChains, type ReaderMorphologyDetail } from "../../reader/lookupPresentation";
+import { snapshotRect, type RectSnapshot } from "../../explanation/geometry";
+import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
+import ReaderCapsule from "../reader/ReaderCapsule.vue";
+import ReaderMorphologySummary from "../reader/ReaderMorphologySummary.vue";
 import ExplanationPopover from "../explanation/ExplanationPopover.vue";
-import GrammarPopover from "../explanation/GrammarPopover.vue";
+import ParticleGrammarPopover from "./ParticleGrammarPopover.vue";
 
 const props = defineProps<{
-  id: string;
-  ja: string;
-  zh: string;
-  tokens: AnnotatedToken[];
-  lookups: GuideLookupSnapshot[];
-  paragraphId: number;
-  showChinese: boolean;
+  id: string; ja: string; zh: string; snapshot?: GuideReaderSnapshot;
+  paragraphId: number; showChinese: boolean; showRuby: boolean;
 }>();
-
-const itemRef = ref<InstanceType<typeof AnalyzedTextItem> | null>(null);
-const rootElement = computed(() => itemRef.value?.rootElement ?? null);
-const lookupWord = async (request: DictionaryLookupRequest) => {
-  const snapshot = props.lookups.find(({ request: saved }) =>
-    saved.word === request.word
-    && (saved.observedForm ?? "") === (request.observedForm ?? "")
-    && (saved.reading ?? "") === (request.reading ?? "")
-    && (saved.pos?.major ?? "") === (request.pos?.major ?? ""),
-  );
-  return snapshot?.result ?? null;
-};
-
-const explanation = useExplanationSession(lookupWord);
-const interaction = useExplanationInteraction({
-  findToken(paragraphId, tokenIndex) {
-    return paragraphId === props.paragraphId ? props.tokens[tokenIndex] : null;
-  },
-  session: explanation,
+const root = ref<HTMLElement | null>(null);
+const active = shallowRef<LookupTarget | null>(null);
+const component = shallowRef<LookupTarget | null>(null);
+const detail = shallowRef<ReaderMorphologyDetail | null>(null);
+const anchor = ref<RectSnapshot | null>(null);
+const wholeLookup = shallowRef<DictionaryLookup | null>(null);
+const componentLookup = shallowRef<DictionaryLookup | null>(null);
+const wholeHistory = ref<DictionaryLookup[]>([]);
+const componentHistory = ref<DictionaryLookup[]>([]);
+const wholeLoading = ref(false);
+const componentLoading = ref(false);
+const error = ref("");
+const sourceElement = shallowRef<HTMLElement | null>(null);
+const activeRange = shallowRef<[number, number] | null>(null);
+const projection = computed(() => props.snapshot && props.snapshot.document.text === props.ja
+  ? projectReaderSentence(props.snapshot.document, props.snapshot.group,
+      props.showRuby ? props.snapshot.ruby.flatMap(kanjiRubySegments) : []) : []);
+const chains = computed(() => active.value && props.snapshot ? readerChains(active.value, props.snapshot.document) : []);
+const chainParticles = computed(() => {
+  if (!active.value || !props.snapshot || !detail.value) return [];
+  return chainGrammarLookups(active.value, props.snapshot.document, { detailId: detail.value.id, range: activeRange.value ?? undefined });
 });
+const activeParticle = computed(() => active.value ? particleFor(active.value) : null);
+const particleX = computed(() => Math.max(12, (anchor.value?.left ?? 12) + (anchor.value?.width ?? 0) / 2 - 195));
+const particleY = computed(() => Math.min(window.innerHeight - 12, (anchor.value?.bottom ?? 0) + 8));
+const hasCompanion = computed(() => Boolean(component.value || detail.value));
+const whole = computed(() => hasCompanion.value ? wholeLookup.value : null);
+const displayedComponent = computed(() => hasCompanion.value ? componentLookup.value : wholeLookup.value);
+let generation = 0;
+let closeTimer: ReturnType<typeof setTimeout> | undefined;
+let hoverTimer: ReturnType<typeof setTimeout> | undefined;
+const owner = Symbol("guide-source");
 
-function handlePointerOver(event: PointerEvent) {
-  interaction.handleParagraphPointerOver(event);
+function cancelClose() { clearTimeout(closeTimer); closeTimer = undefined; }
+function close() {
+  ++generation;
+  clearTimeout(hoverTimer);
+  cancelClose();
+  active.value = null;
+  component.value = null;
+  detail.value = null;
+  activeRange.value = null;
+  wholeLookup.value = null;
+  componentLookup.value = null;
+  sourceElement.value = null;
 }
-
-function handlePointerOut(event: PointerEvent) {
-  interaction.handleParagraphPointerOut(event);
+function scheduleClose(event?: PointerEvent) {
+  const next = event?.relatedTarget;
+  if (next instanceof Element && (root.value?.contains(next) || next.closest(`[data-guide-panels="${props.id}"]`))) return;
+  clearTimeout(hoverTimer);
+  if (!closeTimer) closeTimer = setTimeout(close, EXPLANATION_CLOSE_GRACE_MS);
 }
-
-function panelAnchor(value: RectSnapshot | null): RectSnapshot | null {
-  return value;
+function activate() {
+  window.dispatchEvent(new CustomEvent("readux:guide-lookup", { detail: owner }));
 }
-
-function openGrammarDictionary(target: GrammarDictionaryTarget) {
-  const root = rootElement.value;
-  if (!root) return;
-  for (let tokenIndex = 0; tokenIndex < props.tokens.length; tokenIndex++) {
-    const token = props.tokens[tokenIndex];
-    const morphemeIndex = token.bunsetsu.morphemes.findIndex((morpheme) =>
-      morpheme.char_range[0] === target.char_range[0]
-      && morpheme.char_range[1] === target.char_range[1],
-    );
-    if (morphemeIndex < 0) continue;
-    const capsule = root.querySelector<HTMLElement>(`[data-token-index="${tokenIndex}"]`);
-    const morpheme = capsule?.querySelector<HTMLElement>(`[data-morpheme-index="${morphemeIndex}"]`);
-    if (!capsule || !morpheme) return;
-    explanation.focusMorpheme(
-      { paragraphId: props.paragraphId, tokenIndex, morphemeIndex },
-      token,
-      capsule,
-      morpheme,
-    );
-    return;
+function otherSource(event: Event) {
+  if ((event as CustomEvent).detail !== owner) close();
+}
+function particleFor(target: LookupTarget): DictionaryLookup | null {
+  const document = props.snapshot?.document;
+  const morpheme = document?.morphemes.find((item) => ["助詞", "助動詞"].includes(item.pos[0] ?? "")
+    && item.char_range[0] === target.char_range[0] && item.char_range[1] === target.char_range[1]);
+  if (!morpheme) return null;
+  return grammarMorphemeLookup(morpheme);
+}
+async function query(target: LookupTarget, selectedForm?: string) {
+  const particle = particleFor(target);
+  if (particle) return particle;
+  const saved = props.snapshot?.lookups[target.id];
+  const snapshot = saved?.[selectedForm ?? "default"];
+  return snapshot ? hydrateGuideLookup(snapshot.result, snapshot.entryKeys) : null;
+}
+type Part = ReturnType<typeof projectReaderSentence>[number]["parts"][number];
+async function open(part: Part, source: HTMLElement) {
+  clearTimeout(hoverTimer);
+  cancelClose();
+  if (!part.target || window.getSelection()?.isCollapsed === false) return;
+  activate();
+  sourceElement.value = source;
+  anchor.value = snapshotRect(source.getBoundingClientRect());
+  const child = !part.detail ? componentForRange(
+    props.snapshot?.group.inner_targets.filter((item) => item.parent_outer_id === part.target!.id) ?? [], part.range,
+  ) : null;
+  if (active.value?.id === part.target.id && component.value?.id === child?.id && detail.value?.id === part.detail?.id
+    && activeRange.value?.[0] === part.range[0] && activeRange.value?.[1] === part.range[1]) return;
+  const current = ++generation;
+  active.value = part.target;
+  component.value = child;
+  detail.value = part.detail;
+  activeRange.value = part.range;
+  wholeHistory.value = [];
+  componentHistory.value = [];
+  wholeLookup.value = null;
+  componentLookup.value = null;
+  wholeLoading.value = true;
+  componentLoading.value = Boolean(child);
+  error.value = "";
+  try {
+    const [outer, inner] = await Promise.all([query(part.target), child ? query(child) : Promise.resolve(null)]);
+    if (current !== generation) return;
+    wholeLookup.value = outer;
+    componentLookup.value = inner;
+  } catch (reason) {
+    if (current === generation) error.value = reason instanceof Error ? reason.message : String(reason);
+  } finally {
+    if (current === generation) { wholeLoading.value = false; componentLoading.value = false; }
   }
 }
-
-onBeforeUnmount(() => explanation.closeAll("guide-example-unmounted"));
+function hover(part: Part, event: PointerEvent) {
+  cancelClose();
+  clearTimeout(hoverTimer);
+  if (event.buttons) return;
+  const source = event.currentTarget as HTMLElement;
+  hoverTimer = setTimeout(() => void open(part, source), 60);
+}
+async function changeForm(form: string, inner: boolean) {
+  const target = inner ? component.value : active.value;
+  if (!target) return;
+  const current = generation;
+  const lookup = await query(target, form);
+  if (current === generation) (inner ? componentLookup : wholeLookup).value = lookup;
+}
+async function navigate(target: string, inner: boolean) {
+  const lookup = inner ? componentLookup : wholeLookup;
+  const history = inner ? componentHistory : wholeHistory;
+  const current = generation;
+  const result = await guideLinkedLookup(target);
+  if (current !== generation || !result) return;
+  if (lookup.value) history.value.push(lookup.value);
+  lookup.value = result;
+}
+function back(inner: boolean) {
+  const history = inner ? componentHistory : wholeHistory;
+  const previous = history.value.pop();
+  if (previous) (inner ? componentLookup : wholeLookup).value = previous;
+}
+function onViewportChange() {
+  if (active.value && sourceElement.value?.isConnected) anchor.value = snapshotRect(sourceElement.value.getBoundingClientRect());
+}
+function outside(event: PointerEvent) {
+  const target = event.target;
+  if (!(target instanceof Element) || root.value?.contains(target) || target.closest(`[data-guide-panels="${props.id}"]`)) return;
+  close();
+}
+function keydown(event: KeyboardEvent) { if (event.key === "Escape") close(); }
+onMounted(() => {
+  window.addEventListener("readux:guide-lookup", otherSource);
+  window.addEventListener("pointerdown", outside);
+  window.addEventListener("keydown", keydown);
+  window.addEventListener("resize", onViewportChange);
+  window.addEventListener("scroll", onViewportChange, true);
+});
+onBeforeUnmount(() => {
+  close();
+  window.removeEventListener("readux:guide-lookup", otherSource);
+  window.removeEventListener("pointerdown", outside);
+  window.removeEventListener("keydown", keydown);
+  window.removeEventListener("resize", onViewportChange);
+  window.removeEventListener("scroll", onViewportChange, true);
+});
 </script>
 
 <template>
-  <AnalyzedTextItem
-    ref="itemRef"
-    container="article"
-    class="guide-example"
-    :data-example-id="id"
-    :tokens="tokens"
-    :paragraph-id="paragraphId"
-    content-class="guide-example__text"
-    @pointerover="handlePointerOver"
-    @pointerout="handlePointerOut"
-  >
-    <template #empty>
-      <span class="guide-example__fallback">{{ ja }}</span>
-    </template>
-    <template #after>
-      <p v-if="showChinese && zh" class="guide-example__translation">{{ zh }}</p>
-    </template>
-  </AnalyzedTextItem>
-
-  <ExplanationPopover
-    :show="explanation.renderGate.value.dictionary"
-    :anchor="panelAnchor(explanation.anchorRect.value)"
-    :component-anchor="explanation.hasWholePanel.value ? explanation.anchorRect.value : explanation.componentAnchorRect.value"
-    :whole-token="explanation.wholeToken.value"
-    :whole-lookup="explanation.wholeLookup.value"
-    :whole-loading="explanation.wholeLoading.value"
-    :whole-can-go-back="explanation.wholeHistory.value.length > 0"
-    :component-token="explanation.componentToken.value"
-    :component-lookup="explanation.componentLookup.value"
-    :component-loading="explanation.componentLoading.value"
-    :component-can-go-back="explanation.componentHistory.value.length > 0"
-    :component-label="explanation.componentLabel.value"
-    :panel-prefix="`guide-${id}`"
-    :shortcuts-enabled="false"
-    presentation="guide"
-    @enter="interaction.handlePopoverEnter"
-    @leave="interaction.handlePopoverLeave"
-    @navigate-whole="explanation.navigateWhole"
-    @navigate-component="explanation.navigateComponent"
-    @select-whole-form="explanation.selectWholeForm"
-    @select-component-form="explanation.selectComponentForm"
-    @back-whole="explanation.backWhole"
-    @back-component="explanation.backComponent"
-  />
-  <GrammarPopover
-    :show="explanation.renderGate.value.grammar"
-    :tag="explanation.grammarTag.value"
-    :anchor="explanation.grammarAnchorRect.value"
-    presentation="guide"
-    @enter="interaction.handlePopoverEnter"
-    @leave="interaction.handlePopoverLeave"
-    @open-dictionary="openGrammarDictionary"
-  />
+  <article ref="root" class="guide-example" :data-example-id="id" @pointerleave="scheduleClose">
+    <div class="guide-example__text">
+      <template v-if="projection.length">
+        <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :grouped="Boolean(capsule.capsuleKey)">
+          <template #default="{ part }">
+            <span class="reader-capsule__part" :class="{ 'reader-capsule__part--lookup': part.target }"
+              :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id"
+              @pointerenter="part.target ? hover(part, $event) : scheduleClose()"
+              @pointerleave="scheduleClose" @click.stop>{{ part.text }}</span>
+          </template>
+        </ReaderCapsule>
+      </template>
+      <span v-else>{{ ja }}</span>
+    </div>
+    <p v-if="showChinese && zh" class="guide-example__translation">{{ zh }}</p>
+    <p v-if="error" class="guide-example__error">{{ error }}</p>
+  </article>
+  <div :data-guide-panels="id">
+    <ExplanationPopover v-if="!activeParticle" :show="Boolean(active)" :anchor="anchor" :component-anchor="anchor"
+      :whole-token="null" :component-token="null"
+      :whole-headword="active?.surface" :component-headword="component?.surface || active?.surface"
+      :whole-lookup="whole" :component-lookup="displayedComponent"
+      :whole-loading="hasCompanion && wholeLoading" :component-loading="hasCompanion ? componentLoading : wholeLoading"
+      :whole-can-go-back="wholeHistory.length > 0"
+      :component-can-go-back="(hasCompanion ? componentHistory : wholeHistory).length > 0"
+      :component-label="component ? '组分' : ''" :detail="detail" :summary-visible="chains.length > 0" :grammar-lookups="chainParticles"
+      :panel-prefix="`guide-${id}`" :shortcuts-enabled="false" presentation="guide"
+      @enter="cancelClose" @leave="scheduleClose"
+      @navigate-whole="navigate($event, false)" @navigate-component="navigate($event, Boolean(component))"
+      @select-whole-form="changeForm($event, false)" @select-component-form="changeForm($event, Boolean(component))"
+      @back-whole="back(false)" @back-component="back(Boolean(component))">
+      <template #summary><ReaderMorphologySummary :chains="chains" /></template>
+    </ExplanationPopover>
+    <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="particleX" :y="particleY" :lookup="activeParticle"
+      @enter="cancelClose" @leave="scheduleClose" />
+  </div>
 </template>
 
 <style scoped>
 .guide-example { display: block; min-width: 0; margin: 0; }
 .guide-example__text { min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
-.guide-example__fallback { color: var(--text-primary); }
+.reader-capsule__part--lookup { cursor: pointer; }
 .guide-example__translation { margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }
+.guide-example__error { color: var(--text-secondary); font: 12px/1.5 var(--font-ui); }
 </style>

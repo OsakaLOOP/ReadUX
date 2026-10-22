@@ -178,7 +178,6 @@ watch(
 
     <p v-if="summary && (presentation !== 'guide' || summary !== displayKindLabel)" class="core-summary">{{ summary }}</p>
     <p v-if="presentation === 'guide' && learningNote" class="learning-note">{{ learningNote }}</p>
-
     <div v-if="tag.sense_candidates.length > 1" class="sense-options" aria-label="语义候选">
       <button
         v-for="candidate in tag.sense_candidates"

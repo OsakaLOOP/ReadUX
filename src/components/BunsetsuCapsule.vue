@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { AnnotatedToken } from "../types";
+// 旧分析页组件；正式阅读器和指南的胶囊入口为 reader/ReaderCapsule.vue。
 import {
   grammarIndexForMorpheme,
   readerMorphemeSegments,

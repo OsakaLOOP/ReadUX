@@ -5,10 +5,8 @@ import ReaderSurface from "../reader/ReaderSurface.vue";
 import { markdownBlocks, renderMarkdownBlock } from "../../grammar-guide/markdown";
 import basePackage from "../../grammar-guide/lesson-1-1.json";
 import analysisUrl from "../../grammar-guide/lesson-1-1-analysis.json?url";
-import dictionaryUrl from "../../grammar-guide/lesson-1-1-dictionary.json?url";
 import type { AnnotatedToken } from "../../types";
-import type { GuideLookupSnapshot } from "../../grammar-guide/types";
-import type { DictEntry } from "../../types";
+import type { GuideLookupSnapshot, GuideReaderSnapshot } from "../../grammar-guide/types";
 import GrammarGuideExample from "./GrammarGuideExample.vue";
 
 type GuideExample = {
@@ -50,9 +48,8 @@ type GuidePackage = {
 };
 type GuideAnalysisPackage = {
   schema: string;
-  examples: Record<string, { tokens: AnnotatedToken[]; lookups: GuideLookupSnapshot[] }>;
+  examples: Record<string, GuideReaderSnapshot>;
 };
-type GuideDictionaryPackage = { schema: string; entries: Record<string, DictEntry> };
 const bundledPackage = basePackage as unknown as GuidePackage;
 
 const props = defineProps<{ show: boolean }>();
@@ -63,11 +60,11 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 const loadedPackage = ref<GuidePackage>(clone(bundledPackage));
 const draftPackage = ref<GuidePackage>(clone(bundledPackage));
 const analysisPackage = shallowRef<GuideAnalysisPackage | null>(null);
-const dictionaryPackage = shallowRef<GuideDictionaryPackage | null>(null);
 let analysisLoad: Promise<void> | null = null;
 const jsonText = ref("");
 const editorOpen = ref(false);
 const showChinese = ref(true);
+const showRuby = ref(true);
 const sourceHighlight = ref<{ blockIndex: number; range: [number, number] | null } | null>(null);
 const error = ref("");
 const blocks = computed(() => markdownBlocks(loadedPackage.value.sourceMarkdown));
@@ -80,25 +77,15 @@ const placementMap = computed(() => {
 const exampleMap = computed(() => new Map([...loadedPackage.value.examples, ...loadedPackage.value.originalExamples].map((item) => [item.id, item])));
 const analysisMap = computed(() => new Map([...exampleMap.value.values()].map((example) => {
   const snapshot = analysisPackage.value?.examples[example.id];
-  const tokens = snapshot?.tokens ?? example.tokens ?? [];
-  const tokensMatchSource = tokens.map((token) => token.bunsetsu.surface).join("") === example.ja;
-  const lookups = (snapshot?.lookups ?? example.lookups ?? []).map((lookup) => ({
-    ...lookup,
-    result: lookup.result ? { ...lookup.result, entries: (lookup.entryKeys ?? []).map((key) => dictionaryPackage.value?.entries[key]).filter((entry): entry is DictEntry => Boolean(entry)) } : null,
-  }));
-  return [example.id, { tokens: tokensMatchSource ? tokens : [], lookups }];
+  return [example.id, snapshot?.document.text === example.ja ? snapshot : undefined];
 })));
 
 watch(() => props.show, (show) => {
   if (!show) return;
   if (!analysisPackage.value && !analysisLoad) {
-    analysisLoad = Promise.all([
-      fetch(analysisUrl).then((response) => response.json() as Promise<GuideAnalysisPackage>),
-      fetch(dictionaryUrl).then((response) => response.json() as Promise<GuideDictionaryPackage>),
-    ]).then(([analysis, dictionary]) => {
-      if (analysis.schema !== "readux.grammar-guide-analysis.v1" || dictionary.schema !== "readux.grammar-guide-dictionary.v1") throw new Error("语法指南分析快照版本无效");
+    analysisLoad = fetch(analysisUrl).then((response) => response.json() as Promise<GuideAnalysisPackage>).then((analysis) => {
+      if (analysis.schema !== "readux.grammar-guide-analysis.v2") throw new Error("语法指南分析快照版本无效");
       analysisPackage.value = analysis;
-      dictionaryPackage.value = dictionary;
     }).catch((reason: unknown) => {
       analysisLoad = null;
       setNotice(`例句分析加载失败：${reason instanceof Error ? reason.message : String(reason)}`);
@@ -287,6 +274,7 @@ function paragraphId(example: GuideExample) {
     <template #actions>
       <div class="guide-actions">
         <label class="guide-toggle"><input v-model="showChinese" type="checkbox"><span>中文</span></label>
+        <label class="guide-toggle"><input v-model="showRuby" type="checkbox"><span>假名</span></label>
         <button type="button" title="从内置课节生成草稿" aria-label="生成草稿" @click="makeDraft"><RefreshCw :size="16" /></button>
         <button type="button" title="编辑 JSON" aria-label="编辑 JSON" @click="openEditor"><Pencil :size="16" /></button>
       </div>
@@ -310,10 +298,10 @@ function paragraphId(example: GuideExample) {
                   :id="id"
                   :ja="exampleMap.get(id)!.ja"
                   :zh="exampleMap.get(id)!.zh"
-                  :tokens="analysisMap.get(id)?.tokens ?? []"
-                  :lookups="analysisMap.get(id)?.lookups ?? []"
+                  :snapshot="analysisMap.get(id)"
                   :paragraph-id="paragraphId(exampleMap.get(id)!)"
                   :show-chinese="showChineseFor(placement.group)"
+                  :show-ruby="showRuby"
                 />
               </div>
             </div>

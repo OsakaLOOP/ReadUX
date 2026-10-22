@@ -117,6 +117,50 @@ export function displayReading(reading: string) {
   }).join("");
 }
 
+function isKanji(character: string) {
+  return /[\p{Script=Han}〆々]/u.test(character);
+}
+
+function isKana(character: string) {
+  return /[\p{Script=Hiragana}\p{Script=Katakana}ー]/u.test(character);
+}
+
+/** 将整词读音按送假名定位，返回只覆盖汉字的 ruby 范围。 */
+export function kanjiRubySegments(annotation: { base: string; reading: string; char_range: [number, number] }) {
+  const surface = Array.from(annotation.base);
+  const reading = displayReading(annotation.reading);
+  const segments: { base: string; reading: string; char_range: [number, number] }[] = [];
+  let readingOffset = 0;
+  let kanjiStart = -1;
+  const addKanji = (end: number, readingEnd: number) => {
+    if (kanjiStart < 0) return;
+    const rubyReading = Array.from(reading).slice(readingOffset, readingEnd).join("");
+    if (rubyReading) segments.push({
+      base: surface.slice(kanjiStart, end).join(""), reading: rubyReading,
+      char_range: [annotation.char_range[0] + kanjiStart, annotation.char_range[0] + end],
+    });
+    readingOffset = readingEnd;
+    kanjiStart = -1;
+  };
+  for (let index = 0; index < surface.length; index += 1) {
+    const character = surface[index];
+    if (isKanji(character)) {
+      if (kanjiStart < 0) kanjiStart = index;
+      continue;
+    }
+    if (isKana(character)) {
+      const anchor = displayReading(character);
+      const anchorOffset = reading.indexOf(anchor, readingOffset);
+      if (kanjiStart >= 0) addKanji(index, anchorOffset < 0 ? readingOffset : anchorOffset);
+      if (anchorOffset >= 0) readingOffset = anchorOffset + Array.from(anchor).length;
+    } else if (kanjiStart >= 0) {
+      addKanji(index, readingOffset);
+    }
+  }
+  addKanji(surface.length, Array.from(reading).length);
+  return segments;
+}
+
 function grammaticalLabel(value: string) {
   return (morphologyPresentation.label_aliases as Record<string, string>)[value] ?? value;
 }

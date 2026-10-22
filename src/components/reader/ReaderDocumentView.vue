@@ -27,6 +27,12 @@ import TooltipPanel from "../TooltipPanel.vue";
 import DictionarySettingsPanel from "../dictionary/DictionarySettingsPanel.vue";
 import ExportPanel from "../ExportPanel.vue";
 import ReaderAppearancePanel from "./ReaderAppearancePanel.vue";
+import ReaderCapsule from "./ReaderCapsule.vue";
+import ReaderMorphologySummary from "./ReaderMorphologySummary.vue";
+import ParticleGrammarPopover from "../grammar/ParticleGrammarPopover.vue";
+import ParticleGrammarBlock from "../grammar/ParticleGrammarBlock.vue";
+import { capsulesForParts, componentForRange } from "../../reader/capsuleProjection";
+import { chainGrammarLookups, grammarMorphemeLookup } from "../../grammar/particleEntries";
 import ReaderExplanationBubble from "./ReaderExplanationBubble.vue";
 import ReaderImageBlock from "./ReaderImageBlock.vue";
 import ReaderNavigationPanel from "./ReaderNavigationPanel.vue";
@@ -57,7 +63,6 @@ import {
 } from "../../reader/virtualization";
 import {
   dictionaryLookupFromSearch,
-  displayReading,
   readerCapsuleRanges,
   readerChains,
   readerMorphologyHits,
@@ -437,6 +442,20 @@ const chainOverview = computed(() => {
     ),
   };
 });
+const morphologyParticles = computed(() => {
+  const hit = activeHit.value;
+  const document = hit?.selectionDocument ?? hit?.unit.unit.document;
+  if (!hit || !document) return [];
+  const offset = hit.selectionDocument ? 0 : hit.unit.contextOffset;
+  return chainGrammarLookups({ ...hit.target, char_range: [hit.target.char_range[0] - offset, hit.target.char_range[1] - offset] }, document,
+    activeDetail.value ? { detailId: activeDetail.value.id, range: [hit.range[0] - offset, hit.range[1] - offset] } : undefined);
+});
+const activeParticle = computed(() => activeHit.value ? builtinParticle(activeHit.value) : null);
+const componentParticle = computed(() => componentHit.value ? builtinParticle(componentHit.value) : null);
+const activeParticleX = computed(() => lookupPosition.value.x);
+const activeParticleY = computed(() => lookupPosition.value.y);
+const componentParticleX = computed(() => componentPosition.value.x);
+const componentParticleY = computed(() => componentPosition.value.y);
 function createUnitLookup(
   unitPlan: AnalysisUnit,
   unit: UnitUpdate,
@@ -878,7 +897,7 @@ function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
             ) ??
             null);
       const hit =
-        candidateHit?.target.decision === "grammar" && !detail
+        candidateHit?.target.decision === "grammar" && !detail && !builtinParticle(candidateHit)
           ? null
           : candidateHit;
       const annotation = annotations.find(
@@ -901,50 +920,6 @@ function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
     .filter((part) => part.text.length > 0);
 }
 
-function capsulesForParts(parts: TextPart[]): TextCapsule[] {
-  const capsules: TextCapsule[] = [];
-  for (const part of parts) {
-    const previous = capsules[capsules.length - 1];
-    const last = previous?.parts[previous.parts.length - 1];
-    // 完整注音共用显示容器，各片段保留原有的胶囊和查词身份。
-    if (
-      previous &&
-      last &&
-      last.range[1] === part.range[0] &&
-      (last.capsuleKey === part.capsuleKey ||
-        (part.annotation && last.annotation === part.annotation))
-    ) {
-      previous.parts.push(part);
-      previous.capsuleKey ??= part.capsuleKey;
-    } else {
-      capsules.push({
-        key: part.key,
-        capsuleKey: part.capsuleKey,
-        parts: [part],
-        runs: [],
-      });
-    }
-  }
-  for (const capsule of capsules) capsule.runs = runsForParts(capsule.parts);
-  return capsules;
-}
-
-function runsForParts(parts: TextPart[]): TextRun[] {
-  const groups: TextPart[][] = [];
-  for (const part of parts) {
-    const previous = groups[groups.length - 1];
-    if (previous && previous[0].annotation === part.annotation)
-      previous.push(part);
-    else groups.push([part]);
-  }
-  return groups.map((group) => ({
-    key: group[0].key,
-    reading: group[0].annotation
-      ? displayReading(group[0].annotation.reading)
-      : undefined,
-    parts: group,
-  }));
-}
 
 let rowProjectionCache = new Map<
   ReaderTextRow,
@@ -1268,8 +1243,10 @@ function clickPart(part: TextPart, event: MouseEvent) {
     suppressPartClick = false;
     return;
   }
-  if (part.hit && part.hit.target.decision !== "grammar")
-    openLookup(part.hit, event.currentTarget as HTMLElement, part.range, null);
+  if (part.hit && (part.hit.target.decision !== "grammar" || builtinParticle(part.hit))) {
+    event.stopPropagation();
+    openLookup(part.hit, event.currentTarget as HTMLElement, part.range, part.detail);
+  }
   else if (part.hit && part.detail)
     scheduleLookup(part.hit, event, part.detail);
 }
@@ -1487,19 +1464,7 @@ function componentForHit(
 ): TargetHit | null {
   const outer = outerForHit(hit);
   if (detail || outer.target.decision === "selection") return null;
-  const child = outer.children
-    .filter(
-      (target) =>
-        target.decision === "queryable" &&
-        target.char_range[0] <= range[0] &&
-        range[1] <= target.char_range[1],
-    )
-    .sort(
-      (left, right) =>
-        left.char_range[1] -
-        left.char_range[0] -
-        (right.char_range[1] - right.char_range[0]),
-    )[0];
+  const child = componentForRange(outer.children, range);
   return child
     ? {
         key: `${outer.key}:${child.id}`,
@@ -1540,12 +1505,18 @@ function openLookup(
   }
 }
 
+function builtinParticle(hit: TargetHit) {
+  const morpheme = hit.unit.unit.document?.morphemes.find((item) =>
+    hit.target.morpheme_ids.includes(item.id) && ["助詞", "助動詞"].includes(item.pos[0] ?? "") && item.surface === hit.target.surface);
+  return morpheme ? grammarMorphemeLookup(morpheme) : null;
+}
+
 async function queryComponent(hit: TargetHit, selectedForm?: string) {
   const generation = ++componentGeneration;
   componentBusy.value = true;
   componentError.value = "";
   try {
-    const result = await nlpRequest<DictionaryLookup>({
+    const result = builtinParticle(hit) ?? await nlpRequest<DictionaryLookup>({
       command: "query_lookup_document",
       session_id: props.session.session_id,
       text_version: props.session.text_version,
@@ -1576,7 +1547,7 @@ function scheduleLookup(
     mergeDrag.value ||
     event.buttons !== 0 ||
     !lookupIsCurrent(hit.unit) ||
-    (hit.target.decision === "grammar" && !detail) ||
+    (hit.target.decision === "grammar" && !detail && !builtinParticle(hit)) ||
     window.getSelection()?.isCollapsed === false
   )
     return;
@@ -1614,7 +1585,7 @@ function scheduleLookup(
       return;
     pendingCapsule = null;
     activeCapsule = capsule;
-    if (hit.target.decision !== "grammar")
+    if (hit.target.decision !== "grammar" || builtinParticle(hit))
       openLookup(hit, source, range, detail);
     else {
       ++queryGeneration;
@@ -1810,7 +1781,7 @@ async function queryTarget(hit: TargetHit, selectedForm?: string) {
         observed_form: hit.target.surface,
       });
     } else {
-      const result = await nlpRequest<DictionaryLookup>({
+      const result = builtinParticle(hit) ?? await nlpRequest<DictionaryLookup>({
         command: "query_lookup_document",
         session_id: props.session.session_id,
         text_version: props.session.text_version,
@@ -2342,23 +2313,14 @@ function toggleEinkMode() {
               :data-block-id="visible.row.paragraph.id"
             >
               <component :is="visible.row.heading ? 'h2' : 'p'">
-                <span
+                <ReaderCapsule
                   v-for="capsule in visibleCapsules.get(visible.row.key) ?? []"
                   :key="capsule.key"
-                  class="reader-capsule"
-                  :class="{
-                    'reader-capsule--group': capsule.capsuleKey,
-                    'reader-capsule--merged':
-                      mergedHit && capsule.capsuleKey === mergedHit.key,
-                  }"
+                  :grouped="Boolean(capsule.capsuleKey)"
+                  :merged="Boolean(mergedHit && capsule.capsuleKey === mergedHit.key)"
+                  :runs="capsule.runs"
                   @pointerleave="leaveCapsule"
-                  ><component
-                    v-for="run in capsule.runs"
-                    :key="run.key"
-                    :is="run.reading ? 'ruby' : 'span'"
-                    ><span
-                      v-for="part in run.parts"
-                      :key="part.key"
+                  ><template #default="{ part }"><span
                       class="reader-capsule__part"
                       :class="[
                         {
@@ -2395,9 +2357,7 @@ function toggleEinkMode() {
                       "
                       @click="clickPart(part, $event)"
                       >{{ part.text }}</span
-                    ><rt v-if="run.reading">{{ run.reading }}</rt></component
-                  ></span
-                >
+                    ></template></ReaderCapsule>
               </component>
             </section>
           </section>
@@ -2406,7 +2366,7 @@ function toggleEinkMode() {
     </div>
 
     <TooltipPanel
-      :show="Boolean(activeHit) && activeHit?.target.decision !== 'grammar'"
+      :show="Boolean(activeHit) && !activeParticle && (activeHit?.target.decision !== 'grammar' || Boolean(activeHit && builtinParticle(activeHit)))"
       :x="lookupPosition.x"
       :y="lookupPosition.y"
       :width="lookupPosition.width"
@@ -2427,31 +2387,7 @@ function toggleEinkMode() {
       @navigate="void navigateLookup($event)"
     >
       <template #summary>
-        <div
-          v-if="!relatedWord && chainOverview"
-          class="reader-lookup__summary"
-        >
-          <strong>{{ chainOverview.name }}</strong>
-          <span
-            ><template
-              v-if="
-                chainOverview.lemma &&
-                chainOverview.lemma !== chainOverview.surface
-              "
-              >{{ chainOverview.lemma }} → </template
-            >{{ chainOverview.surface }}</span
-          >
-          <small
-            v-if="
-              chainOverview.conjugation &&
-              chainOverview.name !== chainOverview.conjugation
-            "
-            >{{ chainOverview.conjugation }}</small
-          >
-          <small v-if="chainOverview.members.length > 1">{{
-            chainOverview.members.join(" + ")
-          }}</small>
-        </div>
+        <ReaderMorphologySummary v-if="!relatedWord" :chains="chainSummaries" />
       </template>
       <template #context>
         <div v-if="activeHit" class="reader-lookup__context">
@@ -2477,7 +2413,7 @@ function toggleEinkMode() {
     </TooltipPanel>
     <TooltipPanel
       v-if="componentHit"
-      :show="Boolean(activeHit)"
+      :show="Boolean(activeHit) && !componentParticle && !activeParticle"
       :x="componentPosition.x"
       :y="componentPosition.y"
       :width="componentPosition.width"
@@ -2517,6 +2453,10 @@ function toggleEinkMode() {
         </p>
       </template>
     </TooltipPanel>
+    <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="activeParticleX" :y="activeParticleY" :lookup="activeParticle"
+      @enter="cancelCloseLookup" @leave="scheduleCloseLookup" />
+    <ParticleGrammarPopover v-if="componentParticle" :show="Boolean(activeHit)" :x="componentParticleX" :y="componentParticleY" :lookup="componentParticle"
+      @enter="cancelCloseLookup" @leave="scheduleCloseLookup" />
     <ReaderExplanationBubble
       v-if="activeDetail && !relatedWord && !componentHit"
       id="reader-morphology-detail"
@@ -2540,6 +2480,9 @@ function toggleEinkMode() {
       <p v-if="activeDetail.candidates.length">
         可能含义：{{ activeDetail.candidates.join("、") }}
       </p>
+      <div v-if="morphologyParticles.length" class="reader-lookup__chain-particles">
+        <ParticleGrammarBlock v-for="item in morphologyParticles" :key="`${item.entries[0]?.entry_key}:${item.observed_form}`" :lookup="item" />
+      </div>
     </ReaderExplanationBubble>
 
     <ReaderProgressBar
@@ -2892,6 +2835,7 @@ function toggleEinkMode() {
 .reader-lookup__context {
   padding-bottom: 6px;
 }
+.reader-lookup__chain-particles { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
 .reader-lookup__summary {
   display: grid;
   min-width: 0;

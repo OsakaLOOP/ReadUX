@@ -4,6 +4,9 @@ import type { AnnotatedToken, DictionaryLookup } from "../../types";
 import { floatDebug } from "../../explanation/floatDebug";
 import { explanationPanelWidth, measureIntrinsicPanel, placeExplanationPanels, type PopoverPlacement, type RectSnapshot, type Size } from "../../explanation/geometry";
 import TooltipPanel from "../TooltipPanel.vue";
+import ReaderExplanationBubble from "../reader/ReaderExplanationBubble.vue";
+import ParticleGrammarBlock from "../grammar/ParticleGrammarBlock.vue";
+import type { ReaderMorphologyDetail } from "../../reader/lookupPresentation";
 
 const props = defineProps<{
   show: boolean;
@@ -21,6 +24,11 @@ const props = defineProps<{
   panelPrefix?: string;
   shortcutsEnabled?: boolean;
   presentation?: "reader" | "guide";
+  wholeHeadword?: string;
+  componentHeadword?: string;
+  summaryVisible?: boolean;
+  detail?: ReaderMorphologyDetail | null;
+  grammarLookups?: DictionaryLookup[];
 }>();
 
 const emit = defineEmits<{
@@ -172,6 +180,8 @@ onBeforeUnmount(() => {
     :width="panelWidth"
     :max-height="placement.whole?.maxHeight ?? 620"
     :token="wholeToken"
+    :headword="wholeHeadword"
+    :summary-visible="summaryVisible"
     :lookup="wholeLookup"
     :loading="wholeLoading"
     kind-label="整体"
@@ -183,8 +193,30 @@ onBeforeUnmount(() => {
     @navigate="emit('navigateWhole', $event)"
     @select-form="emit('selectWholeForm', $event)"
     @back="emit('backWhole')"
-  />
+  ><template #summary><slot name="summary" /></template></TooltipPanel>
+  <ReaderExplanationBubble
+    v-if="detail"
+    :id="componentPanelId"
+    :data-explanation-panel="componentPanelId"
+    :show="show"
+    :x="placement.component.left"
+    :y="placement.component.top"
+    :width="panelWidth"
+    :max-height="placement.component.maxHeight"
+    :title="detail.title"
+    :surface="detail.surface"
+    @enter="emit('enter', $event)"
+    @leave="emit('leave', $event)"
+  >
+    <p v-if="detail.description">{{ detail.description }}</p>
+    <span v-for="tag in detail.tags" :key="tag">{{ tag }} </span>
+    <p v-if="detail.candidates.length">可能含义：{{ detail.candidates.join('、') }}</p>
+    <div v-if="grammarLookups?.length" class="morphology-extra">
+      <ParticleGrammarBlock v-for="lookup in grammarLookups" :key="`${lookup.entries[0]?.entry_key}:${lookup.observed_form}`" :lookup="lookup" />
+    </div>
+  </ReaderExplanationBubble>
   <TooltipPanel
+    v-else
     :panel-id="componentPanelId"
     :show="show"
     :x="placement.component.left"
@@ -192,6 +224,8 @@ onBeforeUnmount(() => {
     :width="panelWidth"
     :max-height="placement.component.maxHeight"
     :token="componentToken"
+    :headword="componentHeadword"
+    :summary-visible="!wholeLookup && summaryVisible"
     :lookup="componentLookup"
     :loading="componentLoading"
     :kind-label="componentLabel"
@@ -203,5 +237,9 @@ onBeforeUnmount(() => {
     @navigate="emit('navigateComponent', $event)"
     @select-form="emit('selectComponentForm', $event)"
     @back="emit('backComponent')"
-  />
+  ><template #summary><slot name="summary" /></template></TooltipPanel>
 </template>
+
+<style scoped>
+.morphology-extra { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
+</style>

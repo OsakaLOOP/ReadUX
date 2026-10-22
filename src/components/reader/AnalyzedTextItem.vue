@@ -3,6 +3,8 @@ import { ref, type Component } from "vue";
 import type { AnnotatedToken } from "../../types";
 import BunsetsuCapsule from "../BunsetsuCapsule.vue";
 
+// 旧分析页使用的 AnnotatedToken 投影。正式阅读器与指南采用 ReaderCapsule 和 capsuleProjection。
+
 defineOptions({ inheritAttrs: false });
 
 withDefaults(defineProps<{
