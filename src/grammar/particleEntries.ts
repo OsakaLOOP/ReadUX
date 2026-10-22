@@ -72,7 +72,17 @@ export function grammarMorphemeLookup(morpheme: MorphemeToken): DictionaryLookup
   }, morpheme.lemma ?? morpheme.surface);
 }
 
-function teIruLookup(document: UnifiedDocument, selectedRange: [number, number]) {
+function selectedMorpheme(morphemes: MorphemeToken[], selectedRange: [number, number]) {
+  const overlapping = morphemes.filter((item) => selectedRange[0] < item.char_range[1]
+    && selectedRange[1] > item.char_range[0]);
+  return overlapping.find((item) => item.char_range[0] === selectedRange[0]
+    && item.char_range[1] === selectedRange[1])
+    ?? overlapping.find((item) => selectedRange[0] >= item.char_range[0]
+      && selectedRange[1] <= item.char_range[1])
+    ?? overlapping[overlapping.length - 1];
+}
+
+function teIruLookups(document: UnifiedDocument, selectedRange: [number, number]): DictionaryLookup[] | null {
   const morphemes = document.morphemes;
   for (let index = 0; index < morphemes.length; index += 1) {
     const iru = morphemes[index];
@@ -87,14 +97,42 @@ function teIruLookup(document: UnifiedDocument, selectedRange: [number, number])
     const hasAspectLink = chain?.operators.some((operator) => operator.kind === "te_iru");
     if (!hasAspectLink) continue;
     const surface = `${te.surface}${iru.surface}`;
-    return particleLookup({ word: surface, observedForm: surface, reading: surface,
+    const combined = particleLookup({ word: surface, observedForm: surface, reading: surface,
       pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
     }, "ている");
+    const selected = selectedMorpheme([te, iru], selectedRange);
+    const component = selected === te
+      ? grammarMorphemeLookup(te)
+      : grammarMorphemeLookup(iru);
+    return combined ? [combined, ...(component ? [component] : [])] : null;
   }
   return null;
 }
 
-/** 活用解说只展示当前命中的成分；「ている」链优先采用整体词条。 */
+function nodeLookups(document: UnifiedDocument, selectedRange: [number, number]): DictionaryLookup[] | null {
+  const morphemes = document.morphemes;
+  for (let index = 0; index < morphemes.length - 1; index += 1) {
+    const no = morphemes[index];
+    const de = morphemes[index + 1];
+    if (no.surface !== "の" || de.surface !== "で" || no.char_range[1] !== de.char_range[0]) continue;
+    if (selectedRange[0] >= de.char_range[1] || selectedRange[1] <= no.char_range[0]) continue;
+    const combined = particleLookup({ word: "ので", observedForm: "ので", reading: "ので",
+      pos: { major: "助詞", sub1: "接続助詞", sub2: "*", sub3: "*" },
+    });
+    const selected = selectedMorpheme([no, de], selectedRange);
+    const component = selected === no
+      ? particleLookup({ word: "の", observedForm: no.surface, reading: no.reading ?? "の",
+        pos: { major: "助詞", sub1: "準体助詞", sub2: "*", sub3: "*" },
+      })
+      : particleLookup({ word: "で", observedForm: de.surface, reading: de.reading ?? "で",
+        pos: { major: "助詞", sub1: "接続助詞", sub2: "*", sub3: "*" },
+      });
+    return combined ? [combined, ...(component ? [component] : [])] : null;
+  }
+  return null;
+}
+
+/** 复合助词链先显示整体词条，再显示当前选中的组成项。 */
 export function chainGrammarLookups(
   target: { id: string; char_range: [number, number]; lexical_core_ids: string[]; source_formation_ids: string[] },
   document: UnifiedDocument,
@@ -106,8 +144,10 @@ export function chainGrammarLookups(
         .find((operator) => operator.operator_id === selection.detailId)?.char_range
     : undefined;
   const selectedRange = detailRange ?? selection?.range ?? target.char_range;
-  const combined = teIruLookup(document, selectedRange);
-  if (combined) return [combined];
+  const teIru = teIruLookups(document, selectedRange);
+  if (teIru) return teIru;
+  const node = nodeLookups(document, selectedRange);
+  if (node) return node;
 
   const selected = document.morphemes.find((item) => selectedRange[0] <= item.char_range[0]
     && item.char_range[1] <= selectedRange[1]);
