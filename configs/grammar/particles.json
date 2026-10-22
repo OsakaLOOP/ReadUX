@@ -244,6 +244,50 @@
       ]
     },
     {
+      "id": "particle:node",
+      "headword": "ので",
+      "reading": "ので",
+      "pronunciation": "ので",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:node:reason",
+          "subtype": "接続助詞",
+          "title": "原因与理由",
+          "meaning": "连接表示原因或根据的前项与其结果、判断。常用于说明说话人据以采取行动或作出判断的情况。",
+          "connection": "普通形＋ので；名词、ナ形容词＋なので",
+          "examples": [
+            {
+              "ja": "赤ちゃんが眠っているので、そっとドアを閉めた。",
+              "zh": "因为宝宝睡着了，所以轻轻地关上了门。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:de-connective",
+      "headword": "で",
+      "reading": "で",
+      "pronunciation": "で",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:de-connective:node",
+          "subtype": "接続助詞",
+          "title": "原因说明的连接",
+          "meaning": "在「ので」中接在名词化的「の」后，引出由前项原因或根据支持的结果、判断。",
+          "connection": "用言连体形＋の＋で＋结果或判断",
+          "examples": [
+            {
+              "ja": "道がぬれているので、気をつけて歩く。",
+              "zh": "因为路面湿滑，所以小心地走。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "particle:de",
       "headword": "で",
       "reading": "で",
