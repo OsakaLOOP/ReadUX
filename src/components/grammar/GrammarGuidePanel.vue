@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef, watch } from "vue";
-import { Check, ChevronRight, Download, FileUp, Pencil, RefreshCw, Save } from "@lucide/vue";
+import { Check, ChevronRight, Download, FileUp, MessageSquareMore, Pencil, RefreshCw, Save } from "@lucide/vue";
 import ReaderSurface from "../reader/ReaderSurface.vue";
 import { markdownBlocks, renderMarkdownBlock } from "../../grammar-guide/markdown";
 import basePackage from "../../grammar-guide/lesson-1-1.json";
@@ -40,7 +40,14 @@ type GuidePackage = {
   version: number;
   status: "draft" | "reviewed";
   sourceMarkdown: string;
-  placements: { group: string; title: string; exampleIds: string[]; layout: "list" | "contrast"; anchor: string }[];
+  placements: {
+    group: string;
+    title: string;
+    exampleIds: string[];
+    layout: "list" | "contrast";
+    anchor: string;
+    items?: ({ type: "example"; id: string } | { type: "explanation"; id: string; text: string })[];
+  }[];
   originalExamplesAnchor: string;
   originalExamples: GuideExample[];
   examples: GuideExample[];
@@ -108,6 +115,9 @@ function highlightExample(anchor: string, exampleId: string) {
   sourceHighlight.value = blockIndex < 0 ? null : { blockIndex, range };
 }
 function clearExampleHighlight() { sourceHighlight.value = null; }
+function placementItems(placement: GuidePackage["placements"][number]) {
+  return placement.items ?? placement.exampleIds.map((id) => ({ type: "example" as const, id }));
+}
 function applySourceRangeHighlight() {
   const css = CSS as typeof CSS & { highlights?: Map<string, Highlight> };
   css.highlights?.delete("grammar-guide-source-range");
@@ -170,6 +180,13 @@ function validatePackage(value: GuidePackage) {
   if (new Set(exampleIds).size !== exampleIds.length) throw new Error("例句 ID 存在重复。");
   const placedIds = value.placements.flatMap((item) => item.exampleIds);
   if (new Set(placedIds).size !== placedIds.length || value.examples.some((item) => !placedIds.includes(item.id))) throw new Error("补充例句必须且只能插入一次。");
+  for (const placement of value.placements) {
+    if (!placement.items) continue;
+    const itemExampleIds = placement.items.filter((item) => item.type === "example").map((item) => item.id);
+    if (itemExampleIds.join("\0") !== placement.exampleIds.join("\0")
+      || placement.items.some((item) => item.type === "explanation" && !item.text.trim()))
+      throw new Error(`${placement.group} 的卡片项顺序或讲解内容无效。`);
+  }
   for (const example of allExamples) {
     const chars = Array.from(example.ja);
     if (!example.ja) throw new Error(`${example.id} 缺少日文。`);
@@ -292,17 +309,25 @@ function paragraphId(example: GuideExample) {
           <article :id="`guide-block-${index}`" class="guide-source" :class="[`guide-source--${block.kind}`, { 'guide-source--highlighted': sourceHighlight?.blockIndex === index && !sourceHighlight.range }]" v-html="htmlForBlock(index)" />
           <section v-for="placement in placementMap.get(block.source) ?? []" :key="placement.group" class="guide-examples" :class="`guide-examples--${placement.layout}`" :aria-label="placement.title">
             <div class="guide-example-list">
-              <div v-for="id in placement.exampleIds" :key="id" class="guide-example-row" @pointerenter="highlightExample(placement.anchor, id)" @pointerleave="clearExampleHighlight">
-                <GrammarGuideExample
-                  v-if="exampleMap.get(id)"
-                  :id="id"
-                  :ja="exampleMap.get(id)!.ja"
-                  :zh="exampleMap.get(id)!.zh"
-                  :snapshot="analysisMap.get(id)"
-                  :paragraph-id="paragraphId(exampleMap.get(id)!)"
-                  :show-chinese="showChineseFor(placement.group)"
-                  :show-ruby="showRuby"
-                />
+              <div v-for="item in placementItems(placement)" :key="`${item.type}:${item.id}`" class="guide-example-row" :class="{ 'guide-example-row--explanation': item.type === 'explanation' }" @pointerenter="item.type === 'example' && highlightExample(placement.anchor, item.id)" @pointerleave="item.type === 'example' && clearExampleHighlight()">
+                <template v-if="item.type === 'example'">
+                  <template v-if="exampleMap.get(item.id)">
+                  <GrammarGuideExample
+                    :id="item.id"
+                    :ja="exampleMap.get(item.id)!.ja"
+                    :zh="exampleMap.get(item.id)!.zh"
+                    :note="exampleMap.get(item.id)!.note"
+                    :snapshot="analysisMap.get(item.id)"
+                    :paragraph-id="paragraphId(exampleMap.get(item.id)!)"
+                    :show-chinese="showChineseFor(placement.group)"
+                    :show-ruby="showRuby"
+                  />
+                  </template>
+                </template>
+                <template v-else>
+                  <MessageSquareMore class="guide-item-icon guide-item-icon--explanation" :size="17" aria-hidden="true" />
+                  <p class="guide-explanation__body">{{ item.text }}</p>
+                </template>
               </div>
             </div>
           </section>
@@ -334,7 +359,7 @@ function paragraphId(example: GuideExample) {
 .guide-examples{max-width:820px;margin:20px auto 34px;border-top:1px solid var(--border-color)}.guide-example-list{display:grid;gap:0}
 .guide-editor{display:flex;height:100%;min-height:0;flex-direction:column;gap:10px;padding:14px}.guide-editor__tools{justify-content:space-between}.guide-file-button{display:flex;align-items:center;gap:6px;cursor:pointer}.guide-file-button input{display:none}.guide-editor textarea{width:100%;min-height:0;flex:1;resize:none;padding:12px;border:1px solid var(--border-color);border-radius:5px;background:var(--bg-primary);color:var(--text-primary);font:12px/1.6 ui-monospace,Consolas,monospace}.guide-editor footer{justify-content:flex-end}.guide-editor button.primary{background:var(--accent-color);color:white}.guide-editor__notice{color:#9b6417;font-size:12px}
 @media(max-width:1000px){.guide-layout{grid-template-columns:180px minmax(0,1fr)}}@media(max-width:680px){.guide-layout{grid-template-columns:minmax(0,1fr)}.guide-toc{display:none}.guide-reading{padding:24px 16px 50px}.guide-actions{gap:5px;padding-right:12px}.guide-toggle{gap:4px;font-size:11px}.guide-editor footer{flex-wrap:wrap}.guide-editor footer button{flex:1}}
-.guide-example-row{padding:7px 0}.guide-example-row + .guide-example-row{border-top:1px solid color-mix(in srgb,var(--border-color) 55%,transparent)}
+.guide-example-row{display:grid;grid-template-columns:minmax(0,1fr);align-items:start;padding:10px 0}.guide-example-row + .guide-example-row{border-top:1px solid color-mix(in srgb,var(--border-color) 55%,transparent)}.guide-example-row--explanation{grid-template-columns:24px minmax(0,1fr);align-items:baseline;gap:8px}.guide-item-icon{align-self:baseline;justify-self:center;color:var(--accent-color)}.guide-explanation__body{margin:0;padding:8px 12px;border-left:2px solid color-mix(in srgb,var(--accent-color) 42%,var(--border-color));border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--accent-color) 4%,var(--bg-primary));color:var(--text-secondary);font:13px/1.75 var(--font-ui)}
 .guide-source :deep(.guide-note-inline){color:#9b6417}
 .guide-source--highlighted{background:color-mix(in srgb,var(--accent-color) 10%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent-color) 18%,transparent);animation:guide-source-highlight-in 260ms ease-out}@keyframes guide-source-highlight-in{0%{background:color-mix(in srgb,var(--accent-color) 24%,transparent);box-shadow:0 0 0 7px color-mix(in srgb,var(--accent-color) 30%,transparent)}100%{background:color-mix(in srgb,var(--accent-color) 10%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent-color) 18%,transparent)}}@media(prefers-reduced-motion:reduce){.guide-source--highlighted{animation:none;outline:1px solid var(--accent-color);outline-offset:3px}}
 ::highlight(grammar-guide-source-range){background:color-mix(in srgb,var(--accent-color) 20%,transparent);text-decoration:underline 2px color-mix(in srgb,var(--accent-color) 70%,transparent);text-underline-offset:3px}

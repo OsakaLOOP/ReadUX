@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { BookMarked, Info } from "@lucide/vue";
 import type { DictionaryLookup } from "../../types";
 import type { GuideReaderSnapshot } from "../../grammar-guide/types";
 import { guideLinkedLookup, hydrateGuideLookup } from "../../grammar-guide/dictionary";
@@ -14,7 +15,7 @@ import ExplanationPopover from "../explanation/ExplanationPopover.vue";
 import ParticleGrammarPopover from "./ParticleGrammarPopover.vue";
 
 const props = defineProps<{
-  id: string; ja: string; zh: string; snapshot?: GuideReaderSnapshot;
+  id: string; ja: string; zh: string; note?: string; snapshot?: GuideReaderSnapshot;
   paragraphId: number; showChinese: boolean; showRuby: boolean;
 }>();
 const root = ref<HTMLElement | null>(null);
@@ -181,6 +182,7 @@ onBeforeUnmount(() => {
 
 <template>
   <article ref="root" class="guide-example" :data-example-id="id" @pointerleave="scheduleClose">
+    <BookMarked class="guide-example__bookmark" :size="17" aria-hidden="true" />
     <div class="guide-example__text">
       <template v-if="projection.length">
         <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :grouped="Boolean(capsule.capsuleKey)">
@@ -194,8 +196,12 @@ onBeforeUnmount(() => {
       </template>
       <span v-else>{{ ja }}</span>
     </div>
+    <span v-if="note" class="guide-example__note">
+      <button type="button" aria-label="查看例句讲解"><Info :size="15" aria-hidden="true" /></button>
+      <span class="guide-example__tooltip" role="tooltip">{{ note }}</span>
+    </span>
     <p v-if="showChinese && zh" class="guide-example__translation">{{ zh }}</p>
-    <p v-if="error" class="guide-example__error">{{ error }}</p>
+    <p v-if="error" class="guide-example__error" :class="{ 'guide-example__error--translated': showChinese && zh }">{{ error }}</p>
   </article>
   <div :data-guide-panels="id">
     <ExplanationPopover v-if="!activeParticle" :show="Boolean(active)" :anchor="anchor" :component-anchor="anchor"
@@ -219,9 +225,16 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.guide-example { display: block; min-width: 0; margin: 0; }
-.guide-example__text { min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
+.guide-example { display: grid; grid-template-columns: 24px minmax(0,1fr); grid-template-rows: auto auto; align-items: baseline; column-gap: 8px; min-width: 0; margin: 0; }
+.guide-example__bookmark { grid-column: 1; grid-row: 1; align-self: baseline; justify-self: center; color: var(--accent-color); }
+.guide-example__text { grid-column: 2; grid-row: 1; min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
 .reader-capsule__part--lookup { cursor: pointer; }
-.guide-example__translation { margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }
-.guide-example__error { color: var(--text-secondary); font: 12px/1.5 var(--font-ui); }
+.guide-example__translation { grid-column: 2; grid-row: 2; margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }
+.guide-example__note { position: relative; grid-column: 1; grid-row: 2; align-self: baseline; justify-self: center; line-height: 1; }
+.guide-example__note button { display: inline-grid; width: 17px; height: 17px; place-items: center; padding: 0; border: 0; border-radius: 4px; background: transparent; color: var(--accent-color); cursor: help; vertical-align: baseline; }
+.guide-example__note button:hover,.guide-example__note button:focus-visible { background: var(--bg-secondary); }
+.guide-example__tooltip { position: absolute; left: 0; bottom: calc(100% + 5px); z-index: 5; display: none; width: min(300px,calc(100vw - 48px)); padding: 9px 11px; border: 1px solid var(--border-color); border-radius: 5px; background: var(--bg-primary); box-shadow: 0 4px 14px color-mix(in srgb,#000 14%,transparent); color: var(--text-primary); font: 12px/1.65 var(--font-ui); white-space: normal; }
+.guide-example__note:hover .guide-example__tooltip,.guide-example__note:focus-within .guide-example__tooltip { display: block; }
+.guide-example__error { grid-column: 2; color: var(--text-secondary); font: 12px/1.5 var(--font-ui); }
+.guide-example__error--translated { grid-row: 3; }
 </style>
