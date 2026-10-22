@@ -505,6 +505,246 @@
           ]
         }
       ]
+    },
+    {
+      "id": "auxiliary:te-hoshii",
+      "headword": "てほしい",
+      "reading": "てほしい",
+      "pronunciation": "てほしい",
+      "variants": [
+        { "surface": "でほしい", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-hoshii:wish",
+          "subtype": "助動詞",
+          "title": "希望对方做某事",
+          "meaning": "表示说话人希望他人实施前项动作。主语通常是动作的执行者，具体语气受人物关系影响。",
+          "connection": "动作执行者＋动词て形＋ほしい；拨音便、浊音便后使用「でほしい」。",
+          "examples": [
+            { "ja": "明日までに返事をしてほしい。", "zh": "希望你明天之前回复。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-goran",
+      "headword": "てごらん",
+      "reading": "てごらん",
+      "pronunciation": "てごらん",
+      "variants": [
+        { "surface": "でごらん", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-goran:suggestion",
+          "subtype": "助動詞",
+          "title": "劝对方尝试",
+          "meaning": "以较亲近或上对下的语气建议对方尝试前项动作。",
+          "connection": "动词て形＋ごらん；拨音便、浊音便后使用「でごらん」。",
+          "examples": [
+            { "ja": "分からなければ、先生に聞いてごらん。", "zh": "不明白的话，去问问老师吧。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-miseru",
+      "headword": "てみせる",
+      "reading": "てみせる",
+      "pronunciation": "てみせる",
+      "variants": [
+        { "surface": "でみせる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-miseru:resolve",
+          "subtype": "助動詞",
+          "title": "决心做到",
+          "meaning": "表示说话人决心完成前项动作，常含有向他人证明能力或结果的语气。",
+          "connection": "动词て形＋みせる；拨音便、浊音便后使用「でみせる」。",
+          "examples": [
+            { "ja": "今度こそ合格してみせる。", "zh": "这次我一定要考上给你看。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-tamaranai",
+      "headword": "てたまらない",
+      "reading": "てたまらない",
+      "pronunciation": "てたまらない",
+      "variants": [
+        { "surface": "でたまらない", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-tamaranai:feeling",
+          "subtype": "助動詞",
+          "title": "感受强烈得难以抑制",
+          "meaning": "表示某种感受或欲望强烈到无法抑制。",
+          "connection": "动词、イ形容词て形＋たまらない；ナ形容词词干＋でたまらない。",
+          "examples": [
+            { "ja": "結果が気になってたまらない。", "zh": "结果让我一直惦记，实在放不下。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-naranai",
+      "headword": "てならない",
+      "reading": "てならない",
+      "pronunciation": "てならない",
+      "variants": [
+        { "surface": "でならない", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-naranai:feeling",
+          "subtype": "助動詞",
+          "title": "不由得产生某种感受",
+          "meaning": "表示某种感受或想法自然涌现，难以抑制；常与情感、评价或认知表达搭配。",
+          "connection": "动词、イ形容词て形＋ならない；ナ形容词词干＋でならない。",
+          "examples": [
+            { "ja": "故郷のことが思い出されてならない。", "zh": "不由得想起故乡。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-yamanai",
+      "headword": "てやまない",
+      "reading": "てやまない",
+      "pronunciation": "てやまない",
+      "variants": [
+        { "surface": "でやまない", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-yamanai:feeling",
+          "subtype": "助動詞",
+          "title": "持续怀有某种感情",
+          "meaning": "表示对某人或某事持续怀有强烈感情、愿望或信念，常用于正式表达。",
+          "connection": "动词连用形＋てやまない；拨音便、浊音便后使用「でやまない」。",
+          "examples": [
+            { "ja": "皆様のご健康を願ってやみません。", "zh": "衷心祝愿各位身体健康。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:hoshii-component",
+      "headword": "ほしい",
+      "reading": "ほしい",
+      "pronunciation": "ほしい",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:hoshii-component:wish",
+          "subtype": "助動詞",
+          "title": "希望对方行动",
+          "meaning": "在「てほしい」中表示说话人希望动作执行者实施前项动作。",
+          "connection": "动作执行者＋动词て形＋ほしい。",
+          "examples": [
+            { "ja": "もう少し待ってほしい。", "zh": "希望你再等一会儿。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:goran-component",
+      "headword": "ごらん",
+      "reading": "ごらん",
+      "pronunciation": "ごらん",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:goran-component:suggestion",
+          "subtype": "助動詞",
+          "title": "劝对方尝试",
+          "meaning": "在「てごらん」中构成亲近或上对下的建议语气。",
+          "connection": "动词て形＋ごらん。",
+          "examples": [
+            { "ja": "自分で考えてごらん。", "zh": "自己想想看。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:miseru-component",
+      "headword": "みせる",
+      "reading": "みせる",
+      "pronunciation": "みせる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:miseru-component:resolve",
+          "subtype": "助動詞",
+          "title": "决心做到",
+          "meaning": "在「てみせる」中表示决心完成前项动作，并让他人看到结果。",
+          "connection": "动词て形＋みせる。",
+          "examples": [
+            { "ja": "必ず成功してみせる。", "zh": "我一定会成功给你看。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:tamaranai-component",
+      "headword": "たまらない",
+      "reading": "たまらない",
+      "pronunciation": "たまらない",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:tamaranai-component:feeling",
+          "subtype": "助動詞",
+          "title": "难以抑制",
+          "meaning": "在「てたまらない」中表示感受或欲望强烈得无法抑制。",
+          "connection": "动词、イ形容词て形＋たまらない；ナ形容词词干＋でたまらない。",
+          "examples": [
+            { "ja": "早く会いたくてたまらない。", "zh": "迫不及待地想早点见面。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:naranai-component",
+      "headword": "ならない",
+      "reading": "ならない",
+      "pronunciation": "ならない",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:naranai-component:feeling",
+          "subtype": "助動詞",
+          "title": "不由得产生感受",
+          "meaning": "在「てならない」中表示某种感受或想法自然涌现，难以抑制。",
+          "connection": "动词、イ形容词て形＋ならない；ナ形容词词干＋でならない。",
+          "examples": [
+            { "ja": "将来が心配でならない。", "zh": "不由得担心未来。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:yamanai-component",
+      "headword": "やまない",
+      "reading": "やまない",
+      "pronunciation": "やまない",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:yamanai-component:feeling",
+          "subtype": "助動詞",
+          "title": "持续怀有感情",
+          "meaning": "在「てやまない」中表示持续怀有强烈的感情、愿望或信念。",
+          "connection": "动词连用形＋てやまない。",
+          "examples": [
+            { "ja": "平和を願ってやまない。", "zh": "始终祈愿和平。" }
+          ]
+        }
+      ]
     }
   ]
 }
