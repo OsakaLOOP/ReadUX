@@ -32,6 +32,12 @@ const teConstructionsByKind: Record<string, { form: string; component: string }>
   te_ageru: { form: "てあげる", component: "あげる" },
   te_kureru: { form: "てくれる", component: "くれる" },
   te_yaru: { form: "てやる", component: "やる" },
+  te_hoshii: { form: "てほしい", component: "ほしい" },
+  te_goran: { form: "てごらん", component: "ごらん" },
+  te_miseru: { form: "てみせる", component: "みせる" },
+  te_tamaranai: { form: "てたまらない", component: "たまらない" },
+  te_naranai: { form: "てならない", component: "ならない" },
+  te_yamanai: { form: "てやまない", component: "やまない" },
 };
 
 function makeSense(item: ParticleResource["entries"][number]["senses"][number]): DictionarySense {
