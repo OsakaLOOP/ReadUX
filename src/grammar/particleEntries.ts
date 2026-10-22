@@ -1,5 +1,6 @@
 import resource from "../../configs/grammar/particles.json";
 import auxiliaries from "../../configs/grammar/auxiliaries.json";
+import teConstructions from "../../configs/grammar/teConstructions.json";
 import type { DictEntry, DictionaryLookup, DictionaryLookupRequest, DictionarySense, PosTag } from "../types";
 import type { MorphemeToken, UnifiedDocument } from "../types/nlp";
 import { readerCapsuleRanges } from "../reader/lookupPresentation";
@@ -12,8 +13,26 @@ type ParticleResource = {
   }[];
 };
 const data = resource as ParticleResource;
-const auxiliaryData = auxiliaries as ParticleResource;
+const auxiliaryData: ParticleResource = { entries: [
+  ...(auxiliaries as ParticleResource).entries,
+  ...(teConstructions as ParticleResource).entries,
+] };
 const fallbackPos: PosTag = { major: "助詞", sub1: "*", sub2: "*", sub3: "*" };
+const teConstructionsByKind: Record<string, { form: string; component: string }> = {
+  te_iru: { form: "ている", component: "いる" },
+  te_aru: { form: "てある", component: "ある" },
+  te_shimau: { form: "てしまう", component: "しまう" },
+  te_oku: { form: "ておく", component: "おく" },
+  te_iku: { form: "ていく", component: "いく" },
+  te_yuku: { form: "てゆく", component: "ゆく" },
+  te_kuru: { form: "てくる", component: "くる" },
+  te_miru: { form: "てみる", component: "みる" },
+  te_kudasaru: { form: "てくださる", component: "くださる" },
+  te_morau: { form: "てもらう", component: "もらう" },
+  te_ageru: { form: "てあげる", component: "あげる" },
+  te_kureru: { form: "てくれる", component: "くれる" },
+  te_yaru: { form: "てやる", component: "やる" },
+};
 
 function makeSense(item: ParticleResource["entries"][number]["senses"][number]): DictionarySense {
   return {
@@ -82,31 +101,42 @@ function selectedMorpheme(morphemes: MorphemeToken[], selectedRange: [number, nu
     ?? overlapping[overlapping.length - 1];
 }
 
-function teIruLookups(document: UnifiedDocument, selectedRange: [number, number]): DictionaryLookup[] | null {
-  const morphemes = document.morphemes;
-  for (let index = 0; index < morphemes.length; index += 1) {
-    const iru = morphemes[index];
-    if (iru.pos[0] !== "動詞" || iru.pos[1] !== "非自立可能" || iru.lemma !== "居る") continue;
-    const te = morphemes[index - 1];
-    if (!te || !["て", "で"].includes(te.surface) || te.pos[0] !== "助詞" || te.pos[1] !== "接続助詞"
-      || te.char_range[1] !== iru.char_range[0]) continue;
-    const selectsChain = selectedRange[0] < iru.char_range[1] && selectedRange[1] > te.char_range[0];
-    if (!selectsChain) continue;
-    const iruIndex = morphemes.indexOf(iru);
-    const chain = document.morphology.chains.find((item) => item.core_morpheme_indices.includes(iruIndex));
-    const hasAspectLink = chain?.operators.some((operator) => operator.kind === "te_iru");
-    if (!hasAspectLink) continue;
-    const surface = `${te.surface}${iru.surface}`;
-    const combined = particleLookup({ word: surface, observedForm: surface, reading: surface,
+function selectedOccurrence(document: UnifiedDocument, selectedRange: [number, number], detailId?: string) {
+  const occurrences = document.morphology.occurrences;
+  return occurrences.find((item) => item.id === detailId || item.operator_ids.includes(detailId ?? ""))
+    ?? occurrences.find((item) => (teConstructionsByKind[item.kind] || item.kind === "volitional")
+      && selectedRange[0] < item.char_range[1] && selectedRange[1] > item.char_range[0]);
+}
+
+function teConstructionLookups(document: UnifiedDocument, selectedRange: [number, number], detailId?: string): DictionaryLookup[] | null {
+  const occurrence = selectedOccurrence(document, selectedRange, detailId);
+  const construction = occurrence && teConstructionsByKind[occurrence.kind];
+  if (!occurrence || !construction) return null;
+  const combined = particleLookup({ word: construction.form, observedForm: construction.form, reading: construction.form,
+    pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
+  }, construction.form);
+  if (!combined) return null;
+
+  const parts = occurrence.hit_ranges.map((range) => document.morphemes.find((item) =>
+    item.char_range[0] === range[0] && item.char_range[1] === range[1])).filter((item): item is MorphemeToken => Boolean(item));
+  const selected = selectedMorpheme(parts, selectedRange);
+  const component = selected && ["て", "で"].includes(selected.surface)
+    ? grammarMorphemeLookup(selected)
+    : particleLookup({ word: construction.component, observedForm: selected?.surface ?? construction.component,
+      reading: selected?.reading ?? undefined,
       pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
-    }, "ている");
-    const selected = selectedMorpheme([te, iru], selectedRange);
-    const component = selected === te
-      ? grammarMorphemeLookup(te)
-      : grammarMorphemeLookup(iru);
-    return combined ? [combined, ...(component ? [component] : [])] : null;
-  }
-  return null;
+    }, construction.component);
+  return [combined, ...(component ? [component] : [])];
+}
+
+function volitionalLookup(document: UnifiedDocument, selectedRange: [number, number], detailId?: string): DictionaryLookup | null {
+  const occurrence = selectedOccurrence(document, selectedRange, detailId);
+  if (occurrence?.kind !== "volitional") return null;
+  const selected = document.morphemes.find((item) => selectedRange[0] < item.char_range[1]
+    && selectedRange[1] > item.char_range[0]);
+  return particleLookup({ word: "う", observedForm: selected?.surface ?? "う", reading: selected?.reading ?? undefined,
+    pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
+  }, "う");
 }
 
 function nodeLookups(document: UnifiedDocument, selectedRange: [number, number]): DictionaryLookup[] | null {
@@ -132,7 +162,7 @@ function nodeLookups(document: UnifiedDocument, selectedRange: [number, number])
   return null;
 }
 
-/** 复合助词链先显示整体词条，再显示当前选中的组成项。 */
+/** 复合语法链先显示整体表达，再显示当前选中的组成项。 */
 export function chainGrammarLookups(
   target: { id: string; char_range: [number, number]; lexical_core_ids: string[]; source_formation_ids: string[] },
   document: UnifiedDocument,
@@ -143,9 +173,11 @@ export function chainGrammarLookups(
       ?? document.morphology.chains.flatMap((chain) => chain.operators)
         .find((operator) => operator.operator_id === selection.detailId)?.char_range
     : undefined;
-  const selectedRange = detailRange ?? selection?.range ?? target.char_range;
-  const teIru = teIruLookups(document, selectedRange);
-  if (teIru) return teIru;
+  const selectedRange = selection?.range ?? detailRange ?? target.char_range;
+  const teConstruction = teConstructionLookups(document, selectedRange, selection?.detailId);
+  if (teConstruction) return teConstruction;
+  const volitional = volitionalLookup(document, selectedRange, selection?.detailId);
+  if (volitional) return [volitional];
   const node = nodeLookups(document, selectedRange);
   if (node) return node;
 
