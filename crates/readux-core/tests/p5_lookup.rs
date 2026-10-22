@@ -203,13 +203,8 @@ fn sahen_query_object_covers_the_body_conjugation_and_retains_noun_fallback() {
             .unwrap_or_else(|| panic!("{text} 缺少サ変整体查询目标：{:?}", group.outer_targets.iter().map(|target| (&target.surface, target.char_range)).collect::<Vec<_>>()));
         assert!(target.lookup_forms.iter().any(|form| form.form == "力説する"), "{text}: {:?}", target.lookup_forms);
         assert!(target.lookup_forms.iter().any(|form| form.form == "力説"), "サ変名词回退查询缺失：{text}");
-        let verb = group.inner_targets.iter().find(|child| child.parent_outer_id.as_ref() == Some(&target.id)
-            && child.char_range == expected_range && child.decision == "queryable")
-            .unwrap_or_else(|| panic!("{text} 缺少サ変动词内部查询对象：{:?}", group.inner_targets));
-        assert_eq!(verb.lookup_forms.first().map(|form| form.form.as_str()), Some("力説する"));
-        assert!(verb.lookup_forms.iter().any(|form| form.form == "力説"), "动词释义回退查询缺失：{text}");
-        assert!(group.inner_targets.iter().any(|child| child.parent_outer_id.as_ref() == Some(&target.id)
-            && child.surface == "力説" && child.matrix_request.is_some()), "{text} 缺少名词内部查询对象");
+        assert!(!group.inner_targets.iter().any(|child| child.parent_outer_id.as_ref() == Some(&target.id)),
+            "{text} 的整体サ変动词不应生成内部查询对象：{:?}", group.inner_targets);
         assert!(group.grammar_targets.iter().any(|grammar| grammar.char_range[0] < expected_range[1]
             && expected_range[0] < grammar.char_range[1]
             && grammar.normalized_form == grammar_form),

@@ -535,23 +535,10 @@ pub fn build_profiled(
             && chain.core_morpheme_indices.first().and_then(|index| tokens.get(*index))
                 .is_some_and(|token| token.pos[0].as_deref() == Some("名詞"))
             && !chain.operators.iter().any(|operator| operator.kind == "causative"));
-        if let Some(chain) = sahen_chain {
-            let first = chain.core_morpheme_indices.first().and_then(|index| tokens.get(*index)).unwrap();
-            let canonical = chain.query_forms.iter().find(|query| query.form == chain.lookup_form).cloned()
-                .unwrap_or_else(|| form(chain.lookup_form.clone(), None, "canonical"));
-            let candidate = Candidate { range: parent.char_range,
-                forms: unique_forms(std::iter::once(canonical).chain(token_forms(first))),
-                members: tokens.iter().enumerate().filter(|(_, token)| overlaps(parent.char_range, token.char_range))
-                    .map(|(index, _)| index).collect(), cores: vec![chain.chain_id.clone()], formations: Vec::new(),
-                pos: Some(PosTag { major: "動詞".into(), sub1: String::new(), sub2: String::new(), sub3: String::new() }),
-                minimal: true, hints: parent.metadata_hints.clone(), reason: parent.reason.clone() };
-            inner.push(target(&candidate, &chars, tokens, Some(&parent.id), "queryable"));
-        }
+        if sahen_chain.is_some() { continue; }
         for candidate in candidates.iter().filter(|candidate| candidate.range != parent.char_range && contains(parent.char_range, candidate.range)) {
             if candidate.members.len() > 1 && !candidate.hints.iter().any(lexical) { continue; }
-            if sahen_chain.is_some() && candidate.members.iter().all(|index| tokens[*index].lemma.as_deref() == Some("為る")) { continue; }
-            let component = (sahen_chain.is_some() && candidate.members.iter().all(|index| tokens[*index].lemma.as_deref() == Some("為る")))
-                || !candidate.minimal && !candidate.hints.iter().any(lexical);
+            let component = !candidate.minimal && !candidate.hints.iter().any(lexical);
             inner.push(target(candidate, &chars, tokens, Some(&parent.id), if component { "component" } else { "queryable" }));
         }
         for hint in &parent.metadata_hints {
