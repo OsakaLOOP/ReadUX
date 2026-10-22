@@ -1,0 +1,510 @@
+{
+  "schema": "readux.grammar-te-constructions.v1",
+  "version": 1,
+  "authorship": "ReadUX 人工编写",
+  "entries": [
+    {
+      "id": "auxiliary:te-aru",
+      "headword": "てある",
+      "reading": "てある",
+      "pronunciation": "てある",
+      "variants": [
+        { "surface": "である", "subtype": "助動詞", "note": "接在浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-aru:result",
+          "subtype": "助動詞",
+          "title": "动作留下的结果状态",
+          "meaning": "接在他动词て形后，表示某项动作已经完成，且其结果仍然保持。句子通常关注动作造成的状态。",
+          "connection": "他动词て形＋ある；拨音便、浊音便后使用「である」。",
+          "examples": [
+            { "ja": "窓が開けてある。", "zh": "窗户开着（有人事先打开了窗户）。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-shimau",
+      "headword": "てしまう",
+      "reading": "てしまう",
+      "pronunciation": "てしまう",
+      "variants": [
+        { "surface": "でしまう", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-shimau:completion",
+          "subtype": "助動詞",
+          "title": "彻底完成与遗憾",
+          "meaning": "表示动作彻底完成；结合语境也可表达说话人对结果感到遗憾或意外。",
+          "connection": "动词て形＋しまう；拨音便、浊音便后使用「でしまう」。",
+          "examples": [
+            { "ja": "宿題を全部やってしまった。", "zh": "作业全都做完了。" },
+            { "ja": "大事な傘を忘れてしまった。", "zh": "把重要的伞给忘了。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-oku",
+      "headword": "ておく",
+      "reading": "ておく",
+      "pronunciation": "ておく",
+      "variants": [
+        { "surface": "でおく", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-oku:preparation",
+          "subtype": "助動詞",
+          "title": "预先处置与状态保持",
+          "meaning": "表示为之后的安排预先完成某项动作，也可表示有意让动作结果继续保持。",
+          "connection": "动词て形＋おく；拨音便、浊音便后使用「でおく」。",
+          "examples": [
+            { "ja": "旅行の前に切符を買っておく。", "zh": "旅行前先把车票买好。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-iku",
+      "headword": "ていく",
+      "reading": "ていく",
+      "pronunciation": "ていく",
+      "variants": [
+        { "surface": "でいく", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-iku:direction",
+          "subtype": "助動詞",
+          "title": "远离与持续发展",
+          "meaning": "表示动作或变化朝远离说话人的方向继续，也可表示某种状态从现在开始向后发展。",
+          "connection": "动词て形＋いく；拨音便、浊音便后使用「でいく」。",
+          "examples": [
+            { "ja": "鳥が空へ飛んでいった。", "zh": "鸟朝天空飞远了。" },
+            { "ja": "これから人口が減っていく。", "zh": "今后人口会逐渐减少。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-yuku",
+      "headword": "てゆく",
+      "reading": "てゆく",
+      "pronunciation": "てゆく",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:te-yuku:direction",
+          "subtype": "助動詞",
+          "title": "远离与持续发展",
+          "meaning": "「ていく」的书面或较具文体色彩的形式，表示动作远离或状态向后持续发展。",
+          "connection": "动词て形＋ゆく。",
+          "examples": [
+            { "ja": "季節は移り変わってゆく。", "zh": "季节不断更迭。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-kuru",
+      "headword": "てくる",
+      "reading": "てくる",
+      "pronunciation": "てくる",
+      "variants": [
+        { "surface": "でくる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-kuru:direction",
+          "subtype": "助動詞",
+          "title": "趋近与逐渐显现",
+          "meaning": "表示动作朝说话人或参照点靠近，也可表示变化从过去延续到现在并逐渐显现。",
+          "connection": "动词て形＋くる；拨音便、浊音便后使用「でくる」。",
+          "examples": [
+            { "ja": "友達が駅まで走ってきた。", "zh": "朋友跑到了车站这边。" },
+            { "ja": "少しずつ分かってきた。", "zh": "渐渐明白了。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-miru",
+      "headword": "てみる",
+      "reading": "てみる",
+      "pronunciation": "てみる",
+      "variants": [
+        { "surface": "でみる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-miru:attempt",
+          "subtype": "助動詞",
+          "title": "尝试",
+          "meaning": "表示尝试进行前项动作，以了解结果或确认情况。「みる」在此表示尝试，不表示视觉动作。",
+          "connection": "动词て形＋みる；拨音便、浊音便后使用「でみる」。",
+          "examples": [
+            { "ja": "この料理を食べてみる。", "zh": "尝尝这道菜。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-kudasaru",
+      "headword": "てくださる",
+      "reading": "てくださる",
+      "pronunciation": "てくださる",
+      "variants": [
+        { "surface": "でくださる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-kudasaru:benefactive",
+          "subtype": "助動詞",
+          "title": "他人为我方做事（尊敬）",
+          "meaning": "表示说话人或我方得到他人所做的动作，并以「くださる」表达对动作主体的敬意。",
+          "connection": "动词て形＋くださる；拨音便、浊音便后使用「でくださる」。",
+          "examples": [
+            { "ja": "先生が説明してくださいました。", "zh": "老师为我们作了解释。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-morau",
+      "headword": "てもらう",
+      "reading": "てもらう",
+      "pronunciation": "てもらう",
+      "variants": [
+        { "surface": "でもらう", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-morau:benefactive",
+          "subtype": "助動詞",
+          "title": "得到他人帮助",
+          "meaning": "表示说话人或相关一方得到他人为其完成前项动作，也可依语境构成请求表达。",
+          "connection": "动词て形＋もらう；拨音便、浊音便后使用「でもらう」。",
+          "examples": [
+            { "ja": "友達に駅まで送ってもらった。", "zh": "请朋友送我到了车站。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-ageru",
+      "headword": "てあげる",
+      "reading": "てあげる",
+      "pronunciation": "てあげる",
+      "variants": [
+        { "surface": "であげる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-ageru:benefactive",
+          "subtype": "助動詞",
+          "title": "为他人做事",
+          "meaning": "表示说话人或其一方为他人完成前项动作。使用时需结合双方关系判断语气是否自然。",
+          "connection": "动词て形＋あげる；拨音便、浊音便后使用「であげる」。",
+          "examples": [
+            { "ja": "妹に本を読んであげた。", "zh": "我给妹妹读了书。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-kureru",
+      "headword": "てくれる",
+      "reading": "てくれる",
+      "pronunciation": "てくれる",
+      "variants": [
+        { "surface": "でくれる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-kureru:benefactive",
+          "subtype": "助動詞",
+          "title": "他人为我方做事",
+          "meaning": "表示他人为说话人或我方完成前项动作，常带有受益或感激的语气。",
+          "connection": "动词て形＋くれる；拨音便、浊音便后使用「でくれる」。",
+          "examples": [
+            { "ja": "友達が荷物を持ってくれた。", "zh": "朋友帮我拿了行李。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-yaru",
+      "headword": "てやる",
+      "reading": "てやる",
+      "pronunciation": "てやる",
+      "variants": [
+        { "surface": "でやる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-yaru:benefactive",
+          "subtype": "助動詞",
+          "title": "为对方做事",
+          "meaning": "表示说话人一方为对方或关系较近、地位较低的对象完成前项动作；语气可能显得随便或强势。",
+          "connection": "动词て形＋やる；拨音便、浊音便后使用「でやる」。",
+          "examples": [
+            { "ja": "子犬に水を飲ませてやった。", "zh": "我让小狗喝了水。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:aru-component",
+      "headword": "ある",
+      "reading": "ある",
+      "pronunciation": "ある",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:aru-component:result",
+          "subtype": "助動詞",
+          "title": "保持动作结果",
+          "meaning": "在「てある」中表示他动动作完成后留下的状态仍然保持。",
+          "connection": "他动词て形＋ある；拨音便、浊音便后使用「である」。",
+          "examples": [
+            { "ja": "資料が机に並べてある。", "zh": "资料已经摆在桌上。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:shimau-component",
+      "headword": "しまう",
+      "reading": "しまう",
+      "pronunciation": "しまう",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:shimau-component:completion",
+          "subtype": "助動詞",
+          "title": "完成或遗憾",
+          "meaning": "在「てしまう」中表示动作彻底完成，或说话人对结果感到遗憾、意外。",
+          "connection": "动词て形＋しまう；拨音便、浊音便后使用「でしまう」。",
+          "examples": [
+            { "ja": "財布を落としてしまった。", "zh": "把钱包给弄丢了。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:oku-component",
+      "headword": "おく",
+      "reading": "おく",
+      "pronunciation": "おく",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:oku-component:preparation",
+          "subtype": "助動詞",
+          "title": "预先处置",
+          "meaning": "在「ておく」中表示为之后的安排预先完成动作，或有意保持动作结果。",
+          "connection": "动词て形＋おく；拨音便、浊音便后使用「でおく」。",
+          "examples": [
+            { "ja": "必要な資料を印刷しておく。", "zh": "先把需要的资料打印好。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:iku-component",
+      "headword": "いく",
+      "reading": "いく",
+      "pronunciation": "いく",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:iku-component:direction",
+          "subtype": "助動詞",
+          "title": "远离与持续发展",
+          "meaning": "在「ていく」中表示动作远离，或变化从现在继续向后发展。",
+          "connection": "动词て形＋いく；拨音便、浊音便后使用「でいく」。",
+          "examples": [
+            { "ja": "町の景色が変わっていく。", "zh": "城镇的景色逐渐变化。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:yuku-component",
+      "headword": "ゆく",
+      "reading": "ゆく",
+      "pronunciation": "ゆく",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:yuku-component:direction",
+          "subtype": "助動詞",
+          "title": "远离与持续发展",
+          "meaning": "在「てゆく」中表示动作远离或状态继续发展，形式较具书面色彩。",
+          "connection": "动词て形＋ゆく。",
+          "examples": [
+            { "ja": "思い出は残ってゆく。", "zh": "回忆会留存下去。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:kuru-component",
+      "headword": "くる",
+      "reading": "くる",
+      "pronunciation": "くる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:kuru-component:direction",
+          "subtype": "助動詞",
+          "title": "趋近与变化显现",
+          "meaning": "在「てくる」中表示动作趋近参照点，或变化持续到现在并逐渐显现。",
+          "connection": "动词て形＋くる；拨音便、浊音便后使用「でくる」。",
+          "examples": [
+            { "ja": "雨が強くなってきた。", "zh": "雨势渐渐大了起来。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:miru-component",
+      "headword": "みる",
+      "reading": "みる",
+      "pronunciation": "みる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:miru-component:attempt",
+          "subtype": "助動詞",
+          "title": "尝试",
+          "meaning": "在「てみる」中表示尝试进行前项动作，以观察结果。",
+          "connection": "动词て形＋みる；拨音便、浊音便后使用「でみる」。",
+          "examples": [
+            { "ja": "別の方法を試してみる。", "zh": "试试别的方法。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:kudasaru-component",
+      "headword": "くださる",
+      "reading": "くださる",
+      "pronunciation": "くださる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:kudasaru-component:benefactive",
+          "subtype": "助動詞",
+          "title": "他人为我方做事（尊敬）",
+          "meaning": "在「てくださる」中表示说话人或我方得到他人的动作，并对动作主体表示敬意。",
+          "connection": "动词て形＋くださる；拨音便、浊音便后使用「でくださる」。",
+          "examples": [
+            { "ja": "先輩が手伝ってくださった。", "zh": "前辈帮了我。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:morau-component",
+      "headword": "もらう",
+      "reading": "もらう",
+      "pronunciation": "もらう",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:morau-component:benefactive",
+          "subtype": "助動詞",
+          "title": "得到他人帮助",
+          "meaning": "在「てもらう」中表示说话人或相关一方得到他人的动作，也可用于请求。",
+          "connection": "动词て形＋もらう；拨音便、浊音便后使用「でもらう」。",
+          "examples": [
+            { "ja": "同僚に確認してもらう。", "zh": "请同事帮忙确认。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:ageru-component",
+      "headword": "あげる",
+      "reading": "あげる",
+      "pronunciation": "あげる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:ageru-component:benefactive",
+          "subtype": "助動詞",
+          "title": "为他人做事",
+          "meaning": "在「てあげる」中表示说话人一方为他人完成前项动作。",
+          "connection": "动词て形＋あげる；拨音便、浊音便后使用「であげる」。",
+          "examples": [
+            { "ja": "道を教えてあげた。", "zh": "我给对方指了路。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:kureru-component",
+      "headword": "くれる",
+      "reading": "くれる",
+      "pronunciation": "くれる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:kureru-component:benefactive",
+          "subtype": "助動詞",
+          "title": "他人为我方做事",
+          "meaning": "在「てくれる」中表示他人为说话人或我方完成前项动作。",
+          "connection": "动词て形＋くれる；拨音便、浊音便后使用「でくれる」。",
+          "examples": [
+            { "ja": "家族が迎えに来てくれた。", "zh": "家人来接我了。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:yaru-component",
+      "headword": "やる",
+      "reading": "やる",
+      "pronunciation": "やる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:yaru-component:benefactive",
+          "subtype": "助動詞",
+          "title": "为对方做事",
+          "meaning": "在「てやる」中表示说话人一方为对方或关系较近的对象完成前项动作，语气可能较随便或强势。",
+          "connection": "动词て形＋やる；拨音便、浊音便后使用「でやる」。",
+          "examples": [
+            { "ja": "弟に宿題を教えてやった。", "zh": "我教弟弟做了作业。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:volitional-u",
+      "headword": "う",
+      "reading": "う",
+      "pronunciation": "う",
+      "variants": [
+        { "surface": "よう", "subtype": "助動詞", "note": "上一段、下一段及カ变、サ变动词使用「よう」" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:volitional-u:intention",
+          "subtype": "助動詞",
+          "title": "意志与提议",
+          "meaning": "接在动词未然形后表示说话人的意志或向对方提出建议。五段动词接「う」，其他动词通常接「よう」。",
+          "connection": "五段动词未然形＋う；一段动词、カ变、サ变动词未然形＋よう。",
+          "examples": [
+            { "ja": "明日は早く起きよう。", "zh": "明天早点起床吧。" },
+            { "ja": "一緒に帰ろう。", "zh": "一起回去吧。" }
+          ]
+        }
+      ]
+    }
+  ]
+}
