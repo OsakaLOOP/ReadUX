@@ -1,0 +1,179 @@
+{
+  "schema": "readux.grammar-auxiliaries.v1",
+  "version": 1,
+  "authorship": "ReadUX 人工编写",
+  "entries": [
+    {
+      "id": "auxiliary:da",
+      "headword": "だ",
+      "reading": "だ",
+      "pronunciation": "だ",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:da:assertion",
+          "subtype": "助動詞",
+          "title": "判断与断定",
+          "meaning": "接在名词等后面构成述语，表示判断或断定。随句法接续可呈现「だ、で、な、に」等形式；形容动词的相关词尾在不同语法体系中有不同的划分方式。",
+          "connection": "名词等＋だ；连体修饰常用「な」，连接后项时可用「で」。",
+          "examples": [
+            {
+              "ja": "今日は休みだ。",
+              "zh": "今天休息。"
+            },
+            {
+              "ja": "静かな部屋で本を読む。",
+              "zh": "在安静的房间里读书。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:ta",
+      "headword": "た",
+      "reading": "た",
+      "pronunciation": "た",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:ta:past",
+          "subtype": "助動詞",
+          "title": "过去与完成",
+          "meaning": "表示过去发生的动作、已经成立的状态或动作完成。接续形式随前项变化，部分动词使用「だ」。「読んだ」中的「だ」对应本词条。",
+          "connection": "动词连用形及音便形＋た／だ；イ形容词用「かった」，断定表达用「だった」。",
+          "examples": [
+            {
+              "ja": "昨日、本を読んだ。",
+              "zh": "昨天读了书。"
+            },
+            {
+              "ja": "準備が終わった。",
+              "zh": "准备结束了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:nai",
+      "headword": "ない",
+      "reading": "ない",
+      "pronunciation": "ない",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:nai:negative",
+          "subtype": "助動詞",
+          "title": "否定",
+          "meaning": "否定前项动作或状态。前接动词未然形；「ない」本身按形容词型活用，过去形式为「なかった」。",
+          "connection": "动词未然形＋ない；「する」接「しない」，「来る」接「こない」。",
+          "examples": [
+            {
+              "ja": "今日は出かけない。",
+              "zh": "今天不出门。"
+            },
+            {
+              "ja": "昨日は行かなかった。",
+              "zh": "昨天没有去。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:tai",
+      "headword": "たい",
+      "reading": "たい",
+      "pronunciation": "たい",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:tai:desire",
+          "subtype": "助動詞",
+          "title": "愿望",
+          "meaning": "表示想进行前项动作的愿望。陈述句通常表达说话人的愿望；询问时可用于听话人。「たい」按形容词型活用。",
+          "connection": "动词连用形＋たい；否定为「たくない」，过去为「たかった」。",
+          "examples": [
+            {
+              "ja": "熱いお茶を飲みたい。",
+              "zh": "想喝热茶。"
+            },
+            {
+              "ja": "何を食べたいですか。",
+              "zh": "想吃什么？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:masu",
+      "headword": "ます",
+      "reading": "ます",
+      "pronunciation": "ます",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:masu:polite",
+          "subtype": "助動詞",
+          "title": "礼貌表达",
+          "meaning": "使动词述语采用礼貌体，体现对听话人的礼貌。时态、否定等由「ます」的形式及后续成分共同表达，如「ました」「ません」。",
+          "connection": "动词连用形＋ます；过去为「ました」，否定为「ません」。",
+          "examples": [
+            {
+              "ja": "毎朝、本を読みます。",
+              "zh": "每天早晨读书。"
+            },
+            {
+              "ja": "昨日、駅まで歩きました。",
+              "zh": "昨天步行到了车站。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:te-iru",
+      "headword": "ている",
+      "reading": "ている",
+      "pronunciation": "ている",
+      "variants": [
+        { "surface": "でいる", "subtype": "助動詞", "note": "接在拨音便、浊音便后" }
+      ],
+      "senses": [
+        {
+          "id": "auxiliary:te-iru:aspect",
+          "subtype": "助動詞",
+          "title": "动作持续与结果状态",
+          "meaning": "接在动词て形后。根据动词含义表示动作正在进行，或动作完成后形成的状态。",
+          "connection": "动词て形＋いる；拨音便、浊音便后使用「でいる」。",
+          "examples": [
+            { "ja": "雨が降っている。", "zh": "正在下雨。" },
+            { "ja": "窓が開いている。", "zh": "窗户开着。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auxiliary:iru-aspect",
+      "headword": "いる",
+      "reading": "いる",
+      "pronunciation": "いる",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:iru-aspect:aspect",
+          "subtype": "助動詞",
+          "title": "ている结构中的补助用言",
+          "meaning": "在「动词て形＋いる」中接续前项，表示动作持续或动作结果形成的状态。此处的「いる」是补助用法，与表示人或动物存在的独立动词相区别。",
+          "connection": "动词て形＋いる；拨音便、浊音便后为「でいる」。",
+          "examples": [
+            { "ja": "庭で花を育てている。", "zh": "在庭院里种花。" },
+            { "ja": "窓が開いている。", "zh": "窗户开着。" }
+          ]
+        }
+      ]
+    }
+  ]
+}

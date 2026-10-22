@@ -1,0 +1,642 @@
+{
+  "schema": "readux.grammar-particles.v1",
+  "version": 1,
+  "authorship": "ReadUX 人工编写",
+  "entries": [
+    {
+      "id": "particle:ga",
+      "headword": "が",
+      "reading": "が",
+      "pronunciation": "が",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:ga:subject",
+          "subtype": "格助詞",
+          "title": "主体",
+          "meaning": "标记动作、状态或存在的主体。疑问句的回答常用「が」指出具体主体。",
+          "connection": "名词＋が",
+          "examples": [
+            {
+              "ja": "犬が走る。",
+              "zh": "狗在跑。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ga:object",
+          "subtype": "格助詞",
+          "title": "状态的对象",
+          "meaning": "在喜好、能力和感知等表达中，标记述语所涉及的对象。",
+          "connection": "名词＋が＋好きだ／分かる等",
+          "examples": [
+            {
+              "ja": "日本語が分かる。",
+              "zh": "懂日语。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:wo",
+      "headword": "を",
+      "reading": "を",
+      "pronunciation": "お",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:wo:object",
+          "subtype": "格助詞",
+          "title": "动作对象",
+          "meaning": "标记动作直接作用的对象。",
+          "connection": "名词＋を＋他动词",
+          "examples": [
+            {
+              "ja": "本を読む。",
+              "zh": "读书。"
+            }
+          ]
+        },
+        {
+          "id": "particle:wo:path",
+          "subtype": "格助詞",
+          "title": "经过范围",
+          "meaning": "标记移动经过的场所或范围。",
+          "connection": "场所名词＋を＋移动动词",
+          "examples": [
+            {
+              "ja": "公園を歩く。",
+              "zh": "在公园里走。"
+            }
+          ]
+        },
+        {
+          "id": "particle:wo:departure",
+          "subtype": "格助詞",
+          "title": "离开点",
+          "meaning": "标记离开的地点。",
+          "connection": "场所名词＋を＋出る／離れる等",
+          "examples": [
+            {
+              "ja": "家を出る。",
+              "zh": "出门。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:ha",
+      "headword": "は",
+      "reading": "は",
+      "pronunciation": "わ",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:ha:topic",
+          "subtype": "係助詞",
+          "title": "主题",
+          "meaning": "提出谈论的对象，后文对该对象作说明。「は」标记主题，句中另可出现用「が」标记的主体。",
+          "connection": "名词或名词性短语＋は；部分格助词＋は",
+          "examples": [
+            {
+              "ja": "私は本を読む。",
+              "zh": "我读书。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ha:contrast",
+          "subtype": "係助詞",
+          "title": "对比",
+          "meaning": "突出与其他对象或情况的对比，具体对比项可以省略。",
+          "connection": "被对比的成分＋は",
+          "examples": [
+            {
+              "ja": "今日は行かない。",
+              "zh": "今天不去。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:ni",
+      "headword": "に",
+      "reading": "に",
+      "pronunciation": "に",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:ni:destination",
+          "subtype": "格助詞",
+          "title": "着点与对象",
+          "meaning": "标记移动的着点、动作指向的对象或变化的结果。",
+          "connection": "名词＋に",
+          "examples": [
+            {
+              "ja": "駅に着く。",
+              "zh": "到达车站。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ni:existence",
+          "subtype": "格助詞",
+          "title": "存在地点",
+          "meaning": "标记人或事物所在的位置，常与「いる」「ある」等存在表达连用。",
+          "connection": "场所名词＋に＋存在表达",
+          "examples": [
+            {
+              "ja": "部屋に猫がいる。",
+              "zh": "房间里有只猫。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ni:time",
+          "subtype": "格助詞",
+          "title": "时间点",
+          "meaning": "标记动作发生的具体时间点。「今日」「毎朝」等时间词通常直接作状语。",
+          "connection": "具体时间＋に",
+          "examples": [
+            {
+              "ja": "七時に起きる。",
+              "zh": "七点起床。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ni:purpose",
+          "subtype": "格助詞",
+          "title": "目的",
+          "meaning": "标记往来动作的目的。",
+          "connection": "动词连用形或动作名词＋に＋移动动词",
+          "examples": [
+            {
+              "ja": "本を買いに行く。",
+              "zh": "去买书。"
+            }
+          ]
+        },
+        {
+          "id": "particle:ni:agent",
+          "subtype": "格助詞",
+          "title": "动作参与者",
+          "meaning": "在被动句、使役句等结构中标记施事或接受使役者；具体关系由述语形式决定。",
+          "connection": "名词＋に＋被动或使役表达",
+          "examples": [
+            {
+              "ja": "先生に褒められた。",
+              "zh": "得到了老师的表扬。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:no",
+      "headword": "の",
+      "reading": "の",
+      "pronunciation": "の",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:no:modifier",
+          "subtype": "格助詞",
+          "title": "名词修饰",
+          "meaning": "连接名词，表示所属、属性或其他限定关系。具体关系取决于两个名词的意义。",
+          "connection": "名词＋の＋名词",
+          "examples": [
+            {
+              "ja": "母の手帳を借りる。",
+              "zh": "借母亲的记事本。"
+            }
+          ]
+        },
+        {
+          "id": "particle:no:subject",
+          "subtype": "格助詞",
+          "title": "修饰句内的主体",
+          "meaning": "在部分连体修饰句中标记主体，与「が」有相近作用。",
+          "connection": "修饰句内的名词＋の＋述语＋被修饰名词",
+          "examples": [
+            {
+              "ja": "雨の降る日",
+              "zh": "下雨的日子"
+            }
+          ]
+        },
+        {
+          "id": "particle:no:nominal",
+          "subtype": "準体助詞",
+          "title": "名词化",
+          "meaning": "使前面的动作或状态表达作为名词性成分参与句子。",
+          "connection": "动词、形容词连体形＋の；名词、ナ形容词＋な＋の",
+          "examples": [
+            {
+              "ja": "読むのが好きです。",
+              "zh": "喜欢阅读。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:de",
+      "headword": "で",
+      "reading": "で",
+      "pronunciation": "で",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:de:place",
+          "subtype": "格助詞",
+          "title": "动作场所",
+          "meaning": "标记动作或事件发生的场所。存在地点通常使用「に」。",
+          "connection": "场所名词＋で＋动作表达",
+          "examples": [
+            {
+              "ja": "教室で勉強する。",
+              "zh": "在教室学习。"
+            }
+          ]
+        },
+        {
+          "id": "particle:de:means",
+          "subtype": "格助詞",
+          "title": "手段与材料",
+          "meaning": "标记使用的工具、交通方式、语言或材料。",
+          "connection": "名词＋で",
+          "examples": [
+            {
+              "ja": "電車で行く。",
+              "zh": "乘电车去。"
+            }
+          ]
+        },
+        {
+          "id": "particle:de:cause",
+          "subtype": "格助詞",
+          "title": "原因",
+          "meaning": "标记导致后项结果的原因或背景。",
+          "connection": "原因名词＋で",
+          "examples": [
+            {
+              "ja": "雨で試合が中止になった。",
+              "zh": "比赛因下雨而取消。"
+            }
+          ]
+        },
+        {
+          "id": "particle:de:scope",
+          "subtype": "格助詞",
+          "title": "范围与数量",
+          "meaning": "标记判断的范围、参与人数或完成所需的数量。",
+          "connection": "名词或数量表达＋で",
+          "examples": [
+            {
+              "ja": "一人で行く。",
+              "zh": "一个人去。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:te",
+      "headword": "て",
+      "reading": "て",
+      "pronunciation": "て",
+      "variants": [
+        {
+          "surface": "で",
+          "subtype": "接続助詞",
+          "note": "「て」的浊化形式；按动词接续规则使用。"
+        }
+      ],
+      "senses": [
+        {
+          "id": "particle:te:sequence",
+          "subtype": "接続助詞",
+          "title": "动作连接",
+          "meaning": "连接前后动作，可以表示先后顺序或并列。前项采用て接续形式，部分动词使用浊化的「で」。",
+          "connection": "动词て形／で形＋后项",
+          "examples": [
+            {
+              "ja": "本を読んで寝る。",
+              "zh": "读完书睡觉。"
+            }
+          ]
+        },
+        {
+          "id": "particle:te:cause",
+          "subtype": "接続助詞",
+          "title": "原因与状态",
+          "meaning": "连接原因、背景或伴随状态，具体关系结合前后项理解。",
+          "connection": "动词或イ形容词的て接续形式＋后项",
+          "examples": [
+            {
+              "ja": "雨が降って道がぬれた。",
+              "zh": "下雨了，道路变湿了。"
+            }
+          ]
+        },
+        {
+          "id": "particle:te:auxiliary",
+          "subtype": "接続助詞",
+          "title": "补助表达的连接",
+          "meaning": "连接前项动作与「いる」「みる」「おく」等补助用言。时态、体等意义由完整表达确定。",
+          "connection": "动词て形／で形＋补助用言",
+          "examples": [
+            {
+              "ja": "本を読んでいる。",
+              "zh": "正在读书。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:to",
+      "headword": "と",
+      "reading": "と",
+      "pronunciation": "と",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:to:partner",
+          "subtype": "格助詞",
+          "title": "共同参与者",
+          "meaning": "标记共同参与动作的人或相互关系中的另一方。",
+          "connection": "名词＋と",
+          "examples": [
+            {
+              "ja": "友達と話す。",
+              "zh": "和朋友交谈。"
+            }
+          ]
+        },
+        {
+          "id": "particle:to:list",
+          "subtype": "格助詞",
+          "title": "并列",
+          "meaning": "并列列举名词，通常呈现一个相对完整的组合。",
+          "connection": "名词＋と＋名词",
+          "examples": [
+            {
+              "ja": "パンと牛乳を買う。",
+              "zh": "买面包和牛奶。"
+            }
+          ]
+        },
+        {
+          "id": "particle:to:quote",
+          "subtype": "格助詞",
+          "title": "引用内容",
+          "meaning": "标记说、想等表达所引用的内容。引用内容可以是完整句子。",
+          "connection": "引用内容＋と＋言う／思う等",
+          "examples": [
+            {
+              "ja": "明日は休みだと思う。",
+              "zh": "我想明天休息。"
+            }
+          ]
+        },
+        {
+          "id": "particle:to:condition",
+          "subtype": "接続助詞",
+          "title": "条件",
+          "meaning": "表示前项成立时通常、自然或紧接着出现的结果。后项常描述事实、习惯或发现。",
+          "connection": "动词普通形、イ形容词普通形或「だ」＋と",
+          "examples": [
+            {
+              "ja": "春になると花が咲く。",
+              "zh": "到了春天花就开了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:dake",
+      "headword": "だけ",
+      "reading": "だけ",
+      "pronunciation": "だけ",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:dake:limit",
+          "subtype": "副助詞",
+          "title": "限定",
+          "meaning": "限定对象、数量或范围，相当于“只、仅”。「だけ」后的格助词可根据句法关系保留。",
+          "connection": "名词或普通形等＋だけ",
+          "examples": [
+            {
+              "ja": "水だけ飲む。",
+              "zh": "只喝水。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:made",
+      "headword": "まで",
+      "reading": "まで",
+      "pronunciation": "まで",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:made:endpoint",
+          "subtype": "副助詞",
+          "title": "终点",
+          "meaning": "标记时间、空间或顺序的终点，常与表示起点的「から」连用。",
+          "connection": "名词或普通形等＋まで",
+          "examples": [
+            {
+              "ja": "駅まで歩く。",
+              "zh": "步行到车站。"
+            }
+          ]
+        },
+        {
+          "id": "particle:made:extension",
+          "subtype": "副助詞",
+          "title": "扩展",
+          "meaning": "表示范围扩展到通常不预期的对象，相当于“连……也”。",
+          "connection": "名词等＋まで",
+          "examples": [
+            {
+              "ja": "子供まで知っている。",
+              "zh": "连孩子都知道。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:kara",
+      "headword": "から",
+      "reading": "から",
+      "pronunciation": "から",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:kara:origin",
+          "subtype": "格助詞",
+          "title": "起点",
+          "meaning": "标记空间、时间或顺序的起点。",
+          "connection": "名词＋から",
+          "examples": [
+            {
+              "ja": "朝から雨が降る。",
+              "zh": "从早晨起就下雨。"
+            }
+          ]
+        },
+        {
+          "id": "particle:kara:source",
+          "subtype": "格助詞",
+          "title": "来源",
+          "meaning": "标记信息、物品等的来源。",
+          "connection": "名词＋から",
+          "examples": [
+            {
+              "ja": "友達から手紙が来た。",
+              "zh": "朋友寄来了信。"
+            }
+          ]
+        },
+        {
+          "id": "particle:kara:reason",
+          "subtype": "接続助詞",
+          "title": "理由",
+          "meaning": "以前项作为后项的理由，常用于说明说话人的判断或决定。",
+          "connection": "用言终止形或「だ／です」＋から",
+          "examples": [
+            {
+              "ja": "寒いから窓を閉める。",
+              "zh": "因为冷，所以关窗。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:mo",
+      "headword": "も",
+      "reading": "も",
+      "pronunciation": "も",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:mo:addition",
+          "subtype": "係助詞",
+          "title": "追加",
+          "meaning": "在已有或可推知的对象之外追加同类对象，相当于“也”。",
+          "connection": "名词等＋も；部分格助词＋も",
+          "examples": [
+            {
+              "ja": "私も読む。",
+              "zh": "我也读。"
+            }
+          ]
+        },
+        {
+          "id": "particle:mo:emphasis",
+          "subtype": "係助詞",
+          "title": "强调",
+          "meaning": "强调数量之大或对象的出乎预期；与疑问词、否定等组合时具有相应的范围意义。",
+          "connection": "数量、名词或疑问词等＋も",
+          "examples": [
+            {
+              "ja": "一時間も待った。",
+              "zh": "等了足足一个小时。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:ka",
+      "headword": "か",
+      "reading": "か",
+      "pronunciation": "か",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:ka:question",
+          "subtype": "終助詞",
+          "title": "疑问",
+          "meaning": "置于句末表达疑问。普通体疑问的自然程度和语气取决于会话关系与句型。",
+          "connection": "句末＋か",
+          "examples": [
+            {
+              "ja": "本を読みますか。",
+              "zh": "您读书吗？"
+            }
+          ]
+        },
+        {
+          "id": "particle:ka:choice",
+          "subtype": "副助詞",
+          "title": "选择与不确定",
+          "meaning": "连接可选项，或与疑问词组合表示不确定的对象。",
+          "connection": "选项＋か；疑问词＋か",
+          "examples": [
+            {
+              "ja": "何か飲みますか。",
+              "zh": "要喝点什么吗？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:ne",
+      "headword": "ね",
+      "reading": "ね",
+      "pronunciation": "ね",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:ne:confirmation",
+          "subtype": "終助詞",
+          "title": "确认与共感",
+          "meaning": "寻求对方认同，或表示对共享信息的共感。具体语气随语境和语调变化。",
+          "connection": "句末＋ね",
+          "examples": [
+            {
+              "ja": "今日は暑いね。",
+              "zh": "今天真热啊。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "particle:yo",
+      "headword": "よ",
+      "reading": "よ",
+      "pronunciation": "よ",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:yo:information",
+          "subtype": "終助詞",
+          "title": "提示",
+          "meaning": "向对方提供信息、提醒或表达主张。语气强弱受语调和句型影响。",
+          "connection": "句末＋よ",
+          "examples": [
+            {
+              "ja": "明日は休みですよ。",
+              "zh": "明天休息哦。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
