@@ -209,7 +209,7 @@ export function operatorPrototypeForm(
 ): string {
   if (operator.normalized_form) return operator.normalized_form;
   const token = morphemes && operator.source_morpheme_range ? morphemes[operator.source_morpheme_range[0]] : undefined;
-  return configuredPrototype(operator.kind, token) || token?.lemma || grammaticalLabel(operator.label) || "活用";
+  return configuredPrototype(operator.kind, token) || token?.surface || grammaticalLabel(operator.label) || "活用";
 }
 
 // 兼容已有导出的别名
@@ -322,7 +322,9 @@ function buildChainStepMap(
       : "";
 
     // 起点承接上一步实际显示的结果，包括该步骤已经完成的缩略。
-    const input = currentForm;
+    const coreInflection = Boolean(op.char_range && root.anchor_range
+      && op.char_range[0] === root.anchor_range[0] && op.char_range[1] <= root.anchor_range[1]);
+    const input = coreInflection ? rootLemma : currentForm;
 
     // 当前算子的现实原型形式（以该算子的现实原型结束，如 読まない、読み始める、読んでおく）
     const stepPrototype = combinePrototype(precedingSlice || coreBase, prototypeForm);
@@ -330,6 +332,7 @@ function buildChainStepMap(
     // 终点：后续还有算子时以原型结束；末尾算子输出当前实际完整呈现形式
     const isLast = i === nonInflectionOperators.length - 1;
     let output = isLast ? (currentSlice || stepPrototype) : stepPrototype;
+    if (coreInflection && currentSlice) output = currentSlice;
     const enclosing = nonInflectionOperators.find(({ op: other }) => other.char_range && op.char_range
       && other.char_range[0] < op.char_range[0] && op.char_range[1] <= other.char_range[1]);
     if (enclosing?.op.char_range) output = characters.slice(rootStart, enclosing.op.char_range[1]).join("");
