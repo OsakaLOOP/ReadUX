@@ -539,13 +539,14 @@ export function readerChains(
       const synthetic = syntheticConjugationStep(chain, targetEnd, document, operators);
       return [
         ...(synthetic ? [synthetic] : []),
-        ...operators.map((operator) => {
+        ...operators.flatMap((operator) => {
           const step = resolveOperatorStep(chain, operator, document, document.morphology?.chains ?? []);
-          return {
+          if (morphologyPresentation.inflections.includes(operator.kind) && step.input === step.output) return [];
+          return [{
             label: step.conceptTitle,
             description: step.description,
             normalizedForm: step.normalizedForm ?? undefined,
-          };
+          }];
         }),
       ];
     })(),
@@ -600,7 +601,7 @@ export function readerMorphologyHits(
   const conjugations = (document.morphology?.chains ?? []).flatMap((chain) => {
     const target = targetForChain(chain.chain_id);
     const chainRange = chain.char_range ?? chain.anchor_range;
-    if (!target || !chainRange || chain.surface_form === (chain.lemma_form || chain.dictionary_form)) return [];
+    if (!target || !chainRange) return [];
     const synthetic = syntheticConjugationStep(chain, chainRange[1], document, chain.operators ?? []);
     const firstOperator = (chain.operators ?? [])[0];
     const syntheticRange: [number, number] = [chainRange[0], firstOperator?.char_range ? firstOperator.char_range[0] : chainRange[0]];
@@ -617,9 +618,10 @@ export function readerMorphologyHits(
       },
     }] : [];
     const operatorHits = (chain.operators ?? []).filter((operator) => operator.kind === "conjugation" && operator.char_range && operator.char_range[0] < operator.char_range[1])
-      .map((operator) => {
+      .flatMap((operator) => {
         const step = resolveOperatorStep(chain, operator, document, document.morphology?.chains ?? []);
-        return {
+        if (step.input === step.output) return [];
+        return [{
           range: operator.char_range,
           targetId: target.id,
           detail: {
@@ -630,7 +632,7 @@ export function readerMorphologyHits(
             tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
             candidates: [],
           },
-        };
+        }];
       });
     return [...syntheticHits, ...operatorHits];
   });
