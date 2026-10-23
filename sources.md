@@ -26,6 +26,42 @@
 | [词典协议备份](docs_backup/dictionary_lookup_and_bubble_refactor.md)与[解释交互备份](docs_backup/explanation_targets_and_dictionary_ui.md) | 表记矩阵、正文模型及解释会话的功能参照 |
 | [语法模块备份](docs_backup/grammar_morphology_and_functional_pipeline.md) | 活用所有权、知识目录和精确讲解的功能参照 |
 
+## 产品路线讨论来源（2026-10-24）
+
+| 来源 | 采用内容 |
+| --- | --- |
+| [市场与产品策略原稿](</D:/Downloads/market_and_product_strategy.md>)，更新于 2026-10-23 | 通读全文，包括用户流程、产品形态、输入输出桥接及语法指南专项评价。原稿关于社区规模、竞品体积和质量比例沿用其调研口径，本次讨论重点为产品路线与架构。建议见 [Web 产品路线](docs/web_product_strategy.md)。 |
+| [空间实测](docs/static_storage_measurement.md)、[现有总体架构](docs/architecture.md)、[云端 SaaS 方案](docs/cloud_saas_roadmap.md)、[宿主请求入口](src/services/reader.ts) | 核对静态阅读产物、生成与读取职责、GPU 部署阶段，以及正式书籍阅读器的 Tauri 依赖。新路线属于讨论建议。 |
+| 原稿引用的[沉浸式外语习得／间隔重复知识库](https://my.feishu.cn/wiki/YeOSwsG7giLuQxkcDFscUXVZn2f)及[JarrettYe 主页](https://www.zhihu.com/people/JarrettYe/) | 原稿中的社群背景链接，登记供后续市场核查；本次产品容量与架构判断依据本机资源测量和代码。 |
+
+### 策略原稿完整标题索引
+
+- 市面同类产品调研、用户群体画像与 ReadUX 形态策略分析
+  - 1. 市面主流产品形态与核心用户群体调研
+    - 1.1 海外与全球主流标准：Yomitan + Anki 工具链
+    - 1.2 国内沉浸式与间隔重复领军社群：Jarrett Ye（叶峻峣 / Thoughts Memo）
+    - 1.3 现代开源阅读应用代表：Hoshi Reader 与 Fushi
+      - （1）Hoshi Reader
+      - （2）Fushi（hajisensai/Fushi / fushi.moe）
+  - 2. ReadUX 与市面产品的核心形态与技术指标对比
+    - 2.1 全维度横向对比表
+    - 2.2 ReadUX 解决的三大核心痛点（为什么 Yomitan 模式不够用）
+  - 3. 核心战略抉择：作为插件/外挂整合分发 vs. 独立应用工作
+    - 3.1 方案对比评估
+      - 路线 A：纯插件 / 外挂模式（如做成浏览器插件，或 Yomitan / ッツ Reader / Hoshi 的外挂后端）
+      - 路线 B：纯封闭独立桌面应用（与现有 Anki / ッツ 生态完全隔离）
+    - 3.2 推荐策略：“独立核心桌面端 + 生态桥接协议（Dual-Track 架构）”
+      - 1. 主体形态：坚持独立桌面应用（ReadUX Desktop），打造不可替代的“胶囊阅读与语法实验室”
+      - 2. 向下兼容外挂（输出桥接）：原生打通 AnkiConnect 一键导出（融入 Yomitan + Anki 生态）
+      - 3. 向上轻量外挂（输入桥接）：提供“剪贴板监听 / 浏览器正文一键投送（Send to ReadUX）”
+  - 4. 面向核心种子用户的验证与推广建议
+  - 5. 《日文语法指南》模块核查与专项评价
+    - 5.1 对您描述的核实结论：完全属实，且底层工程闭环度极高
+    - 5.2 对《日文语法指南》的内容与产品价值评价
+      - 1. 教学法与语言学视角：罕见的“专为中文母语者重构的现代日语认知框架”
+      - 2. 交互体验视角：“双向锚定 + 零配置沙盒”是绝佳的产品转化漏斗
+      - 3. 少量可进一步打磨的细节建议（吹毛求疵）
+
 ## 语法指南展示设计来源（2026-10-21）
 
 本轮范围为原稿展示、胶囊 JSON 预生成及后台审阅、修改和加载。现有词典、活用链与来源标签用于生成阶段，前台使用固定内容。设计见 [展示模块](docs/grammar_guide_display.md)及 [1.1 内容规格](docs/grammar_guide_1_1.md)。
