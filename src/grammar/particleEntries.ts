@@ -98,7 +98,10 @@ export function particleLookup(request: DictionaryLookupRequest, lemma = request
 export function grammarMorphemeLookup(morpheme: MorphemeToken, document?: UnifiedDocument): DictionaryLookup | null {
   const combined = document && politeNegativeLookup(document, morpheme.char_range);
   if (combined) return combined;
-  if (morpheme.pos[0] === "動詞" && morpheme.pos[1] === "非自立可能" && morpheme.lemma === "居る") {
+  const aspectualIru = document?.morphology.chains.some((chain) => chain.role === "functional"
+    && chain.operators.some((operator) => ["te_iru", "contracted_te_iru"].includes(operator.kind)
+      && operator.char_range[0] <= morpheme.char_range[0] && morpheme.char_range[1] <= operator.char_range[1]));
+  if (aspectualIru && morpheme.pos[0] === "動詞" && morpheme.lemma === "居る") {
     return particleLookup({ word: "いる", observedForm: morpheme.surface, reading: morpheme.reading ?? undefined,
       pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
     }, "いる");
@@ -138,7 +141,7 @@ function teConstructionLookups(document: UnifiedDocument, selectedRange: [number
     item.char_range[0] === range[0] && item.char_range[1] === range[1])).filter((item): item is MorphemeToken => Boolean(item));
   const selected = selectedMorpheme(parts, selectedRange);
   const component = selected && ["て", "で"].includes(selected.surface)
-    ? grammarMorphemeLookup(selected)
+    ? grammarMorphemeLookup(selected, document)
     : particleLookup({ word: construction.component, observedForm: selected?.surface ?? construction.component,
       reading: selected?.reading ?? undefined,
       pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
@@ -202,7 +205,7 @@ export function chainGrammarLookups(
 
   const selected = document.morphemes.find((item) => selectedRange[0] <= item.char_range[0]
     && item.char_range[1] <= selectedRange[1]);
-  const lookup = selected ? grammarMorphemeLookup(selected) : null;
+  const lookup = selected ? grammarMorphemeLookup(selected, document) : null;
   if (lookup) return [lookup];
 
   const capsuleRange = readerCapsuleRanges([target], document)[0]?.range ?? target.char_range;
