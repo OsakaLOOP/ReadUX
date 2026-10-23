@@ -1,9 +1,9 @@
-import resource from "../../configs/grammar/particles.json";
-import auxiliaries from "../../configs/grammar/auxiliaries.json";
-import teConstructions from "../../configs/grammar/teConstructions.json";
+import resource from "../../configs/grammar/particles.json" with { type: "json" };
+import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
+import teConstructions from "../../configs/grammar/teConstructions.json" with { type: "json" };
 import type { DictEntry, DictionaryLookup, DictionaryLookupRequest, DictionarySense, PosTag } from "../types";
 import type { MorphemeToken, UnifiedDocument } from "../types/nlp";
-import { readerCapsuleRanges } from "../reader/lookupPresentation";
+import { readerCapsuleRanges } from "../reader/lookupPresentation.ts";
 
 type ParticleResource = {
   entries: {
@@ -39,6 +39,15 @@ const teConstructionsByKind: Record<string, { form: string; component: string }>
   te_naranai: { form: "てならない", component: "ならない" },
   te_yamanai: { form: "てやまない", component: "やまない" },
 };
+
+function politeNegativeLookup(document: UnifiedDocument, range: [number, number]): DictionaryLookup | null {
+  const occurrence = document.morphology.occurrences.find((item) => item.kind === "polite_negative"
+    && range[0] < item.char_range[1] && item.char_range[0] < range[1]);
+  if (!occurrence) return null;
+  return particleLookup({ word: "ません", observedForm: "ません", reading: "ません",
+    pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
+  }, "ません");
+}
 
 function makeSense(item: ParticleResource["entries"][number]["senses"][number]): DictionarySense {
   return {
@@ -86,7 +95,9 @@ export function particleLookup(request: DictionaryLookupRequest, lemma = request
   };
 }
 
-export function grammarMorphemeLookup(morpheme: MorphemeToken): DictionaryLookup | null {
+export function grammarMorphemeLookup(morpheme: MorphemeToken, document?: UnifiedDocument): DictionaryLookup | null {
+  const combined = document && politeNegativeLookup(document, morpheme.char_range);
+  if (combined) return combined;
   if (morpheme.pos[0] === "動詞" && morpheme.pos[1] === "非自立可能" && morpheme.lemma === "居る") {
     return particleLookup({ word: "いる", observedForm: morpheme.surface, reading: morpheme.reading ?? undefined,
       pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
@@ -180,6 +191,8 @@ export function chainGrammarLookups(
         .find((operator) => operator.operator_id === selection.detailId)?.char_range
     : undefined;
   const selectedRange = selection?.range ?? detailRange ?? target.char_range;
+  const politeNegative = politeNegativeLookup(document, selectedRange);
+  if (politeNegative) return [politeNegative];
   const teConstruction = teConstructionLookups(document, selectedRange, selection?.detailId);
   if (teConstruction) return teConstruction;
   const volitional = volitionalLookup(document, selectedRange, selection?.detailId);
@@ -195,7 +208,7 @@ export function chainGrammarLookups(
   const capsuleRange = readerCapsuleRanges([target], document)[0]?.range ?? target.char_range;
   const related = document.morphemes.filter((item) => capsuleRange[0] <= item.char_range[0]
     && item.char_range[1] <= capsuleRange[1] && selectedRange[0] <= item.char_range[0]
-    && item.char_range[1] <= selectedRange[1]).map(grammarMorphemeLookup)
+    && item.char_range[1] <= selectedRange[1]).map((item) => grammarMorphemeLookup(item, document))
     .find((item): item is DictionaryLookup => Boolean(item));
   return related ? [related] : [];
 }

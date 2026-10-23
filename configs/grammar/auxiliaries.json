@@ -4,6 +4,26 @@
   "authorship": "ReadUX 人工编写",
   "entries": [
     {
+      "id": "auxiliary:masen",
+      "headword": "ません",
+      "reading": "ません",
+      "pronunciation": "ません",
+      "variants": [],
+      "senses": [
+        {
+          "id": "auxiliary:masen:negative",
+          "subtype": "助動詞",
+          "title": "敬体否定",
+          "meaning": "礼貌地否定动作或状态，由「ます」的未然形「ませ」与否定助动词「ん」组成。「ん」是「ぬ」的撥音便形式，即「ぬ→ん」；「ぬ」源自文语否定助动词「ず」的连体形。过去否定使用「ませんでした」。",
+          "connection": "动词连用形＋ません，如「読む→読みません」「食べる→食べません」。",
+          "examples": [
+            {"ja": "今日は出かけません。", "zh": "今天不出门。"},
+            {"ja": "時間がありません。", "zh": "没有时间。"}
+          ]
+        }
+      ]
+    },
+    {
       "id": "auxiliary:da",
       "headword": "だ",
       "reading": "だ",

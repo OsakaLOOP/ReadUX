@@ -6,6 +6,7 @@
 
 | 依据 | 对应内容 |
 | --- | --- |
+| 本机《三省堂Super大辞林3.1》「ぬ」词条（记录 159341）及[指南保存的词法来源](src/grammar-guide/lesson-1-1-analysis.json) | 2026-10-23 通过正式词典服务读取「ぬ」完整词条：现代否定「ぬ」源自文语「ず」的连体形，终止形、连体形在口语中常用「ん」，接「ます」时通常为「ません」。指南「ありません」的 UniDic 来源为「ませ」（助動詞-マス／未然形-一般）和「ん」（词元ず／助動詞-ヌ／終止形-撥音便），用于敬体否定的整体词条及音变解释。 |
 | [本机词典索引](data/dicts)、[GiNZA 适配器](scripts/nlp_adapters.py)与[GPU 模型入口](scripts/ginza_bert_engine.py) | 2026-10-16 核对「気合いが入っていたりとかしていない」「めいっぱい楽しもうね」的 UniDic 与两种 GiNZA 模型输出；三套词典均有「めいっぱい」到「目一杯」记录的显式别名。查询归属问题见[问题追踪](docs/lookup_issue_tracking.md)。 |
 | [活用链配置](configs/unidic-nlp/morphology.json)与[状态机](crates/readux-nlp/src/morphology_machine.rs) | 2026-10-16 使用本机 UniDic 人工句子核对逆接、原因、条件、义务及禁止结构的分词与活用；四类音便采用原始活用字段，融合形归为口语缩略。范围及维护约定见 [活用链配置指导](docs/morphology_configuration.md)。 |
 | [活用链配置](configs/unidic-nlp/morphology.json)与[活用验收](crates/readux-core/tests/p4_language.rs) | 2026-10-15 使用本机 UniDic 核对「ゆく」「たら／だら」「の／ん」「に／な／だ」的分词、活用字段与链归属；维护指导见 [活用链配置](docs/morphology_configuration.md)。 |

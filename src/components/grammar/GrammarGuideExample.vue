@@ -81,7 +81,7 @@ function particleFor(target: LookupTarget): DictionaryLookup | null {
   const morpheme = document?.morphemes.find((item) => ["助詞", "助動詞"].includes(item.pos[0] ?? "")
     && item.char_range[0] === target.char_range[0] && item.char_range[1] === target.char_range[1]);
   if (!morpheme) return null;
-  return grammarMorphemeLookup(morpheme);
+  return grammarMorphemeLookup(morpheme, document);
 }
 async function query(target: LookupTarget, selectedForm?: string) {
   const particle = particleFor(target);

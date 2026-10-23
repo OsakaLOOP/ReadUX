@@ -1,11 +1,21 @@
 {
   "operators": {
+    "polite_negative": {
+      "label": "敬体否定",
+      "title": "敬体否定",
+      "concept": "morphology.polarity.negative",
+      "prototype": "ません"
+    },
     "negative": {
       "label": "否定",
       "title": "否定形",
       "concept": "morphology.polarity.negative",
       "prototype": "ない",
       "variants": [
+        {
+          "token": {"equals": {"surface": ["ん"], "pos": ["助動詞"]}},
+          "form": "ん"
+        },
         {
           "token": {
             "equals": {
@@ -2052,6 +2062,15 @@
     }
   ],
   "sequences": [
+    {
+      "kind": "polite_negative",
+      "tokens": [
+        {"equals": {"pos": ["助動詞"], "ctype": ["助動詞-マス"], "surface": ["ませ"]}},
+        {"equals": {"pos": ["助動詞"], "ctype": ["助動詞-ヌ"], "surface": ["ん"]}}
+      ],
+      "forms": ["continuative"],
+      "categories": ["動詞", "助動詞"]
+    },
     {
       "kind": "darou_question",
       "tokens": [

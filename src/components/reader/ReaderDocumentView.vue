@@ -1508,7 +1508,7 @@ function openLookup(
 function builtinParticle(hit: TargetHit) {
   const morpheme = hit.unit.unit.document?.morphemes.find((item) =>
     hit.target.morpheme_ids.includes(item.id) && ["助詞", "助動詞"].includes(item.pos[0] ?? "") && item.surface === hit.target.surface);
-  return morpheme ? grammarMorphemeLookup(morpheme) : null;
+  return morpheme ? grammarMorphemeLookup(morpheme, hit.unit.unit.document ?? undefined) : null;
 }
 
 async function queryComponent(hit: TargetHit, selectedForm?: string) {

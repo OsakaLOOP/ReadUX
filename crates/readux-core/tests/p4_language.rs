@@ -15,7 +15,7 @@ fn modern_inflections_and_functional_ownership() {
     let service = AnalysisService::new(ResourcePaths::development(&root));
     for (text, surface, base, kinds) in [
         ("行かせられなかった。", "行かせられなかった", "行く", vec!["causative", "passive_potential", "negative", "past"]),
-        ("読みませんでした。", "読みませんでした", "読む", vec!["politeness_masu", "negative", "politeness_desu", "past"]),
+        ("読みませんでした。", "読みませんでした", "読む", vec!["polite_negative", "politeness_desu", "past"]),
         ("食べたかった。", "食べたかった", "食べる", vec!["desire", "past"]),
         ("来なかった。", "来なかった", "来る", vec!["negative", "past"]),
         ("成立した。", "成立した", "成立する", vec!["past"]),
