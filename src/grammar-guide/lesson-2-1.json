@@ -1,0 +1,4379 @@
+{
+  "lessonId": "grammar-2.1",
+  "title": "认识实词、虚词、助词",
+  "version": 4,
+  "status": "draft",
+  "sourceMarkdown": "### 2.1 认识实词、虚词、助词\n\n日语的句子是由大大小小的 **组成单元** 连接而成的。这些单元既作为词语有 **特定的含义**，又在句子的特定位置中扮演 **语法的身份**。当然, 这么讲可能有些过于抽象, 我只想简单强调作为语言的共性, 下面我们将深入这些方面, 讲解单元的分类与使用的规则.\n\n我将采取一个对汉语母语者来说最易懂的分类法, 大体上, 这些单元总可归为 **实词, 虚词和助词** 中的一类. \n\n其中, 实词和虚词都是 **词语性** 的, 也就是在统计意义上, 有 **确定的含义和指代对象的集合**. 在句子中, 他们因为其位置和与其他词语的关系, 根据语法规则决定了此处唯一表现出来的义项 [[或者, 涉及双关等修辞或诗歌表达, 则是少数几个高度相关的义项激活]]; 即便脱离句子单独拎出来, 义项也只是回到模糊, 而非消失, 其词义本身依然是 **独立可理解** 的. 实词包含名词、动词、形容词、副词等, 在句中可以 **独立充当成分** 甚至 **单独成句**. 汉语母语者需要注意, 虚词的「虚」并不在于其意义的抽象或者细微, 而在于句中 **虚词必须附属于实词, 为其「追加」或「改写」意义**, 在后面将会讲解, 虚词的词义就对应这里更改的部分: [[#3.1 黏着 实词与虚词的接续和组合变形]]. 一般, 虚词的意义属于抽象的状态或情态变化, 但不能因为一个词是形容词或者副词, 或者指代和描述抽象概念, 就认定他是虚词. \n\n实词和虚词最明显的区别在于, 实词常常具有一个写成汉字的核心, 可能会额外露出来一些平假名, 但其核心意义由汉字承载; 或者, 直接是一堆片假名组成的外来词. 而虚词, 则常规上完全写成平假名. 这个规律对 70% 以上的情况都成立, 出版物尤其遵守这个规则, 线下你可能会碰到一些非要把虚词写成汉字的嘉豪. 在句子中, 实词承担着出现的核心人物、对象、事件、地点、状态等信息, 虚词补充了句子的语法功能和联系. 了解了这一点, 你就可以快速通过实词把握一句话中的核心结构和内容大意. \n\n[[虚词的来源和演变(大量虚词由一些抽象的实词演化而来, 并且改变了写法, 原本有汉字对应), 以及汉字/假名规则的例外]]\n\n而助词是标记性的, 大多数没有实际含义, 而且在句中 **不能独立存在**, **本身不描述具体的事物、动作或状态**, 在句中也不能独立存在.  在日语中, 助词插入或附着在一个位置, 也就确定了前面一个词甚至整个范围内, 在句子中的语法身份和功能, 让你扫一眼就能明白. 一般地, 助词也完全是平假名.\n\n传统上可能把助词和虚词统称为「附属语」, 与实词即「自立语」相对, 其唯一分类标准为能否独立成句. 但虚词和助词实际有很大不同, 因为虚词仍然有明确的语源, 且自身仍有可分析的概念含义,  负责「向内」补充和改造实词的状态（如『不』『想』『过去』）, 而助词是纯粹的结构标记, 负责「向外」搭建词语与句子之间的连接关系. \n\n此外, 感动词, 终助词, 篇章助词等辅助性的词汇兼有几个方面的特征, 暂不能很好地放入实虚助三分框架, 这些我们后续会从形态、功能、用法等方面进一步理解.\n\n同样的词, 作为实词和虚词出现时, 写法也会相应地不同.(いる等特殊例子规范始终写作假名)\n\n|        |                        |                              |\n| ------ | ---------------------- | ---------------------------- |\n| **訳**  | 遅刻の**訳**を聞く（听迟到的理由）    | 飲む**わけ**にはいかない / そういう**わけ**で |\n| **事**  | 大事な**事**を忘れた（忘了重要的事）   | 泳ぐ**こと**ができる / 行く**こと**にする   |\n| **物**  | 甘い**物**を食べる（吃甜食）       | 昔はよく遊んだ**もの**だ（表怀旧感叹的情态）     |\n| **所**  | 静かな**所**に住む（住在安静的地方）   | 今食べている**ところ**だ（表进行体的虚词）      |\n| **居る** | 部屋に**居る**（人在房间里，存在动词）  | 食べて**いる**（表持续体貌的虚词）          |\n| **見る** | 映画を**見る**（看电影，视觉动词）    | 食べて**みる**（表尝试体的虚词）           |\n| **付く** | 席に**着く** / 味がつく（附着，实词） | これ**について**（固化为复合助词）          |\n - 在 部屋にいる 中，UD 标注为 **VERB（实词动词）**。\n    \n- 在 食べている 中，UD 标注为 **AUX（虚词/助动词）**\n",
+  "placements": [
+    {
+      "group": "P01",
+      "title": "组成单元、含义和语法身份",
+      "exampleIds": [
+        "2.1-01",
+        "2.1-02",
+        "2.1-03"
+      ],
+      "layout": "list",
+      "items": [
+        {
+          "type": "example",
+          "id": "2.1-01"
+        },
+        {
+          "type": "example",
+          "id": "2.1-02"
+        },
+        {
+          "type": "explanation",
+          "id": "P01-explanation-word-order",
+          "text": "日语常以「主语—宾语—谓语」为基本语序，但格助词会标明名词短语与谓语的关系，因此语序可以调整来突出特定成分。两句中，犬仍由「が」标示为追赶者，猫仍由「を」标示为对象。"
+        },
+        {
+          "type": "example",
+          "id": "2.1-03"
+        },
+        {
+          "type": "explanation",
+          "id": "P01-explanation-no-connection",
+          "text": "「の」将「姉」与「傘」连接成整体「姉の傘」，这个名词短语再由「を」标示为借用对象。「の」表达的具体关系由语境确定。"
+        }
+      ],
+      "anchor": "日语的句子是由大大小小的 **组成单元** 连接而成的。这些单元既作为词语有 **特定的含义**，又在句子的特定位置中扮演 **语法的身份**。当然, 这么讲可能有些过于抽象, 我只想简单强调作为语言的共性, 下面我们将深入这些方面, 讲解单元的分类与使用的规则."
+    },
+    {
+      "group": "P02",
+      "title": "实词、虚词和助词",
+      "exampleIds": [
+        "2.1-04",
+        "2.1-05",
+        "2.1-06"
+      ],
+      "layout": "list",
+      "anchor": "我将采取一个对汉语母语者来说最易懂的分类法, 大体上, 这些单元总可归为 **实词, 虚词和助词** 中的一类. "
+    },
+    {
+      "group": "P03",
+      "title": "词义、独立性与虚词作用",
+      "exampleIds": [
+        "2.1-07",
+        "2.1-08",
+        "2.1-09",
+        "2.1-10",
+        "2.1-11",
+        "2.1-12",
+        "2.1-13",
+        "2.1-14",
+        "2.1-15",
+        "2.1-16",
+        "2.1-17",
+        "2.1-18"
+      ],
+      "layout": "list",
+      "anchor": "其中, 实词和虚词都是 **词语性** 的, 也就是在统计意义上, 有 **确定的含义和指代对象的集合**. 在句子中, 他们因为其位置和与其他词语的关系, 根据语法规则决定了此处唯一表现出来的义项 [[或者, 涉及双关等修辞或诗歌表达, 则是少数几个高度相关的义项激活]]; 即便脱离句子单独拎出来, 义项也只是回到模糊, 而非消失, 其词义本身依然是 **独立可理解** 的. 实词包含名词、动词、形容词、副词等, 在句中可以 **独立充当成分** 甚至 **单独成句**. 汉语母语者需要注意, 虚词的「虚」并不在于其意义的抽象或者细微, 而在于句中 **虚词必须附属于实词, 为其「追加」或「改写」意义**, 在后面将会讲解, 虚词的词义就对应这里更改的部分: [[#3.1 黏着 实词与虚词的接续和组合变形]]. 一般, 虚词的意义属于抽象的状态或情态变化, 但不能因为一个词是形容词或者副词, 或者指代和描述抽象概念, 就认定他是虚词. "
+    },
+    {
+      "group": "P04",
+      "title": "书写形式与核心信息",
+      "exampleIds": [
+        "2.1-19",
+        "2.1-20",
+        "2.1-21",
+        "2.1-22",
+        "2.1-23"
+      ],
+      "layout": "list",
+      "anchor": "实词和虚词最明显的区别在于, 实词常常具有一个写成汉字的核心, 可能会额外露出来一些平假名, 但其核心意义由汉字承载; 或者, 直接是一堆片假名组成的外来词. 而虚词, 则常规上完全写成平假名. 这个规律对 70% 以上的情况都成立, 出版物尤其遵守这个规则, 线下你可能会碰到一些非要把虚词写成汉字的嘉豪. 在句子中, 实词承担着出现的核心人物、对象、事件、地点、状态等信息, 虚词补充了句子的语法功能和联系. 了解了这一点, 你就可以快速通过实词把握一句话中的核心结构和内容大意. "
+    },
+    {
+      "group": "P05",
+      "title": "实义与功能用法",
+      "exampleIds": [
+        "2.1-24",
+        "2.1-25",
+        "2.1-26",
+        "2.1-27",
+        "2.1-28",
+        "2.1-29"
+      ],
+      "layout": "list",
+      "anchor": "[[虚词的来源和演变(大量虚词由一些抽象的实词演化而来, 并且改变了写法, 原本有汉字对应), 以及汉字/假名规则的例外]]"
+    },
+    {
+      "group": "P06",
+      "title": "助词的关系和作用范围",
+      "exampleIds": [
+        "2.1-30",
+        "2.1-31",
+        "2.1-32",
+        "2.1-33",
+        "2.1-34",
+        "2.1-35",
+        "2.1-36"
+      ],
+      "layout": "list",
+      "anchor": "而助词是标记性的, 大多数没有实际含义, 而且在句中 **不能独立存在**, **本身不描述具体的事物、动作或状态**, 在句中也不能独立存在.  在日语中, 助词插入或附着在一个位置, 也就确定了前面一个词甚至整个范围内, 在句子中的语法身份和功能, 让你扫一眼就能明白. 一般地, 助词也完全是平假名."
+    },
+    {
+      "group": "P07",
+      "title": "自立语与附属语",
+      "exampleIds": [
+        "2.1-37",
+        "2.1-38",
+        "2.1-39",
+        "2.1-40",
+        "2.1-41"
+      ],
+      "layout": "list",
+      "anchor": "传统上可能把助词和虚词统称为「附属语」, 与实词即「自立语」相对, 其唯一分类标准为能否独立成句. 但虚词和助词实际有很大不同, 因为虚词仍然有明确的语源, 且自身仍有可分析的概念含义,  负责「向内」补充和改造实词的状态（如『不』『想』『过去』）, 而助词是纯粹的结构标记, 负责「向外」搭建词语与句子之间的连接关系. "
+    },
+    {
+      "group": "P08",
+      "title": "其他辅助成分",
+      "exampleIds": [
+        "2.1-42",
+        "2.1-43",
+        "2.1-44",
+        "2.1-45",
+        "2.1-46",
+        "2.1-47"
+      ],
+      "layout": "list",
+      "anchor": "此外, 感动词, 终助词, 篇章助词等辅助性的词汇兼有几个方面的特征, 暂不能很好地放入实虚助三分框架, 这些我们后续会从形态、功能、用法等方面进一步理解."
+    },
+    {
+      "group": "P09",
+      "title": "同词的实义和功能用法",
+      "exampleIds": [
+        "2.1-48",
+        "2.1-49",
+        "2.1-50",
+        "2.1-51",
+        "2.1-52",
+        "2.1-53",
+        "2.1-54",
+        "2.1-55",
+        "2.1-56",
+        "2.1-57",
+        "2.1-58",
+        "2.1-59",
+        "2.1-60",
+        "2.1-61",
+        "2.1-62",
+        "2.1-63",
+        "2.1-64"
+      ],
+      "layout": "list",
+      "anchor": "|        |                        |                              |\n| ------ | ---------------------- | ---------------------------- |\n| **訳**  | 遅刻の**訳**を聞く（听迟到的理由）    | 飲む**わけ**にはいかない / そういう**わけ**で |\n| **事**  | 大事な**事**を忘れた（忘了重要的事）   | 泳ぐ**こと**ができる / 行く**こと**にする   |\n| **物**  | 甘い**物**を食べる（吃甜食）       | 昔はよく遊んだ**もの**だ（表怀旧感叹的情态）     |\n| **所**  | 静かな**所**に住む（住在安静的地方）   | 今食べている**ところ**だ（表进行体的虚词）      |\n| **居る** | 部屋に**居る**（人在房间里，存在动词）  | 食べて**いる**（表持续体貌的虚词）          |\n| **見る** | 映画を**見る**（看电影，视觉动词）    | 食べて**みる**（表尝试体的虚词）           |\n| **付く** | 席に**着く** / 味がつく（附着，实词） | これ**について**（固化为复合助词）          |"
+    },
+    {
+      "group": "P10",
+      "title": "いる的存在用法",
+      "exampleIds": [
+        "2.1-65",
+        "2.1-66",
+        "2.1-67"
+      ],
+      "layout": "list",
+      "anchor": " - 在 部屋にいる 中，UD 标注为 **VERB（实词动词）**。"
+    },
+    {
+      "group": "P11",
+      "title": "いる的补助用法",
+      "exampleIds": [
+        "2.1-68",
+        "2.1-69",
+        "2.1-70"
+      ],
+      "layout": "list",
+      "anchor": "- 在 食べている 中，UD 标注为 **AUX（虚词/助动词）**"
+    }
+  ],
+  "originalExamplesAnchor": "|        |                        |                              |\n| ------ | ---------------------- | ---------------------------- |\n| **訳**  | 遅刻の**訳**を聞く（听迟到的理由）    | 飲む**わけ**にはいかない / そういう**わけ**で |\n| **事**  | 大事な**事**を忘れた（忘了重要的事）   | 泳ぐ**こと**ができる / 行く**こと**にする   |\n| **物**  | 甘い**物**を食べる（吃甜食）       | 昔はよく遊んだ**もの**だ（表怀旧感叹的情态）     |\n| **所**  | 静かな**所**に住む（住在安静的地方）   | 今食べている**ところ**だ（表进行体的虚词）      |\n| **居る** | 部屋に**居る**（人在房间里，存在动词）  | 食べて**いる**（表持续体貌的虚词）          |\n| **見る** | 映画を**見る**（看电影，视觉动词）    | 食べて**みる**（表尝试体的虚词）           |\n| **付く** | 席に**着く** / 味がつく（附着，实词） | これ**について**（固化为复合助词）          |",
+  "originalExamples": [
+    {
+      "id": "O01",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "遅刻の訳を聞く",
+      "kana": "ちこくのわけをきく",
+      "zh": "询问迟到的理由。",
+      "focus": [
+        "訳"
+      ],
+      "note": "訳：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O01-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "O01-part-1",
+            "O01-part-2",
+            "O01-part-3",
+            "O01-part-4",
+            "O01-part-5"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O01-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "遅刻",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O01-part-1-detail"
+        },
+        {
+          "id": "O01-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "の",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O01-part-2-detail"
+        },
+        {
+          "id": "O01-part-3",
+          "range": [
+            3,
+            4
+          ],
+          "text": "訳",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": true,
+          "detailId": "O01-part-3-detail"
+        },
+        {
+          "id": "O01-part-4",
+          "range": [
+            4,
+            5
+          ],
+          "text": "を",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O01-part-4-detail"
+        },
+        {
+          "id": "O01-part-5",
+          "range": [
+            5,
+            7
+          ],
+          "text": "聞く",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O01-part-5-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O01-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "O01-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O01-part-1",
+            "O01-part-2",
+            "O01-part-3",
+            "O01-part-4",
+            "O01-part-5"
+          ]
+        },
+        {
+          "id": "O01-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O01-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O01-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O01-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O01-part-3",
+          "range": [
+            3,
+            4
+          ],
+          "detailId": "O01-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O01-part-4",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O01-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O01-part-5",
+          "range": [
+            5,
+            7
+          ],
+          "detailId": "O01-part-5-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O01-detail",
+        "label": "原稿例句",
+        "sourceLabel": "訳",
+        "teachingClass": "整句观察",
+        "note": "訳：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O01-part-1-detail": {
+          "id": "O01-part-1-detail",
+          "label": "遅刻",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O01-part-2-detail": {
+          "id": "O01-part-2-detail",
+          "label": "の",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "訳：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O01-part-3-detail": {
+          "id": "O01-part-3-detail",
+          "label": "訳",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O01-part-4-detail": {
+          "id": "O01-part-4-detail",
+          "label": "を",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "訳：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O01-part-5-detail": {
+          "id": "O01-part-5-detail",
+          "label": "聞く",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O02",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "飲むわけにはいかない",
+      "kana": "のむわけにはいかない",
+      "zh": "不能喝。",
+      "focus": [
+        "ない"
+      ],
+      "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+      "capsules": [
+        {
+          "id": "O02-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "O02-part-1",
+            "O02-part-2",
+            "O02-part-3",
+            "O02-part-4",
+            "O02-part-5",
+            "O02-part-6"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O02-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "飲む",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O02-part-1-detail"
+        },
+        {
+          "id": "O02-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "text": "わけ",
+          "teachingClass": "functional",
+          "classLabel": "形式名词",
+          "term": "形式名词",
+          "focus": false,
+          "detailId": "O02-part-2-detail"
+        },
+        {
+          "id": "O02-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O02-part-3-detail"
+        },
+        {
+          "id": "O02-part-4",
+          "range": [
+            5,
+            6
+          ],
+          "text": "は",
+          "teachingClass": "particle",
+          "classLabel": "系助词",
+          "term": "系助词",
+          "focus": false,
+          "detailId": "O02-part-4-detail"
+        },
+        {
+          "id": "O02-part-5",
+          "range": [
+            6,
+            8
+          ],
+          "text": "いか",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O02-part-5-detail"
+        },
+        {
+          "id": "O02-part-6",
+          "range": [
+            8,
+            10
+          ],
+          "text": "ない",
+          "teachingClass": "functional",
+          "classLabel": "否定助动词",
+          "term": "否定助动词",
+          "focus": true,
+          "detailId": "O02-part-6-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O02-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "O02-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O02-part-1",
+            "O02-part-2",
+            "O02-part-3",
+            "O02-part-4",
+            "O02-part-5",
+            "O02-part-6"
+          ]
+        },
+        {
+          "id": "O02-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O02-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O02-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "detailId": "O02-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O02-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O02-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O02-part-4",
+          "range": [
+            5,
+            6
+          ],
+          "detailId": "O02-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O02-part-5",
+          "range": [
+            6,
+            8
+          ],
+          "detailId": "O02-part-5-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O02-part-6",
+          "range": [
+            8,
+            10
+          ],
+          "detailId": "O02-part-6-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O02-detail",
+        "label": "原稿例句",
+        "sourceLabel": "訳",
+        "teachingClass": "整句观察",
+        "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+        "morphology": [
+          {
+            "form": "わけ",
+            "label": "形式名词",
+            "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。"
+          },
+          {
+            "form": "ない",
+            "label": "否定助动词",
+            "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O02-part-1-detail": {
+          "id": "O02-part-1-detail",
+          "label": "飲む",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        },
+        "O02-part-2-detail": {
+          "id": "O02-part-2-detail",
+          "label": "わけ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        },
+        "O02-part-3-detail": {
+          "id": "O02-part-3-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        },
+        "O02-part-4-detail": {
+          "id": "O02-part-4-detail",
+          "label": "は",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "系助词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        },
+        "O02-part-5-detail": {
+          "id": "O02-part-5-detail",
+          "label": "いか",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        },
+        "O02-part-6-detail": {
+          "id": "O02-part-6-detail",
+          "label": "ない",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "否定助动词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "わけ",
+          "label": "形式名词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。"
+        },
+        {
+          "form": "ない",
+          "label": "否定助动词",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。ない在本例用于否定。"
+        }
+      ]
+    },
+    {
+      "id": "O03",
+      "group": "原稿例",
+      "source": "訳",
+      "ja": "そういうわけで",
+      "kana": "そういうわけで",
+      "zh": "因此。",
+      "focus": [],
+      "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O03-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "O03-part-1",
+            "O03-part-2"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O03-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "text": "そういう",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O03-part-1-detail"
+        },
+        {
+          "id": "O03-part-2",
+          "range": [
+            4,
+            7
+          ],
+          "text": "わけで",
+          "teachingClass": "functional",
+          "classLabel": "形式名词接续表达",
+          "term": "形式名词接续表达",
+          "focus": false,
+          "detailId": "O03-part-2-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O03-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "O03-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O03-part-1",
+            "O03-part-2"
+          ]
+        },
+        {
+          "id": "O03-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "O03-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O03-part-2",
+          "range": [
+            4,
+            7
+          ],
+          "detailId": "O03-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O03-detail",
+        "label": "原稿例句",
+        "sourceLabel": "訳",
+        "teachingClass": "整句观察",
+        "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "わけで",
+            "label": "形式名词接续表达",
+            "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O03-part-1-detail": {
+          "id": "O03-part-1-detail",
+          "label": "そういう",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O03-part-2-detail": {
+          "id": "O03-part-2-detail",
+          "label": "わけで",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词接续表达",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "わけで",
+          "label": "形式名词接续表达",
+          "note": "訳：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O04",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "大事な事を忘れた",
+      "kana": "だいじなことをわすれた",
+      "zh": "忘了一件重要的事。",
+      "focus": [],
+      "note": "事：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O04-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "O04-part-1",
+            "O04-part-2",
+            "O04-part-3",
+            "O04-part-4"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O04-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "text": "大事な事",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O04-part-1-detail"
+        },
+        {
+          "id": "O04-part-2",
+          "range": [
+            4,
+            5
+          ],
+          "text": "を",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O04-part-2-detail"
+        },
+        {
+          "id": "O04-part-3",
+          "range": [
+            5,
+            7
+          ],
+          "text": "忘れ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O04-part-3-detail"
+        },
+        {
+          "id": "O04-part-4",
+          "range": [
+            7,
+            8
+          ],
+          "text": "た",
+          "teachingClass": "functional",
+          "classLabel": "过去助动词",
+          "term": "过去助动词",
+          "focus": false,
+          "detailId": "O04-part-4-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O04-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "O04-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O04-part-1",
+            "O04-part-2",
+            "O04-part-3",
+            "O04-part-4"
+          ]
+        },
+        {
+          "id": "O04-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "O04-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O04-part-2",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O04-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O04-part-3",
+          "range": [
+            5,
+            7
+          ],
+          "detailId": "O04-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O04-part-4",
+          "range": [
+            7,
+            8
+          ],
+          "detailId": "O04-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O04-detail",
+        "label": "原稿例句",
+        "sourceLabel": "事",
+        "teachingClass": "整句观察",
+        "note": "事：原稿中的例句；本处保留词汇意义。",
+        "morphology": [
+          {
+            "form": "た",
+            "label": "过去助动词",
+            "note": "事：原稿中的例句；本处保留词汇意义。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O04-part-1-detail": {
+          "id": "O04-part-1-detail",
+          "label": "大事な事",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O04-part-2-detail": {
+          "id": "O04-part-2-detail",
+          "label": "を",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "事：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O04-part-3-detail": {
+          "id": "O04-part-3-detail",
+          "label": "忘れ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O04-part-4-detail": {
+          "id": "O04-part-4-detail",
+          "label": "た",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "过去助动词",
+          "note": "事：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "た",
+          "label": "过去助动词",
+          "note": "事：原稿中的例句；本处保留词汇意义。"
+        }
+      ]
+    },
+    {
+      "id": "O05",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "泳ぐことができる",
+      "kana": "およぐことができる",
+      "zh": "会游泳。",
+      "focus": [],
+      "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O05-whole",
+          "range": [
+            0,
+            8
+          ],
+          "partIds": [
+            "O05-part-1",
+            "O05-part-2",
+            "O05-part-3",
+            "O05-part-4",
+            "O05-part-5"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O05-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "泳ぐ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O05-part-1-detail"
+        },
+        {
+          "id": "O05-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "text": "こと",
+          "teachingClass": "functional",
+          "classLabel": "形式名词",
+          "term": "形式名词",
+          "focus": false,
+          "detailId": "O05-part-2-detail"
+        },
+        {
+          "id": "O05-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "text": "が",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O05-part-3-detail"
+        },
+        {
+          "id": "O05-part-4",
+          "range": [
+            5,
+            6
+          ],
+          "text": "で",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O05-part-4-detail"
+        },
+        {
+          "id": "O05-part-5",
+          "range": [
+            6,
+            8
+          ],
+          "text": "きる",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O05-part-5-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O05-target",
+          "range": [
+            0,
+            8
+          ],
+          "detailId": "O05-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O05-part-1",
+            "O05-part-2",
+            "O05-part-3",
+            "O05-part-4",
+            "O05-part-5"
+          ]
+        },
+        {
+          "id": "O05-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O05-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O05-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "detailId": "O05-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O05-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O05-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O05-part-4",
+          "range": [
+            5,
+            6
+          ],
+          "detailId": "O05-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O05-part-5",
+          "range": [
+            6,
+            8
+          ],
+          "detailId": "O05-part-5-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O05-detail",
+        "label": "原稿例句",
+        "sourceLabel": "事",
+        "teachingClass": "整句观察",
+        "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "こと",
+            "label": "形式名词",
+            "note": "事：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O05-part-1-detail": {
+          "id": "O05-part-1-detail",
+          "label": "泳ぐ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O05-part-2-detail": {
+          "id": "O05-part-2-detail",
+          "label": "こと",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O05-part-3-detail": {
+          "id": "O05-part-3-detail",
+          "label": "が",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O05-part-4-detail": {
+          "id": "O05-part-4-detail",
+          "label": "で",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O05-part-5-detail": {
+          "id": "O05-part-5-detail",
+          "label": "きる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "こと",
+          "label": "形式名词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O06",
+      "group": "原稿例",
+      "source": "事",
+      "ja": "行くことにする",
+      "kana": "いくことにする",
+      "zh": "决定去。",
+      "focus": [],
+      "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O06-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "O06-part-1",
+            "O06-part-2",
+            "O06-part-3",
+            "O06-part-4"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O06-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "行く",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O06-part-1-detail"
+        },
+        {
+          "id": "O06-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "text": "こと",
+          "teachingClass": "functional",
+          "classLabel": "形式名词",
+          "term": "形式名词",
+          "focus": false,
+          "detailId": "O06-part-2-detail"
+        },
+        {
+          "id": "O06-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O06-part-3-detail"
+        },
+        {
+          "id": "O06-part-4",
+          "range": [
+            5,
+            7
+          ],
+          "text": "する",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O06-part-4-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O06-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "O06-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O06-part-1",
+            "O06-part-2",
+            "O06-part-3",
+            "O06-part-4"
+          ]
+        },
+        {
+          "id": "O06-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O06-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O06-part-2",
+          "range": [
+            2,
+            4
+          ],
+          "detailId": "O06-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O06-part-3",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O06-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O06-part-4",
+          "range": [
+            5,
+            7
+          ],
+          "detailId": "O06-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O06-detail",
+        "label": "原稿例句",
+        "sourceLabel": "事",
+        "teachingClass": "整句观察",
+        "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "こと",
+            "label": "形式名词",
+            "note": "事：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O06-part-1-detail": {
+          "id": "O06-part-1-detail",
+          "label": "行く",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O06-part-2-detail": {
+          "id": "O06-part-2-detail",
+          "label": "こと",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O06-part-3-detail": {
+          "id": "O06-part-3-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O06-part-4-detail": {
+          "id": "O06-part-4-detail",
+          "label": "する",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "こと",
+          "label": "形式名词",
+          "note": "事：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O07",
+      "group": "原稿例",
+      "source": "物",
+      "ja": "甘い物を食べる",
+      "kana": "あまいものをたべる",
+      "zh": "吃甜食。",
+      "focus": [],
+      "note": "物：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O07-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "O07-part-1",
+            "O07-part-2",
+            "O07-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O07-part-1",
+          "range": [
+            0,
+            3
+          ],
+          "text": "甘い物",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O07-part-1-detail"
+        },
+        {
+          "id": "O07-part-2",
+          "range": [
+            3,
+            4
+          ],
+          "text": "を",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O07-part-2-detail"
+        },
+        {
+          "id": "O07-part-3",
+          "range": [
+            4,
+            7
+          ],
+          "text": "食べる",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O07-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O07-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "O07-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O07-part-1",
+            "O07-part-2",
+            "O07-part-3"
+          ]
+        },
+        {
+          "id": "O07-part-1",
+          "range": [
+            0,
+            3
+          ],
+          "detailId": "O07-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O07-part-2",
+          "range": [
+            3,
+            4
+          ],
+          "detailId": "O07-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O07-part-3",
+          "range": [
+            4,
+            7
+          ],
+          "detailId": "O07-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O07-detail",
+        "label": "原稿例句",
+        "sourceLabel": "物",
+        "teachingClass": "整句观察",
+        "note": "物：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O07-part-1-detail": {
+          "id": "O07-part-1-detail",
+          "label": "甘い物",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "物：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O07-part-2-detail": {
+          "id": "O07-part-2-detail",
+          "label": "を",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "物：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O07-part-3-detail": {
+          "id": "O07-part-3-detail",
+          "label": "食べる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "物：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O08",
+      "group": "原稿例",
+      "source": "物",
+      "ja": "昔はよく遊んだものだ",
+      "kana": "むかしはよくあそんだものだ",
+      "zh": "过去常常玩，真令人怀念。",
+      "focus": [],
+      "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O08-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "O08-part-1",
+            "O08-part-2",
+            "O08-part-3",
+            "O08-part-4",
+            "O08-part-5",
+            "O08-part-6",
+            "O08-part-7"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O08-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "text": "昔",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O08-part-1-detail"
+        },
+        {
+          "id": "O08-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "text": "は",
+          "teachingClass": "particle",
+          "classLabel": "系助词",
+          "term": "系助词",
+          "focus": false,
+          "detailId": "O08-part-2-detail"
+        },
+        {
+          "id": "O08-part-3",
+          "range": [
+            2,
+            3
+          ],
+          "text": "よ",
+          "teachingClass": "other",
+          "classLabel": "终助词",
+          "term": "终助词",
+          "focus": false,
+          "detailId": "O08-part-3-detail"
+        },
+        {
+          "id": "O08-part-4",
+          "range": [
+            3,
+            6
+          ],
+          "text": "く遊ん",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O08-part-4-detail"
+        },
+        {
+          "id": "O08-part-5",
+          "range": [
+            6,
+            7
+          ],
+          "text": "だ",
+          "teachingClass": "functional",
+          "classLabel": "过去助动词（浊音形式）",
+          "term": "过去助动词（浊音形式）",
+          "focus": false,
+          "detailId": "O08-part-5-detail"
+        },
+        {
+          "id": "O08-part-6",
+          "range": [
+            7,
+            9
+          ],
+          "text": "もの",
+          "teachingClass": "functional",
+          "classLabel": "形式名词",
+          "term": "形式名词",
+          "focus": false,
+          "detailId": "O08-part-6-detail"
+        },
+        {
+          "id": "O08-part-7",
+          "range": [
+            9,
+            10
+          ],
+          "text": "だ",
+          "teachingClass": "functional",
+          "classLabel": "判断／过去助动词",
+          "term": "判断／过去助动词",
+          "focus": false,
+          "detailId": "O08-part-7-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O08-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "O08-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O08-part-1",
+            "O08-part-2",
+            "O08-part-3",
+            "O08-part-4",
+            "O08-part-5",
+            "O08-part-6",
+            "O08-part-7"
+          ]
+        },
+        {
+          "id": "O08-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "detailId": "O08-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "detailId": "O08-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-3",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O08-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-4",
+          "range": [
+            3,
+            6
+          ],
+          "detailId": "O08-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-5",
+          "range": [
+            6,
+            7
+          ],
+          "detailId": "O08-part-5-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-6",
+          "range": [
+            7,
+            9
+          ],
+          "detailId": "O08-part-6-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O08-part-7",
+          "range": [
+            9,
+            10
+          ],
+          "detailId": "O08-part-7-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O08-detail",
+        "label": "原稿例句",
+        "sourceLabel": "物",
+        "teachingClass": "整句观察",
+        "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "だ",
+            "label": "过去助动词（浊音形式）",
+            "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+          },
+          {
+            "form": "もの",
+            "label": "形式名词",
+            "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+          },
+          {
+            "form": "だ",
+            "label": "判断／过去助动词",
+            "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O08-part-1-detail": {
+          "id": "O08-part-1-detail",
+          "label": "昔",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-2-detail": {
+          "id": "O08-part-2-detail",
+          "label": "は",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "系助词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-3-detail": {
+          "id": "O08-part-3-detail",
+          "label": "よ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "终助词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-4-detail": {
+          "id": "O08-part-4-detail",
+          "label": "く遊ん",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-5-detail": {
+          "id": "O08-part-5-detail",
+          "label": "だ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "过去助动词（浊音形式）",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-6-detail": {
+          "id": "O08-part-6-detail",
+          "label": "もの",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O08-part-7-detail": {
+          "id": "O08-part-7-detail",
+          "label": "だ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "判断／过去助动词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "だ",
+          "label": "过去助动词（浊音形式）",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+        },
+        {
+          "form": "もの",
+          "label": "形式名词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+        },
+        {
+          "form": "だ",
+          "label": "判断／过去助动词",
+          "note": "物：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O09",
+      "group": "原稿例",
+      "source": "所",
+      "ja": "静かな所に住む",
+      "kana": "しずかなところにすむ",
+      "zh": "住在安静的地方。",
+      "focus": [],
+      "note": "所：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O09-whole",
+          "range": [
+            0,
+            7
+          ],
+          "partIds": [
+            "O09-part-1",
+            "O09-part-2",
+            "O09-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O09-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "text": "静かな所",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O09-part-1-detail"
+        },
+        {
+          "id": "O09-part-2",
+          "range": [
+            4,
+            5
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O09-part-2-detail"
+        },
+        {
+          "id": "O09-part-3",
+          "range": [
+            5,
+            7
+          ],
+          "text": "住む",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O09-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O09-target",
+          "range": [
+            0,
+            7
+          ],
+          "detailId": "O09-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O09-part-1",
+            "O09-part-2",
+            "O09-part-3"
+          ]
+        },
+        {
+          "id": "O09-part-1",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "O09-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O09-part-2",
+          "range": [
+            4,
+            5
+          ],
+          "detailId": "O09-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O09-part-3",
+          "range": [
+            5,
+            7
+          ],
+          "detailId": "O09-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O09-detail",
+        "label": "原稿例句",
+        "sourceLabel": "所",
+        "teachingClass": "整句观察",
+        "note": "所：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O09-part-1-detail": {
+          "id": "O09-part-1-detail",
+          "label": "静かな所",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "所：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O09-part-2-detail": {
+          "id": "O09-part-2-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "所：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O09-part-3-detail": {
+          "id": "O09-part-3-detail",
+          "label": "住む",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "所：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O10",
+      "group": "原稿例",
+      "source": "所",
+      "ja": "今食べているところだ",
+      "kana": "いまたべているところだ",
+      "zh": "现在正在吃。",
+      "focus": [],
+      "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O10-whole",
+          "range": [
+            0,
+            10
+          ],
+          "partIds": [
+            "O10-part-1",
+            "O10-part-2",
+            "O10-part-3",
+            "O10-part-4",
+            "O10-part-5"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O10-part-1",
+          "range": [
+            0,
+            3
+          ],
+          "text": "今食べ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O10-part-1-detail"
+        },
+        {
+          "id": "O10-part-2",
+          "range": [
+            3,
+            4
+          ],
+          "text": "て",
+          "teachingClass": "particle",
+          "classLabel": "接续助词",
+          "term": "接续助词",
+          "focus": false,
+          "detailId": "O10-part-2-detail"
+        },
+        {
+          "id": "O10-part-3",
+          "range": [
+            4,
+            6
+          ],
+          "text": "いる",
+          "teachingClass": "functional",
+          "classLabel": "补助动词",
+          "term": "补助动词",
+          "focus": false,
+          "detailId": "O10-part-3-detail"
+        },
+        {
+          "id": "O10-part-4",
+          "range": [
+            6,
+            9
+          ],
+          "text": "ところ",
+          "teachingClass": "functional",
+          "classLabel": "形式名词",
+          "term": "形式名词",
+          "focus": false,
+          "detailId": "O10-part-4-detail"
+        },
+        {
+          "id": "O10-part-5",
+          "range": [
+            9,
+            10
+          ],
+          "text": "だ",
+          "teachingClass": "functional",
+          "classLabel": "判断／过去助动词",
+          "term": "判断／过去助动词",
+          "focus": false,
+          "detailId": "O10-part-5-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O10-target",
+          "range": [
+            0,
+            10
+          ],
+          "detailId": "O10-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O10-part-1",
+            "O10-part-2",
+            "O10-part-3",
+            "O10-part-4",
+            "O10-part-5"
+          ]
+        },
+        {
+          "id": "O10-part-1",
+          "range": [
+            0,
+            3
+          ],
+          "detailId": "O10-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O10-part-2",
+          "range": [
+            3,
+            4
+          ],
+          "detailId": "O10-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O10-part-3",
+          "range": [
+            4,
+            6
+          ],
+          "detailId": "O10-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O10-part-4",
+          "range": [
+            6,
+            9
+          ],
+          "detailId": "O10-part-4-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O10-part-5",
+          "range": [
+            9,
+            10
+          ],
+          "detailId": "O10-part-5-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O10-detail",
+        "label": "原稿例句",
+        "sourceLabel": "所",
+        "teachingClass": "整句观察",
+        "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "いる",
+            "label": "补助动词",
+            "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+          },
+          {
+            "form": "ところ",
+            "label": "形式名词",
+            "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+          },
+          {
+            "form": "だ",
+            "label": "判断／过去助动词",
+            "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O10-part-1-detail": {
+          "id": "O10-part-1-detail",
+          "label": "今食べ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O10-part-2-detail": {
+          "id": "O10-part-2-detail",
+          "label": "て",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "接续助词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O10-part-3-detail": {
+          "id": "O10-part-3-detail",
+          "label": "いる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "补助动词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O10-part-4-detail": {
+          "id": "O10-part-4-detail",
+          "label": "ところ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "形式名词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O10-part-5-detail": {
+          "id": "O10-part-5-detail",
+          "label": "だ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "判断／过去助动词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "いる",
+          "label": "补助动词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+        },
+        {
+          "form": "ところ",
+          "label": "形式名词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+        },
+        {
+          "form": "だ",
+          "label": "判断／过去助动词",
+          "note": "所：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O11",
+      "group": "原稿例",
+      "source": "居る",
+      "ja": "部屋に居る",
+      "kana": "へやにいる",
+      "zh": "在房间里。",
+      "focus": [
+        "居る"
+      ],
+      "note": "居る：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O11-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O11-part-1",
+            "O11-part-2",
+            "O11-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O11-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "部屋",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O11-part-1-detail"
+        },
+        {
+          "id": "O11-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O11-part-2-detail"
+        },
+        {
+          "id": "O11-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "居る",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": true,
+          "detailId": "O11-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O11-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O11-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O11-part-1",
+            "O11-part-2",
+            "O11-part-3"
+          ]
+        },
+        {
+          "id": "O11-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O11-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O11-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O11-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O11-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O11-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O11-detail",
+        "label": "原稿例句",
+        "sourceLabel": "居る",
+        "teachingClass": "整句观察",
+        "note": "居る：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O11-part-1-detail": {
+          "id": "O11-part-1-detail",
+          "label": "部屋",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "居る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O11-part-2-detail": {
+          "id": "O11-part-2-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "居る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O11-part-3-detail": {
+          "id": "O11-part-3-detail",
+          "label": "居る",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "居る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O12",
+      "group": "原稿例",
+      "source": "居る",
+      "ja": "食べている",
+      "kana": "たべている",
+      "zh": "正在吃。",
+      "focus": [],
+      "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O12-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O12-part-1",
+            "O12-part-2",
+            "O12-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O12-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "食べ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O12-part-1-detail"
+        },
+        {
+          "id": "O12-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "て",
+          "teachingClass": "particle",
+          "classLabel": "接续助词",
+          "term": "接续助词",
+          "focus": false,
+          "detailId": "O12-part-2-detail"
+        },
+        {
+          "id": "O12-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "いる",
+          "teachingClass": "functional",
+          "classLabel": "补助动词",
+          "term": "补助动词",
+          "focus": false,
+          "detailId": "O12-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O12-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O12-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O12-part-1",
+            "O12-part-2",
+            "O12-part-3"
+          ]
+        },
+        {
+          "id": "O12-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O12-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O12-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O12-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O12-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O12-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O12-detail",
+        "label": "原稿例句",
+        "sourceLabel": "居る",
+        "teachingClass": "整句观察",
+        "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "いる",
+            "label": "补助动词",
+            "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O12-part-1-detail": {
+          "id": "O12-part-1-detail",
+          "label": "食べ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O12-part-2-detail": {
+          "id": "O12-part-2-detail",
+          "label": "て",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "接续助词",
+          "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O12-part-3-detail": {
+          "id": "O12-part-3-detail",
+          "label": "いる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "补助动词",
+          "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "いる",
+          "label": "补助动词",
+          "note": "居る：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O13",
+      "group": "原稿例",
+      "source": "見る",
+      "ja": "映画を見る",
+      "kana": "えいがをみる",
+      "zh": "看电影。",
+      "focus": [
+        "見る"
+      ],
+      "note": "見る：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O13-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O13-part-1",
+            "O13-part-2",
+            "O13-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O13-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "映画",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O13-part-1-detail"
+        },
+        {
+          "id": "O13-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "を",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O13-part-2-detail"
+        },
+        {
+          "id": "O13-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "見る",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": true,
+          "detailId": "O13-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O13-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O13-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O13-part-1",
+            "O13-part-2",
+            "O13-part-3"
+          ]
+        },
+        {
+          "id": "O13-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O13-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O13-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O13-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O13-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O13-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O13-detail",
+        "label": "原稿例句",
+        "sourceLabel": "見る",
+        "teachingClass": "整句观察",
+        "note": "見る：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O13-part-1-detail": {
+          "id": "O13-part-1-detail",
+          "label": "映画",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "見る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O13-part-2-detail": {
+          "id": "O13-part-2-detail",
+          "label": "を",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "見る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O13-part-3-detail": {
+          "id": "O13-part-3-detail",
+          "label": "見る",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "見る：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O14",
+      "group": "原稿例",
+      "source": "見る",
+      "ja": "食べてみる",
+      "kana": "たべてみる",
+      "zh": "试着吃。",
+      "focus": [],
+      "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O14-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O14-part-1",
+            "O14-part-2",
+            "O14-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O14-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "食べ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O14-part-1-detail"
+        },
+        {
+          "id": "O14-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "て",
+          "teachingClass": "particle",
+          "classLabel": "接续助词",
+          "term": "接续助词",
+          "focus": false,
+          "detailId": "O14-part-2-detail"
+        },
+        {
+          "id": "O14-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "みる",
+          "teachingClass": "functional",
+          "classLabel": "补助动词",
+          "term": "补助动词",
+          "focus": false,
+          "detailId": "O14-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O14-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O14-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O14-part-1",
+            "O14-part-2",
+            "O14-part-3"
+          ]
+        },
+        {
+          "id": "O14-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O14-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O14-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O14-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O14-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O14-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O14-detail",
+        "label": "原稿例句",
+        "sourceLabel": "見る",
+        "teachingClass": "整句观察",
+        "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "みる",
+            "label": "补助动词",
+            "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O14-part-1-detail": {
+          "id": "O14-part-1-detail",
+          "label": "食べ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O14-part-2-detail": {
+          "id": "O14-part-2-detail",
+          "label": "て",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "接续助词",
+          "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O14-part-3-detail": {
+          "id": "O14-part-3-detail",
+          "label": "みる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "补助动词",
+          "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "みる",
+          "label": "补助动词",
+          "note": "見る：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    },
+    {
+      "id": "O15",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "席に着く",
+      "kana": "せきにつく",
+      "zh": "坐到座位上。",
+      "focus": [],
+      "note": "付く：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O15-whole",
+          "range": [
+            0,
+            4
+          ],
+          "partIds": [
+            "O15-part-1",
+            "O15-part-2",
+            "O15-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O15-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "text": "席",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O15-part-1-detail"
+        },
+        {
+          "id": "O15-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O15-part-2-detail"
+        },
+        {
+          "id": "O15-part-3",
+          "range": [
+            2,
+            4
+          ],
+          "text": "着く",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O15-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O15-target",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "O15-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O15-part-1",
+            "O15-part-2",
+            "O15-part-3"
+          ]
+        },
+        {
+          "id": "O15-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "detailId": "O15-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O15-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "detailId": "O15-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O15-part-3",
+          "range": [
+            2,
+            4
+          ],
+          "detailId": "O15-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O15-detail",
+        "label": "原稿例句",
+        "sourceLabel": "付く",
+        "teachingClass": "整句观察",
+        "note": "付く：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O15-part-1-detail": {
+          "id": "O15-part-1-detail",
+          "label": "席",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O15-part-2-detail": {
+          "id": "O15-part-2-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O15-part-3-detail": {
+          "id": "O15-part-3-detail",
+          "label": "着く",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O16",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "味がつく",
+      "kana": "あじがつく",
+      "zh": "汤有了味道。",
+      "focus": [],
+      "note": "付く：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O16-whole",
+          "range": [
+            0,
+            4
+          ],
+          "partIds": [
+            "O16-part-1",
+            "O16-part-2",
+            "O16-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O16-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "text": "味",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O16-part-1-detail"
+        },
+        {
+          "id": "O16-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "text": "が",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O16-part-2-detail"
+        },
+        {
+          "id": "O16-part-3",
+          "range": [
+            2,
+            4
+          ],
+          "text": "つく",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O16-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O16-target",
+          "range": [
+            0,
+            4
+          ],
+          "detailId": "O16-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O16-part-1",
+            "O16-part-2",
+            "O16-part-3"
+          ]
+        },
+        {
+          "id": "O16-part-1",
+          "range": [
+            0,
+            1
+          ],
+          "detailId": "O16-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O16-part-2",
+          "range": [
+            1,
+            2
+          ],
+          "detailId": "O16-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O16-part-3",
+          "range": [
+            2,
+            4
+          ],
+          "detailId": "O16-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O16-detail",
+        "label": "原稿例句",
+        "sourceLabel": "付く",
+        "teachingClass": "整句观察",
+        "note": "付く：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O16-part-1-detail": {
+          "id": "O16-part-1-detail",
+          "label": "味",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O16-part-2-detail": {
+          "id": "O16-part-2-detail",
+          "label": "が",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O16-part-3-detail": {
+          "id": "O16-part-3-detail",
+          "label": "つく",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O17",
+      "group": "原稿例",
+      "source": "付く",
+      "ja": "これについて",
+      "kana": "これについて",
+      "zh": "关于这个。",
+      "focus": [],
+      "note": "付く：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O17-whole",
+          "range": [
+            0,
+            6
+          ],
+          "partIds": [
+            "O17-part-1",
+            "O17-part-2"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O17-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "これ",
+          "teachingClass": "content",
+          "classLabel": "代词",
+          "term": "代词",
+          "focus": false,
+          "detailId": "O17-part-1-detail"
+        },
+        {
+          "id": "O17-part-2",
+          "range": [
+            2,
+            6
+          ],
+          "text": "について",
+          "teachingClass": "particle",
+          "classLabel": "复合助词",
+          "term": "复合助词",
+          "focus": false,
+          "detailId": "O17-part-2-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O17-target",
+          "range": [
+            0,
+            6
+          ],
+          "detailId": "O17-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O17-part-1",
+            "O17-part-2"
+          ]
+        },
+        {
+          "id": "O17-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O17-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O17-part-2",
+          "range": [
+            2,
+            6
+          ],
+          "detailId": "O17-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O17-detail",
+        "label": "原稿例句",
+        "sourceLabel": "付く",
+        "teachingClass": "整句观察",
+        "note": "付く：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O17-part-1-detail": {
+          "id": "O17-part-1-detail",
+          "label": "これ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "代词",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O17-part-2-detail": {
+          "id": "O17-part-2-detail",
+          "label": "について",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "复合助词",
+          "note": "付く：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O18",
+      "group": "原稿例",
+      "source": "UD 列表",
+      "ja": "部屋にいる",
+      "kana": "へやにいる",
+      "zh": "在房间里。",
+      "focus": [],
+      "note": "UD 列表：原稿中的例句；本处保留词汇意义。",
+      "capsules": [
+        {
+          "id": "O18-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O18-part-1",
+            "O18-part-2",
+            "O18-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O18-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "部屋",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O18-part-1-detail"
+        },
+        {
+          "id": "O18-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "に",
+          "teachingClass": "particle",
+          "classLabel": "格助词",
+          "term": "格助词",
+          "focus": false,
+          "detailId": "O18-part-2-detail"
+        },
+        {
+          "id": "O18-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "いる",
+          "teachingClass": "content",
+          "classLabel": "存在动词",
+          "term": "存在动词",
+          "focus": false,
+          "detailId": "O18-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O18-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O18-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O18-part-1",
+            "O18-part-2",
+            "O18-part-3"
+          ]
+        },
+        {
+          "id": "O18-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O18-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O18-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O18-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O18-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O18-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O18-detail",
+        "label": "原稿例句",
+        "sourceLabel": "UD 列表",
+        "teachingClass": "整句观察",
+        "note": "UD 列表：原稿中的例句；本处保留词汇意义。",
+        "morphology": [],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O18-part-1-detail": {
+          "id": "O18-part-1-detail",
+          "label": "部屋",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "UD 列表：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O18-part-2-detail": {
+          "id": "O18-part-2-detail",
+          "label": "に",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "格助词",
+          "note": "UD 列表：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        },
+        "O18-part-3-detail": {
+          "id": "O18-part-3-detail",
+          "label": "いる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "存在动词",
+          "note": "UD 列表：原稿中的例句；本处保留词汇意义。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": []
+    },
+    {
+      "id": "O19",
+      "group": "原稿例",
+      "source": "UD 列表",
+      "ja": "食べている",
+      "kana": "たべている",
+      "zh": "正在吃。",
+      "focus": [],
+      "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。",
+      "capsules": [
+        {
+          "id": "O19-whole",
+          "range": [
+            0,
+            5
+          ],
+          "partIds": [
+            "O19-part-1",
+            "O19-part-2",
+            "O19-part-3"
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "id": "O19-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "text": "食べ",
+          "teachingClass": "content",
+          "classLabel": "实词／词汇核心",
+          "term": "词汇成分",
+          "focus": false,
+          "detailId": "O19-part-1-detail"
+        },
+        {
+          "id": "O19-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "text": "て",
+          "teachingClass": "particle",
+          "classLabel": "接续助词",
+          "term": "接续助词",
+          "focus": false,
+          "detailId": "O19-part-2-detail"
+        },
+        {
+          "id": "O19-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "text": "いる",
+          "teachingClass": "functional",
+          "classLabel": "补助动词",
+          "term": "补助动词",
+          "focus": false,
+          "detailId": "O19-part-3-detail"
+        }
+      ],
+      "ruby": [],
+      "targets": [
+        {
+          "id": "O19-target",
+          "range": [
+            0,
+            5
+          ],
+          "detailId": "O19-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": [
+            "O19-part-1",
+            "O19-part-2",
+            "O19-part-3"
+          ]
+        },
+        {
+          "id": "O19-part-1",
+          "range": [
+            0,
+            2
+          ],
+          "detailId": "O19-part-1-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O19-part-2",
+          "range": [
+            2,
+            3
+          ],
+          "detailId": "O19-part-2-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        },
+        {
+          "id": "O19-part-3",
+          "range": [
+            3,
+            5
+          ],
+          "detailId": "O19-part-3-detail",
+          "defaultEntryId": null,
+          "entryIds": [],
+          "childTargetIds": []
+        }
+      ],
+      "detail": {
+        "id": "O19-detail",
+        "label": "原稿例句",
+        "sourceLabel": "UD 列表",
+        "teachingClass": "整句观察",
+        "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。",
+        "morphology": [
+          {
+            "form": "いる",
+            "label": "补助动词",
+            "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。"
+          }
+        ],
+        "dictionaryEntryIds": []
+      },
+      "details": {
+        "O19-part-1-detail": {
+          "id": "O19-part-1-detail",
+          "label": "食べ",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "实词／词汇核心",
+          "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O19-part-2-detail": {
+          "id": "O19-part-2-detail",
+          "label": "て",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "接续助词",
+          "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        },
+        "O19-part-3-detail": {
+          "id": "O19-part-3-detail",
+          "label": "いる",
+          "sourceLabel": "原稿对照表",
+          "teachingClass": "补助动词",
+          "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。",
+          "dictionaryEntryIds": []
+        }
+      },
+      "dictionaryStatus": "no-record",
+      "dictionaryEntries": [],
+      "morphology": [
+        {
+          "form": "いる",
+          "label": "补助动词",
+          "note": "UD 列表：原稿中的例句；本处按原稿说明标注功能用法。"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "2.1-01",
+      "group": "",
+      "ja": "犬が猫を追いかける。",
+      "kana": "",
+      "zh": "狗追猫(强调狗作为主动者)",
+      "note": "犬、猫：实词·名词；追いかける：实词·动词；が标示主动者，を标示动作对象。",
+      "focus": []
+    },
+    {
+      "id": "2.1-02",
+      "group": "",
+      "ja": "猫を犬が追いかける。",
+      "kana": "",
+      "zh": "狗追猫(强调狗追的对象是猫)",
+      "note": "与 01 构成角色对照：词汇意义相同，助词与名词的组合决定本句角色。 这说明日文中的格不是严格由SOV顺序决定,OSV下可以强调O",
+      "focus": []
+    },
+    {
+      "id": "2.1-03",
+      "group": "",
+      "ja": "姉の傘を借りる。",
+      "kana": "",
+      "zh": "借姐姐的伞。",
+      "note": "姉、傘、借りる各有词汇意义；の连接姉与傘，を标示借用对象。主语(我)可省略",
+      "focus": []
+    },
+    {
+      "id": "2.1-04",
+      "group": "",
+      "ja": "鳥が飛んだ。",
+      "kana": "",
+      "zh": "鸟飞了。",
+      "note": "鳥、飛ん：实词；が：助词；だ：虚词·过去助动词，基本形为た。飛ん对应飛ぶ。",
+      "focus": []
+    },
+    {
+      "id": "2.1-05",
+      "group": "",
+      "ja": "熱いお茶を飲みたい。",
+      "kana": "",
+      "zh": "想喝热茶。",
+      "note": "熱い、お茶、飲み：实词；を：助词；たい：虚词·愿望助动词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-06",
+      "group": "",
+      "ja": "弟はまだ起きていない。",
+      "kana": "",
+      "zh": "弟弟还没起床。",
+      "note": "弟、まだ、起き：实词；は、て：助词；い：虚词·补助动词いる；ない：虚词·否定助动词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-07",
+      "group": "",
+      "ja": "窓を開ける。",
+      "kana": "",
+      "zh": "打开窗户。",
+      "note": "開ける：实词·动词，本句表示打开有开合结构的物体。",
+      "focus": []
+    },
+    {
+      "id": "2.1-08",
+      "group": "",
+      "ja": "旅行のために三日間、予定を空ける。",
+      "kana": "",
+      "zh": "为了旅行，空出三天时间。",
+      "note": "空ける：实词·动词；与 07 同读「あける」，表记和本句意义不同。",
+      "focus": []
+    },
+    {
+      "id": "2.1-09",
+      "group": "",
+      "ja": "この歌は、遠く離れた人たちの心をつなぐ。",
+      "kana": "",
+      "zh": "这首歌联系着远隔两地的人们的心。",
+      "note": "つなぐ：实词·动词，本句采用抽象的“联系”义；适合查看词典中的具体义与抽象义。",
+      "focus": []
+    },
+    {
+      "id": "2.1-10",
+      "group": "",
+      "ja": "雨。",
+      "kana": "",
+      "zh": "下雨了。",
+      "note": "场景：走到门口，看见外面下雨。雨为实词·名词，可在该语境中形成简短话语。",
+      "focus": []
+    },
+    {
+      "id": "2.1-11",
+      "group": "",
+      "ja": "急げ！",
+      "kana": "",
+      "zh": "快点！",
+      "note": "急ぐ的命令形；整个词构成命令句，显示基本形与命令形。",
+      "focus": []
+    },
+    {
+      "id": "2.1-12",
+      "group": "",
+      "ja": "おいしかった！",
+      "kana": "",
+      "zh": "真好吃！",
+      "note": "おいしい：实词·い形容词，独立表达评价。",
+      "focus": []
+    },
+    {
+      "id": "2.1-13",
+      "group": "",
+      "ja": "子供たちは希望を持っている。",
+      "kana": "",
+      "zh": "孩子们怀有希望。",
+      "note": "希望：实词·抽象名词；持っている另显示词汇核心与功能成分。",
+      "focus": []
+    },
+    {
+      "id": "2.1-14",
+      "group": "",
+      "ja": "赤ちゃんが眠っているので、そっとドアを閉める。",
+      "kana": "",
+      "zh": "宝宝睡着了，轻轻地关上门。",
+      "note": "そっと：实词·副词，修饰閉める，表达动作方式。",
+      "focus": []
+    },
+    {
+      "id": "2.1-15",
+      "group": "",
+      "ja": "この道はとても狭い。",
+      "kana": "",
+      "zh": "这条路非常窄。",
+      "note": "とても：实词·程度副词；狭い：实词·い形容词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-16",
+      "group": "",
+      "ja": "京都に行きたい。",
+      "kana": "",
+      "zh": "想去京都。",
+      "note": "行き：实词，基本形行く；たい：虚词，为动作增加愿望意义。",
+      "focus": []
+    },
+    {
+      "id": "2.1-17",
+      "group": "",
+      "ja": "今夜は出かけない。",
+      "kana": "",
+      "zh": "今晚不出门。",
+      "note": "出かけ：实词，基本形出かける；ない：虚词，为动作增加否定意义。",
+      "focus": []
+    },
+    {
+      "id": "2.1-18",
+      "group": "",
+      "ja": "この紙を半分に折ってみる。",
+      "kana": "",
+      "zh": "试着将这张纸对折。",
+      "note": "折っ：实词，基本形折る；て：助词；みる：虚词·补助动词，表示尝试。",
+      "focus": []
+    },
+    {
+      "id": "2.1-19",
+      "group": "",
+      "ja": "先生が黒板に名前を書いた。",
+      "kana": "",
+      "zh": "老师在黑板上写了名字。",
+      "note": "观察人物、地点、对象和动作的汉字核心；書い对应書く，た为虚词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-20",
+      "group": "",
+      "ja": "コンビニでサンドイッチを買った。",
+      "kana": "",
+      "zh": "在便利店买了三明治。",
+      "note": "コンビニ、サンドイッチ：片假名实词；で、を：助词；買っ对应買う。",
+      "focus": []
+    },
+    {
+      "id": "2.1-21",
+      "group": "",
+      "ja": "赤い花が風に揺れている。",
+      "kana": "",
+      "zh": "红花在风中摇曳。",
+      "note": "赤い、花、揺れ承载性质、对象、动作信息；て、いる分开标记。",
+      "focus": []
+    },
+    {
+      "id": "2.1-22",
+      "group": "",
+      "ja": "ここで少し休もう。",
+      "kana": "",
+      "zh": "在这里稍微休息一下吧。",
+      "note": "ここ：实词·代词；少し：实词·副词；休もう显示休む的意志形。",
+      "focus": []
+    },
+    {
+      "id": "2.1-23",
+      "group": "",
+      "ja": "昨日は忙しかったので、返事を書けなかった。",
+      "kana": "",
+      "zh": "昨天很忙，所以没能写回信。",
+      "note": "忙しい、返事、書く为核心信息；活用详情分别显示过去，以及可能、否定、过去。",
+      "focus": []
+    },
+    {
+      "id": "2.1-24",
+      "group": "",
+      "ja": "荷物を玄関に置く。",
+      "kana": "",
+      "zh": "将行李放在门口。",
+      "note": "置く：实词·动词，表示具体放置动作。",
+      "focus": []
+    },
+    {
+      "id": "2.1-25",
+      "group": "",
+      "ja": "明日の朝食を買っておく。",
+      "kana": "",
+      "zh": "提前买好明天的早餐。",
+      "note": "買っ为词汇核心；て为助词；おく：虚词·补助动词，表示事先准备。与 24 对照。",
+      "focus": []
+    },
+    {
+      "id": "2.1-26",
+      "group": "",
+      "ja": "妹に手紙をもらった。",
+      "kana": "",
+      "zh": "收到了妹妹的信。",
+      "note": "もらっ：实词·动词，基本形もらう；た表示过去。",
+      "focus": []
+    },
+    {
+      "id": "2.1-27",
+      "group": "",
+      "ja": "友達に写真を撮ってもらった。",
+      "kana": "",
+      "zh": "请朋友帮我拍了照片。",
+      "note": "撮っ为词汇核心；もらっ：虚词·补助动词，表示接受他人为自己实施的动作；た表示过去。",
+      "focus": []
+    },
+    {
+      "id": "2.1-28",
+      "group": "",
+      "ja": "先生が教室に来た。",
+      "kana": "",
+      "zh": "老师来到了教室。",
+      "note": "来：实词·移动动词，基本形来る；本例读「き」。",
+      "focus": []
+    },
+    {
+      "id": "2.1-29",
+      "group": "",
+      "ja": "外がだんだん暗くなってきた。",
+      "kana": "",
+      "zh": "外面渐渐暗下来了。",
+      "note": "暗く、なっ表示状态变化；き：虚词·补助动词，基本形くる，表示变化发展至当前；た表示过去。",
+      "focus": []
+    },
+    {
+      "id": "2.1-30",
+      "group": "",
+      "ja": "弟がケーキを作る。",
+      "kana": "",
+      "zh": "弟弟做蛋糕。",
+      "note": "が：助词，标示本句动作主体弟；重点范围可分别选择弟和が。",
+      "focus": []
+    },
+    {
+      "id": "2.1-31",
+      "group": "",
+      "ja": "弟がケーキを作る。",
+      "kana": "",
+      "zh": "弟弟做蛋糕。",
+      "note": "を：助词，标示动作对象ケーキ；与 30 使用同句，分别观察不同作用范围。",
+      "focus": []
+    },
+    {
+      "id": "2.1-32",
+      "group": "",
+      "ja": "六時に駅で会う。",
+      "kana": "",
+      "zh": "六点在车站见面。",
+      "note": "に标示时间点，で标示动作场所；两个助词分别关联六時和駅。",
+      "focus": []
+    },
+    {
+      "id": "2.1-33",
+      "group": "",
+      "ja": "これは母の写真だ。",
+      "kana": "",
+      "zh": "这是妈妈的照片。",
+      "note": "の连接母与写真；本例可表示拍着妈妈的照片或妈妈持有的照片，词典说明保留相关解释。",
+      "focus": []
+    },
+    {
+      "id": "2.1-34",
+      "group": "",
+      "ja": "水だけを飲む。",
+      "kana": "",
+      "zh": "只喝水。",
+      "note": "だけ：助词·副助词，限定水；を继续标示饮用对象。",
+      "focus": []
+    },
+    {
+      "id": "2.1-35",
+      "group": "",
+      "ja": "パンと卵を買う。",
+      "kana": "",
+      "zh": "买面包和鸡蛋。",
+      "note": "と连接并列项；を作用于整个「パンと卵」，保存整体范围。",
+      "focus": []
+    },
+    {
+      "id": "2.1-36",
+      "group": "",
+      "ja": "手を洗ってから、ご飯を食べる。",
+      "kana": "",
+      "zh": "洗手之后吃饭。",
+      "note": "て连接前接动作；から在此表示动作先后；分别显示洗う、て、から的成分范围。",
+      "focus": []
+    },
+    {
+      "id": "2.1-37",
+      "group": "",
+      "ja": "花が咲いた。",
+      "kana": "",
+      "zh": "花开了。",
+      "note": "花、咲く提供词汇内容；が标示关系；た增加过去意义。分别展示来源词性与本课分类。",
+      "focus": []
+    },
+    {
+      "id": "2.1-38",
+      "group": "",
+      "ja": "手紙を書きます。",
+      "kana": "",
+      "zh": "写信。",
+      "note": "手紙、書く为实词；を为助词；ます为虚词·礼貌助动词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-39",
+      "group": "",
+      "ja": "本を読みたい。",
+      "kana": "",
+      "zh": "想读书。",
+      "note": "「読み＋たい」形成愿望表达；を连接本与该动作结构，呈现两种不同作用。",
+      "focus": []
+    },
+    {
+      "id": "2.1-40",
+      "group": "",
+      "ja": "庭で花を育てている。",
+      "kana": "",
+      "zh": "在院子里种花。",
+      "note": "で标示场所，を标示对象；いる与育てて组合表示持续进行的活动。",
+      "focus": []
+    },
+    {
+      "id": "2.1-41",
+      "group": "",
+      "ja": "友達には話さなかった。",
+      "kana": "",
+      "zh": "没有告诉朋友。",
+      "note": "に与は分别标记对象、话题或对比；話さ与ない、た构成否定过去，表面形为話さなかった。",
+      "focus": []
+    },
+    {
+      "id": "2.1-42",
+      "group": "",
+      "ja": "「もう準備はできましたか。」「はい。」",
+      "kana": "",
+      "zh": "“准备好了吗？”“好了。”",
+      "note": "はい：其他·应答词；保留完整问答，突出回应功能。",
+      "focus": []
+    },
+    {
+      "id": "2.1-43",
+      "group": "",
+      "ja": "あっ、財布がない！",
+      "kana": "",
+      "zh": "啊，钱包不见了！",
+      "note": "あっ：其他·感动词；表达突然发现。",
+      "focus": []
+    },
+    {
+      "id": "2.1-44",
+      "group": "",
+      "ja": "この花、きれいだね。",
+      "kana": "",
+      "zh": "这花真漂亮啊。",
+      "note": "ね：其他·句末语气成分；来源名称显示终助词，表达与对方分享感受。",
+      "focus": []
+    },
+    {
+      "id": "2.1-45",
+      "group": "",
+      "ja": "電車が来たよ。",
+      "kana": "",
+      "zh": "电车来了哦。",
+      "note": "よ：其他·句末语气成分；来源名称显示终助词，向对方告知。",
+      "focus": []
+    },
+    {
+      "id": "2.1-46",
+      "group": "",
+      "ja": "雨はやんだ。しかし、風はまだ強い。",
+      "kana": "",
+      "zh": "雨停了。不过，风仍然很大。",
+      "note": "しかし：其他·篇章连接成分；来源名称显示接续词，关联两句。",
+      "focus": []
+    },
+    {
+      "id": "2.1-47",
+      "group": "",
+      "ja": "バスが来なかった。それで、駅まで歩いた。",
+      "kana": "",
+      "zh": "公交车没来，于是步行去了车站。",
+      "note": "それで：其他·篇章连接成分；表示前述情况引出的结果。",
+      "focus": []
+    },
+    {
+      "id": "2.1-48",
+      "group": "",
+      "ja": "遅刻した訳を先生に説明する。",
+      "kana": "",
+      "zh": "向老师说明迟到的理由。",
+      "note": "訳〔わけ〕：实词·名词，表示理由。",
+      "focus": []
+    },
+    {
+      "id": "2.1-49",
+      "group": "",
+      "ja": "明日は大事な試験があるので、今夜は遊ぶわけにはいかない。",
+      "kana": "",
+      "zh": "明天有重要考试，今晚不能出去玩。",
+      "note": "わけ：虚词·形式体言；保存整个「遊ぶわけにはいかない」的解释范围。",
+      "focus": []
+    },
+    {
+      "id": "2.1-50",
+      "group": "",
+      "ja": "電車が止まっていた。そういうわけで、到着が遅れた。",
+      "kana": "",
+      "zh": "电车停运了。由于这个原因，到达时间晚了。",
+      "note": "わけ关联前句原因；整体「そういうわけで」作为本例观察范围。",
+      "focus": []
+    },
+    {
+      "id": "2.1-51",
+      "group": "",
+      "ja": "大切な事を手帳に書く。",
+      "kana": "",
+      "zh": "将重要的事写在记事本上。",
+      "note": "事〔こと〕：实词·名词，表示具体事情。",
+      "focus": []
+    },
+    {
+      "id": "2.1-52",
+      "group": "",
+      "ja": "妹は一人で泳ぐことができる。",
+      "kana": "",
+      "zh": "妹妹能够独自游泳。",
+      "note": "こと：虚词·形式体言；が保持助词标记；整体表达能力。",
+      "focus": []
+    },
+    {
+      "id": "2.1-53",
+      "group": "",
+      "ja": "来月から毎朝歩くことにする。",
+      "kana": "",
+      "zh": "决定从下个月开始每天早晨步行。",
+      "note": "こと：虚词·形式体言；整体表达作出决定。",
+      "focus": []
+    },
+    {
+      "id": "2.1-54",
+      "group": "",
+      "ja": "冷たい物が飲みたい。",
+      "kana": "",
+      "zh": "想喝点凉的东西。",
+      "note": "物〔もの〕：实词·名词，指饮用对象；たい另标愿望。",
+      "focus": []
+    },
+    {
+      "id": "2.1-55",
+      "group": "",
+      "ja": "子供の頃は、この川でよく遊んだものだ。",
+      "kana": "",
+      "zh": "小时候常在这条河里玩，真令人怀念。",
+      "note": "もの：虚词·形式体言；整体保存回顾往事的情态说明。",
+      "focus": []
+    },
+    {
+      "id": "2.1-56",
+      "group": "",
+      "ja": "静かな所で本を読む。",
+      "kana": "",
+      "zh": "在安静的地方读书。",
+      "note": "所〔ところ〕：实词·名词，表示地点。",
+      "focus": []
+    },
+    {
+      "id": "2.1-57",
+      "group": "",
+      "ja": "今、お弁当を作っているところだ。",
+      "kana": "",
+      "zh": "现在正在做便当。",
+      "note": "ところ：虚词·形式体言，结合前接形式表示动作阶段；いる另标补助用法。",
+      "focus": []
+    },
+    {
+      "id": "2.1-58",
+      "group": "",
+      "ja": "祖母は隣の部屋にいる。",
+      "kana": "",
+      "zh": "奶奶在隔壁房间。",
+      "note": "いる：实词·存在动词；保存词典对应表记与读法。",
+      "focus": []
+    },
+    {
+      "id": "2.1-59",
+      "group": "",
+      "ja": "祖母は台所でお茶を飲んでいる。",
+      "kana": "",
+      "zh": "奶奶正在厨房喝茶。",
+      "note": "いる：虚词·补助动词，和飲んで组合表示进行。",
+      "focus": []
+    },
+    {
+      "id": "2.1-60",
+      "group": "",
+      "ja": "窓から海を見る。",
+      "kana": "",
+      "zh": "从窗户看海。",
+      "note": "見る：实词·视觉动词。",
+      "focus": []
+    },
+    {
+      "id": "2.1-61",
+      "group": "",
+      "ja": "店員にサイズを聞いてみる。",
+      "kana": "",
+      "zh": "试着向店员询问尺码。",
+      "note": "みる：虚词·补助动词，表示尝试；保留内部词典目标。",
+      "focus": []
+    },
+    {
+      "id": "2.1-62",
+      "group": "",
+      "ja": "授業が始まる前に、自分の席に着く。",
+      "kana": "",
+      "zh": "上课前坐到自己的座位上。",
+      "note": "着く：实词·动词；保存本例词元及对应词典内容。",
+      "focus": []
+    },
+    {
+      "id": "2.1-63",
+      "group": "",
+      "ja": "少し煮ると、豆腐に味がつく。",
+      "kana": "",
+      "zh": "稍微煮一会儿，豆腐就入味了。",
+      "note": "つく：实词·动词；味がつく表示味道进入食物。",
+      "focus": []
+    },
+    {
+      "id": "2.1-64",
+      "group": "",
+      "ja": "この写真について、少し教えてください。",
+      "kana": "",
+      "zh": "请给我讲讲这张照片。",
+      "note": "について：助词·复合助词；整体表示谈论对象，内部成分另存标签与查询目标。",
+      "focus": []
+    },
+    {
+      "id": "2.1-65",
+      "group": "",
+      "ja": "庭に白い猫がいる。",
+      "kana": "",
+      "zh": "院子里有一只白猫。",
+      "note": "いる表示动物存在；教学分类为实词·动词，重点观察其自身意义。",
+      "focus": []
+    },
+    {
+      "id": "2.1-66",
+      "group": "",
+      "ja": "受付に係の人がいる。",
+      "kana": "",
+      "zh": "接待处有工作人员。",
+      "note": "いる表示人位于某处；に标示存在场所。",
+      "focus": []
+    },
+    {
+      "id": "2.1-67",
+      "group": "",
+      "ja": "今、家には誰もいない。",
+      "kana": "",
+      "zh": "现在家里一个人也没有。",
+      "note": "い对应存在动词いる；ない表示否定。保存存在动词与否定助动词各自范围，展示实词同样可以活用。",
+      "focus": []
+    },
+    {
+      "id": "2.1-68",
+      "group": "",
+      "ja": "父は今、夕飯を作っている。",
+      "kana": "",
+      "zh": "爸爸现在正在做晚饭。",
+      "note": "いる：虚词·补助动词；本例表示动作正在进行。",
+      "focus": []
+    },
+    {
+      "id": "2.1-69",
+      "group": "",
+      "ja": "妹はもう眠っている。",
+      "kana": "",
+      "zh": "妹妹已经睡着了。",
+      "note": "いる：虚词·补助动词；结合眠る表示睡眠状态持续。",
+      "focus": []
+    },
+    {
+      "id": "2.1-70",
+      "group": "",
+      "ja": "兄は東京に住んでいる。",
+      "kana": "",
+      "zh": "哥哥住在东京。",
+      "note": "いる：虚词·补助动词；本例表示持续的居住状态，避免所有例子都译为“正在”。",
+      "focus": []
+    }
+  ],
+  "generatedFrom": {
+    "source": "docs/grammar_guide_display.md",
+    "exampleCount": "70",
+    "analysis": "pending",
+    "reclassifiedFrom": "grammar-1.1",
+    "section": "2.1"
+  }
+}

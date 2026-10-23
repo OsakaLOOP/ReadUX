@@ -303,7 +303,7 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
   assert.ok(pastHit);
   assert.equal(pastHit.detail.title, "过去");
   assert.equal(pastHit.detail.surface, "た");
-  assert.equal(pastHit.detail.description, "読まない → 読まなかった（い→かった）");
+  assert.equal(pastHit.detail.description, "読まない → 読まなかった（ない→なかった）");
 
   // 4. 词典活用链 steps 完整对应
   const [chain] = readerChains({ lexical_core_ids: ["c0"], source_formation_ids: [], morpheme_ids: ["m0"] }, document);
@@ -313,7 +313,7 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
   assert.equal(chain.steps[1].label, "否定形");
   assert.equal(chain.steps[1].description, "読ま → 読まない（ま→まない）");
   assert.equal(chain.steps[2].label, "过去");
-  assert.equal(chain.steps[2].description, "読まない → 読まなかった（い→かった）");
+  assert.equal(chain.steps[2].description, "読まない → 読まなかった（ない→なかった）");
 });
 
 test("研究しつくしてる整条复杂连用复合链聚合为单一连续胶囊", () => {

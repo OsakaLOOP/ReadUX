@@ -1,4 +1,4 @@
-"""根据展示设计文档中的 70 条例句生成语法指南内容基线。"""
+"""根据旧版 2.1 展示设计文档生成语法指南内容基线。"""
 from __future__ import annotations
 
 import json
@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "docs" / "grammar_guide_display.md"
-PACKAGE = ROOT / "src" / "grammar-guide" / "lesson-1-1.json"
+PACKAGE = ROOT / "src" / "grammar-guide" / "lesson-2-1.json"
 
 
 def read_examples() -> list[dict[str, str]]:

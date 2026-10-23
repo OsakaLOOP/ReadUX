@@ -196,6 +196,28 @@
       ]
     },
     {
+      "id": "particle:he",
+      "headword": "へ",
+      "reading": "へ",
+      "pronunciation": "え",
+      "variants": [],
+      "senses": [
+        {
+          "id": "particle:he:direction",
+          "subtype": "格助詞",
+          "title": "移动方向",
+          "meaning": "标记移动行为所朝向的大致方向或目的地；与「に」相比，着重表示朝向。",
+          "connection": "地点名词＋へ＋移动动词",
+          "examples": [
+            {
+              "ja": "京都へ行く。",
+              "zh": "去京都。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "particle:no",
       "headword": "の",
       "reading": "の",

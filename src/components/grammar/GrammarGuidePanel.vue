@@ -3,8 +3,10 @@ import { computed, ref, shallowRef, watch } from "vue";
 import { Check, ChevronRight, Download, FileUp, MessageSquareMore, Pencil, RefreshCw, Save } from "@lucide/vue";
 import ReaderSurface from "../reader/ReaderSurface.vue";
 import { markdownBlocks, renderMarkdownBlock } from "../../grammar-guide/markdown";
-import basePackage from "../../grammar-guide/lesson-1-1.json";
-import analysisUrl from "../../grammar-guide/lesson-1-1-analysis.json?url";
+import grammar11Package from "../../grammar-guide/lesson-1-1.json";
+import grammar21Package from "../../grammar-guide/lesson-2-1.json";
+import grammar11AnalysisUrl from "../../grammar-guide/lesson-1-1-analysis.json?url";
+import grammar21AnalysisUrl from "../../grammar-guide/lesson-2-1-analysis.json?url";
 import type { AnnotatedToken } from "../../types";
 import type { GuideLookupSnapshot, GuideReaderSnapshot } from "../../grammar-guide/types";
 import GrammarGuideExample from "./GrammarGuideExample.vue";
@@ -13,13 +15,16 @@ type GuideExample = {
   id: string;
   group: string;
   ja: string;
+  sourceJa?: string;
   sourceRange?: [number, number];
   kana: string;
   zh: string;
   note: string;
+  source?: string;
   focus: string[];
   capsules?: { id: string; range: [number, number]; partIds: string[] }[];
   ruby?: { range: [number, number]; base: string; reading: string }[];
+  rubySource?: "author";
   parts?: { id: string; range: [number, number]; text: string; teachingClass: string; classLabel: string; term: string; focus: boolean; detailId: string }[];
   targets?: { id: string; range: [number, number]; detailId: string; defaultEntryId: string | null; entryIds: string[]; childTargetIds: string[] }[];
   dictionaryEntries?: {
@@ -32,7 +37,6 @@ type GuideExample = {
   details?: Record<string, { id: string; label: string; sourceLabel: string; teachingClass: string; note: string; dictionaryEntryIds: string[] }>;
   tokens?: AnnotatedToken[];
   lookups?: GuideLookupSnapshot[];
-  source?: string;
 };
 type GuidePackage = {
   lessonId: string;
@@ -57,17 +61,22 @@ type GuideAnalysisPackage = {
   schema: string;
   examples: Record<string, GuideReaderSnapshot>;
 };
-const bundledPackage = basePackage as unknown as GuidePackage;
+const guideLessons = [
+  { id: "grammar-1.1", number: "1.1", label: "1.1 句法入门", package: grammar11Package as unknown as GuidePackage, analysisUrl: grammar11AnalysisUrl, exampleCount: 43, originalExampleCount: 0 },
+  { id: "grammar-2.1", number: "2.1", label: "2.1 认识实词、虚词、助词", package: grammar21Package as unknown as GuidePackage, analysisUrl: grammar21AnalysisUrl, exampleCount: 70, originalExampleCount: 19 },
+] as const;
 
 const props = defineProps<{ show: boolean }>();
 const emit = defineEmits<{ close: [] }>();
-const storageKey = "readux.grammarGuide.1.1";
-const loadedStorageKey = "readux.grammarGuide.1.1.loaded";
+const activeLessonId = ref<string>(guideLessons[0].id);
+const activeLesson = computed(() => guideLessons.find((lesson) => lesson.id === activeLessonId.value) ?? guideLessons[0]);
+const storageKeyFor = (lessonId: string) => "readux.grammarGuide.v2." + lessonId.replace("grammar-", "");
+const loadedStorageKeyFor = (lessonId: string) => storageKeyFor(lessonId) + ".loaded";
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
-const loadedPackage = ref<GuidePackage>(clone(bundledPackage));
-const draftPackage = ref<GuidePackage>(clone(bundledPackage));
+const loadedPackage = ref<GuidePackage>(clone(guideLessons[0].package));
+const draftPackage = ref<GuidePackage>(clone(guideLessons[0].package));
 const analysisPackage = shallowRef<GuideAnalysisPackage | null>(null);
-let analysisLoad: Promise<void> | null = null;
+let analysisLoadGeneration = 0;
 const jsonText = ref("");
 const editorOpen = ref(false);
 const showChinese = ref(true);
@@ -87,28 +96,61 @@ const analysisMap = computed(() => new Map([...exampleMap.value.values()].map((e
   return [example.id, snapshot?.document.text === example.ja ? snapshot : undefined];
 })));
 
-watch(() => props.show, (show) => {
-  if (!show) return;
-  if (!analysisPackage.value && !analysisLoad) {
-    analysisLoad = fetch(analysisUrl).then((response) => response.json() as Promise<GuideAnalysisPackage>).then((analysis) => {
-      if (analysis.schema !== "readux.grammar-guide-analysis.v2") throw new Error("语法指南分析快照版本无效");
-      analysisPackage.value = analysis;
-    }).catch((reason: unknown) => {
-      analysisLoad = null;
-      setNotice(`例句分析加载失败：${reason instanceof Error ? reason.message : String(reason)}`);
-    });
-    void analysisLoad;
-  }
+function activateLesson(lessonId: string) {
+  const lesson = guideLessons.find((item) => item.id === lessonId);
+  if (!lesson) return;
+  const generation = ++analysisLoadGeneration;
+  loadedPackage.value = clone(lesson.package);
+  draftPackage.value = clone(lesson.package);
+  analysisPackage.value = null;
+  sourceHighlight.value = null;
   try {
-    const savedDraft = localStorage.getItem(storageKey);
-    const savedLoaded = localStorage.getItem(loadedStorageKey);
-    if (savedDraft) { const value = JSON.parse(savedDraft) as GuidePackage; validatePackage(value); draftPackage.value = value; }
-    if (savedLoaded) { const value = JSON.parse(savedLoaded) as GuidePackage; validatePackage(value); loadedPackage.value = value; }
+    const storageKey = storageKeyFor(lessonId);
+    const loadedStorageKey = loadedStorageKeyFor(lessonId);
+    let savedDraft = localStorage.getItem(storageKey);
+    let savedLoaded = localStorage.getItem(loadedStorageKey);
+    if (lessonId === "grammar-2.1" && !savedDraft && !savedLoaded) {
+      const oldDraft = localStorage.getItem("readux.grammarGuide.1.1");
+      const oldLoaded = localStorage.getItem("readux.grammarGuide.1.1.loaded");
+      if (oldDraft) {
+        const migrated = migrateLegacyPackage(JSON.parse(oldDraft));
+        validatePackage(migrated, lessonId);
+        localStorage.setItem(storageKey, JSON.stringify(migrated));
+        savedDraft = JSON.stringify(migrated);
+      }
+      if (oldLoaded) {
+        const migrated = migrateLegacyPackage(JSON.parse(oldLoaded));
+        validatePackage(migrated, lessonId);
+        localStorage.setItem(loadedStorageKey, JSON.stringify(migrated));
+        savedLoaded = JSON.stringify(migrated);
+      }
+    }
+    if (savedDraft) { const value = JSON.parse(savedDraft) as GuidePackage; validatePackage(value, lessonId); draftPackage.value = value; }
+    if (savedLoaded) { const value = JSON.parse(savedLoaded) as GuidePackage; validatePackage(value, lessonId); loadedPackage.value = value; }
   } catch { /* 页面继续使用内置课节 */ }
+  void fetch(lesson.analysisUrl).then((response) => response.json() as Promise<GuideAnalysisPackage>).then((analysis) => {
+    if (generation !== analysisLoadGeneration) return;
+    if (analysis.schema !== "readux.grammar-guide-analysis.v2") throw new Error("语法指南分析快照版本无效");
+    analysisPackage.value = analysis;
+  }).catch((reason: unknown) => {
+    if (generation === analysisLoadGeneration) setNotice("例句分析加载失败：" + (reason instanceof Error ? reason.message : String(reason)));
+  });
+}
+watch([() => props.show, activeLessonId], ([show, lessonId]) => {
+  if (show) activateLesson(lessonId);
 }, { immediate: true });
 
 function setNotice(message: string) { error.value = message; window.setTimeout(() => { if (error.value === message) error.value = ""; }, 4000); }
 function showChineseFor(_group: string) { return showChinese.value; }
+function migrateLegacyPackage(value: unknown): GuidePackage {
+  const rewrite = (item: unknown): unknown => {
+    if (typeof item === "string") return item.split("1.1").join("2.1");
+    if (Array.isArray(item)) return item.map(rewrite);
+    if (item && typeof item === "object") return Object.fromEntries(Object.entries(item).map(([key, entry]) => [key.split("1.1").join("2.1"), rewrite(entry)]));
+    return item;
+  };
+  return rewrite(value) as GuidePackage;
+}
 function highlightExample(anchor: string, exampleId: string) {
   const blockIndex = blocks.value.findIndex((block) => block.source === anchor);
   const range = exampleMap.value.get(exampleId)?.sourceRange ?? null;
@@ -168,13 +210,14 @@ function openEditor() {
 function rangeIsValid(range: unknown, length: number): range is [number, number] {
   return Array.isArray(range) && range.length === 2 && Number.isInteger(range[0]) && Number.isInteger(range[1]) && range[0] >= 0 && range[0] < range[1] && range[1] <= length;
 }
-function validatePackage(value: GuidePackage) {
-  if (value.lessonId !== "grammar-1.1" || !Array.isArray(value.examples) || value.examples.length !== 70 || !Array.isArray(value.placements) || !Array.isArray(value.originalExamples) || value.originalExamples.length !== 19)
-    throw new Error("课节编号、70 条补充例句、19 个原稿例句或数据结构不正确。");
-  if (value.sourceMarkdown !== bundledPackage.sourceMarkdown) throw new Error("原稿正文为只读内容，不能随内容包修改。");
+function validatePackage(value: GuidePackage, lessonId = activeLessonId.value) {
+  const lesson = guideLessons.find((item) => item.id === lessonId);
+  if (!lesson || value.lessonId !== lessonId || !Array.isArray(value.examples) || value.examples.length !== lesson.exampleCount || !Array.isArray(value.placements) || !Array.isArray(value.originalExamples) || value.originalExamples.length !== lesson.originalExampleCount)
+    throw new Error("课节编号、例句数量或数据结构不正确。");
+  if (value.sourceMarkdown !== lesson.package.sourceMarkdown) throw new Error("原稿正文为只读内容，不能随内容包修改。");
   const sourceBlocks = markdownBlocks(value.sourceMarkdown).map((block) => block.source);
   if (value.placements.some((item) => !item.anchor || sourceBlocks.filter((source) => source === item.anchor).length !== 1)) throw new Error("例句插入锚点必须唯一对应一个原稿段落。");
-  if (!sourceBlocks.includes(value.originalExamplesAnchor)) throw new Error("原稿例句锚点未指向现有对照表。");
+  if (lesson.originalExampleCount && !sourceBlocks.includes(value.originalExamplesAnchor)) throw new Error("原稿例句锚点未指向现有对照表。");
   const allExamples = [...value.examples, ...value.originalExamples];
   const exampleIds = allExamples.map((item) => item.id);
   if (new Set(exampleIds).size !== exampleIds.length) throw new Error("例句 ID 存在重复。");
@@ -214,7 +257,7 @@ function validatePackage(value: GuidePackage) {
     if (example.capsules.some((capsule) => !rangeIsValid(capsule.range, chars.length) || capsule.partIds.some((id) => !example.parts?.some((part) => part.id === id)))) throw new Error(`${example.id} 的胶囊范围或成分引用无效。`);
     if (example.ruby.some((ruby) => !rangeIsValid(ruby.range, chars.length) || chars.slice(ruby.range[0], ruby.range[1]).join("") !== ruby.base || !ruby.reading)) throw new Error(`${example.id} 的注音范围或读音无效。`);
   }
-  const bundledOriginals = new Map(bundledPackage.originalExamples.map((item) => [item.id, item]));
+  const bundledOriginals = new Map(lesson.package.originalExamples.map((item) => [item.id, item]));
   if (value.originalExamples.some((item) => bundledOriginals.get(item.id)?.ja !== item.ja || bundledOriginals.get(item.id)?.source !== item.source)) throw new Error("原稿例句的日文和表格归属必须保持原样。");
   for (const placement of value.placements) if (placement.exampleIds.some((id) => !value.examples.some((example) => example.id === id))) throw new Error(`${placement.group} 引用了不存在的例句。`);
 }
@@ -233,7 +276,7 @@ function saveDraft() {
   if (!value) return;
   value.status = "draft";
   draftPackage.value = value;
-  try { localStorage.setItem(storageKey, JSON.stringify(value)); }
+  try { localStorage.setItem(storageKeyFor(activeLessonId.value), JSON.stringify(value)); }
   catch (reason) { setNotice(`保存失败：${String(reason)}`); return; }
   jsonText.value = JSON.stringify(value, null, 2);
   setNotice("草稿已保存。");
@@ -243,7 +286,7 @@ function reviewDraft() {
   if (!value) return;
   value.status = "reviewed";
   draftPackage.value = value;
-  try { localStorage.setItem(storageKey, JSON.stringify(value)); }
+  try { localStorage.setItem(storageKeyFor(activeLessonId.value), JSON.stringify(value)); }
   catch (reason) { setNotice(`保存失败：${String(reason)}`); return; }
   jsonText.value = JSON.stringify(value, null, 2);
   setNotice("内容已标记为已审阅。");
@@ -253,7 +296,7 @@ function loadDraft() {
   if (!value) return;
   loadedPackage.value = clone(value);
   draftPackage.value = clone(value);
-  try { localStorage.setItem(loadedStorageKey, JSON.stringify(value)); }
+  try { localStorage.setItem(loadedStorageKeyFor(activeLessonId.value), JSON.stringify(value)); }
   catch (reason) { setNotice(`已加载，但写入加载版本失败：${String(reason)}`); }
   editorOpen.value = false;
   setNotice(`已加载 v${value.version}。`);
@@ -262,7 +305,7 @@ function downloadDraft() {
   const value = parseEditor() ?? draftPackage.value;
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: "application/json" }));
-  link.download = "grammar-guide-1.1.json";
+  link.download = "grammar-guide-" + activeLesson.value.number.replace(".", "-") + ".json";
   link.click();
   URL.revokeObjectURL(link.href);
 }
@@ -287,9 +330,10 @@ function paragraphId(example: GuideExample) {
 </script>
 
 <template>
-  <ReaderSurface :show="show" variant="fullscreen" title="日文语法指南 · 1.1" description="认识实词、虚词、助词" label="日文语法指南" @close="emit('close')" @back="emit('close')">
+  <ReaderSurface :show="show" variant="fullscreen" :title="'日文语法指南 · ' + activeLesson.number" :description="activeLesson.package.title" label="日文语法指南" @close="emit('close')" @back="emit('close')">
     <template #actions>
       <div class="guide-actions">
+        <label class="guide-lesson-select"><span>课节</span><select v-model="activeLessonId" aria-label="选择语法指南课节"><option v-for="lesson in guideLessons" :key="lesson.id" :value="lesson.id">{{ lesson.label }}</option></select></label>
         <label class="guide-toggle"><input v-model="showChinese" type="checkbox"><span>中文</span></label>
         <label class="guide-toggle"><input v-model="showRuby" type="checkbox"><span>假名</span></label>
         <button type="button" title="从内置课节生成草稿" aria-label="生成草稿" @click="makeDraft"><RefreshCw :size="16" /></button>
@@ -298,11 +342,11 @@ function paragraphId(example: GuideExample) {
     </template>
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="本课目录">
-        <span class="guide-toc__label">本课内容</span>
+        <span class="guide-toc__label">{{ activeLesson.label }}</span>
         <button v-for="item in headings" :key="item.index" type="button" @click="scrollToHeading(item.index)">
           <span>{{ item.block.source.replace(/^#+\s*/, "") }}</span><ChevronRight :size="14" />
         </button>
-        <div class="guide-progress">{{ loadedPackage.examples.length }} 条补充例句 · v{{ loadedPackage.version }}</div>
+        <div class="guide-progress">{{ loadedPackage.examples.length }} 条例句 · v{{ loadedPackage.version }}</div>
       </nav>
       <main class="guide-reading" aria-label="语法讲解正文">
         <template v-for="(block, index) in blocks" :key="index">
@@ -317,10 +361,12 @@ function paragraphId(example: GuideExample) {
                     :ja="exampleMap.get(item.id)!.ja"
                     :zh="exampleMap.get(item.id)!.zh"
                     :note="exampleMap.get(item.id)!.note"
+                    :source="exampleMap.get(item.id)!.source"
                     :snapshot="analysisMap.get(item.id)"
                     :paragraph-id="paragraphId(exampleMap.get(item.id)!)"
                     :show-chinese="showChineseFor(placement.group)"
                     :show-ruby="showRuby"
+                    :lesson-id="activeLessonId"
                   />
                   </template>
                 </template>
@@ -353,7 +399,7 @@ function paragraphId(example: GuideExample) {
 </template>
 
 <style scoped>
-.guide-actions,.guide-toggle,.guide-editor__tools,.guide-editor footer{display:flex;align-items:center;gap:10px}.guide-actions{padding-right:22px}.guide-actions button,.guide-editor button{display:flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:34px;padding:0 9px;border:1px solid var(--border-color);border-radius:6px;background:var(--bg-primary);color:var(--text-secondary);cursor:pointer}.guide-toggle{font-size:12px;color:var(--text-secondary);cursor:pointer}.guide-toggle input{accent-color:var(--accent-color)}
+.guide-actions,.guide-toggle,.guide-lesson-select,.guide-editor__tools,.guide-editor footer{display:flex;align-items:center;gap:10px}.guide-actions{padding-right:22px}.guide-actions button,.guide-editor button{display:flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:34px;padding:0 9px;border:1px solid var(--border-color);border-radius:6px;background:var(--bg-primary);color:var(--text-secondary);cursor:pointer}.guide-toggle,.guide-lesson-select{font-size:12px;color:var(--text-secondary);cursor:pointer}.guide-toggle input{accent-color:var(--accent-color)}.guide-lesson-select select{max-width:180px;height:30px;padding:0 7px;border:1px solid var(--border-color);border-radius:5px;background:var(--bg-primary);color:var(--text-primary);font:inherit}
 .guide-layout{display:grid;grid-template-columns:220px minmax(0,1fr);width:100%;height:100%;min-height:0;background:var(--bg-primary);color:var(--text-primary)}.guide-toc{display:flex;flex-direction:column;gap:3px;overflow:auto;padding:22px 12px;border-right:1px solid var(--border-color);background:var(--bg-secondary)}.guide-toc__label{padding:0 10px 10px;color:var(--text-muted);font-size:11px;font-weight:700}.guide-toc button{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border:0;border-radius:5px;background:transparent;color:var(--text-secondary);text-align:left;cursor:pointer}.guide-toc button:hover{background:var(--bg-primary);color:var(--text-primary)}.guide-toc button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.guide-progress{margin-top:auto;padding:12px 10px;color:var(--text-muted);font-size:11px}
 .guide-reading{overflow:auto;padding:34px clamp(22px,5vw,76px) 70px;scroll-behavior:smooth}.guide-source{max-width:820px;margin:0 auto 18px;font:15px/1.9 var(--font-ui);overflow-wrap:anywhere}.guide-source :deep(h1),.guide-source :deep(h2),.guide-source :deep(h3){margin:1.5em 0 .6em;line-height:1.35}.guide-source :deep(h1){font-size:24px}.guide-source :deep(h2){font-size:20px}.guide-source :deep(h3){font-size:17px}.guide-source :deep(p){margin:0 0 1em}.guide-source :deep(strong){font-weight:750;color:var(--text-primary)}.guide-source :deep(a){color:var(--accent-color)}.guide-source :deep(code){padding:1px 4px;border-radius:3px;background:var(--bg-secondary)}.guide-source :deep(blockquote){margin:12px 0;padding:8px 14px;border-left:3px solid var(--accent-color);background:var(--bg-secondary);color:var(--text-secondary)}.guide-note-inline{color:#9b6417}.guide-table-wrap{overflow:auto;margin:18px 0 22px}.guide-source :deep(table){width:100%;border-collapse:collapse;font-size:13px}.guide-source :deep(td){padding:9px 11px;border:1px solid var(--border-color);vertical-align:top}.guide-source :deep(tr:first-child){background:var(--bg-secondary);font-weight:650}.guide-source :deep(ul){padding-left:24px}
 .guide-examples{max-width:820px;margin:20px auto 34px;border-top:1px solid var(--border-color)}.guide-example-list{display:grid;gap:0}

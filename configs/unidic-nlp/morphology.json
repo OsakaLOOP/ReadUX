@@ -4391,6 +4391,15 @@
     }
   ],
   "presentation": {
+    "transition_tails": [
+      {"kinds": ["te_connection", "past"], "forms": ["continuative"], "cform_contains": ["音便"], "endings": ["かっ", "っ", "ん", "い", "う"]},
+      {"kinds": ["te_connection", "past"], "forms": ["continuative"], "type_prefixes": ["サ行変格", "助動詞-デス"], "endings": ["し"]},
+      {"kinds": ["te_connection", "past"], "forms": ["continuative"], "type_prefixes": ["形容詞", "助動詞-ナイ", "助動詞-タイ"], "endings": ["かっ", "く"]},
+      {"kinds": ["politeness_masu", "polite_negative", "desire"], "forms": ["continuative"], "type_prefixes": ["五段", "サ行変格", "カ行変格"], "endings": ["い", "き", "ぎ", "し", "ち", "に", "び", "み", "り"]},
+      {"kinds": ["negative", "causative", "passive_potential"], "forms": ["irrealis"], "type_prefixes": ["五段", "サ行変格", "カ行変格"], "endings": ["わ", "か", "が", "さ", "た", "な", "ば", "ま", "ら", "し", "せ", "こ"]},
+      {"kinds": ["ba_connection"], "forms": ["conditional"], "endings": ["けれ", "え", "け", "げ", "せ", "て", "ね", "べ", "め", "れ"]},
+      {"support_group": "te", "forms": ["te"], "endings": ["て", "で"]}
+    ],
     "contraction_label": "缩略形式",
     "observed_steps": [
       "politeness_desu"

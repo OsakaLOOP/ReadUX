@@ -15,8 +15,8 @@ import ExplanationPopover from "../explanation/ExplanationPopover.vue";
 import ParticleGrammarPopover from "./ParticleGrammarPopover.vue";
 
 const props = defineProps<{
-  id: string; ja: string; zh: string; note?: string; snapshot?: GuideReaderSnapshot;
-  paragraphId: number; showChinese: boolean; showRuby: boolean;
+  id: string; ja: string; zh: string; note?: string; source?: string; snapshot?: GuideReaderSnapshot;
+  paragraphId: number; showChinese: boolean; showRuby: boolean; lessonId: string;
 }>();
 const root = ref<HTMLElement | null>(null);
 const active = shallowRef<LookupTarget | null>(null);
@@ -88,7 +88,7 @@ async function query(target: LookupTarget, selectedForm?: string) {
   if (particle) return particle;
   const saved = props.snapshot?.lookups[target.id];
   const snapshot = saved?.[selectedForm ?? "default"];
-  return snapshot ? hydrateGuideLookup(snapshot.result, snapshot.entryKeys) : null;
+  return snapshot ? hydrateGuideLookup(snapshot.result, snapshot.entryKeys, props.lessonId) : null;
 }
 type Part = ReturnType<typeof projectReaderSentence>[number]["parts"][number];
 async function open(part: Part, source: HTMLElement) {
@@ -144,7 +144,7 @@ async function navigate(target: string, inner: boolean) {
   const lookup = inner ? componentLookup : wholeLookup;
   const history = inner ? componentHistory : wholeHistory;
   const current = generation;
-  const result = await guideLinkedLookup(target);
+  const result = await guideLinkedLookup(target, props.lessonId);
   if (current !== generation || !result) return;
   if (lookup.value) history.value.push(lookup.value);
   lookup.value = result;
@@ -184,17 +184,21 @@ onBeforeUnmount(() => {
   <article ref="root" class="guide-example" :data-example-id="id" @pointerleave="scheduleClose">
     <BookMarked class="guide-example__bookmark" :size="17" aria-hidden="true" />
     <div class="guide-example__text">
-      <template v-if="projection.length">
-        <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :grouped="Boolean(capsule.capsuleKey)">
-          <template #default="{ part }">
-            <span class="reader-capsule__part" :class="{ 'reader-capsule__part--lookup': part.target }"
-              :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id"
-              @pointerenter="part.target ? hover(part, $event) : scheduleClose()"
-              @pointerleave="scheduleClose" @click.stop>{{ part.text }}</span>
-          </template>
-        </ReaderCapsule>
-      </template>
-      <span v-else>{{ ja }}</span>
+      <span class="guide-example__index">{{ id }}</span>
+      <span class="guide-example__scroll">
+        <template v-if="projection.length">
+          <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :grouped="Boolean(capsule.capsuleKey)">
+            <template #default="{ part }">
+              <span class="reader-capsule__part" :class="{ 'reader-capsule__part--lookup': part.target }"
+                :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id"
+                @pointerenter="part.target ? hover(part, $event) : scheduleClose()"
+                @pointerleave="scheduleClose" @click.stop>{{ part.text }}</span>
+            </template>
+          </ReaderCapsule>
+        </template>
+        <span v-else>{{ ja }}</span>
+        <span v-if="source" class="guide-example__source">{{ source }}</span>
+      </span>
     </div>
     <span v-if="note" class="guide-example__note">
       <button type="button" aria-label="查看例句讲解"><Info :size="15" aria-hidden="true" /></button>
@@ -227,7 +231,10 @@ onBeforeUnmount(() => {
 <style scoped>
 .guide-example { display: grid; grid-template-columns: 24px minmax(0,1fr); grid-template-rows: auto auto; align-items: baseline; column-gap: 8px; min-width: 0; margin: 0; }
 .guide-example__bookmark { grid-column: 1; grid-row: 1; align-self: baseline; justify-self: center; color: var(--accent-color); }
-.guide-example__text { grid-column: 2; grid-row: 1; min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
+.guide-example__text { display: flex; align-items: baseline; gap: 8px; grid-column: 2; grid-row: 1; min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
+.guide-example__index { flex: none; color: var(--accent-color); font: 700 11px/1 var(--font-ui); letter-spacing: .02em; }
+.guide-example__scroll { min-width: 0; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; scrollbar-width: thin; white-space: nowrap; }
+.guide-example__source { display: block; margin-top: 1px; color: var(--text-secondary); font: 12px/1.5 var(--font-ui); white-space: normal; }
 .reader-capsule__part--lookup { cursor: pointer; }
 .guide-example__translation { grid-column: 2; grid-row: 2; margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }
 .guide-example__note { position: relative; grid-column: 1; grid-row: 2; align-self: baseline; justify-self: center; line-height: 1; }

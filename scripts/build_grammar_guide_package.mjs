@@ -192,10 +192,10 @@ for (const line of spec.split(/\r?\n/)) {
 }
 if (originals.length !== 19 || originals.some((item) => !item.kana)) throw new Error("原稿 19 个例句的读音或覆盖数量不完整。");
 const packageData = {
-  lessonId: "grammar-1.1", title: "认识实词、虚词、助词", version: 1, status: "reviewed", sourceMarkdown,
+  lessonId: "grammar-2.1", title: "认识实词、虚词、助词", version: 1, status: "reviewed", sourceMarkdown,
   placements: [...placementGroups.values()].sort((left, right) => left.afterBlock - right.afterBlock),
   originalExamplesAnchor, originalExamples: originals, examples,
   generatedFrom: { specification: "docs/grammar_guide_1_1.md", sourceText: "原稿原文代码块", generation: "scripts/build_grammar_guide_package.mjs", review: "例句、译文与观察说明逐条复核；成分标签依照展示设计的 5.1 映射生成，词典未命中保存为固定无记录状态。" },
 };
-await writeFile(resolve(root, "src/grammar-guide/lesson-1-1.json"), `${JSON.stringify(packageData, null, 2)}\n`, "utf8");
+await writeFile(resolve(root, "src/grammar-guide/lesson-2-1.json"), `${JSON.stringify(packageData, null, 2)}\n`, "utf8");
 console.log(`Generated ${examples.length} supplementary examples and ${originals.length} original capsules.`);

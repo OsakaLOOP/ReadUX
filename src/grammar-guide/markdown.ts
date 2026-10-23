@@ -1,4 +1,4 @@
-export type MarkdownBlock = { kind: "heading" | "paragraph" | "list" | "table" | "quote"; source: string };
+export type MarkdownBlock = { kind: "heading" | "paragraph" | "list" | "ordered-list" | "table" | "quote"; source: string };
 
 export function markdownBlocks(markdown: string): MarkdownBlock[] {
   const lines = markdown.replace(/\r/g, "").split("\n");
@@ -13,6 +13,7 @@ export function markdownBlocks(markdown: string): MarkdownBlock[] {
     if (!line.trim()) { flush(); continue; }
     const nextKind: MarkdownBlock["kind"] = /^\|/.test(line) ? "table"
       : /^\s*[-*] /.test(line) ? "list"
+        : /^\s*\d+[.)] /.test(line) ? "ordered-list"
         : /^>/.test(line) ? "quote"
           : /^#{1,6} /.test(line) ? "heading" : "paragraph";
     if (current.length && nextKind !== kind) flush();
@@ -29,6 +30,7 @@ function escapeHtml(value: string): string {
 
 function inlineMarkdown(source: string): string {
   return escapeHtml(source)
+    .replace(/\$\\rightarrow\$/g, "→")
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>")
@@ -38,6 +40,7 @@ function inlineMarkdown(source: string): string {
 
 export function renderMarkdownBlock(block: MarkdownBlock): string {
   const lines = block.source.split("\n");
+  if (block.kind === "ordered-list") return "<ol>" + lines.map((line) => "<li>" + inlineMarkdown(line.replace(/^\s*\d+[.)] /, "")) + "</li>").join("") + "</ol>";
   if (block.kind === "heading") {
     const line = lines[0];
     const level = Math.min(3, (line.match(/^#+/)?.[0].length ?? 2));

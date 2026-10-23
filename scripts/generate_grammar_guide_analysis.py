@@ -2,14 +2,12 @@
 from __future__ import annotations
 
 import json
+import argparse
 import re
 import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / "src/grammar-guide/lesson-1-1.json"
-OUTPUT = ROOT / "src/grammar-guide/lesson-1-1-analysis.json"
-DICTIONARY_OUTPUT = ROOT / "src/grammar-guide/lesson-1-1-dictionary.json"
 PARTICLES = ROOT / "configs/grammar/particles.json"
 SERVICE = ROOT / "target/debug/readux-nlp.exe"
 
@@ -27,7 +25,14 @@ def request(process, command, **payload):
 
 
 def main():
-    package = json.loads(PACKAGE.read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser(description="生成课节分析和词典静态资源。")
+    parser.add_argument("--lesson", choices=("1.1", "2.1"), default="1.1")
+    lesson = parser.parse_args().lesson
+    stem = f"lesson-{lesson.replace('.', '-')}.json"
+    package_path = ROOT / "src/grammar-guide" / stem
+    output_path = package_path.with_name(package_path.stem + "-analysis.json")
+    dictionary_path = package_path.with_name(package_path.stem + "-dictionary.json")
+    package = json.loads(package_path.read_text(encoding="utf-8"))
     particles = json.loads(PARTICLES.read_text(encoding="utf-8"))["entries"]
     particle_ids = {entry["headword"]: entry["id"] for entry in particles}
     examples = package["examples"] + package["originalExamples"]
@@ -90,8 +95,8 @@ def main():
     finally:
         process.kill()
         process.wait()
-    OUTPUT.write_text(json.dumps({"schema": "readux.grammar-guide-analysis.v2", "source": PACKAGE.name, "examples": output}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-    DICTIONARY_OUTPUT.write_text(json.dumps({"schema": "readux.grammar-guide-dictionary.v1", "entries": dictionary}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    output_path.write_text(json.dumps({"schema": "readux.grammar-guide-analysis.v2", "source": package_path.name, "examples": output}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    dictionary_path.write_text(json.dumps({"schema": "readux.grammar-guide-dictionary.v1", "entries": dictionary}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"完成 {len(output)} 条例句、{len(dictionary)} 个词典分条")
 
 

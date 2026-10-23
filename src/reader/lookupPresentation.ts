@@ -186,14 +186,33 @@ function chainRoot(chains: ReadonlyArray<MorphologyChain>, chain: MorphologyChai
   return root;
 }
 
-function transitionDescription(input: string, output: string) {
+function transitionDescription(
+  input: string, output: string, operator?: MorphologyOperator,
+  preceding: ReadonlyArray<MorphologyOperator> = [], rootStart = 0,
+) {
   if (!input || !output || input === output) return `${input || ""} → ${output || ""}`;
   const before = Array.from(input);
   const after = Array.from(output);
   let prefixLength = 0;
   while (prefixLength < before.length && prefixLength < after.length && before[prefixLength] === after[prefixLength]) prefixLength += 1;
-  // 接续 operator 会在原活用尾部追加假名，提示保留该尾假名及追加后的完整尾部。
-  if (prefixLength === before.length && before.length > 0 && after.length > before.length) prefixLength -= 1;
+  if (prefixLength === before.length) {
+    const rule = operator && morphologyPresentation.transition_tails.find((rule) =>
+      rule.forms.includes(operator.state_before?.form ?? "")
+      && ("kinds" in rule ? rule.kinds?.includes(operator.kind)
+        : rule.support_group === operatorDefinitions[operator.kind]?.support?.group)
+      && (!("type_prefixes" in rule) || rule.type_prefixes?.some((type) => operator.state_before?.conjugation_type?.startsWith(type)))
+      && (!("cform_contains" in rule) || rule.cform_contains?.some((form) => operator.state_before?.conjugation_form?.includes(form)))
+      && rule.endings.some((ending) => input.endsWith(ending)));
+    const ending = rule?.endings.find((ending) => input.endsWith(ending));
+    if (!ending) return `${input} → ${output}`;
+    prefixLength -= Array.from(ending).length;
+  } else {
+    // 已有功能成分发生变化时，保留其完整词形，如ます→ません、ない→なかった。
+    const changed = preceding.find((step) => step.char_range && step.char_range[0] > rootStart
+      && step.char_range[0] - rootStart <= prefixLength && prefixLength < step.char_range[1] - rootStart);
+    if (changed?.char_range) prefixLength = changed.char_range[0] - rootStart;
+  }
+  if (prefixLength === 0) return `${input} → ${output}`;
   const localInput = before.slice(prefixLength).join("") || "∅";
   const localOutput = after.slice(prefixLength).join("") || "∅";
   return `${input} → ${output}（${localInput}→${localOutput}）`;
@@ -342,7 +361,7 @@ function buildChainStepMap(
     if (!isLast && contractedOutput) output = contractedOutput;
     if (!output) output = currentSlice || op.output_state || chain.surface_form;
 
-    const desc = op.char_range ? transitionDescription(input, output) : (op.description || "");
+    const desc = op.char_range ? transitionDescription(input, output, op, nonInflectionOperators.slice(0, i).map(({ op }) => op), rootStart) : (op.description || "");
 
     result.set(op.operator_id, {
       operatorId: op.operator_id,
