@@ -1,6 +1,58 @@
-import type { DictionaryLookup } from "../types";
+import type { DictionaryLookup, PosTag } from "../types";
 import { configuredPrototype, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
+
+export interface ReaderTargetPresentation {
+  pos: PosTag;
+  conjugationType: string;
+  observedForm: string;
+  lookupForm: string;
+}
+
+export function readerTargetPresentation(
+  target: { char_range: [number, number]; surface: string; morpheme_ids: string[]; lexical_core_ids: string[]; lookup_forms: { form: string }[] },
+  document: UnifiedDocument,
+): ReaderTargetPresentation | null {
+  const targetIds = new Set(target.morpheme_ids ?? []);
+  const chains = document.morphology?.chains ?? [];
+  const anchors = (target.lexical_core_ids ?? []).flatMap((chainId) => {
+    const chain = chains.find((item) => item.chain_id === chainId);
+    const anchor = chain && document.morphemes[chain.anchor_morpheme];
+    const belongsToTarget = anchor && (
+      targetIds.has(anchor.id)
+      || anchor.char_range[0] < target.char_range[1] && anchor.char_range[1] > target.char_range[0]
+    );
+    return belongsToTarget ? [chain.anchor_morpheme] : [];
+  });
+  const candidates = [
+    ...anchors,
+    ...document.morphemes
+      .map((morpheme, index) => ({ morpheme, index }))
+      .filter(({ morpheme }) => targetIds.has(morpheme.id)
+        || (morpheme.char_range[0] < target.char_range[1] && morpheme.char_range[1] > target.char_range[0]))
+      .sort((left, right) => {
+        const lexical = (major: string | null) => ["動詞", "形容詞", "形状詞", "形容動詞", "名詞", "代名詞", "数詞"].includes(major ?? "") ? 0 : 1;
+        return lexical(left.morpheme.pos[0]) - lexical(right.morpheme.pos[0]);
+      })
+      .map(({ index }) => index),
+  ];
+  const morpheme = [...new Set(candidates)]
+    .map((index) => document.morphemes[index])
+    .find((item) => item?.pos?.[0]);
+  if (!morpheme?.pos?.[0]) return null;
+  const source = document.source.tokens.find((token) => token.index === morpheme.source_index);
+  return {
+    pos: {
+      major: morpheme.pos[0],
+      sub1: morpheme.pos[1] ?? "",
+      sub2: morpheme.pos[2] ?? "",
+      sub3: morpheme.pos[3] ?? "",
+    },
+    conjugationType: source?.fields.find((field) => field.name === "cType")?.value ?? "",
+    observedForm: target.surface,
+    lookupForm: target.lookup_forms?.[0]?.form || morpheme.lemma || target.surface,
+  };
+}
 
 export interface ReaderChainSummary {
   id: string;
@@ -162,18 +214,123 @@ export function kanjiRubySegments(annotation: { base: string; reading: string; c
 }
 
 function grammaticalLabel(value: string) {
-  return (morphologyPresentation.label_aliases as Record<string, string>)[value] ?? value;
+  const aliases: Record<string, string> = {
+    "过去": "過去",
+    "愿望": "願望",
+    "敬体否定": "丁寧な否定",
+    "敬体": "丁寧体",
+    "当为": "当為",
+    "条件": "条件",
+    "接续": "接続",
+    "接续形": "接続形",
+    "进行／状态持续": "進行・状態継続",
+    "预先处置／保持": "前もっての処置・保持",
+    "远离／持续发展": "離脱・継続発展",
+    "趋近／逐渐显现": "接近・漸次発現",
+    "尝试": "試行",
+    "受惠（尊敬）": "受益（尊敬）",
+    "受惠／请求": "受益・依頼",
+    "给予": "授与",
+    "列举·举例": "列挙・例示",
+    "伴随": "付帯",
+    "伴随·持续": "付帯・継続",
+    "逆接": "逆接",
+    "原因": "原因",
+    "完成／遗憾／感慨": "完了・遺憾・感慨",
+    "容易": "容易",
+    "困难": "困難",
+    "名词化": "名詞化",
+    "变化": "変化",
+    "预期判断": "予期判断",
+    "程度／约量": "程度・概量",
+    "可能性": "可能性",
+    "禁止": "禁止",
+    "列举": "列挙",
+    "插入语": "挿入語",
+    "举例": "例示",
+    "变化接续": "変化接続",
+    "推量疑问": "推量疑問",
+    "连用修饰": "連用修飾",
+    "连体修饰": "連体修飾",
+    "可能、被动等": "可能・受身等",
+    "结果存续": "結果存続",
+    "列举·可能": "列挙・可能",
+    "过度": "過度",
+    "逆接／用途与评价": "逆接・用途と評価",
+    "活用": "活用",
+    "样态 / 传闻": "様態・伝聞",
+    "动作开始": "動作開始",
+    "动作持续": "動作継続",
+    "动作完了": "動作完了",
+    "反复动作": "反復動作",
+    "开始发生": "発生開始",
+    "重新进行": "再実行",
+    "动作未完": "動作未完了",
+    "彻底完成": "完全完了",
+    "难以做出": "実行困難",
+    "失败 / 错过": "失敗・逸失",
+    "错失机会": "機会逸失",
+    "のに接续": "のに接続",
+    "否定条件": "否定条件",
+    "否定接续": "否定接続",
+    "义务": "義務",
+    "取立条件": "取り立て条件",
+  };
+  return aliases[value]
+    ?? (morphologyPresentation.label_aliases as Record<string, string>)[value]
+    ?? value;
 }
 
 function conjugationLabel(type = "", form = "", category = "", stateForm = "") {
   const family = Object.entries(morphologyPresentation.families).find(([prefix]) => type.startsWith(prefix))?.[1]
     ?? (morphologyPresentation.category_labels as Record<string, string>)[category] ?? "";
-  return [family, conjugationFormLabel(form, stateForm, "")].filter(Boolean).join(" · ");
+  return [family, conjugationFormLabel(form, stateForm, "")].filter(Boolean).join(" - ");
 }
 
 function conjugationFormLabel(form = "", stateForm = "", fallback = "活用") {
-  return Object.entries(morphologyPresentation.raw_form_labels).find(([prefix]) => form.startsWith(prefix))?.[1]
-    ?? formLabels[stateForm] ?? fallback;
+  const normalized = form.trim();
+  if (/終止形|連体形/.test(normalized)) return "終止形・連体形";
+  if (/未然形/.test(normalized)) return "未然形";
+  if (/連用形/.test(normalized)) return "連用形";
+  if (/仮定形|已然形/.test(normalized)) return "仮定形";
+  if (/命令形/.test(normalized)) return "命令形";
+  if (/意志推量形|意向形/.test(normalized)) return "意向形";
+  return formLabels[stateForm]
+    ?? Object.entries(morphologyPresentation.raw_form_labels).find(([prefix]) => normalized.startsWith(prefix))?.[1]
+    ?? fallback;
+}
+
+const educationalOperatorLabels: Record<string, string> = {
+  negative: "ない形",
+  polite_negative: "ます形",
+  causative: "使役形",
+  passive_potential: "受身形",
+  volitional: "意向形",
+  politeness_masu: "ます形",
+  politeness_desu: "です形",
+  te_form: "て形",
+  de_form: "て形",
+  te_connection: "て形",
+  past: "た形",
+  conditional: "条件形",
+  ba_connection: "条件形",
+  tara_condition: "条件形",
+  to_condition: "条件形",
+  nara_condition: "条件形",
+  imperative: "命令形",
+};
+
+function operatorDisplayTitle(operator: MorphologyOperator) {
+  const educational = educationalOperatorLabels[operator.kind];
+  if (educational) {
+    const national = conjugationFormLabel(
+      operator.state_before?.conjugation_form,
+      operator.state_before?.form,
+      "",
+    );
+    return [national, educational].filter(Boolean).join(" - ");
+  }
+  return grammaticalLabel(operatorDefinitions[operator.kind]?.title || operator.label || "活用");
 }
 
 function chainRoot(chains: ReadonlyArray<MorphologyChain>, chain: MorphologyChain) {
@@ -219,7 +376,7 @@ function transitionDescription(
 }
 
 export function grammaticalConceptTitle(operator: MorphologyOperator): string {
-  return operatorDefinitions[operator.kind]?.title || grammaticalLabel(operator.label) || "活用";
+  return operatorDisplayTitle(operator);
 }
 
 export function operatorPrototypeForm(
@@ -406,7 +563,9 @@ function resolveOperatorStep(
     return {
       operatorId: operator.operator_id,
       kind: operator.kind,
-      conceptTitle: operator.evidence?.includes("unidic:potential") ? `可能形 · ${conjugationFormLabel(operator.state_after?.conjugation_form, operator.state_after?.form)}` : label,
+      conceptTitle: operator.evidence?.includes("unidic:potential")
+        ? [conjugationFormLabel(operator.state_before?.conjugation_form, operator.state_before?.form, ""), "可能形"].filter(Boolean).join(" - ")
+        : label,
       prototypeForm: output,
       surface: output,
       input,

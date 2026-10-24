@@ -6,7 +6,7 @@ import type { GuideReaderSnapshot } from "../../grammar-guide/types";
 import { guideLinkedLookup, hydrateGuideLookup } from "../../grammar-guide/dictionary";
 import { chainGrammarLookups, grammarMorphemeLookup } from "../../grammar/particleEntries";
 import { componentForRange, projectReaderSentence, type LookupTarget } from "../../reader/capsuleProjection";
-import { kanjiRubySegments, readerChains, type ReaderMorphologyDetail } from "../../reader/lookupPresentation";
+import { kanjiRubySegments, readerChains, readerTargetPresentation, type ReaderMorphologyDetail } from "../../reader/lookupPresentation";
 import { snapshotRect, type RectSnapshot } from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
 import ReaderCapsule from "../reader/ReaderCapsule.vue";
@@ -36,6 +36,12 @@ const projection = computed(() => props.snapshot && props.snapshot.document.text
   ? projectReaderSentence(props.snapshot.document, props.snapshot.group,
       props.showRuby ? props.snapshot.ruby.flatMap(kanjiRubySegments) : []) : []);
 const chains = computed(() => active.value && props.snapshot ? readerChains(active.value, props.snapshot.document) : []);
+const activeSourcePresentation = computed(() => active.value && props.snapshot
+  ? readerTargetPresentation(active.value, props.snapshot.document)
+  : null);
+const componentSourcePresentation = computed(() => component.value && props.snapshot
+  ? readerTargetPresentation(component.value, props.snapshot.document)
+  : null);
 const chainParticles = computed(() => {
   if (!active.value || !props.snapshot || !detail.value) return [];
   return chainGrammarLookups(active.value, props.snapshot.document, { detailId: detail.value.id, range: activeRange.value ?? undefined });
@@ -211,6 +217,8 @@ onBeforeUnmount(() => {
     <ExplanationPopover v-if="!activeParticle" :show="Boolean(active)" :anchor="anchor" :component-anchor="anchor"
       :whole-token="null" :component-token="null"
       :whole-headword="active?.surface" :component-headword="component?.surface || active?.surface"
+      :whole-source="wholeHistory.length === 0 ? activeSourcePresentation : null"
+      :component-source="(hasCompanion ? componentHistory.length === 0 : wholeHistory.length === 0) ? (componentSourcePresentation || activeSourcePresentation) : null"
       :whole-lookup="whole" :component-lookup="displayedComponent"
       :whole-loading="hasCompanion && wholeLoading" :component-loading="hasCompanion ? componentLoading : wholeLoading"
       :whole-can-go-back="wholeHistory.length > 0"

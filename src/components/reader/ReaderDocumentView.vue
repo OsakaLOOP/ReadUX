@@ -67,6 +67,7 @@ import {
   readerChains,
   readerMorphologyHits,
   readerRubyAnnotations,
+  readerTargetPresentation,
   type ReaderMorphologyDetail,
   type ReaderMorphologyHit,
 } from "../../reader/lookupPresentation";
@@ -442,6 +443,16 @@ const chainOverview = computed(() => {
     ),
   };
 });
+
+function sourcePresentationForHit(hit: TargetHit | null) {
+  if (!hit) return null;
+  const document = hit.selectionDocument ?? hit.unit.unit.document;
+  return document ? readerTargetPresentation(hit.target, document) : null;
+}
+
+const activeSourcePresentation = computed(() => sourcePresentationForHit(activeHit.value));
+const componentSourcePresentation = computed(() => sourcePresentationForHit(componentHit.value));
+
 const morphologyParticles = computed(() => {
   const hit = activeHit.value;
   const document = hit?.selectionDocument ?? hit?.unit.unit.document;
@@ -2374,10 +2385,10 @@ function toggleEinkMode() {
       :token="null"
       :headword="relatedWord || activeHit?.target.surface"
       :lookup="activeQuery"
+      :source-presentation="relatedWord ? null : activeSourcePresentation"
       :loading="queryBusy"
       :can-go-back="lookupHistory.length > 0"
       :summary-visible="!relatedWord && Boolean(chainOverview)"
-      :kind-label="componentHit ? '整体' : undefined"
       panel-id="reader-dictionary"
       @enter="cancelCloseLookup"
       @leave="scheduleCloseLookup"
@@ -2421,6 +2432,7 @@ function toggleEinkMode() {
       :token="null"
       :headword="componentWord || componentHit.target.surface"
       :lookup="componentQuery"
+      :source-presentation="componentWord ? null : componentSourcePresentation"
       :loading="componentBusy"
       :can-go-back="componentHistory.length > 0"
       kind-label="组分"

@@ -20,11 +20,11 @@ import {
 } from "../explanation/dictionaryMatrix";
 import {
   morphologyLemma,
-  morphologyPosLabel,
-  morphologySteps as buildMorphologySteps,
+  posDisplayLabel,
   primaryMorphologyChain,
   readingForMorphologyLemma,
 } from "../explanation/morphologyView";
+import type { ReaderTargetPresentation } from "../reader/lookupPresentation";
 
 const props = defineProps<{
   show: boolean;
@@ -42,6 +42,7 @@ const props = defineProps<{
   panelId: string;
   shortcutsEnabled?: boolean;
   presentation?: "reader" | "guide";
+  sourcePresentation?: ReaderTargetPresentation | null;
 }>();
 
 const emit = defineEmits<{
@@ -60,56 +61,32 @@ const morphologyChain = computed(() => (
 const sourceLemma = computed(() => (
   morphologyChain.value
     ? morphologyLemma(morphologyChain.value)
-    : props.token?.bunsetsu.head_word.base_form ?? props.headword ?? ""
+    : props.sourcePresentation?.lookupForm
+      ?? props.token?.bunsetsu.head_word.base_form
+      ?? props.headword
+      ?? ""
 ));
 
 const sourceQuery = computed(() => (
   morphologyChain.value?.lookup_form
+  || props.sourcePresentation?.lookupForm
   || props.token?.bunsetsu.head_word.base_form
   || props.headword
   || ""
 ));
 
-const formattedPos = computed(() => {
-  if (!props.token) return "";
-  return morphologyPosLabel(morphologyChain.value, props.token.bunsetsu.head_word.pos);
+const sourceConjugationType = computed(() => {
+  const morphemes = props.token?.bunsetsu.morphemes ?? [];
+  const anchor = morphologyChain.value?.anchor_morpheme;
+  return props.sourcePresentation?.conjugationType
+    || (anchor === undefined ? undefined : morphemes[anchor])?.conjugation_type
+    || morphemes.find((morpheme) => morpheme.base_form === props.token?.bunsetsu.head_word.base_form)?.conjugation_type
+    || "";
 });
-
-const morphologySteps = computed(() => buildMorphologySteps(morphologyChain.value));
-function guideMorphologyLabel(value: string) {
-  const parts = value.split("/");
-  const conjugation = parts[0] ?? value;
-  const form = parts[1] ?? "";
-  const conjugationLabel = conjugation
-    .replace(/^下一段-.*$/, "下一段动词")
-    .replace(/^上一段-.*$/, "上一段动词")
-    .replace(/^五段-.*$/, "五段动词")
-    .replace(/^一段-.*$/, "一段动词")
-    .replace(/^サ行変格$/, "サ变动词")
-    .replace(/^カ行変格$/, "カ变动词");
-  const formLabel = form
-    .replace(/^終止形(?:-.*)?$/, "终止形")
-    .replace(/^連用形(?:-.*)?$/, "连用形")
-    .replace(/^未然形(?:-.*)?$/, "未然形")
-    .replace(/^仮定形(?:-.*)?$/, "假定形")
-    .replace(/^連体形(?:-.*)?$/, "连体形");
-  return [conjugationLabel, formLabel].filter(Boolean).join(" · ");
-}
-const displayMorphologySteps = computed(() => props.presentation === "guide"
-  ? morphologySteps.value.map((step) => ({ ...step, label: guideMorphologyLabel(step.label || step.output_state), description: "" }))
-  : morphologySteps.value);
 
 const guideTags = computed(() => props.presentation === "guide"
   ? props.token?.bunsetsu.grammar_tags.filter((tag) => tag.teaching_label || tag.description) ?? []
   : []);
-
-const showMorphologySummary = computed(() => {
-  const chain = morphologyChain.value;
-  return Boolean(chain && (
-    chain.surface_form !== sourceLemma.value
-    || morphologySteps.value.length > 0
-  ));
-});
 
 const displayableEntries = computed(() => {
   return (props.lookup?.entries ?? []).filter((entry) => {
@@ -378,13 +355,36 @@ const activeReading = computed(() => {
 });
 
 const activeHeaderTags = computed(() => [
-  ...(displayedEntry.value?.header.pos_tags ?? []),
   ...(displayedEntry.value?.header.usage_tags ?? []),
 ]);
 
-const showContextSummary = computed(() => Boolean(
-  showMorphologySummary.value && morphologyChain.value && isSourceQuery.value || props.summaryVisible,
-));
+const activePosLabel = computed(() => {
+  const sourcePos = props.sourcePresentation?.pos
+    ?? props.lookup?.pos
+    ?? (isSourceQuery.value ? props.token?.bunsetsu.head_word.pos : null);
+  const dictionaryTags = displayedEntry.value?.header.pos_tags ?? [];
+  return sourcePos || dictionaryTags.length
+    ? posDisplayLabel(sourcePos, sourceConjugationType.value, dictionaryTags)
+    : "";
+});
+
+const dictionaryFormConjugation = computed(() => {
+  if (!isSourceQuery.value) return "";
+  const major = props.sourcePresentation?.pos.major
+    ?? props.token?.bunsetsu.head_word.pos.major
+    ?? props.lookup?.pos?.major
+    ?? "";
+  if (!["動詞", "形容詞", "形状詞", "形容動詞", "形動"].includes(major)) return "";
+  const observed = props.sourcePresentation?.observedForm
+    ?? props.lookup?.observed_form
+    ?? props.headword
+    ?? "";
+  const lookup = props.sourcePresentation?.lookupForm
+    ?? props.lookup?.query
+    ?? "";
+  if (!observed || !lookup || observed !== lookup) return "";
+  return "終止形・連体形 - 辞書形";
+});
 
 const matchHint = computed(() => {
   const evidence = activeEntry.value?.match_evidence;
@@ -486,7 +486,7 @@ function handleDefinitionClick(event: MouseEvent) {
       <div class="tooltip-content" :data-explanation-content="panelId" :data-presentation="presentation || 'reader'">
         <header class="tooltip-header">
           <button v-if="canGoBack" type="button" class="back-button" aria-label="返回上一词条" @click="emit('back')"><ChevronLeft :size="20" aria-hidden="true" /></button>
-          <div class="header-grid" :class="{ 'header-grid--single': !showContextSummary }">
+          <div class="header-grid" :class="{ 'header-grid--single': !activePosLabel && !dictionaryFormConjugation }">
             <div class="headword-block">
               <div class="headword-line">
                 <span class="base-form">{{ activeHeadword }}</span>
@@ -494,21 +494,14 @@ function handleDefinitionClick(event: MouseEvent) {
               </div>
               <div class="headword-meta">
                 <span v-for="tag in activeHeaderTags" :key="`${tag.kind}:${tag.label}`" class="header-tag" :data-kind="tag.kind">{{ tag.label }}</span>
-                <span v-if="!activeHeaderTags.length && isSourceQuery" class="tooltip-pos">{{ formattedPos }}</span>
                 <span v-if="displayedEntry && displayedEntry.entry_kind !== 'lexical'" class="header-tag" data-kind="entry-kind">{{ entryKindLabel(displayedEntry.entry_kind) }}</span>
                 <span v-if="matchHint" class="match-hint">{{ matchHint }}</span>
                 <span v-if="kindLabel" class="tooltip-kind">{{ kindLabel }}</span>
               </div>
             </div>
-            <div v-if="showContextSummary" class="header-morphology" aria-label="本句形态信息">
-              <slot name="summary" />
-              <template v-if="showMorphologySummary && morphologyChain && isSourceQuery">
-                <strong v-if="morphologyChain.surface_form !== sourceLemma" class="current-form">{{ morphologyChain.surface_form }}</strong>
-                <div v-for="step in displayMorphologySteps" :key="step.operator_id" class="morphology-step">
-                  <b>{{ step.label || step.output_state }}</b>
-                  <span v-if="step.description">{{ step.description }}</span>
-                </div>
-              </template>
+            <div v-if="activePosLabel || dictionaryFormConjugation" class="header-pos" aria-label="词性">
+              <span v-if="activePosLabel">{{ activePosLabel }}</span>
+              <span v-if="dictionaryFormConjugation" class="header-conjugation">{{ dictionaryFormConjugation }}</span>
             </div>
           </div>
         </header>
@@ -590,7 +583,7 @@ function handleDefinitionClick(event: MouseEvent) {
 <style scoped>
 .tooltip-panel { position: fixed; z-index: 1000; box-sizing: border-box; width: min(480px, calc(100vw - 24px)); overflow: auto; overscroll-behavior: contain; padding: 14px; background: var(--glass-bg); backdrop-filter: var(--glass-filter); border: 1px solid var(--glass-border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); color: var(--text-primary); font: .88rem/1.55 var(--font-ui); overflow-wrap: anywhere; pointer-events: auto; scrollbar-gutter: stable; }
 .tooltip-header { position: sticky; top: -14px; z-index: 3; display: flex; gap: 8px; align-items: flex-start; margin: -14px -14px 6px; padding: 14px 14px 10px; background: linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 94%, transparent) 0%, color-mix(in srgb, var(--bg-primary) 82%, transparent) 76%, transparent 100%); border-bottom: 1px solid color-mix(in srgb, var(--border-color) 65%, transparent); backdrop-filter: blur(18px); }
-.header-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, .9fr) minmax(160px, 1.1fr); gap: 12px; align-items: start; }
+.header-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, .9fr) minmax(160px, 1.1fr); gap: 12px; align-items: center; }
 .header-grid--single { grid-template-columns: minmax(0, 1fr); }
 .headword-block { min-width: 0; }
 .headword-line { display: flex; flex-wrap: wrap; gap: 2px 4px; align-items: baseline; }
@@ -598,15 +591,11 @@ function handleDefinitionClick(event: MouseEvent) {
 .back-button { display: grid; place-items: center; flex: 0 0 28px; padding: 0; line-height: 26px; }
 .base-form { color: var(--accent-color); font: 700 1.25rem/1.35 var(--font-ja); }
 .reading { color: var(--text-muted); font: .78rem var(--font-ja); }
-.tooltip-pos { color: var(--text-muted); font-size: .75rem; }
 .tooltip-kind { color: var(--text-muted); font: 700 .68rem var(--font-ui); }
 .header-tag, .match-hint { display: inline-flex; align-items: center; border: 1px solid color-mix(in srgb, var(--border-color) 82%, transparent); border-radius: 4px; padding: 0 5px; color: var(--text-secondary); font: 700 .66rem/1.55 var(--font-ui); }
 .header-tag[data-kind="usage"], .header-tag[data-kind="entry-kind"], .match-hint { background: var(--accent-light); color: var(--accent-color); }
-.header-morphology { min-width: 0; display: grid; gap: 4px; padding-left: 11px; border-left: 1px solid color-mix(in srgb, var(--border-color) 72%, transparent); }
-.current-form { color: var(--text-primary); font-size: .88rem; line-height: 1.35; }
-.morphology-step { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px; align-items: baseline; font-size: .68rem; line-height: 1.35; }
-.morphology-step b { color: #6c5ab0; font: 700 .66rem var(--font-ui); }
-.morphology-step span { color: var(--text-secondary); }
+.header-pos { min-width: 0; display: grid; gap: 2px; align-content: center; padding-left: 11px; border-left: 1px solid color-mix(in srgb, var(--border-color) 72%, transparent); color: var(--text-secondary); font: 700 .76rem/1.45 var(--font-ui); }
+.header-conjugation { color: var(--grammar-text, #1769aa); }
 .tooltip-section { border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 6px; }
 .tooltip-header + :deep(.dictionary-choice-bar) { margin-top: 0; padding-top: 9px; border-top: 0; }
 .tooltip-header + :deep(.form-selector) { margin-top: 0; padding-top: 9px; border-top: 0; }
@@ -635,5 +624,5 @@ button:hover, button.active { border-color: var(--accent-color); background: var
 .relation-list button[data-relation="parent"], .relation-list button[data-relation="child"] { color: var(--text-secondary); }
 .fade-enter-active, .fade-leave-active { transition: opacity .12s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
-@media (max-width: 420px) { .header-grid { grid-template-columns: minmax(0, 1fr); } .header-morphology { padding: 7px 0 0; border-top: 1px solid color-mix(in srgb, var(--border-color) 72%, transparent); border-left: 0; } }
+@media (max-width: 420px) { .header-grid { grid-template-columns: minmax(0, 1fr); } .header-pos { padding: 7px 0 0; border-top: 1px solid color-mix(in srgb, var(--border-color) 72%, transparent); border-left: 0; } }
 </style>

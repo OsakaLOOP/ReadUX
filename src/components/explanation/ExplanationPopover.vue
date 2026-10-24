@@ -7,6 +7,7 @@ import TooltipPanel from "../TooltipPanel.vue";
 import ReaderExplanationBubble from "../reader/ReaderExplanationBubble.vue";
 import ParticleGrammarBlock from "../grammar/ParticleGrammarBlock.vue";
 import type { ReaderMorphologyDetail } from "../../reader/lookupPresentation";
+import type { ReaderTargetPresentation } from "../../reader/lookupPresentation";
 
 const props = defineProps<{
   show: boolean;
@@ -26,6 +27,8 @@ const props = defineProps<{
   presentation?: "reader" | "guide";
   wholeHeadword?: string;
   componentHeadword?: string;
+  wholeSource?: ReaderTargetPresentation | null;
+  componentSource?: ReaderTargetPresentation | null;
   summaryVisible?: boolean;
   detail?: ReaderMorphologyDetail | null;
   grammarLookups?: DictionaryLookup[];
@@ -181,10 +184,10 @@ onBeforeUnmount(() => {
     :max-height="placement.whole?.maxHeight ?? 620"
     :token="wholeToken"
     :headword="wholeHeadword"
+    :source-presentation="wholeSource"
     :summary-visible="summaryVisible"
     :lookup="wholeLookup"
     :loading="wholeLoading"
-    kind-label="整体"
     :can-go-back="wholeCanGoBack"
     :shortcuts-enabled="false"
     :presentation="presentation"
@@ -225,6 +228,7 @@ onBeforeUnmount(() => {
     :max-height="placement.component.maxHeight"
     :token="componentToken"
     :headword="componentHeadword"
+    :source-presentation="componentSource"
     :summary-visible="!wholeLookup && summaryVisible"
     :lookup="componentLookup"
     :loading="componentLoading"
