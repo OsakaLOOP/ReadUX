@@ -3018,6 +3018,110 @@
       "body_blocks": []
     },
     {
+      "explanation_id": "explanation.grammar.classical.zu",
+      "concept_id": "grammar.classical.zu",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ず（文言否定）",
+      "compact_summary": "文言否定助动词，连体形ぬ、连用接续ず；ずに表示不做前项动作",
+      "function_summary": "文言否定助动词，连体形ぬ、连用接续ず；ずに表示不做前项动作",
+      "connection": "动词未然形＋ず；连用接续可用ずに，文言活用与现代ない分开。",
+      "formation": "行かず／行かずに",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "何も言わずに帰った。"
+      ],
+      "counter_examples": [
+        "现代口语ないで不进入文言活用表"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.classical.gotoshi",
+      "concept_id": "grammar.classical.gotoshi",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ごとし／ごとき（文言比况）",
+      "compact_summary": "文言比况表达，终止形ごとし、连体形ごとき；与现代ようだ保持独立身份",
+      "function_summary": "文言比况表达，终止形ごとし、连体形ごとき；与现代ようだ保持独立身份",
+      "connection": "体言或连体形＋の＋ごとし；连体修饰用ごとき。",
+      "formation": "夢のごとし／風のごとき",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "夢のごとし。",
+        "風のごとき速さ。"
+      ],
+      "counter_examples": [
+        "ようだ作为现代ナ形容词判断结构"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.classical.beshi",
+      "concept_id": "grammar.classical.beshi",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "べし（文言推量／当然）",
+      "compact_summary": "文语助动词べし，表示推量、当然、意志或可能；活用表与现代べきだ分开",
+      "function_summary": "文语助动词べし，表示推量、当然、意志或可能；活用表与现代べきだ分开",
+      "connection": "动词终止形＋べし；连体形べき，连用形べく。",
+      "formation": "行くべし／あるべきこと",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "明日来るべし。",
+        "守るべきこと。"
+      ],
+      "counter_examples": [
+        "べきだ的现代规范判断"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
       "explanation_id": "explanation.grammar.functional.no",
       "concept_id": "grammar.functional.no",
       "sense_id": null,

@@ -2562,6 +2562,91 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.classical.zu",
+      "kind": "construction",
+      "canonical_label": "ず（文言否定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "negation"
+      ],
+      "function_tags": [
+        "classical_negative"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.zu",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.gotoshi",
+      "kind": "construction",
+      "canonical_label": "ごとし／ごとき（文言比况）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "comparison"
+      ],
+      "function_tags": [
+        "simile"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.gotoshi",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.beshi",
+      "kind": "construction",
+      "canonical_label": "べし（文言推量／当然）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "modality"
+      ],
+      "function_tags": [
+        "conjecture",
+        "obligation"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.beshi",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.functional.no",
       "kind": "functional_morpheme",
       "canonical_label": "の",
@@ -5678,6 +5763,54 @@
       "audit_status": "verified"
     },
     {
+      "sense_id": "grammar.classical.zu.negative",
+      "concept_id": "grammar.classical.zu",
+      "label": "文言否定",
+      "function_summary": "否定前项动作或状态",
+      "semantic_features": {
+        "function": "classical_negative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.zu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.gotoshi.simile",
+      "concept_id": "grammar.classical.gotoshi",
+      "label": "文言比况",
+      "function_summary": "表示如同、仿佛",
+      "semantic_features": {
+        "function": "simile"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.gotoshi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.beshi.modality",
+      "concept_id": "grammar.classical.beshi",
+      "label": "文言推量与当然",
+      "function_summary": "表示推量、当然或规范要求",
+      "semantic_features": {
+        "function": "classical_modality"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.beshi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
       "sense_id": "grammar.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "label": "の：连体关系",
@@ -8763,6 +8896,80 @@
       "source_refs": [
         "readux-editorial:2026-10-26",
         "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.zu.negative",
+      "concept_id": "grammar.classical.zu",
+      "possible_sense_ids": [
+        "grammar.classical.zu.negative"
+      ],
+      "rule_id": "grammar.classical.zu.negative",
+      "connection_signature": "动词未然形＋ず（に）",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "言わずに帰る。"
+      ],
+      "counter_examples": [
+        "ないで作为现代否定接续"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.gotoshi.simile",
+      "concept_id": "grammar.classical.gotoshi",
+      "possible_sense_ids": [
+        "grammar.classical.gotoshi.simile"
+      ],
+      "rule_id": "grammar.classical.gotoshi.simile",
+      "connection_signature": "体言／连体形＋（の）＋ごとし／ごとき",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "夢のごとし。",
+        "風のごとき速さ。"
+      ],
+      "counter_examples": [
+        "ような／ようだ的现代形式"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.beshi.modality",
+      "concept_id": "grammar.classical.beshi",
+      "possible_sense_ids": [
+        "grammar.classical.beshi.modality"
+      ],
+      "rule_id": "grammar.classical.beshi.modality",
+      "connection_signature": "动词终止形＋べし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行くべし。",
+        "あるべき姿。"
+      ],
+      "counter_examples": [
+        "べきだ的现代形式"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
       ]
     },
     {
@@ -13482,6 +13689,172 @@
       ],
       "rule_version": 1,
       "show_badge": false
+    },
+    {
+      "rule_id": "grammar.classical.beshi.modality",
+      "realization_id": "realization.grammar.classical.beshi.modality",
+      "concept_id": "grammar.classical.beshi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "終止形",
+            "基本形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "べし",
+            "べき"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "classical"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "classical"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行くべし。",
+        "あるべき姿。"
+      ],
+      "counter_examples": [
+        "べきだ的现代形式"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.gotoshi.simile",
+      "realization_id": "realization.grammar.classical.gotoshi.simile",
+      "concept_id": "grammar.classical.gotoshi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "名詞",
+            "動詞",
+            "形容詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "ごとし"
+          ],
+          "pos_major": [
+            "助動詞",
+            "形容詞"
+          ],
+          "capture": "classical"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "classical"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "夢のごとし。",
+        "風のごとき速さ。"
+      ],
+      "counter_examples": [
+        "ような／ようだ的现代形式"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.zu.negative",
+      "realization_id": "realization.grammar.classical.zu.negative",
+      "concept_id": "grammar.classical.zu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "未然形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "ず",
+            "ぬ"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary"
+        },
+        {
+          "base_forms": [
+            "に"
+          ],
+          "pos_major": [
+            "助詞"
+          ],
+          "optional": true,
+          "capture": "connector"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary",
+        "connector"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "言わずに帰る。"
+      ],
+      "counter_examples": [
+        "ないで作为现代否定接续"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:classical-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
     },
     {
       "rule_id": "construction.nagara_mo",

@@ -2511,6 +2511,85 @@
       ]
     },
     {
+      "concept_id": "grammar.classical.zu",
+      "label": "ず（文言否定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "negation"
+      ],
+      "function_tags": [
+        "classical_negative"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "动词未然形＋ず（に）"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "文言否定",
+        "否定前项动作或状态"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.gotoshi",
+      "label": "ごとし／ごとき（文言比况）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "comparison"
+      ],
+      "function_tags": [
+        "simile"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "体言／连体形＋（の）＋ごとし／ごとき"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "文言比况",
+        "表示如同、仿佛"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.beshi",
+      "label": "べし（文言推量／当然）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "modality"
+      ],
+      "function_tags": [
+        "conjecture",
+        "obligation"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "动词终止形＋べし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "文言推量与当然",
+        "表示推量、当然或规范要求"
+      ]
+    },
+    {
       "concept_id": "grammar.functional.no",
       "label": "の",
       "aliases": [

@@ -501,6 +501,15 @@
       "terminal_mode": "continue",
       "order_rank": 12
     },
+    "classical_beshi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言助动词",
+      "input_category": "用言",
+      "output_category": "文語用言",
+      "terminal_mode": "continue",
+      "order_rank": 13
+    },
     "classical_gotoshi": {
       "stage": "classical",
       "executor": "classical_conjugation",
@@ -1289,6 +1298,58 @@
     }
   },
   "classical_forms": [
+    {
+      "lemma": "よし",
+      "class_name": "ク活用",
+      "forms": {
+        "未然形": "よく",
+        "連用形": "よく",
+        "終止形": "よし",
+        "連体形": "よき",
+        "已然形": "よけれ",
+        "命令形": "よかれ"
+      },
+      "connection": ["用言の連用形", "体言"]
+    },
+    {
+      "lemma": "をし",
+      "class_name": "シク活用",
+      "forms": {
+        "未然形": "をしく",
+        "連用形": "をしく",
+        "終止形": "をし",
+        "連体形": "をしき",
+        "已然形": "をしけれ",
+        "命令形": "をしかれ"
+      },
+      "connection": ["用言の連用形", "体言"]
+    },
+    {
+      "lemma": "静かなり",
+      "class_name": "ナリ活用",
+      "forms": {
+        "未然形": "静かなら",
+        "連用形": "静かなり／静かに",
+        "終止形": "静かなり",
+        "連体形": "静かなる",
+        "已然形": "静かなれ",
+        "命令形": "静かなれ"
+      },
+      "connection": ["体言", "用言の連用形"]
+    },
+    {
+      "lemma": "堂々たり",
+      "class_name": "タリ活用",
+      "forms": {
+        "未然形": "堂々たら",
+        "連用形": "堂々たり／堂々と",
+        "終止形": "堂々たり",
+        "連体形": "堂々たる",
+        "已然形": "堂々たれ",
+        "命令形": "堂々たれ"
+      },
+      "connection": ["体言", "用言の連用形"]
+    },
     {
       "lemma": "ごとし",
       "class_name": "シク活用",
@@ -2554,9 +2615,31 @@
     "negative_zuni": {
       "label": "否定接续",
       "title": "否定接续",
-      "concept": "morphology.chain",
+      "concept": "grammar.classical.zu",
       "prototype": "ずに",
       "output_form": "other"
+    },
+    "classical_gotoshi": {
+      "label": "文言比况",
+      "title": "如同／仿佛",
+      "concept": "grammar.classical.gotoshi",
+      "prototype": "ごとし",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "surface": ["ごとき"]
+            }
+          },
+          "form": "ごとき"
+        }
+      ]
+    },
+    "classical_beshi": {
+      "label": "文言推量／当然",
+      "title": "べし",
+      "concept": "grammar.classical.beshi",
+      "prototype": "べし"
     },
     "necessity_negative_ba_naru": {
       "label": "义务",
@@ -2671,6 +2754,33 @@
     }
   },
   "features": [
+    {
+      "kind": "classical_beshi",
+      "token": {
+        "equals": {
+          "pos": ["助動詞"],
+          "base": ["べし", "べき"]
+        }
+      }
+    },
+    {
+      "kind": "classical_gotoshi",
+      "token": {
+        "equals": {
+          "base": ["ごとし", "如し"]
+        }
+      }
+    },
+    {
+      "kind": "negative_zuni",
+      "token": {
+        "equals": {
+          "pos": ["助動詞"],
+          "ctype": ["助動詞-ヌ", "助動詞-ズ"],
+          "surface": ["ず"]
+        }
+      }
+    },
     {
       "kind": "darou_modality",
       "token": {
@@ -2961,7 +3071,15 @@
             "助動詞-ベシ"
           ]
         }
-      }
+      },
+      "exclude": [
+        {
+          "equals": {
+            "ctype": ["助動詞-ベシ"],
+            "base": ["べし"]
+          }
+        }
+      ]
     },
     {
       "kind": "passive_potential",
@@ -3281,7 +3399,15 @@
             "べきだ"
           ]
         }
-      }
+      },
+      "exclude": [
+        {
+          "equals": {
+            "ctype": ["助動詞-ベシ"],
+            "base": ["べし"]
+          }
+        }
+      ]
     },
     {
       "kind": "obligation",
@@ -3300,7 +3426,15 @@
             "助動詞"
           ]
         }
-      }
+      },
+      "exclude": [
+        {
+          "equals": {
+            "ctype": ["助動詞-ベシ"],
+            "base": ["べし"]
+          }
+        }
+      ]
     },
     {
       "kind": "negative_volitional",

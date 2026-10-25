@@ -1,0 +1,44 @@
+{
+  "bundle_id": "annotation-batch-b09",
+  "audit_status": "verified",
+  "source_refs": ["readux-editorial:2026-10-26", "morphology-refactor:classical-layer"],
+  "review": {"item_count": 3, "baseline": "docs/morphology_state_machine_design.md", "method": "区分文言活用表、文语助动词和现代判断结构"},
+  "items": [
+    {
+      "concept_id": "grammar.classical.zu",
+      "kind": "construction",
+      "canonical_label": "ず（文言否定）",
+      "semantic_domains": ["classical", "negation"],
+      "function_tags": ["classical_negative"],
+      "jlpt_level": null,
+      "register": ["classical", "written"],
+      "explanation": {"compact_summary": "文言否定助动词，连体形ぬ、连用接续ず；ずに表示不做前项动作", "connection": "动词未然形＋ず；连用接续可用ずに，文言活用与现代ない分开。", "formation": "行かず／行かずに", "examples": ["何も言わずに帰った。"], "counter_examples": ["现代口语ないで不进入文言活用表"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.classical.zu.negative", "label": "文言否定", "function_summary": "否定前项动作或状态", "semantic_features": {"function": "classical_negative"}}],
+      "realizations": [{"realization_id": "realization.grammar.classical.zu.negative", "rule_id": "grammar.classical.zu.negative", "possible_sense_ids": ["grammar.classical.zu.negative"], "connection_signature": "动词未然形＋ず（に）", "examples": ["言わずに帰る。"], "counter_examples": ["ないで作为现代否定接续"], "rule": {"kind": "grammar_construction", "priority": 72, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["未然形"], "capture": "predicate"}, {"base_forms": ["ず", "ぬ"], "pos_major": ["助動詞"], "capture": "auxiliary"}, {"base_forms": ["に"], "pos_major": ["助詞"], "optional": true, "capture": "connector"}], "captures": ["predicate", "auxiliary", "connector"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.classical.gotoshi",
+      "kind": "construction",
+      "canonical_label": "ごとし／ごとき（文言比况）",
+      "semantic_domains": ["classical", "comparison"],
+      "function_tags": ["simile"],
+      "jlpt_level": null,
+      "register": ["classical", "written"],
+      "explanation": {"compact_summary": "文言比况表达，终止形ごとし、连体形ごとき；与现代ようだ保持独立身份", "connection": "体言或连体形＋の＋ごとし；连体修饰用ごとき。", "formation": "夢のごとし／風のごとき", "examples": ["夢のごとし。", "風のごとき速さ。"], "counter_examples": ["ようだ作为现代ナ形容词判断结构"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.classical.gotoshi.simile", "label": "文言比况", "function_summary": "表示如同、仿佛", "semantic_features": {"function": "simile"}}],
+      "realizations": [{"realization_id": "realization.grammar.classical.gotoshi.simile", "rule_id": "grammar.classical.gotoshi.simile", "possible_sense_ids": ["grammar.classical.gotoshi.simile"], "connection_signature": "体言／连体形＋（の）＋ごとし／ごとき", "examples": ["夢のごとし。", "風のごとき速さ。"], "counter_examples": ["ような／ようだ的现代形式"], "rule": {"kind": "grammar_construction", "priority": 72, "atoms": [{"pos_major": ["名詞", "動詞", "形容詞"], "capture": "predicate"}, {"base_forms": ["ごとし"], "pos_major": ["助動詞", "形容詞"], "capture": "classical"}], "captures": ["predicate", "classical"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.classical.beshi",
+      "kind": "construction",
+      "canonical_label": "べし（文言推量／当然）",
+      "semantic_domains": ["classical", "modality"],
+      "function_tags": ["conjecture", "obligation"],
+      "jlpt_level": null,
+      "register": ["classical", "written"],
+      "explanation": {"compact_summary": "文语助动词べし，表示推量、当然、意志或可能；活用表与现代べきだ分开", "connection": "动词终止形＋べし；连体形べき，连用形べく。", "formation": "行くべし／あるべきこと", "examples": ["明日来るべし。", "守るべきこと。"], "counter_examples": ["べきだ的现代规范判断"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.classical.beshi.modality", "label": "文言推量与当然", "function_summary": "表示推量、当然或规范要求", "semantic_features": {"function": "classical_modality"}}],
+      "realizations": [{"realization_id": "realization.grammar.classical.beshi.modality", "rule_id": "grammar.classical.beshi.modality", "possible_sense_ids": ["grammar.classical.beshi.modality"], "connection_signature": "动词终止形＋べし", "examples": ["行くべし。", "あるべき姿。"], "counter_examples": ["べきだ的现代形式"], "rule": {"kind": "grammar_construction", "priority": 72, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["終止形", "基本形"], "capture": "predicate"}, {"base_forms": ["べし", "べき"], "pos_major": ["助動詞"], "capture": "classical"}], "captures": ["predicate", "classical"], "show_badge": true}}]
+    }
+  ]
+}

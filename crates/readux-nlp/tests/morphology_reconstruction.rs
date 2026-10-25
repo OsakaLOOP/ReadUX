@@ -162,6 +162,59 @@ fn deshou_is_conjectural_after_predicates_and_nominals() {
 }
 
 #[test]
+fn classical_rules_keep_their_own_entities_and_concepts() {
+    let cases = [
+        (
+            "行かずに",
+            vec![
+                Part { surface: "行か", pos: "動詞", sub: "自立", ctype: "五段-カ行", cform: "未然形-一般", lemma: "行く", orth_base: "行く" },
+                Part { surface: "ず", pos: "助動詞", sub: "", ctype: "助動詞-ヌ", cform: "連用形-一般", lemma: "ず", orth_base: "ず" },
+                Part { surface: "に", pos: "助詞", sub: "格助詞", ctype: "", cform: "", lemma: "に", orth_base: "に" },
+            ],
+            "negative_zuni",
+            "grammar.classical.zu",
+        ),
+        (
+            "夢のごとし",
+            vec![
+                Part { surface: "夢", pos: "名詞", sub: "普通名詞", ctype: "", cform: "", lemma: "夢", orth_base: "夢" },
+                Part { surface: "の", pos: "助詞", sub: "格助詞", ctype: "", cform: "", lemma: "の", orth_base: "の" },
+                Part { surface: "ごとし", pos: "助動詞", sub: "", ctype: "助動詞-ゴトシ", cform: "終止形-一般", lemma: "ごとし", orth_base: "ごとし" },
+            ],
+            "classical_gotoshi",
+            "grammar.classical.gotoshi",
+        ),
+        (
+            "行くべし",
+            vec![
+                Part { surface: "行く", pos: "動詞", sub: "自立", ctype: "五段-カ行", cform: "終止形-一般", lemma: "行く", orth_base: "行く" },
+                Part { surface: "べし", pos: "助動詞", sub: "", ctype: "助動詞-ベシ", cform: "終止形-一般", lemma: "べし", orth_base: "べし" },
+            ],
+            "classical_beshi",
+            "grammar.classical.beshi",
+        ),
+    ];
+    for (text, specs, kind, concept) in cases {
+        let artifact = run(text, &specs, &[]);
+        let chain = artifact.chains.iter().find(|chain| chain.operators.iter().any(|operator| operator.kind == kind))
+            .unwrap_or_else(|| panic!("{text}: {:?}", artifact.chains.iter().map(|chain| (&chain.surface_form, &chain.final_state, &chain.operators)).collect::<Vec<_>>()));
+        let operator = chain.operators.iter().find(|operator| operator.kind == kind).unwrap();
+        assert_eq!(operator.concept_id, concept, "{text}");
+        assert_eq!(operator.executor, "classical_conjugation", "{text}");
+        assert_eq!(chain.final_state.entity_class, "文言活用类", "{text}");
+    }
+
+    let modern = run("夢のようだ", &[
+        Part { surface: "夢", pos: "名詞", sub: "普通名詞", ctype: "", cform: "", lemma: "夢", orth_base: "夢" },
+        Part { surface: "の", pos: "助詞", sub: "格助詞", ctype: "", cform: "", lemma: "の", orth_base: "の" },
+        Part { surface: "よう", pos: "名詞", sub: "非自立", ctype: "", cform: "", lemma: "よう", orth_base: "よう" },
+        Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-ダ", cform: "終止形-一般", lemma: "だ", orth_base: "だ" },
+    ], &[]);
+    assert!(modern.chains.iter().flat_map(|chain| &chain.operators).any(|operator| operator.kind == "copula"));
+    assert!(!modern.chains.iter().flat_map(|chain| &chain.operators).any(|operator| operator.executor == "classical_conjugation"));
+}
+
+#[test]
 fn synthetic_reconstruction_covers_thirty_contract_cases() {
     let ordinary = [
         ("読んだ", vec![verb("読ん", "連用形-撥音便"), Part { surface: "だ", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "だ", orth_base: "だ" }], "past"),

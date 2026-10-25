@@ -148,11 +148,15 @@ impl ClassicalConjugationExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
-        if previous.final_state.entity_class != "文言活用类" && previous.final_state.category != "助動詞" {
+        let classical_operator = matches!(kind, "negative_zuni" | "classical_beshi" | "classical_gotoshi");
+        if classical_operator && previous.final_state.category != "動詞" && previous.final_state.category != "形容詞"
+            && previous.final_state.category != "形状詞" && previous.final_state.category != "名詞"
+            && previous.final_state.category != "助動詞" {
             atom.status = "candidate".into();
             diagnostics.push(format!("classical_input_category:{}:{}", previous.chain_id, index));
         }
         atom.final_state.entity_class = "文言活用类".into();
+        if classical_operator { atom.final_state.category = "文語用言".into(); }
     }
 }
 
