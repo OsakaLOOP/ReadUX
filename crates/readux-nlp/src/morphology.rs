@@ -113,6 +113,8 @@ pub struct MorphologyChain {
     pub source_evidence: Vec<SourceEvidence>,
     #[serde(default)]
     pub status: String,
+    #[serde(default)]
+    pub terminal: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -234,7 +236,7 @@ pub fn collect_with_external(
             operators, connection_forms, evidence,
             morpheme_indices: vec![index], final_state: crate::morphology_machine::state(source),
             core_morpheme_indices: vec![index], query_forms,
-            source_evidence: Vec::new(), status: "resolved".into(),
+            source_evidence: Vec::new(), status: "resolved".into(), terminal: false,
         });
     }
     Ok(crate::morphology_machine::compose(chains, source_tokens, morphemes, external))

@@ -26,6 +26,10 @@ fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
     }).max().is_some_and(|rank| current < rank)
 }
 
+fn terminal_mode(kind: &str) -> &'static str {
+    config::rule_metadata(kind).map_or("continue", |metadata| metadata.terminal_mode.as_str())
+}
+
 enum Transition { Core, Attach(Vec<String>), Support(&'static str), Insert, Boundary, Stop }
 
 /// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
@@ -470,6 +474,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                             diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
                         }
                         previous.operators.push(operator(previous, &atom, kind, current));
+                        previous.terminal = matches!(terminal_mode(&previous.operators.last().unwrap().kind), "sentence_or_pause" | "pause_or_continue");
                     }
                     if let Some(e) = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "mark"]) { previous.source_evidence.push(e); }
                     if context.ginza.is_some() && !context.same_bunsetsu(previous.char_range, atom.char_range) {
@@ -487,6 +492,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
                     }
                     atom.operators.push(operator(previous, &atom, kind.into(), current));
+                    atom.terminal = matches!(terminal_mode(&kind), "sentence_or_pause" | "pause_or_continue");
                     let relation = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "advcl", "xcomp"]);
                     let bridged = bridge_support(previous, index, source, &context);
                     let supported = bridged || relation.is_some() || context.same_word(previous.char_range, atom.char_range)
