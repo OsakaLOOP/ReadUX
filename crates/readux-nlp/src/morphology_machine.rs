@@ -14,7 +14,12 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
 fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
 
 fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
-    let current = config::rule_metadata(kind).map_or(0, |metadata| metadata.order_rank);
+    let Some(metadata) = config::rule_metadata(kind) else { return false; };
+    if previous.operators.iter().any(|operator| {
+        metadata.same_layer.iter().any(|item| item == &operator.kind)
+            || metadata.allowed_after.iter().any(|item| item == &operator.kind)
+    }) { return false; }
+    let current = metadata.order_rank;
     if current == 0 { return false; }
     previous.operators.iter().filter_map(|operator| {
         (operator.order_rank > 0).then_some(operator.order_rank)

@@ -150,7 +150,10 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 10,
+      "same_layer": [
+        "passive_potential"
+      ]
     },
     "passive_potential": {
       "stage": "voice",
@@ -159,7 +162,10 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 20
+      "order_rank": 20,
+      "same_layer": [
+        "causative"
+      ]
     },
     "te_connection": {
       "stage": "te_support",
@@ -168,7 +174,11 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "allowed_after": [
+        "causative",
+        "passive_potential"
+      ]
     },
     "te_iru": {
       "stage": "te_support",
@@ -231,7 +241,16 @@
       "input_category": "動詞",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 40
+      "order_rank": 40,
+      "allowed_after": [
+        "te_iru",
+        "te_shimau",
+        "te_oku",
+        "te_iku",
+        "te_yuku",
+        "causative",
+        "passive_potential"
+      ]
     },
     "negative": {
       "stage": "polarity_politeness",
@@ -240,7 +259,16 @@
       "input_category": "動詞",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "allowed_after": [
+        "desire",
+        "te_iru",
+        "te_shimau",
+        "te_oku"
+      ],
+      "same_layer": [
+        "politeness_masu"
+      ]
     },
     "politeness_masu": {
       "stage": "polarity_politeness",
@@ -249,7 +277,16 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 51
+      "order_rank": 51,
+      "allowed_after": [
+        "desire",
+        "te_iru",
+        "te_shimau",
+        "te_oku"
+      ],
+      "same_layer": [
+        "negative"
+      ]
     },
     "past": {
       "stage": "tense",
@@ -258,7 +295,14 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 60
+      "order_rank": 60,
+      "allowed_after": [
+        "negative",
+        "politeness_masu",
+        "te_iru",
+        "te_shimau",
+        "te_oku"
+      ]
     },
     "volitional": {
       "stage": "modality",
@@ -267,7 +311,12 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "allowed_after": [
+        "past",
+        "negative",
+        "politeness_masu"
+      ]
     },
     "rashii_modality": {
       "stage": "modality",

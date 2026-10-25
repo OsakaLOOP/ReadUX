@@ -45,6 +45,8 @@ pub struct RuleMetadata {
     pub output_category: String,
     pub terminal_mode: String,
     pub order_rank: i32,
+    #[serde(default)] pub allowed_after: Vec<String>,
+    #[serde(default)] pub same_layer: Vec<String>,
 }
 
 #[derive(Deserialize)]
