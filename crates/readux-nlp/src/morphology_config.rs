@@ -10,6 +10,8 @@ pub static CONFIG: LazyLock<Config> = LazyLock::new(|| serde_json::from_str(SOUR
 #[serde(deny_unknown_fields)]
 pub struct Config {
     pub operators: BTreeMap<String, Operator>,
+    #[serde(default)] pub entity_classes: BTreeMap<String, EntityClass>,
+    #[serde(default)] pub rule_tree: Vec<RuleTreeNode>,
     pub features: Vec<FeatureRule>,
     pub connections: Vec<ConnectionRule>,
     #[serde(default)] pub sequences: Vec<Sequence>,
@@ -17,6 +19,23 @@ pub struct Config {
     pub forms: Vec<FormRule>,
     pub insertion: Vec<TokenPattern>,
     pub presentation: serde_json::Value,
+}
+
+#[derive(Deserialize)]
+pub struct EntityClass {
+    pub label: String,
+    pub executor: String,
+    #[serde(default)] pub summary: String,
+}
+
+#[derive(Deserialize)]
+pub struct RuleTreeNode {
+    pub id: String,
+    pub label: String,
+    #[serde(default)] pub summary: String,
+    #[serde(default)] pub input_examples: Vec<String>,
+    #[serde(default)] pub output: String,
+    #[serde(default)] pub children: Vec<RuleTreeNode>,
 }
 
 #[derive(Default, Deserialize)]
@@ -170,6 +189,29 @@ pub struct PredicateLink {
 }
 
 pub fn definition(kind: &str) -> Option<&'static Operator> { CONFIG.operators.get(kind) }
+
+/// 将来源 token 映射到六类实体。阶段和优先级不参与此判断。
+pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
+    let pos = field(token, 0);
+    let sub = field(token, 1);
+    let lemma = identity(token);
+    if matches!(pos, "助詞") { return "插入语类"; }
+    if matches!(pos, "助動詞") {
+        return match lemma {
+            "ない" | "たい" | "らしい" => "イ形容词转换类",
+            "そう" | "よう" | "みたい" | "べし" | "はず" => "ナ形容词判断类",
+            "ず" | "ぬ" | "ごとし" | "ごとき" => "文言活用类",
+            _ => "动词循环类",
+        };
+    }
+    if pos == "動詞" && (sub.contains("非自立") || CONFIG.operators.values().any(|entry| entry.support.as_ref().is_some_and(|support| support.bases.iter().any(|base| base == lemma)))) {
+        return "补助动词类";
+    }
+    if pos == "形容詞" { return "イ形容词转换类"; }
+    if pos == "形状詞" { return "ナ形容词判断类"; }
+    if pos == "動詞" { return "动词循环类"; }
+    "动词循环类"
+}
 
 pub fn is_inflection(kind: &str) -> bool {
     CONFIG.presentation["inflections"].as_array().unwrap().iter().any(|value| value.as_str() == Some(kind))

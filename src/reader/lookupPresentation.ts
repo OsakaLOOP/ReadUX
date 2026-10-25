@@ -1,5 +1,5 @@
 import type { DictionaryLookup, PosTag } from "../types";
-import { configuredPrototype, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
 
 export interface ReaderTargetPresentation {
@@ -74,6 +74,8 @@ export interface ReaderMorphologyDetail {
   description: string;
   tags: string[];
   candidates: string[];
+  entityClass?: string;
+  connectionTree?: { label: string; summary?: string; inputExamples?: string[]; output?: string; children?: { label: string; summary?: string; inputExamples?: string[]; output?: string }[] } | null;
 }
 
 export interface ReaderMorphologyHit {
@@ -373,6 +375,18 @@ function transitionDescription(
   const localInput = before.slice(prefixLength).join("") || "∅";
   const localOutput = after.slice(prefixLength).join("") || "∅";
   return `${input} → ${output}（${localInput}→${localOutput}）`;
+}
+
+function ruleTreeForClass(entityClass: string | undefined) {
+  if (!entityClass) return null;
+  const root = morphologyRuleTree.find((node) => node.label === entityClass);
+  if (!root) return null;
+  return {
+    label: root.label, summary: root.summary, inputExamples: root.input_examples, output: root.output,
+    children: (root.children ?? []).slice(0, 3).map((child) => ({
+      label: child.label, summary: child.summary, inputExamples: child.input_examples, output: child.output,
+    })),
+  };
 }
 
 export function grammaticalConceptTitle(operator: MorphologyOperator): string {
@@ -754,6 +768,8 @@ export function readerMorphologyHits(
       description: step ? step.description : (operator.description || ""),
       tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
       candidates: occurrence.candidates ?? [],
+      entityClass: owner?.final_state?.entity_class || operator.state_after?.entity_class,
+      connectionTree: ruleTreeForClass(owner?.final_state?.entity_class || operator.state_after?.entity_class),
     };
     return (occurrence.hit_ranges ?? []).map((range) => ({ range, targetId: target.id, detail }));
   });

@@ -1,4 +1,25 @@
 {
+  "entity_classes": {
+    "动词循环类": {"label": "动词循环类", "executor": "verb_cycle", "summary": "输入和输出保持动词范畴的有限活用链"},
+    "イ形容词转换类": {"label": "イ形容词转换类", "executor": "i_adjective_conversion", "summary": "从动词或助动词切换到イ形容词活用"},
+    "ナ形容词判断类": {"label": "ナ形容词判断类", "executor": "na_adjective_judgement", "summary": "词干与判断词尾组合并处理だ／な／で"},
+    "文言活用类": {"label": "文言活用类", "executor": "classical_conjugation", "summary": "按文语活用表处理文言形式"},
+    "补助动词类": {"label": "补助动词类", "executor": "auxiliary_verb", "summary": "按连接器建立可递归的补助用言父子链"},
+    "插入语类": {"label": "插入语类", "executor": "insertion", "summary": "保持前项状态并扩展命中范围"}
+  },
+  "rule_tree": [
+    {"id": "verb-cycle", "label": "动词循环类", "summary": "动词范畴内的有限活用转移", "input_examples": ["未然形", "连用形", "终止形"], "output": "动词", "children": [
+      {"id": "verb-cycle-imperfective", "label": "未然形输入", "input_examples": ["五段", "一段・变格"], "output": "ない／せる／れる"},
+      {"id": "verb-cycle-continuative", "label": "连用形输入", "input_examples": ["礼貌层", "补助层入口"], "output": "ます／て・で"},
+      {"id": "verb-cycle-ending", "label": "终止形收尾", "input_examples": ["意向", "禁止或推量"], "output": "う／よう／まい"}
+    ]},
+    {"id": "auxiliary-verb", "label": "补助动词类", "summary": "连接器与补助用言形成递归父子链", "input_examples": ["て／で形", "连用形", "たり"], "output": "动词或形容词", "children": [
+      {"id": "auxiliary-te", "label": "て形接续", "input_examples": ["持续与状态", "完成与遗憾"], "output": "いる／しまう"},
+      {"id": "auxiliary-direction", "label": "趋向与处置", "input_examples": ["预先处置", "趋向与变化"], "output": "おく／いく／くる"},
+      {"id": "auxiliary-continuative", "label": "连用形补助", "input_examples": ["开始、继续、结束", "程度、反复、相互"], "output": "始める／続ける／すぎる"}
+    ]},
+    {"id": "insertion", "label": "插入语类", "summary": "不改变前项状态的范围扩展", "input_examples": ["对比与提示", "限定与强调", "列举与举例"], "output": "保持前项状态"}
+  ],
   "operators": {
     "polite_negative": {
       "label": "敬体否定",

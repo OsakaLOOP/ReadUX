@@ -15,6 +15,9 @@ interface OperatorDefinition {
   support?: { group: string };
   variants?: { token: TokenPattern; form: string }[];
 }
+export interface RuleTreeNode {
+  id: string; label: string; summary?: string; input_examples?: string[]; output?: string; children?: RuleTreeNode[];
+}
 interface Token {
   surface: string;
   lemma?: string | null;
@@ -23,6 +26,8 @@ interface Token {
 
 export const morphologyPresentation = configuration.presentation;
 export const operatorDefinitions: Record<string, OperatorDefinition> = configuration.operators;
+export const morphologyEntityClasses = configuration.entity_classes ?? {};
+export const morphologyRuleTree: RuleTreeNode[] = configuration.rule_tree ?? [];
 
 export function morphologyTags(kind: string, cform = "", evidence: string[] = []): string[] {
   const labels = operatorDefinitions[kind]?.support?.group === "contracted" ? [morphologyPresentation.contraction_label] : [];

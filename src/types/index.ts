@@ -69,6 +69,8 @@ export interface MorphologyOperator {
   candidates: string[];
   label: string;
   description: string;
+  state_before?: { entity_class?: string; category?: string; form?: string };
+  state_after?: { entity_class?: string; category?: string; form?: string };
 }
 export interface MorphologyChain {
   chain_id: string;

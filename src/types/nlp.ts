@@ -147,6 +147,7 @@ export interface SourceEvidence { provider: string; node_id: string | null; rela
 export interface MorphologyState {
   category: string; form: 'stem' | 'irrealis' | 'continuative' | 'terminal' | 'attributive' | 'conditional' | 'imperative' | 'volitional' | 'te' | 'other';
   conjugation_type: string; conjugation_form: string;
+  entity_class?: string;
 }
 export interface MorphologyOccurrence {
   id: string; chain_id: string; operator_ids: string[]; kind: string; char_range: [number, number]; context_range: [number, number];

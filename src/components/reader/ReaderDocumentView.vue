@@ -2492,6 +2492,20 @@ function toggleEinkMode() {
       <p v-if="activeDetail.candidates.length">
         可能含义：{{ activeDetail.candidates.join("、") }}
       </p>
+      <section v-if="activeDetail.connectionTree" class="reader-lookup__connection-tree" aria-label="接续条件">
+        <strong>接续条件</strong>
+        <div class="reader-lookup__tree-node reader-lookup__tree-node--root">
+          <span>{{ activeDetail.connectionTree.label }}</span>
+          <small v-if="activeDetail.connectionTree.summary">{{ activeDetail.connectionTree.summary }}</small>
+        </div>
+        <div v-for="child in activeDetail.connectionTree.children ?? []" :key="child.label" class="reader-lookup__tree-branch">
+          <i aria-hidden="true"></i>
+          <div class="reader-lookup__tree-node">
+            <span>{{ child.label }}</span>
+            <small v-if="child.output">{{ child.output }}</small>
+          </div>
+        </div>
+      </section>
       <div v-if="morphologyParticles.length" class="reader-lookup__chain-particles">
         <ParticleGrammarBlock v-for="item in morphologyParticles" :key="`${item.entries[0]?.entry_key}:${item.observed_form}`" :lookup="item" />
       </div>
@@ -2848,6 +2862,13 @@ function toggleEinkMode() {
   padding-bottom: 6px;
 }
 .reader-lookup__chain-particles { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
+.reader-lookup__connection-tree { display: grid; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
+.reader-lookup__connection-tree > strong { color: var(--accent-color); font-size: .76rem; }
+.reader-lookup__tree-node { display: grid; gap: 1px; min-width: 0; padding: 5px 7px; border: 1px solid var(--glass-border); border-radius: 5px; background: #fff; color: var(--text-primary); }
+.reader-lookup__tree-node small { overflow-wrap: anywhere; color: var(--text-secondary); font-size: .68rem; }
+.reader-lookup__tree-node--root { margin-bottom: 1px; }
+.reader-lookup__tree-branch { display: grid; grid-template-columns: 14px minmax(0, 1fr); align-items: stretch; gap: 4px; margin-left: 7px; }
+.reader-lookup__tree-branch > i { position: relative; display: block; width: 10px; border-left: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
 .reader-lookup__summary {
   display: grid;
   min-width: 0;

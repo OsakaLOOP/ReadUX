@@ -4,6 +4,8 @@
 
 - 活用变化的局部提示由 `configs/unidic-nlp/morphology.json` 的 `presentation.transition_tails` 按语法身份、前接形及末尾假名配置。敬体否定整体识别为 `polite_negative`，内置词条位于 `configs/grammar/auxiliaries.json`，成分查询路由位于 `src/grammar/particleEntries.ts`。
 
+- 活用链重构设计与六类实体、专用执行器、规则树和展示契约记录在 `docs/morphology_state_machine_design.md`。`configs/grammar/teConstructions.json` 现为 `readux.grammar-auxiliary-rules.v2`：19 个补助动词本体 entry 与 18 个 `te_*` 规则分离，`ている／てしまう／ておく` 等构式通过规则映射到 `いる／しまう／おく`。
+
 - 语法指南设计位于 `docs/grammar_guide_display.md`，1.1 原稿、19 条原稿例句与 1.1-01 至 1.1-70 共 70 条补充例句规格位于 `docs/grammar_guide_1_1.md`。原稿为 `D:\DCMT\dev notes\ReadUX 日文语法指南.md`，用户明确要求逐字保留原稿。第一阶段只确定原稿混排和例句清单；固定讲解文字不进入例句卡片，语法说明来自生成并审阅的标签。后续静态 JSON 保存词典正文、活用说明、注音、分类和目标，前台使用指定版本。正式阅读器胶囊入口为 `ReaderDocumentView.vue` 的 `reader-capsule` 与 ruby runs，生成阶段可复用 `src/reader/lookupPresentation.ts`；`BunsetsuCapsule.vue` 使用 `src/types/index.ts` 的 `AnnotatedToken`，相关数据结构见 `src/types/nlp.ts`。
 
 - header 动画入口为 `src/components/common/ReadingMark.vue`，统一 SVG 位于 `src/branding/readux-animated.svg`，生成脚本为 `scripts/generate_header_mark.py`，时序控制为 `src/reader/markPlayback.ts`。`npm run frontend:dev` 使用独立占位书架预览，入口为 `src/dev/HeaderAnimationPreview.vue`，支持打开、关闭及播放中反向操作；该模式独立于后端书库与 NLP 服务。

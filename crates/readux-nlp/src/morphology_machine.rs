@@ -8,12 +8,12 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
     let form = CONFIG.forms.iter().find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
         .map(|rule| rule.form.clone()).unwrap_or_else(|| if raw.is_empty() { ConnectionForm::Stem } else { ConnectionForm::Other });
     let category = if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" { "名詞" } else { field(t, 0) };
-    MorphologyState { category: category.into(), form, conjugation_type: field(t, 4).into(), conjugation_form: raw.into() }
+    MorphologyState { category: category.into(), form, conjugation_type: field(t, 4).into(), conjugation_form: raw.into(), entity_class: config::entity_class_for_token(t).into() }
 }
 
 fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
 
-enum Transition { Core, Attach(Vec<String>), Support(&'static str), Boundary, Stop }
+enum Transition { Core, Attach(Vec<String>), Support(&'static str), Insert, Boundary, Stop }
 
 fn insertion_token(token: &ProviderToken) -> bool {
     CONFIG.insertion.iter().any(|pattern| pattern.matches(token))
@@ -31,6 +31,9 @@ fn bridge_support(previous: &MorphologyChain, index: usize, source: &[ProviderTo
 }
 
 fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Context<'_>, source: &[ProviderToken]) -> Transition {
+    if insertion_token(next) && previous.operators.iter().any(|op| op.kind == "te_connection") {
+        return Transition::Insert;
+    }
     let last = &source[previous.morpheme_range[1] - 1];
     let following = source.get(next.index + 1);
     let aux_relation = context.relation(previous.char_range, next.char_range, &["aux", "cop"]).is_some();
@@ -119,7 +122,7 @@ fn merge_verb_core(chain: &mut MorphologyChain, atom: MorphologyChain, current: 
     conjugation.source_morpheme_range = [chain.anchor_morpheme, atom.morpheme_range[1]];
     conjugation.char_range = [chain.char_range[0], atom.char_range[1]];
     conjugation.state_before = MorphologyState { category: "動詞".into(), form: ConnectionForm::Terminal,
-        conjugation_type: conjugation_type.into(), conjugation_form: "基本形".into() };
+        conjugation_type: conjugation_type.into(), conjugation_form: "基本形".into(), entity_class: "动词循环类".into() };
     conjugation.state_after = verb_state.clone();
     chain.source_evidence.extend(atom.source_evidence.clone());
     chain.source_evidence.push(crate::linguistic_context::SourceEvidence {
@@ -164,7 +167,7 @@ fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderT
 
 /// 已由句法确认的跨助词连接，为实际插入成员建立说明和父链归属。
 fn annotate_insertions(chains: &mut [MorphologyChain], source: &[ProviderToken], context: &Context<'_>) {
-    let insertions: Vec<_> = chains.iter().filter_map(|child| {
+    let insertions: Vec<_> = chains.iter().filter(|child| !child.operators.iter().any(|op| op.kind == "insertion")).filter_map(|child| {
         let parent = chains.iter().find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())?;
         bridge_support(parent, child.anchor_morpheme, source, context)
             .then(|| (parent.clone(), parent.morpheme_range[1]..child.anchor_morpheme))
@@ -243,10 +246,27 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
             }
         }
         let mut linked = false;
-        let previous_index = chains.iter().enumerate().rev()
-            .find(|(_, chain)| bridge_support(chain, index, source, &context)).map(|(i, _)| i)
+        let mut previous_index = chains.iter().enumerate().rev()
+            .find(|(_, chain)| !chain.operators.iter().any(|op| op.kind == "insertion") && bridge_support(chain, index, source, &context)).map(|(i, _)| i)
             .or_else(|| chains.len().checked_sub(1)
-                .filter(|&i| chains[i].char_range[1] == atom.char_range[0] && chains[i].morpheme_range[1] == index));
+                .filter(|&i| !chains[i].operators.iter().any(|op| op.kind == "insertion")
+                    && chains[i].char_range[1] == atom.char_range[0] && chains[i].morpheme_range[1] == index));
+        if previous_index.is_none() && config::support_kind("te", current).is_some() {
+            previous_index = chains.iter().enumerate().rev()
+                .find(|(_, chain)| !chain.operators.iter().any(|op| op.kind == "insertion")
+                    && chain.operators.iter().any(|op| op.kind == "te_connection"))
+                .map(|(i, _)| i);
+        }
+        // 插入语子链保持前项状态，但后续补助动词必须回到原始て形父链。
+        if let Some(child_index) = previous_index {
+            if chains[child_index].operators.iter().any(|op| op.kind == "insertion") {
+                if let Some(parent_id) = chains[child_index].parent_chain_id.as_ref() {
+                    if let Some(parent_index) = chains.iter().position(|chain| &chain.chain_id == parent_id) {
+                        previous_index = Some(parent_index);
+                    }
+                }
+            }
+        }
         if let Some(previous_index) = previous_index {
             let previous = &mut chains[previous_index];
             let first = previous.core_morpheme_indices[0];
@@ -320,6 +340,17 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     if !supported { diagnostics.push(format!("support_ownership_candidate:{}:{}", previous.chain_id, index)); }
                     linked = true;
                 }
+                Transition::Insert => {
+                    atom.role = MorphologyRole::Lexical;
+                    // 插入语只扩展父链范围；保留来源证据，不把自身伪装成补助词父子节点。
+                    atom.parent_chain_id = None;
+                    atom.final_state = previous.final_state.clone();
+                    atom.operators.push(operator(previous, &atom, "insertion".into(), current));
+                    atom.status = "resolved".into();
+                    atom.evidence.push(format!("phenomenon:insertion:{}", previous.chain_id));
+                    if let Some(e) = context.relation(previous.char_range, atom.char_range, &["case", "mark"]) { atom.source_evidence.push(e); }
+                    linked = true;
+                }
                 Transition::Boundary | Transition::Stop => {
                     if context.relation(previous.char_range, atom.char_range, &["aux", "cop"]).is_some() {
                         diagnostics.push(format!("source_connection_conflict:{}:{}", previous.chain_id, index));
@@ -328,7 +359,9 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                 }
             }
         }
-        for kind in semantic(current) {
+        let insertion_already_recorded = field(current, 0) == "助詞"
+            && atom.operators.iter().any(|op| op.kind == "insertion");
+        for kind in semantic(current).into_iter().filter(|kind| !(insertion_already_recorded && kind == "insertion")) {
             let mut op = operator(&atom, &atom, kind, current);
             op.input_state = atom.dictionary_form.clone(); op.output_state = atom.surface_form.clone();
             atom.operators.push(op);
@@ -340,6 +373,13 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
     }
     annotate_insertions(&mut chains, source, &context);
     link_predicates(&mut chains, source);
+    for chain in &mut chains {
+        if chain.operators.iter().any(|operator| operator.kind == "insertion") {
+            chain.role = MorphologyRole::Lexical;
+            chain.parent_chain_id = None;
+            chain.status = "resolved".into();
+        }
+    }
     let occurrences = chains.iter().flat_map(|chain| chain.operators.iter().filter(|op|
         !config::is_inflection(&op.kind))
         .map(|op| {

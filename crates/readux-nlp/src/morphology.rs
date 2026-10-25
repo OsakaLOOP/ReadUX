@@ -17,6 +17,9 @@ pub struct MorphologyState {
     pub form: ConnectionForm,
     pub conjugation_type: String,
     pub conjugation_form: String,
+    /// 六类实体身份；阶段信息仍由规则层管理。
+    #[serde(default)]
+    pub entity_class: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -192,7 +195,7 @@ pub fn collect_with_external(
                     else { vec![format!("unidic:{label}:{detail}")] }, candidates: Vec::new(),
                 label: detail.clone(), description: format!("UniDic {label}字段：{detail}"),
                 state_before: MorphologyState { category: pos_major.clone(), form: if value(source,4).is_some() { ConnectionForm::Terminal } else { ConnectionForm::Stem },
-                    conjugation_type: value(source,4).unwrap_or_default(), conjugation_form: "基本形".into() },
+                    conjugation_type: value(source,4).unwrap_or_default(), conjugation_form: "基本形".into(), entity_class: crate::morphology_config::entity_class_for_token(source).into() },
                 state_after: crate::morphology_machine::state(source),
                 normalized_form: None,
             });

@@ -11,11 +11,18 @@ type ParticleResource = {
     variants: { surface: string; subtype: string; note: string }[];
     senses: { id: string; subtype: string; title: string; meaning: string; connection: string; examples: { ja: string; zh: string }[] }[];
   }[];
+  rules?: {
+    rule_id: string; kind: string; label: string; representation: string; component: string;
+    connector: string; variants: { surface: string; subtype: string; note: string }[];
+    senses: { id: string; subtype: string; title: string; meaning: string; connection: string; examples: { ja: string; zh: string }[] }[];
+  }[];
 };
 const data = resource as ParticleResource;
+const auxiliaryResource = auxiliaries as ParticleResource;
+const constructionResource = teConstructions as ParticleResource;
 const auxiliaryData: ParticleResource = { entries: [
-  ...(auxiliaries as ParticleResource).entries,
-  ...(teConstructions as ParticleResource).entries,
+  ...auxiliaryResource.entries,
+  ...constructionResource.entries,
 ] };
 const fallbackPos: PosTag = { major: "助詞", sub1: "*", sub2: "*", sub3: "*" };
 const teConstructionsByKind: Record<string, { form: string; component: string }> = {
@@ -39,6 +46,7 @@ const teConstructionsByKind: Record<string, { form: string; component: string }>
   te_naranai: { form: "てならない", component: "ならない" },
   te_yamanai: { form: "てやまない", component: "やまない" },
 };
+const teConstructionRules = new Map((constructionResource.rules ?? []).map((rule) => [rule.kind, rule]));
 
 function politeNegativeLookup(document: UnifiedDocument, range: [number, number]): DictionaryLookup | null {
   const occurrence = document.morphology.occurrences.find((item) => item.kind === "polite_negative"
@@ -74,6 +82,20 @@ function makeEntry(entry: ParticleResource["entries"][number], request: Dictiona
     match_evidence: { kind: "builtin_particle", query_form: request.word, matched_form: request.word, requested_reading: request.reading ?? null,
       reading_match: "exact", pos_match: "exact", dictionary_local: true, penalties: [], score: 1 },
     raw_definition: null, content_loaded: true, has_definition: true,
+  };
+}
+
+function constructionLookup(rule: NonNullable<ParticleResource["rules"]>[number], request: DictionaryLookupRequest): DictionaryLookup {
+  const entry: ParticleResource["entries"][number] = {
+    id: rule.rule_id, headword: rule.representation, reading: rule.representation, pronunciation: rule.representation,
+    variants: rule.variants, senses: rule.senses,
+  };
+  return {
+    query: request.word, observed_form: request.observedForm ?? request.word, reading: request.reading ?? rule.representation,
+    pos: { ...fallbackPos, ...request.pos, major: "助動詞", sub1: "补助动词" }, mode: "builtin-grammar-rule",
+    forms: [{ form_id: `rule:${rule.rule_id}`, display_form: rule.representation, normalized_form: rule.representation, readings: [rule.representation],
+      evidence: ["builtin-grammar-rule", `component:${rule.component}`], score: 2, variants: [], dictionaries: [{ dictionary_name: "ReadUX 内置语法规则", available: true }] }],
+    dictionary_names: ["ReadUX 内置语法规则"], entries: [makeEntry(entry, request, "补助动词")],
   };
 }
 
@@ -132,7 +154,10 @@ function teConstructionLookups(document: UnifiedDocument, selectedRange: [number
   const occurrence = selectedOccurrence(document, selectedRange, detailId);
   const construction = occurrence && teConstructionsByKind[occurrence.kind];
   if (!occurrence || !construction) return null;
-  const combined = particleLookup({ word: construction.form, observedForm: construction.form, reading: construction.form,
+  const rule = teConstructionRules.get(occurrence.kind);
+  const combined = rule
+    ? constructionLookup(rule, { word: construction.form, observedForm: construction.form, reading: construction.form, pos: { major: "助動詞", sub1: "补助动词", sub2: "*", sub3: "*" } })
+    : particleLookup({ word: construction.form, observedForm: construction.form, reading: construction.form,
     pos: { major: "助動詞", sub1: "助動詞", sub2: "*", sub3: "*" },
   }, construction.form);
   if (!combined) return null;
