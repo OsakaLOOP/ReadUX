@@ -297,6 +297,7 @@ mod tests {
             assert!(!metadata.stage.is_empty(), "{kind} 缺少阶段");
             assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");
         }
+        assert_eq!(CONFIG.rule_metadata.get("nominalization").map(|metadata| metadata.executor.as_str()), Some("nominalization"));
     }
 
     #[test]

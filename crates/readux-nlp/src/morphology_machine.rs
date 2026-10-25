@@ -80,6 +80,20 @@ impl NaAdjectiveJudgementExecutor {
     }
 }
 
+struct NominalizationExecutor;
+
+impl NominalizationExecutor {
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+        if config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()) != Some("nominalization") { return; }
+        if previous.final_state.category.is_empty() {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("nominalization_input_category:{}:{}", previous.chain_id, index));
+        }
+        atom.final_state.category = "名詞".into();
+        atom.final_state.entity_class.clear();
+    }
+}
+
 /// 补助动词执行器：验证连接器、建立父子链，并允许补助层继续递归。
 struct AuxiliaryVerbExecutor;
 
@@ -420,7 +434,13 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         diagnostics.push(format!("lexical_core_pos_conflict:{}:{index}",previous.chain_id));
                     }
                     previous.source_evidence.extend(atom.source_evidence.clone());
-                    for kind in semantic(current) { previous.operators.push(operator(previous, &atom, kind, current)); }
+                    for kind in semantic(current) {
+                        VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        NominalizationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        previous.operators.push(operator(previous, &atom, kind, current));
+                    }
                     merge(previous, atom, true); continue;
                 }
                 Transition::Attach(mut kinds) => {
@@ -438,6 +458,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        NominalizationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         ClassicalConjugationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
