@@ -37,6 +37,16 @@ fn modern_inflections_and_functional_ownership() {
             .unwrap_or_else(|| panic!("{text}: {:?}", doc.morphology.chains.iter().map(|c| (&c.surface_form,&c.final_state)).collect::<Vec<_>>()));
         assert_eq!(chain.dictionary_form, base, "{text}");
         for kind in kinds { assert!(chain.operators.iter().any(|o| o.kind == kind), "{text} 缺少 {kind}"); }
+        let expected_concepts = match text {
+            "降るらしい。" => [("rashii_modality", "grammar.modality.rashii")].as_slice(),
+            "読めそうだ。" => [("sou_modality", "grammar.modality.sou")].as_slice(),
+            _ => &[] as &[(&str, &str)],
+        };
+        for (kind, concept) in expected_concepts {
+            let operator = chain.operators.iter().find(|operator| operator.kind == *kind).unwrap();
+            assert_eq!(operator.concept_id, *concept, "{text}: {kind}");
+            assert!(readux_core::grammar_catalog::get(concept).is_ok(), "{text}: {concept}");
+        }
         for op in &chain.operators { assert!(readux_core::grammar_catalog::get(&op.concept_id).is_ok(), "目录引用无效：{}",op.concept_id); }
         assert!(chain.query_forms.iter().any(|q| q.form == base), "{text} 缺少基本形查询");
     }

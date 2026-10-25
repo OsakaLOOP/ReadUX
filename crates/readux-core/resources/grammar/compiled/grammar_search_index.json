@@ -2007,6 +2007,165 @@
       ]
     },
     {
+      "concept_id": "grammar.modality.sou",
+      "label": "そうだ（样态／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "evidence"
+      ],
+      "function_tags": [
+        "appearance",
+        "hearsay"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词连用形／イ形容词词干＋そうだ",
+        "普通形＋そうだ（传闻）"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "样态判断",
+        "根据外观或直接迹象判断即将出现的状态",
+        "传闻判断",
+        "转述已获得的信息"
+      ]
+    },
+    {
+      "concept_id": "grammar.modality.you",
+      "label": "ようだ（推量／比喻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "comparison"
+      ],
+      "function_tags": [
+        "inference",
+        "simile"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "普通形／名词＋の／ナ形容词词干＋な＋ようだ"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推量与比喻",
+        "依据迹象进行推量或建立比喻关系"
+      ]
+    },
+    {
+      "concept_id": "grammar.modality.mitai",
+      "label": "みたいだ（推量／比喻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "comparison"
+      ],
+      "function_tags": [
+        "inference",
+        "simile"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "普通形／名词＋みたいだ"
+      ],
+      "register": [
+        "spoken",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "口语推量",
+        "以口语形式表达推量或比喻"
+      ]
+    },
+    {
+      "concept_id": "grammar.modality.rashii",
+      "label": "らしい（推量／典型）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "evidence"
+      ],
+      "function_tags": [
+        "inference",
+        "typicality"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "普通形／名词＋らしい"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推量与典型",
+        "根据信息推量，或说明符合某种典型特征"
+      ]
+    },
+    {
+      "concept_id": "grammar.obligation.beki",
+      "label": "べきだ（应当）",
+      "aliases": [],
+      "semantic_domains": [
+        "obligation",
+        "evaluation"
+      ],
+      "function_tags": [
+        "normative"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "动词终止形＋べきだ"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "规范判断",
+        "表示应当实施动作或符合规范"
+      ]
+    },
+    {
+      "concept_id": "grammar.expectation.hazu",
+      "label": "はずだ（应当／预期）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "expectation"
+      ],
+      "function_tags": [
+        "expectation",
+        "reasoned_belief"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "普通形／ナ形容词词干＋な／名词＋の＋はずだ"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "依据推断",
+        "根据已知依据判断某事应当成立"
+      ]
+    },
+    {
       "concept_id": "grammar.functional.no",
       "label": "の",
       "aliases": [

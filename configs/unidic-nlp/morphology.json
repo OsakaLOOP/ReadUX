@@ -122,6 +122,126 @@
         "列举与举例"
       ],
       "output": "保持前项状态"
+    },
+    {
+      "id": "na-adjective-judgement",
+      "label": "ナ形容词判断类",
+      "summary": "先形成判断词干，再按だ／な／で等形式收尾",
+      "input_examples": [
+        "普通形输入",
+        "词干输入",
+        "名词修饰输入"
+      ],
+      "output": "形状词／判断结构",
+      "children": [
+        {
+          "id": "na-adjective-evidential",
+          "label": "样态与传闻",
+          "input_examples": [
+            "そうだ",
+            "らしい"
+          ],
+          "output": "判断词干"
+        },
+        {
+          "id": "na-adjective-inference",
+          "label": "推量与比喻",
+          "input_examples": [
+            "ようだ",
+            "みたいだ"
+          ],
+          "output": "形状词词干"
+        },
+        {
+          "id": "na-adjective-norm",
+          "label": "预期与规范",
+          "input_examples": [
+            "はずだ",
+            "べきだ"
+          ],
+          "output": "判断收尾"
+        }
+      ]
+    },
+    {
+      "id": "i-adjective-conversion",
+      "label": "イ形容词转换类",
+      "summary": "把动词或助动词整体转换为イ形容词性状态",
+      "input_examples": [
+        "未然形输入",
+        "连用形输入",
+        "前一转换形输入"
+      ],
+      "output": "イ形容词",
+      "children": [
+        {
+          "id": "i-adjective-desire",
+          "label": "主观愿望",
+          "input_examples": [
+            "たい",
+            "たくない"
+          ],
+          "output": "イ形容词性整体"
+        },
+        {
+          "id": "i-adjective-negative",
+          "label": "否定转换",
+          "input_examples": [
+            "ない",
+            "なかった"
+          ],
+          "output": "イ形容词性整体"
+        },
+        {
+          "id": "i-adjective-evaluation",
+          "label": "难易与倾向",
+          "input_examples": [
+            "やすい",
+            "にくい／づらい"
+          ],
+          "output": "イ形容词性整体"
+        }
+      ]
+    },
+    {
+      "id": "classical-conjugation",
+      "label": "文言活用类",
+      "summary": "按文语活用表处理古典用言和助动结构",
+      "input_examples": [
+        "ク活用",
+        "シク活用",
+        "文语助动词"
+      ],
+      "output": "文语用言／文语助动结构",
+      "children": [
+        {
+          "id": "classical-adjective",
+          "label": "ク・シク活用表",
+          "input_examples": [
+            "未然形与连用形",
+            "终止形与连体形"
+          ],
+          "output": "文语形容词"
+        },
+        {
+          "id": "classical-auxiliary",
+          "label": "文语助动词",
+          "input_examples": [
+            "ず／ぬ",
+            "べし"
+          ],
+          "output": "文语助动结构"
+        },
+        {
+          "id": "classical-gotoshi",
+          "label": "ごとし类接续",
+          "input_examples": [
+            "ごとし",
+            "ごとき"
+          ],
+          "output": "文语判断结构"
+        }
+      ]
     }
   ],
   "rule_metadata": {
@@ -1397,7 +1517,7 @@
     "obligation": {
       "label": "当为",
       "title": "当为",
-      "concept": "morphology.chain",
+      "concept": "grammar.obligation.beki",
       "prototype": "べきだ",
       "variants": [
         {
@@ -1467,25 +1587,25 @@
     "sou_modality": {
       "label": "活用",
       "title": "样态 / 传闻",
-      "concept": "morphology.chain",
+      "concept": "grammar.modality.sou",
       "prototype": "そうだ"
     },
     "you_modality": {
       "label": "活用",
       "title": "推量",
-      "concept": "morphology.chain",
+      "concept": "grammar.modality.you",
       "prototype": "ようだ"
     },
     "mitai_modality": {
       "label": "活用",
       "title": "推量",
-      "concept": "morphology.chain",
+      "concept": "grammar.modality.mitai",
       "prototype": "みたいだ"
     },
     "rashii_modality": {
       "label": "活用",
       "title": "推量",
-      "concept": "morphology.chain",
+      "concept": "grammar.modality.rashii",
       "prototype": "らしい"
     },
     "copula": {
@@ -1705,7 +1825,7 @@
     "hazu_modality": {
       "label": "预期",
       "title": "预期判断",
-      "concept": "morphology.chain",
+      "concept": "grammar.expectation.hazu",
       "prototype": "はず",
       "output_category": "名詞",
       "output_form": "stem"

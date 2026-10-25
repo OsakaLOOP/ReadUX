@@ -2021,6 +2021,174 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.modality.sou",
+      "kind": "construction",
+      "canonical_label": "そうだ（样态／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "evidence"
+      ],
+      "function_tags": [
+        "appearance",
+        "hearsay"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.sou",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.you",
+      "kind": "construction",
+      "canonical_label": "ようだ（推量／比喻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "comparison"
+      ],
+      "function_tags": [
+        "inference",
+        "simile"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.you",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.mitai",
+      "kind": "construction",
+      "canonical_label": "みたいだ（推量／比喻）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "comparison"
+      ],
+      "function_tags": [
+        "inference",
+        "simile"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "spoken",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.mitai",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.rashii",
+      "kind": "construction",
+      "canonical_label": "らしい（推量／典型）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "evidence"
+      ],
+      "function_tags": [
+        "inference",
+        "typicality"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.rashii",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.obligation.beki",
+      "kind": "construction",
+      "canonical_label": "べきだ（应当）",
+      "aliases": [],
+      "semantic_domains": [
+        "obligation",
+        "evaluation"
+      ],
+      "function_tags": [
+        "normative"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.obligation.beki",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.expectation.hazu",
+      "kind": "construction",
+      "canonical_label": "はずだ（应当／预期）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "expectation"
+      ],
+      "function_tags": [
+        "expectation",
+        "reasoned_belief"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.expectation.hazu",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.functional.no",
       "kind": "functional_morpheme",
       "canonical_label": "の",
@@ -4801,6 +4969,118 @@
       "audit_status": "verified"
     },
     {
+      "sense_id": "grammar.modality.sou.appearance",
+      "concept_id": "grammar.modality.sou",
+      "label": "样态判断",
+      "function_summary": "根据外观或直接迹象判断即将出现的状态",
+      "semantic_features": {
+        "function": "appearance"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.modality.sou",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.modality.sou.hearsay",
+      "concept_id": "grammar.modality.sou",
+      "label": "传闻判断",
+      "function_summary": "转述已获得的信息",
+      "semantic_features": {
+        "function": "hearsay"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.modality.sou",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.modality.you.inference",
+      "concept_id": "grammar.modality.you",
+      "label": "推量与比喻",
+      "function_summary": "依据迹象进行推量或建立比喻关系",
+      "semantic_features": {
+        "function": "inference"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.modality.you",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.modality.mitai.inference",
+      "concept_id": "grammar.modality.mitai",
+      "label": "口语推量",
+      "function_summary": "以口语形式表达推量或比喻",
+      "semantic_features": {
+        "function": "inference"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.modality.mitai",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.modality.rashii.inference",
+      "concept_id": "grammar.modality.rashii",
+      "label": "推量与典型",
+      "function_summary": "根据信息推量，或说明符合某种典型特征",
+      "semantic_features": {
+        "function": "inference"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.modality.rashii",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.obligation.beki.normative",
+      "concept_id": "grammar.obligation.beki",
+      "label": "规范判断",
+      "function_summary": "表示应当实施动作或符合规范",
+      "semantic_features": {
+        "function": "normative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.obligation.beki",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.expectation.hazu.expectation",
+      "concept_id": "grammar.expectation.hazu",
+      "label": "依据推断",
+      "function_summary": "根据已知依据判断某事应当成立",
+      "semantic_features": {
+        "function": "expectation"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.expectation.hazu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
       "sense_id": "grammar.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "label": "の：连体关系",
@@ -7376,6 +7656,180 @@
       ]
     },
     {
+      "realization_id": "realization.grammar.modality.sou.appearance",
+      "concept_id": "grammar.modality.sou",
+      "possible_sense_ids": [
+        "grammar.modality.sou.appearance"
+      ],
+      "rule_id": "grammar.modality.sou.appearance",
+      "connection_signature": "动词连用形／イ形容词词干＋そうだ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "雨が降りそうだ。",
+        "おいしそうな料理"
+      ],
+      "counter_examples": [
+        "知っていそうだ（传闻或状态语境需另判）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.modality.sou.hearsay",
+      "concept_id": "grammar.modality.sou",
+      "possible_sense_ids": [
+        "grammar.modality.sou.hearsay"
+      ],
+      "rule_id": "grammar.modality.sou.hearsay",
+      "connection_signature": "普通形＋そうだ（传闻）",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "明日は雨だそうだ。"
+      ],
+      "counter_examples": [
+        "雨が降りそうだ（样态）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.modality.you.inference",
+      "concept_id": "grammar.modality.you",
+      "possible_sense_ids": [
+        "grammar.modality.you.inference"
+      ],
+      "rule_id": "grammar.modality.you.inference",
+      "connection_signature": "普通形／名词＋の／ナ形容词词干＋な＋ようだ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "誰か来たようだ。",
+        "静かなようだ。"
+      ],
+      "counter_examples": [
+        "ようにする（目的或习惯构式）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.modality.mitai.inference",
+      "concept_id": "grammar.modality.mitai",
+      "possible_sense_ids": [
+        "grammar.modality.mitai.inference"
+      ],
+      "rule_id": "grammar.modality.mitai.inference",
+      "connection_signature": "普通形／名词＋みたいだ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "子どもみたいだ。",
+        "雨が降るみたいだ。"
+      ],
+      "counter_examples": [
+        "みたいなものだ（固定表达需按更长构式处理）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.modality.rashii.inference",
+      "concept_id": "grammar.modality.rashii",
+      "possible_sense_ids": [
+        "grammar.modality.rashii.inference"
+      ],
+      "rule_id": "grammar.modality.rashii.inference",
+      "connection_signature": "普通形／名词＋らしい",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "彼は来ないらしい。",
+        "春らしい。"
+      ],
+      "counter_examples": [
+        "らしい作为独立词汇义项而不承担判断"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.obligation.beki.normative",
+      "concept_id": "grammar.obligation.beki",
+      "possible_sense_ids": [
+        "grammar.obligation.beki.normative"
+      ],
+      "rule_id": "grammar.obligation.beki.normative",
+      "connection_signature": "动词终止形＋べきだ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "約束は守るべきだ。",
+        "相談すべきだった。"
+      ],
+      "counter_examples": [
+        "べし的古典助动词活用"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.expectation.hazu.expectation",
+      "concept_id": "grammar.expectation.hazu",
+      "possible_sense_ids": [
+        "grammar.expectation.hazu.expectation"
+      ],
+      "rule_id": "grammar.expectation.hazu.expectation",
+      "connection_signature": "普通形／ナ形容词词干＋な／名词＋の＋はずだ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "彼は来るはずだ。",
+        "静かなはずだ。"
+      ],
+      "counter_examples": [
+        "はずだ作为独立名词判断而无前项修饰"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ]
+    },
+    {
       "realization_id": "realization.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "possible_sense_ids": [
@@ -9352,6 +9806,374 @@
       "show_badge": true
     },
     {
+      "rule_id": "grammar.obligation.beki.normative",
+      "realization_id": "realization.grammar.obligation.beki.normative",
+      "concept_id": "grammar.obligation.beki",
+      "kind": "grammar_construction",
+      "priority": 91,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "終止形",
+            "基本形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "べし",
+            "べき"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "judgement"
+        },
+        {
+          "base_forms": [
+            "だ",
+            "だった",
+            "で",
+            "な"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "optional": true,
+          "capture": "ending"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "judgement",
+        "ending"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "約束は守るべきだ。",
+        "相談すべきだった。"
+      ],
+      "counter_examples": [
+        "べし的古典助动词活用"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.expectation.hazu.expectation",
+      "realization_id": "realization.grammar.expectation.hazu.expectation",
+      "concept_id": "grammar.expectation.hazu",
+      "kind": "grammar_construction",
+      "priority": 90,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "名詞",
+            "形状詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "はず"
+          ],
+          "pos_major": [
+            "名詞"
+          ],
+          "capture": "stem"
+        },
+        {
+          "base_forms": [
+            "だ",
+            "な",
+            "で",
+            "の"
+          ],
+          "pos_major": [
+            "助動詞",
+            "助詞"
+          ],
+          "optional": true,
+          "capture": "ending"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "stem",
+        "ending"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "彼は来るはずだ。",
+        "静かなはずだ。"
+      ],
+      "counter_examples": [
+        "はずだ作为独立名词判断而无前项修饰"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.modality.sou.appearance",
+      "realization_id": "realization.grammar.modality.sou.appearance",
+      "concept_id": "grammar.modality.sou",
+      "kind": "grammar_construction",
+      "priority": 90,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "語幹"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "そうだ"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "judgement"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "judgement"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "雨が降りそうだ。",
+        "おいしそうな料理"
+      ],
+      "counter_examples": [
+        "知っていそうだ（传闻或状态语境需另判）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.modality.you.inference",
+      "realization_id": "realization.grammar.modality.you.inference",
+      "concept_id": "grammar.modality.you",
+      "kind": "grammar_construction",
+      "priority": 89,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "名詞",
+            "形状詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "よう"
+          ],
+          "pos_major": [
+            "名詞"
+          ],
+          "capture": "stem"
+        },
+        {
+          "base_forms": [
+            "だ",
+            "な",
+            "に",
+            "で"
+          ],
+          "pos_major": [
+            "助動詞",
+            "助詞"
+          ],
+          "optional": true,
+          "capture": "judgement"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "stem",
+        "judgement"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "誰か来たようだ。",
+        "静かなようだ。"
+      ],
+      "counter_examples": [
+        "ようにする（目的或习惯构式）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.modality.sou.hearsay",
+      "realization_id": "realization.grammar.modality.sou.hearsay",
+      "concept_id": "grammar.modality.sou",
+      "kind": "grammar_construction",
+      "priority": 88,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "そうだ"
+          ],
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "hearsay"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "hearsay"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "明日は雨だそうだ。"
+      ],
+      "counter_examples": [
+        "雨が降りそうだ（样态）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.modality.mitai.inference",
+      "realization_id": "realization.grammar.modality.mitai.inference",
+      "concept_id": "grammar.modality.mitai",
+      "kind": "grammar_construction",
+      "priority": 87,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "名詞",
+            "形状詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "みたい"
+          ],
+          "pos_major": [
+            "助動詞",
+            "名詞"
+          ],
+          "capture": "judgement"
+        },
+        {
+          "base_forms": [
+            "だ",
+            "な",
+            "に",
+            "で"
+          ],
+          "pos_major": [
+            "助動詞",
+            "助詞"
+          ],
+          "optional": true,
+          "capture": "ending"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "judgement",
+        "ending"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "子どもみたいだ。",
+        "雨が降るみたいだ。"
+      ],
+      "counter_examples": [
+        "みたいなものだ（固定表达需按更长构式处理）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
       "rule_id": "construction.te_iru.contracted",
       "realization_id": "realization.construction.te_iru.contracted",
       "concept_id": "grammar.auxiliary.iru",
@@ -9389,6 +10211,58 @@
       "source_refs": [
         "corpus:七日の喰い神/第一話:grammar-review-batch-001",
         "ipadic:runtime-observation"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.modality.rashii.inference",
+      "realization_id": "realization.grammar.modality.rashii.inference",
+      "concept_id": "grammar.modality.rashii",
+      "kind": "grammar_construction",
+      "priority": 86,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "名詞",
+            "形状詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "らしい"
+          ],
+          "pos_major": [
+            "助動詞",
+            "形容詞"
+          ],
+          "capture": "judgement"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "judgement"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "彼は来ないらしい。",
+        "春らしい。"
+      ],
+      "counter_examples": [
+        "らしい作为独立词汇义项而不承担判断"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
       ],
       "rule_version": 1,
       "show_badge": true

@@ -2325,6 +2325,217 @@
       "body_blocks": []
     },
     {
+      "explanation_id": "explanation.grammar.modality.sou",
+      "concept_id": "grammar.modality.sou",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "そうだ（样态／传闻）",
+      "compact_summary": "根据外观或已知信息作出样态判断，也可表示传闻",
+      "function_summary": "根据外观或已知信息作出样态判断，也可表示传闻",
+      "connection": "动词连用形、イ形容词词干＋そうだ；传闻用法接普通形＋そうだ。",
+      "formation": "前项＋そうだ／そうな／そうで／そうだった",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "雨が降りそうだ。",
+        "彼は元気そうだ。",
+        "明日は雨だそうだ。"
+      ],
+      "counter_examples": [
+        "そうだ作为独立应答词而没有前项判断结构"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.you",
+      "concept_id": "grammar.modality.you",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ようだ（推量／比喻）",
+      "compact_summary": "根据迹象进行推量，也可表示比喻或例示",
+      "function_summary": "根据迹象进行推量，也可表示比喻或例示",
+      "connection": "动词普通形、イ形容词、ナ形容词词干＋な、名词＋の＋ようだ；连体用ような，连用用ように。",
+      "formation": "前项＋ようだ／ような／ように／ようで／ようだった",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "誰か来たようだ。",
+        "夢のような話だ。"
+      ],
+      "counter_examples": [
+        "ようだ作为独立词汇而没有前项从句修饰"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.mitai",
+      "concept_id": "grammar.modality.mitai",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "みたいだ（推量／比喻）",
+      "compact_summary": "口语中根据迹象推量或作比喻",
+      "function_summary": "口语中根据迹象推量或作比喻",
+      "connection": "普通形或名词＋みたいだ；连体用みたいな，连用用みたいに。",
+      "formation": "前项＋みたいだ／みたいな／みたいに／みたいで",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "子どもみたいだ。",
+        "雨が降るみたいだ。"
+      ],
+      "counter_examples": [
+        "みたい作为独立动词词汇而没有判断功能"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.rashii",
+      "concept_id": "grammar.modality.rashii",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "らしい（推量／典型）",
+      "compact_summary": "根据信息作出推量，也可表示具有某种典型特征",
+      "function_summary": "根据信息作出推量，也可表示具有某种典型特征",
+      "connection": "普通形或名词＋らしい；连体和终止形式相同，连用可用らしく。",
+      "formation": "前项＋らしい／らしく／らしさ",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "彼は来ないらしい。",
+        "春らしい天気だ。"
+      ],
+      "counter_examples": [
+        "らしい作为词尾表示典型性而没有命题推量时需保留独立 sense"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.obligation.beki",
+      "concept_id": "grammar.obligation.beki",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "べきだ（应当）",
+      "compact_summary": "表示说话人认为应当采取某种行动或符合某种规范",
+      "function_summary": "表示说话人认为应当采取某种行动或符合某种规范",
+      "connection": "动词终止形＋べきだ；する可用すべきだ，也可见するべきだ。",
+      "formation": "动词终止形＋べきだ／べきだった／べきで／べきな",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "約束は守るべきだ。",
+        "もっと早く相談すべきだった。"
+      ],
+      "counter_examples": [
+        "べき作为文言助动词时按文言活用类处理"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.expectation.hazu",
+      "concept_id": "grammar.expectation.hazu",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "はずだ（应当／预期）",
+      "compact_summary": "根据依据作出应当如此的预期判断",
+      "function_summary": "根据依据作出应当如此的预期判断",
+      "connection": "普通形＋はずだ；ナ形容词词干＋なはずだ，名词＋のはずだ。",
+      "formation": "前项＋はずだ／はずだった／はずで／はずの",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "彼は来るはずだ。",
+        "静かなはずだ。"
+      ],
+      "counter_examples": [
+        "はず作为名词表示箭或容器等本义时不触发判断结构"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:judgement-layer"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
       "explanation_id": "explanation.grammar.functional.no",
       "concept_id": "grammar.functional.no",
       "sense_id": null,

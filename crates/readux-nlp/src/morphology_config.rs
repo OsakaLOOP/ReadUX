@@ -300,6 +300,20 @@ mod tests {
             assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");
         }
         assert_eq!(CONFIG.rule_metadata.get("nominalization").map(|metadata| metadata.executor.as_str()), Some("nominalization"));
+        let tree_labels = CONFIG.rule_tree.iter().map(|node| node.label.as_str()).collect::<Vec<_>>();
+        assert_eq!(tree_labels, vec![
+            "动词循环类",
+            "补助动词类",
+            "插入语类",
+            "ナ形容词判断类",
+            "イ形容词转换类",
+            "文言活用类",
+        ]);
+        for label in ["ナ形容词判断类", "イ形容词转换类", "文言活用类"] {
+            let node = CONFIG.rule_tree.iter().find(|node| node.label == label).unwrap();
+            assert!((2..=3).contains(&node.children.len()), "{label} 的规则树分支应保持可读规模");
+            assert!(node.children.iter().all(|child| !child.label.is_empty()));
+        }
     }
 
     #[test]

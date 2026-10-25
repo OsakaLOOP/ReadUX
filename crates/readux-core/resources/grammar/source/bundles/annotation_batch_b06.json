@@ -1,0 +1,135 @@
+{
+  "bundle_id": "annotation-batch-b06",
+  "audit_status": "verified",
+  "source_refs": [
+    "readux-editorial:2026-10-26",
+    "morphology-refactor:judgement-layer"
+  ],
+  "review": {
+    "item_count": 6,
+    "baseline": "docs/morphology_state_machine_design.md",
+    "method": "为ナ形容词判断类建立独立词干、判断收尾和接续条件，区分现代判断与单纯词汇用法"
+  },
+  "items": [
+    {
+      "concept_id": "grammar.modality.sou",
+      "kind": "construction",
+      "canonical_label": "そうだ（样态／传闻）",
+      "semantic_domains": ["modality", "evidence"],
+      "function_tags": ["appearance", "hearsay"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "根据外观或已知信息作出样态判断，也可表示传闻",
+        "connection": "动词连用形、イ形容词词干＋そうだ；传闻用法接普通形＋そうだ。",
+        "formation": "前项＋そうだ／そうな／そうで／そうだった",
+        "examples": ["雨が降りそうだ。", "彼は元気そうだ。", "明日は雨だそうだ。"],
+        "counter_examples": ["そうだ作为独立应答词而没有前项判断结构"],
+        "body_blocks": []
+      },
+      "senses": [
+        {"sense_id": "grammar.modality.sou.appearance", "label": "样态判断", "function_summary": "根据外观或直接迹象判断即将出现的状态", "semantic_features": {"function": "appearance"}},
+        {"sense_id": "grammar.modality.sou.hearsay", "label": "传闻判断", "function_summary": "转述已获得的信息", "semantic_features": {"function": "hearsay"}}
+      ],
+      "realizations": [
+        {"realization_id": "realization.grammar.modality.sou.appearance", "rule_id": "grammar.modality.sou.appearance", "possible_sense_ids": ["grammar.modality.sou.appearance"], "connection_signature": "动词连用形／イ形容词词干＋そうだ", "examples": ["雨が降りそうだ。", "おいしそうな料理"], "counter_examples": ["知っていそうだ（传闻或状态语境需另判）"], "rule": {"kind": "grammar_construction", "priority": 90, "atoms": [{"pos_major": ["動詞", "形容詞"], "conjugation_forms": ["連用形", "語幹"], "capture": "predicate"}, {"base_forms": ["そうだ"], "pos_major": ["助動詞"], "capture": "judgement"}], "captures": ["predicate", "judgement"], "show_badge": true}},
+        {"realization_id": "realization.grammar.modality.sou.hearsay", "rule_id": "grammar.modality.sou.hearsay", "possible_sense_ids": ["grammar.modality.sou.hearsay"], "connection_signature": "普通形＋そうだ（传闻）", "examples": ["明日は雨だそうだ。"], "counter_examples": ["雨が降りそうだ（样态）"], "rule": {"kind": "grammar_construction", "priority": 88, "atoms": [{"pos_major": ["動詞", "形容詞", "助動詞"], "capture": "predicate"}, {"base_forms": ["そうだ"], "pos_major": ["助動詞"], "capture": "hearsay"}], "captures": ["predicate", "hearsay"], "show_badge": true}}
+      ]
+    },
+    {
+      "concept_id": "grammar.modality.you",
+      "kind": "construction",
+      "canonical_label": "ようだ（推量／比喻）",
+      "semantic_domains": ["modality", "comparison"],
+      "function_tags": ["inference", "simile"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "根据迹象进行推量，也可表示比喻或例示",
+        "connection": "动词普通形、イ形容词、ナ形容词词干＋な、名词＋の＋ようだ；连体用ような，连用用ように。",
+        "formation": "前项＋ようだ／ような／ように／ようで／ようだった",
+        "examples": ["誰か来たようだ。", "夢のような話だ。"],
+        "counter_examples": ["ようだ作为独立词汇而没有前项从句修饰"],
+        "body_blocks": []
+      },
+      "senses": [{"sense_id": "grammar.modality.you.inference", "label": "推量与比喻", "function_summary": "依据迹象进行推量或建立比喻关系", "semantic_features": {"function": "inference"}}],
+      "realizations": [{"realization_id": "realization.grammar.modality.you.inference", "rule_id": "grammar.modality.you.inference", "possible_sense_ids": ["grammar.modality.you.inference"], "connection_signature": "普通形／名词＋の／ナ形容词词干＋な＋ようだ", "examples": ["誰か来たようだ。", "静かなようだ。"], "counter_examples": ["ようにする（目的或习惯构式）"], "rule": {"kind": "grammar_construction", "priority": 89, "atoms": [{"pos_major": ["動詞", "形容詞", "名詞", "形状詞"], "capture": "predicate"}, {"base_forms": ["よう"], "pos_major": ["名詞"], "capture": "stem"}, {"base_forms": ["だ", "な", "に", "で"], "pos_major": ["助動詞", "助詞"], "optional": true, "capture": "judgement"}], "captures": ["predicate", "stem", "judgement"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.modality.mitai",
+      "kind": "construction",
+      "canonical_label": "みたいだ（推量／比喻）",
+      "semantic_domains": ["modality", "comparison"],
+      "function_tags": ["inference", "simile"],
+      "jlpt_level": 3,
+      "register": ["spoken", "modern_standard"],
+      "explanation": {
+        "compact_summary": "口语中根据迹象推量或作比喻",
+        "connection": "普通形或名词＋みたいだ；连体用みたいな，连用用みたいに。",
+        "formation": "前项＋みたいだ／みたいな／みたいに／みたいで",
+        "examples": ["子どもみたいだ。", "雨が降るみたいだ。"],
+        "counter_examples": ["みたい作为独立动词词汇而没有判断功能"],
+        "body_blocks": []
+      },
+      "senses": [{"sense_id": "grammar.modality.mitai.inference", "label": "口语推量", "function_summary": "以口语形式表达推量或比喻", "semantic_features": {"function": "inference"}}],
+      "realizations": [{"realization_id": "realization.grammar.modality.mitai.inference", "rule_id": "grammar.modality.mitai.inference", "possible_sense_ids": ["grammar.modality.mitai.inference"], "connection_signature": "普通形／名词＋みたいだ", "examples": ["子どもみたいだ。", "雨が降るみたいだ。"], "counter_examples": ["みたいなものだ（固定表达需按更长构式处理）"], "rule": {"kind": "grammar_construction", "priority": 87, "atoms": [{"pos_major": ["動詞", "形容詞", "名詞", "形状詞"], "capture": "predicate"}, {"base_forms": ["みたい"], "pos_major": ["助動詞", "名詞"], "capture": "judgement"}, {"base_forms": ["だ", "な", "に", "で"], "pos_major": ["助動詞", "助詞"], "optional": true, "capture": "ending"}], "captures": ["predicate", "judgement", "ending"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.modality.rashii",
+      "kind": "construction",
+      "canonical_label": "らしい（推量／典型）",
+      "semantic_domains": ["modality", "evidence"],
+      "function_tags": ["inference", "typicality"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "根据信息作出推量，也可表示具有某种典型特征",
+        "connection": "普通形或名词＋らしい；连体和终止形式相同，连用可用らしく。",
+        "formation": "前项＋らしい／らしく／らしさ",
+        "examples": ["彼は来ないらしい。", "春らしい天気だ。"],
+        "counter_examples": ["らしい作为词尾表示典型性而没有命题推量时需保留独立 sense"],
+        "body_blocks": []
+      },
+      "senses": [{"sense_id": "grammar.modality.rashii.inference", "label": "推量与典型", "function_summary": "根据信息推量，或说明符合某种典型特征", "semantic_features": {"function": "inference"}}],
+      "realizations": [{"realization_id": "realization.grammar.modality.rashii.inference", "rule_id": "grammar.modality.rashii.inference", "possible_sense_ids": ["grammar.modality.rashii.inference"], "connection_signature": "普通形／名词＋らしい", "examples": ["彼は来ないらしい。", "春らしい。"], "counter_examples": ["らしい作为独立词汇义项而不承担判断"], "rule": {"kind": "grammar_construction", "priority": 86, "atoms": [{"pos_major": ["動詞", "形容詞", "名詞", "形状詞"], "capture": "predicate"}, {"base_forms": ["らしい"], "pos_major": ["助動詞", "形容詞"], "capture": "judgement"}], "captures": ["predicate", "judgement"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.obligation.beki",
+      "kind": "construction",
+      "canonical_label": "べきだ（应当）",
+      "semantic_domains": ["obligation", "evaluation"],
+      "function_tags": ["normative"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "表示说话人认为应当采取某种行动或符合某种规范",
+        "connection": "动词终止形＋べきだ；する可用すべきだ，也可见するべきだ。",
+        "formation": "动词终止形＋べきだ／べきだった／べきで／べきな",
+        "examples": ["約束は守るべきだ。", "もっと早く相談すべきだった。"],
+        "counter_examples": ["べき作为文言助动词时按文言活用类处理"],
+        "body_blocks": []
+      },
+      "senses": [{"sense_id": "grammar.obligation.beki.normative", "label": "规范判断", "function_summary": "表示应当实施动作或符合规范", "semantic_features": {"function": "normative"}}],
+      "realizations": [{"realization_id": "realization.grammar.obligation.beki.normative", "rule_id": "grammar.obligation.beki.normative", "possible_sense_ids": ["grammar.obligation.beki.normative"], "connection_signature": "动词终止形＋べきだ", "examples": ["約束は守るべきだ。", "相談すべきだった。"], "counter_examples": ["べし的古典助动词活用"], "rule": {"kind": "grammar_construction", "priority": 91, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["終止形", "基本形"], "capture": "predicate"}, {"base_forms": ["べし", "べき"], "pos_major": ["助動詞"], "capture": "judgement"}, {"base_forms": ["だ", "だった", "で", "な"], "pos_major": ["助動詞"], "optional": true, "capture": "ending"}], "captures": ["predicate", "judgement", "ending"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.expectation.hazu",
+      "kind": "construction",
+      "canonical_label": "はずだ（应当／预期）",
+      "semantic_domains": ["modality", "expectation"],
+      "function_tags": ["expectation", "reasoned_belief"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "根据依据作出应当如此的预期判断",
+        "connection": "普通形＋はずだ；ナ形容词词干＋なはずだ，名词＋のはずだ。",
+        "formation": "前项＋はずだ／はずだった／はずで／はずの",
+        "examples": ["彼は来るはずだ。", "静かなはずだ。"],
+        "counter_examples": ["はず作为名词表示箭或容器等本义时不触发判断结构"],
+        "body_blocks": []
+      },
+      "senses": [{"sense_id": "grammar.expectation.hazu.expectation", "label": "依据推断", "function_summary": "根据已知依据判断某事应当成立", "semantic_features": {"function": "expectation"}}],
+      "realizations": [{"realization_id": "realization.grammar.expectation.hazu.expectation", "rule_id": "grammar.expectation.hazu.expectation", "possible_sense_ids": ["grammar.expectation.hazu.expectation"], "connection_signature": "普通形／ナ形容词词干＋な／名词＋の＋はずだ", "examples": ["彼は来るはずだ。", "静かなはずだ。"], "counter_examples": ["はずだ作为独立名词判断而无前项修饰"], "rule": {"kind": "grammar_construction", "priority": 90, "atoms": [{"pos_major": ["動詞", "形容詞", "名詞", "形状詞"], "capture": "predicate"}, {"base_forms": ["はず"], "pos_major": ["名詞"], "capture": "stem"}, {"base_forms": ["だ", "な", "で", "の"], "pos_major": ["助動詞", "助詞"], "optional": true, "capture": "ending"}], "captures": ["predicate", "stem", "ending"], "show_badge": true}}]
+    }
+  ]
+}
