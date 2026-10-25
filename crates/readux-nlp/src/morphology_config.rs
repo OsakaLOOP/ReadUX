@@ -225,7 +225,15 @@ pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
     let pos = field(token, 0);
     let sub = field(token, 1);
     let lemma = identity(token);
-    if matches!(pos, "助詞") { return "插入语类"; }
+    if pos == "助詞" {
+        if matches!(lemma, "て" | "で") && sub == "接続助詞" { return ""; }
+        if matches!(lemma, "は" | "も" | "だけ" | "さえ" | "こそ" | "しか" | "すら" | "など" | "とか")
+            || (sub == "副助詞" && matches!(lemma, "まで" | "なんて"))
+        {
+            return "插入语类";
+        }
+        return "";
+    }
     if matches!(pos, "助動詞") {
         return match lemma {
             "ない" | "たい" | "らしい" => "イ形容词转换类",
@@ -289,5 +297,30 @@ mod tests {
             assert!(!metadata.stage.is_empty(), "{kind} 缺少阶段");
             assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");
         }
+    }
+
+    #[test]
+    fn classifies_only_declared_particles_as_insertion_entities() {
+        let mut values = vec![None; crate::model::FIELD_NAMES.len()];
+        let set = |values: &mut Vec<Option<String>>, name: &str, value: &str| {
+            let index = crate::model::FIELD_NAMES.iter().position(|item| *item == name).unwrap();
+            values[index] = Some(value.into());
+        };
+        set(&mut values, "pos1", "助詞");
+        set(&mut values, "pos2", "接続助詞");
+        set(&mut values, "lemma", "て");
+        set(&mut values, "orthBase", "て");
+        let mut token = ProviderToken { index: 0, surface: "て".into(), char_range: [0, 1], byte_range: [0, 3], lexicon_type: "test".into(), left_id: 0, right_id: 0, word_cost: 0, total_cost: 0, raw_feature: String::new(), fields: values.into_iter().enumerate().map(|(index, value)| crate::model::FeatureField { index, name: crate::model::FIELD_NAMES[index].into(), label: crate::model::FIELD_LABELS[index].into(), raw: value.clone(), value }).collect() };
+        assert_eq!(entity_class_for_token(&token), "");
+        token.fields[7].value = Some("は".into());
+        token.fields[10].value = Some("は".into());
+        token.surface = "は".into();
+        token.fields[1].value = Some("係助詞".into());
+        assert_eq!(entity_class_for_token(&token), "插入语类");
+        token.fields[1].value = Some("格助詞".into());
+        token.fields[7].value = Some("に".into());
+        token.fields[10].value = Some("に".into());
+        token.surface = "に".into();
+        assert_eq!(entity_class_for_token(&token), "");
     }
 }
