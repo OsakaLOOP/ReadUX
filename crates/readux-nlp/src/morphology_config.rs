@@ -20,6 +20,19 @@ pub struct Config {
     pub forms: Vec<FormRule>,
     pub insertion: Vec<TokenPattern>,
     pub presentation: serde_json::Value,
+    #[serde(default = "default_auxiliary_depth")] pub max_auxiliary_depth: usize,
+    #[serde(default)] pub classical_forms: Vec<ClassicalForm>,
+}
+
+fn default_auxiliary_depth() -> usize { 8 }
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ClassicalForm {
+    pub lemma: String,
+    pub class_name: String,
+    pub forms: BTreeMap<String, String>,
+    #[serde(default)] pub connection: Vec<String>,
 }
 
 #[derive(Default, Deserialize)]

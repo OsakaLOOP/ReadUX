@@ -40,8 +40,13 @@
     "you_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "比况判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 73},
     "mitai_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "比况判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 74},
     "obligation": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "当为判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 75},
-    "insertion": {"stage": "insertion", "executor": "insertion", "rule_group": "插入语", "input_category": "已成立链", "output_category": "保持前项", "terminal_mode": "preserve", "order_rank": 0}
+    "insertion": {"stage": "insertion", "executor": "insertion", "rule_group": "插入语", "input_category": "已成立链", "output_category": "保持前项", "terminal_mode": "preserve", "order_rank": 0},
+    "negative_zuni": {"stage": "classical", "executor": "classical_conjugation", "rule_group": "文言否定", "input_category": "動詞", "output_category": "文語用言", "terminal_mode": "continue", "order_rank": 12},
+    "classical_gotoshi": {"stage": "classical", "executor": "classical_conjugation", "rule_group": "文言比况", "input_category": "用言", "output_category": "文語用言", "terminal_mode": "sentence_or_pause", "order_rank": 76}
   },
+  "classical_forms": [
+    {"lemma": "ごとし", "class_name": "シク活用", "forms": {"未然形": "ごとく", "連用形": "ごとく", "終止形": "ごとし", "連体形": "ごとき", "已然形": "ごとけれ", "命令形": "ごとく"}, "connection": ["体言", "連体形"]}
+  ],
   "operators": {
     "polite_negative": {
       "label": "敬体否定",

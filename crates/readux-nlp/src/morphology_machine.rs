@@ -80,6 +80,56 @@ impl NaAdjectiveJudgementExecutor {
     }
 }
 
+/// 补助动词执行器：验证连接器、建立父子链，并允许补助层继续递归。
+struct AuxiliaryVerbExecutor;
+
+impl AuxiliaryVerbExecutor {
+    fn accepts(kind: &str) -> bool {
+        config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "auxiliary_verb")
+    }
+
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, source: &[ProviderToken], index: usize, diagnostics: &mut Vec<String>) {
+        if !Self::accepts(kind) { return; }
+        let has_connector = previous.final_state.form == ConnectionForm::Te
+            || previous.final_state.form == ConnectionForm::Continuative
+            || previous.operators.iter().any(|operator| operator.kind == "te_connection");
+        if !has_connector {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("auxiliary_missing_connector:{}:{}", previous.chain_id, index));
+        }
+        if index > 0 && source[index - 1].char_range[1] != source[index].char_range[0] {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("auxiliary_non_contiguous:{}:{}", previous.chain_id, index));
+        }
+        atom.role = MorphologyRole::Functional;
+        atom.parent_chain_id = Some(previous.chain_id.clone());
+        atom.final_state.entity_class = "补助动词类".into();
+        let depth = previous.operators.iter().filter(|operator| operator.executor == "auxiliary_verb").count();
+        if depth >= CONFIG.max_auxiliary_depth {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("auxiliary_depth_limit:{}:{}", previous.chain_id, index));
+        }
+    }
+}
+
+/// 文言活用执行器：使用独立的文言活用表，不与现代判断结构共用状态。
+struct ClassicalConjugationExecutor;
+
+impl ClassicalConjugationExecutor {
+    fn accepts(kind: &str) -> bool {
+        config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "classical_conjugation")
+    }
+
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+        if !Self::accepts(kind) { return; }
+        if previous.final_state.entity_class != "文言活用类" && previous.final_state.category != "助動詞" {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("classical_input_category:{}:{}", previous.chain_id, index));
+        }
+        atom.final_state.entity_class = "文言活用类".into();
+    }
+}
+
 fn insertion_token(token: &ProviderToken) -> bool {
     CONFIG.insertion.iter().any(|pattern| pattern.matches(token))
 }
@@ -388,6 +438,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        ClassicalConjugationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
                             diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
@@ -402,6 +453,7 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     merge(previous, atom, false); continue;
                 }
                 Transition::Support(kind) => {
+                    AuxiliaryVerbExecutor::apply(previous, &mut atom, kind, source, index, &mut diagnostics);
                     atom.role = MorphologyRole::Functional;
                     atom.parent_chain_id = Some(previous.chain_id.clone());
                     if order_conflict(previous, kind) {
