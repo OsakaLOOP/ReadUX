@@ -2243,6 +2243,325 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.auxiliary.sugiru",
+      "kind": "construction",
+      "canonical_label": "〜すぎる（过度）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect",
+        "degree"
+      ],
+      "function_tags": [
+        "excessive"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.sugiru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "kind": "construction",
+      "canonical_label": "〜始める（开始）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "inceptive"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.hajimeru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "kind": "construction",
+      "canonical_label": "〜続ける／〜通す（持续）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "continuative"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.tsuzukeru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.owaru",
+      "kind": "construction",
+      "canonical_label": "〜終わる／〜終える（完成）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "terminative"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.owaru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.makuru",
+      "kind": "construction",
+      "canonical_label": "〜まくる（反复）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "iterative"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "spoken",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.makuru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.dasu",
+      "kind": "construction",
+      "canonical_label": "〜出す（突然开始）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "inchoative"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.dasu",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.naosu",
+      "kind": "construction",
+      "canonical_label": "〜直す（重新）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "corrective"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.naosu",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kakeru",
+      "kind": "construction",
+      "canonical_label": "〜かける（未完）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "incomplete"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kakeru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kiru",
+      "kind": "construction",
+      "canonical_label": "〜切る／〜抜く／〜尽くす（彻底）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "completion"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kiru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kaneru",
+      "kind": "construction",
+      "canonical_label": "〜かねる（难以）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "evaluation"
+      ],
+      "function_tags": [
+        "reluctance"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "formal",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kaneru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.sokonau",
+      "kind": "construction",
+      "canonical_label": "〜損なう（失败）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect",
+        "evaluation"
+      ],
+      "function_tags": [
+        "failure"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "written",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.sokonau",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.sobireru",
+      "kind": "construction",
+      "canonical_label": "〜そびれる（错过）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect",
+        "evaluation"
+      ],
+      "function_tags": [
+        "missed_opportunity"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.sobireru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.functional.no",
       "kind": "functional_morpheme",
       "canonical_label": "の",
@@ -5167,6 +5486,198 @@
       "audit_status": "verified"
     },
     {
+      "sense_id": "grammar.auxiliary.sugiru.excessive",
+      "concept_id": "grammar.auxiliary.sugiru",
+      "label": "程度过度",
+      "function_summary": "表示动作或性质超过适当程度",
+      "semantic_features": {
+        "function": "excessive"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.sugiru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.hajimeru.inceptive",
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "label": "动作开始",
+      "function_summary": "表示前项动作开始发生",
+      "semantic_features": {
+        "function": "inceptive"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.hajimeru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.tsuzukeru.continuative",
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "label": "动作持续",
+      "function_summary": "表示动作持续或贯彻完成",
+      "semantic_features": {
+        "function": "continuative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.tsuzukeru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.owaru.terminative",
+      "concept_id": "grammar.auxiliary.owaru",
+      "label": "动作完成",
+      "function_summary": "表示前项动作完成",
+      "semantic_features": {
+        "function": "terminative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.owaru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.makuru.iterative",
+      "concept_id": "grammar.auxiliary.makuru",
+      "label": "反复进行",
+      "function_summary": "表示动作反复或达到很高频度",
+      "semantic_features": {
+        "function": "iterative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.makuru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.dasu.inchoative",
+      "concept_id": "grammar.auxiliary.dasu",
+      "label": "突然开始",
+      "function_summary": "表示动作突然开始",
+      "semantic_features": {
+        "function": "inchoative"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.dasu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.naosu.corrective",
+      "concept_id": "grammar.auxiliary.naosu",
+      "label": "重新进行",
+      "function_summary": "表示重新做或改正前项动作",
+      "semantic_features": {
+        "function": "corrective"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.naosu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.kakeru.incomplete",
+      "concept_id": "grammar.auxiliary.kakeru",
+      "label": "动作未完",
+      "function_summary": "表示动作处于开始后未完成的状态",
+      "semantic_features": {
+        "function": "incomplete"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.kakeru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.kiru.completion",
+      "concept_id": "grammar.auxiliary.kiru",
+      "label": "彻底完成",
+      "function_summary": "表示动作贯彻到底或资源耗尽",
+      "semantic_features": {
+        "function": "completion"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.kiru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.kaneru.reluctance",
+      "concept_id": "grammar.auxiliary.kaneru",
+      "label": "难以实行",
+      "function_summary": "表示由于立场或困难而难以做出动作",
+      "semantic_features": {
+        "function": "reluctance"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.kaneru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.sokonau.failure",
+      "concept_id": "grammar.auxiliary.sokonau",
+      "label": "动作失败",
+      "function_summary": "表示动作没有按预期完成",
+      "semantic_features": {
+        "function": "failure"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.sokonau",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.sobireru.missed_opportunity",
+      "concept_id": "grammar.auxiliary.sobireru",
+      "label": "错过机会",
+      "function_summary": "表示未能在适当时机完成动作",
+      "semantic_features": {
+        "function": "missed_opportunity"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.sobireru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
       "sense_id": "grammar.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "label": "の：连体关系",
@@ -7963,6 +8474,295 @@
       "source_refs": [
         "readux-editorial:2026-10-26",
         "morphology-refactor:i-adjective-conversion"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.sugiru.excessive",
+      "concept_id": "grammar.auxiliary.sugiru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.sugiru.excessive"
+      ],
+      "rule_id": "grammar.auxiliary.sugiru.excessive",
+      "connection_signature": "连用形／词干＋すぎる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読みすぎる。"
+      ],
+      "counter_examples": [
+        "駅を過ぎる。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.hajimeru.inceptive",
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.hajimeru.inceptive"
+      ],
+      "rule_id": "grammar.auxiliary.hajimeru.inceptive",
+      "connection_signature": "动词连用形＋始める",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読み始める。"
+      ],
+      "counter_examples": [
+        "始める前に確認する。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.tsuzukeru.continuative",
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.tsuzukeru.continuative"
+      ],
+      "rule_id": "grammar.auxiliary.tsuzukeru.continuative",
+      "connection_signature": "动词连用形＋続ける／通す",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読み続ける。"
+      ],
+      "counter_examples": [
+        "道を通す。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.owaru.terminative",
+      "concept_id": "grammar.auxiliary.owaru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.owaru.terminative"
+      ],
+      "rule_id": "grammar.auxiliary.owaru.terminative",
+      "connection_signature": "动词连用形＋終わる／終える",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読み終わる。"
+      ],
+      "counter_examples": [
+        "授業が終わる。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.makuru.iterative",
+      "concept_id": "grammar.auxiliary.makuru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.makuru.iterative"
+      ],
+      "rule_id": "grammar.auxiliary.makuru.iterative",
+      "connection_signature": "动词连用形＋まくる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "遊びまくる。"
+      ],
+      "counter_examples": [
+        "布をまくる。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.dasu.inchoative",
+      "concept_id": "grammar.auxiliary.dasu",
+      "possible_sense_ids": [
+        "grammar.auxiliary.dasu.inchoative"
+      ],
+      "rule_id": "grammar.auxiliary.dasu.inchoative",
+      "connection_signature": "动词连用形＋出す",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "泣き出す。"
+      ],
+      "counter_examples": [
+        "本を出す。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.naosu.corrective",
+      "concept_id": "grammar.auxiliary.naosu",
+      "possible_sense_ids": [
+        "grammar.auxiliary.naosu.corrective"
+      ],
+      "rule_id": "grammar.auxiliary.naosu.corrective",
+      "connection_signature": "动词连用形＋直す",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "書き直す。"
+      ],
+      "counter_examples": [
+        "機械を直す。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.kakeru.incomplete",
+      "concept_id": "grammar.auxiliary.kakeru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.kakeru.incomplete"
+      ],
+      "rule_id": "grammar.auxiliary.kakeru.incomplete",
+      "connection_signature": "动词连用形＋かける",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読みかける。"
+      ],
+      "counter_examples": [
+        "壁に絵をかける。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.kiru.completion",
+      "concept_id": "grammar.auxiliary.kiru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.kiru.completion"
+      ],
+      "rule_id": "grammar.auxiliary.kiru.completion",
+      "connection_signature": "动词连用形＋切る／抜く／尽くす",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "やり抜く。",
+        "食べ尽くす。"
+      ],
+      "counter_examples": [
+        "紙を切る。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.kaneru.reluctance",
+      "concept_id": "grammar.auxiliary.kaneru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.kaneru.reluctance"
+      ],
+      "rule_id": "grammar.auxiliary.kaneru.reluctance",
+      "connection_signature": "动词连用形＋かねる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "賛成しかねる。"
+      ],
+      "counter_examples": [
+        "かねる的独立词汇用法"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.sokonau.failure",
+      "concept_id": "grammar.auxiliary.sokonau",
+      "possible_sense_ids": [
+        "grammar.auxiliary.sokonau.failure"
+      ],
+      "rule_id": "grammar.auxiliary.sokonau.failure",
+      "connection_signature": "动词连用形＋損なう",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "言い損なう。"
+      ],
+      "counter_examples": [
+        "信用を損なう。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.sobireru.missed_opportunity",
+      "concept_id": "grammar.auxiliary.sobireru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.sobireru.missed_opportunity"
+      ],
+      "rule_id": "grammar.auxiliary.sobireru.missed_opportunity",
+      "connection_signature": "动词连用形＋そびれる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "聞きそびれる。"
+      ],
+      "counter_examples": [
+        "そびれる的独立词汇用法"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
       ]
     },
     {
@@ -11582,6 +12382,629 @@
       "source_refs": [
         "corpus:七日の喰い神/第一話:grammar-review-batch-002",
         "ipadic:runtime-observation"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.dasu.inchoative",
+      "realization_id": "realization.grammar.auxiliary.dasu.inchoative",
+      "concept_id": "grammar.auxiliary.dasu",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "出す",
+            "だす"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "泣き出す。"
+      ],
+      "counter_examples": [
+        "本を出す。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.hajimeru.inceptive",
+      "realization_id": "realization.grammar.auxiliary.hajimeru.inceptive",
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "始める",
+            "はじめる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読み始める。"
+      ],
+      "counter_examples": [
+        "始める前に確認する。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.kakeru.incomplete",
+      "realization_id": "realization.grammar.auxiliary.kakeru.incomplete",
+      "concept_id": "grammar.auxiliary.kakeru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "かける",
+            "掛ける"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読みかける。"
+      ],
+      "counter_examples": [
+        "壁に絵をかける。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.kaneru.reluctance",
+      "realization_id": "realization.grammar.auxiliary.kaneru.reluctance",
+      "concept_id": "grammar.auxiliary.kaneru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "かねる",
+            "兼ねる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "賛成しかねる。"
+      ],
+      "counter_examples": [
+        "かねる的独立词汇用法"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.kiru.completion",
+      "realization_id": "realization.grammar.auxiliary.kiru.completion",
+      "concept_id": "grammar.auxiliary.kiru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "切る",
+            "きる",
+            "抜く",
+            "ぬく",
+            "尽くす",
+            "つくす"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "やり抜く。",
+        "食べ尽くす。"
+      ],
+      "counter_examples": [
+        "紙を切る。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.makuru.iterative",
+      "realization_id": "realization.grammar.auxiliary.makuru.iterative",
+      "concept_id": "grammar.auxiliary.makuru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "まくる",
+            "捲る"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "遊びまくる。"
+      ],
+      "counter_examples": [
+        "布をまくる。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.naosu.corrective",
+      "realization_id": "realization.grammar.auxiliary.naosu.corrective",
+      "concept_id": "grammar.auxiliary.naosu",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "直す",
+            "なおす"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "書き直す。"
+      ],
+      "counter_examples": [
+        "機械を直す。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.owaru.terminative",
+      "realization_id": "realization.grammar.auxiliary.owaru.terminative",
+      "concept_id": "grammar.auxiliary.owaru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "終わる",
+            "おわる",
+            "終える",
+            "おえる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読み終わる。"
+      ],
+      "counter_examples": [
+        "授業が終わる。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.sobireru.missed_opportunity",
+      "realization_id": "realization.grammar.auxiliary.sobireru.missed_opportunity",
+      "concept_id": "grammar.auxiliary.sobireru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "そびれる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "聞きそびれる。"
+      ],
+      "counter_examples": [
+        "そびれる的独立词汇用法"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.sokonau.failure",
+      "realization_id": "realization.grammar.auxiliary.sokonau.failure",
+      "concept_id": "grammar.auxiliary.sokonau",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "損なう",
+            "そこなう"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "言い損なう。"
+      ],
+      "counter_examples": [
+        "信用を損なう。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.sugiru.excessive",
+      "realization_id": "realization.grammar.auxiliary.sugiru.excessive",
+      "concept_id": "grammar.auxiliary.sugiru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "語幹"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "すぎる",
+            "過ぎる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読みすぎる。"
+      ],
+      "counter_examples": [
+        "駅を過ぎる。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.tsuzukeru.continuative",
+      "realization_id": "realization.grammar.auxiliary.tsuzukeru.continuative",
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "kind": "grammar_construction",
+      "priority": 78,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "続ける",
+            "つづける",
+            "通す",
+            "とおす"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読み続ける。"
+      ],
+      "counter_examples": [
+        "道を通す。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
       ],
       "rule_version": 1,
       "show_badge": true

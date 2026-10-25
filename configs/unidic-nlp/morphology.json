@@ -943,112 +943,124 @@
       "order_rank": 60
     },
     "excessive": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "inceptive": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "continuative_aspect": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "terminative": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "iterative_aspect": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "inchoative": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "corrective": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "incomplete", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "incomplete": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "completion", "reluctance", "failure", "missed_opportunity"]
     },
     "completion": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "reluctance", "failure", "missed_opportunity"]
     },
     "reluctance": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "failure", "missed_opportunity"]
     },
     "failure": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "missed_opportunity"]
     },
     "missed_opportunity": {
-      "stage": "voice",
-      "executor": "verb_cycle",
-      "rule_group": "兼容接续",
-      "input_category": "用言",
-      "output_category": "用言",
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_category": "動詞",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 37,
+      "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure"]
     },
     "kedo_connection": {
       "stage": "voice",
@@ -1575,7 +1587,7 @@
     "negative_volitional": {
       "label": "活用",
       "title": "否定意向",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.sugiru",
       "prototype": "まい"
     },
     "desire_outward": {
@@ -2235,7 +2247,7 @@
     "excessive": {
       "label": "活用",
       "title": "过度",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.sugiru",
       "prototype": "すぎる",
       "token_lemma": false,
       "support": {
@@ -2250,7 +2262,7 @@
     "inceptive": {
       "label": "活用",
       "title": "动作开始",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.hajimeru",
       "prototype": "始める",
       "token_lemma": true,
       "support": {
@@ -2265,7 +2277,7 @@
     "continuative_aspect": {
       "label": "活用",
       "title": "动作持续",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.tsuzukeru",
       "prototype": "続ける",
       "token_lemma": true,
       "support": {
@@ -2282,7 +2294,7 @@
     "terminative": {
       "label": "活用",
       "title": "动作完了",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.owaru",
       "prototype": "終わる",
       "token_lemma": true,
       "support": {
@@ -2299,7 +2311,7 @@
     "iterative_aspect": {
       "label": "反复动作",
       "title": "反复动作",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.makuru",
       "prototype": "まくる",
       "token_lemma": true,
       "support": {
@@ -2314,7 +2326,7 @@
     "inchoative": {
       "label": "活用",
       "title": "开始发生",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.dasu",
       "prototype": "出す",
       "token_lemma": true,
       "support": {
@@ -2329,7 +2341,7 @@
     "corrective": {
       "label": "活用",
       "title": "重新进行",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.naosu",
       "prototype": "直す",
       "token_lemma": true,
       "support": {
@@ -2344,7 +2356,7 @@
     "incomplete": {
       "label": "活用",
       "title": "动作未完",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.kakeru",
       "prototype": "掛ける",
       "token_lemma": true,
       "support": {
@@ -2359,7 +2371,7 @@
     "completion": {
       "label": "活用",
       "title": "彻底完成",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.kiru",
       "prototype": "切る",
       "token_lemma": true,
       "support": {
@@ -2378,7 +2390,7 @@
     "reluctance": {
       "label": "活用",
       "title": "难以做出",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.kaneru",
       "prototype": "兼ねる",
       "token_lemma": true,
       "support": {
@@ -2393,7 +2405,7 @@
     "failure": {
       "label": "活用",
       "title": "失败 / 错过",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.sokonau",
       "prototype": "損なう",
       "token_lemma": true,
       "support": {
@@ -2408,7 +2420,7 @@
     "missed_opportunity": {
       "label": "活用",
       "title": "错失机会",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.sobireru",
       "prototype": "そびれる",
       "token_lemma": true,
       "support": {

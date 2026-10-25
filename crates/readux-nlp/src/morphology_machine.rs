@@ -114,7 +114,9 @@ impl AuxiliaryVerbExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, source: &[ProviderToken], index: usize, diagnostics: &mut Vec<String>) {
         if !Self::accepts(kind) { return; }
-        let has_connector = previous.final_state.form == ConnectionForm::Te
+        let continuative_auxiliary = config::rule_metadata(kind).is_some_and(|metadata| metadata.rule_group == "连用形补助");
+        let has_connector = continuative_auxiliary && previous.final_state.form == ConnectionForm::Continuative
+            || previous.final_state.form == ConnectionForm::Te
             || previous.final_state.form == ConnectionForm::Continuative
             || previous.operators.iter().any(|operator| operator.kind == "te_connection");
         if !has_connector {

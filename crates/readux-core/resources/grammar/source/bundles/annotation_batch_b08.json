@@ -1,0 +1,152 @@
+{
+  "bundle_id": "annotation-batch-b08",
+  "audit_status": "verified",
+  "source_refs": ["readux-editorial:2026-10-26", "morphology-refactor:continuative-auxiliary"],
+  "review": {"item_count": 12, "baseline": "docs/morphology_state_machine_design.md", "method": "将连用形补助动词逐项纳入补助动词类，记录连用形接续、语义、例句和边界"},
+  "items": [
+    {
+      "concept_id": "grammar.auxiliary.sugiru",
+      "kind": "construction",
+      "canonical_label": "〜すぎる（过度）",
+      "semantic_domains": ["aspect", "degree"],
+      "function_tags": ["excessive"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形或形容词词干后表示程度过度", "connection": "动词连用形／イ形容词词干／ナ形容词词干＋すぎる；整体仍可继续活用。", "formation": "読みすぎる／高すぎる／静かすぎる", "examples": ["本を読みすぎた。", "高すぎて買えない。"], "counter_examples": ["すぎる作为经过地点的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.sugiru.excessive", "label": "程度过度", "function_summary": "表示动作或性质超过适当程度", "semantic_features": {"function": "excessive"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.sugiru.excessive", "rule_id": "grammar.auxiliary.sugiru.excessive", "possible_sense_ids": ["grammar.auxiliary.sugiru.excessive"], "connection_signature": "连用形／词干＋すぎる", "examples": ["読みすぎる。"], "counter_examples": ["駅を過ぎる。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞", "形容詞", "形状詞"], "conjugation_forms": ["連用形", "語幹"], "capture": "predicate"}, {"base_forms": ["すぎる", "過ぎる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "kind": "construction",
+      "canonical_label": "〜始める（开始）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["inceptive"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示动作开始", "connection": "动词连用形＋始める；补助动词自身可继续活用。", "formation": "読み始める／降り始めた", "examples": ["雨が降り始めた。"], "counter_examples": ["始める作为独立动词表示开始某事"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.hajimeru.inceptive", "label": "动作开始", "function_summary": "表示前项动作开始发生", "semantic_features": {"function": "inceptive"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.hajimeru.inceptive", "rule_id": "grammar.auxiliary.hajimeru.inceptive", "possible_sense_ids": ["grammar.auxiliary.hajimeru.inceptive"], "connection_signature": "动词连用形＋始める", "examples": ["読み始める。"], "counter_examples": ["始める前に確認する。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["始める", "はじめる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "kind": "construction",
+      "canonical_label": "〜続ける／〜通す（持续）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["continuative"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示持续进行或贯彻到底", "connection": "动词连用形＋続ける／通す。", "formation": "読み続ける／やり通す", "examples": ["最後まで読み続けた。", "一人でやり通した。"], "counter_examples": ["通す作为通过或传递的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.tsuzukeru.continuative", "label": "动作持续", "function_summary": "表示动作持续或贯彻完成", "semantic_features": {"function": "continuative"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.tsuzukeru.continuative", "rule_id": "grammar.auxiliary.tsuzukeru.continuative", "possible_sense_ids": ["grammar.auxiliary.tsuzukeru.continuative"], "connection_signature": "动词连用形＋続ける／通す", "examples": ["読み続ける。"], "counter_examples": ["道を通す。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["続ける", "つづける", "通す", "とおす"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.owaru",
+      "kind": "construction",
+      "canonical_label": "〜終わる／〜終える（完成）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["terminative"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示动作完成或做完", "connection": "动词连用形＋終わる／終える。", "formation": "読み終わる／書き終えた", "examples": ["本を読み終わった。"], "counter_examples": ["終わる作为独立谓词而没有前项动作"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.owaru.terminative", "label": "动作完成", "function_summary": "表示前项动作完成", "semantic_features": {"function": "terminative"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.owaru.terminative", "rule_id": "grammar.auxiliary.owaru.terminative", "possible_sense_ids": ["grammar.auxiliary.owaru.terminative"], "connection_signature": "动词连用形＋終わる／終える", "examples": ["読み終わる。"], "counter_examples": ["授業が終わる。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["終わる", "おわる", "終える", "おえる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.makuru",
+      "kind": "construction",
+      "canonical_label": "〜まくる（反复）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["iterative"],
+      "jlpt_level": 3,
+      "register": ["spoken", "modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示反复、大量或不间断地进行", "connection": "动词连用形＋まくる。", "formation": "読みまくる／食べまくった", "examples": ["一日中遊びまくった。"], "counter_examples": ["まくる作为独立动词表示卷起"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.makuru.iterative", "label": "反复进行", "function_summary": "表示动作反复或达到很高频度", "semantic_features": {"function": "iterative"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.makuru.iterative", "rule_id": "grammar.auxiliary.makuru.iterative", "possible_sense_ids": ["grammar.auxiliary.makuru.iterative"], "connection_signature": "动词连用形＋まくる", "examples": ["遊びまくる。"], "counter_examples": ["布をまくる。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["まくる", "捲る"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.dasu",
+      "kind": "construction",
+      "canonical_label": "〜出す（突然开始）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["inchoative"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示突然开始某动作", "connection": "动词连用形＋出す。", "formation": "泣き出す／降り出した", "examples": ["子どもが泣き出した。"], "counter_examples": ["出す作为拿出或提交的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.dasu.inchoative", "label": "突然开始", "function_summary": "表示动作突然开始", "semantic_features": {"function": "inchoative"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.dasu.inchoative", "rule_id": "grammar.auxiliary.dasu.inchoative", "possible_sense_ids": ["grammar.auxiliary.dasu.inchoative"], "connection_signature": "动词连用形＋出す", "examples": ["泣き出す。"], "counter_examples": ["本を出す。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["出す", "だす"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.naosu",
+      "kind": "construction",
+      "canonical_label": "〜直す（重新）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["corrective"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示重新进行或改正", "connection": "动词连用形＋直す。", "formation": "書き直す／やり直した", "examples": ["文章を書き直した。"], "counter_examples": ["直す作为修理或治愈的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.naosu.corrective", "label": "重新进行", "function_summary": "表示重新做或改正前项动作", "semantic_features": {"function": "corrective"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.naosu.corrective", "rule_id": "grammar.auxiliary.naosu.corrective", "possible_sense_ids": ["grammar.auxiliary.naosu.corrective"], "connection_signature": "动词连用形＋直す", "examples": ["書き直す。"], "counter_examples": ["機械を直す。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["直す", "なおす"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kakeru",
+      "kind": "construction",
+      "canonical_label": "〜かける（未完）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["incomplete"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示动作开始但尚未完成", "connection": "动词连用形＋かける。", "formation": "読みかける／読みかけの本", "examples": ["読みかけの本を閉じた。"], "counter_examples": ["かける作为悬挂或乘坐的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.kakeru.incomplete", "label": "动作未完", "function_summary": "表示动作处于开始后未完成的状态", "semantic_features": {"function": "incomplete"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.kakeru.incomplete", "rule_id": "grammar.auxiliary.kakeru.incomplete", "possible_sense_ids": ["grammar.auxiliary.kakeru.incomplete"], "connection_signature": "动词连用形＋かける", "examples": ["読みかける。"], "counter_examples": ["壁に絵をかける。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["かける", "掛ける"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kiru",
+      "kind": "construction",
+      "canonical_label": "〜切る／〜抜く／〜尽くす（彻底）",
+      "semantic_domains": ["aspect"],
+      "function_tags": ["completion"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽", "connection": "动词连用形＋切る／抜く／尽くす。", "formation": "使い切る／やり抜く／食べ尽くす", "examples": ["最後までやり抜いた。"], "counter_examples": ["切る作为切断的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.kiru.completion", "label": "彻底完成", "function_summary": "表示动作贯彻到底或资源耗尽", "semantic_features": {"function": "completion"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.kiru.completion", "rule_id": "grammar.auxiliary.kiru.completion", "possible_sense_ids": ["grammar.auxiliary.kiru.completion"], "connection_signature": "动词连用形＋切る／抜く／尽くす", "examples": ["やり抜く。", "食べ尽くす。"], "counter_examples": ["紙を切る。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["切る", "きる", "抜く", "ぬく", "尽くす", "つくす"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kaneru",
+      "kind": "construction",
+      "canonical_label": "〜かねる（难以）",
+      "semantic_domains": ["modality", "evaluation"],
+      "function_tags": ["reluctance"],
+      "jlpt_level": 3,
+      "register": ["formal", "modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示难以接受、难以实行或不便答应", "connection": "动词连用形＋かねる。", "formation": "賛成しかねる／お答えしかねます", "examples": ["その提案には賛成しかねる。"], "counter_examples": ["かねる作为独立词汇或名词构式"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.kaneru.reluctance", "label": "难以实行", "function_summary": "表示由于立场或困难而难以做出动作", "semantic_features": {"function": "reluctance"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.kaneru.reluctance", "rule_id": "grammar.auxiliary.kaneru.reluctance", "possible_sense_ids": ["grammar.auxiliary.kaneru.reluctance"], "connection_signature": "动词连用形＋かねる", "examples": ["賛成しかねる。"], "counter_examples": ["かねる的独立词汇用法"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["かねる", "兼ねる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.sokonau",
+      "kind": "construction",
+      "canonical_label": "〜損なう（失败）",
+      "semantic_domains": ["aspect", "evaluation"],
+      "function_tags": ["failure"],
+      "jlpt_level": 3,
+      "register": ["written", "modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示做错、失败或未能完成", "connection": "动词连用形＋損なう。", "formation": "やり損なう／言い損なった", "examples": ["大事なことを言い損なった。"], "counter_examples": ["損なう作为损害的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.sokonau.failure", "label": "动作失败", "function_summary": "表示动作没有按预期完成", "semantic_features": {"function": "failure"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.sokonau.failure", "rule_id": "grammar.auxiliary.sokonau.failure", "possible_sense_ids": ["grammar.auxiliary.sokonau.failure"], "connection_signature": "动词连用形＋損なう", "examples": ["言い損なう。"], "counter_examples": ["信用を損なう。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["損なう", "そこなう"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.sobireru",
+      "kind": "construction",
+      "canonical_label": "〜そびれる（错过）",
+      "semantic_domains": ["aspect", "evaluation"],
+      "function_tags": ["missed_opportunity"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "接在动词连用形后表示错过做某事的机会", "connection": "动词连用形＋そびれる。", "formation": "聞きそびれる／言いそびれた", "examples": ["聞きそびれてしまった。"], "counter_examples": ["そびれる的独立词汇用法"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.sobireru.missed_opportunity", "label": "错过机会", "function_summary": "表示未能在适当时机完成动作", "semantic_features": {"function": "missed_opportunity"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.sobireru.missed_opportunity", "rule_id": "grammar.auxiliary.sobireru.missed_opportunity", "possible_sense_ids": ["grammar.auxiliary.sobireru.missed_opportunity"], "connection_signature": "动词连用形＋そびれる", "examples": ["聞きそびれる。"], "counter_examples": ["そびれる的独立词汇用法"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["そびれる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    }
+  ]
+}

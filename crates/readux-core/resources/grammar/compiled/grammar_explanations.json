@@ -2608,6 +2608,416 @@
       "body_blocks": []
     },
     {
+      "explanation_id": "explanation.grammar.auxiliary.sugiru",
+      "concept_id": "grammar.auxiliary.sugiru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜すぎる（过度）",
+      "compact_summary": "接在动词连用形或形容词词干后表示程度过度",
+      "function_summary": "接在动词连用形或形容词词干后表示程度过度",
+      "connection": "动词连用形／イ形容词词干／ナ形容词词干＋すぎる；整体仍可继续活用。",
+      "formation": "読みすぎる／高すぎる／静かすぎる",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "本を読みすぎた。",
+        "高すぎて買えない。"
+      ],
+      "counter_examples": [
+        "すぎる作为经过地点的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.hajimeru",
+      "concept_id": "grammar.auxiliary.hajimeru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜始める（开始）",
+      "compact_summary": "接在动词连用形后表示动作开始",
+      "function_summary": "接在动词连用形后表示动作开始",
+      "connection": "动词连用形＋始める；补助动词自身可继续活用。",
+      "formation": "読み始める／降り始めた",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "雨が降り始めた。"
+      ],
+      "counter_examples": [
+        "始める作为独立动词表示开始某事"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.tsuzukeru",
+      "concept_id": "grammar.auxiliary.tsuzukeru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜続ける／〜通す（持续）",
+      "compact_summary": "接在动词连用形后表示持续进行或贯彻到底",
+      "function_summary": "接在动词连用形后表示持续进行或贯彻到底",
+      "connection": "动词连用形＋続ける／通す。",
+      "formation": "読み続ける／やり通す",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "最後まで読み続けた。",
+        "一人でやり通した。"
+      ],
+      "counter_examples": [
+        "通す作为通过或传递的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.owaru",
+      "concept_id": "grammar.auxiliary.owaru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜終わる／〜終える（完成）",
+      "compact_summary": "接在动词连用形后表示动作完成或做完",
+      "function_summary": "接在动词连用形后表示动作完成或做完",
+      "connection": "动词连用形＋終わる／終える。",
+      "formation": "読み終わる／書き終えた",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "本を読み終わった。"
+      ],
+      "counter_examples": [
+        "終わる作为独立谓词而没有前项动作"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.makuru",
+      "concept_id": "grammar.auxiliary.makuru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜まくる（反复）",
+      "compact_summary": "接在动词连用形后表示反复、大量或不间断地进行",
+      "function_summary": "接在动词连用形后表示反复、大量或不间断地进行",
+      "connection": "动词连用形＋まくる。",
+      "formation": "読みまくる／食べまくった",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "一日中遊びまくった。"
+      ],
+      "counter_examples": [
+        "まくる作为独立动词表示卷起"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.dasu",
+      "concept_id": "grammar.auxiliary.dasu",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜出す（突然开始）",
+      "compact_summary": "接在动词连用形后表示突然开始某动作",
+      "function_summary": "接在动词连用形后表示突然开始某动作",
+      "connection": "动词连用形＋出す。",
+      "formation": "泣き出す／降り出した",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "子どもが泣き出した。"
+      ],
+      "counter_examples": [
+        "出す作为拿出或提交的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.naosu",
+      "concept_id": "grammar.auxiliary.naosu",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜直す（重新）",
+      "compact_summary": "接在动词连用形后表示重新进行或改正",
+      "function_summary": "接在动词连用形后表示重新进行或改正",
+      "connection": "动词连用形＋直す。",
+      "formation": "書き直す／やり直した",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "文章を書き直した。"
+      ],
+      "counter_examples": [
+        "直す作为修理或治愈的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.kakeru",
+      "concept_id": "grammar.auxiliary.kakeru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜かける（未完）",
+      "compact_summary": "接在动词连用形后表示动作开始但尚未完成",
+      "function_summary": "接在动词连用形后表示动作开始但尚未完成",
+      "connection": "动词连用形＋かける。",
+      "formation": "読みかける／読みかけの本",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "読みかけの本を閉じた。"
+      ],
+      "counter_examples": [
+        "かける作为悬挂或乘坐的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.kiru",
+      "concept_id": "grammar.auxiliary.kiru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜切る／〜抜く／〜尽くす（彻底）",
+      "compact_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽",
+      "function_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽",
+      "connection": "动词连用形＋切る／抜く／尽くす。",
+      "formation": "使い切る／やり抜く／食べ尽くす",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "最後までやり抜いた。"
+      ],
+      "counter_examples": [
+        "切る作为切断的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.kaneru",
+      "concept_id": "grammar.auxiliary.kaneru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜かねる（难以）",
+      "compact_summary": "接在动词连用形后表示难以接受、难以实行或不便答应",
+      "function_summary": "接在动词连用形后表示难以接受、难以实行或不便答应",
+      "connection": "动词连用形＋かねる。",
+      "formation": "賛成しかねる／お答えしかねます",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "その提案には賛成しかねる。"
+      ],
+      "counter_examples": [
+        "かねる作为独立词汇或名词构式"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.sokonau",
+      "concept_id": "grammar.auxiliary.sokonau",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜損なう（失败）",
+      "compact_summary": "接在动词连用形后表示做错、失败或未能完成",
+      "function_summary": "接在动词连用形后表示做错、失败或未能完成",
+      "connection": "动词连用形＋損なう。",
+      "formation": "やり損なう／言い損なった",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "大事なことを言い損なった。"
+      ],
+      "counter_examples": [
+        "損なう作为损害的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.sobireru",
+      "concept_id": "grammar.auxiliary.sobireru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜そびれる（错过）",
+      "compact_summary": "接在动词连用形后表示错过做某事的机会",
+      "function_summary": "接在动词连用形后表示错过做某事的机会",
+      "connection": "动词连用形＋そびれる。",
+      "formation": "聞きそびれる／言いそびれた",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "聞きそびれてしまった。"
+      ],
+      "counter_examples": [
+        "そびれる的独立词汇用法"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:continuative-auxiliary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
       "explanation_id": "explanation.grammar.functional.no",
       "concept_id": "grammar.functional.no",
       "sense_id": null,

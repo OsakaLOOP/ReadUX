@@ -314,6 +314,30 @@ mod tests {
             assert!((2..=3).contains(&node.children.len()), "{label} 的规则树分支应保持可读规模");
             assert!(node.children.iter().all(|child| !child.label.is_empty()));
         }
+        for kind in [
+            "excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect",
+            "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure", "missed_opportunity",
+        ] {
+            let metadata = CONFIG.rule_metadata.get(kind).unwrap();
+            assert_eq!(metadata.executor, "auxiliary_verb", "{kind} 应由补助动词执行器处理");
+            assert_eq!(metadata.stage, "te_support", "{kind} 应位于补助层");
+            assert_eq!(metadata.rule_group, "连用形补助", "{kind} 应属于连用形补助组");
+            assert_eq!(CONFIG.operators.get(kind).unwrap().concept, format!("grammar.auxiliary.{}", match kind {
+                "excessive" => "sugiru",
+                "inceptive" => "hajimeru",
+                "continuative_aspect" => "tsuzukeru",
+                "terminative" => "owaru",
+                "iterative_aspect" => "makuru",
+                "inchoative" => "dasu",
+                "corrective" => "naosu",
+                "incomplete" => "kakeru",
+                "completion" => "kiru",
+                "reluctance" => "kaneru",
+                "failure" => "sokonau",
+                "missed_opportunity" => "sobireru",
+                _ => unreachable!(),
+            }));
+        }
     }
 
     #[test]
