@@ -1,6 +1,6 @@
 # 活用规则逐词条覆盖清单
 
-本清单是当前 108 个活用 operator 的架构映射基线。六类、执行器、阶段和排序来自 configs/unidic-nlp/morphology.json 的实际配置；后续逐词条升级时，以此表为入口补充正式 grammar concept、词条正文、接续例句和反例。
+本清单是当前 110 个活用 operator 的架构映射基线。六类、执行器、阶段和排序来自 configs/unidic-nlp/morphology.json 的实际配置；后续逐词条升级时，以此表为入口补充正式 grammar concept、词条正文、接续例句和反例。
 
 ## 当前已具备正式执行入口的代表规则
 
@@ -15,7 +15,6 @@
 | negative_zuni / classical_gotoshi / classical_beshi | 文言活用类 | classical_conjugation | classical | ずに／ごとし／ごとき／べし | 已建立文言 concept、文言活用表和现代边界；ク／シク／ナリ／タリ活用表已进入配置 |
 | sou_modality / you_modality / mitai_modality / rashii_modality / obligation / hazu_modality | ナ形容词判断类 | na_adjective_judgement | modality | そうだ／ようだ／みたいだ／らしい／べきだ／はずだ | 已建立独立 grammar concept、sense、接续条件、例句和反例；状态机输出形状词状态仍需补充后续收尾验收 |
 | nominalization | 名词化转换 | nominalization | conversion | さ／の | 输出名词状态，已修复名词化回归 |
-| negative_zuni | 文言活用类 | classical_conjugation | classical | ずに | 已有文言入口，文言活用表覆盖第一条 |
 | は／も／だけ／さえ／こそ等 | 插入语类 | insertion | insertion | 范围保持与对比提示 | 只对声明白名单生效，普通格助词不参与分类 |
 
 ## 仍需逐词条完善的内容

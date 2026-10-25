@@ -338,6 +338,10 @@ mod tests {
                 _ => unreachable!(),
             }));
         }
+        for kind in ["te_connection", "te_hoshii", "te_goran", "te_miseru", "te_tamaranai", "te_naranai", "te_yamanai"] {
+            assert_ne!(CONFIG.operators.get(kind).unwrap().concept, "morphology.chain", "{kind} 不应继续使用通用活用链概念");
+            assert_eq!(CONFIG.rule_metadata.get(kind).unwrap().executor, "auxiliary_verb", "{kind} 应由补助动词执行器处理");
+        }
     }
 
     #[test]

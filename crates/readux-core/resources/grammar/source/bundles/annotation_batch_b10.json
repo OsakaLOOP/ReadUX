@@ -1,0 +1,80 @@
+{
+  "bundle_id": "annotation-batch-b10",
+  "audit_status": "verified",
+  "source_refs": ["readux-editorial:2026-10-26", "morphology-refactor:te-auxiliary-boundary"],
+  "review": {"item_count": 6, "baseline": "docs/morphology_state_machine_design.md", "method": "将て形接续与补助动词本体分离，补充剩余て构式的正式词条资源"},
+  "items": [
+    {
+      "concept_id": "grammar.auxiliary.hoshii",
+      "kind": "construction",
+      "canonical_label": "ほしい（て形补助）",
+      "semantic_domains": ["modality", "desire"],
+      "function_tags": ["request"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "表示说话人希望他者实施前项动作", "connection": "动词て形＋ほしい。", "formation": "待ってほしい", "examples": ["もう少し待ってほしい。"], "counter_examples": ["ほしい作为独立イ形容词表示希望拥有某物"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.hoshii.request", "label": "请求对方行动", "function_summary": "表示希望动作执行者实施前项动作", "semantic_features": {"function": "request"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.hoshii.request", "rule_id": "grammar.auxiliary.hoshii.request", "possible_sense_ids": ["grammar.auxiliary.hoshii.request"], "connection_signature": "动词て形＋ほしい", "examples": ["待ってほしい。"], "counter_examples": ["ほしい本（独立形容词）"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞", "形容詞", "助動詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"}, {"base_forms": ["ほしい", "欲しい"], "pos_major": ["形容詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.goran",
+      "kind": "construction",
+      "canonical_label": "ごらん（て形补助）",
+      "semantic_domains": ["modality", "directive"],
+      "function_tags": ["suggestion"],
+      "jlpt_level": 4,
+      "register": ["spoken", "modern_standard"],
+      "explanation": {"compact_summary": "构成亲近或上对下的建议语气", "connection": "动词て形＋ごらん。", "formation": "考えてごらん", "examples": ["自分で考えてごらん。"], "counter_examples": ["ごらん作为御覧的独立词汇"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.goran.suggestion", "label": "建议尝试", "function_summary": "建议对方尝试前项动作", "semantic_features": {"function": "suggestion"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.goran.suggestion", "rule_id": "grammar.auxiliary.goran.suggestion", "possible_sense_ids": ["grammar.auxiliary.goran.suggestion"], "connection_signature": "动词て形＋ごらん", "examples": ["見てごらん。"], "counter_examples": ["ご覧ください的敬语词汇结构"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"}, {"base_forms": ["ごらん", "御覧"], "pos_major": ["動詞", "名詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.miseru",
+      "kind": "construction",
+      "canonical_label": "みせる（て形补助）",
+      "semantic_domains": ["modality", "volition"],
+      "function_tags": ["resolve"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "表示决心完成前项动作并让他人看到结果", "connection": "动词て形＋みせる。", "formation": "成功してみせる", "examples": ["必ず成功してみせる。"], "counter_examples": ["見せる作为展示的独立动词"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.miseru.resolve", "label": "决心做到", "function_summary": "表示说话人决心完成前项动作", "semantic_features": {"function": "resolve"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.miseru.resolve", "rule_id": "grammar.auxiliary.miseru.resolve", "possible_sense_ids": ["grammar.auxiliary.miseru.resolve"], "connection_signature": "动词て形＋みせる", "examples": ["成功してみせる。"], "counter_examples": ["写真を見せる。"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"}, {"base_forms": ["みせる", "見せる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "kind": "construction",
+      "canonical_label": "たまらない（て形补助）",
+      "semantic_domains": ["evaluation", "emotion"],
+      "function_tags": ["overwhelming_feeling"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "表示感受或欲望强烈得难以抑制", "connection": "动词、イ形容词て形＋たまらない；ナ形容词词干＋でたまらない。", "formation": "会いたくてたまらない", "examples": ["早く会いたくてたまらない。"], "counter_examples": ["たまらない作为独立形容词表示无法忍受"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.tamaranai.feeling", "label": "感受难以抑制", "function_summary": "表示感受强烈到无法抑制", "semantic_features": {"function": "overwhelming_feeling"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.tamaranai.feeling", "rule_id": "grammar.auxiliary.tamaranai.feeling", "possible_sense_ids": ["grammar.auxiliary.tamaranai.feeling"], "connection_signature": "て形／で形＋たまらない", "examples": ["会いたくてたまらない。"], "counter_examples": ["この暑さはたまらない。"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞", "形容詞", "形状詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"}, {"base_forms": ["たまらない", "堪らない"], "pos_major": ["形容詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.naranai",
+      "kind": "construction",
+      "canonical_label": "ならない（て形补助）",
+      "semantic_domains": ["evaluation", "emotion"],
+      "function_tags": ["involuntary_feeling"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {"compact_summary": "表示某种感受或想法自然涌现、难以抑制", "connection": "动词、イ形容词て形＋ならない；ナ形容词词干＋でならない。", "formation": "心配でならない", "examples": ["将来が心配でならない。"], "counter_examples": ["ならない作为义务或禁止结构的后项"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.naranai.feeling", "label": "不由得产生感受", "function_summary": "表示感受自然涌现、难以抑制", "semantic_features": {"function": "involuntary_feeling"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.naranai.feeling", "rule_id": "grammar.auxiliary.naranai.feeling", "possible_sense_ids": ["grammar.auxiliary.naranai.feeling"], "connection_signature": "て形／で形＋ならない", "examples": ["心配でならない。"], "counter_examples": ["なければならない（义务结构）"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞", "形容詞", "形状詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"}, {"base_forms": ["ならない", "成らない"], "pos_major": ["形容詞", "動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    },
+    {
+      "concept_id": "grammar.auxiliary.yamanai",
+      "kind": "construction",
+      "canonical_label": "やまない（て形补助）",
+      "semantic_domains": ["emotion", "aspect"],
+      "function_tags": ["continued_feeling"],
+      "jlpt_level": 3,
+      "register": ["formal", "modern_standard"],
+      "explanation": {"compact_summary": "表示持续怀有强烈的感情、愿望或信念", "connection": "动词连用形＋てやまない。", "formation": "願ってやまない", "examples": ["平和を願ってやまない。"], "counter_examples": ["山ない的非构式词汇解释"], "body_blocks": []},
+      "senses": [{"sense_id": "grammar.auxiliary.yamanai.feeling", "label": "持续怀有感情", "function_summary": "表示感情或愿望持续不止", "semantic_features": {"function": "continued_feeling"}}],
+      "realizations": [{"realization_id": "realization.grammar.auxiliary.yamanai.feeling", "rule_id": "grammar.auxiliary.yamanai.feeling", "possible_sense_ids": ["grammar.auxiliary.yamanai.feeling"], "connection_signature": "動詞連用形＋てやまない", "examples": ["願ってやまない。"], "counter_examples": ["やまない作为普通否定形式"], "rule": {"kind": "grammar_construction", "priority": 80, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["やまない", "止まない"], "pos_major": ["動詞", "形容詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
+    }
+  ]
+}

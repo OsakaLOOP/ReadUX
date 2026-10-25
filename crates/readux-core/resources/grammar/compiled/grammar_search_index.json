@@ -2590,6 +2590,158 @@
       ]
     },
     {
+      "concept_id": "grammar.auxiliary.hoshii",
+      "label": "ほしい（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "desire"
+      ],
+      "function_tags": [
+        "request"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词て形＋ほしい"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "请求对方行动",
+        "表示希望动作执行者实施前项动作"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.goran",
+      "label": "ごらん（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "directive"
+      ],
+      "function_tags": [
+        "suggestion"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词て形＋ごらん"
+      ],
+      "register": [
+        "spoken",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "建议尝试",
+        "建议对方尝试前项动作"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.miseru",
+      "label": "みせる（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "volition"
+      ],
+      "function_tags": [
+        "resolve"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词て形＋みせる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "决心做到",
+        "表示说话人决心完成前项动作"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "label": "たまらない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "emotion"
+      ],
+      "function_tags": [
+        "overwhelming_feeling"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "て形／で形＋たまらない"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "感受难以抑制",
+        "表示感受强烈到无法抑制"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.naranai",
+      "label": "ならない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "emotion"
+      ],
+      "function_tags": [
+        "involuntary_feeling"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "て形／で形＋ならない"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "不由得产生感受",
+        "表示感受自然涌现、难以抑制"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.yamanai",
+      "label": "やまない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "emotion",
+        "aspect"
+      ],
+      "function_tags": [
+        "continued_feeling"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [
+        "動詞連用形＋てやまない"
+      ],
+      "register": [
+        "formal",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "持续怀有感情",
+        "表示感情或愿望持续不止"
+      ]
+    },
+    {
       "concept_id": "grammar.functional.no",
       "label": "の",
       "aliases": [

@@ -1818,7 +1818,7 @@
     "te_connection": {
       "label": "て形",
       "title": "接续形",
-      "concept": "morphology.chain",
+      "concept": "morphology.form.te",
       "prototype": "て",
       "variants": [
         {
@@ -2135,7 +2135,7 @@
     "te_hoshii": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.hoshii",
       "prototype": "てほしい",
       "support": {
         "group": "te",
@@ -2149,7 +2149,7 @@
     "te_goran": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.goran",
       "prototype": "てごらん",
       "support": {
         "group": "te",
@@ -2163,7 +2163,7 @@
     "te_miseru": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.miseru",
       "prototype": "てみせる",
       "support": {
         "group": "te",
@@ -2177,7 +2177,7 @@
     "te_tamaranai": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.tamaranai",
       "prototype": "てたまらない",
       "support": {
         "group": "te",
@@ -2191,7 +2191,7 @@
     "te_naranai": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.naranai",
       "prototype": "てならない",
       "support": {
         "group": "te",
@@ -2205,7 +2205,7 @@
     "te_yamanai": {
       "label": "活用",
       "title": "活用",
-      "concept": "morphology.chain",
+      "concept": "grammar.auxiliary.yamanai",
       "prototype": "てやまない",
       "support": {
         "group": "te",

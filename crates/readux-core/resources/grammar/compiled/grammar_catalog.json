@@ -2647,6 +2647,170 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.auxiliary.hoshii",
+      "kind": "construction",
+      "canonical_label": "ほしい（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "desire"
+      ],
+      "function_tags": [
+        "request"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.hoshii",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.goran",
+      "kind": "construction",
+      "canonical_label": "ごらん（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "directive"
+      ],
+      "function_tags": [
+        "suggestion"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "spoken",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.goran",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.miseru",
+      "kind": "construction",
+      "canonical_label": "みせる（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "volition"
+      ],
+      "function_tags": [
+        "resolve"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.miseru",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "kind": "construction",
+      "canonical_label": "たまらない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "emotion"
+      ],
+      "function_tags": [
+        "overwhelming_feeling"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.tamaranai",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.naranai",
+      "kind": "construction",
+      "canonical_label": "ならない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "emotion"
+      ],
+      "function_tags": [
+        "involuntary_feeling"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.naranai",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.yamanai",
+      "kind": "construction",
+      "canonical_label": "やまない（て形补助）",
+      "aliases": [],
+      "semantic_domains": [
+        "emotion",
+        "aspect"
+      ],
+      "function_tags": [
+        "continued_feeling"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "formal",
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.yamanai",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.functional.no",
       "kind": "functional_morpheme",
       "canonical_label": "の",
@@ -5811,6 +5975,102 @@
       "audit_status": "verified"
     },
     {
+      "sense_id": "grammar.auxiliary.hoshii.request",
+      "concept_id": "grammar.auxiliary.hoshii",
+      "label": "请求对方行动",
+      "function_summary": "表示希望动作执行者实施前项动作",
+      "semantic_features": {
+        "function": "request"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.hoshii",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.goran.suggestion",
+      "concept_id": "grammar.auxiliary.goran",
+      "label": "建议尝试",
+      "function_summary": "建议对方尝试前项动作",
+      "semantic_features": {
+        "function": "suggestion"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.goran",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.miseru.resolve",
+      "concept_id": "grammar.auxiliary.miseru",
+      "label": "决心做到",
+      "function_summary": "表示说话人决心完成前项动作",
+      "semantic_features": {
+        "function": "resolve"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.miseru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.tamaranai.feeling",
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "label": "感受难以抑制",
+      "function_summary": "表示感受强烈到无法抑制",
+      "semantic_features": {
+        "function": "overwhelming_feeling"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.tamaranai",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.naranai.feeling",
+      "concept_id": "grammar.auxiliary.naranai",
+      "label": "不由得产生感受",
+      "function_summary": "表示感受自然涌现、难以抑制",
+      "semantic_features": {
+        "function": "involuntary_feeling"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.naranai",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.yamanai.feeling",
+      "concept_id": "grammar.auxiliary.yamanai",
+      "label": "持续怀有感情",
+      "function_summary": "表示感情或愿望持续不止",
+      "semantic_features": {
+        "function": "continued_feeling"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.yamanai",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
       "sense_id": "grammar.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "label": "の：连体关系",
@@ -8970,6 +9230,150 @@
       "source_refs": [
         "readux-editorial:2026-10-26",
         "morphology-refactor:classical-layer"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.hoshii.request",
+      "concept_id": "grammar.auxiliary.hoshii",
+      "possible_sense_ids": [
+        "grammar.auxiliary.hoshii.request"
+      ],
+      "rule_id": "grammar.auxiliary.hoshii.request",
+      "connection_signature": "动词て形＋ほしい",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "待ってほしい。"
+      ],
+      "counter_examples": [
+        "ほしい本（独立形容词）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.goran.suggestion",
+      "concept_id": "grammar.auxiliary.goran",
+      "possible_sense_ids": [
+        "grammar.auxiliary.goran.suggestion"
+      ],
+      "rule_id": "grammar.auxiliary.goran.suggestion",
+      "connection_signature": "动词て形＋ごらん",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "見てごらん。"
+      ],
+      "counter_examples": [
+        "ご覧ください的敬语词汇结构"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.miseru.resolve",
+      "concept_id": "grammar.auxiliary.miseru",
+      "possible_sense_ids": [
+        "grammar.auxiliary.miseru.resolve"
+      ],
+      "rule_id": "grammar.auxiliary.miseru.resolve",
+      "connection_signature": "动词て形＋みせる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "成功してみせる。"
+      ],
+      "counter_examples": [
+        "写真を見せる。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.tamaranai.feeling",
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "possible_sense_ids": [
+        "grammar.auxiliary.tamaranai.feeling"
+      ],
+      "rule_id": "grammar.auxiliary.tamaranai.feeling",
+      "connection_signature": "て形／で形＋たまらない",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "会いたくてたまらない。"
+      ],
+      "counter_examples": [
+        "この暑さはたまらない。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.naranai.feeling",
+      "concept_id": "grammar.auxiliary.naranai",
+      "possible_sense_ids": [
+        "grammar.auxiliary.naranai.feeling"
+      ],
+      "rule_id": "grammar.auxiliary.naranai.feeling",
+      "connection_signature": "て形／で形＋ならない",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "心配でならない。"
+      ],
+      "counter_examples": [
+        "なければならない（义务结构）"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.auxiliary.yamanai.feeling",
+      "concept_id": "grammar.auxiliary.yamanai",
+      "possible_sense_ids": [
+        "grammar.auxiliary.yamanai.feeling"
+      ],
+      "rule_id": "grammar.auxiliary.yamanai.feeling",
+      "connection_signature": "動詞連用形＋てやまない",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "願ってやまない。"
+      ],
+      "counter_examples": [
+        "やまない作为普通否定形式"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
       ]
     },
     {
@@ -12589,6 +12993,326 @@
       "source_refs": [
         "corpus:七日の喰い神/第一話:grammar-review-batch-002",
         "ipadic:runtime-observation"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.goran.suggestion",
+      "realization_id": "realization.grammar.auxiliary.goran.suggestion",
+      "concept_id": "grammar.auxiliary.goran",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "ごらん",
+            "御覧"
+          ],
+          "pos_major": [
+            "動詞",
+            "名詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "見てごらん。"
+      ],
+      "counter_examples": [
+        "ご覧ください的敬语词汇结构"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.hoshii.request",
+      "realization_id": "realization.grammar.auxiliary.hoshii.request",
+      "concept_id": "grammar.auxiliary.hoshii",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "ほしい",
+            "欲しい"
+          ],
+          "pos_major": [
+            "形容詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "待ってほしい。"
+      ],
+      "counter_examples": [
+        "ほしい本（独立形容词）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.miseru.resolve",
+      "realization_id": "realization.grammar.auxiliary.miseru.resolve",
+      "concept_id": "grammar.auxiliary.miseru",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "みせる",
+            "見せる"
+          ],
+          "pos_major": [
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "成功してみせる。"
+      ],
+      "counter_examples": [
+        "写真を見せる。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.naranai.feeling",
+      "realization_id": "realization.grammar.auxiliary.naranai.feeling",
+      "concept_id": "grammar.auxiliary.naranai",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "ならない",
+            "成らない"
+          ],
+          "pos_major": [
+            "形容詞",
+            "動詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "心配でならない。"
+      ],
+      "counter_examples": [
+        "なければならない（义务结构）"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.tamaranai.feeling",
+      "realization_id": "realization.grammar.auxiliary.tamaranai.feeling",
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "たまらない",
+            "堪らない"
+          ],
+          "pos_major": [
+            "形容詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "会いたくてたまらない。"
+      ],
+      "counter_examples": [
+        "この暑さはたまらない。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.auxiliary.yamanai.feeling",
+      "realization_id": "realization.grammar.auxiliary.yamanai.feeling",
+      "concept_id": "grammar.auxiliary.yamanai",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "やまない",
+            "止まない"
+          ],
+          "pos_major": [
+            "動詞",
+            "形容詞"
+          ],
+          "capture": "auxiliary"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "願ってやまない。"
+      ],
+      "counter_examples": [
+        "やまない作为普通否定形式"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
       ],
       "rule_version": 1,
       "show_badge": true

@@ -3122,6 +3122,210 @@
       "body_blocks": []
     },
     {
+      "explanation_id": "explanation.grammar.auxiliary.hoshii",
+      "concept_id": "grammar.auxiliary.hoshii",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ほしい（て形补助）",
+      "compact_summary": "表示说话人希望他者实施前项动作",
+      "function_summary": "表示说话人希望他者实施前项动作",
+      "connection": "动词て形＋ほしい。",
+      "formation": "待ってほしい",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "もう少し待ってほしい。"
+      ],
+      "counter_examples": [
+        "ほしい作为独立イ形容词表示希望拥有某物"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.goran",
+      "concept_id": "grammar.auxiliary.goran",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ごらん（て形补助）",
+      "compact_summary": "构成亲近或上对下的建议语气",
+      "function_summary": "构成亲近或上对下的建议语气",
+      "connection": "动词て形＋ごらん。",
+      "formation": "考えてごらん",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "自分で考えてごらん。"
+      ],
+      "counter_examples": [
+        "ごらん作为御覧的独立词汇"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.miseru",
+      "concept_id": "grammar.auxiliary.miseru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "みせる（て形补助）",
+      "compact_summary": "表示决心完成前项动作并让他人看到结果",
+      "function_summary": "表示决心完成前项动作并让他人看到结果",
+      "connection": "动词て形＋みせる。",
+      "formation": "成功してみせる",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "必ず成功してみせる。"
+      ],
+      "counter_examples": [
+        "見せる作为展示的独立动词"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.tamaranai",
+      "concept_id": "grammar.auxiliary.tamaranai",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "たまらない（て形补助）",
+      "compact_summary": "表示感受或欲望强烈得难以抑制",
+      "function_summary": "表示感受或欲望强烈得难以抑制",
+      "connection": "动词、イ形容词て形＋たまらない；ナ形容词词干＋でたまらない。",
+      "formation": "会いたくてたまらない",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "早く会いたくてたまらない。"
+      ],
+      "counter_examples": [
+        "たまらない作为独立形容词表示无法忍受"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.naranai",
+      "concept_id": "grammar.auxiliary.naranai",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ならない（て形补助）",
+      "compact_summary": "表示某种感受或想法自然涌现、难以抑制",
+      "function_summary": "表示某种感受或想法自然涌现、难以抑制",
+      "connection": "动词、イ形容词て形＋ならない；ナ形容词词干＋でならない。",
+      "formation": "心配でならない",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "将来が心配でならない。"
+      ],
+      "counter_examples": [
+        "ならない作为义务或禁止结构的后项"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.yamanai",
+      "concept_id": "grammar.auxiliary.yamanai",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "やまない（て形补助）",
+      "compact_summary": "表示持续怀有强烈的感情、愿望或信念",
+      "function_summary": "表示持续怀有强烈的感情、愿望或信念",
+      "connection": "动词连用形＋てやまない。",
+      "formation": "願ってやまない",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "平和を願ってやまない。"
+      ],
+      "counter_examples": [
+        "山ない的非构式词汇解释"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:te-auxiliary-boundary"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
       "explanation_id": "explanation.grammar.functional.no",
       "concept_id": "grammar.functional.no",
       "sense_id": null,
