@@ -2166,6 +2166,56 @@
       ]
     },
     {
+      "concept_id": "grammar.adjective.yasui",
+      "label": "〜やすい（容易）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "ease"
+      ],
+      "function_tags": [
+        "easy_to_do"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词连用形＋やすい"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "动作容易",
+        "表示某动作容易进行或某变化容易发生"
+      ]
+    },
+    {
+      "concept_id": "grammar.adjective.nikui",
+      "label": "〜にくい／〜づらい（困难）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "difficulty"
+      ],
+      "function_tags": [
+        "difficult_to_do"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "动词连用形＋にくい／づらい"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "动作困难",
+        "表示某动作难以进行或难以达成"
+      ]
+    },
+    {
       "concept_id": "grammar.functional.no",
       "label": "の",
       "aliases": [

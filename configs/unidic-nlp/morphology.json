@@ -376,7 +376,7 @@
       "stage": "polarity_politeness",
       "executor": "verb_cycle+i_adjective_conversion",
       "rule_group": "否定",
-      "input_category": "動詞",
+      "input_category": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
       "order_rank": 50,
@@ -410,7 +410,7 @@
     },
     "past": {
       "stage": "tense",
-      "executor": "verb_cycle",
+      "executor": "verb_cycle+i_adjective_conversion",
       "rule_group": "过去与完成",
       "input_category": "用言",
       "output_category": "用言",
@@ -1638,13 +1638,13 @@
     "ease": {
       "label": "活用",
       "title": "容易",
-      "concept": "morphology.chain",
+      "concept": "grammar.adjective.yasui",
       "prototype": "やすい"
     },
     "difficulty": {
       "label": "活用",
       "title": "困难",
-      "concept": "morphology.chain",
+      "concept": "grammar.adjective.nikui",
       "prototype": "にくい",
       "variants": [
         {

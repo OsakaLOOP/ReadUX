@@ -61,7 +61,8 @@ impl IAdjectiveConversionExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
-        if previous.final_state.category != "動詞" && previous.final_state.category != "助動詞" {
+        let accepts_adjective_state = previous.final_state.category == "形容詞";
+        if !accepts_adjective_state && previous.final_state.category != "動詞" && previous.final_state.category != "助動詞" {
             atom.status = "candidate".into();
             diagnostics.push(format!("i_adjective_input_category:{}:{}", previous.chain_id, index));
         }

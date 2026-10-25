@@ -80,6 +80,29 @@ fn modern_inflections_and_functional_ownership() {
 }
 
 #[test]
+fn i_adjective_conversion_continues_through_polarity_and_tense() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, surface, expected_kinds, expected_form) in [
+        ("食べたくない。", "食べたくない", vec!["desire", "negative"], "形容詞"),
+        ("食べたかった。", "食べたかった", vec!["desire", "past"], "形容詞"),
+        ("行きたくなかった。", "行きたくなかった", vec!["desire", "negative", "past"], "形容詞"),
+        ("読みやすかった。", "読みやすかった", vec!["ease", "past"], "形容詞"),
+    ] {
+        let doc = analyze(&service, text);
+        let chain = doc.morphology.chains.iter().find(|chain| chain.surface_form == surface)
+            .unwrap_or_else(|| panic!("{text}: {:?}", doc.morphology.chains.iter().map(|chain| (&chain.surface_form, &chain.final_state)).collect::<Vec<_>>()));
+        assert_eq!(chain.final_state.category, expected_form, "{text}");
+        assert_eq!(chain.final_state.entity_class, "イ形容词转换类", "{text}");
+        for kind in expected_kinds {
+            let operator = chain.operators.iter().find(|operator| operator.kind == kind)
+                .unwrap_or_else(|| panic!("{text}: 缺少 {kind}: {:?}", chain.operators.iter().map(|operator| &operator.kind).collect::<Vec<_>>()));
+            assert_eq!(operator.state_after.category, "形容詞", "{text}: {kind}");
+        }
+    }
+}
+
+#[test]
 fn yuku_forms_a_support_chain_after_te() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));

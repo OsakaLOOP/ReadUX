@@ -2536,6 +2536,78 @@
       "body_blocks": []
     },
     {
+      "explanation_id": "explanation.grammar.adjective.yasui",
+      "concept_id": "grammar.adjective.yasui",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜やすい（容易）",
+      "compact_summary": "接在动词连用形后，表示动作容易实现或容易发生",
+      "function_summary": "接在动词连用形后，表示动作容易实现或容易发生",
+      "connection": "动词连用形＋やすい；整体按イ形容词活用，过去为やすかった，否定为やすくない。",
+      "formation": "动词连用形＋やすい／やすくない／やすかった／やすくて",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "この本は読みやすい。",
+        "壊れやすい部品だ。",
+        "読みやすかった。"
+      ],
+      "counter_examples": [
+        "やすい作为独立形容词词汇且前项不是动词连用形"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.adjective.nikui",
+      "concept_id": "grammar.adjective.nikui",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "〜にくい／〜づらい（困难）",
+      "compact_summary": "接在动词连用形后，表示动作难以实现；づらい常带主观负担色彩",
+      "function_summary": "接在动词连用形后，表示动作难以实现；づらい常带主观负担色彩",
+      "connection": "动词连用形＋にくい／づらい；整体按イ形容词活用，过去为にくかった／づらかった，否定为にくくない／づらくない。",
+      "formation": "动词连用形＋にくい／づらい及其イ形容词活用",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "この字は読みにくい。",
+        "言いづらいことがある。",
+        "説明しにくかった。"
+      ],
+      "counter_examples": [
+        "にくい或づらい作为独立形容词词汇且前项不是动词连用形"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ],
+      "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
       "explanation_id": "explanation.grammar.functional.no",
       "concept_id": "grammar.functional.no",
       "sense_id": null,

@@ -1,0 +1,95 @@
+{
+  "bundle_id": "annotation-batch-b07",
+  "audit_status": "verified",
+  "source_refs": [
+    "readux-editorial:2026-10-26",
+    "morphology-refactor:i-adjective-conversion"
+  ],
+  "review": {
+    "item_count": 2,
+    "baseline": "docs/morphology_state_machine_design.md",
+    "method": "为イ形容词转换类建立连用形接续、整体词性转换和后续活用说明"
+  },
+  "items": [
+    {
+      "concept_id": "grammar.adjective.yasui",
+      "kind": "construction",
+      "canonical_label": "〜やすい（容易）",
+      "semantic_domains": ["evaluation", "ease"],
+      "function_tags": ["easy_to_do"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "接在动词连用形后，表示动作容易实现或容易发生",
+        "connection": "动词连用形＋やすい；整体按イ形容词活用，过去为やすかった，否定为やすくない。",
+        "formation": "动词连用形＋やすい／やすくない／やすかった／やすくて",
+        "examples": ["この本は読みやすい。", "壊れやすい部品だ。", "読みやすかった。"],
+        "counter_examples": ["やすい作为独立形容词词汇且前项不是动词连用形"],
+        "body_blocks": []
+      },
+      "senses": [
+        {"sense_id": "grammar.adjective.yasui.ease", "label": "动作容易", "function_summary": "表示某动作容易进行或某变化容易发生", "semantic_features": {"function": "easy_to_do"}}
+      ],
+      "realizations": [
+        {
+          "realization_id": "realization.grammar.adjective.yasui.ease",
+          "rule_id": "grammar.adjective.yasui.ease",
+          "possible_sense_ids": ["grammar.adjective.yasui.ease"],
+          "connection_signature": "动词连用形＋やすい",
+          "examples": ["この本は読みやすい。", "読みやすかった。"],
+          "counter_examples": ["やすい的独立词汇用法"],
+          "rule": {
+            "kind": "grammar_construction",
+            "priority": 82,
+            "atoms": [
+              {"pos_major": ["動詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"},
+              {"base_forms": ["やすい", "易い"], "pos_major": ["接尾辞", "形容詞"], "capture": "adjective"}
+            ],
+            "captures": ["predicate", "adjective"],
+            "show_badge": true
+          }
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.adjective.nikui",
+      "kind": "construction",
+      "canonical_label": "〜にくい／〜づらい（困难）",
+      "semantic_domains": ["evaluation", "difficulty"],
+      "function_tags": ["difficult_to_do"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "接在动词连用形后，表示动作难以实现；づらい常带主观负担色彩",
+        "connection": "动词连用形＋にくい／づらい；整体按イ形容词活用，过去为にくかった／づらかった，否定为にくくない／づらくない。",
+        "formation": "动词连用形＋にくい／づらい及其イ形容词活用",
+        "examples": ["この字は読みにくい。", "言いづらいことがある。", "説明しにくかった。"],
+        "counter_examples": ["にくい或づらい作为独立形容词词汇且前项不是动词连用形"],
+        "body_blocks": []
+      },
+      "senses": [
+        {"sense_id": "grammar.adjective.nikui.difficulty", "label": "动作困难", "function_summary": "表示某动作难以进行或难以达成", "semantic_features": {"function": "difficult_to_do"}}
+      ],
+      "realizations": [
+        {
+          "realization_id": "realization.grammar.adjective.nikui.difficulty",
+          "rule_id": "grammar.adjective.nikui.difficulty",
+          "possible_sense_ids": ["grammar.adjective.nikui.difficulty"],
+          "connection_signature": "动词连用形＋にくい／づらい",
+          "examples": ["この字は読みにくい。", "言いづらいことがある。"],
+          "counter_examples": ["にくい／づらい的独立词汇用法"],
+          "rule": {
+            "kind": "grammar_construction",
+            "priority": 82,
+            "atoms": [
+              {"pos_major": ["動詞"], "conjugation_forms": ["連用形", "連用タ接続"], "capture": "predicate"},
+              {"base_forms": ["にくい", "難い", "づらい", "辛い"], "pos_major": ["接尾辞", "形容詞"], "capture": "adjective"}
+            ],
+            "captures": ["predicate", "adjective"],
+            "show_badge": true
+          }
+        }
+      ]
+    }
+  ]
+}

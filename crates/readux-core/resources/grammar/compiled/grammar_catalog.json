@@ -2189,6 +2189,60 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.adjective.yasui",
+      "kind": "construction",
+      "canonical_label": "〜やすい（容易）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "ease"
+      ],
+      "function_tags": [
+        "easy_to_do"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.adjective.yasui",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.adjective.nikui",
+      "kind": "construction",
+      "canonical_label": "〜にくい／〜づらい（困难）",
+      "aliases": [],
+      "semantic_domains": [
+        "evaluation",
+        "difficulty"
+      ],
+      "function_tags": [
+        "difficult_to_do"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.adjective.nikui",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.functional.no",
       "kind": "functional_morpheme",
       "canonical_label": "の",
@@ -5081,6 +5135,38 @@
       "audit_status": "verified"
     },
     {
+      "sense_id": "grammar.adjective.yasui.ease",
+      "concept_id": "grammar.adjective.yasui",
+      "label": "动作容易",
+      "function_summary": "表示某动作容易进行或某变化容易发生",
+      "semantic_features": {
+        "function": "easy_to_do"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.adjective.yasui",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.adjective.nikui.difficulty",
+      "concept_id": "grammar.adjective.nikui",
+      "label": "动作困难",
+      "function_summary": "表示某动作难以进行或难以达成",
+      "semantic_features": {
+        "function": "difficult_to_do"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.adjective.nikui",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
       "sense_id": "grammar.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "label": "の：连体关系",
@@ -7830,6 +7916,56 @@
       ]
     },
     {
+      "realization_id": "realization.grammar.adjective.yasui.ease",
+      "concept_id": "grammar.adjective.yasui",
+      "possible_sense_ids": [
+        "grammar.adjective.yasui.ease"
+      ],
+      "rule_id": "grammar.adjective.yasui.ease",
+      "connection_signature": "动词连用形＋やすい",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "この本は読みやすい。",
+        "読みやすかった。"
+      ],
+      "counter_examples": [
+        "やすい的独立词汇用法"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.adjective.nikui.difficulty",
+      "concept_id": "grammar.adjective.nikui",
+      "possible_sense_ids": [
+        "grammar.adjective.nikui.difficulty"
+      ],
+      "rule_id": "grammar.adjective.nikui.difficulty",
+      "connection_signature": "动词连用形＋にくい／づらい",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "この字は読みにくい。",
+        "言いづらいことがある。"
+      ],
+      "counter_examples": [
+        "にくい／づらい的独立词汇用法"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ]
+    },
+    {
       "realization_id": "realization.functional.no.attributive",
       "concept_id": "grammar.functional.no",
       "possible_sense_ids": [
@@ -10503,6 +10639,116 @@
       "source_refs": [
         "corpus:七日の喰い神/第一話:grammar-review-batch-002",
         "ipadic:runtime-observation"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.adjective.nikui.difficulty",
+      "realization_id": "realization.grammar.adjective.nikui.difficulty",
+      "concept_id": "grammar.adjective.nikui",
+      "kind": "grammar_construction",
+      "priority": 82,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "にくい",
+            "難い",
+            "づらい",
+            "辛い"
+          ],
+          "pos_major": [
+            "接尾辞",
+            "形容詞"
+          ],
+          "capture": "adjective"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "adjective"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "この字は読みにくい。",
+        "言いづらいことがある。"
+      ],
+      "counter_examples": [
+        "にくい／づらい的独立词汇用法"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.adjective.yasui.ease",
+      "realization_id": "realization.grammar.adjective.yasui.ease",
+      "concept_id": "grammar.adjective.yasui",
+      "kind": "grammar_construction",
+      "priority": 82,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞"
+          ],
+          "conjugation_forms": [
+            "連用形",
+            "連用タ接続"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": [
+            "やすい",
+            "易い"
+          ],
+          "pos_major": [
+            "接尾辞",
+            "形容詞"
+          ],
+          "capture": "adjective"
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "adjective"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "この本は読みやすい。",
+        "読みやすかった。"
+      ],
+      "counter_examples": [
+        "やすい的独立词汇用法"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-10-26",
+        "morphology-refactor:i-adjective-conversion"
       ],
       "rule_version": 1,
       "show_badge": true
