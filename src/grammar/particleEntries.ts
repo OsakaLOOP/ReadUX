@@ -25,27 +25,9 @@ const auxiliaryData: ParticleResource = { entries: [
   ...constructionResource.entries,
 ] };
 const fallbackPos: PosTag = { major: "助詞", sub1: "*", sub2: "*", sub3: "*" };
-const teConstructionsByKind: Record<string, { form: string; component: string }> = {
-  te_iru: { form: "ている", component: "いる" },
-  te_aru: { form: "てある", component: "ある" },
-  te_shimau: { form: "てしまう", component: "しまう" },
-  te_oku: { form: "ておく", component: "おく" },
-  te_iku: { form: "ていく", component: "いく" },
-  te_yuku: { form: "てゆく", component: "ゆく" },
-  te_kuru: { form: "てくる", component: "くる" },
-  te_miru: { form: "てみる", component: "みる" },
-  te_kudasaru: { form: "てくださる", component: "くださる" },
-  te_morau: { form: "てもらう", component: "もらう" },
-  te_ageru: { form: "てあげる", component: "あげる" },
-  te_kureru: { form: "てくれる", component: "くれる" },
-  te_yaru: { form: "てやる", component: "やる" },
-  te_hoshii: { form: "てほしい", component: "ほしい" },
-  te_goran: { form: "てごらん", component: "ごらん" },
-  te_miseru: { form: "てみせる", component: "みせる" },
-  te_tamaranai: { form: "てたまらない", component: "たまらない" },
-  te_naranai: { form: "てならない", component: "ならない" },
-  te_yamanai: { form: "てやまない", component: "やまない" },
-};
+const teConstructionsByKind: Record<string, { form: string; component: string }> = Object.fromEntries(
+  (constructionResource.rules ?? []).map((rule) => [rule.kind, { form: rule.representation, component: rule.component }]),
+);
 const teConstructionRules = new Map((constructionResource.rules ?? []).map((rule) => [rule.kind, rule]));
 
 function politeNegativeLookup(document: UnifiedDocument, range: [number, number]): DictionaryLookup | null {
