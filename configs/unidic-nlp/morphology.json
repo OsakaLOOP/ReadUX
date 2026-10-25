@@ -571,7 +571,7 @@
     "te_iru": {
       "label": "ている",
       "title": "进行／状态持续",
-      "concept": "grammar.aspect.te_iru",
+      "concept": "grammar.auxiliary.iru",
       "prototype": "ている",
       "support": {
         "group": "te",
@@ -588,7 +588,7 @@
     "te_aru": {
       "label": "てある",
       "title": "结果存续",
-      "concept": "grammar.aspect.te_aru",
+      "concept": "grammar.auxiliary.aru",
       "prototype": "てある",
       "support": {
         "group": "te",
@@ -604,7 +604,7 @@
     "te_shimau": {
       "label": "てしまう",
       "title": "完成／遗憾／感慨",
-      "concept": "grammar.aspect.te_shimau",
+      "concept": "grammar.auxiliary.shimau",
       "prototype": "てしまう",
       "support": {
         "group": "te",
@@ -619,7 +619,7 @@
     "te_oku": {
       "label": "ておく",
       "title": "预先处置／保持",
-      "concept": "grammar.aspect.te_oku",
+      "concept": "grammar.auxiliary.oku",
       "prototype": "ておく",
       "support": {
         "group": "te",
@@ -634,7 +634,7 @@
     "te_iku": {
       "label": "ていく",
       "title": "远离／持续发展",
-      "concept": "grammar.direction.te_iku",
+      "concept": "grammar.auxiliary.iku",
       "prototype": "ていく",
       "support": {
         "group": "te",
@@ -649,7 +649,7 @@
     "te_yuku": {
       "label": "てゆく",
       "title": "远离／持续发展",
-      "concept": "grammar.direction.te_iku",
+      "concept": "grammar.auxiliary.yuku",
       "prototype": "てゆく",
       "support": {
         "group": "te",
@@ -663,7 +663,7 @@
     "te_kuru": {
       "label": "てくる",
       "title": "趋近／逐渐显现",
-      "concept": "grammar.direction.te_kuru",
+      "concept": "grammar.auxiliary.kuru",
       "prototype": "てくる",
       "support": {
         "group": "te",
@@ -678,7 +678,7 @@
     "te_miru": {
       "label": "てみる",
       "title": "尝试",
-      "concept": "grammar.modality.te_miru",
+      "concept": "grammar.auxiliary.miru",
       "prototype": "てみる",
       "support": {
         "group": "te",
@@ -693,7 +693,7 @@
     "te_kudasaru": {
       "label": "てくださる",
       "title": "受惠（尊敬）",
-      "concept": "grammar.benefactive.te_kudasaru",
+      "concept": "grammar.auxiliary.kudasaru",
       "prototype": "てくださる",
       "support": {
         "group": "te",
@@ -708,7 +708,7 @@
     "te_morau": {
       "label": "てもらう",
       "title": "受惠／请求",
-      "concept": "grammar.benefactive.te_morau",
+      "concept": "grammar.auxiliary.morau",
       "prototype": "てもらう",
       "support": {
         "group": "te",
@@ -723,7 +723,7 @@
     "te_ageru": {
       "label": "てあげる",
       "title": "给予",
-      "concept": "grammar.benefactive.te_ageru",
+      "concept": "grammar.auxiliary.ageru",
       "prototype": "てあげる",
       "support": {
         "group": "te",
@@ -738,7 +738,7 @@
     "te_kureru": {
       "label": "てくれる",
       "title": "受惠",
-      "concept": "grammar.benefactive.te_kureru",
+      "concept": "grammar.auxiliary.kureru",
       "prototype": "てくれる",
       "support": {
         "group": "te",
@@ -753,7 +753,7 @@
     "te_yaru": {
       "label": "てやる",
       "title": "给予",
-      "concept": "grammar.benefactive.te_yaru",
+      "concept": "grammar.auxiliary.yaru",
       "prototype": "てやる",
       "support": {
         "group": "te",
@@ -852,7 +852,7 @@
     "contracted_te_iru": {
       "label": "ている",
       "title": "进行／状态持续",
-      "concept": "grammar.aspect.te_iru",
+      "concept": "grammar.auxiliary.iru",
       "prototype": "ている",
       "normalized": "ている",
       "support": {
@@ -870,7 +870,7 @@
     "contracted_te_shimau": {
       "label": "てしまう",
       "title": "完成／遗憾／感慨",
-      "concept": "grammar.aspect.te_shimau",
+      "concept": "grammar.auxiliary.shimau",
       "prototype": "てしまう",
       "normalized": "てしまう",
       "support": {
@@ -888,7 +888,7 @@
     "contracted_te_oku": {
       "label": "ておく",
       "title": "预先处置／保持",
-      "concept": "grammar.aspect.te_oku",
+      "concept": "grammar.auxiliary.oku",
       "prototype": "ておく",
       "normalized": "ておく",
       "support": {

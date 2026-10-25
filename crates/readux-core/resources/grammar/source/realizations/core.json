@@ -883,7 +883,7 @@
   },
   {
     "realization_id": "realization.construction.te_iru",
-    "concept_id": "grammar.aspect.te_iru",
+    "concept_id": "grammar.auxiliary.iru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_iru",
     "connection_signature": "読んでいる",
@@ -904,7 +904,7 @@
   },
   {
     "realization_id": "realization.construction.te_aru",
-    "concept_id": "grammar.aspect.te_aru",
+    "concept_id": "grammar.auxiliary.aru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_aru",
     "connection_signature": "読んである",
@@ -925,7 +925,7 @@
   },
   {
     "realization_id": "realization.construction.te_oku",
-    "concept_id": "grammar.aspect.te_oku",
+    "concept_id": "grammar.auxiliary.oku",
     "possible_sense_ids": [],
     "rule_id": "construction.te_oku",
     "connection_signature": "読んでおく",
@@ -946,7 +946,7 @@
   },
   {
     "realization_id": "realization.construction.te_miru",
-    "concept_id": "grammar.modality.te_miru",
+    "concept_id": "grammar.auxiliary.miru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_miru",
     "connection_signature": "読んでみる",
@@ -967,7 +967,7 @@
   },
   {
     "realization_id": "realization.construction.te_shimau",
-    "concept_id": "grammar.aspect.te_shimau",
+    "concept_id": "grammar.auxiliary.shimau",
     "possible_sense_ids": [],
     "rule_id": "construction.te_shimau",
     "connection_signature": "読んでしまう",
@@ -988,7 +988,7 @@
   },
   {
     "realization_id": "realization.construction.te_iku",
-    "concept_id": "grammar.direction.te_iku",
+    "concept_id": "grammar.auxiliary.iku",
     "possible_sense_ids": [],
     "rule_id": "construction.te_iku",
     "connection_signature": "読んでいく",
@@ -1009,7 +1009,7 @@
   },
   {
     "realization_id": "realization.construction.te_kuru",
-    "concept_id": "grammar.direction.te_kuru",
+    "concept_id": "grammar.auxiliary.kuru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_kuru",
     "connection_signature": "読んでくる",
@@ -1030,7 +1030,7 @@
   },
   {
     "realization_id": "realization.construction.te_yaru",
-    "concept_id": "grammar.benefactive.te_yaru",
+    "concept_id": "grammar.auxiliary.yaru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_yaru",
     "connection_signature": "読んでやる",
@@ -1051,7 +1051,7 @@
   },
   {
     "realization_id": "realization.construction.te_ageru",
-    "concept_id": "grammar.benefactive.te_ageru",
+    "concept_id": "grammar.auxiliary.ageru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_ageru",
     "connection_signature": "読んであげる",
@@ -1072,7 +1072,7 @@
   },
   {
     "realization_id": "realization.construction.te_kureru",
-    "concept_id": "grammar.benefactive.te_kureru",
+    "concept_id": "grammar.auxiliary.kureru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_kureru",
     "connection_signature": "読んでくれる",
@@ -1093,7 +1093,7 @@
   },
   {
     "realization_id": "realization.construction.te_kudasaru",
-    "concept_id": "grammar.benefactive.te_kudasaru",
+    "concept_id": "grammar.auxiliary.kudasaru",
     "possible_sense_ids": [],
     "rule_id": "construction.te_kudasaru",
     "connection_signature": "先生が読んでくださった。",
@@ -1114,7 +1114,7 @@
   },
   {
     "realization_id": "realization.construction.te_morau",
-    "concept_id": "grammar.benefactive.te_morau",
+    "concept_id": "grammar.auxiliary.morau",
     "possible_sense_ids": [],
     "rule_id": "construction.te_morau",
     "connection_signature": "読んでもらう",
@@ -1315,6 +1315,29 @@
     ],
     "counter_examples": [
       "音楽を聞きながら歩く。"
+    ],
+    "realization_version": 1,
+    "audit_status": "verified",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ]
+  },
+  {
+    "realization_id": "realization.construction.te_yuku",
+    "concept_id": "grammar.auxiliary.yuku",
+    "possible_sense_ids": [
+      "grammar.auxiliary.yuku.direction"
+    ],
+    "rule_id": "construction.te_yuku",
+    "connection_signature": "読んでゆく",
+    "morphology_requirements": [],
+    "functional_requirements": [],
+    "context_requirements": [],
+    "examples": [
+      "読んでゆく"
+    ],
+    "counter_examples": [
+      "ゆくを自立谓词として用いる。"
     ],
     "realization_version": 1,
     "audit_status": "verified",

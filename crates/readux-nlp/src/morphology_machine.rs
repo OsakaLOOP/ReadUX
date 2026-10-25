@@ -254,7 +254,10 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
         if previous_index.is_none() && config::support_kind("te", current).is_some() {
             previous_index = chains.iter().enumerate().rev()
                 .find(|(_, chain)| !chain.operators.iter().any(|op| op.kind == "insertion")
-                    && chain.operators.iter().any(|op| op.kind == "te_connection"))
+                    && chain.operators.iter().any(|op| op.kind == "te_connection")
+                    && chain.morpheme_range[1] < index
+                    && source[chain.morpheme_range[1]..index].iter().all(insertion_token)
+                    && source[chain.morpheme_range[1]..=index].windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0]))
                 .map(|(i, _)| i);
         }
         // 插入语子链保持前项状态，但后续补助动词必须回到原始て形父链。

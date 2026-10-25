@@ -1233,313 +1233,6 @@
       "enabled": true
     },
     {
-      "concept_id": "grammar.aspect.te_iru",
-      "kind": "construction",
-      "canonical_label": "〜ている",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "progressive",
-        "resultative"
-      ],
-      "jlpt_level": 5,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.aspect.te_iru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.aspect.te_aru",
-      "kind": "construction",
-      "canonical_label": "〜てある",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "resultative"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.aspect.te_aru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.aspect.te_oku",
-      "kind": "construction",
-      "canonical_label": "〜ておく",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "preparatory"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.aspect.te_oku",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.modality.te_miru",
-      "kind": "construction",
-      "canonical_label": "〜てみる",
-      "aliases": [],
-      "semantic_domains": [
-        "modality"
-      ],
-      "function_tags": [
-        "attempt"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.modality.te_miru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.aspect.te_shimau",
-      "kind": "construction",
-      "canonical_label": "〜てしまう",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect",
-        "stance"
-      ],
-      "function_tags": [
-        "completion",
-        "regret"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.aspect.te_shimau",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.direction.te_iku",
-      "kind": "construction",
-      "canonical_label": "〜ていく",
-      "aliases": [],
-      "semantic_domains": [
-        "directional_aspect"
-      ],
-      "function_tags": [
-        "away",
-        "continuation"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.direction.te_iku",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.direction.te_kuru",
-      "kind": "construction",
-      "canonical_label": "〜てくる",
-      "aliases": [],
-      "semantic_domains": [
-        "directional_aspect"
-      ],
-      "function_tags": [
-        "toward",
-        "emergence"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.direction.te_kuru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.benefactive.te_yaru",
-      "kind": "construction",
-      "canonical_label": "〜てやる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "giver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.benefactive.te_yaru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.benefactive.te_ageru",
-      "kind": "construction",
-      "canonical_label": "〜てあげる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "giver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.benefactive.te_ageru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.benefactive.te_kureru",
-      "kind": "construction",
-      "canonical_label": "〜てくれる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "receiver_benefit"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.benefactive.te_kureru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.benefactive.te_kudasaru",
-      "kind": "construction",
-      "canonical_label": "〜てくださる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive",
-        "honorific"
-      ],
-      "function_tags": [
-        "benefactive_respectful",
-        "subject_honorific"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.benefactive.te_kudasaru",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
-      "concept_id": "grammar.benefactive.te_morau",
-      "kind": "construction",
-      "canonical_label": "〜てもらう",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "receiver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "default_explanation_id": "explanation.grammar.benefactive.te_morau",
-      "source_refs": [
-        "readux-editorial:2026-07-16"
-      ],
-      "audit_status": "verified",
-      "concept_version": 1,
-      "enabled": true
-    },
-    {
       "concept_id": "grammar.request.te_kudasai",
       "kind": "construction",
       "canonical_label": "〜てください",
@@ -1768,6 +1461,339 @@
       "related_concept_ids": [],
       "contrast_concept_ids": [],
       "default_explanation_id": "explanation.grammar.connective.nagara_mo",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.iru",
+      "kind": "construction",
+      "canonical_label": "いる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "progressive",
+        "resultative"
+      ],
+      "jlpt_level": 5,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.iru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.aru",
+      "kind": "construction",
+      "canonical_label": "ある（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "resultative"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.aru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.oku",
+      "kind": "construction",
+      "canonical_label": "おく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "preparatory"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.oku",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.miru",
+      "kind": "construction",
+      "canonical_label": "みる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality"
+      ],
+      "function_tags": [
+        "attempt"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.miru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.shimau",
+      "kind": "construction",
+      "canonical_label": "しまう（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect",
+        "stance"
+      ],
+      "function_tags": [
+        "completion",
+        "regret"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.shimau",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.iku",
+      "kind": "construction",
+      "canonical_label": "いく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "away",
+        "continuation"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.iku",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kuru",
+      "kind": "construction",
+      "canonical_label": "くる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "toward",
+        "emergence"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kuru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.yaru",
+      "kind": "construction",
+      "canonical_label": "やる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "giver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.yaru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.ageru",
+      "kind": "construction",
+      "canonical_label": "あげる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "giver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.ageru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kureru",
+      "kind": "construction",
+      "canonical_label": "くれる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "receiver_benefit"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kureru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kudasaru",
+      "kind": "construction",
+      "canonical_label": "くださる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive",
+        "honorific"
+      ],
+      "function_tags": [
+        "benefactive_respectful",
+        "subject_honorific"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kudasaru",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.morau",
+      "kind": "construction",
+      "canonical_label": "もらう（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "receiver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.morau",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.yuku",
+      "kind": "construction",
+      "canonical_label": "ゆく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "away",
+        "continuation"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.yuku",
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
@@ -4135,9 +4161,9 @@
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_iru.progressive",
-      "concept_id": "grammar.aspect.te_iru",
-      "label": "〜ている：进行",
+      "sense_id": "grammar.auxiliary.iru.progressive",
+      "concept_id": "grammar.auxiliary.iru",
+      "label": "いるいる：进行",
       "function_summary": "表示进行中的动作",
       "semantic_features": {
         "function": "progressive"
@@ -4146,14 +4172,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_iru",
+      "explanation_id": "explanation.grammar.auxiliary.iru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_iru.resultative",
-      "concept_id": "grammar.aspect.te_iru",
-      "label": "〜ている：结果状态",
+      "sense_id": "grammar.auxiliary.iru.resultative",
+      "concept_id": "grammar.auxiliary.iru",
+      "label": "いるいる：结果状态",
       "function_summary": "表示动作后的状态",
       "semantic_features": {
         "function": "resultative"
@@ -4162,14 +4188,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_iru",
+      "explanation_id": "explanation.grammar.auxiliary.iru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_aru.resultative",
-      "concept_id": "grammar.aspect.te_aru",
-      "label": "〜てある",
+      "sense_id": "grammar.auxiliary.aru.resultative",
+      "concept_id": "grammar.auxiliary.aru",
+      "label": "あるある",
       "function_summary": "表示人为动作留下的结果状态",
       "semantic_features": {
         "function": "resultative"
@@ -4178,14 +4204,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_aru",
+      "explanation_id": "explanation.grammar.auxiliary.aru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_oku.preparatory",
-      "concept_id": "grammar.aspect.te_oku",
-      "label": "〜ておく",
+      "sense_id": "grammar.auxiliary.oku.preparatory",
+      "concept_id": "grammar.auxiliary.oku",
+      "label": "おくおく",
       "function_summary": "表示预先处置或保持状态",
       "semantic_features": {
         "function": "preparatory"
@@ -4194,14 +4220,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_oku",
+      "explanation_id": "explanation.grammar.auxiliary.oku",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.modality.te_miru.attempt",
-      "concept_id": "grammar.modality.te_miru",
-      "label": "〜てみる",
+      "sense_id": "grammar.auxiliary.miru.attempt",
+      "concept_id": "grammar.auxiliary.miru",
+      "label": "みるみる",
       "function_summary": "表示尝试做某事",
       "semantic_features": {
         "function": "attempt"
@@ -4210,14 +4236,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.modality.te_miru",
+      "explanation_id": "explanation.grammar.auxiliary.miru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_shimau.completion",
-      "concept_id": "grammar.aspect.te_shimau",
-      "label": "〜てしまう：完成",
+      "sense_id": "grammar.auxiliary.shimau.completion",
+      "concept_id": "grammar.auxiliary.shimau",
+      "label": "しまうしまう：完成",
       "function_summary": "表示彻底完成",
       "semantic_features": {
         "function": "completion"
@@ -4226,14 +4252,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_shimau",
+      "explanation_id": "explanation.grammar.auxiliary.shimau",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.aspect.te_shimau.regret",
-      "concept_id": "grammar.aspect.te_shimau",
-      "label": "〜てしまう：遗憾",
+      "sense_id": "grammar.auxiliary.shimau.regret",
+      "concept_id": "grammar.auxiliary.shimau",
+      "label": "しまうしまう：遗憾",
       "function_summary": "表示遗憾或事与愿违",
       "semantic_features": {
         "function": "regret"
@@ -4242,14 +4268,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.aspect.te_shimau",
+      "explanation_id": "explanation.grammar.auxiliary.shimau",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.direction.te_iku.away",
-      "concept_id": "grammar.direction.te_iku",
-      "label": "〜ていく：远离",
+      "sense_id": "grammar.auxiliary.iku.away",
+      "concept_id": "grammar.auxiliary.iku",
+      "label": "いくいく：远离",
       "function_summary": "表示动作远离当前",
       "semantic_features": {
         "function": "away"
@@ -4258,14 +4284,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.direction.te_iku",
+      "explanation_id": "explanation.grammar.auxiliary.iku",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.direction.te_iku.continuation",
-      "concept_id": "grammar.direction.te_iku",
-      "label": "〜ていく：继续",
+      "sense_id": "grammar.auxiliary.iku.continuation",
+      "concept_id": "grammar.auxiliary.iku",
+      "label": "いくいく：继续",
       "function_summary": "表示动作继续发展",
       "semantic_features": {
         "function": "continuation"
@@ -4274,14 +4300,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.direction.te_iku",
+      "explanation_id": "explanation.grammar.auxiliary.iku",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.direction.te_kuru.toward",
-      "concept_id": "grammar.direction.te_kuru",
-      "label": "〜てくる：接近",
+      "sense_id": "grammar.auxiliary.kuru.toward",
+      "concept_id": "grammar.auxiliary.kuru",
+      "label": "くるくる：接近",
       "function_summary": "表示动作接近当前",
       "semantic_features": {
         "function": "toward"
@@ -4290,14 +4316,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.direction.te_kuru",
+      "explanation_id": "explanation.grammar.auxiliary.kuru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.direction.te_kuru.emergence",
-      "concept_id": "grammar.direction.te_kuru",
-      "label": "〜てくる：出现",
+      "sense_id": "grammar.auxiliary.kuru.emergence",
+      "concept_id": "grammar.auxiliary.kuru",
+      "label": "くるくる：出现",
       "function_summary": "表示状态逐渐出现",
       "semantic_features": {
         "function": "emergence"
@@ -4306,14 +4332,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.direction.te_kuru",
+      "explanation_id": "explanation.grammar.auxiliary.kuru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_yaru.giver_viewpoint",
-      "concept_id": "grammar.benefactive.te_yaru",
-      "label": "〜てやる",
+      "sense_id": "grammar.auxiliary.yaru.giver_viewpoint",
+      "concept_id": "grammar.auxiliary.yaru",
+      "label": "やるやる",
       "function_summary": "表示说话者为他者做某事",
       "semantic_features": {
         "function": "giver_viewpoint"
@@ -4322,14 +4348,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_yaru",
+      "explanation_id": "explanation.grammar.auxiliary.yaru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_ageru.giver_viewpoint",
-      "concept_id": "grammar.benefactive.te_ageru",
-      "label": "〜てあげる",
+      "sense_id": "grammar.auxiliary.ageru.giver_viewpoint",
+      "concept_id": "grammar.auxiliary.ageru",
+      "label": "あげるあげる",
       "function_summary": "表示为他者做某事",
       "semantic_features": {
         "function": "giver_viewpoint"
@@ -4338,14 +4364,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_ageru",
+      "explanation_id": "explanation.grammar.auxiliary.ageru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_kureru.receiver_benefit",
-      "concept_id": "grammar.benefactive.te_kureru",
-      "label": "〜てくれる",
+      "sense_id": "grammar.auxiliary.kureru.receiver_benefit",
+      "concept_id": "grammar.auxiliary.kureru",
+      "label": "くれるくれる",
       "function_summary": "表示他者为说话者一方做某事",
       "semantic_features": {
         "function": "receiver_benefit"
@@ -4354,14 +4380,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_kureru",
+      "explanation_id": "explanation.grammar.auxiliary.kureru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_kudasaru.benefactive_respectful",
-      "concept_id": "grammar.benefactive.te_kudasaru",
-      "label": "〜てくださる：受益授受",
+      "sense_id": "grammar.auxiliary.kudasaru.benefactive_respectful",
+      "concept_id": "grammar.auxiliary.kudasaru",
+      "label": "くださるくださる：受益授受",
       "function_summary": "表示为己方做某事的恩惠",
       "semantic_features": {
         "function": "benefactive_respectful"
@@ -4370,14 +4396,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_kudasaru",
+      "explanation_id": "explanation.grammar.auxiliary.kudasaru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_kudasaru.subject_honorific",
-      "concept_id": "grammar.benefactive.te_kudasaru",
-      "label": "〜てくださる：主体尊敬",
+      "sense_id": "grammar.auxiliary.kudasaru.subject_honorific",
+      "concept_id": "grammar.auxiliary.kudasaru",
+      "label": "くださるくださる：主体尊敬",
       "function_summary": "尊敬动作主体的行为",
       "semantic_features": {
         "function": "subject_honorific"
@@ -4386,14 +4412,14 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_kudasaru",
+      "explanation_id": "explanation.grammar.auxiliary.kudasaru",
       "sense_version": 1,
       "audit_status": "verified"
     },
     {
-      "sense_id": "grammar.benefactive.te_morau.receiver_viewpoint",
-      "concept_id": "grammar.benefactive.te_morau",
-      "label": "〜てもらう",
+      "sense_id": "grammar.auxiliary.morau.receiver_viewpoint",
+      "concept_id": "grammar.auxiliary.morau",
+      "label": "もらうもらう",
       "function_summary": "从接受者视角表示请人或承受恩惠",
       "semantic_features": {
         "function": "receiver_viewpoint"
@@ -4402,7 +4428,7 @@
       "exclusion_conditions": [],
       "related_sense_ids": [],
       "contrast_sense_ids": [],
-      "explanation_id": "explanation.grammar.benefactive.te_morau",
+      "explanation_id": "explanation.grammar.auxiliary.morau",
       "sense_version": 1,
       "audit_status": "verified"
     },
@@ -4627,6 +4653,22 @@
       "related_sense_ids": [],
       "contrast_sense_ids": [],
       "explanation_id": "explanation.grammar.connective.nagara_mo",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.auxiliary.yuku.direction",
+      "concept_id": "grammar.auxiliary.yuku",
+      "label": "ゆく：远离与持续",
+      "function_summary": "表示动作远离或状态继续发展",
+      "semantic_features": {
+        "function": "away"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.auxiliary.yuku",
       "sense_version": 1,
       "audit_status": "verified"
     },
@@ -6557,7 +6599,7 @@
     },
     {
       "realization_id": "realization.construction.te_iru",
-      "concept_id": "grammar.aspect.te_iru",
+      "concept_id": "grammar.auxiliary.iru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_iru",
       "connection_signature": "読んでいる",
@@ -6578,7 +6620,7 @@
     },
     {
       "realization_id": "realization.construction.te_aru",
-      "concept_id": "grammar.aspect.te_aru",
+      "concept_id": "grammar.auxiliary.aru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_aru",
       "connection_signature": "読んである",
@@ -6599,7 +6641,7 @@
     },
     {
       "realization_id": "realization.construction.te_oku",
-      "concept_id": "grammar.aspect.te_oku",
+      "concept_id": "grammar.auxiliary.oku",
       "possible_sense_ids": [],
       "rule_id": "construction.te_oku",
       "connection_signature": "読んでおく",
@@ -6620,7 +6662,7 @@
     },
     {
       "realization_id": "realization.construction.te_miru",
-      "concept_id": "grammar.modality.te_miru",
+      "concept_id": "grammar.auxiliary.miru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_miru",
       "connection_signature": "読んでみる",
@@ -6641,7 +6683,7 @@
     },
     {
       "realization_id": "realization.construction.te_shimau",
-      "concept_id": "grammar.aspect.te_shimau",
+      "concept_id": "grammar.auxiliary.shimau",
       "possible_sense_ids": [],
       "rule_id": "construction.te_shimau",
       "connection_signature": "読んでしまう",
@@ -6662,7 +6704,7 @@
     },
     {
       "realization_id": "realization.construction.te_iku",
-      "concept_id": "grammar.direction.te_iku",
+      "concept_id": "grammar.auxiliary.iku",
       "possible_sense_ids": [],
       "rule_id": "construction.te_iku",
       "connection_signature": "読んでいく",
@@ -6683,7 +6725,7 @@
     },
     {
       "realization_id": "realization.construction.te_kuru",
-      "concept_id": "grammar.direction.te_kuru",
+      "concept_id": "grammar.auxiliary.kuru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_kuru",
       "connection_signature": "読んでくる",
@@ -6704,7 +6746,7 @@
     },
     {
       "realization_id": "realization.construction.te_yaru",
-      "concept_id": "grammar.benefactive.te_yaru",
+      "concept_id": "grammar.auxiliary.yaru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_yaru",
       "connection_signature": "読んでやる",
@@ -6725,7 +6767,7 @@
     },
     {
       "realization_id": "realization.construction.te_ageru",
-      "concept_id": "grammar.benefactive.te_ageru",
+      "concept_id": "grammar.auxiliary.ageru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_ageru",
       "connection_signature": "読んであげる",
@@ -6746,7 +6788,7 @@
     },
     {
       "realization_id": "realization.construction.te_kureru",
-      "concept_id": "grammar.benefactive.te_kureru",
+      "concept_id": "grammar.auxiliary.kureru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_kureru",
       "connection_signature": "読んでくれる",
@@ -6767,7 +6809,7 @@
     },
     {
       "realization_id": "realization.construction.te_kudasaru",
-      "concept_id": "grammar.benefactive.te_kudasaru",
+      "concept_id": "grammar.auxiliary.kudasaru",
       "possible_sense_ids": [],
       "rule_id": "construction.te_kudasaru",
       "connection_signature": "先生が読んでくださった。",
@@ -6788,7 +6830,7 @@
     },
     {
       "realization_id": "realization.construction.te_morau",
-      "concept_id": "grammar.benefactive.te_morau",
+      "concept_id": "grammar.auxiliary.morau",
       "possible_sense_ids": [],
       "rule_id": "construction.te_morau",
       "connection_signature": "読んでもらう",
@@ -6989,6 +7031,29 @@
       ],
       "counter_examples": [
         "音楽を聞きながら歩く。"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ]
+    },
+    {
+      "realization_id": "realization.construction.te_yuku",
+      "concept_id": "grammar.auxiliary.yuku",
+      "possible_sense_ids": [
+        "grammar.auxiliary.yuku.direction"
+      ],
+      "rule_id": "construction.te_yuku",
+      "connection_signature": "読んでゆく",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "読んでゆく"
+      ],
+      "counter_examples": [
+        "ゆくを自立谓词として用いる。"
       ],
       "realization_version": 1,
       "audit_status": "verified",
@@ -7826,10 +7891,10 @@
     },
     {
       "realization_id": "realization.construction.te_iru.contracted",
-      "concept_id": "grammar.aspect.te_iru",
+      "concept_id": "grammar.auxiliary.iru",
       "possible_sense_ids": [
-        "grammar.aspect.te_iru.progressive",
-        "grammar.aspect.te_iru.resultative"
+        "grammar.auxiliary.iru.progressive",
+        "grammar.auxiliary.iru.resultative"
       ],
       "rule_id": "construction.te_iru.contracted",
       "connection_signature": "动词连用形＋てる（〜ている的口语缩约）",
@@ -9289,7 +9354,7 @@
     {
       "rule_id": "construction.te_iru.contracted",
       "realization_id": "realization.construction.te_iru.contracted",
-      "concept_id": "grammar.aspect.te_iru",
+      "concept_id": "grammar.auxiliary.iru",
       "kind": "grammar_construction",
       "priority": 86,
       "enabled": true,
@@ -9571,7 +9636,7 @@
     {
       "rule_id": "construction.te_ageru",
       "realization_id": "realization.construction.te_ageru",
-      "concept_id": "grammar.benefactive.te_ageru",
+      "concept_id": "grammar.auxiliary.ageru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9633,7 +9698,7 @@
     {
       "rule_id": "construction.te_aru",
       "realization_id": "realization.construction.te_aru",
-      "concept_id": "grammar.aspect.te_aru",
+      "concept_id": "grammar.auxiliary.aru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9695,7 +9760,7 @@
     {
       "rule_id": "construction.te_iku",
       "realization_id": "realization.construction.te_iku",
-      "concept_id": "grammar.direction.te_iku",
+      "concept_id": "grammar.auxiliary.iku",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9758,7 +9823,7 @@
     {
       "rule_id": "construction.te_iru",
       "realization_id": "realization.construction.te_iru",
-      "concept_id": "grammar.aspect.te_iru",
+      "concept_id": "grammar.auxiliary.iru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9823,7 +9888,7 @@
     {
       "rule_id": "construction.te_kudasaru",
       "realization_id": "realization.construction.te_kudasaru",
-      "concept_id": "grammar.benefactive.te_kudasaru",
+      "concept_id": "grammar.auxiliary.kudasaru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9885,7 +9950,7 @@
     {
       "rule_id": "construction.te_kureru",
       "realization_id": "realization.construction.te_kureru",
-      "concept_id": "grammar.benefactive.te_kureru",
+      "concept_id": "grammar.auxiliary.kureru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -9947,7 +10012,7 @@
     {
       "rule_id": "construction.te_kuru",
       "realization_id": "realization.construction.te_kuru",
-      "concept_id": "grammar.direction.te_kuru",
+      "concept_id": "grammar.auxiliary.kuru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10010,7 +10075,7 @@
     {
       "rule_id": "construction.te_miru",
       "realization_id": "realization.construction.te_miru",
-      "concept_id": "grammar.modality.te_miru",
+      "concept_id": "grammar.auxiliary.miru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10073,7 +10138,7 @@
     {
       "rule_id": "construction.te_morau",
       "realization_id": "realization.construction.te_morau",
-      "concept_id": "grammar.benefactive.te_morau",
+      "concept_id": "grammar.auxiliary.morau",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10135,7 +10200,7 @@
     {
       "rule_id": "construction.te_oku",
       "realization_id": "realization.construction.te_oku",
-      "concept_id": "grammar.aspect.te_oku",
+      "concept_id": "grammar.auxiliary.oku",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10197,7 +10262,7 @@
     {
       "rule_id": "construction.te_shimau",
       "realization_id": "realization.construction.te_shimau",
-      "concept_id": "grammar.aspect.te_shimau",
+      "concept_id": "grammar.auxiliary.shimau",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10259,7 +10324,7 @@
     {
       "rule_id": "construction.te_yaru",
       "realization_id": "realization.construction.te_yaru",
-      "concept_id": "grammar.benefactive.te_yaru",
+      "concept_id": "grammar.auxiliary.yaru",
       "kind": "grammar_construction",
       "priority": 80,
       "enabled": true,
@@ -10311,6 +10376,36 @@
       ],
       "counter_examples": [
         "やる を自立谓词として用いる。"
+      ],
+      "source_refs": [
+        "readux-editorial:2026-07-16"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "construction.te_yuku",
+      "realization_id": "realization.construction.te_yuku",
+      "concept_id": "grammar.auxiliary.yuku",
+      "kind": "grammar_construction",
+      "priority": 80,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [],
+      "display_from": 1,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "connector",
+        "functional_verb"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "読んでゆく"
+      ],
+      "counter_examples": [
+        "ゆくを自立谓词として用いる。"
       ],
       "source_refs": [
         "readux-editorial:2026-07-16"
@@ -14494,5 +14589,78 @@
       "show_badge": false
     }
   ],
-  "redirects": []
+  "redirects": [
+    {
+      "from_concept_id": "grammar.aspect.te_iru",
+      "to_concept_id": "grammar.auxiliary.iru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.aspect.te_aru",
+      "to_concept_id": "grammar.auxiliary.aru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.aspect.te_oku",
+      "to_concept_id": "grammar.auxiliary.oku",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.modality.te_miru",
+      "to_concept_id": "grammar.auxiliary.miru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.aspect.te_shimau",
+      "to_concept_id": "grammar.auxiliary.shimau",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.direction.te_iku",
+      "to_concept_id": "grammar.auxiliary.iku",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.direction.te_kuru",
+      "to_concept_id": "grammar.auxiliary.kuru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.benefactive.te_yaru",
+      "to_concept_id": "grammar.auxiliary.yaru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.benefactive.te_ageru",
+      "to_concept_id": "grammar.auxiliary.ageru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.benefactive.te_kureru",
+      "to_concept_id": "grammar.auxiliary.kureru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.benefactive.te_kudasaru",
+      "to_concept_id": "grammar.auxiliary.kudasaru",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    },
+    {
+      "from_concept_id": "grammar.benefactive.te_morau",
+      "to_concept_id": "grammar.auxiliary.morau",
+      "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+      "redirect_version": 1
+    }
+  ]
 }

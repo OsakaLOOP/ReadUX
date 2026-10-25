@@ -1752,7 +1752,7 @@
   {
     "rule_id": "construction.te_iru",
     "realization_id": "realization.construction.te_iru",
-    "concept_id": "grammar.aspect.te_iru",
+    "concept_id": "grammar.auxiliary.iru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -1817,7 +1817,7 @@
   {
     "rule_id": "construction.te_aru",
     "realization_id": "realization.construction.te_aru",
-    "concept_id": "grammar.aspect.te_aru",
+    "concept_id": "grammar.auxiliary.aru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -1879,7 +1879,7 @@
   {
     "rule_id": "construction.te_oku",
     "realization_id": "realization.construction.te_oku",
-    "concept_id": "grammar.aspect.te_oku",
+    "concept_id": "grammar.auxiliary.oku",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -1941,7 +1941,7 @@
   {
     "rule_id": "construction.te_miru",
     "realization_id": "realization.construction.te_miru",
-    "concept_id": "grammar.modality.te_miru",
+    "concept_id": "grammar.auxiliary.miru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2004,7 +2004,7 @@
   {
     "rule_id": "construction.te_shimau",
     "realization_id": "realization.construction.te_shimau",
-    "concept_id": "grammar.aspect.te_shimau",
+    "concept_id": "grammar.auxiliary.shimau",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2066,7 +2066,7 @@
   {
     "rule_id": "construction.te_iku",
     "realization_id": "realization.construction.te_iku",
-    "concept_id": "grammar.direction.te_iku",
+    "concept_id": "grammar.auxiliary.iku",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2129,7 +2129,7 @@
   {
     "rule_id": "construction.te_kuru",
     "realization_id": "realization.construction.te_kuru",
-    "concept_id": "grammar.direction.te_kuru",
+    "concept_id": "grammar.auxiliary.kuru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2192,7 +2192,7 @@
   {
     "rule_id": "construction.te_yaru",
     "realization_id": "realization.construction.te_yaru",
-    "concept_id": "grammar.benefactive.te_yaru",
+    "concept_id": "grammar.auxiliary.yaru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2254,7 +2254,7 @@
   {
     "rule_id": "construction.te_ageru",
     "realization_id": "realization.construction.te_ageru",
-    "concept_id": "grammar.benefactive.te_ageru",
+    "concept_id": "grammar.auxiliary.ageru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2316,7 +2316,7 @@
   {
     "rule_id": "construction.te_kureru",
     "realization_id": "realization.construction.te_kureru",
-    "concept_id": "grammar.benefactive.te_kureru",
+    "concept_id": "grammar.auxiliary.kureru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2378,7 +2378,7 @@
   {
     "rule_id": "construction.te_kudasaru",
     "realization_id": "realization.construction.te_kudasaru",
-    "concept_id": "grammar.benefactive.te_kudasaru",
+    "concept_id": "grammar.auxiliary.kudasaru",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -2440,7 +2440,7 @@
   {
     "rule_id": "construction.te_morau",
     "realization_id": "realization.construction.te_morau",
-    "concept_id": "grammar.benefactive.te_morau",
+    "concept_id": "grammar.auxiliary.morau",
     "kind": "grammar_construction",
     "priority": 80,
     "enabled": true,
@@ -3000,6 +3000,36 @@
     ],
     "counter_examples": [
       "音楽を聞きながら歩く。"
+    ],
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "rule_version": 1,
+    "show_badge": true
+  },
+  {
+    "rule_id": "construction.te_yuku",
+    "realization_id": "realization.construction.te_yuku",
+    "concept_id": "grammar.auxiliary.yuku",
+    "kind": "grammar_construction",
+    "priority": 80,
+    "enabled": true,
+    "audit_status": "verified",
+    "atoms": [],
+    "display_from": 1,
+    "display_to": null,
+    "captures": [
+      "predicate",
+      "connector",
+      "functional_verb"
+    ],
+    "refines_rule_ids": [],
+    "conflict_group": null,
+    "examples": [
+      "読んでゆく"
+    ],
+    "counter_examples": [
+      "ゆくを自立谓词として用いる。"
     ],
     "source_refs": [
       "readux-editorial:2026-07-16"

@@ -162,7 +162,7 @@ fn sample_grammar_and_correlative_rules_match_precise_ranges() {
         }
     }
     for concept in ["morphology.voice.causative", "morphology.voice.passive_potential", "morphology.politeness.masu",
-        "grammar.aspect.te_iru", "grammar.obligation.nakereba_naranai"] {
+        "grammar.auxiliary.iru", "grammar.obligation.nakereba_naranai"] {
         assert!(concepts.contains(concept), "语法样例缺少 {concept}");
     }
     assert!(expression_ids.contains("concessive_tatoe"));

@@ -1247,13 +1247,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.aspect.te_iru",
+    "default_explanation_id": "explanation.grammar.auxiliary.iru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.aspect.te_aru",
@@ -1272,13 +1272,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.aspect.te_aru",
+    "default_explanation_id": "explanation.grammar.auxiliary.aru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.aspect.te_oku",
@@ -1297,13 +1297,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.aspect.te_oku",
+    "default_explanation_id": "explanation.grammar.auxiliary.oku",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.modality.te_miru",
@@ -1322,13 +1322,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.modality.te_miru",
+    "default_explanation_id": "explanation.grammar.auxiliary.miru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.aspect.te_shimau",
@@ -1349,13 +1349,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.aspect.te_shimau",
+    "default_explanation_id": "explanation.grammar.auxiliary.shimau",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.direction.te_iku",
@@ -1375,13 +1375,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.direction.te_iku",
+    "default_explanation_id": "explanation.grammar.auxiliary.iku",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.direction.te_kuru",
@@ -1401,13 +1401,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.direction.te_kuru",
+    "default_explanation_id": "explanation.grammar.auxiliary.kuru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.benefactive.te_yaru",
@@ -1426,13 +1426,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.benefactive.te_yaru",
+    "default_explanation_id": "explanation.grammar.auxiliary.yaru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.benefactive.te_ageru",
@@ -1451,13 +1451,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.benefactive.te_ageru",
+    "default_explanation_id": "explanation.grammar.auxiliary.ageru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.benefactive.te_kureru",
@@ -1476,13 +1476,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.benefactive.te_kureru",
+    "default_explanation_id": "explanation.grammar.auxiliary.kureru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.benefactive.te_kudasaru",
@@ -1503,13 +1503,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.benefactive.te_kudasaru",
+    "default_explanation_id": "explanation.grammar.auxiliary.kudasaru",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.benefactive.te_morau",
@@ -1528,13 +1528,13 @@
     ],
     "related_concept_ids": [],
     "contrast_concept_ids": [],
-    "default_explanation_id": "explanation.grammar.benefactive.te_morau",
+    "default_explanation_id": "explanation.grammar.auxiliary.morau",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
-    "audit_status": "verified",
+    "audit_status": "deprecated",
     "concept_version": 1,
-    "enabled": true
+    "enabled": false
   },
   {
     "concept_id": "grammar.request.te_kudasai",
@@ -1765,6 +1765,339 @@
     "related_concept_ids": [],
     "contrast_concept_ids": [],
     "default_explanation_id": "explanation.grammar.connective.nagara_mo",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.iru",
+    "kind": "construction",
+    "canonical_label": "いる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "aspect"
+    ],
+    "function_tags": [
+      "progressive",
+      "resultative"
+    ],
+    "jlpt_level": 5,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.iru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.aru",
+    "kind": "construction",
+    "canonical_label": "ある（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "aspect"
+    ],
+    "function_tags": [
+      "resultative"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.aru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.oku",
+    "kind": "construction",
+    "canonical_label": "おく（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "aspect"
+    ],
+    "function_tags": [
+      "preparatory"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.oku",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.miru",
+    "kind": "construction",
+    "canonical_label": "みる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "modality"
+    ],
+    "function_tags": [
+      "attempt"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.miru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.shimau",
+    "kind": "construction",
+    "canonical_label": "しまう（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "aspect",
+      "stance"
+    ],
+    "function_tags": [
+      "completion",
+      "regret"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.shimau",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.iku",
+    "kind": "construction",
+    "canonical_label": "いく（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "directional_aspect"
+    ],
+    "function_tags": [
+      "away",
+      "continuation"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.iku",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.kuru",
+    "kind": "construction",
+    "canonical_label": "くる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "directional_aspect"
+    ],
+    "function_tags": [
+      "toward",
+      "emergence"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.kuru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.yaru",
+    "kind": "construction",
+    "canonical_label": "やる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "benefactive"
+    ],
+    "function_tags": [
+      "giver_viewpoint"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.yaru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.ageru",
+    "kind": "construction",
+    "canonical_label": "あげる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "benefactive"
+    ],
+    "function_tags": [
+      "giver_viewpoint"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.ageru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.kureru",
+    "kind": "construction",
+    "canonical_label": "くれる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "benefactive"
+    ],
+    "function_tags": [
+      "receiver_benefit"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.kureru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.kudasaru",
+    "kind": "construction",
+    "canonical_label": "くださる（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "benefactive",
+      "honorific"
+    ],
+    "function_tags": [
+      "benefactive_respectful",
+      "subject_honorific"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.kudasaru",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.morau",
+    "kind": "construction",
+    "canonical_label": "もらう（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "benefactive"
+    ],
+    "function_tags": [
+      "receiver_viewpoint"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.morau",
+    "source_refs": [
+      "readux-editorial:2026-07-16"
+    ],
+    "audit_status": "verified",
+    "concept_version": 1,
+    "enabled": true
+  },
+  {
+    "concept_id": "grammar.auxiliary.yuku",
+    "kind": "construction",
+    "canonical_label": "ゆく（补助用法）",
+    "aliases": [],
+    "semantic_domains": [
+      "directional_aspect"
+    ],
+    "function_tags": [
+      "away",
+      "continuation"
+    ],
+    "jlpt_level": 4,
+    "register": [
+      "modern_standard"
+    ],
+    "related_concept_ids": [],
+    "contrast_concept_ids": [],
+    "default_explanation_id": "explanation.grammar.auxiliary.yuku",
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],

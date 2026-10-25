@@ -540,7 +540,7 @@ def compile_catalog(source: Path, output: Path) -> dict[str, Any]:
     catalog = {
         "schema_version": 1,
         "catalog_version": "grammar-2026.07.16",
-        "concepts": data["concepts"],
+        "concepts": [concept for concept in data["concepts"] if concept.get("enabled", True)],
         "senses": data["senses"],
         "realizations": data["realizations"],
         "rules": sorted(data["rules"], key=lambda item: (-item["priority"], item["rule_id"])),
@@ -558,19 +558,13 @@ def compile_catalog(source: Path, output: Path) -> dict[str, Any]:
     senses_by_concept: dict[str, list[dict[str, Any]]] = {}
     for sense in data["senses"]:
         senses_by_concept.setdefault(sense["concept_id"], []).append(sense)
-    redirected_aliases: dict[str, list[str]] = {}
-    for concept in data["concepts"]:
-        if concept["concept_id"] in redirect_map:
-            redirected_aliases.setdefault(redirect_map[concept["concept_id"]], []).extend(
-                [concept["concept_id"], concept["canonical_label"], *concept.get("aliases", [])]
-            )
     for concept in data["concepts"]:
         if concept["concept_id"] in redirect_map:
             continue
         search_entries.append({
             "concept_id": concept["concept_id"],
             "label": concept["canonical_label"],
-            "aliases": [*concept.get("aliases", []), *redirected_aliases.get(concept["concept_id"], [])],
+            "aliases": concept.get("aliases", []),
             "semantic_domains": concept.get("semantic_domains", []),
             "function_tags": concept.get("function_tags", []),
             "jlpt_level": concept.get("jlpt_level"),

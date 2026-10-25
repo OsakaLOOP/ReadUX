@@ -23,7 +23,8 @@ def main() -> None:
     )
     assert manifest["counts"]["concepts"] >= 60
     assert manifest["counts"]["rules"] >= 60
-    assert manifest["counts"]["concepts"] == manifest["counts"]["explanations"]
+    enabled_concepts = [item for item in json.loads((ROOT / "crates" / "readux-core" / "resources" / "grammar" / "compiled" / "grammar_catalog.json").read_text(encoding="utf-8"))["concepts"] if item.get("enabled")]
+    assert len(enabled_concepts) == manifest["counts"]["explanations"]
     print("grammar catalog ok")
 
 

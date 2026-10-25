@@ -1443,15 +1443,15 @@
       ]
     },
     {
-      "concept_id": "grammar.aspect.te_iru",
+      "concept_id": "grammar.auxiliary.iru",
       "extend_existing": true,
       "realizations": [
         {
           "realization_id": "realization.construction.te_iru.contracted",
           "rule_id": "construction.te_iru.contracted",
           "possible_sense_ids": [
-            "grammar.aspect.te_iru.progressive",
-            "grammar.aspect.te_iru.resultative"
+            "grammar.auxiliary.iru.progressive",
+            "grammar.auxiliary.iru.resultative"
           ],
           "connection_signature": "动词连用形＋てる（〜ている的口语缩约）",
           "morphology_requirements": [

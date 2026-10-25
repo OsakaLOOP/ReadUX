@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "from_concept_id": "grammar.aspect.te_iru",
+    "to_concept_id": "grammar.auxiliary.iru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.aspect.te_aru",
+    "to_concept_id": "grammar.auxiliary.aru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.aspect.te_oku",
+    "to_concept_id": "grammar.auxiliary.oku",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.modality.te_miru",
+    "to_concept_id": "grammar.auxiliary.miru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.aspect.te_shimau",
+    "to_concept_id": "grammar.auxiliary.shimau",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.direction.te_iku",
+    "to_concept_id": "grammar.auxiliary.iku",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.direction.te_kuru",
+    "to_concept_id": "grammar.auxiliary.kuru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.benefactive.te_yaru",
+    "to_concept_id": "grammar.auxiliary.yaru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.benefactive.te_ageru",
+    "to_concept_id": "grammar.auxiliary.ageru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.benefactive.te_kureru",
+    "to_concept_id": "grammar.auxiliary.kureru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.benefactive.te_kudasaru",
+    "to_concept_id": "grammar.auxiliary.kudasaru",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  },
+  {
+    "from_concept_id": "grammar.benefactive.te_morau",
+    "to_concept_id": "grammar.auxiliary.morau",
+    "reason": "构式入口迁移到补助动词本体；て形由接续规则提供",
+    "redirect_version": 1
+  }
+]

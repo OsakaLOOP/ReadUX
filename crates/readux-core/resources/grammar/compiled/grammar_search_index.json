@@ -1232,312 +1232,6 @@
       ]
     },
     {
-      "concept_id": "grammar.aspect.te_iru",
-      "label": "〜ている",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "progressive",
-        "resultative"
-      ],
-      "jlpt_level": 5,
-      "surface_hints": [
-        "読んでいる",
-        "动词连用形＋てる（〜ている的口语缩约）"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜ている：进行",
-        "表示进行中的动作",
-        "〜ている：结果状态",
-        "表示动作后的状态"
-      ]
-    },
-    {
-      "concept_id": "grammar.aspect.te_aru",
-      "label": "〜てある",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "resultative"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んである"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てある",
-        "表示人为动作留下的结果状态"
-      ]
-    },
-    {
-      "concept_id": "grammar.aspect.te_oku",
-      "label": "〜ておく",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect"
-      ],
-      "function_tags": [
-        "preparatory"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでおく"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜ておく",
-        "表示预先处置或保持状态"
-      ]
-    },
-    {
-      "concept_id": "grammar.modality.te_miru",
-      "label": "〜てみる",
-      "aliases": [],
-      "semantic_domains": [
-        "modality"
-      ],
-      "function_tags": [
-        "attempt"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでみる"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てみる",
-        "表示尝试做某事"
-      ]
-    },
-    {
-      "concept_id": "grammar.aspect.te_shimau",
-      "label": "〜てしまう",
-      "aliases": [],
-      "semantic_domains": [
-        "aspect",
-        "stance"
-      ],
-      "function_tags": [
-        "completion",
-        "regret"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでしまう"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てしまう：完成",
-        "表示彻底完成",
-        "〜てしまう：遗憾",
-        "表示遗憾或事与愿违"
-      ]
-    },
-    {
-      "concept_id": "grammar.direction.te_iku",
-      "label": "〜ていく",
-      "aliases": [],
-      "semantic_domains": [
-        "directional_aspect"
-      ],
-      "function_tags": [
-        "away",
-        "continuation"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでいく"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜ていく：远离",
-        "表示动作远离当前",
-        "〜ていく：继续",
-        "表示动作继续发展"
-      ]
-    },
-    {
-      "concept_id": "grammar.direction.te_kuru",
-      "label": "〜てくる",
-      "aliases": [],
-      "semantic_domains": [
-        "directional_aspect"
-      ],
-      "function_tags": [
-        "toward",
-        "emergence"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでくる"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てくる：接近",
-        "表示动作接近当前",
-        "〜てくる：出现",
-        "表示状态逐渐出现"
-      ]
-    },
-    {
-      "concept_id": "grammar.benefactive.te_yaru",
-      "label": "〜てやる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "giver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでやる"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てやる",
-        "表示说话者为他者做某事"
-      ]
-    },
-    {
-      "concept_id": "grammar.benefactive.te_ageru",
-      "label": "〜てあげる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "giver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んであげる"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てあげる",
-        "表示为他者做某事"
-      ]
-    },
-    {
-      "concept_id": "grammar.benefactive.te_kureru",
-      "label": "〜てくれる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "receiver_benefit"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでくれる"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てくれる",
-        "表示他者为说话者一方做某事"
-      ]
-    },
-    {
-      "concept_id": "grammar.benefactive.te_kudasaru",
-      "label": "〜てくださる",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive",
-        "honorific"
-      ],
-      "function_tags": [
-        "benefactive_respectful",
-        "subject_honorific"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "先生が読んでくださった。"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てくださる：受益授受",
-        "表示为己方做某事的恩惠",
-        "〜てくださる：主体尊敬",
-        "尊敬动作主体的行为"
-      ]
-    },
-    {
-      "concept_id": "grammar.benefactive.te_morau",
-      "label": "〜てもらう",
-      "aliases": [],
-      "semantic_domains": [
-        "benefactive"
-      ],
-      "function_tags": [
-        "receiver_viewpoint"
-      ],
-      "jlpt_level": 4,
-      "surface_hints": [
-        "読んでもらう"
-      ],
-      "register": [
-        "modern_standard"
-      ],
-      "related_concept_ids": [],
-      "contrast_concept_ids": [],
-      "sense_hints": [
-        "〜てもらう",
-        "从接受者视角表示请人或承受恩惠"
-      ]
-    },
-    {
       "concept_id": "grammar.request.te_kudasai",
       "label": "〜てください",
       "aliases": [],
@@ -1775,6 +1469,337 @@
         "表示一边…一边…",
         "〜ながら（も）：让步",
         "表示即使…也…"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.iru",
+      "label": "いる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "progressive",
+        "resultative"
+      ],
+      "jlpt_level": 5,
+      "surface_hints": [
+        "読んでいる",
+        "动词连用形＋てる（〜ている的口语缩约）"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "いるいる：进行",
+        "表示进行中的动作",
+        "いるいる：结果状态",
+        "表示动作后的状态"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.aru",
+      "label": "ある（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "resultative"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んである"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "あるある",
+        "表示人为动作留下的结果状态"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.oku",
+      "label": "おく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect"
+      ],
+      "function_tags": [
+        "preparatory"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでおく"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "おくおく",
+        "表示预先处置或保持状态"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.miru",
+      "label": "みる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "modality"
+      ],
+      "function_tags": [
+        "attempt"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでみる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "みるみる",
+        "表示尝试做某事"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.shimau",
+      "label": "しまう（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "aspect",
+        "stance"
+      ],
+      "function_tags": [
+        "completion",
+        "regret"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでしまう"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "しまうしまう：完成",
+        "表示彻底完成",
+        "しまうしまう：遗憾",
+        "表示遗憾或事与愿违"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.iku",
+      "label": "いく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "away",
+        "continuation"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでいく"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "いくいく：远离",
+        "表示动作远离当前",
+        "いくいく：继续",
+        "表示动作继续发展"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kuru",
+      "label": "くる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "toward",
+        "emergence"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでくる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "くるくる：接近",
+        "表示动作接近当前",
+        "くるくる：出现",
+        "表示状态逐渐出现"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.yaru",
+      "label": "やる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "giver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでやる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "やるやる",
+        "表示说话者为他者做某事"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.ageru",
+      "label": "あげる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "giver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んであげる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "あげるあげる",
+        "表示为他者做某事"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kureru",
+      "label": "くれる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "receiver_benefit"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでくれる"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "くれるくれる",
+        "表示他者为说话者一方做某事"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.kudasaru",
+      "label": "くださる（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive",
+        "honorific"
+      ],
+      "function_tags": [
+        "benefactive_respectful",
+        "subject_honorific"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "先生が読んでくださった。"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "くださるくださる：受益授受",
+        "表示为己方做某事的恩惠",
+        "くださるくださる：主体尊敬",
+        "尊敬动作主体的行为"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.morau",
+      "label": "もらう（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "benefactive"
+      ],
+      "function_tags": [
+        "receiver_viewpoint"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでもらう"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "もらうもらう",
+        "从接受者视角表示请人或承受恩惠"
+      ]
+    },
+    {
+      "concept_id": "grammar.auxiliary.yuku",
+      "label": "ゆく（补助用法）",
+      "aliases": [],
+      "semantic_domains": [
+        "directional_aspect"
+      ],
+      "function_tags": [
+        "away",
+        "continuation"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [
+        "読んでゆく"
+      ],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "ゆく：远离与持续",
+        "表示动作远离或状态继续发展"
       ]
     },
     {

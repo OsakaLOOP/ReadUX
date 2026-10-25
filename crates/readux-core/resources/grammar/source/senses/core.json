@@ -1092,9 +1092,9 @@
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_iru.progressive",
-    "concept_id": "grammar.aspect.te_iru",
-    "label": "〜ている：进行",
+    "sense_id": "grammar.auxiliary.iru.progressive",
+    "concept_id": "grammar.auxiliary.iru",
+    "label": "いるいる：进行",
     "function_summary": "表示进行中的动作",
     "semantic_features": {
       "function": "progressive"
@@ -1103,14 +1103,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_iru",
+    "explanation_id": "explanation.grammar.auxiliary.iru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_iru.resultative",
-    "concept_id": "grammar.aspect.te_iru",
-    "label": "〜ている：结果状态",
+    "sense_id": "grammar.auxiliary.iru.resultative",
+    "concept_id": "grammar.auxiliary.iru",
+    "label": "いるいる：结果状态",
     "function_summary": "表示动作后的状态",
     "semantic_features": {
       "function": "resultative"
@@ -1119,14 +1119,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_iru",
+    "explanation_id": "explanation.grammar.auxiliary.iru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_aru.resultative",
-    "concept_id": "grammar.aspect.te_aru",
-    "label": "〜てある",
+    "sense_id": "grammar.auxiliary.aru.resultative",
+    "concept_id": "grammar.auxiliary.aru",
+    "label": "あるある",
     "function_summary": "表示人为动作留下的结果状态",
     "semantic_features": {
       "function": "resultative"
@@ -1135,14 +1135,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_aru",
+    "explanation_id": "explanation.grammar.auxiliary.aru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_oku.preparatory",
-    "concept_id": "grammar.aspect.te_oku",
-    "label": "〜ておく",
+    "sense_id": "grammar.auxiliary.oku.preparatory",
+    "concept_id": "grammar.auxiliary.oku",
+    "label": "おくおく",
     "function_summary": "表示预先处置或保持状态",
     "semantic_features": {
       "function": "preparatory"
@@ -1151,14 +1151,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_oku",
+    "explanation_id": "explanation.grammar.auxiliary.oku",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.modality.te_miru.attempt",
-    "concept_id": "grammar.modality.te_miru",
-    "label": "〜てみる",
+    "sense_id": "grammar.auxiliary.miru.attempt",
+    "concept_id": "grammar.auxiliary.miru",
+    "label": "みるみる",
     "function_summary": "表示尝试做某事",
     "semantic_features": {
       "function": "attempt"
@@ -1167,14 +1167,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.modality.te_miru",
+    "explanation_id": "explanation.grammar.auxiliary.miru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_shimau.completion",
-    "concept_id": "grammar.aspect.te_shimau",
-    "label": "〜てしまう：完成",
+    "sense_id": "grammar.auxiliary.shimau.completion",
+    "concept_id": "grammar.auxiliary.shimau",
+    "label": "しまうしまう：完成",
     "function_summary": "表示彻底完成",
     "semantic_features": {
       "function": "completion"
@@ -1183,14 +1183,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_shimau",
+    "explanation_id": "explanation.grammar.auxiliary.shimau",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.aspect.te_shimau.regret",
-    "concept_id": "grammar.aspect.te_shimau",
-    "label": "〜てしまう：遗憾",
+    "sense_id": "grammar.auxiliary.shimau.regret",
+    "concept_id": "grammar.auxiliary.shimau",
+    "label": "しまうしまう：遗憾",
     "function_summary": "表示遗憾或事与愿违",
     "semantic_features": {
       "function": "regret"
@@ -1199,14 +1199,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.aspect.te_shimau",
+    "explanation_id": "explanation.grammar.auxiliary.shimau",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.direction.te_iku.away",
-    "concept_id": "grammar.direction.te_iku",
-    "label": "〜ていく：远离",
+    "sense_id": "grammar.auxiliary.iku.away",
+    "concept_id": "grammar.auxiliary.iku",
+    "label": "いくいく：远离",
     "function_summary": "表示动作远离当前",
     "semantic_features": {
       "function": "away"
@@ -1215,14 +1215,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.direction.te_iku",
+    "explanation_id": "explanation.grammar.auxiliary.iku",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.direction.te_iku.continuation",
-    "concept_id": "grammar.direction.te_iku",
-    "label": "〜ていく：继续",
+    "sense_id": "grammar.auxiliary.iku.continuation",
+    "concept_id": "grammar.auxiliary.iku",
+    "label": "いくいく：继续",
     "function_summary": "表示动作继续发展",
     "semantic_features": {
       "function": "continuation"
@@ -1231,14 +1231,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.direction.te_iku",
+    "explanation_id": "explanation.grammar.auxiliary.iku",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.direction.te_kuru.toward",
-    "concept_id": "grammar.direction.te_kuru",
-    "label": "〜てくる：接近",
+    "sense_id": "grammar.auxiliary.kuru.toward",
+    "concept_id": "grammar.auxiliary.kuru",
+    "label": "くるくる：接近",
     "function_summary": "表示动作接近当前",
     "semantic_features": {
       "function": "toward"
@@ -1247,14 +1247,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.direction.te_kuru",
+    "explanation_id": "explanation.grammar.auxiliary.kuru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.direction.te_kuru.emergence",
-    "concept_id": "grammar.direction.te_kuru",
-    "label": "〜てくる：出现",
+    "sense_id": "grammar.auxiliary.kuru.emergence",
+    "concept_id": "grammar.auxiliary.kuru",
+    "label": "くるくる：出现",
     "function_summary": "表示状态逐渐出现",
     "semantic_features": {
       "function": "emergence"
@@ -1263,14 +1263,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.direction.te_kuru",
+    "explanation_id": "explanation.grammar.auxiliary.kuru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_yaru.giver_viewpoint",
-    "concept_id": "grammar.benefactive.te_yaru",
-    "label": "〜てやる",
+    "sense_id": "grammar.auxiliary.yaru.giver_viewpoint",
+    "concept_id": "grammar.auxiliary.yaru",
+    "label": "やるやる",
     "function_summary": "表示说话者为他者做某事",
     "semantic_features": {
       "function": "giver_viewpoint"
@@ -1279,14 +1279,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_yaru",
+    "explanation_id": "explanation.grammar.auxiliary.yaru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_ageru.giver_viewpoint",
-    "concept_id": "grammar.benefactive.te_ageru",
-    "label": "〜てあげる",
+    "sense_id": "grammar.auxiliary.ageru.giver_viewpoint",
+    "concept_id": "grammar.auxiliary.ageru",
+    "label": "あげるあげる",
     "function_summary": "表示为他者做某事",
     "semantic_features": {
       "function": "giver_viewpoint"
@@ -1295,14 +1295,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_ageru",
+    "explanation_id": "explanation.grammar.auxiliary.ageru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_kureru.receiver_benefit",
-    "concept_id": "grammar.benefactive.te_kureru",
-    "label": "〜てくれる",
+    "sense_id": "grammar.auxiliary.kureru.receiver_benefit",
+    "concept_id": "grammar.auxiliary.kureru",
+    "label": "くれるくれる",
     "function_summary": "表示他者为说话者一方做某事",
     "semantic_features": {
       "function": "receiver_benefit"
@@ -1311,14 +1311,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_kureru",
+    "explanation_id": "explanation.grammar.auxiliary.kureru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_kudasaru.benefactive_respectful",
-    "concept_id": "grammar.benefactive.te_kudasaru",
-    "label": "〜てくださる：受益授受",
+    "sense_id": "grammar.auxiliary.kudasaru.benefactive_respectful",
+    "concept_id": "grammar.auxiliary.kudasaru",
+    "label": "くださるくださる：受益授受",
     "function_summary": "表示为己方做某事的恩惠",
     "semantic_features": {
       "function": "benefactive_respectful"
@@ -1327,14 +1327,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_kudasaru",
+    "explanation_id": "explanation.grammar.auxiliary.kudasaru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_kudasaru.subject_honorific",
-    "concept_id": "grammar.benefactive.te_kudasaru",
-    "label": "〜てくださる：主体尊敬",
+    "sense_id": "grammar.auxiliary.kudasaru.subject_honorific",
+    "concept_id": "grammar.auxiliary.kudasaru",
+    "label": "くださるくださる：主体尊敬",
     "function_summary": "尊敬动作主体的行为",
     "semantic_features": {
       "function": "subject_honorific"
@@ -1343,14 +1343,14 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_kudasaru",
+    "explanation_id": "explanation.grammar.auxiliary.kudasaru",
     "sense_version": 1,
     "audit_status": "verified"
   },
   {
-    "sense_id": "grammar.benefactive.te_morau.receiver_viewpoint",
-    "concept_id": "grammar.benefactive.te_morau",
-    "label": "〜てもらう",
+    "sense_id": "grammar.auxiliary.morau.receiver_viewpoint",
+    "concept_id": "grammar.auxiliary.morau",
+    "label": "もらうもらう",
     "function_summary": "从接受者视角表示请人或承受恩惠",
     "semantic_features": {
       "function": "receiver_viewpoint"
@@ -1359,7 +1359,7 @@
     "exclusion_conditions": [],
     "related_sense_ids": [],
     "contrast_sense_ids": [],
-    "explanation_id": "explanation.grammar.benefactive.te_morau",
+    "explanation_id": "explanation.grammar.auxiliary.morau",
     "sense_version": 1,
     "audit_status": "verified"
   },
@@ -1584,6 +1584,22 @@
     "related_sense_ids": [],
     "contrast_sense_ids": [],
     "explanation_id": "explanation.grammar.connective.nagara_mo",
+    "sense_version": 1,
+    "audit_status": "verified"
+  },
+  {
+    "sense_id": "grammar.auxiliary.yuku.direction",
+    "concept_id": "grammar.auxiliary.yuku",
+    "label": "ゆく：远离与持续",
+    "function_summary": "表示动作远离或状态继续发展",
+    "semantic_features": {
+      "function": "away"
+    },
+    "context_requirements": [],
+    "exclusion_conditions": [],
+    "related_sense_ids": [],
+    "contrast_sense_ids": [],
+    "explanation_id": "explanation.grammar.auxiliary.yuku",
     "sense_version": 1,
     "audit_status": "verified"
   }

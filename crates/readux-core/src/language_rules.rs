@@ -76,7 +76,7 @@ fn compile_grammar() -> Result<Vec<Rule>, String> {
     rules.push(Rule { id: "unidic.contracted.te_iru".into(), label: "〜ている".into(), description: String::new(), kind: "grammar_construction".into(),
         atoms: vec![Atom { pos_major: vec!["動詞".into(), "助動詞".into()], conjugation_forms: vec!["連用形".into()], capture: Some("predicate".into()), ..Default::default() },
             Atom { base_forms: vec!["てる".into(), "でる".into()], pos_major: vec!["助動詞".into()], capture: Some("contracted_auxiliary".into()), ..Default::default() }],
-        priority: 100, enabled: true, document_id: None, allow_whitespace: false, concept_id: Some("grammar.aspect.te_iru".into()), sense_ids: Vec::new(), display_from: 1, display_to: None, source_refs: vec!["p4-sample-review:p09".into()],
+        priority: 100, enabled: true, document_id: None, allow_whitespace: false, concept_id: Some("grammar.auxiliary.iru".into()), sense_ids: Vec::new(), display_from: 1, display_to: None, source_refs: vec!["p4-sample-review:p09".into()],
         gap_after_atom: None, gap_bunsetsu: None });
     Ok(rules)
 }
