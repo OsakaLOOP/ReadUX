@@ -13,7 +13,72 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
 
 fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
 
+fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
+    let current = config::rule_metadata(kind).map_or(0, |metadata| metadata.order_rank);
+    if current == 0 { return false; }
+    previous.operators.iter().filter_map(|operator| {
+        (operator.order_rank > 0).then_some(operator.order_rank)
+    }).max().is_some_and(|rank| current < rank)
+}
+
 enum Transition { Core, Attach(Vec<String>), Support(&'static str), Insert, Boundary, Stop }
+
+/// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
+struct VerbCycleExecutor;
+
+impl VerbCycleExecutor {
+    fn accepts(kind: &str) -> bool {
+        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("verb_cycle") | Some("verb_cycle+i_adjective_conversion"))
+    }
+
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+        if !Self::accepts(kind) { return; }
+        let metadata = config::rule_metadata(kind).expect("动词循环规则缺少元数据");
+        if metadata.input_category == "動詞" && previous.final_state.category != "動詞" {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("verb_cycle_input_category:{}:{}", previous.chain_id, index));
+        }
+        if metadata.output_category == "動詞" { atom.final_state.category = "動詞".into(); }
+    }
+}
+
+/// イ形容词转换执行器：完成动词或助动词到イ形容词性整体的切换。
+struct IAdjectiveConversionExecutor;
+
+impl IAdjectiveConversionExecutor {
+    fn accepts(kind: &str) -> bool {
+        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("i_adjective_conversion") | Some("verb_cycle+i_adjective_conversion"))
+    }
+
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+        if !Self::accepts(kind) { return; }
+        if previous.final_state.category != "動詞" && previous.final_state.category != "助動詞" {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("i_adjective_input_category:{}:{}", previous.chain_id, index));
+        }
+        atom.final_state.category = "形容詞".into();
+        atom.final_state.entity_class = "イ形容词转换类".into();
+    }
+}
+
+/// ナ形容词判断执行器：把判断词干交给だ／な／で等后续收尾规则。
+struct NaAdjectiveJudgementExecutor;
+
+impl NaAdjectiveJudgementExecutor {
+    fn accepts(kind: &str) -> bool {
+        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("na_adjective_judgement"))
+    }
+
+    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+        if !Self::accepts(kind) { return; }
+        if !matches!(previous.final_state.category.as_str(), "動詞" | "形容詞" | "形状詞" | "名詞" | "助動詞") {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("na_judgement_input_category:{}:{}", previous.chain_id, index));
+        }
+        atom.final_state.category = "形状詞".into();
+        atom.final_state.entity_class = "ナ形容词判断类".into();
+    }
+}
 
 fn insertion_token(token: &ProviderToken) -> bool {
     CONFIG.insertion.iter().any(|pattern| pattern.matches(token))
@@ -68,6 +133,7 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
 }
 
 fn operator(chain: &MorphologyChain, atom: &MorphologyChain, kind: String, token: &ProviderToken) -> MorphologyOperator {
+    let metadata = config::rule_metadata(&kind);
     MorphologyOperator { operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
         source_morpheme_range: atom.morpheme_range, char_range: atom.char_range,
         input_state: chain.surface_form.clone(), output_state: format!("{}{}", chain.surface_form, atom.surface_form),
@@ -75,7 +141,15 @@ fn operator(chain: &MorphologyChain, atom: &MorphologyChain, kind: String, token
         normalized_form: config::definition(&kind).and_then(|entry| entry.normalized.clone()).or_else(|| config::prototype(&kind, token)),
         concept_id: feature_concept(&kind).into(), confidence: 1.0, evidence: atom.evidence.clone(),
         candidates: config::definition(&kind).map_or_else(Vec::new, |entry| entry.candidates.clone()),
-        label: feature_label(&kind).into(), description: format!("{}：{}", feature_label(&kind), atom.surface_form), kind }
+        label: feature_label(&kind).into(), description: format!("{}：{}", feature_label(&kind), atom.surface_form), kind,
+        stage: metadata.map_or_else(String::new, |m| m.stage.clone()),
+        executor: metadata.map_or_else(String::new, |m| m.executor.clone()),
+        rule_group: metadata.map_or_else(String::new, |m| m.rule_group.clone()),
+        input_category: metadata.map_or_else(String::new, |m| m.input_category.clone()),
+        output_category: metadata.map_or_else(String::new, |m| m.output_category.clone()),
+        terminal_mode: metadata.map_or_else(String::new, |m| m.terminal_mode.clone()),
+        order_rank: metadata.map_or(0, |m| m.order_rank),
+    }
 }
 
 fn merge(chain: &mut MorphologyChain, atom: MorphologyChain, core: bool) {
@@ -310,7 +384,16 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         }
                     }
                     if kinds.is_empty() { kinds.push("auxiliary".into()); }
-                    for kind in kinds { previous.operators.push(operator(previous, &atom, kind, current)); }
+                    for kind in kinds {
+                        VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        if order_conflict(previous, &kind) {
+                            previous.status = "candidate".into();
+                            diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
+                        }
+                        previous.operators.push(operator(previous, &atom, kind, current));
+                    }
                     if let Some(e) = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "mark"]) { previous.source_evidence.push(e); }
                     if context.ginza.is_some() && !context.same_bunsetsu(previous.char_range, atom.char_range) {
                         diagnostics.push(format!("cross_bunsetsu:{}:{}", previous.chain_id, index));
@@ -321,6 +404,10 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                 Transition::Support(kind) => {
                     atom.role = MorphologyRole::Functional;
                     atom.parent_chain_id = Some(previous.chain_id.clone());
+                    if order_conflict(previous, kind) {
+                        atom.status = "candidate".into();
+                        diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
+                    }
                     atom.operators.push(operator(previous, &atom, kind.into(), current));
                     let relation = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "advcl", "xcomp"]);
                     let bridged = bridge_support(previous, index, source, &context);

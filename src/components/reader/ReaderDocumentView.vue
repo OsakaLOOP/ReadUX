@@ -2506,6 +2506,12 @@ function toggleEinkMode() {
           </div>
         </div>
       </section>
+      <div v-if="activeDetail.ruleMetadata?.stage" class="reader-lookup__rule-metadata">
+        <span>{{ activeDetail.ruleMetadata.stage }}</span>
+        <span v-if="activeDetail.ruleMetadata.executor">{{ activeDetail.ruleMetadata.executor }}</span>
+        <span v-if="activeDetail.ruleMetadata.inputCategory">{{ activeDetail.ruleMetadata.inputCategory }} → {{ activeDetail.ruleMetadata.outputCategory }}</span>
+        <span v-if="activeDetail.ruleMetadata.terminalMode">{{ activeDetail.ruleMetadata.terminalMode }}</span>
+      </div>
       <div v-if="morphologyParticles.length" class="reader-lookup__chain-particles">
         <ParticleGrammarBlock v-for="item in morphologyParticles" :key="`${item.entries[0]?.entry_key}:${item.observed_form}`" :lookup="item" />
       </div>
@@ -2863,6 +2869,8 @@ function toggleEinkMode() {
 }
 .reader-lookup__chain-particles { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
 .reader-lookup__connection-tree { display: grid; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
+.reader-lookup__rule-metadata { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; color: var(--text-secondary); font-size: .68rem; }
+.reader-lookup__rule-metadata span { padding: 2px 5px; border: 1px solid var(--glass-border); border-radius: 4px; }
 .reader-lookup__connection-tree > strong { color: var(--accent-color); font-size: .76rem; }
 .reader-lookup__tree-node { display: grid; gap: 1px; min-width: 0; padding: 5px 7px; border: 1px solid var(--glass-border); border-radius: 5px; background: #fff; color: var(--text-primary); }
 .reader-lookup__tree-node small { overflow-wrap: anywhere; color: var(--text-secondary); font-size: .68rem; }

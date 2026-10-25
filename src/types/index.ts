@@ -69,6 +69,7 @@ export interface MorphologyOperator {
   candidates: string[];
   label: string;
   description: string;
+  stage?: string; executor?: string; rule_group?: string; input_category?: string; output_category?: string; terminal_mode?: string; order_rank?: number;
   state_before?: { entity_class?: string; category?: string; form?: string };
   state_after?: { entity_class?: string; category?: string; form?: string };
 }

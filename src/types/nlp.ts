@@ -142,6 +142,7 @@ export interface MorphologyOperator {
   label: string; description: string;
   state_before: MorphologyState; state_after: MorphologyState;
   normalized_form: string | null;
+  stage?: string; executor?: string; rule_group?: string; input_category?: string; output_category?: string; terminal_mode?: string; order_rank?: number;
 }
 export interface SourceEvidence { provider: string; node_id: string | null; relation_id: string | null; reason: string; }
 export interface MorphologyState {

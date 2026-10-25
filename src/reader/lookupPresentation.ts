@@ -76,6 +76,7 @@ export interface ReaderMorphologyDetail {
   candidates: string[];
   entityClass?: string;
   connectionTree?: { label: string; summary?: string; inputExamples?: string[]; output?: string; children?: { label: string; summary?: string; inputExamples?: string[]; output?: string }[] } | null;
+  ruleMetadata?: { stage?: string; executor?: string; ruleGroup?: string; inputCategory?: string; outputCategory?: string; terminalMode?: string; orderRank?: number } | null;
 }
 
 export interface ReaderMorphologyHit {
@@ -770,6 +771,11 @@ export function readerMorphologyHits(
       candidates: occurrence.candidates ?? [],
       entityClass: owner?.final_state?.entity_class || operator.state_after?.entity_class,
       connectionTree: ruleTreeForClass(owner?.final_state?.entity_class || operator.state_after?.entity_class),
+      ruleMetadata: {
+        stage: operator.stage, executor: operator.executor, ruleGroup: operator.rule_group,
+        inputCategory: operator.input_category, outputCategory: operator.output_category,
+        terminalMode: operator.terminal_mode, orderRank: operator.order_rank,
+      },
     };
     return (occurrence.hit_ranges ?? []).map((range) => ({ range, targetId: target.id, detail }));
   });

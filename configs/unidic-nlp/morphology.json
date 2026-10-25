@@ -20,6 +20,28 @@
     ]},
     {"id": "insertion", "label": "插入语类", "summary": "不改变前项状态的范围扩展", "input_examples": ["对比与提示", "限定与强调", "列举与举例"], "output": "保持前项状态"}
   ],
+  "rule_metadata": {
+    "causative": {"stage": "voice", "executor": "verb_cycle", "rule_group": "使役", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 10},
+    "passive_potential": {"stage": "voice", "executor": "verb_cycle", "rule_group": "受身・可能", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 20},
+    "te_connection": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "て形接续", "input_category": "动词", "output_category": "动词", "terminal_mode": "pause_or_continue", "order_rank": 30},
+    "te_iru": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "持续与状态", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 31},
+    "te_aru": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "结果存续", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 32},
+    "te_shimau": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "完成与遗憾", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 33},
+    "te_oku": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "预先处置", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 34},
+    "te_iku": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "趋向与发展", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 35},
+    "te_yuku": {"stage": "te_support", "executor": "auxiliary_verb", "rule_group": "趋向与发展", "input_category": "动词", "output_category": "动词", "terminal_mode": "continue", "order_rank": 36},
+    "desire": {"stage": "desire", "executor": "i_adjective_conversion", "rule_group": "主观愿望", "input_category": "動詞", "output_category": "形容詞", "terminal_mode": "continue", "order_rank": 40},
+    "negative": {"stage": "polarity_politeness", "executor": "verb_cycle+i_adjective_conversion", "rule_group": "否定", "input_category": "動詞", "output_category": "形容詞", "terminal_mode": "continue", "order_rank": 50},
+    "politeness_masu": {"stage": "polarity_politeness", "executor": "verb_cycle", "rule_group": "礼貌", "input_category": "動詞", "output_category": "動詞", "terminal_mode": "continue", "order_rank": 51},
+    "past": {"stage": "tense", "executor": "verb_cycle", "rule_group": "过去与完成", "input_category": "用言", "output_category": "用言", "terminal_mode": "sentence_or_pause", "order_rank": 60},
+    "volitional": {"stage": "modality", "executor": "verb_cycle", "rule_group": "意向", "input_category": "動詞", "output_category": "動詞", "terminal_mode": "sentence_or_pause", "order_rank": 70},
+    "rashii_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "推量判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "sentence_or_pause", "order_rank": 71},
+    "sou_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "样态判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 72},
+    "you_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "比况判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 73},
+    "mitai_modality": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "比况判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 74},
+    "obligation": {"stage": "modality", "executor": "na_adjective_judgement", "rule_group": "当为判断", "input_category": "用言", "output_category": "形状詞", "terminal_mode": "continue", "order_rank": 75},
+    "insertion": {"stage": "insertion", "executor": "insertion", "rule_group": "插入语", "input_category": "已成立链", "output_category": "保持前项", "terminal_mode": "preserve", "order_rank": 0}
+  },
   "operators": {
     "polite_negative": {
       "label": "敬体否定",

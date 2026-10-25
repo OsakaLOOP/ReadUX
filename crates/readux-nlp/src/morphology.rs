@@ -62,6 +62,22 @@ pub struct MorphologyOperator {
     pub state_after: MorphologyState,
     #[serde(default)]
     pub normalized_form: Option<String>,
+    /// 规则阶段；阶段属于规则，不属于六类实体。
+    #[serde(default)]
+    pub stage: String,
+    /// 类别专用执行器名称。
+    #[serde(default)]
+    pub executor: String,
+    #[serde(default)]
+    pub rule_group: String,
+    #[serde(default)]
+    pub input_category: String,
+    #[serde(default)]
+    pub output_category: String,
+    #[serde(default)]
+    pub terminal_mode: String,
+    #[serde(default)]
+    pub order_rank: i32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -198,6 +214,7 @@ pub fn collect_with_external(
                     conjugation_type: value(source,4).unwrap_or_default(), conjugation_form: "基本形".into(), entity_class: crate::morphology_config::entity_class_for_token(source).into() },
                 state_after: crate::morphology_machine::state(source),
                 normalized_form: None,
+                stage: String::new(), executor: String::new(), rule_group: String::new(), input_category: pos_major.clone(), output_category: pos_major.clone(), terminal_mode: String::new(), order_rank: 0,
             });
         }
         let connection_forms = [value(source, 17), value(source, 18)].into_iter().flatten().collect();

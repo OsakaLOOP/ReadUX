@@ -10,6 +10,7 @@ pub static CONFIG: LazyLock<Config> = LazyLock::new(|| serde_json::from_str(SOUR
 #[serde(deny_unknown_fields)]
 pub struct Config {
     pub operators: BTreeMap<String, Operator>,
+    #[serde(default)] pub rule_metadata: BTreeMap<String, RuleMetadata>,
     #[serde(default)] pub entity_classes: BTreeMap<String, EntityClass>,
     #[serde(default)] pub rule_tree: Vec<RuleTreeNode>,
     pub features: Vec<FeatureRule>,
@@ -19,6 +20,18 @@ pub struct Config {
     pub forms: Vec<FormRule>,
     pub insertion: Vec<TokenPattern>,
     pub presentation: serde_json::Value,
+}
+
+#[derive(Default, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct RuleMetadata {
+    pub stage: String,
+    pub executor: String,
+    pub rule_group: String,
+    pub input_category: String,
+    pub output_category: String,
+    pub terminal_mode: String,
+    pub order_rank: i32,
 }
 
 #[derive(Deserialize)]
@@ -190,6 +203,10 @@ pub struct PredicateLink {
 
 pub fn definition(kind: &str) -> Option<&'static Operator> { CONFIG.operators.get(kind) }
 
+pub fn rule_metadata(kind: &str) -> Option<&'static RuleMetadata> {
+    CONFIG.rule_metadata.get(kind)
+}
+
 /// 将来源 token 映射到六类实体。阶段和优先级不参与此判断。
 pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
     let pos = field(token, 0);
@@ -255,5 +272,9 @@ mod tests {
             }
         }
         assert!(CONFIG.presentation["inflections"].as_array().is_some());
+        for (kind, metadata) in &CONFIG.rule_metadata {
+            assert!(!metadata.stage.is_empty(), "{kind} 缺少阶段");
+            assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");
+        }
     }
 }
