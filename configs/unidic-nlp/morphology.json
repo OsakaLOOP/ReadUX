@@ -125,8 +125,24 @@
     }
   ],
   "rule_metadata": {
-    "nominalization": {"stage": "conversion", "executor": "nominalization", "rule_group": "名词化", "input_category": "用言", "output_category": "名詞", "terminal_mode": "continue", "order_rank": 45},
-    "nominal_change_ni": {"stage": "conversion", "executor": "nominalization", "rule_group": "体言接续", "input_category": "体言", "output_category": "体言", "terminal_mode": "continue", "order_rank": 46},
+    "nominalization": {
+      "stage": "conversion",
+      "executor": "nominalization",
+      "rule_group": "名词化",
+      "input_category": "用言",
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 45
+    },
+    "nominal_change_ni": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "形容词转换",
+      "input_category": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 40
+    },
     "causative": {
       "stage": "voice",
       "executor": "verb_cycle",
@@ -332,7 +348,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "politeness_desu": {
       "stage": "polarity_politeness",
@@ -341,7 +357,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "deshou_modality": {
       "stage": "modality",
@@ -350,7 +366,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "darou_modality": {
       "stage": "modality",
@@ -359,7 +375,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "darou_question": {
       "stage": "voice",
@@ -368,7 +384,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "conditional": {
       "stage": "voice",
@@ -377,7 +393,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "te_form": {
       "stage": "te_support",
@@ -386,7 +402,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "de_form": {
       "stage": "voice",
@@ -395,7 +411,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "negative_volitional": {
       "stage": "polarity_politeness",
@@ -404,7 +420,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 50
     },
     "desire_outward": {
       "stage": "desire",
@@ -413,7 +429,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 40
     },
     "copula": {
       "stage": "modality",
@@ -422,7 +438,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "adverbial_ni": {
       "stage": "modality",
@@ -431,7 +447,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "attributive_na": {
       "stage": "modality",
@@ -440,7 +456,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "copula_aru": {
       "stage": "modality",
@@ -449,7 +465,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "ease": {
       "stage": "desire",
@@ -458,7 +474,7 @@
       "input_category": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 40
     },
     "difficulty": {
       "stage": "desire",
@@ -467,16 +483,7 @@
       "input_category": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 0
-    },
-    "nominalization": {
-      "stage": "conversion",
-      "executor": "nominalization",
-      "rule_group": "名词化",
-      "input_category": "用言",
-      "output_category": "名詞",
-      "terminal_mode": "continue",
-      "order_rank": 45
+      "order_rank": 40
     },
     "ba_connection": {
       "stage": "voice",
@@ -485,7 +492,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "tara_condition": {
       "stage": "voice",
@@ -494,7 +501,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "nagara_connection": {
       "stage": "voice",
@@ -503,7 +510,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "tsutsu_connection": {
       "stage": "voice",
@@ -512,7 +519,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "concessive_connection": {
       "stage": "voice",
@@ -521,7 +528,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "prohibitive": {
       "stage": "voice",
@@ -530,7 +537,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "enumerative": {
       "stage": "voice",
@@ -539,7 +546,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "exemplification": {
       "stage": "insertion",
@@ -550,15 +557,6 @@
       "terminal_mode": "preserve",
       "order_rank": 0
     },
-    "nominal_change_ni": {
-      "stage": "desire",
-      "executor": "i_adjective_conversion",
-      "rule_group": "形容词转换",
-      "input_category": "用言",
-      "output_category": "形容詞",
-      "terminal_mode": "continue",
-      "order_rank": 0
-    },
     "ni_naru": {
       "stage": "voice",
       "executor": "verb_cycle",
@@ -566,7 +564,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "adjectival_naru": {
       "stage": "desire",
@@ -575,7 +573,7 @@
       "input_category": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 40
     },
     "hazu_modality": {
       "stage": "modality",
@@ -584,7 +582,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "degree": {
       "stage": "voice",
@@ -593,7 +591,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "kamoshirenai": {
       "stage": "voice",
@@ -602,7 +600,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "imperative": {
       "stage": "modality",
@@ -611,7 +609,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "te_kuru": {
       "stage": "te_support",
@@ -620,7 +618,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_miru": {
       "stage": "te_support",
@@ -629,7 +627,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_kudasaru": {
       "stage": "te_support",
@@ -638,7 +636,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_morau": {
       "stage": "te_support",
@@ -647,7 +645,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_ageru": {
       "stage": "te_support",
@@ -656,7 +654,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_kureru": {
       "stage": "te_support",
@@ -665,7 +663,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_yaru": {
       "stage": "te_support",
@@ -674,7 +672,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_hoshii": {
       "stage": "te_support",
@@ -683,7 +681,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_goran": {
       "stage": "te_support",
@@ -692,7 +690,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_miseru": {
       "stage": "te_support",
@@ -701,7 +699,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_tamaranai": {
       "stage": "te_support",
@@ -710,7 +708,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_naranai": {
       "stage": "te_support",
@@ -719,7 +717,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "te_yamanai": {
       "stage": "te_support",
@@ -728,7 +726,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "contracted_te_iru": {
       "stage": "te_support",
@@ -737,7 +735,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "contracted_te_shimau": {
       "stage": "te_support",
@@ -746,7 +744,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "contracted_te_oku": {
       "stage": "te_support",
@@ -755,7 +753,7 @@
       "input_category": "动词",
       "output_category": "动词",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 30
     },
     "tari_suru": {
       "stage": "tense",
@@ -764,7 +762,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 60
     },
     "tari_dekiru": {
       "stage": "tense",
@@ -773,7 +771,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 60
     },
     "excessive": {
       "stage": "voice",
@@ -782,7 +780,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "inceptive": {
       "stage": "voice",
@@ -791,7 +789,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "continuative_aspect": {
       "stage": "voice",
@@ -800,7 +798,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "terminative": {
       "stage": "voice",
@@ -809,7 +807,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "iterative_aspect": {
       "stage": "voice",
@@ -818,7 +816,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "inchoative": {
       "stage": "voice",
@@ -827,7 +825,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "corrective": {
       "stage": "voice",
@@ -836,7 +834,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "incomplete": {
       "stage": "voice",
@@ -845,7 +843,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "completion": {
       "stage": "voice",
@@ -854,7 +852,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "reluctance": {
       "stage": "voice",
@@ -863,7 +861,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "failure": {
       "stage": "voice",
@@ -872,7 +870,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "missed_opportunity": {
       "stage": "voice",
@@ -881,7 +879,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "kedo_connection": {
       "stage": "voice",
@@ -890,7 +888,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "keredomo_connection": {
       "stage": "voice",
@@ -899,7 +897,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "ga_connection": {
       "stage": "voice",
@@ -908,7 +906,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "noni_connection": {
       "stage": "voice",
@@ -917,7 +915,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "kara_connection": {
       "stage": "voice",
@@ -926,7 +924,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "node_connection": {
       "stage": "voice",
@@ -935,7 +933,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "to_condition": {
       "stage": "voice",
@@ -944,7 +942,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "nara_condition": {
       "stage": "modality",
@@ -953,7 +951,7 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 0
+      "order_rank": 70
     },
     "negative_ba": {
       "stage": "polarity_politeness",
@@ -962,7 +960,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "negative_tewa": {
       "stage": "polarity_politeness",
@@ -971,7 +969,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "negative_to": {
       "stage": "polarity_politeness",
@@ -980,7 +978,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "tewa_condition": {
       "stage": "voice",
@@ -989,7 +987,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "negative_de": {
       "stage": "polarity_politeness",
@@ -998,7 +996,7 @@
       "input_category": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 50
     },
     "necessity_negative_ba_naru": {
       "stage": "voice",
@@ -1007,7 +1005,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_ba_ikeru": {
       "stage": "voice",
@@ -1016,7 +1014,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_ba_dame": {
       "stage": "voice",
@@ -1025,7 +1023,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_tewa_naru": {
       "stage": "voice",
@@ -1034,7 +1032,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_tewa_ikeru": {
       "stage": "voice",
@@ -1043,7 +1041,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_tewa_dame": {
       "stage": "voice",
@@ -1052,7 +1050,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_to_naru": {
       "stage": "voice",
@@ -1061,7 +1059,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_to_ikeru": {
       "stage": "voice",
@@ -1070,7 +1068,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "necessity_negative_to_dame": {
       "stage": "voice",
@@ -1079,7 +1077,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "prohibition_tewa_condition_naru": {
       "stage": "voice",
@@ -1088,7 +1086,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "prohibition_tewa_condition_ikeru": {
       "stage": "voice",
@@ -1097,7 +1095,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     },
     "prohibition_tewa_condition_dame": {
       "stage": "voice",
@@ -1106,7 +1104,7 @@
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 0
+      "order_rank": 10
     }
   },
   "classical_forms": [
