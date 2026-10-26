@@ -122,7 +122,10 @@ pub struct StageTiming {
 
 impl StageTiming {
     pub fn new(stage: impl Into<String>, started: std::time::Instant) -> Self {
-        Self { stage: stage.into(), elapsed_ms: started.elapsed().as_secs_f64() * 1000.0 }
+        Self {
+            stage: stage.into(),
+            elapsed_ms: started.elapsed().as_secs_f64() * 1000.0,
+        }
     }
 }
 

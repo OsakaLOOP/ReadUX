@@ -461,7 +461,9 @@ fn dictionary_groups(lookup: &DictionaryLookup) -> Vec<(String, Vec<&DictEntry>)
         .collect()
 }
 
-fn active_form(lookup: &DictionaryLookup) -> Option<&crate::dictionary::model::DictionaryFormGroup> {
+fn active_form(
+    lookup: &DictionaryLookup,
+) -> Option<&crate::dictionary::model::DictionaryFormGroup> {
     lookup
         .selected_form_id
         .as_deref()

@@ -2,13 +2,10 @@ mod reader_engine;
 #[cfg(windows)]
 mod windows_icons;
 
+use reader_engine::ReaderEngine;
 use readux_core::analysis::{Request, ResourcePaths, Response};
 use readux_core::reader_state::{SavedSelection, WordState};
-use reader_engine::ReaderEngine;
-use std::{
-    path::PathBuf,
-    sync::Arc,
-};
+use std::{path::PathBuf, sync::Arc};
 use tauri::{Manager, State};
 
 struct AppState {
@@ -16,31 +13,60 @@ struct AppState {
     cancellation: Arc<std::sync::atomic::AtomicU64>,
 }
 
-fn dictionary_source_dir(data: &std::path::Path, portable: &std::path::Path, resources: &std::path::Path) -> PathBuf {
-    [data.join("dict-sources"), portable.join("dict-sources"), resources.join("dict-sources"), resources.join("_up_/data/dict-sources")]
-        .into_iter()
-        .find(|path| std::fs::read_dir(path).is_ok_and(|entries| entries.flatten().any(|entry| {
-            let path = entry.path();
-            path.is_file() && path.extension().is_some_and(|extension| extension == "kdict")
-        })))
-        .unwrap_or_else(|| portable.join("dict-sources"))
+fn dictionary_source_dir(
+    data: &std::path::Path,
+    portable: &std::path::Path,
+    resources: &std::path::Path,
+) -> PathBuf {
+    [
+        data.join("dict-sources"),
+        portable.join("dict-sources"),
+        resources.join("dict-sources"),
+        resources.join("_up_/data/dict-sources"),
+    ]
+    .into_iter()
+    .find(|path| {
+        std::fs::read_dir(path).is_ok_and(|entries| {
+            entries.flatten().any(|entry| {
+                let path = entry.path();
+                path.is_file()
+                    && path
+                        .extension()
+                        .is_some_and(|extension| extension == "kdict")
+            })
+        })
+    })
+    .unwrap_or_else(|| portable.join("dict-sources"))
 }
 
 #[tauri::command]
 fn cancel_external(state: State<'_, AppState>) {
-    state.cancellation.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    state
+        .cancellation
+        .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
 }
 
 #[tauri::command]
 fn search_grammar_catalog(
-    query: Option<String>, family: Option<String>, jlpt_level: Option<u8>,
-    audit_status: Option<String>, source_ref: Option<String>,
+    query: Option<String>,
+    family: Option<String>,
+    jlpt_level: Option<u8>,
+    audit_status: Option<String>,
+    source_ref: Option<String>,
 ) -> Result<Vec<readux_core::grammar_catalog::GrammarConcept>, String> {
-    readux_core::grammar_catalog::search(query.as_deref(), family.as_deref(), jlpt_level, audit_status.as_deref(), source_ref.as_deref())
+    readux_core::grammar_catalog::search(
+        query.as_deref(),
+        family.as_deref(),
+        jlpt_level,
+        audit_status.as_deref(),
+        source_ref.as_deref(),
+    )
 }
 
 #[tauri::command]
-fn get_grammar_concept(concept_id: String) -> Result<readux_core::grammar_catalog::GrammarConceptBundle, String> {
+fn get_grammar_concept(
+    concept_id: String,
+) -> Result<readux_core::grammar_catalog::GrammarConceptBundle, String> {
     readux_core::grammar_catalog::get(&concept_id)
 }
 
@@ -48,15 +74,18 @@ fn get_grammar_concept(concept_id: String) -> Result<readux_core::grammar_catalo
 async fn nlp_request(state: State<'_, AppState>, request: Request) -> Result<Response, String> {
     if matches!(request, Request::CancelExternal) {
         cancel_external(state);
-        return Ok(Response { result: Some(serde_json::json!({"cancelled": true})), error: None });
+        return Ok(Response {
+            result: Some(serde_json::json!({"cancelled": true})),
+            error: None,
+        });
     }
     let service = state.reader.analysis.clone();
-    let generation = state.cancellation.load(std::sync::atomic::Ordering::Relaxed);
-    tauri::async_runtime::spawn_blocking(move || {
-        Ok(service.dispatch_at(request, generation))
-    })
-    .await
-    .map_err(|e| e.to_string())?
+    let generation = state
+        .cancellation
+        .load(std::sync::atomic::Ordering::Relaxed);
+    tauri::async_runtime::spawn_blocking(move || Ok(service.dispatch_at(request, generation)))
+        .await
+        .map_err(|e| e.to_string())?
 }
 
 #[tauri::command]
@@ -65,31 +94,53 @@ fn reader_library(state: State<'_, AppState>) -> Result<serde_json::Value, Strin
 }
 
 #[tauri::command]
-async fn reader_book_summary(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBookSummary, String> {
+async fn reader_book_summary(
+    state: State<'_, AppState>,
+    id: String,
+) -> Result<readux_core::library::LibraryBookSummary, String> {
     let reader = state.reader.clone();
-    tauri::async_runtime::spawn_blocking(move || reader.book_summary(&id)).await.map_err(|error| error.to_string())?
+    tauri::async_runtime::spawn_blocking(move || reader.book_summary(&id))
+        .await
+        .map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-async fn reader_import(state: State<'_, AppState>, path: String) -> Result<readux_core::library::LibraryBook, String> {
+async fn reader_import(
+    state: State<'_, AppState>,
+    path: String,
+) -> Result<readux_core::library::LibraryBook, String> {
     let reader = state.reader.clone();
-    tauri::async_runtime::spawn_blocking(move || reader.import(&path)).await.map_err(|error| error.to_string())?
+    tauri::async_runtime::spawn_blocking(move || reader.import(&path))
+        .await
+        .map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-async fn reader_open_book(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBook, String> {
+async fn reader_open_book(
+    state: State<'_, AppState>,
+    id: String,
+) -> Result<readux_core::library::LibraryBook, String> {
     let reader = state.reader.clone();
-    tauri::async_runtime::spawn_blocking(move || reader.open_book(&id)).await.map_err(|error| error.to_string())?
+    tauri::async_runtime::spawn_blocking(move || reader.open_book(&id))
+        .await
+        .map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-async fn reader_open_text(state: State<'_, AppState>, text: String) -> Result<serde_json::Value, String> {
+async fn reader_open_text(
+    state: State<'_, AppState>,
+    text: String,
+) -> Result<serde_json::Value, String> {
     let reader = state.reader.clone();
-    tauri::async_runtime::spawn_blocking(move || reader.open_text(text)).await.map_err(|error| error.to_string())?
+    tauri::async_runtime::spawn_blocking(move || reader.open_text(text))
+        .await
+        .map_err(|error| error.to_string())?
 }
 
 #[tauri::command]
-fn reader_close(state: State<'_, AppState>) { state.reader.close(); }
+fn reader_close(state: State<'_, AppState>) {
+    state.reader.close();
+}
 
 #[tauri::command]
 fn set_reading_taskbar_icon(
@@ -99,54 +150,118 @@ fn set_reading_taskbar_icon(
     size: u32,
 ) -> Result<(), String> {
     #[cfg(windows)]
-    { windows_icons::update(&window, &state, rgba, size) }
+    {
+        windows_icons::update(&window, &state, rgba, size)
+    }
     #[cfg(not(windows))]
     {
-        let icon = rgba.map(|rgba| tauri::image::Image::new_owned(rgba, size, size))
+        let icon = rgba
+            .map(|rgba| tauri::image::Image::new_owned(rgba, size, size))
             .or_else(|| window.app_handle().default_window_icon().cloned());
-        if let Some(icon) = icon { window.set_icon(icon).map_err(|error| error.to_string())?; }
+        if let Some(icon) = icon {
+            window.set_icon(icon).map_err(|error| error.to_string())?;
+        }
         Ok(())
     }
 }
 
 #[tauri::command]
-fn reader_progress(state: State<'_, AppState>, id: String, offset: usize, total: usize, chapter: Option<String>, seconds: u64) -> Result<readux_core::library::LibraryBookSummary, String> {
-    state.reader.progress(&id, offset, total, chapter.as_deref(), seconds)
+fn reader_progress(
+    state: State<'_, AppState>,
+    id: String,
+    offset: usize,
+    total: usize,
+    chapter: Option<String>,
+    seconds: u64,
+) -> Result<readux_core::library::LibraryBookSummary, String> {
+    state
+        .reader
+        .progress(&id, offset, total, chapter.as_deref(), seconds)
 }
 
 #[tauri::command]
-fn reader_organize(state: State<'_, AppState>, id: String, color: Option<String>, tags: Vec<String>) -> Result<readux_core::library::LibraryBookSummary, String> {
+fn reader_organize(
+    state: State<'_, AppState>,
+    id: String,
+    color: Option<String>,
+    tags: Vec<String>,
+) -> Result<readux_core::library::LibraryBookSummary, String> {
     state.reader.organize(&id, color.as_deref(), &tags)
 }
 
 #[tauri::command]
-fn reader_reset(state: State<'_, AppState>, id: String) -> Result<readux_core::library::LibraryBookSummary, String> { state.reader.reset(&id) }
+fn reader_reset(
+    state: State<'_, AppState>,
+    id: String,
+) -> Result<readux_core::library::LibraryBookSummary, String> {
+    state.reader.reset(&id)
+}
 
 #[tauri::command]
-fn reader_remove(state: State<'_, AppState>, id: String) -> Result<bool, String> { state.reader.remove(&id) }
+fn reader_remove(state: State<'_, AppState>, id: String) -> Result<bool, String> {
+    state.reader.remove(&id)
+}
 
 #[tauri::command]
-fn reader_word(state: State<'_, AppState>, base: String, reading: String) -> Result<WordState, String> { state.reader.word(&base, &reading) }
+fn reader_word(
+    state: State<'_, AppState>,
+    base: String,
+    reading: String,
+) -> Result<WordState, String> {
+    state.reader.word(&base, &reading)
+}
 
 #[tauri::command]
-fn reader_mark(state: State<'_, AppState>, base: String, reading: String, known: bool) -> Result<WordState, String> { state.reader.mark(&base, &reading, known) }
+fn reader_mark(
+    state: State<'_, AppState>,
+    base: String,
+    reading: String,
+    known: bool,
+) -> Result<WordState, String> {
+    state.reader.mark(&base, &reading, known)
+}
 
 #[tauri::command]
-fn reader_expose(state: State<'_, AppState>, base: String, reading: String) -> Result<(), String> { state.reader.expose(&base, &reading) }
+fn reader_expose(state: State<'_, AppState>, base: String, reading: String) -> Result<(), String> {
+    state.reader.expose(&base, &reading)
+}
 
 #[tauri::command]
-fn reader_selections(state: State<'_, AppState>, book: String, version: String) -> Result<Vec<SavedSelection>, String> { state.reader.selections(&book, &version) }
+fn reader_selections(
+    state: State<'_, AppState>,
+    book: String,
+    version: String,
+) -> Result<Vec<SavedSelection>, String> {
+    state.reader.selections(&book, &version)
+}
 
 #[tauri::command]
-fn reader_save_selection(state: State<'_, AppState>, selection: SavedSelection) -> Result<(), String> { state.reader.save_selection(&selection) }
+fn reader_save_selection(
+    state: State<'_, AppState>,
+    selection: SavedSelection,
+) -> Result<(), String> {
+    state.reader.save_selection(&selection)
+}
 
 #[tauri::command]
-fn reader_delete_selection(state: State<'_, AppState>, book: String, version: String, start: usize, end: usize) -> Result<(), String> {
+fn reader_delete_selection(
+    state: State<'_, AppState>,
+    book: String,
+    version: String,
+    start: usize,
+    end: usize,
+) -> Result<(), String> {
     state.reader.delete_selection(&book, &version, start, end)
 }
 
 #[tauri::command]
-fn reader_clear_selections(state: State<'_, AppState>, book: String, version: String) -> Result<(), String> { state.reader.clear_selections(&book, &version) }
+fn reader_clear_selections(
+    state: State<'_, AppState>,
+    book: String,
+    version: String,
+) -> Result<(), String> {
+    state.reader.clear_selections(&book, &version)
+}
 
 pub fn run() {
     tauri::Builder::default()
@@ -179,7 +294,11 @@ pub fn run() {
                         local
                     } else {
                         let packaged = resources.join(relative);
-                        if packaged.exists() { packaged } else { resources.join("_up_").join(relative) }
+                        if packaged.exists() {
+                            packaged
+                        } else {
+                            resources.join("_up_").join(relative)
+                        }
                     }
                 };
                 let dictionary = |name: &str| {
@@ -193,7 +312,9 @@ pub fn run() {
                             } else if resources.join("nlp").join(format!("{name}.dic")).is_file() {
                                 resources.join("nlp").join(format!("{name}.dic"))
                             } else {
-                                bundled(&format!("experiments/unidic-source/unidic-{name}-202512.vibrato.dic"))
+                                bundled(&format!(
+                                    "experiments/unidic-source/unidic-{name}-202512.vibrato.dic"
+                                ))
                             }
                         })
                 };
@@ -205,12 +326,19 @@ pub fn run() {
                     dictionaries: data.join("dicts"),
                     provider_config: data.join("providers.local.json"),
                     provider_script: bundled("scripts/nlp_provider.py"),
-                    provider_defaults: readux_core::providers::ProviderSettings::portable_with_resource_dir(&portable, Some(&resources)),
+                    provider_defaults:
+                        readux_core::providers::ProviderSettings::portable_with_resource_dir(
+                            &portable,
+                            Some(&resources),
+                        ),
                 }
             };
-            let data = std::env::var_os("READUX_DATA_DIR").map(PathBuf::from).unwrap_or(app.path().app_data_dir()?);
+            let data = std::env::var_os("READUX_DATA_DIR")
+                .map(PathBuf::from)
+                .unwrap_or(app.path().app_data_dir()?);
             let library = app.path().document_dir()?.join("ReadUX Library");
-            let reader = Arc::new(ReaderEngine::new(paths, library, data).map_err(std::io::Error::other)?);
+            let reader =
+                Arc::new(ReaderEngine::new(paths, library, data).map_err(std::io::Error::other)?);
             let background_reader = Arc::clone(&reader);
             tauri::async_runtime::spawn_blocking(move || {
                 if let Err(error) = background_reader.backfill_resource_dimensions() {
@@ -218,13 +346,36 @@ pub fn run() {
                 }
             });
             let cancellation = reader.analysis.cancellation();
-            app.manage(AppState { reader, cancellation });
+            app.manage(AppState {
+                reader,
+                cancellation,
+            });
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![nlp_request, search_grammar_catalog, get_grammar_concept, cancel_external,
-            reader_library, reader_book_summary, reader_import, reader_open_book, reader_open_text, reader_close, reader_progress,
-            reader_organize, reader_reset, reader_remove, reader_word, reader_mark, reader_expose,
-            reader_selections, reader_save_selection, reader_delete_selection, reader_clear_selections, set_reading_taskbar_icon])
+        .invoke_handler(tauri::generate_handler![
+            nlp_request,
+            search_grammar_catalog,
+            get_grammar_concept,
+            cancel_external,
+            reader_library,
+            reader_book_summary,
+            reader_import,
+            reader_open_book,
+            reader_open_text,
+            reader_close,
+            reader_progress,
+            reader_organize,
+            reader_reset,
+            reader_remove,
+            reader_word,
+            reader_mark,
+            reader_expose,
+            reader_selections,
+            reader_save_selection,
+            reader_delete_selection,
+            reader_clear_selections,
+            set_reading_taskbar_icon
+        ])
         .run(tauri::generate_context!())
         .expect("桌面应用启动失败");
 }

@@ -12922,7 +12922,24 @@
       "priority": 80,
       "enabled": true,
       "audit_status": "verified",
-      "atoms": [],
+      "atoms": [
+        {
+          "pos_major": ["動詞"],
+          "conjugation_forms": ["連用タ接続"],
+          "capture": "predicate"
+        },
+        {
+          "base_forms": ["て", "で"],
+          "pos_major": ["助詞"],
+          "pos_sub1": ["接続助詞"],
+          "capture": "connector"
+        },
+        {
+          "base_forms": ["ゆく"],
+          "pos_major": ["動詞"],
+          "capture": "functional_verb"
+        }
+      ],
       "display_from": 1,
       "display_to": null,
       "captures": [

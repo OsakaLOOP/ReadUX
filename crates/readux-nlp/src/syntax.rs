@@ -46,9 +46,15 @@ pub struct AlignmentDiagnostic {
 pub const SCHEMA: &str = "readux.syntax-artifact.v2";
 
 pub fn validate_identity(artifact: &SyntaxArtifact, text: &str) -> Result<(), String> {
-    if artifact.schema != SCHEMA { return Err("artifact_schema_mismatch".into()); }
-    if artifact.text_characters != text.chars().count() { return Err("artifact_character_count_mismatch".into()); }
-    if artifact.text_sha256 != crate::external::text_digest(text) { return Err("artifact_text_digest_mismatch".into()); }
+    if artifact.schema != SCHEMA {
+        return Err("artifact_schema_mismatch".into());
+    }
+    if artifact.text_characters != text.chars().count() {
+        return Err("artifact_character_count_mismatch".into());
+    }
+    if artifact.text_sha256 != crate::external::text_digest(text) {
+        return Err("artifact_text_digest_mismatch".into());
+    }
     Ok(())
 }
 
@@ -68,25 +74,32 @@ pub fn parse_bundle_json(input: &str) -> Result<SyntaxArtifactBundle, serde_json
 }
 
 /// 只接受落在规范文本范围内的 provider 区间；越界或反向区间保持未对齐。
-pub fn align_to_text(artifact: &SyntaxArtifact, text_characters: usize) -> Vec<AlignmentDiagnostic> {
-    artifact.spans.iter().map(|span| {
-        let [start, end] = span.char_range;
-        if start < end && end <= text_characters {
-            AlignmentDiagnostic {
-                provider_span_id: span.id.clone(),
-                status: "aligned".into(),
-                reason: "unicode_scalar_range".into(),
-                matched_range: Some([start, end]),
+pub fn align_to_text(
+    artifact: &SyntaxArtifact,
+    text_characters: usize,
+) -> Vec<AlignmentDiagnostic> {
+    artifact
+        .spans
+        .iter()
+        .map(|span| {
+            let [start, end] = span.char_range;
+            if start < end && end <= text_characters {
+                AlignmentDiagnostic {
+                    provider_span_id: span.id.clone(),
+                    status: "aligned".into(),
+                    reason: "unicode_scalar_range".into(),
+                    matched_range: Some([start, end]),
+                }
+            } else {
+                AlignmentDiagnostic {
+                    provider_span_id: span.id.clone(),
+                    status: "unmatched".into(),
+                    reason: "range_out_of_bounds".into(),
+                    matched_range: None,
+                }
             }
-        } else {
-            AlignmentDiagnostic {
-                provider_span_id: span.id.clone(),
-                status: "unmatched".into(),
-                reason: "range_out_of_bounds".into(),
-                matched_range: None,
-            }
-        }
-    }).collect()
+        })
+        .collect()
 }
 
 /// 在范围检查之外核对 provider 返回的 surface，避免不同文本坐标被误合并。
@@ -123,16 +136,40 @@ pub fn align_to_text_content(artifact: &SyntaxArtifact, text: &str) -> Vec<Align
 mod tests {
     use super::*;
     fn descriptor() -> SyntaxProviderDescriptor {
-        SyntaxProviderDescriptor { id: "fixture".into(), version: Some("1".into()), capabilities: vec!["bunsetsu".into()], license: None }
+        SyntaxProviderDescriptor {
+            id: "fixture".into(),
+            version: Some("1".into()),
+            capabilities: vec!["bunsetsu".into()],
+            license: None,
+        }
     }
     #[test]
     fn alignment_preserves_valid_ranges_and_rejects_invalid_ranges() {
         let artifact = SyntaxArtifact {
-            schema: SCHEMA.into(), segment_id: None, provider: descriptor(), text_characters: 3,
+            schema: SCHEMA.into(),
+            segment_id: None,
+            provider: descriptor(),
+            text_characters: 3,
             text_sha256: crate::external::text_digest("甲乙丙"),
             spans: vec![
-                SyntaxSpan { id: "ok".into(), kind: "bunsetsu".into(), char_range: [0, 2], head_char_range: None, source_id: "x".into(), surface: None, labels: vec![] },
-                SyntaxSpan { id: "bad".into(), kind: "bunsetsu".into(), char_range: [2, 4], head_char_range: None, source_id: "x".into(), surface: None, labels: vec![] },
+                SyntaxSpan {
+                    id: "ok".into(),
+                    kind: "bunsetsu".into(),
+                    char_range: [0, 2],
+                    head_char_range: None,
+                    source_id: "x".into(),
+                    surface: None,
+                    labels: vec![],
+                },
+                SyntaxSpan {
+                    id: "bad".into(),
+                    kind: "bunsetsu".into(),
+                    char_range: [2, 4],
+                    head_char_range: None,
+                    source_id: "x".into(),
+                    surface: None,
+                    labels: vec![],
+                },
             ],
         };
         let result = align_to_text(&artifact, 3);
@@ -143,9 +180,20 @@ mod tests {
     #[test]
     fn content_alignment_rejects_surface_mismatch() {
         let artifact = SyntaxArtifact {
-            schema: SCHEMA.into(), segment_id: None, provider: descriptor(), text_characters: 2,
+            schema: SCHEMA.into(),
+            segment_id: None,
+            provider: descriptor(),
+            text_characters: 2,
             text_sha256: crate::external::text_digest("甲乙"),
-            spans: vec![SyntaxSpan { id: "x".into(), kind: "token".into(), char_range: [0, 1], head_char_range: None, source_id: "x".into(), surface: Some("乙".into()), labels: vec![] }],
+            spans: vec![SyntaxSpan {
+                id: "x".into(),
+                kind: "token".into(),
+                char_range: [0, 1],
+                head_char_range: None,
+                source_id: "x".into(),
+                surface: Some("乙".into()),
+                labels: vec![],
+            }],
         };
         let result = align_to_text_content(&artifact, "甲乙");
         assert_eq!(result[0].reason, "surface_mismatch");
@@ -154,9 +202,20 @@ mod tests {
     #[test]
     fn content_alignment_rejects_declared_character_count_mismatch() {
         let artifact = SyntaxArtifact {
-            schema: SCHEMA.into(), segment_id: None, provider: descriptor(), text_characters: 3,
+            schema: SCHEMA.into(),
+            segment_id: None,
+            provider: descriptor(),
+            text_characters: 3,
             text_sha256: crate::external::text_digest("甲乙"),
-            spans: vec![SyntaxSpan { id: "x".into(), kind: "token".into(), char_range: [0, 1], head_char_range: None, source_id: "x".into(), surface: Some("甲".into()), labels: vec![] }],
+            spans: vec![SyntaxSpan {
+                id: "x".into(),
+                kind: "token".into(),
+                char_range: [0, 1],
+                head_char_range: None,
+                source_id: "x".into(),
+                surface: Some("甲".into()),
+                labels: vec![],
+            }],
         };
         let result = align_to_text_content(&artifact, "甲乙");
         assert_eq!(result[0].reason, "artifact_character_count_mismatch");
@@ -165,10 +224,19 @@ mod tests {
 
     #[test]
     fn digest_checks_even_empty_artifact_and_equal_length_text() {
-        let artifact = SyntaxArtifact { schema: SCHEMA.into(), segment_id: None, provider: descriptor(), text_characters: 2,
-            text_sha256: crate::external::text_digest("甲乙"), spans: Vec::new() };
+        let artifact = SyntaxArtifact {
+            schema: SCHEMA.into(),
+            segment_id: None,
+            provider: descriptor(),
+            text_characters: 2,
+            text_sha256: crate::external::text_digest("甲乙"),
+            spans: Vec::new(),
+        };
         assert!(validate_identity(&artifact, "甲乙").is_ok());
-        assert_eq!(validate_identity(&artifact, "丙丁").unwrap_err(), "artifact_text_digest_mismatch");
+        assert_eq!(
+            validate_identity(&artifact, "丙丁").unwrap_err(),
+            "artifact_text_digest_mismatch"
+        );
     }
 
     #[test]
@@ -184,6 +252,9 @@ mod tests {
     fn parses_segment_artifact_bundle() {
         let json = r#"{"schema":"readux.kwja-syntax-artifacts.v1","artifacts":[{"segment_id":"source-collective","schema":"readux.syntax-artifact.v1","provider":{"id":"kwja","version":"2.1.3","capabilities":[],"license":null},"text_characters":1,"spans":[]}] }"#;
         let bundle = parse_bundle_json(json).unwrap();
-        assert_eq!(bundle.artifacts[0].segment_id.as_deref(), Some("source-collective"));
+        assert_eq!(
+            bundle.artifacts[0].segment_id.as_deref(),
+            Some("source-collective")
+        );
     }
 }

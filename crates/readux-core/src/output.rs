@@ -1,4 +1,7 @@
-use crate::dictionary::{lookup::DictionaryEngine, model::{DictEntry, DictionaryFormGroup, DictionaryLookupTiming, PosTag}};
+use crate::dictionary::{
+    lookup::DictionaryEngine,
+    model::{DictEntry, DictionaryFormGroup, DictionaryLookupTiming, PosTag},
+};
 use readux_nlp::model::{MorphemeToken, QueryForm};
 use serde::Serialize;
 
@@ -59,9 +62,15 @@ pub fn query(
                 selected_form,
                 &[],
             );
-            if matrix_forms.is_empty() { matrix_forms = lookup.forms.clone(); }
-            if selected_form_id.is_none() { selected_form_id = lookup.selected_form_id.clone(); }
-            if timing.is_none() { timing = lookup.timing.clone(); }
+            if matrix_forms.is_empty() {
+                matrix_forms = lookup.forms.clone();
+            }
+            if selected_form_id.is_none() {
+                selected_form_id = lookup.selected_form_id.clone();
+            }
+            if timing.is_none() {
+                timing = lookup.timing.clone();
+            }
             let total = lookup.entries.len();
             let entries = lookup.entries;
             QueryGroup {

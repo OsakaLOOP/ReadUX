@@ -8,7 +8,11 @@ use std::{
     io::{BufRead, BufReader, Write},
     path::{Path, PathBuf},
     process::{Child, ChildStdin, Command, Stdio},
-    sync::{atomic::{AtomicU64, Ordering}, mpsc::{self, Receiver}, Arc, Mutex},
+    sync::{
+        atomic::{AtomicU64, Ordering},
+        mpsc::{self, Receiver},
+        Arc, Mutex,
+    },
     time::{Duration, Instant},
 };
 
@@ -31,12 +35,20 @@ pub struct ProviderSettings {
     pub analysis_timing_enabled: bool,
 }
 
-fn default_analysis_timing_enabled() -> bool { true }
+fn default_analysis_timing_enabled() -> bool {
+    true
+}
 
 impl ProviderSettings {
     pub fn development(root: &Path) -> Self {
         Self {
-            ginza: ProviderConfig { python: root.join("experiments/ginza311/Scripts/python.exe"), model: "ja_ginza".into(), enabled: true, timeout_seconds: 120, dictionary: PathBuf::new() },
+            ginza: ProviderConfig {
+                python: root.join("experiments/ginza311/Scripts/python.exe"),
+                model: "ja_ginza".into(),
+                enabled: true,
+                timeout_seconds: 120,
+                dictionary: PathBuf::new(),
+            },
             analysis_timing_enabled: true,
         }
     }
@@ -87,19 +99,26 @@ struct Worker {
 fn worker_job(child: &Child) -> std::io::Result<std::os::windows::io::OwnedHandle> {
     use std::os::windows::io::{AsRawHandle, FromRawHandle, OwnedHandle};
     use windows_sys::Win32::System::JobObjects::{
-        AssignProcessToJobObject, CreateJobObjectW, SetInformationJobObject,
-        JobObjectExtendedLimitInformation, JOBOBJECT_EXTENDED_LIMIT_INFORMATION,
+        AssignProcessToJobObject, CreateJobObjectW, JobObjectExtendedLimitInformation,
+        SetInformationJobObject, JOBOBJECT_EXTENDED_LIMIT_INFORMATION,
         JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE,
     };
     unsafe {
         let handle = CreateJobObjectW(std::ptr::null(), std::ptr::null());
-        if handle.is_null() { return Err(std::io::Error::last_os_error()); }
+        if handle.is_null() {
+            return Err(std::io::Error::last_os_error());
+        }
         let job = OwnedHandle::from_raw_handle(handle);
         let mut limits: JOBOBJECT_EXTENDED_LIMIT_INFORMATION = std::mem::zeroed();
         limits.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
-        if SetInformationJobObject(handle, JobObjectExtendedLimitInformation,
-            &limits as *const _ as *const _, std::mem::size_of_val(&limits) as u32) == 0
-            || AssignProcessToJobObject(handle, child.as_raw_handle()) == 0 {
+        if SetInformationJobObject(
+            handle,
+            JobObjectExtendedLimitInformation,
+            &limits as *const _ as *const _,
+            std::mem::size_of_val(&limits) as u32,
+        ) == 0
+            || AssignProcessToJobObject(handle, child.as_raw_handle()) == 0
+        {
             return Err(std::io::Error::last_os_error());
         }
         Ok(job)
@@ -107,25 +126,48 @@ fn worker_job(child: &Child) -> std::io::Result<std::os::windows::io::OwnedHandl
 }
 
 fn worker_identity(id: &str, config: &ProviderConfig, script: &Path) -> String {
-    serde_json::to_string(&(PROTOCOL, id, &config.python, &config.model, &config.dictionary, script))
-        .expect("provider identity must be serializable")
+    serde_json::to_string(&(
+        PROTOCOL,
+        id,
+        &config.python,
+        &config.model,
+        &config.dictionary,
+        script,
+    ))
+    .expect("provider identity must be serializable")
 }
 
 impl Worker {
-    fn start(id: &str, config: &ProviderConfig, script: &Path, log: &Path, cancel: &AtomicU64, generation: u64) -> Result<Self, String> {
+    fn start(
+        id: &str,
+        config: &ProviderConfig,
+        script: &Path,
+        log: &Path,
+        cancel: &AtomicU64,
+        generation: u64,
+    ) -> Result<Self, String> {
         let identity = worker_identity(id, config, script);
         let mut command = Command::new(&config.python);
-        command.args(["-B", "-X", "utf8", "-u"]).arg(script)
+        command
+            .args(["-B", "-X", "utf8", "-u"])
+            .arg(script)
             .args(["--provider", id, "--model", &config.model])
-            .stdin(Stdio::piped()).stdout(Stdio::piped())
-            .stderr(Stdio::from(File::create(log).map_err(|e| format!("无法创建来源日志：{e}"))?));
-        if !config.dictionary.as_os_str().is_empty() { command.arg("--dictionary").arg(&config.dictionary); }
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::from(
+                File::create(log).map_err(|e| format!("无法创建来源日志：{e}"))?,
+            ));
+        if !config.dictionary.as_os_str().is_empty() {
+            command.arg("--dictionary").arg(&config.dictionary);
+        }
         #[cfg(windows)]
         {
             use std::os::windows::process::CommandExt;
             command.creation_flags(0x08000000);
         }
-        let mut child = command.spawn().map_err(|e| format!("无法启动 {}：{e}", config.python.display()))?;
+        let mut child = command
+            .spawn()
+            .map_err(|e| format!("无法启动 {}：{e}", config.python.display()))?;
         #[cfg(windows)]
         let job = match worker_job(&child) {
             Ok(job) => job,
@@ -140,16 +182,27 @@ impl Worker {
         let (sender, receiver) = mpsc::channel();
         std::thread::spawn(move || {
             for line in BufReader::new(output).lines() {
-                let value = line.map_err(|e| e.to_string()).and_then(|line| serde_json::from_str(&line).map_err(|e| format!("来源消息解析失败：{e}")));
-                if sender.send(value).is_err() { break; }
+                let value = line.map_err(|e| e.to_string()).and_then(|line| {
+                    serde_json::from_str(&line).map_err(|e| format!("来源消息解析失败：{e}"))
+                });
+                if sender.send(value).is_err() {
+                    break;
+                }
             }
         });
-        let mut worker = Self { child, input, output: receiver, manifest: Value::Null, identity,
+        let mut worker = Self {
+            child,
+            input,
+            output: receiver,
+            manifest: Value::Null,
+            identity,
             #[cfg(windows)]
             _job: job,
         };
         let ready = worker.receive(config.timeout_seconds, cancel, generation)?;
-        if ready["event"] != "ready" { return Err(ready["error"].as_str().unwrap_or("来源初始化失败").into()); }
+        if ready["event"] != "ready" {
+            return Err(ready["error"].as_str().unwrap_or("来源初始化失败").into());
+        }
         worker.manifest = ready["manifest"].clone();
         Ok(worker)
     }
@@ -157,28 +210,53 @@ impl Worker {
     fn receive(&self, timeout: u64, cancel: &AtomicU64, generation: u64) -> Result<Value, String> {
         let deadline = Instant::now() + Duration::from_secs(timeout);
         loop {
-            if cancel.load(Ordering::Relaxed) != generation { return Err("来源分析已取消".into()); }
+            if cancel.load(Ordering::Relaxed) != generation {
+                return Err("来源分析已取消".into());
+            }
             let remaining = deadline.saturating_duration_since(Instant::now());
-            if remaining.is_zero() { return Err(format!("来源分析超过 {timeout} 秒")); }
-            match self.output.recv_timeout(remaining.min(Duration::from_millis(100))) {
+            if remaining.is_zero() {
+                return Err(format!("来源分析超过 {timeout} 秒"));
+            }
+            match self
+                .output
+                .recv_timeout(remaining.min(Duration::from_millis(100)))
+            {
                 Ok(value) => {
                     let value = value?;
-                    if value["protocol"] != PROTOCOL { return Err("来源进程协议版本不匹配".into()); }
+                    if value["protocol"] != PROTOCOL {
+                        return Err("来源进程协议版本不匹配".into());
+                    }
                     return Ok(value);
                 }
-                Err(mpsc::RecvTimeoutError::Timeout) => {},
-                Err(mpsc::RecvTimeoutError::Disconnected) => return Err("来源进程已退出，请重试并检查日志".into()),
+                Err(mpsc::RecvTimeoutError::Timeout) => {}
+                Err(mpsc::RecvTimeoutError::Disconnected) => {
+                    return Err("来源进程已退出，请重试并检查日志".into())
+                }
             }
         }
     }
 
-    fn analyze(&mut self, text: &str, request_id: &str, timeout: u64, cancel: &AtomicU64, generation: u64) -> Result<SourceArtifact, String> {
+    fn analyze(
+        &mut self,
+        text: &str,
+        request_id: &str,
+        timeout: u64,
+        cancel: &AtomicU64,
+        generation: u64,
+    ) -> Result<SourceArtifact, String> {
         let message = json!({"protocol": PROTOCOL, "command": "analyze", "request_id": request_id, "text": text});
-        writeln!(self.input, "{message}").and_then(|_| self.input.flush()).map_err(|e| format!("来源请求发送失败：{e}"))?;
+        writeln!(self.input, "{message}")
+            .and_then(|_| self.input.flush())
+            .map_err(|e| format!("来源请求发送失败：{e}"))?;
         let value = self.receive(timeout, cancel, generation)?;
-        if value["request_id"] != request_id { return Err("来源响应请求身份不匹配".into()); }
-        if value["event"] != "result" { return Err(value["error"].as_str().unwrap_or("来源分析失败").into()); }
-        let artifact: SourceArtifact = serde_json::from_value(value["result"].clone()).map_err(|e| format!("来源结果协议不匹配：{e}"))?;
+        if value["request_id"] != request_id {
+            return Err("来源响应请求身份不匹配".into());
+        }
+        if value["event"] != "result" {
+            return Err(value["error"].as_str().unwrap_or("来源分析失败").into());
+        }
+        let artifact: SourceArtifact = serde_json::from_value(value["result"].clone())
+            .map_err(|e| format!("来源结果协议不匹配：{e}"))?;
         artifact.validate(text)?;
         Ok(artifact)
     }
@@ -207,12 +285,22 @@ pub struct ProviderManager {
 
 impl ProviderManager {
     pub fn new(config_path: PathBuf, script: PathBuf, defaults: ProviderSettings) -> Self {
-        Self { config_path, script, defaults, workers: HashMap::new(), cancellation: Arc::new(AtomicU64::new(0)), sequence: 0, cache: Mutex::new(crate::analysis_cache::AnalysisCache::new(32 * 1024 * 1024)) }
+        Self {
+            config_path,
+            script,
+            defaults,
+            workers: HashMap::new(),
+            cancellation: Arc::new(AtomicU64::new(0)),
+            sequence: 0,
+            cache: Mutex::new(crate::analysis_cache::AnalysisCache::new(32 * 1024 * 1024)),
+        }
     }
 
     pub fn settings(&self) -> Result<ProviderSettings, String> {
         match fs::read_to_string(&self.config_path) {
-            Ok(contents) => serde_json::from_str(&contents).map_err(|e| format!("来源配置无效：{e}")),
+            Ok(contents) => {
+                serde_json::from_str(&contents).map_err(|e| format!("来源配置无效：{e}"))
+            }
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(self.defaults.clone()),
             Err(e) => Err(format!("无法读取来源配置：{e}")),
         }
@@ -223,35 +311,61 @@ impl ProviderManager {
     }
 
     pub fn cache_identity(&self) -> Result<String, String> {
-        let mut value = serde_json::to_value(self.settings()?).map_err(|error| error.to_string())?;
-        value.as_object_mut().map(|object| object.remove("analysis_timing_enabled"));
+        let mut value =
+            serde_json::to_value(self.settings()?).map_err(|error| error.to_string())?;
+        value
+            .as_object_mut()
+            .map(|object| object.remove("analysis_timing_enabled"));
         serde_json::to_string(&value).map_err(|error| error.to_string())
     }
 
     pub fn configure(&mut self, settings: ProviderSettings) -> Result<Value, String> {
         for (id, config) in [("ginza", &settings.ginza)] {
-            if config.timeout_seconds == 0 || config.model.trim().is_empty() { return Err(format!("{id} 的模型和超时设置无效")); }
+            if config.timeout_seconds == 0 || config.model.trim().is_empty() {
+                return Err(format!("{id} 的模型和超时设置无效"));
+            }
         }
         let previous = self.settings().ok();
         fs::create_dir_all(self.config_path.parent().unwrap()).map_err(|e| e.to_string())?;
-        fs::write(&self.config_path, serde_json::to_vec_pretty(&settings).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+        fs::write(
+            &self.config_path,
+            serde_json::to_vec_pretty(&settings).map_err(|e| e.to_string())?,
+        )
+        .map_err(|e| e.to_string())?;
         let new_identity = worker_identity("ginza", &settings.ginza, &self.script);
-        let keep_worker = settings.ginza.enabled && self.workers.get("ginza").map(|worker| {
-            let mut worker = worker.lock().unwrap();
-            worker.identity == new_identity && worker.is_alive()
-        }).unwrap_or(false);
-        if !keep_worker { self.workers.remove("ginza"); }
-        let previous_config = previous.as_ref().and_then(|value| serde_json::to_string(&value.ginza).ok());
-        let new_config = serde_json::to_string(&settings.ginza).map_err(|error| error.to_string())?;
-        if previous_config.as_deref() != Some(new_config.as_str()) { self.cache.lock().unwrap().clear(); }
+        let keep_worker = settings.ginza.enabled
+            && self
+                .workers
+                .get("ginza")
+                .map(|worker| {
+                    let mut worker = worker.lock().unwrap();
+                    worker.identity == new_identity && worker.is_alive()
+                })
+                .unwrap_or(false);
+        if !keep_worker {
+            self.workers.remove("ginza");
+        }
+        let previous_config = previous
+            .as_ref()
+            .and_then(|value| serde_json::to_string(&value.ginza).ok());
+        let new_config =
+            serde_json::to_string(&settings.ginza).map_err(|error| error.to_string())?;
+        if previous_config.as_deref() != Some(new_config.as_str()) {
+            self.cache.lock().unwrap().clear();
+        }
         self.status()
     }
 
     pub fn set_analysis_timing(&self, enabled: bool) -> Result<Value, String> {
         let mut settings = self.settings()?;
         settings.analysis_timing_enabled = enabled;
-        fs::create_dir_all(self.config_path.parent().unwrap()).map_err(|error| error.to_string())?;
-        fs::write(&self.config_path, serde_json::to_vec_pretty(&settings).map_err(|error| error.to_string())?).map_err(|error| error.to_string())?;
+        fs::create_dir_all(self.config_path.parent().unwrap())
+            .map_err(|error| error.to_string())?;
+        fs::write(
+            &self.config_path,
+            serde_json::to_vec_pretty(&settings).map_err(|error| error.to_string())?,
+        )
+        .map_err(|error| error.to_string())?;
         Ok(json!({"analysis_timing_enabled": enabled}))
     }
 
@@ -271,24 +385,42 @@ impl ProviderManager {
             json!({"id": id, "configured": config.python.is_file() && self.script.is_file(), "available": loaded, "enabled": config.enabled,
                 "loaded": loaded, "pid": state.0, "manifest": state.1})
         }).collect();
-        Ok(json!({"settings": settings, "providers": providers, "config_path": self.config_path, "script": self.script}))
+        Ok(
+            json!({"settings": settings, "providers": providers, "config_path": self.config_path, "script": self.script}),
+        )
     }
 
-    fn ensure_worker(&mut self, id: &str, config: &ProviderConfig, generation: u64) -> Result<Arc<Mutex<Worker>>, String> {
-        if self.cancellation.load(Ordering::Relaxed) != generation { return Err("来源初始化已取消".into()); }
+    fn ensure_worker(
+        &mut self,
+        id: &str,
+        config: &ProviderConfig,
+        generation: u64,
+    ) -> Result<Arc<Mutex<Worker>>, String> {
+        if self.cancellation.load(Ordering::Relaxed) != generation {
+            return Err("来源初始化已取消".into());
+        }
         let identity = worker_identity(id, config, &self.script);
         if let Some(existing) = self.workers.get(id).cloned() {
             let reusable = {
                 let mut worker = existing.lock().unwrap();
                 worker.identity == identity && worker.is_alive()
             };
-            if reusable { return Ok(existing); }
+            if reusable {
+                return Ok(existing);
+            }
             self.workers.remove(id);
         }
         let log_dir = self.config_path.parent().unwrap().join("provider-logs");
         fs::create_dir_all(&log_dir).map_err(|e| e.to_string())?;
-        let worker = Worker::start(id, config, &self.script, &log_dir.join(format!("{id}.log")), &self.cancellation, generation)
-            .map_err(|error| format!("{id} 初始化失败：{error}"))?;
+        let worker = Worker::start(
+            id,
+            config,
+            &self.script,
+            &log_dir.join(format!("{id}.log")),
+            &self.cancellation,
+            generation,
+        )
+        .map_err(|error| format!("{id} 初始化失败：{error}"))?;
         let worker = Arc::new(Mutex::new(worker));
         self.workers.insert(id.into(), worker.clone());
         Ok(worker)
@@ -298,7 +430,11 @@ impl ProviderManager {
         let settings = self.settings()?;
         let mut diagnostics = Vec::new();
         for (id, config) in [("ginza", &settings.ginza)] {
-            if !config.enabled { self.workers.remove(id); diagnostics.push(json!({"id": id, "status": "disabled"})); continue; }
+            if !config.enabled {
+                self.workers.remove(id);
+                diagnostics.push(json!({"id": id, "status": "disabled"}));
+                continue;
+            }
             let result = self.ensure_worker(id, config, generation);
             diagnostics.push(match result {
                 Ok(worker) => { let worker = worker.lock().unwrap(); json!({"id": id, "status": "ready", "manifest": worker.manifest, "pid": worker.child.id()}) },
@@ -309,12 +445,26 @@ impl ProviderManager {
     }
 
     pub fn analyze(&mut self, text: &str, generation: u64) -> (Vec<SourceArtifact>, Vec<Value>) {
-        let settings = match self.settings() { Ok(s) => s, Err(e) => return (vec![], vec![json!({"id": "configuration", "status": "failed", "error": e})]) };
+        let settings = match self.settings() {
+            Ok(s) => s,
+            Err(e) => {
+                return (
+                    vec![],
+                    vec![json!({"id": "configuration", "status": "failed", "error": e})],
+                )
+            }
+        };
         let mut artifacts = Vec::new();
         let mut diagnostics = Vec::new();
         for (id, config) in [("ginza", settings.ginza.clone())] {
-            if !config.enabled { diagnostics.push(json!({"id": id, "status": "disabled"})); continue; }
-            if self.cancellation.load(Ordering::Relaxed) != generation { diagnostics.push(json!({"id": id, "status": "cancelled"})); continue; }
+            if !config.enabled {
+                diagnostics.push(json!({"id": id, "status": "disabled"}));
+                continue;
+            }
+            if self.cancellation.load(Ordering::Relaxed) != generation {
+                diagnostics.push(json!({"id": id, "status": "cancelled"}));
+                continue;
+            }
             self.sequence += 1;
             let request_id = format!("{id}-{}", self.sequence);
             let worker = match self.ensure_worker(id, &config, generation) {
@@ -329,18 +479,42 @@ impl ProviderManager {
             let result = (|| {
                 let (resource, identity) = {
                     let worker = worker.lock().unwrap();
-                    (worker.manifest["resource_digest"].as_str().unwrap_or("unknown").to_string(), worker.identity.clone())
+                    (
+                        worker.manifest["resource_digest"]
+                            .as_str()
+                            .unwrap_or("unknown")
+                            .to_string(),
+                        worker.identity.clone(),
+                    )
                 };
                 let digest = readux_nlp::external::text_digest(text);
                 let key = format!("{id}:{identity}:{resource}:{digest}");
-                if let Some(artifact) = self.cache.lock().unwrap().get(&key) { cache_hit = true; return Ok((*artifact).clone()); }
-                let artifact = worker.lock().unwrap().analyze(text, &request_id, config.timeout_seconds, &self.cancellation, generation)?;
-                self.cache.lock().unwrap().insert(key, Arc::new(artifact.clone()));
+                if let Some(artifact) = self.cache.lock().unwrap().get(&key) {
+                    cache_hit = true;
+                    return Ok((*artifact).clone());
+                }
+                let artifact = worker.lock().unwrap().analyze(
+                    text,
+                    &request_id,
+                    config.timeout_seconds,
+                    &self.cancellation,
+                    generation,
+                )?;
+                self.cache
+                    .lock()
+                    .unwrap()
+                    .insert(key, Arc::new(artifact.clone()));
                 Ok::<_, String>(artifact)
             })();
             match result {
-                Ok(artifact) => { diagnostics.push(json!({"id": id, "status": "ready", "elapsed_ms": started.elapsed().as_millis(), "request_id": request_id, "cache_hit": cache_hit})); artifacts.push(artifact); }
-                Err(error) => { self.workers.remove(id); diagnostics.push(json!({"id": id, "status": if self.cancellation.load(Ordering::Relaxed) != generation { "cancelled" } else { "failed" }, "error": error, "request_id": request_id})); }
+                Ok(artifact) => {
+                    diagnostics.push(json!({"id": id, "status": "ready", "elapsed_ms": started.elapsed().as_millis(), "request_id": request_id, "cache_hit": cache_hit}));
+                    artifacts.push(artifact);
+                }
+                Err(error) => {
+                    self.workers.remove(id);
+                    diagnostics.push(json!({"id": id, "status": if self.cancellation.load(Ordering::Relaxed) != generation { "cancelled" } else { "failed" }, "error": error, "request_id": request_id}));
+                }
             }
         }
         artifacts.sort_by(|a, b| a.provider.id.cmp(&b.provider.id));

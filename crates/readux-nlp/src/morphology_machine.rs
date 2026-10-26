@@ -1,29 +1,71 @@
 //! 词法连接状态机。GiNZA 参与复合核心、功能所有权和来源冲突判定。
-use crate::{external::{SourceArtifact, SourceNode}, linguistic_context::Context, model::{MorphemeToken, ProviderToken, QueryForm}, morphology::*};
+use crate::{
+    external::{SourceArtifact, SourceNode},
+    linguistic_context::Context,
+    model::{MorphemeToken, ProviderToken, QueryForm},
+    morphology::*,
+};
 
-use crate::morphology_config::{self as config, Action, CONFIG, field, identity};
+use crate::morphology_config::{self as config, field, identity, Action, CONFIG};
 
 pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
     let raw = field(t, 5);
-    let form = CONFIG.forms.iter().find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
-        .map(|rule| rule.form.clone()).unwrap_or_else(|| if raw.is_empty() { ConnectionForm::Stem } else { ConnectionForm::Other });
-    let category = if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" { "名詞" } else { field(t, 0) };
-    MorphologyState { category: category.into(), form, conjugation_type: field(t, 4).into(), conjugation_form: raw.into(), entity_class: config::entity_class_for_token(t).into() }
+    let form = CONFIG
+        .forms
+        .iter()
+        .find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
+        .map(|rule| rule.form.clone())
+        .unwrap_or_else(|| {
+            if raw.is_empty() {
+                ConnectionForm::Stem
+            } else {
+                ConnectionForm::Other
+            }
+        });
+    let category = if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" {
+        "名詞"
+    } else {
+        field(t, 0)
+    };
+    MorphologyState {
+        category: category.into(),
+        form,
+        conjugation_type: field(t, 4).into(),
+        conjugation_form: raw.into(),
+        entity_class: config::entity_class_for_token(t).into(),
+    }
 }
 
-fn semantic(t: &ProviderToken) -> Vec<String> { config::features(t) }
+fn semantic(t: &ProviderToken) -> Vec<String> {
+    config::features(t)
+}
 
 fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
-    let Some(metadata) = config::rule_metadata(kind) else { return false; };
+    let Some(metadata) = config::rule_metadata(kind) else {
+        return false;
+    };
     if previous.operators.iter().any(|operator| {
-        metadata.same_layer.iter().any(|item| item == &operator.kind)
-            || metadata.allowed_after.iter().any(|item| item == &operator.kind)
-    }) { return false; }
+        metadata
+            .same_layer
+            .iter()
+            .any(|item| item == &operator.kind)
+            || metadata
+                .allowed_after
+                .iter()
+                .any(|item| item == &operator.kind)
+    }) {
+        return false;
+    }
     let current = metadata.order_rank;
-    if current == 0 { return false; }
-    previous.operators.iter().filter_map(|operator| {
-        (operator.order_rank > 0).then_some(operator.order_rank)
-    }).max().is_some_and(|rank| current < rank)
+    if current == 0 {
+        return false;
+    }
+    previous
+        .operators
+        .iter()
+        .filter_map(|operator| (operator.order_rank > 0).then_some(operator.order_rank))
+        .max()
+        .is_some_and(|rank| current < rank)
 }
 
 fn terminal_mode(kind: &str) -> &'static str {
@@ -37,19 +79,37 @@ fn accepts_input(category: &str, metadata: &config::RuleMetadata) -> bool {
         "形状詞" => category == "形状詞",
         "名詞" => category == "名詞",
         "動詞／助動詞" => matches!(category, "動詞" | "助動詞"),
-        "用言" => matches!(category, "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"),
+        "用言" => matches!(
+            category,
+            "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"
+        ),
         "已成立链" | "" => true,
         _ => false,
     }
 }
 
-enum Transition { Core, Attach(Vec<String>), Support(&'static str), Insert, Boundary, Stop }
+enum Transition {
+    Core,
+    Attach(Vec<String>),
+    Support(&'static str),
+    Insert,
+    Boundary,
+    Stop,
+}
 
 fn declared_output(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str) {
-    let Some(rule) = config::definition(kind) else { return; };
-    if rule.preserve_state { atom.final_state = previous.final_state.clone(); }
-    if let Some(category) = &rule.output_category { atom.final_state.category = category.clone(); }
-    if let Some(form) = &rule.output_form { atom.final_state.form = form.clone(); }
+    let Some(rule) = config::definition(kind) else {
+        return;
+    };
+    if rule.preserve_state {
+        atom.final_state = previous.final_state.clone();
+    }
+    if let Some(category) = &rule.output_category {
+        atom.final_state.category = category.clone();
+    }
+    if let Some(form) = &rule.output_form {
+        atom.final_state.form = form.clone();
+    }
 }
 
 /// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
@@ -72,16 +132,30 @@ fn verb_stage_rank(stage: &str) -> Option<i32> {
 
 impl VerbCycleExecutor {
     fn accepts(kind: &str) -> bool {
-        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("verb_cycle") | Some("verb_cycle+i_adjective_conversion"))
+        matches!(
+            config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()),
+            Some("verb_cycle") | Some("verb_cycle+i_adjective_conversion")
+        )
     }
 
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-        if !Self::accepts(kind) { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        diagnostics: &mut Vec<String>,
+        index: usize,
+    ) {
+        if !Self::accepts(kind) {
+            return;
+        }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("动词循环规则缺少元数据");
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("verb_cycle_input_category:{}:{}:{}", previous.chain_id, kind, index));
+            diagnostics.push(format!(
+                "verb_cycle_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
         }
         // 阶段可跳过，但已在链上的动词循环阶段不得倒退；allowed_after 属于显式豁免。
         if let Some(rank) = verb_stage_rank(&metadata.stage) {
@@ -94,7 +168,10 @@ impl VerbCycleExecutor {
             });
             if stage_regression {
                 atom.status = "candidate".into();
-                diagnostics.push(format!("verb_cycle_stage_order:{}:{}:{}", previous.chain_id, kind, index));
+                diagnostics.push(format!(
+                    "verb_cycle_stage_order:{}:{}:{}",
+                    previous.chain_id, kind, index
+                ));
             }
         }
         if metadata.output_category == "動詞" || metadata.output_category == "动词" {
@@ -112,16 +189,30 @@ struct IAdjectiveConversionExecutor;
 
 impl IAdjectiveConversionExecutor {
     fn accepts(kind: &str) -> bool {
-        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("i_adjective_conversion") | Some("verb_cycle+i_adjective_conversion"))
+        matches!(
+            config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()),
+            Some("i_adjective_conversion") | Some("verb_cycle+i_adjective_conversion")
+        )
     }
 
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-        if !Self::accepts(kind) { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        diagnostics: &mut Vec<String>,
+        index: usize,
+    ) {
+        if !Self::accepts(kind) {
+            return;
+        }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("イ形容词转换规则缺少元数据");
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("i_adjective_input_category:{}:{}:{}", previous.chain_id, kind, index));
+            diagnostics.push(format!(
+                "i_adjective_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
         }
         atom.final_state.category = "形容詞".into();
         atom.final_state.entity_class = "イ形容词转换类".into();
@@ -134,7 +225,8 @@ impl IAdjectiveConversionExecutor {
         {
             return None;
         }
-        let rules: Vec<_> = semantic(next).into_iter()
+        let rules: Vec<_> = semantic(next)
+            .into_iter()
             .filter(|kind| matches!(kind.as_str(), "negative" | "past"))
             .collect();
         (!rules.is_empty()).then_some(rules)
@@ -146,32 +238,69 @@ struct NaAdjectiveJudgementExecutor;
 
 impl NaAdjectiveJudgementExecutor {
     fn accepts(kind: &str) -> bool {
-        matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("na_adjective_judgement"))
+        matches!(
+            config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()),
+            Some("na_adjective_judgement")
+        )
     }
 
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-        if !Self::accepts(kind) { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        diagnostics: &mut Vec<String>,
+        index: usize,
+    ) {
+        if !Self::accepts(kind) {
+            return;
+        }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("ナ形容词判断规则缺少元数据");
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("na_judgement_input_category:{}:{}:{}", previous.chain_id, kind, index));
+            diagnostics.push(format!(
+                "na_judgement_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
         }
         atom.final_state.category = "形状詞".into();
         atom.final_state.entity_class = "ナ形容词判断类".into();
+        // 判断词尾的收尾形式由规则声明的 output_form 决定；词干类规则保留 stem，终止/连体/连用收尾分别写入对应状态。
+        atom.evidence.push(format!(
+            "judgement_form:{}",
+            match atom.final_state.form {
+                ConnectionForm::Stem => "stem",
+                ConnectionForm::Continuative => "に",
+                ConnectionForm::Attributive => "な",
+                _ => "だ",
+            }
+        ));
     }
 }
 
 struct NominalizationExecutor;
 
 impl NominalizationExecutor {
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-        if config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()) != Some("nominalization") { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        diagnostics: &mut Vec<String>,
+        index: usize,
+    ) {
+        if config::rule_metadata(kind).map(|metadata| metadata.executor.as_str())
+            != Some("nominalization")
+        {
+            return;
+        }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).unwrap();
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("nominalization_input_category:{}:{}:{}", previous.chain_id, kind, index));
+            diagnostics.push(format!(
+                "nominalization_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
         }
         atom.final_state.category = "名詞".into();
         atom.final_state.entity_class.clear();
@@ -186,29 +315,64 @@ impl AuxiliaryVerbExecutor {
         config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "auxiliary_verb")
     }
 
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, source: &[ProviderToken], index: usize, diagnostics: &mut Vec<String>) {
-        if !Self::accepts(kind) { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        source: &[ProviderToken],
+        index: usize,
+        diagnostics: &mut Vec<String>,
+    ) {
+        if !Self::accepts(kind) {
+            return;
+        }
         declared_output(previous, atom, kind);
-        let continuative_auxiliary = config::rule_metadata(kind).is_some_and(|metadata| metadata.rule_group == "连用形补助");
-        let has_connector = continuative_auxiliary && previous.final_state.form == ConnectionForm::Continuative
-            || previous.final_state.form == ConnectionForm::Te
-            || previous.final_state.form == ConnectionForm::Continuative
-            || previous.operators.iter().any(|operator| operator.kind == "te_connection");
+        let metadata = config::rule_metadata(kind).expect("补助动词规则缺少元数据");
+        let has_connector = match metadata.rule_group.as_str() {
+            // 连用形直接接续的补助动词要求连用形前项；て／で构式要求て连接器。
+            "连用形补助" | "て形接续" => {
+                previous.final_state.form == ConnectionForm::Continuative
+            }
+            "持续与状态" | "结果存续" | "完成与遗憾" | "预先处置" | "趋向与发展"
+            | "补助动词接续" => {
+                previous.final_state.form == ConnectionForm::Te
+                    || previous
+                        .operators
+                        .iter()
+                        .any(|operator| operator.kind == "te_connection")
+            }
+            _ => true,
+        };
         if !has_connector {
             atom.status = "candidate".into();
-            diagnostics.push(format!("auxiliary_missing_connector:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!(
+                "auxiliary_missing_connector:{}:{}",
+                previous.chain_id, index
+            ));
         }
         if index > 0 && source[index - 1].char_range[1] != source[index].char_range[0] {
             atom.status = "candidate".into();
-            diagnostics.push(format!("auxiliary_non_contiguous:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!(
+                "auxiliary_non_contiguous:{}:{}",
+                previous.chain_id, index
+            ));
         }
         atom.role = MorphologyRole::Functional;
         atom.parent_chain_id = Some(previous.chain_id.clone());
         atom.final_state.entity_class = "补助动词类".into();
-        let depth = previous.operators.iter().filter(|operator| operator.executor == "auxiliary_verb").count();
+        atom.evidence
+            .push(format!("connector:{}", metadata.rule_group));
+        let depth = previous
+            .operators
+            .iter()
+            .filter(|operator| operator.executor == "auxiliary_verb")
+            .count();
         if depth >= CONFIG.max_auxiliary_depth {
             atom.status = "candidate".into();
-            diagnostics.push(format!("auxiliary_depth_limit:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!(
+                "auxiliary_depth_limit:{}:{}",
+                previous.chain_id, index
+            ));
         }
     }
 }
@@ -218,37 +382,73 @@ struct ClassicalConjugationExecutor;
 
 impl ClassicalConjugationExecutor {
     fn accepts(kind: &str) -> bool {
-        config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "classical_conjugation")
+        config::rule_metadata(kind)
+            .is_some_and(|metadata| metadata.executor == "classical_conjugation")
     }
 
-    fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-        if !Self::accepts(kind) { return; }
+    fn apply(
+        previous: &MorphologyChain,
+        atom: &mut MorphologyChain,
+        kind: &str,
+        diagnostics: &mut Vec<String>,
+        index: usize,
+    ) {
+        if !Self::accepts(kind) {
+            return;
+        }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("文言规则缺少元数据");
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("classical_input_category:{}:{}:{}", previous.chain_id, kind, index));
+            diagnostics.push(format!(
+                "classical_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
         }
-        let classical_operator = matches!(kind, "negative_zuni" | "classical_beshi" | "classical_gotoshi");
+        let classical_operator = matches!(
+            kind,
+            "negative_zuni" | "classical_beshi" | "classical_gotoshi"
+        );
         atom.final_state.entity_class = "文言活用类".into();
-        if classical_operator { atom.final_state.category = "文語用言".into(); }
+        if classical_operator {
+            atom.final_state.category = "文語用言".into();
+        }
     }
 }
 
 /// 按规则元数据选择唯一的状态转换执行器。
-fn apply_rule_executor(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
-    let Some(metadata) = config::rule_metadata(kind) else { return; };
+fn apply_rule_executor(
+    previous: &MorphologyChain,
+    atom: &mut MorphologyChain,
+    kind: &str,
+    diagnostics: &mut Vec<String>,
+    index: usize,
+) {
+    let Some(metadata) = config::rule_metadata(kind) else {
+        return;
+    };
     match metadata.executor.as_str() {
         "verb_cycle" => VerbCycleExecutor::apply(previous, atom, kind, diagnostics, index),
-        "i_adjective_conversion" => IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index),
-        "verb_cycle+i_adjective_conversion" if metadata.output_category == "形容詞"
-            || previous.final_state.category == "形容詞" =>
-            IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index),
-        "verb_cycle+i_adjective_conversion" => VerbCycleExecutor::apply(previous, atom, kind, diagnostics, index),
-        "na_adjective_judgement" => NaAdjectiveJudgementExecutor::apply(previous, atom, kind, diagnostics, index),
+        "i_adjective_conversion" => {
+            IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index)
+        }
+        "verb_cycle+i_adjective_conversion"
+            if metadata.output_category == "形容詞"
+                || previous.final_state.category == "形容詞" =>
+        {
+            IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index)
+        }
+        "verb_cycle+i_adjective_conversion" => {
+            VerbCycleExecutor::apply(previous, atom, kind, diagnostics, index)
+        }
+        "na_adjective_judgement" => {
+            NaAdjectiveJudgementExecutor::apply(previous, atom, kind, diagnostics, index)
+        }
         "nominalization" => NominalizationExecutor::apply(previous, atom, kind, diagnostics, index),
         "auxiliary_verb" if kind == "te_connection" => declared_output(previous, atom, kind),
-        "classical_conjugation" => ClassicalConjugationExecutor::apply(previous, atom, kind, diagnostics, index),
+        "classical_conjugation" => {
+            ClassicalConjugationExecutor::apply(previous, atom, kind, diagnostics, index)
+        }
         executor => {
             atom.status = "candidate".into();
             diagnostics.push(format!("unknown_rule_executor:{kind}:{executor}:{index}"));
@@ -257,22 +457,65 @@ fn apply_rule_executor(previous: &MorphologyChain, atom: &mut MorphologyChain, k
 }
 
 fn insertion_token(token: &ProviderToken) -> bool {
-    CONFIG.insertion.iter().any(|pattern| pattern.matches(token))
+    CONFIG
+        .insertion
+        .iter()
+        .any(|pattern| pattern.matches(token))
 }
 
-fn bridge_support(previous: &MorphologyChain, index: usize, source: &[ProviderToken], context: &Context<'_>) -> bool {
-    if previous.final_state.form != ConnectionForm::Te || previous.morpheme_range[1] >= index { return false; }
-    let Some(connector) = previous.operators.iter().rev().find(|operator| operator.kind == "te_connection").map(|operator| operator.char_range) else { return false; };
-    let inserted = (previous.morpheme_range[1]..index).map(|i| &source[i]).collect::<Vec<_>>();
-    if inserted.is_empty() || inserted.iter().any(|token| !insertion_token(token)) { return false; }
-    let Some(predicate_index) = previous.core_morpheme_indices.first() else { return false; };
-    let Some(predicate) = source.get(*predicate_index).map(|token| token.char_range) else { return false; };
-    context.confirms_inserted_support(predicate, connector,
-        &inserted.iter().map(|token| token.char_range).collect::<Vec<_>>(), source[index].char_range)
+fn bridge_support(
+    previous: &MorphologyChain,
+    index: usize,
+    source: &[ProviderToken],
+    context: &Context<'_>,
+) -> bool {
+    if previous.final_state.form != ConnectionForm::Te || previous.morpheme_range[1] >= index {
+        return false;
+    }
+    let Some(connector) = previous
+        .operators
+        .iter()
+        .rev()
+        .find(|operator| operator.kind == "te_connection")
+        .map(|operator| operator.char_range)
+    else {
+        return false;
+    };
+    let inserted = (previous.morpheme_range[1]..index)
+        .map(|i| &source[i])
+        .collect::<Vec<_>>();
+    if inserted.is_empty() || inserted.iter().any(|token| !insertion_token(token)) {
+        return false;
+    }
+    let Some(predicate_index) = previous.core_morpheme_indices.first() else {
+        return false;
+    };
+    let Some(predicate) = source.get(*predicate_index).map(|token| token.char_range) else {
+        return false;
+    };
+    context.confirms_inserted_support(
+        predicate,
+        connector,
+        &inserted
+            .iter()
+            .map(|token| token.char_range)
+            .collect::<Vec<_>>(),
+        source[index].char_range,
+    )
 }
 
-fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Context<'_>, source: &[ProviderToken]) -> Transition {
-    if insertion_token(next) && previous.operators.iter().any(|op| op.kind == "te_connection") {
+fn transition(
+    previous: &MorphologyChain,
+    next: &ProviderToken,
+    context: &Context<'_>,
+    source: &[ProviderToken],
+) -> Transition {
+    if insertion_token(next)
+        && previous
+            .operators
+            .iter()
+            .any(|op| op.kind == "te_connection")
+    {
         return Transition::Insert;
     }
     if let Some(rules) = IAdjectiveConversionExecutor::continuation(previous, next) {
@@ -280,27 +523,60 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
     }
     let last = &source[previous.morpheme_range[1] - 1];
     let following = source.get(next.index + 1);
-    let aux_relation = context.relation(previous.char_range, next.char_range, &["aux", "cop"]).is_some();
+    let aux_relation = context
+        .relation(previous.char_range, next.char_range, &["aux", "cop"])
+        .is_some();
     for rule in &CONFIG.connections {
         let matched = rule.when.iter().any(|condition| {
-            condition.next.matches(next) && condition.last.matches(last)
-                && condition.following.as_ref().is_none_or(|pattern| following.is_some_and(|token| pattern.matches(token)))
+            condition.next.matches(next)
+                && condition.last.matches(last)
+                && condition
+                    .following
+                    .as_ref()
+                    .is_none_or(|pattern| following.is_some_and(|token| pattern.matches(token)))
                 && (!condition.at_end || following.is_none())
-                && (condition.forms.is_empty() || condition.forms.contains(&previous.final_state.form))
-                && (condition.categories.is_empty() || condition.categories.contains(&previous.final_state.category))
-                && (condition.operators.is_empty() || previous.operators.iter().any(|op| condition.operators.contains(&op.kind)))
-                && (condition.suffixes.is_empty() || condition.suffixes.iter().any(|suffix| previous.surface_form.ends_with(suffix)))
+                && (condition.forms.is_empty()
+                    || condition.forms.contains(&previous.final_state.form))
+                && (condition.categories.is_empty()
+                    || condition
+                        .categories
+                        .contains(&previous.final_state.category))
+                && (condition.operators.is_empty()
+                    || previous
+                        .operators
+                        .iter()
+                        .any(|op| condition.operators.contains(&op.kind)))
+                && (condition.suffixes.is_empty()
+                    || condition
+                        .suffixes
+                        .iter()
+                        .any(|suffix| previous.surface_form.ends_with(suffix)))
                 && (!condition.auxiliary_relation || aux_relation)
-                && (!condition.functional || field(next, 1).starts_with("非自立") || context.auxiliary(next.char_range)
-                    || context.functional_position(next.char_range) || aux_relation)
-                && (!condition.sahen || (field(last, 0) == "名詞" && (field(last, 2).contains("サ変")
-                    || context.tag(last.char_range).is_some_and(|tag| tag.contains("サ変")))))
+                && (!condition.functional
+                    || field(next, 1).starts_with("非自立")
+                    || context.auxiliary(next.char_range)
+                    || context.functional_position(next.char_range)
+                    || aux_relation)
+                && (!condition.sahen
+                    || (field(last, 0) == "名詞"
+                        && (field(last, 2).contains("サ変")
+                            || context
+                                .tag(last.char_range)
+                                .is_some_and(|tag| tag.contains("サ変")))))
         });
-        if !matched { continue; }
+        if !matched {
+            continue;
+        }
         match rule.action {
             Action::Core => return Transition::Core,
             Action::Stop => return Transition::Boundary,
-            Action::Attach => return Transition::Attach(if rule.kinds.is_empty() { semantic(next) } else { rule.kinds.clone() }),
+            Action::Attach => {
+                return Transition::Attach(if rule.kinds.is_empty() {
+                    semantic(next)
+                } else {
+                    rule.kinds.clone()
+                })
+            }
             Action::Support => {
                 if let Some(kind) = config::support_kind(&rule.support_group, next) {
                     return Transition::Support(kind);
@@ -311,16 +587,32 @@ fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Contex
     Transition::Stop
 }
 
-fn operator(chain: &MorphologyChain, atom: &MorphologyChain, kind: String, token: &ProviderToken) -> MorphologyOperator {
+fn operator(
+    chain: &MorphologyChain,
+    atom: &MorphologyChain,
+    kind: String,
+    token: &ProviderToken,
+) -> MorphologyOperator {
     let metadata = config::rule_metadata(&kind);
-    MorphologyOperator { operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
-        source_morpheme_range: atom.morpheme_range, char_range: atom.char_range,
-        input_state: chain.surface_form.clone(), output_state: format!("{}{}", chain.surface_form, atom.surface_form),
-        state_before: chain.final_state.clone(), state_after: atom.final_state.clone(),
-        normalized_form: config::definition(&kind).and_then(|entry| entry.normalized.clone()).or_else(|| config::prototype(&kind, token)),
-        concept_id: feature_concept(&kind).into(), confidence: 1.0, evidence: atom.evidence.clone(),
-        candidates: config::definition(&kind).map_or_else(Vec::new, |entry| entry.candidates.clone()),
-        label: feature_label(&kind).into(), description: format!("{}：{}", feature_label(&kind), atom.surface_form), kind,
+    MorphologyOperator {
+        operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
+        source_morpheme_range: atom.morpheme_range,
+        char_range: atom.char_range,
+        input_state: chain.surface_form.clone(),
+        output_state: format!("{}{}", chain.surface_form, atom.surface_form),
+        state_before: chain.final_state.clone(),
+        state_after: atom.final_state.clone(),
+        normalized_form: config::definition(&kind)
+            .and_then(|entry| entry.normalized.clone())
+            .or_else(|| config::prototype(&kind, token)),
+        concept_id: feature_concept(&kind).into(),
+        confidence: 1.0,
+        evidence: atom.evidence.clone(),
+        candidates: config::definition(&kind)
+            .map_or_else(Vec::new, |entry| entry.candidates.clone()),
+        label: feature_label(&kind).into(),
+        description: format!("{}：{}", feature_label(&kind), atom.surface_form),
+        kind,
         stage: metadata.map_or_else(String::new, |m| m.stage.clone()),
         executor: metadata.map_or_else(String::new, |m| m.executor.clone()),
         rule_group: metadata.map_or_else(String::new, |m| m.rule_group.clone()),
@@ -334,33 +626,93 @@ fn operator(chain: &MorphologyChain, atom: &MorphologyChain, kind: String, token
 fn merge(chain: &mut MorphologyChain, atom: MorphologyChain, core: bool) {
     if core {
         let prefix = chain.surface_form.clone();
-        let prefix_reading = chain.query_forms.iter().find(|f| f.kind == "observed").and_then(|f| f.reading.clone());
-        let observed_reading = prefix_reading.as_ref().zip(atom.query_forms.iter().find(|f| f.kind == "observed").and_then(|f| f.reading.as_ref())).map(|(a,b)| format!("{a}{b}"));
+        let prefix_reading = chain
+            .query_forms
+            .iter()
+            .find(|f| f.kind == "observed")
+            .and_then(|f| f.reading.clone());
+        let observed_reading = prefix_reading
+            .as_ref()
+            .zip(
+                atom.query_forms
+                    .iter()
+                    .find(|f| f.kind == "observed")
+                    .and_then(|f| f.reading.as_ref()),
+            )
+            .map(|(a, b)| format!("{a}{b}"));
         chain.dictionary_form = format!("{}{}", prefix, atom.dictionary_form);
-        chain.lookup_form = chain.dictionary_form.clone(); chain.display_form = chain.dictionary_form.clone();
+        chain.lookup_form = chain.dictionary_form.clone();
+        chain.display_form = chain.dictionary_form.clone();
         chain.lemma_form = format!("{}{}", prefix, atom.lemma_form);
-        chain.core_morpheme_indices.extend(&atom.core_morpheme_indices);
-        chain.query_forms = atom.query_forms.iter().filter(|f| f.kind != "observed").map(|f| QueryForm {
-            kind: f.kind.clone(), form: format!("{prefix}{}", f.form),
-            reading: prefix_reading.as_ref().zip(f.reading.as_ref()).map(|(a,b)| format!("{a}{b}")),
-            reading_field: Some("composed".into()),
-        }).collect();
-        chain.query_forms.insert(0, QueryForm { kind: "observed".into(), form: format!("{prefix}{}", atom.surface_form), reading_field: observed_reading.as_ref().map(|_| "composed_kana".into()), reading: observed_reading });
-        if !chain.query_forms.iter().any(|f| f.form == chain.dictionary_form) {
-            chain.query_forms.push(QueryForm { kind: "base".into(), form: chain.dictionary_form.clone(), reading: None, reading_field: None });
+        chain
+            .core_morpheme_indices
+            .extend(&atom.core_morpheme_indices);
+        chain.query_forms = atom
+            .query_forms
+            .iter()
+            .filter(|f| f.kind != "observed")
+            .map(|f| QueryForm {
+                kind: f.kind.clone(),
+                form: format!("{prefix}{}", f.form),
+                reading: prefix_reading
+                    .as_ref()
+                    .zip(f.reading.as_ref())
+                    .map(|(a, b)| format!("{a}{b}")),
+                reading_field: Some("composed".into()),
+            })
+            .collect();
+        chain.query_forms.insert(
+            0,
+            QueryForm {
+                kind: "observed".into(),
+                form: format!("{prefix}{}", atom.surface_form),
+                reading_field: observed_reading.as_ref().map(|_| "composed_kana".into()),
+                reading: observed_reading,
+            },
+        );
+        if !chain
+            .query_forms
+            .iter()
+            .any(|f| f.form == chain.dictionary_form)
+        {
+            chain.query_forms.push(QueryForm {
+                kind: "base".into(),
+                form: chain.dictionary_form.clone(),
+                reading: None,
+                reading_field: None,
+            });
         }
     }
     chain.surface_form.push_str(&atom.surface_form);
-    chain.morpheme_range[1] = atom.morpheme_range[1]; chain.char_range[1] = atom.char_range[1];
-    chain.source_ranges.extend(atom.source_ranges); chain.morpheme_indices.extend(atom.morpheme_indices);
-    chain.operators.extend(atom.operators.into_iter().filter(|o| o.kind != "conjugation")); chain.connection_forms.extend(atom.connection_forms);
-    chain.evidence.extend(atom.evidence); chain.final_state = atom.final_state;
+    chain.morpheme_range[1] = atom.morpheme_range[1];
+    chain.char_range[1] = atom.char_range[1];
+    chain.source_ranges.extend(atom.source_ranges);
+    chain.morpheme_indices.extend(atom.morpheme_indices);
+    chain.operators.extend(
+        atom.operators
+            .into_iter()
+            .filter(|o| o.kind != "conjugation"),
+    );
+    chain.connection_forms.extend(atom.connection_forms);
+    chain.evidence.extend(atom.evidence);
+    chain.final_state = atom.final_state;
 }
 
-fn merge_verb_core(chain: &mut MorphologyChain, atom: MorphologyChain, current: &ProviderToken, node: &SourceNode) {
+fn merge_verb_core(
+    chain: &mut MorphologyChain,
+    atom: MorphologyChain,
+    current: &ProviderToken,
+    node: &SourceNode,
+) {
     let lemma = node.features["lemma"].as_str().unwrap();
-    let (conjugation_type, conjugation_form) = node.features["morph"]["Inflection"].as_str().unwrap().split_once(';').unwrap();
-    let reading = node.features["morph"]["Reading"].as_str().map(str::to_owned);
+    let (conjugation_type, conjugation_form) = node.features["morph"]["Inflection"]
+        .as_str()
+        .unwrap()
+        .split_once(';')
+        .unwrap();
+    let reading = node.features["morph"]["Reading"]
+        .as_str()
+        .map(str::to_owned);
     let mut supplemented = current.clone();
     supplemented.fields[0].value = Some("動詞".into());
     supplemented.fields[4].value = Some(conjugation_type.into());
@@ -374,29 +726,53 @@ fn merge_verb_core(chain: &mut MorphologyChain, atom: MorphologyChain, current: 
     conjugation.evidence = vec![format!("ginza:{}:Inflection", node.id)];
     conjugation.source_morpheme_range = [chain.anchor_morpheme, atom.morpheme_range[1]];
     conjugation.char_range = [chain.char_range[0], atom.char_range[1]];
-    conjugation.state_before = MorphologyState { category: "動詞".into(), form: ConnectionForm::Terminal,
-        conjugation_type: conjugation_type.into(), conjugation_form: "基本形".into(), entity_class: "动词循环类".into() };
+    conjugation.state_before = MorphologyState {
+        category: "動詞".into(),
+        form: ConnectionForm::Terminal,
+        conjugation_type: conjugation_type.into(),
+        conjugation_form: "基本形".into(),
+        entity_class: "动词循环类".into(),
+    };
     conjugation.state_after = verb_state.clone();
     chain.source_evidence.extend(atom.source_evidence.clone());
-    chain.source_evidence.push(crate::linguistic_context::SourceEvidence {
-        provider: "ginza".into(), node_id: Some(node.id.clone()), relation_id: None, reason: "verb_core".into(),
-    });
+    chain
+        .source_evidence
+        .push(crate::linguistic_context::SourceEvidence {
+            provider: "ginza".into(),
+            node_id: Some(node.id.clone()),
+            relation_id: None,
+            reason: "verb_core".into(),
+        });
     merge(chain, atom, true);
     chain.dictionary_form = lemma.into();
     chain.lemma_form = lemma.into();
     chain.lookup_form = lemma.into();
     chain.display_form = lemma.into();
     chain.final_state = verb_state;
-    chain.query_forms = vec![QueryForm { kind: "observed".into(), form: chain.surface_form.clone(),
-        reading: reading.clone(), reading_field: reading.as_ref().map(|_| "ginza:morph.Reading".into()) }];
+    chain.query_forms = vec![QueryForm {
+        kind: "observed".into(),
+        form: chain.surface_form.clone(),
+        reading: reading.clone(),
+        reading_field: reading.as_ref().map(|_| "ginza:morph.Reading".into()),
+    }];
     if lemma != chain.surface_form {
-        chain.query_forms.push(QueryForm { kind: "base".into(), form: lemma.into(), reading: None, reading_field: None });
+        chain.query_forms.push(QueryForm {
+            kind: "base".into(),
+            form: lemma.into(),
+            reading: None,
+            reading_field: None,
+        });
     }
     chain.operators.push(conjugation);
     chain.evidence.push(format!("ginza:{}:verb_core", node.id));
 }
 
-fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderToken], context: &Context<'_>) -> Option<&'static config::Sequence> {
+fn suffix_sequence(
+    previous: &MorphologyChain,
+    index: usize,
+    source: &[ProviderToken],
+    context: &Context<'_>,
+) -> Option<&'static config::Sequence> {
     CONFIG.sequences.iter().find(|rule| {
         let end = index + rule.tokens.len();
         end <= source.len() && previous.morpheme_range[1] == index && previous.char_range[1] == source[index].char_range[0]
@@ -419,15 +795,34 @@ fn suffix_sequence(previous: &MorphologyChain, index: usize, source: &[ProviderT
 }
 
 /// 已由句法确认的跨助词连接，为实际插入成员建立说明和父链归属。
-fn annotate_insertions(chains: &mut [MorphologyChain], source: &[ProviderToken], context: &Context<'_>) {
-    let insertions: Vec<_> = chains.iter().filter(|child| !child.operators.iter().any(|op| op.kind == "insertion")).filter_map(|child| {
-        let parent = chains.iter().find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())?;
-        bridge_support(parent, child.anchor_morpheme, source, context)
-            .then(|| (parent.clone(), parent.morpheme_range[1]..child.anchor_morpheme))
-    }).collect();
+fn annotate_insertions(
+    chains: &mut [MorphologyChain],
+    source: &[ProviderToken],
+    context: &Context<'_>,
+) {
+    let insertions: Vec<_> = chains
+        .iter()
+        .filter(|child| !child.operators.iter().any(|op| op.kind == "insertion"))
+        .filter_map(|child| {
+            let parent = chains
+                .iter()
+                .find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())?;
+            bridge_support(parent, child.anchor_morpheme, source, context).then(|| {
+                (
+                    parent.clone(),
+                    parent.morpheme_range[1]..child.anchor_morpheme,
+                )
+            })
+        })
+        .collect();
     for (parent, members) in insertions {
         for index in members {
-            let Some(chain) = chains.iter_mut().find(|chain| chain.morpheme_indices == [index] && chain.parent_chain_id.is_none()) else { continue; };
+            let Some(chain) = chains
+                .iter_mut()
+                .find(|chain| chain.morpheme_indices == [index] && chain.parent_chain_id.is_none())
+            else {
+                continue;
+            };
             chain.evidence.push("phenomenon:insertion".into());
             chain.final_state = parent.final_state.clone();
             let op = operator(&parent, chain, "insertion".into(), &source[index]);
@@ -444,27 +839,59 @@ fn link_predicates(chains: &mut [MorphologyChain], source: &[ProviderToken]) {
         let (before, after) = chains.split_at_mut(index);
         let left = &mut before[index - 1];
         let right = &mut after[0];
-        if right.parent_chain_id.is_some() || left.char_range[1] != right.char_range[0]
-            || left.morpheme_range[1] != right.morpheme_range[0] { continue; }
+        if right.parent_chain_id.is_some()
+            || left.char_range[1] != right.char_range[0]
+            || left.morpheme_range[1] != right.morpheme_range[0]
+        {
+            continue;
+        }
         for rule in &CONFIG.predicate_links {
-            let Some(prefix) = left.operators.iter().find(|op| op.kind == rule.prefix && op.char_range[1] == left.char_range[1]).cloned() else { continue; };
-            if !rule.next.matches(&source[right.anchor_morpheme]) { continue; }
+            let Some(prefix) = left
+                .operators
+                .iter()
+                .find(|op| op.kind == rule.prefix && op.char_range[1] == left.char_range[1])
+                .cloned()
+            else {
+                continue;
+            };
+            if !rule.next.matches(&source[right.anchor_morpheme]) {
+                continue;
+            }
             let body_end = if !rule.required_operators.is_empty() {
-                let Some(op) = right.operators.iter().find(|op| rule.required_operators.contains(&op.kind)) else { continue; };
+                let Some(op) = right
+                    .operators
+                    .iter()
+                    .find(|op| rule.required_operators.contains(&op.kind))
+                else {
+                    continue;
+                };
                 op.source_morpheme_range[1]
-            } else { right.anchor_morpheme + 1 };
-            let mut construction = operator(left, right, rule.kind.clone(), &source[prefix.source_morpheme_range[0]]);
+            } else {
+                right.anchor_morpheme + 1
+            };
+            let mut construction = operator(
+                left,
+                right,
+                rule.kind.clone(),
+                &source[prefix.source_morpheme_range[0]],
+            );
             construction.source_morpheme_range = [prefix.source_morpheme_range[0], body_end];
             construction.char_range = [prefix.char_range[0], source[body_end - 1].char_range[1]];
             construction.state_before = prefix.state_before;
             construction.state_after = state(&source[body_end - 1]);
             construction.evidence.extend(prefix.evidence);
-            construction.evidence.push("connection:predicate_construction".into());
+            construction
+                .evidence
+                .push("connection:predicate_construction".into());
             construction.output_state = format!("{}{}", left.surface_form, right.surface_form);
-            left.operators.retain(|op| op.operator_id != prefix.operator_id);
-            right.operators.retain(|op| op.source_morpheme_range[1] > body_end
-                || config::definition(&op.kind).is_some_and(|entry| entry.output_form.is_some())
-                || !config::is_inflection(&op.kind) && !rule.required_operators.contains(&op.kind));
+            left.operators
+                .retain(|op| op.operator_id != prefix.operator_id);
+            right.operators.retain(|op| {
+                op.source_morpheme_range[1] > body_end
+                    || config::definition(&op.kind).is_some_and(|entry| entry.output_form.is_some())
+                    || !config::is_inflection(&op.kind)
+                        && !rule.required_operators.contains(&op.kind)
+            });
             right.operators.insert(0, construction);
             right.role = MorphologyRole::Functional;
             right.parent_chain_id = Some(left.chain_id.clone());
@@ -473,7 +900,12 @@ fn link_predicates(chains: &mut [MorphologyChain], source: &[ProviderToken]) {
     }
 }
 
-pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], morphemes: &[MorphemeToken], external: &[SourceArtifact]) -> MorphologyArtifact {
+pub(crate) fn compose(
+    atoms: Vec<MorphologyChain>,
+    source: &[ProviderToken],
+    morphemes: &[MorphemeToken],
+    external: &[SourceArtifact],
+) -> MorphologyArtifact {
     let context = Context::new(external);
     let mut chains: Vec<MorphologyChain> = Vec::new();
     let mut diagnostics = Vec::new();
@@ -481,43 +913,82 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
     while let Some(mut atom) = atoms.pop_front() {
         let index = atom.anchor_morpheme;
         let current = &source[index];
-        let sequence = chains.last().and_then(|previous| suffix_sequence(previous, index, source, &context));
+        let sequence = chains
+            .last()
+            .and_then(|previous| suffix_sequence(previous, index, source, &context));
         if let Some(rule) = sequence {
-            for _ in 1..rule.tokens.len() { merge(&mut atom, atoms.pop_front().expect("连续词尾成员缺失"), false); }
+            for _ in 1..rule.tokens.len() {
+                merge(
+                    &mut atom,
+                    atoms.pop_front().expect("连续词尾成员缺失"),
+                    false,
+                );
+            }
             atom.operators.clear();
             atom.evidence.extend(rule.phenomena.iter().cloned());
         }
         atom.source_evidence = context.evidence(atom.char_range);
         if atom.final_state.conjugation_form.is_empty() {
-            if let Some((ctype, cform)) = context.inflection(atom.char_range).and_then(|f| f.split_once(';')) {
+            if let Some((ctype, cform)) = context
+                .inflection(atom.char_range)
+                .and_then(|f| f.split_once(';'))
+            {
                 let mut supplemented = current.clone();
                 if supplemented.fields.len() >= 6 {
-                    supplemented.fields[4].value = Some(ctype.into()); supplemented.fields[5].value = Some(cform.into());
+                    supplemented.fields[4].value = Some(ctype.into());
+                    supplemented.fields[5].value = Some(cform.into());
                     atom.final_state = state(&supplemented);
-                    atom.evidence.push("ginza:Inflection:missing_unidic_form".into());
+                    atom.evidence
+                        .push("ginza:Inflection:missing_unidic_form".into());
                 }
             }
         }
         let mut linked = false;
-        let mut previous_index = chains.iter().enumerate().rev()
-            .find(|(_, chain)| !chain.operators.iter().any(|op| op.kind == "insertion") && bridge_support(chain, index, source, &context)).map(|(i, _)| i)
-            .or_else(|| chains.len().checked_sub(1)
-                .filter(|&i| !chains[i].operators.iter().any(|op| op.kind == "insertion")
-                    && chains[i].char_range[1] == atom.char_range[0] && chains[i].morpheme_range[1] == index));
+        let mut previous_index = chains
+            .iter()
+            .enumerate()
+            .rev()
+            .find(|(_, chain)| {
+                !chain.operators.iter().any(|op| op.kind == "insertion")
+                    && bridge_support(chain, index, source, &context)
+            })
+            .map(|(i, _)| i)
+            .or_else(|| {
+                chains.len().checked_sub(1).filter(|&i| {
+                    !chains[i].operators.iter().any(|op| op.kind == "insertion")
+                        && chains[i].char_range[1] == atom.char_range[0]
+                        && chains[i].morpheme_range[1] == index
+                })
+            });
         if previous_index.is_none() && config::support_kind("te", current).is_some() {
-            previous_index = chains.iter().enumerate().rev()
-                .find(|(_, chain)| !chain.operators.iter().any(|op| op.kind == "insertion")
-                    && chain.operators.iter().any(|op| op.kind == "te_connection")
-                    && chain.morpheme_range[1] < index
-                    && source[chain.morpheme_range[1]..index].iter().all(insertion_token)
-                    && source[chain.morpheme_range[1]..=index].windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0]))
+            previous_index = chains
+                .iter()
+                .enumerate()
+                .rev()
+                .find(|(_, chain)| {
+                    !chain.operators.iter().any(|op| op.kind == "insertion")
+                        && chain.operators.iter().any(|op| op.kind == "te_connection")
+                        && chain.morpheme_range[1] < index
+                        && source[chain.morpheme_range[1]..index]
+                            .iter()
+                            .all(insertion_token)
+                        && source[chain.morpheme_range[1]..=index]
+                            .windows(2)
+                            .all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
+                })
                 .map(|(i, _)| i);
         }
         // 插入语子链保持前项状态，但后续补助动词必须回到原始て形父链。
         if let Some(child_index) = previous_index {
-            if chains[child_index].operators.iter().any(|op| op.kind == "insertion") {
+            if chains[child_index]
+                .operators
+                .iter()
+                .any(|op| op.kind == "insertion")
+            {
                 if let Some(parent_id) = chains[child_index].parent_chain_id.as_ref() {
-                    if let Some(parent_index) = chains.iter().position(|chain| &chain.chain_id == parent_id) {
+                    if let Some(parent_index) =
+                        chains.iter().position(|chain| &chain.chain_id == parent_id)
+                    {
                         previous_index = Some(parent_index);
                     }
                 }
@@ -526,68 +997,124 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
         if let Some(previous_index) = previous_index {
             let previous = &mut chains[previous_index];
             let first = previous.core_morpheme_indices[0];
-            let verb_core = (previous.morpheme_indices.len() == 1 && field(&source[first], 0) == "名詞"
+            let verb_core = (previous.morpheme_indices.len() == 1
+                && field(&source[first], 0) == "名詞"
                 && field(current, 0) == "助動詞")
-                .then(|| context.verb_core([previous.char_range[0], atom.char_range[1]], &source[first].surface))
+                .then(|| {
+                    context.verb_core(
+                        [previous.char_range[0], atom.char_range[1]],
+                        &source[first].surface,
+                    )
+                })
                 .flatten();
             if let Some(node) = verb_core.filter(|_| sequence.is_none()) {
                 merge_verb_core(previous, atom, current, node);
                 continue;
             }
             let members = context.core_members(morphemes, first);
-            let local_step = sequence.map_or_else(|| transition(previous, current, &context, source),
-                |rule| Transition::Attach(vec![rule.kind.clone()]));
+            let local_step = sequence.map_or_else(
+                || transition(previous, current, &context, source),
+                |rule| Transition::Attach(vec![rule.kind.clone()]),
+            );
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
-            let semantic_connection = nominalization || matches!(&local_step, Transition::Support(_));
-            let step = if sequence.is_none() && members.contains(&index) && !semantic_connection && !matches!(local_step, Transition::Boundary) { Transition::Core } else { local_step };
+            let semantic_connection =
+                nominalization || matches!(&local_step, Transition::Support(_));
+            let step = if sequence.is_none()
+                && members.contains(&index)
+                && !semantic_connection
+                && !matches!(local_step, Transition::Boundary)
+            {
+                Transition::Core
+            } else {
+                local_step
+            };
             match step {
                 Transition::Core => {
                     previous.evidence.push("connection:lexical_core".into());
-                    let prior = &source[previous.morpheme_range[1]-1];
-                    if field(prior,0)=="動詞" && field(current,0)=="名詞" {
-                        previous.status="candidate".into();
-                        diagnostics.push(format!("lexical_core_pos_conflict:{}:{index}",previous.chain_id));
+                    let prior = &source[previous.morpheme_range[1] - 1];
+                    if field(prior, 0) == "動詞" && field(current, 0) == "名詞" {
+                        previous.status = "candidate".into();
+                        diagnostics.push(format!(
+                            "lexical_core_pos_conflict:{}:{index}",
+                            previous.chain_id
+                        ));
                     }
-                    previous.source_evidence.extend(atom.source_evidence.clone());
+                    previous
+                        .source_evidence
+                        .extend(atom.source_evidence.clone());
                     let mut rule_input = previous.clone();
                     for kind in semantic(current) {
                         apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
-                        previous.operators.push(operator(&rule_input, &atom, kind, current));
+                        previous
+                            .operators
+                            .push(operator(&rule_input, &atom, kind, current));
                         rule_input.final_state = atom.final_state.clone();
                     }
-                    merge(previous, atom, true); continue;
+                    merge(previous, atom, true);
+                    continue;
                 }
                 Transition::Attach(mut kinds) => {
                     let before = previous.final_state.clone();
                     for kind in &kinds {
                         if let Some(entry) = config::definition(kind) {
                             if before.category == "形状詞" {
-                                if let Some(suffix) = &entry.display_suffix { previous.display_form = format!("{}{suffix}", previous.dictionary_form); }
+                                if let Some(suffix) = &entry.display_suffix {
+                                    previous.display_form =
+                                        format!("{}{suffix}", previous.dictionary_form);
+                                }
                             }
                         }
                     }
-                    if kinds.is_empty() { kinds.push("auxiliary".into()); }
+                    if kinds.is_empty() {
+                        kinds.push("auxiliary".into());
+                    }
                     let mut rule_input = previous.clone();
                     for kind in kinds {
                         apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
-                            diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
+                            diagnostics.push(format!(
+                                "rule_order_conflict:{}:{}:{}",
+                                previous.chain_id, kind, index
+                            ));
                         }
-                        previous.operators.push(operator(&rule_input, &atom, kind, current));
+                        previous
+                            .operators
+                            .push(operator(&rule_input, &atom, kind, current));
                         rule_input.final_state = atom.final_state.clone();
-                        previous.terminal = matches!(terminal_mode(&previous.operators.last().unwrap().kind), "sentence_or_pause" | "pause_or_continue");
+                        previous.terminal = matches!(
+                            terminal_mode(&previous.operators.last().unwrap().kind),
+                            "sentence_or_pause" | "pause_or_continue"
+                        );
                     }
-                    if let Some(e) = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "mark"]) { previous.source_evidence.push(e); }
-                    if context.ginza.is_some() && !context.same_bunsetsu(previous.char_range, atom.char_range) {
+                    if let Some(e) = context.relation(
+                        previous.char_range,
+                        atom.char_range,
+                        &["aux", "cop", "mark"],
+                    ) {
+                        previous.source_evidence.push(e);
+                    }
+                    if context.ginza.is_some()
+                        && !context.same_bunsetsu(previous.char_range, atom.char_range)
+                    {
                         diagnostics.push(format!("cross_bunsetsu:{}:{}", previous.chain_id, index));
                     }
-                    previous.source_evidence.extend(atom.source_evidence.clone());
-                    merge(previous, atom, false); continue;
+                    previous
+                        .source_evidence
+                        .extend(atom.source_evidence.clone());
+                    merge(previous, atom, false);
+                    continue;
                 }
                 Transition::Support(kind) => {
                     if AuxiliaryVerbExecutor::accepts(kind) {
-                        AuxiliaryVerbExecutor::apply(previous, &mut atom, kind, source, index, &mut diagnostics);
+                        AuxiliaryVerbExecutor::apply(
+                            previous,
+                            &mut atom,
+                            kind,
+                            source,
+                            index,
+                            &mut diagnostics,
+                        );
                     } else {
                         // たりする等动词循环连接器仍建立父子链，但活用校验由所属执行器完成。
                         apply_rule_executor(previous, &mut atom, kind, &mut diagnostics, index);
@@ -596,29 +1123,71 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     atom.parent_chain_id = Some(previous.chain_id.clone());
                     if order_conflict(previous, kind) {
                         atom.status = "candidate".into();
-                        diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
+                        diagnostics.push(format!(
+                            "rule_order_conflict:{}:{}:{}",
+                            previous.chain_id, kind, index
+                        ));
                     }
-                    atom.operators.push(operator(previous, &atom, kind.into(), current));
-                    atom.terminal = matches!(terminal_mode(&kind), "sentence_or_pause" | "pause_or_continue");
-                    let relation = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "advcl", "xcomp"]);
+                    atom.operators
+                        .push(operator(previous, &atom, kind.into(), current));
+                    atom.terminal = matches!(
+                        terminal_mode(&kind),
+                        "sentence_or_pause" | "pause_or_continue"
+                    );
+                    let relation = context.relation(
+                        previous.char_range,
+                        atom.char_range,
+                        &["aux", "cop", "advcl", "xcomp"],
+                    );
                     let bridged = bridge_support(previous, index, source, &context);
-                    let supported = bridged || relation.is_some() || context.same_word(previous.char_range, atom.char_range)
+                    let supported = bridged
+                        || relation.is_some()
+                        || context.same_word(previous.char_range, atom.char_range)
                         || context.same_bunsetsu(previous.char_range, atom.char_range);
                     atom.status = if supported { "resolved" } else { "candidate" }.into();
-                    if let Some(e) = relation { atom.source_evidence.push(e); }
-                    if let Some(source)=context.ginza {
-                        for node in source.nodes.iter().filter(|n| n.kind==crate::external::NodeKind::Bunsetsu && n.text_ranges.len()==1
-                            && n.text_ranges[0][0]<=previous.char_range[0] && atom.char_range[1]<=n.text_ranges[0][1]) {
-                            atom.source_evidence.push(crate::linguistic_context::SourceEvidence {provider:"ginza".into(),node_id:Some(node.id.clone()),relation_id:None,reason:"support_bunsetsu".into()});
+                    if let Some(e) = relation {
+                        atom.source_evidence.push(e);
+                    }
+                    if let Some(source) = context.ginza {
+                        for node in source.nodes.iter().filter(|n| {
+                            n.kind == crate::external::NodeKind::Bunsetsu
+                                && n.text_ranges.len() == 1
+                                && n.text_ranges[0][0] <= previous.char_range[0]
+                                && atom.char_range[1] <= n.text_ranges[0][1]
+                        }) {
+                            atom.source_evidence
+                                .push(crate::linguistic_context::SourceEvidence {
+                                    provider: "ginza".into(),
+                                    node_id: Some(node.id.clone()),
+                                    relation_id: None,
+                                    reason: "support_bunsetsu".into(),
+                                });
                         }
                     }
-                    if let Some([base, reading]) = config::definition(kind).and_then(|entry| entry.support.as_ref())
-                        .and_then(|support| support.expanded.as_ref()) {
-                        atom.display_form = atom.operators.last().and_then(|op| op.normalized_form.clone()).unwrap();
-                        atom.dictionary_form = base.clone(); atom.lookup_form = base.clone();
-                        atom.query_forms.push(QueryForm { kind: "expanded_auxiliary".into(), form: base.clone(), reading: Some(reading.clone()), reading_field: Some("contraction_rule".into()) });
+                    if let Some([base, reading]) = config::definition(kind)
+                        .and_then(|entry| entry.support.as_ref())
+                        .and_then(|support| support.expanded.as_ref())
+                    {
+                        atom.display_form = atom
+                            .operators
+                            .last()
+                            .and_then(|op| op.normalized_form.clone())
+                            .unwrap();
+                        atom.dictionary_form = base.clone();
+                        atom.lookup_form = base.clone();
+                        atom.query_forms.push(QueryForm {
+                            kind: "expanded_auxiliary".into(),
+                            form: base.clone(),
+                            reading: Some(reading.clone()),
+                            reading_field: Some("contraction_rule".into()),
+                        });
                     }
-                    if !supported { diagnostics.push(format!("support_ownership_candidate:{}:{}", previous.chain_id, index)); }
+                    if !supported {
+                        diagnostics.push(format!(
+                            "support_ownership_candidate:{}:{}",
+                            previous.chain_id, index
+                        ));
+                    }
                     linked = true;
                 }
                 Transition::Insert => {
@@ -626,67 +1195,130 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     // 插入语只扩展父链范围；保留来源证据，不把自身伪装成补助词父子节点。
                     atom.parent_chain_id = None;
                     atom.final_state = previous.final_state.clone();
-                    atom.operators.push(operator(previous, &atom, "insertion".into(), current));
+                    atom.operators
+                        .push(operator(previous, &atom, "insertion".into(), current));
                     atom.status = "resolved".into();
-                    atom.evidence.push(format!("phenomenon:insertion:{}", previous.chain_id));
-                    if let Some(e) = context.relation(previous.char_range, atom.char_range, &["case", "mark"]) { atom.source_evidence.push(e); }
+                    atom.evidence
+                        .push(format!("phenomenon:insertion:{}", previous.chain_id));
+                    if let Some(e) =
+                        context.relation(previous.char_range, atom.char_range, &["case", "mark"])
+                    {
+                        atom.source_evidence.push(e);
+                    }
                     linked = true;
                 }
                 Transition::Boundary | Transition::Stop => {
-                    if context.relation(previous.char_range, atom.char_range, &["aux", "cop"]).is_some() {
-                        diagnostics.push(format!("source_connection_conflict:{}:{}", previous.chain_id, index));
+                    if context
+                        .relation(previous.char_range, atom.char_range, &["aux", "cop"])
+                        .is_some()
+                    {
+                        diagnostics.push(format!(
+                            "source_connection_conflict:{}:{}",
+                            previous.chain_id, index
+                        ));
                         atom.status = "candidate".into();
                     }
                 }
             }
         }
-        let insertion_already_recorded = field(current, 0) == "助詞"
-            && atom.operators.iter().any(|op| op.kind == "insertion");
-        for kind in semantic(current).into_iter().filter(|kind| !(insertion_already_recorded && kind == "insertion")) {
+        let insertion_already_recorded =
+            field(current, 0) == "助詞" && atom.operators.iter().any(|op| op.kind == "insertion");
+        for kind in semantic(current)
+            .into_iter()
+            .filter(|kind| !(insertion_already_recorded && kind == "insertion"))
+        {
             let mut op = operator(&atom, &atom, kind, current);
-            op.input_state = atom.dictionary_form.clone(); op.output_state = atom.surface_form.clone();
+            op.input_state = atom.dictionary_form.clone();
+            op.output_state = atom.surface_form.clone();
             atom.operators.push(op);
         }
         if !linked && field(current, 0) == "助動詞" {
-            atom.status = "pending".into(); diagnostics.push(format!("unattached_auxiliary:{index}"));
+            atom.status = "pending".into();
+            diagnostics.push(format!("unattached_auxiliary:{index}"));
         }
         chains.push(atom);
     }
     annotate_insertions(&mut chains, source, &context);
     link_predicates(&mut chains, source);
     for chain in &mut chains {
-        if chain.operators.iter().any(|operator| operator.kind == "insertion") {
+        if chain
+            .operators
+            .iter()
+            .any(|operator| operator.kind == "insertion")
+        {
             chain.role = MorphologyRole::Lexical;
             chain.parent_chain_id = None;
             chain.status = "resolved".into();
         }
     }
-    let occurrences = chains.iter().flat_map(|chain| chain.operators.iter().filter(|op|
-        !config::is_inflection(&op.kind))
-        .map(|op| {
-            let mut hit_ranges=vec![op.char_range];
-            let mut members:Vec<_>=(op.source_morpheme_range[0]..op.source_morpheme_range[1]).collect();
-            let mut operator_ids=vec![op.operator_id.clone()];
-            let mut context_range=chain.char_range;
-            if let Some(connector_kind) = config::definition(&op.kind).and_then(|entry| entry.connector.as_ref()).filter(|_| chain.parent_chain_id.is_some()) {
-                if let Some(parent)=chains.iter().find(|c| Some(&c.chain_id)==chain.parent_chain_id.as_ref()) {
-                    if let Some(connector)=parent.operators.iter().find(|o| &o.kind == connector_kind) {
-                        hit_ranges.insert(0,connector.char_range);
-                        members.splice(0..0,connector.source_morpheme_range[0]..connector.source_morpheme_range[1]);
-                        operator_ids.insert(0,connector.operator_id.clone());
-                        members.sort_unstable();
+    let occurrences = chains
+        .iter()
+        .flat_map(|chain| {
+            chain
+                .operators
+                .iter()
+                .filter(|op| !config::is_inflection(&op.kind))
+                .map(|op| {
+                    let mut hit_ranges = vec![op.char_range];
+                    let mut members: Vec<_> =
+                        (op.source_morpheme_range[0]..op.source_morpheme_range[1]).collect();
+                    let mut operator_ids = vec![op.operator_id.clone()];
+                    let mut context_range = chain.char_range;
+                    if let Some(connector_kind) = config::definition(&op.kind)
+                        .and_then(|entry| entry.connector.as_ref())
+                        .filter(|_| chain.parent_chain_id.is_some())
+                    {
+                        if let Some(parent) = chains
+                            .iter()
+                            .find(|c| Some(&c.chain_id) == chain.parent_chain_id.as_ref())
+                        {
+                            if let Some(connector) =
+                                parent.operators.iter().find(|o| &o.kind == connector_kind)
+                            {
+                                hit_ranges.insert(0, connector.char_range);
+                                members.splice(
+                                    0..0,
+                                    connector.source_morpheme_range[0]
+                                        ..connector.source_morpheme_range[1],
+                                );
+                                operator_ids.insert(0, connector.operator_id.clone());
+                                members.sort_unstable();
+                            }
+                        }
                     }
-                }
-            }
-            let mut parent=chain.parent_chain_id.as_ref();
-            while let Some(id)=parent {
-                let Some(ancestor)=chains.iter().find(|c| &c.chain_id==id) else { break; };
-                context_range[0]=ancestor.char_range[0]; parent=ancestor.parent_chain_id.as_ref();
-            }
-            let char_range = if hit_ranges.len() > 1 { [hit_ranges[0][0], op.char_range[1]] } else { op.char_range };
-            MorphologyOccurrence { id: format!("occurrence:{}", op.operator_id), chain_id: chain.chain_id.clone(), operator_ids,
-                kind: op.kind.clone(), char_range, context_range, hit_ranges,
-                morpheme_indices: members, candidates: op.candidates.clone(), status: chain.status.clone(), source_evidence: chain.source_evidence.clone() }
-        })).collect();
-    MorphologyArtifact { schema: SCHEMA.into(), chains, occurrences, diagnostics }
+                    let mut parent = chain.parent_chain_id.as_ref();
+                    while let Some(id) = parent {
+                        let Some(ancestor) = chains.iter().find(|c| &c.chain_id == id) else {
+                            break;
+                        };
+                        context_range[0] = ancestor.char_range[0];
+                        parent = ancestor.parent_chain_id.as_ref();
+                    }
+                    let char_range = if hit_ranges.len() > 1 {
+                        [hit_ranges[0][0], op.char_range[1]]
+                    } else {
+                        op.char_range
+                    };
+                    MorphologyOccurrence {
+                        id: format!("occurrence:{}", op.operator_id),
+                        chain_id: chain.chain_id.clone(),
+                        operator_ids,
+                        kind: op.kind.clone(),
+                        char_range,
+                        context_range,
+                        hit_ranges,
+                        morpheme_indices: members,
+                        candidates: op.candidates.clone(),
+                        status: chain.status.clone(),
+                        source_evidence: chain.source_evidence.clone(),
+                    }
+                })
+        })
+        .collect();
+    MorphologyArtifact {
+        schema: SCHEMA.into(),
+        chains,
+        occurrences,
+        diagnostics,
+    }
 }

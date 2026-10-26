@@ -16,12 +16,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let (sender, receiver) = std::sync::mpsc::channel();
             std::thread::spawn(move || {
                 for line in io::stdin().lock().lines() {
-                    let request = line.map_err(|e| e.to_string()).and_then(|line| serde_json::from_str::<Request>(&line).map_err(|e| e.to_string()));
+                    let request = line.map_err(|e| e.to_string()).and_then(|line| {
+                        serde_json::from_str::<Request>(&line).map_err(|e| e.to_string())
+                    });
                     if matches!(request, Ok(Request::CancelExternal)) {
                         cancellation.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
                     }
                     let generation = cancellation.load(std::sync::atomic::Ordering::Relaxed);
-                    if sender.send((request, generation)).is_err() { break; }
+                    if sender.send((request, generation)).is_err() {
+                        break;
+                    }
                 }
             });
             for (request, generation) in receiver {

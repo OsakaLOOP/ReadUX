@@ -34,7 +34,10 @@ pub fn unify_with_external(
     routing: RegisterRouting,
     external: &[crate::syntax::SyntaxArtifact],
 ) -> Result<UnifiedDocument, String> {
-    let imported: Vec<_> = external.iter().map(|a| crate::external::SourceArtifact::from_syntax(a, &prepared.text)).collect::<Result<_,_>>()?;
+    let imported: Vec<_> = external
+        .iter()
+        .map(|a| crate::external::SourceArtifact::from_syntax(a, &prepared.text))
+        .collect::<Result<_, _>>()?;
     assemble(prepared, source, routing, external, &imported)
 }
 
@@ -44,7 +47,9 @@ pub fn unify_with_sources(
     routing: RegisterRouting,
     external: &[crate::external::SourceArtifact],
 ) -> Result<UnifiedDocument, String> {
-    for artifact in external { artifact.validate(&prepared.text)?; }
+    for artifact in external {
+        artifact.validate(&prepared.text)?;
+    }
     let syntax: Vec<_> = external.iter().map(|artifact| artifact.syntax()).collect();
     assemble(prepared, source, routing, &syntax, external)
 }
@@ -62,7 +67,8 @@ fn assemble(
         "{:x}",
         Sha256::digest(format!(
             "{SCHEMA}\0{}\0{}\0{text}",
-            serde_json::to_string(&source.runs).map_err(|e| e.to_string())?, prepared.mapping.source_sha256
+            serde_json::to_string(&source.runs).map_err(|e| e.to_string())?,
+            prepared.mapping.source_sha256
         ))
     );
     let mut gaps = Vec::new();
@@ -123,7 +129,12 @@ fn assemble(
             surface: chars[end..].iter().collect(),
         });
     }
-    let ruby_validations = validate_ruby(&chars, &source.tokens, &prepared.annotations, &prepared.mapping);
+    let ruby_validations = validate_ruby(
+        &chars,
+        &source.tokens,
+        &prepared.annotations,
+        &prepared.mapping,
+    );
     let mut structure = crate::structure::LocalBoundaryProvider.analyze(text);
     let mut structure_diagnostics = Vec::new();
     let mut provider_token_alignments = Vec::new();
@@ -135,20 +146,33 @@ fn assemble(
         provider_token_alignments.push(crate::alignment::align_artifact(artifact, &morphemes));
     }
     for alignment in &mut provider_token_alignments {
-        if let Some(source) = complete_sources.iter().find(|source| source.provider.id == alignment.external_provider) {
+        if let Some(source) = complete_sources
+            .iter()
+            .find(|source| source.provider.id == alignment.external_provider)
+        {
             alignment.groups = crate::alignment_group::from_source(source, &morphemes);
         }
     }
     let structure_graph = crate::structure_graph::build(&id, text, &morphemes, complete_sources)?;
-    if complete_sources.iter().any(|s| s.provider.model != "syntax_import") {
+    if complete_sources
+        .iter()
+        .any(|s| s.provider.model != "syntax_import")
+    {
         structure_graph.apply_selection(&mut structure);
     }
-    let morphology = crate::morphology::collect_with_external(&source.tokens, &morphemes, complete_sources)?;
-    let mut formation = crate::formation::collect_formations_with_sources(text, &morphemes, &structure, complete_sources)?;
+    let morphology =
+        crate::morphology::collect_with_external(&source.tokens, &morphemes, complete_sources)?;
+    let mut formation = crate::formation::collect_formations_with_sources(
+        text,
+        &morphemes,
+        &structure,
+        complete_sources,
+    )?;
     crate::formation::attach_words(text, &morphemes, &morphology, &mut formation);
     let bunsetsu = crate::bunsetsu::collect_bunsetsu(text, &morphemes, &structure, &formation)?;
     let clause = crate::clause::collect_clauses(text, &morphemes, &structure)?;
-    let mut dictionary_candidates = crate::lexical::collect_dictionary_candidates(text, &morphemes, &formation)?;
+    let mut dictionary_candidates =
+        crate::lexical::collect_dictionary_candidates(text, &morphemes, &formation)?;
     crate::lexical::add_morphology_candidates(&mut dictionary_candidates, &morphology);
     let grammar = crate::grammar::collect_functional_candidates(&source.tokens, &morphemes)?;
     let expression = crate::expression::empty();

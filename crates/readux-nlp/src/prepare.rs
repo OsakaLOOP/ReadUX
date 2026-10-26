@@ -29,7 +29,12 @@ pub struct PreparationMap {
 
 impl PreparationMap {
     pub fn source_ranges(&self, range: [usize; 2]) -> Vec<[usize; 2]> {
-        crate::external::merge_ranges(self.origins[range[0]..range[1]].iter().map(|&i| [i, i + 1]).collect())
+        crate::external::merge_ranges(
+            self.origins[range[0]..range[1]]
+                .iter()
+                .map(|&i| [i, i + 1])
+                .collect(),
+        )
     }
 }
 
@@ -124,7 +129,11 @@ pub fn prepare_text(input: &str) -> PreparedText {
 
     while index < chars.len() {
         if let Some(next) = markdown_image_end(&chars, index) {
-            removed.push(RemovedMarkup { source_range: [index, next], text_offset: cleaned.len(), kind: "image".into() });
+            removed.push(RemovedMarkup {
+                source_range: [index, next],
+                text_offset: cleaned.len(),
+                kind: "image".into(),
+            });
             base_boundary = cleaned.len();
             index = next;
             continue;
@@ -169,10 +178,19 @@ pub fn prepare_text(input: &str) -> PreparedText {
                 char_range: [base_start, cleaned.len()],
             });
             base_boundary = cleaned.len();
-            removed.push(RemovedMarkup { source_range: [index, annotation_end + 1], text_offset: cleaned.len(), kind: "ruby".into() });
+            removed.push(RemovedMarkup {
+                source_range: [index, annotation_end + 1],
+                text_offset: cleaned.len(),
+                kind: "ruby".into(),
+            });
             index = annotation_end + 1;
         } else {
-            cleaned.extend(chars[index..=annotation_end].iter().copied().map(crate::kyujitai::normalize_char));
+            cleaned.extend(
+                chars[index..=annotation_end]
+                    .iter()
+                    .copied()
+                    .map(crate::kyujitai::normalize_char),
+            );
             origins.extend(index..=annotation_end);
             base_boundary = cleaned.len();
             index = annotation_end + 1;
@@ -181,9 +199,12 @@ pub fn prepare_text(input: &str) -> PreparedText {
 
     let text: String = cleaned.into_iter().collect();
     let mapping = PreparationMap {
-        schema: PREPARE_TEXT_PROTOCOL_VERSION.into(), source_text: input.into(),
-        source_sha256: crate::external::text_digest(input), text_sha256: crate::external::text_digest(&text),
-        origins, removed,
+        schema: PREPARE_TEXT_PROTOCOL_VERSION.into(),
+        source_text: input.into(),
+        source_sha256: crate::external::text_digest(input),
+        text_sha256: crate::external::text_digest(&text),
+        origins,
+        removed,
     };
     PreparedText {
         text,
@@ -238,23 +259,53 @@ mod tests {
         assert_eq!(prepared.text, "甲乙\n𠮷。甲  \n");
         assert_eq!(prepared.mapping.source_ranges([0, 2]), vec![[0, 1], [5, 6]]);
         let source: Vec<_> = input.chars().collect();
-        let rebuilt: String = prepared.mapping.origins.iter().map(|&i| source[i]).collect();
+        let rebuilt: String = prepared
+            .mapping
+            .origins
+            .iter()
+            .map(|&i| source[i])
+            .collect();
         assert_eq!(rebuilt, prepared.text);
-        let mut coverage: Vec<_> = prepared.mapping.origins.iter().map(|&i| [i, i + 1]).collect();
-        coverage.extend(prepared.mapping.removed.iter().map(|item| item.source_range));
+        let mut coverage: Vec<_> = prepared
+            .mapping
+            .origins
+            .iter()
+            .map(|&i| [i, i + 1])
+            .collect();
+        coverage.extend(
+            prepared
+                .mapping
+                .removed
+                .iter()
+                .map(|item| item.source_range),
+        );
         coverage.sort_unstable();
         assert_eq!(coverage[0][0], 0);
         assert_eq!(coverage.last().unwrap()[1], source.len());
         assert!(coverage.windows(2).all(|pair| pair[0][1] == pair[1][0]));
-        assert_eq!(prepared.mapping.removed.iter().map(|item| item.kind.as_str()).collect::<Vec<_>>(), vec!["ruby", "image", "ruby"]);
-        assert_ne!(prepared.mapping.source_ranges([0, 1]), prepared.mapping.source_ranges([5, 6]));
+        assert_eq!(
+            prepared
+                .mapping
+                .removed
+                .iter()
+                .map(|item| item.kind.as_str())
+                .collect::<Vec<_>>(),
+            vec!["ruby", "image", "ruby"]
+        );
+        assert_ne!(
+            prepared.mapping.source_ranges([0, 1]),
+            prepared.mapping.source_ranges([5, 6])
+        );
     }
 
     #[test]
     fn invalid_and_unclosed_ruby_preserve_identity_mapping() {
         for input in ["甲《abc》  ", "乙《おつ", ""] {
             let prepared = prepare_text(input);
-            assert_eq!(prepared.mapping.origins, (0..input.chars().count()).collect::<Vec<_>>());
+            assert_eq!(
+                prepared.mapping.origins,
+                (0..input.chars().count()).collect::<Vec<_>>()
+            );
             assert!(prepared.mapping.removed.is_empty());
         }
     }

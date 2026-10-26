@@ -29,7 +29,8 @@ pub struct SavedSelection {
 impl ReaderState {
     pub fn open(path: impl AsRef<Path>) -> Result<Self, rusqlite::Error> {
         let connection = Connection::open(path)?;
-        connection.execute_batch("BEGIN;
+        connection.execute_batch(
+            "BEGIN;
             CREATE TABLE IF NOT EXISTS exposure_history (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 base_form TEXT NOT NULL, reading TEXT,
@@ -43,7 +44,8 @@ impl ReaderState {
                 reading TEXT NOT NULL, note TEXT NOT NULL DEFAULT '',
                 PRIMARY KEY(book_id, text_version, start, end));
             PRAGMA user_version = 1;
-            COMMIT;")?;
+            COMMIT;",
+        )?;
         Ok(Self { connection })
     }
 
@@ -75,14 +77,29 @@ impl ReaderState {
         Ok(())
     }
 
-    pub fn selections(&self, book_id: &str, text_version: &str) -> Result<Vec<SavedSelection>, rusqlite::Error> {
+    pub fn selections(
+        &self,
+        book_id: &str,
+        text_version: &str,
+    ) -> Result<Vec<SavedSelection>, rusqlite::Error> {
         let mut statement = self.connection.prepare(
             "SELECT start, end, surface, base_form, reading, note FROM reader_selections
-             WHERE book_id = ?1 AND text_version = ?2 ORDER BY start")?;
-        let selections = statement.query_map(params![book_id, text_version], |row| Ok(SavedSelection {
-            book_id: book_id.into(), text_version: text_version.into(), start: row.get(0)?, end: row.get(1)?,
-            surface: row.get(2)?, base_form: row.get(3)?, reading: row.get(4)?, note: row.get(5)?,
-        }))?.collect();
+             WHERE book_id = ?1 AND text_version = ?2 ORDER BY start",
+        )?;
+        let selections = statement
+            .query_map(params![book_id, text_version], |row| {
+                Ok(SavedSelection {
+                    book_id: book_id.into(),
+                    text_version: text_version.into(),
+                    start: row.get(0)?,
+                    end: row.get(1)?,
+                    surface: row.get(2)?,
+                    base_form: row.get(3)?,
+                    reading: row.get(4)?,
+                    note: row.get(5)?,
+                })
+            })?
+            .collect();
         selections
     }
 
@@ -97,14 +114,27 @@ impl ReaderState {
         Ok(())
     }
 
-    pub fn delete_selection(&self, book_id: &str, text_version: &str, start: usize, end: usize) -> Result<(), rusqlite::Error> {
+    pub fn delete_selection(
+        &self,
+        book_id: &str,
+        text_version: &str,
+        start: usize,
+        end: usize,
+    ) -> Result<(), rusqlite::Error> {
         self.connection.execute("DELETE FROM reader_selections WHERE book_id = ?1 AND text_version = ?2 AND start = ?3 AND end = ?4",
             params![book_id, text_version, start, end])?;
         Ok(())
     }
 
-    pub fn clear_selections(&self, book_id: &str, text_version: &str) -> Result<(), rusqlite::Error> {
-        self.connection.execute("DELETE FROM reader_selections WHERE book_id = ?1 AND text_version = ?2", params![book_id, text_version])?;
+    pub fn clear_selections(
+        &self,
+        book_id: &str,
+        text_version: &str,
+    ) -> Result<(), rusqlite::Error> {
+        self.connection.execute(
+            "DELETE FROM reader_selections WHERE book_id = ?1 AND text_version = ?2",
+            params![book_id, text_version],
+        )?;
         Ok(())
     }
 }

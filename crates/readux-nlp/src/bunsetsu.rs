@@ -1,6 +1,10 @@
 //! L2 文节证据层。
 //! 文节边界和主辞完全来自结构 provider，模块只完成 token 与构词引用。
-use crate::{formation::FormationArtifact, model::MorphemeToken, structure::{StructureArtifact, StructureStatus}};
+use crate::{
+    formation::FormationArtifact,
+    model::MorphemeToken,
+    structure::{StructureArtifact, StructureStatus},
+};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
@@ -8,7 +12,11 @@ pub const SCHEMA: &str = "readux.bunsetsu-artifact.v1";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
-pub enum BunsetsuStatus { Observed, Candidate, Pending }
+pub enum BunsetsuStatus {
+    Observed,
+    Candidate,
+    Pending,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct BunsetsuNode {
@@ -64,14 +72,21 @@ pub fn collect_bunsetsu(
         }
         let coverage = crate::alignment::cover_range(span.char_range, morphemes, text);
         let morpheme_indices = coverage.morpheme_indices;
-        let head_morpheme_index = span.head_char_range.filter(|head| {
-            head[0] >= start && head[1] <= end && head[0] < head[1]
-        }).and_then(|head| {
-            morphemes.iter().enumerate()
-                .find(|(index, token)| token.char_range == head && morpheme_indices.contains(index))
-                .map(|(index, _)| index)
-        });
-        let formation_node_ids = formation.nodes.iter()
+        let head_morpheme_index = span
+            .head_char_range
+            .filter(|head| head[0] >= start && head[1] <= end && head[0] < head[1])
+            .and_then(|head| {
+                morphemes
+                    .iter()
+                    .enumerate()
+                    .find(|(index, token)| {
+                        token.char_range == head && morpheme_indices.contains(index)
+                    })
+                    .map(|(index, _)| index)
+            });
+        let formation_node_ids = formation
+            .nodes
+            .iter()
             .filter(|node| node.char_range[0] >= start && node.char_range[1] <= end)
             .map(|node| node.id.clone())
             .collect();
@@ -80,12 +95,21 @@ pub fn collect_bunsetsu(
             char_range: [start, end],
             morpheme_indices,
             formation_node_ids,
-            status: if coverage.complete { status(&span.status) } else { BunsetsuStatus::Pending },
+            status: if coverage.complete {
+                status(&span.status)
+            } else {
+                BunsetsuStatus::Pending
+            },
             provider: span.provider.clone(),
             source_id: span.source_id.clone(),
             head_char_range: span.head_char_range,
             head_morpheme_index,
-            labels: span.labels.iter().cloned().chain([format!("alignment:{}", coverage.reason)]).collect(),
+            labels: span
+                .labels
+                .iter()
+                .cloned()
+                .chain([format!("alignment:{}", coverage.reason)])
+                .collect(),
         });
     }
 
@@ -110,7 +134,11 @@ pub fn collect_bunsetsu(
             }
         }
     }
-    Ok(BunsetsuArtifact { schema: SCHEMA.into(), nodes, conflict_groups })
+    Ok(BunsetsuArtifact {
+        schema: SCHEMA.into(),
+        nodes,
+        conflict_groups,
+    })
 }
 
 #[cfg(test)]
@@ -119,26 +147,102 @@ mod tests {
     use crate::model::MorphemeToken;
 
     fn token(index: usize, range: [usize; 2], surface: &str) -> MorphemeToken {
-        MorphemeToken { id: format!("m{index}"), source_index: index, surface: surface.into(), char_range: range, pos: [None, None, None, None], lemma: None, reading: None, query_forms: Vec::new() }
+        MorphemeToken {
+            id: format!("m{index}"),
+            source_index: index,
+            surface: surface.into(),
+            char_range: range,
+            pos: [None, None, None, None],
+            lemma: None,
+            reading: None,
+            query_forms: Vec::new(),
+        }
     }
 
-    fn span(id: &str, range: [usize; 2], provider: &str, head: Option<[usize; 2]>) -> crate::structure::StructureSpan {
-        crate::structure::StructureSpan { id: id.into(), kind: "bunsetsu".into(), char_range: range, status: StructureStatus::Observed, provider: provider.into(), source_id: Some("sample".into()), head_char_range: head, labels: vec!["head".into()] }
+    fn span(
+        id: &str,
+        range: [usize; 2],
+        provider: &str,
+        head: Option<[usize; 2]>,
+    ) -> crate::structure::StructureSpan {
+        crate::structure::StructureSpan {
+            id: id.into(),
+            kind: "bunsetsu".into(),
+            char_range: range,
+            status: StructureStatus::Observed,
+            provider: provider.into(),
+            source_id: Some("sample".into()),
+            head_char_range: head,
+            labels: vec!["head".into()],
+        }
     }
 
     #[test]
     fn maps_head_and_formation_references() {
-        let structure = StructureArtifact { schema: crate::structure::SCHEMA.into(), provider: "local".into(), provider_version: None, paragraphs: Vec::new(), sentences: Vec::new(), clauses: Vec::new(), bunsetsu: vec![span("g", [0, 4], "ginza", Some([2, 4]))], compounds: Vec::new() };
-        let formation = FormationArtifact { schema: crate::formation::SCHEMA.into(), nodes: vec![crate::formation::FormationNode { id: "formation:c".into(), kind: "compound".into(), char_range: [0, 4], morpheme_indices: vec![0, 1], status: crate::formation::FormationStatus::Observed, evidence: Vec::new(), word: None }], conflicts: Vec::new() };
-        let result = collect_bunsetsu("情報処理", &[token(0, [0, 2], "情報"), token(1, [2, 4], "処理")], &structure, &formation).unwrap();
+        let structure = StructureArtifact {
+            schema: crate::structure::SCHEMA.into(),
+            provider: "local".into(),
+            provider_version: None,
+            paragraphs: Vec::new(),
+            sentences: Vec::new(),
+            clauses: Vec::new(),
+            bunsetsu: vec![span("g", [0, 4], "ginza", Some([2, 4]))],
+            compounds: Vec::new(),
+        };
+        let formation = FormationArtifact {
+            schema: crate::formation::SCHEMA.into(),
+            nodes: vec![crate::formation::FormationNode {
+                id: "formation:c".into(),
+                kind: "compound".into(),
+                char_range: [0, 4],
+                morpheme_indices: vec![0, 1],
+                status: crate::formation::FormationStatus::Observed,
+                evidence: Vec::new(),
+                word: None,
+            }],
+            conflicts: Vec::new(),
+        };
+        let result = collect_bunsetsu(
+            "情報処理",
+            &[token(0, [0, 2], "情報"), token(1, [2, 4], "処理")],
+            &structure,
+            &formation,
+        )
+        .unwrap();
         assert_eq!(result.nodes[0].head_morpheme_index, Some(1));
         assert_eq!(result.nodes[0].formation_node_ids, vec!["formation:c"]);
     }
 
     #[test]
     fn records_provider_boundary_conflicts() {
-        let structure = StructureArtifact { schema: crate::structure::SCHEMA.into(), provider: "local".into(), provider_version: None, paragraphs: Vec::new(), sentences: Vec::new(), clauses: Vec::new(), bunsetsu: vec![span("g", [0, 4], "ginza", None), span("k", [2, 6], "kwja", None)], compounds: Vec::new() };
-        let result = collect_bunsetsu("情報処理技術", &[token(0, [0, 2], "情報"), token(1, [2, 4], "処理"), token(2, [4, 6], "技術")], &structure, &FormationArtifact { schema: crate::formation::SCHEMA.into(), nodes: Vec::new(), conflicts: Vec::new() }).unwrap();
+        let structure = StructureArtifact {
+            schema: crate::structure::SCHEMA.into(),
+            provider: "local".into(),
+            provider_version: None,
+            paragraphs: Vec::new(),
+            sentences: Vec::new(),
+            clauses: Vec::new(),
+            bunsetsu: vec![
+                span("g", [0, 4], "ginza", None),
+                span("k", [2, 6], "kwja", None),
+            ],
+            compounds: Vec::new(),
+        };
+        let result = collect_bunsetsu(
+            "情報処理技術",
+            &[
+                token(0, [0, 2], "情報"),
+                token(1, [2, 4], "処理"),
+                token(2, [4, 6], "技術"),
+            ],
+            &structure,
+            &FormationArtifact {
+                schema: crate::formation::SCHEMA.into(),
+                nodes: Vec::new(),
+                conflicts: Vec::new(),
+            },
+        )
+        .unwrap();
         assert_eq!(result.conflict_groups[0].char_range, [2, 4]);
         assert_eq!(result.conflict_groups[0].providers, vec!["ginza", "kwja"]);
     }
@@ -146,9 +250,21 @@ mod tests {
     #[test]
     fn preserves_provider_boundary_inside_unidic_token() {
         let mut structure = crate::structure::local_candidates("時折雨");
-        structure.bunsetsu.push(span("kwja:b0", [0, 1], "kwja", Some([0, 1])));
-        let formation = FormationArtifact { schema: crate::formation::SCHEMA.into(), nodes: Vec::new(), conflicts: Vec::new() };
-        let result = collect_bunsetsu("時折雨", &[token(0, [0, 2], "時折"), token(1, [2, 3], "雨")], &structure, &formation).unwrap();
+        structure
+            .bunsetsu
+            .push(span("kwja:b0", [0, 1], "kwja", Some([0, 1])));
+        let formation = FormationArtifact {
+            schema: crate::formation::SCHEMA.into(),
+            nodes: Vec::new(),
+            conflicts: Vec::new(),
+        };
+        let result = collect_bunsetsu(
+            "時折雨",
+            &[token(0, [0, 2], "時折"), token(1, [2, 3], "雨")],
+            &structure,
+            &formation,
+        )
+        .unwrap();
         assert_eq!(result.nodes[0].status, BunsetsuStatus::Pending);
         assert_eq!(result.nodes[0].morpheme_indices, vec![0]);
         assert_eq!(result.nodes[0].head_morpheme_index, None);

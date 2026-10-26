@@ -1,8 +1,8 @@
+use crate::dictionary::model::{DictionaryEntryPreview, DictionaryTag};
+use crate::dictionary::presentation;
 use flate2::read::ZlibDecoder;
 use rusqlite::{params, Connection, OptionalExtension};
 use serde::Deserialize;
-use crate::dictionary::model::{DictionaryEntryPreview, DictionaryTag};
-use crate::dictionary::presentation;
 use std::fs::{self, File};
 use std::io::{BufReader, Read};
 use std::path::{Path, PathBuf};
@@ -358,13 +358,13 @@ fn build_entry_previews(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let mut cursor = 0i64;
     let transaction = connection.transaction()?;
-    let mut statement = transaction.prepare(
-        "INSERT INTO entry_previews(entry_id, data) VALUES(?1, ?2)",
-    )?;
+    let mut statement =
+        transaction.prepare("INSERT INTO entry_previews(entry_id, data) VALUES(?1, ?2)")?;
     let mut block_cache = std::collections::HashMap::<i64, Vec<u8>>::new();
     loop {
-        let record = transaction.query_row(
-            "SELECT e.id,
+        let record = transaction
+            .query_row(
+                "SELECT e.id,
                     COALESCE((SELECT COALESCE(k.display_value, k.normalized_value)
                               FROM entry_keys k WHERE k.entry_id = e.id AND k.kind = 0
                               ORDER BY k.rank LIMIT 1), e.headword),
@@ -376,13 +376,36 @@ fn build_entry_previews(
                     b.uncompressed_size, b.data
              FROM entries e JOIN definition_blocks b ON b.id = e.definition_block_id
              WHERE e.id > ?1 ORDER BY e.id LIMIT 1",
-            [cursor], |row| Ok((
-                row.get::<_, i64>(0)?, row.get::<_, String>(1)?, row.get::<_, String>(2)?,
-                row.get::<_, i64>(3)?, row.get::<_, usize>(4)?, row.get::<_, usize>(5)?,
-                row.get::<_, Option<String>>(6)?, row.get::<_, usize>(7)?, row.get::<_, Vec<u8>>(8)?,
-            )),
-        ).optional()?;
-        let Some((entry_id, indexed_headword, raw_headword, block_id, offset, length, reading, expected_size, compressed)) = record else { break; };
+                [cursor],
+                |row| {
+                    Ok((
+                        row.get::<_, i64>(0)?,
+                        row.get::<_, String>(1)?,
+                        row.get::<_, String>(2)?,
+                        row.get::<_, i64>(3)?,
+                        row.get::<_, usize>(4)?,
+                        row.get::<_, usize>(5)?,
+                        row.get::<_, Option<String>>(6)?,
+                        row.get::<_, usize>(7)?,
+                        row.get::<_, Vec<u8>>(8)?,
+                    ))
+                },
+            )
+            .optional()?;
+        let Some((
+            entry_id,
+            indexed_headword,
+            raw_headword,
+            block_id,
+            offset,
+            length,
+            reading,
+            expected_size,
+            compressed,
+        )) = record
+        else {
+            break;
+        };
         cursor = entry_id;
         let block = if let Some(block) = block_cache.get(&block_id) {
             block
@@ -396,29 +419,41 @@ fn build_entry_previews(
             block_cache.insert(block_id, decoded.clone());
             block_cache.get(&block_id).expect("刚解压的词典块已缓存")
         };
-        let end = offset.checked_add(length).ok_or("词典 definition 范围溢出")?;
-        let definition = std::str::from_utf8(block.get(offset..end).ok_or("词典 definition 范围无效")?)?;
+        let end = offset
+            .checked_add(length)
+            .ok_or("词典 definition 范围溢出")?;
+        let definition =
+            std::str::from_utf8(block.get(offset..end).ok_or("词典 definition 范围无效")?)?;
         let presentations = presentation::present(
-            dict_name, &indexed_headword, &raw_headword, reading.as_deref(), definition,
+            dict_name,
+            &indexed_headword,
+            &raw_headword,
+            reading.as_deref(),
+            definition,
         );
-        let previews = presentations.into_iter().map(|occurrence| {
-            let metadata_pos_tags = occurrence.senses.iter()
-                .flat_map(|sense| sense.tags.iter())
-                .filter(|tag| tag.kind == "pos")
-                .cloned()
-                .collect::<Vec<DictionaryTag>>();
-            DictionaryEntryPreview {
-                occurrence_suffix: occurrence.occurrence_suffix,
-                source_record_index: occurrence.source_record_index,
-                entry_kind: occurrence.entry_kind,
-                header: occurrence.header,
-                links: occurrence.links,
-                style_profile: occurrence.style_profile,
-                adapter_diagnostics: occurrence.diagnostics,
-                has_definition: !occurrence.definition_html.trim().is_empty(),
-                metadata_pos_tags,
-            }
-        }).collect::<Vec<_>>();
+        let previews = presentations
+            .into_iter()
+            .map(|occurrence| {
+                let metadata_pos_tags = occurrence
+                    .senses
+                    .iter()
+                    .flat_map(|sense| sense.tags.iter())
+                    .filter(|tag| tag.kind == "pos")
+                    .cloned()
+                    .collect::<Vec<DictionaryTag>>();
+                DictionaryEntryPreview {
+                    occurrence_suffix: occurrence.occurrence_suffix,
+                    source_record_index: occurrence.source_record_index,
+                    entry_kind: occurrence.entry_kind,
+                    header: occurrence.header,
+                    links: occurrence.links,
+                    style_profile: occurrence.style_profile,
+                    adapter_diagnostics: occurrence.diagnostics,
+                    has_definition: !occurrence.definition_html.trim().is_empty(),
+                    metadata_pos_tags,
+                }
+            })
+            .collect::<Vec<_>>();
         statement.execute(params![entry_id, serde_json::to_vec(&previews)?])?;
     }
     drop(statement);

@@ -378,14 +378,9 @@ impl ReaderLibrary {
         rows.collect()
     }
 
-    fn book_tags(
-        &self,
-        connection: &Connection,
-        id: &str,
-    ) -> Result<Vec<String>, rusqlite::Error> {
-        let mut statement = connection.prepare(
-            "SELECT tag FROM book_tags WHERE book_id = ?1 ORDER BY position",
-        )?;
+    fn book_tags(&self, connection: &Connection, id: &str) -> Result<Vec<String>, rusqlite::Error> {
+        let mut statement =
+            connection.prepare("SELECT tag FROM book_tags WHERE book_id = ?1 ORDER BY position")?;
         let tags = statement.query_map([id], |row| row.get(0))?.collect();
         tags
     }
@@ -569,7 +564,10 @@ fn normalize_tags(tags: &[String]) -> Result<Vec<String>, Box<dyn std::error::Er
         if tag.chars().count() > 24 {
             return Err("单个标签不能超过 24 个字符".into());
         }
-        if normalized.iter().any(|saved: &String| saved.eq_ignore_ascii_case(tag)) {
+        if normalized
+            .iter()
+            .any(|saved: &String| saved.eq_ignore_ascii_case(tag))
+        {
             continue;
         }
         if normalized.len() >= 12 {

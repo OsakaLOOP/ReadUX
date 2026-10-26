@@ -1,8 +1,8 @@
-use crate::dictionary::{aggregate, bundle, lookup_state, presentation};
 use crate::dictionary::model::{
-    DictEntry, DictionaryEntryRef, DictionaryLookup, DictionaryLookupTiming,
-    DictionaryEntryPreview, DictionaryMatchEvidence, PosTag,
+    DictEntry, DictionaryEntryPreview, DictionaryEntryRef, DictionaryLookup,
+    DictionaryLookupTiming, DictionaryMatchEvidence, PosTag,
 };
+use crate::dictionary::{aggregate, bundle, lookup_state, presentation};
 use flate2::read::ZlibDecoder;
 use rusqlite::{Connection, OpenFlags, Row};
 use serde::Serialize;
@@ -206,11 +206,27 @@ impl DictionaryEngine {
     }
 
     pub fn fork(&self) -> Result<Self, Box<dyn std::error::Error>> {
-        let databases = self.databases.iter().map(|database| {
-            let connection = Connection::open_with_flags(&database.path, OpenFlags::SQLITE_OPEN_READ_ONLY)?;
-            Ok(DictionaryDatabase { name: database.name.clone(), file_name: database.file_name.clone(), path: database.path.clone(), connection })
-        }).collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
-        Ok(Self { databases, exists_cache: self.exists_cache.clone(), definition_cache: self.definition_cache.clone(), presentation_cache: self.presentation_cache.clone(), matrix_cache: self.matrix_cache.clone() })
+        let databases = self
+            .databases
+            .iter()
+            .map(|database| {
+                let connection =
+                    Connection::open_with_flags(&database.path, OpenFlags::SQLITE_OPEN_READ_ONLY)?;
+                Ok(DictionaryDatabase {
+                    name: database.name.clone(),
+                    file_name: database.file_name.clone(),
+                    path: database.path.clone(),
+                    connection,
+                })
+            })
+            .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
+        Ok(Self {
+            databases,
+            exists_cache: self.exists_cache.clone(),
+            definition_cache: self.definition_cache.clone(),
+            presentation_cache: self.presentation_cache.clone(),
+            matrix_cache: self.matrix_cache.clone(),
+        })
     }
 
     pub fn stats(&self) -> Vec<DictionaryStats> {
@@ -258,8 +274,23 @@ impl DictionaryEngine {
         selected_form: Option<&str>,
         priority_list: &[String],
     ) -> DictionaryLookup {
-        let cache_key = readux_nlp::external::text_digest(&serde_json::to_string(&(query, observed_form, reading, pos, selected_form, priority_list)).unwrap_or_default());
-        if let Some(mut cached) = self.matrix_cache.lock().ok().and_then(|mut cache| cache.get(&cache_key)) {
+        let cache_key = readux_nlp::external::text_digest(
+            &serde_json::to_string(&(
+                query,
+                observed_form,
+                reading,
+                pos,
+                selected_form,
+                priority_list,
+            ))
+            .unwrap_or_default(),
+        );
+        if let Some(mut cached) = self
+            .matrix_cache
+            .lock()
+            .ok()
+            .and_then(|mut cache| cache.get(&cache_key))
+        {
             cached.timing = Some(DictionaryLookupTiming::default());
             return cached;
         }
@@ -283,9 +314,20 @@ impl DictionaryEngine {
             &mut timing,
         );
         let forms = lookup_state::build_form_groups(seeds, &dictionary_names);
-        let preferred = selected_form.or_else(|| is_kana_query(query).then(|| forms.iter()
-            .find(|form| form.dictionaries.iter().any(|dictionary| dictionary.available))
-            .map(|form| form.form_id.as_str())).flatten());
+        let preferred = selected_form.or_else(|| {
+            is_kana_query(query)
+                .then(|| {
+                    forms
+                        .iter()
+                        .find(|form| {
+                            form.dictionaries
+                                .iter()
+                                .any(|dictionary| dictionary.available)
+                        })
+                        .map(|form| form.form_id.as_str())
+                })
+                .flatten()
+        });
         let selected_form_id = lookup_state::selected_form_id(&forms, preferred);
         let mut entries = Vec::new();
         if let Some(active_form) = lookup_state::selected_form(&forms, selected_form_id.as_deref())
@@ -315,12 +357,7 @@ impl DictionaryEngine {
                 }
             }
             let normalized_reading = effective_reading.map(normalize_reading);
-            rank_entries(
-                &mut entries,
-                query,
-                normalized_reading.as_deref(),
-                pos,
-            );
+            rank_entries(&mut entries, query, normalized_reading.as_deref(), pos);
         }
         entries = aggregate::sort_definitions(entries, priority_list);
         timing.entries = entries.len();
@@ -337,7 +374,9 @@ impl DictionaryEngine {
             entries,
             Some(timing),
         );
-        if let Ok(mut cache) = self.matrix_cache.lock() { cache.insert(cache_key, result.clone()); }
+        if let Ok(mut cache) = self.matrix_cache.lock() {
+            cache.insert(cache_key, result.clone());
+        }
         result
     }
 
@@ -562,27 +601,47 @@ impl DictionaryEngine {
     }
 
     pub fn lookup(&self, headword: &str, reading: Option<&str>) -> Vec<DictEntry> {
-        self.lookup_profiled(headword, reading).0.into_iter().flat_map(|entry| {
-            self.load_entry_with_match(&entry.entry_key, &entry.match_type).unwrap_or_default()
-        }).collect()
+        self.lookup_profiled(headword, reading)
+            .0
+            .into_iter()
+            .flat_map(|entry| {
+                self.load_entry_with_match(&entry.entry_key, &entry.match_type)
+                    .unwrap_or_default()
+            })
+            .collect()
     }
 
     pub fn load_entry(&self, entry_key: &str) -> Result<Vec<DictEntry>, String> {
         self.load_entry_with_match(entry_key, "exact_form")
     }
 
-    fn load_entry_with_match(&self, entry_key: &str, match_type: &str) -> Result<Vec<DictEntry>, String> {
+    fn load_entry_with_match(
+        &self,
+        entry_key: &str,
+        match_type: &str,
+    ) -> Result<Vec<DictEntry>, String> {
         let (name, id) = entry_key.rsplit_once('\u{1f}').ok_or("词条引用无效")?;
         let entry_id: i64 = id.parse().map_err(|_| "词条引用无效")?;
-        let database_index = self.databases.iter().position(|database| database.name == name).ok_or("词典已更新，请重新查询")?;
+        let database_index = self
+            .databases
+            .iter()
+            .position(|database| database.name == name)
+            .ok_or("词典已更新，请重新查询")?;
         let database = &self.databases[database_index];
         let row = database.connection.query_row(
             "SELECT e.id, COALESCE((SELECT COALESCE(k.display_value, k.normalized_value) FROM entry_keys k WHERE k.entry_id = e.id AND k.kind = 0 ORDER BY k.rank LIMIT 1), e.headword), e.headword, e.definition_block_id, e.definition_offset, e.definition_length, (SELECT COALESCE(r.display_value, r.normalized_value) FROM entry_keys r WHERE r.entry_id = e.id AND r.kind = 1 ORDER BY r.rank LIMIT 1) FROM entries e WHERE e.id = ?1",
             [entry_id], raw_entry,
         ).map_err(|error| error.to_string())?;
         let mut timing = DictionaryLookupTiming::default();
-        let entries = self.materialize_full(database_index, std::iter::once(row), match_type, &mut timing);
-        if entries.is_empty() { return Err("词条内容读取失败".into()); }
+        let entries = self.materialize_full(
+            database_index,
+            std::iter::once(row),
+            match_type,
+            &mut timing,
+        );
+        if entries.is_empty() {
+            return Err("词条内容读取失败".into());
+        }
         Ok(entries)
     }
 
@@ -615,8 +674,10 @@ impl DictionaryEngine {
         for database_index in 0..self.databases.len() {
             let direct_in_database =
                 self.lookup_exact_in_database(database_index, headword, "exact_form", &mut timing);
-            let has_content = direct_in_database.iter().any(|entry|
-                is_substantive(entry) && lookup_state::entry_matches_reading(entry, effective_reading));
+            let has_content = direct_in_database.iter().any(|entry| {
+                is_substantive(entry)
+                    && lookup_state::entry_matches_reading(entry, effective_reading)
+            });
             for entry in direct_in_database.iter().cloned() {
                 if seen.insert(entry.occurrence_id.clone()) {
                     direct.push(entry);
@@ -644,7 +705,8 @@ impl DictionaryEngine {
                 ));
             }
             let has_compatible_alias = alias_entries.iter().any(|entry| {
-                is_substantive(entry) && lookup_state::entry_matches_reading(entry, effective_reading)
+                is_substantive(entry)
+                    && lookup_state::entry_matches_reading(entry, effective_reading)
             });
             for entry in alias_entries {
                 if seen.insert(entry.occurrence_id.clone()) {
@@ -655,9 +717,10 @@ impl DictionaryEngine {
                 continue;
             }
             if let Some(reading) = effective_reading.filter(|_| {
-                headword.chars().last().is_some_and(|character| {
-                    is_kana_query(&character.to_string())
-                })
+                headword
+                    .chars()
+                    .last()
+                    .is_some_and(|character| is_kana_query(&character.to_string()))
             }) {
                 for candidate in reading_candidates(headword, reading) {
                     let reading_entries = self.query_key_in_database(
@@ -710,7 +773,8 @@ impl DictionaryEngine {
         let mut timing = DictionaryLookupTiming::default();
         let mut entries = Vec::new();
         let mut seen = HashSet::new();
-        let alias_reading = reading.filter(|value| !value.is_empty() && *value != "*")
+        let alias_reading = reading
+            .filter(|value| !value.is_empty() && *value != "*")
             .or_else(|| is_kana_query(form).then_some(form));
         for database_index in 0..self.databases.len() {
             for entry in
@@ -722,9 +786,18 @@ impl DictionaryEngine {
             }
             // 连续候选沿词典自身的别名查询，例如めいっぱい→目一杯。
             for target in self.redirect_targets_in_database(database_index, form, &mut timing) {
-                for mut entry in self.lookup_exact_in_database(database_index, &target, "explicit_alias", &mut timing) {
-                    if !is_substantive(&entry) || !lookup_state::entry_matches_reading(&entry, alias_reading)
-                        || !seen.insert(entry.occurrence_id.clone()) { continue; }
+                for mut entry in self.lookup_exact_in_database(
+                    database_index,
+                    &target,
+                    "explicit_alias",
+                    &mut timing,
+                ) {
+                    if !is_substantive(&entry)
+                        || !lookup_state::entry_matches_reading(&entry, alias_reading)
+                        || !seen.insert(entry.occurrence_id.clone())
+                    {
+                        continue;
+                    }
                     if let Some(evidence) = entry.match_evidence.as_mut() {
                         evidence.query_form = form.to_string();
                     }
@@ -741,9 +814,19 @@ impl DictionaryEngine {
         (entries, timing)
     }
 
-    pub fn lookup_exact_form_full_with_pos(&self, form: &str, reading: Option<&str>, pos: Option<&PosTag>) -> Vec<DictEntry> {
-        self.lookup_exact_form_profiled_with_pos(form, reading, pos).0.into_iter()
-            .flat_map(|entry| self.load_entry_with_match(&entry.entry_key, &entry.match_type).unwrap_or_default())
+    pub fn lookup_exact_form_full_with_pos(
+        &self,
+        form: &str,
+        reading: Option<&str>,
+        pos: Option<&PosTag>,
+    ) -> Vec<DictEntry> {
+        self.lookup_exact_form_profiled_with_pos(form, reading, pos)
+            .0
+            .into_iter()
+            .flat_map(|entry| {
+                self.load_entry_with_match(&entry.entry_key, &entry.match_type)
+                    .unwrap_or_default()
+            })
             .collect()
     }
 
@@ -754,7 +837,14 @@ impl DictionaryEngine {
         requested_reading: Option<&str>,
         timing: &mut DictionaryLookupTiming,
     ) {
-        let words = seeds.iter().flat_map(|seed| seed.variants.iter().map(|variant| variant.surface_form.clone())).collect::<HashSet<_>>();
+        let words = seeds
+            .iter()
+            .flat_map(|seed| {
+                seed.variants
+                    .iter()
+                    .map(|variant| variant.surface_form.clone())
+            })
+            .collect::<HashSet<_>>();
         let started = Instant::now();
         let references = self.resolve_exact_forms_batch(&words);
         timing.sqlite_ms += started.elapsed().as_millis() as u64;
@@ -772,8 +862,12 @@ impl DictionaryEngine {
                     if available {
                         break;
                     }
-                    available = references.get(&variant.surface_form).is_some_and(|items| items.iter()
-                        .any(|item| item.dict_name == database.name && reference_matches_reading(item, requested_reading)));
+                    available = references.get(&variant.surface_form).is_some_and(|items| {
+                        items.iter().any(|item| {
+                            item.dict_name == database.name
+                                && reference_matches_reading(item, requested_reading)
+                        })
+                    });
                 }
                 if available && !seed.available_dictionary_names.contains(&database.name) {
                     seed.available_dictionary_names.push(database.name.clone());
@@ -949,49 +1043,91 @@ impl DictionaryEngine {
         timing: &mut DictionaryLookupTiming,
     ) -> Vec<DictEntry> {
         let database = &self.databases[database_index];
-        let Ok(mut previews_query) = database.connection.prepare_cached(
-            "SELECT data FROM entry_previews WHERE entry_id = ?1"
-        ) else {
+        let Ok(mut previews_query) = database
+            .connection
+            .prepare_cached("SELECT data FROM entry_previews WHERE entry_id = ?1")
+        else {
             return self.materialize_full(database_index, rows, match_type, timing);
         };
-        let has_previews = database.connection.query_row(
-            "SELECT EXISTS(SELECT 1 FROM entry_previews)", [], |row| row.get::<_, bool>(0),
-        ).unwrap_or(false);
+        let has_previews = database
+            .connection
+            .query_row("SELECT EXISTS(SELECT 1 FROM entry_previews)", [], |row| {
+                row.get::<_, bool>(0)
+            })
+            .unwrap_or(false);
         if !has_previews {
             return self.materialize_full(database_index, rows, match_type, timing);
         }
         rows.flat_map(|row| {
-            let previews = previews_query.query_row([row.entry_id], |item| item.get::<_, Vec<u8>>(0))
-                .ok().and_then(|data| serde_json::from_slice::<Vec<DictionaryEntryPreview>>(&data).ok());
+            let previews = previews_query
+                .query_row([row.entry_id], |item| item.get::<_, Vec<u8>>(0))
+                .ok()
+                .and_then(|data| serde_json::from_slice::<Vec<DictionaryEntryPreview>>(&data).ok());
             let Some(previews) = previews.filter(|previews| !previews.is_empty()) else {
-                return self.materialize_full(database_index, std::iter::once(row), match_type, timing);
+                return self.materialize_full(
+                    database_index,
+                    std::iter::once(row),
+                    match_type,
+                    timing,
+                );
             };
             let entry_key = format!("{}\u{1f}{}", database.name, row.entry_id);
-            previews.into_iter().map(|preview| {
-              let occurrence_id = if preview.occurrence_suffix.is_empty() { entry_key.clone() }
-                else { format!("{entry_key}\u{1f}{}", preview.occurrence_suffix) };
-              let headword = if preview.header.display_form.is_empty() { row.headword.clone() }
-                else { preview.header.display_form.clone() };
-              let reading = preview.header.reading.clone().or_else(|| row.reading.clone());
-              DictEntry {
-                entry_key: entry_key.clone(), dict_name: database.name.clone(),
-                headword, reading, is_preferred: false,
-                definition_html: String::new(), content_blocks: Vec::new(),
-                match_type: match_type.to_string(), links: preview.links,
-                occurrence_id, source_record_index: preview.source_record_index,
-                entry_kind: preview.entry_kind, header: preview.header,
-                senses: Vec::new(), sections: Vec::new(), adapter_diagnostics: preview.adapter_diagnostics,
-                match_evidence: Some(DictionaryMatchEvidence {
-                    kind: match_type.into(), query_form: String::new(), matched_form: Some(row.headword.clone()),
-                    requested_reading: None, reading_match: "absent".into(), pos_match: "unknown".into(),
-                    dictionary_local: match_type == "explicit_alias", penalties: Vec::new(), score: 0,
-                }),
-                raw_definition: None, content_loaded: false, has_definition: preview.has_definition,
-                style_profile: preview.style_profile,
-                metadata_pos_tags: preview.metadata_pos_tags,
-              }
-            }).collect::<Vec<_>>()
-        }).collect()
+            previews
+                .into_iter()
+                .map(|preview| {
+                    let occurrence_id = if preview.occurrence_suffix.is_empty() {
+                        entry_key.clone()
+                    } else {
+                        format!("{entry_key}\u{1f}{}", preview.occurrence_suffix)
+                    };
+                    let headword = if preview.header.display_form.is_empty() {
+                        row.headword.clone()
+                    } else {
+                        preview.header.display_form.clone()
+                    };
+                    let reading = preview
+                        .header
+                        .reading
+                        .clone()
+                        .or_else(|| row.reading.clone());
+                    DictEntry {
+                        entry_key: entry_key.clone(),
+                        dict_name: database.name.clone(),
+                        headword,
+                        reading,
+                        is_preferred: false,
+                        definition_html: String::new(),
+                        content_blocks: Vec::new(),
+                        match_type: match_type.to_string(),
+                        links: preview.links,
+                        occurrence_id,
+                        source_record_index: preview.source_record_index,
+                        entry_kind: preview.entry_kind,
+                        header: preview.header,
+                        senses: Vec::new(),
+                        sections: Vec::new(),
+                        adapter_diagnostics: preview.adapter_diagnostics,
+                        match_evidence: Some(DictionaryMatchEvidence {
+                            kind: match_type.into(),
+                            query_form: String::new(),
+                            matched_form: Some(row.headword.clone()),
+                            requested_reading: None,
+                            reading_match: "absent".into(),
+                            pos_match: "unknown".into(),
+                            dictionary_local: match_type == "explicit_alias",
+                            penalties: Vec::new(),
+                            score: 0,
+                        }),
+                        raw_definition: None,
+                        content_loaded: false,
+                        has_definition: preview.has_definition,
+                        style_profile: preview.style_profile,
+                        metadata_pos_tags: preview.metadata_pos_tags,
+                    }
+                })
+                .collect::<Vec<_>>()
+        })
+        .collect()
     }
 
     fn materialize_full(
@@ -1175,15 +1311,26 @@ fn raw_entry(row: &Row<'_>) -> rusqlite::Result<RawEntry> {
 
 fn is_substantive(entry: &DictEntry) -> bool {
     !matches!(entry.entry_kind.as_str(), "navigation" | "redirect")
-        && (entry.has_definition || !entry.senses.is_empty()
+        && (entry.has_definition
+            || !entry.senses.is_empty()
             || !entry.sections.is_empty()
             || !entry.content_blocks.is_empty())
 }
 
-fn reference_matches_reading(reference: &DictionaryEntryRef, requested_reading: Option<&str>) -> bool {
-    let Some(requested) = requested_reading.filter(|value| !value.is_empty() && *value != "*") else { return true; };
+fn reference_matches_reading(
+    reference: &DictionaryEntryRef,
+    requested_reading: Option<&str>,
+) -> bool {
+    let Some(requested) = requested_reading.filter(|value| !value.is_empty() && *value != "*")
+    else {
+        return true;
+    };
     let requested = normalize_reading(requested);
-    reference.readings.is_empty() || reference.readings.iter().any(|reading| normalize_reading(reading) == requested)
+    reference.readings.is_empty()
+        || reference
+            .readings
+            .iter()
+            .any(|reading| normalize_reading(reading) == requested)
 }
 
 fn ordered_dictionary_names(available: Vec<String>, priority_list: &[String]) -> Vec<String> {
@@ -1298,9 +1445,14 @@ pub(super) fn rank_entries(
         entry.is_preferred = false;
         let matches_form = lookup_state::entry_matches_form(entry, query);
         if let Some(evidence) = entry.match_evidence.as_mut() {
-            evidence.kind = if matches_form && reading_match == "conflict" { "form_fallback" }
-                else if !matches_form && reading_match == "exact" { "reading_fallback" }
-                else { &entry.match_type }.to_string();
+            evidence.kind = if matches_form && reading_match == "conflict" {
+                "form_fallback"
+            } else if !matches_form && reading_match == "exact" {
+                "reading_fallback"
+            } else {
+                &entry.match_type
+            }
+            .to_string();
             evidence.query_form = query.to_string();
             evidence.requested_reading = requested.map(str::to_string);
             evidence.reading_match = reading_match.to_string();
@@ -1310,12 +1462,19 @@ pub(super) fn rank_entries(
         }
     }
     entries.sort_by(|left, right| {
-        let reading_order = |entry: &DictEntry| match entry.match_evidence.as_ref().map(|evidence| evidence.reading_match.as_str()) {
-            Some("exact") => 0, Some("conflict") => 2, _ => 1,
+        let reading_order = |entry: &DictEntry| match entry
+            .match_evidence
+            .as_ref()
+            .map(|evidence| evidence.reading_match.as_str())
+        {
+            Some("exact") => 0,
+            Some("conflict") => 2,
+            _ => 1,
         };
         let left_score = left.match_evidence.as_ref().map_or(0, |value| value.score);
         let right_score = right.match_evidence.as_ref().map_or(0, |value| value.score);
-        reading_order(left).cmp(&reading_order(right))
+        reading_order(left)
+            .cmp(&reading_order(right))
             .then_with(|| right_score.cmp(&left_score))
             .then_with(|| left.dict_name.cmp(&right.dict_name))
             .then_with(|| left.source_record_index.cmp(&right.source_record_index))

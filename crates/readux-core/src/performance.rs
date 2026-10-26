@@ -1,6 +1,10 @@
 use serde::Serialize;
 use serde_json::Value;
-use std::{collections::BTreeMap, sync::{Arc, Mutex}, time::{Duration, SystemTime, UNIX_EPOCH}};
+use std::{
+    collections::BTreeMap,
+    sync::{Arc, Mutex},
+    time::{Duration, SystemTime, UNIX_EPOCH},
+};
 
 /// 仅用于诊断命令的实际墙钟时间累加器。
 /// 同一阶段可在多个文本分段中执行，最终按真实调用耗时累加。
@@ -21,10 +25,13 @@ impl TimingCollector {
     }
 
     pub fn entries(&self) -> Vec<TimingEntry> {
-        self.entries.iter().map(|(phase, elapsed)| TimingEntry {
-            phase: phase.clone(),
-            duration_ms: elapsed.as_millis(),
-        }).collect()
+        self.entries
+            .iter()
+            .map(|(phase, elapsed)| TimingEntry {
+                phase: phase.clone(),
+                duration_ms: elapsed.as_millis(),
+            })
+            .collect()
     }
 }
 
@@ -102,7 +109,9 @@ impl PerformanceRecorder {
         let mut state = self.state.lock().unwrap();
         state.next_sequence += 1;
         event.sequence = state.next_sequence;
-        event.recorded_at_ms = SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |value| value.as_millis());
+        event.recorded_at_ms = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |value| value.as_millis());
         state.events.push(event);
         if state.events.len() > RETAINED_EVENTS {
             let expired = state.events.len() - RETAINED_EVENTS;
@@ -113,7 +122,13 @@ impl PerformanceRecorder {
     pub fn snapshot(&self, clear: bool) -> PerformanceSnapshot {
         let mut state = self.state.lock().unwrap();
         let events = state.events.clone();
-        if clear { state.events.clear(); }
-        PerformanceSnapshot { schema: "readux.performance.v1".into(), retained_limit: RETAINED_EVENTS, events }
+        if clear {
+            state.events.clear();
+        }
+        PerformanceSnapshot {
+            schema: "readux.performance.v1".into(),
+            retained_limit: RETAINED_EVENTS,
+            events,
+        }
     }
 }

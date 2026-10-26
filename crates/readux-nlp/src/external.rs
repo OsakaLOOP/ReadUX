@@ -36,7 +36,16 @@ pub struct Manifest {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[serde(rename_all = "snake_case")]
-pub enum NodeKind { Token, Compound, Bunsetsu, BasicPhrase, Sentence, Clause, Predicate, Entity }
+pub enum NodeKind {
+    Token,
+    Compound,
+    Bunsetsu,
+    BasicPhrase,
+    Sentence,
+    Clause,
+    Predicate,
+    Entity,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceNode {
@@ -61,7 +70,13 @@ pub enum Endpoint {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum RelationKind { Dependency, PredicateArgument, Coreference, Bridging, Discourse }
+pub enum RelationKind {
+    Dependency,
+    PredicateArgument,
+    Coreference,
+    Bridging,
+    Discourse,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceRelation {
@@ -90,7 +105,9 @@ pub struct SourceArtifact {
     pub elapsed_ms: f64,
 }
 
-pub fn text_digest(text: &str) -> String { format!("{:x}", Sha256::digest(text.as_bytes())) }
+pub fn text_digest(text: &str) -> String {
+    format!("{:x}", Sha256::digest(text.as_bytes()))
+}
 
 pub fn merge_ranges(mut ranges: Vec<Range>) -> Vec<Range> {
     ranges.sort_unstable();
@@ -98,7 +115,9 @@ pub fn merge_ranges(mut ranges: Vec<Range>) -> Vec<Range> {
     for range in ranges {
         if let Some(last) = result.last_mut().filter(|last| range[0] <= last[1]) {
             last[1] = last[1].max(range[1]);
-        } else { result.push(range); }
+        } else {
+            result.push(range);
+        }
     }
     result
 }
@@ -118,28 +137,79 @@ fn surface(chars: &[char], ranges: &[Range]) -> Result<String, String> {
 
 impl SourceArtifact {
     /// 连续跨度导入保留实际已有字段，关系能力由空集合明确表示。
-    pub fn from_syntax(artifact: &crate::syntax::SyntaxArtifact, text: &str) -> Result<Self, String> {
+    pub fn from_syntax(
+        artifact: &crate::syntax::SyntaxArtifact,
+        text: &str,
+    ) -> Result<Self, String> {
         crate::syntax::validate_identity(artifact, text)?;
         let chars: Vec<_> = text.chars().collect();
         let diagnostics = crate::syntax::align_to_text_content(artifact, text);
-        let nodes = artifact.spans.iter().zip(&diagnostics).filter(|(_,d)| d.status == "aligned").filter_map(|(span,_)| {
-            let kind = match span.kind.as_str() { "token" => NodeKind::Token, "compound" => NodeKind::Compound,
-                "bunsetsu" => NodeKind::Bunsetsu, "sentence" => NodeKind::Sentence, "clause" => NodeKind::Clause, _ => return None };
-            let mut features = serde_json::Map::new();
-            for label in &span.labels {
-                if let Some((key,value)) = label.split_once(':') {
-                    features.insert(key.into(), serde_json::from_str(value).unwrap_or_else(|_| Value::String(value.into())));
+        let nodes = artifact
+            .spans
+            .iter()
+            .zip(&diagnostics)
+            .filter(|(_, d)| d.status == "aligned")
+            .filter_map(|(span, _)| {
+                let kind = match span.kind.as_str() {
+                    "token" => NodeKind::Token,
+                    "compound" => NodeKind::Compound,
+                    "bunsetsu" => NodeKind::Bunsetsu,
+                    "sentence" => NodeKind::Sentence,
+                    "clause" => NodeKind::Clause,
+                    _ => return None,
+                };
+                let mut features = serde_json::Map::new();
+                for label in &span.labels {
+                    if let Some((key, value)) = label.split_once(':') {
+                        features.insert(
+                            key.into(),
+                            serde_json::from_str(value)
+                                .unwrap_or_else(|_| Value::String(value.into())),
+                        );
+                    }
                 }
-            }
-            let surface: String = chars[span.char_range[0]..span.char_range[1]].iter().collect();
-            Some(SourceNode { id: span.id.clone(), kind, source_ranges: vec![span.char_range], text_ranges: vec![span.char_range],
-                source_surface: surface.clone(), surface, head: None, members: Vec::new(), features: Value::Object(features) })
-        }).collect();
-        Ok(Self { schema: SCHEMA.into(), provider: Manifest { id: artifact.provider.id.clone(), version: artifact.provider.version.clone().unwrap_or_default(),
-            model: "syntax_import".into(), model_version: String::new(), versions: BTreeMap::new(), tasks: vec!["span_import".into()],
-            capabilities: vec!["spans".into()], coordinate_system: "unicode_scalar".into(), resources: Vec::new(), resource_digest: String::new(), execution: BTreeMap::new() },
-            text_sha256: artifact.text_sha256.clone(), text_characters: chars.len(), normalized_text: text.into(), normalization_map: (0..chars.len()).map(|i| [i,i+1]).collect(),
-            deleted_ranges: Vec::new(), nodes, relations: Vec::new(), diagnostics: vec!["syntax_import_without_dependencies".into()], raw: None, elapsed_ms: 0.0 })
+                let surface: String = chars[span.char_range[0]..span.char_range[1]]
+                    .iter()
+                    .collect();
+                Some(SourceNode {
+                    id: span.id.clone(),
+                    kind,
+                    source_ranges: vec![span.char_range],
+                    text_ranges: vec![span.char_range],
+                    source_surface: surface.clone(),
+                    surface,
+                    head: None,
+                    members: Vec::new(),
+                    features: Value::Object(features),
+                })
+            })
+            .collect();
+        Ok(Self {
+            schema: SCHEMA.into(),
+            provider: Manifest {
+                id: artifact.provider.id.clone(),
+                version: artifact.provider.version.clone().unwrap_or_default(),
+                model: "syntax_import".into(),
+                model_version: String::new(),
+                versions: BTreeMap::new(),
+                tasks: vec!["span_import".into()],
+                capabilities: vec!["spans".into()],
+                coordinate_system: "unicode_scalar".into(),
+                resources: Vec::new(),
+                resource_digest: String::new(),
+                execution: BTreeMap::new(),
+            },
+            text_sha256: artifact.text_sha256.clone(),
+            text_characters: chars.len(),
+            normalized_text: text.into(),
+            normalization_map: (0..chars.len()).map(|i| [i, i + 1]).collect(),
+            deleted_ranges: Vec::new(),
+            nodes,
+            relations: Vec::new(),
+            diagnostics: vec!["syntax_import_without_dependencies".into()],
+            raw: None,
+            elapsed_ms: 0.0,
+        })
     }
 
     pub fn validate(&self, text: &str) -> Result<(), String> {
@@ -155,7 +225,10 @@ impl SourceArtifact {
             return Err("规范化映射长度不匹配".into());
         }
         for (index, &[start, end]) in self.normalization_map.iter().enumerate() {
-            if start >= end || end > chars.len() || (index > 0 && start < self.normalization_map[index - 1][0]) {
+            if start >= end
+                || end > chars.len()
+                || (index > 0 && start < self.normalization_map[index - 1][0])
+            {
                 return Err("规范化映射无效".into());
             }
         }
@@ -166,25 +239,42 @@ impl SourceArtifact {
             return Err("规范化映射未覆盖正文".into());
         }
         let ids: HashSet<&str> = self.nodes.iter().map(|node| node.id.as_str()).collect();
-        if ids.len() != self.nodes.len() { return Err("来源实体 ID 重复".into()); }
+        if ids.len() != self.nodes.len() {
+            return Err("来源实体 ID 重复".into());
+        }
         for node in &self.nodes {
-            if node.source_ranges.is_empty() || node.text_ranges.is_empty()
+            if node.source_ranges.is_empty()
+                || node.text_ranges.is_empty()
                 || surface(&normalized, &node.source_ranges)? != node.source_surface
-                || surface(&chars, &node.text_ranges)? != node.surface {
+                || surface(&chars, &node.text_ranges)? != node.surface
+            {
                 return Err(format!("来源实体 {} 表面串与坐标不符", node.id));
             }
-            let mapped = merge_ranges(node.source_ranges.iter().flat_map(|&[a, b]| self.normalization_map[a..b].iter().copied()).collect());
-            if mapped != node.text_ranges { return Err(format!("来源实体 {} 的映射不符", node.id)); }
+            let mapped = merge_ranges(
+                node.source_ranges
+                    .iter()
+                    .flat_map(|&[a, b]| self.normalization_map[a..b].iter().copied())
+                    .collect(),
+            );
+            if mapped != node.text_ranges {
+                return Err(format!("来源实体 {} 的映射不符", node.id));
+            }
             for reference in node.members.iter().chain(node.head.iter()) {
-                if !ids.contains(reference.as_str()) { return Err(format!("来源引用 {reference} 无效")); }
+                if !ids.contains(reference.as_str()) {
+                    return Err(format!("来源引用 {reference} 无效"));
+                }
             }
         }
         let mut relation_ids = HashSet::new();
         for relation in &self.relations {
-            if !relation_ids.insert(&relation.id) { return Err("来源关系 ID 重复".into()); }
+            if !relation_ids.insert(&relation.id) {
+                return Err("来源关系 ID 重复".into());
+            }
             for endpoint in [&relation.source, &relation.target] {
                 if let Endpoint::Node { id } = endpoint {
-                    if !ids.contains(id.as_str()) { return Err(format!("关系端点 {id} 无效")); }
+                    if !ids.contains(id.as_str()) {
+                        return Err(format!("关系端点 {id} 无效"));
+                    }
                 }
             }
         }
@@ -194,22 +284,55 @@ impl SourceArtifact {
     /// 连续正文跨度进入现有结构消费方；完整来源空间保存在 SourceArtifact。
     pub fn syntax(&self) -> crate::syntax::SyntaxArtifact {
         use crate::syntax::{SyntaxArtifact, SyntaxProviderDescriptor, SyntaxSpan};
-        let spans = self.nodes.iter().filter_map(|node| {
-            let kind = match node.kind {
-                NodeKind::Token => "token", NodeKind::Compound => "compound",
-                NodeKind::Bunsetsu => "bunsetsu", NodeKind::Sentence => "sentence",
-                NodeKind::Clause => "clause", _ => return None,
-            };
-            if node.text_ranges.len() != 1 { return None; }
-            let head = node.head.as_ref().and_then(|id| self.nodes.iter().find(|n| &n.id == id));
-            Some(SyntaxSpan { id: node.id.clone(), kind: kind.into(), char_range: node.text_ranges[0],
-                head_char_range: head.filter(|n| n.text_ranges.len() == 1).map(|n| n.text_ranges[0]),
-                source_id: self.text_sha256.clone(), surface: Some(node.surface.clone()),
-                labels: node.features.as_object().map(|f| f.iter().map(|(k,v)| format!("{k}:{v}")).collect()).unwrap_or_default() })
-        }).collect();
-        SyntaxArtifact { schema: crate::syntax::SCHEMA.into(), segment_id: Some(self.text_sha256.clone()),
-            provider: SyntaxProviderDescriptor { id: self.provider.id.clone(), version: Some(self.provider.version.clone()),
-                capabilities: self.provider.capabilities.clone(), license: None }, text_characters: self.text_characters, text_sha256: self.text_sha256.clone(), spans }
+        let spans = self
+            .nodes
+            .iter()
+            .filter_map(|node| {
+                let kind = match node.kind {
+                    NodeKind::Token => "token",
+                    NodeKind::Compound => "compound",
+                    NodeKind::Bunsetsu => "bunsetsu",
+                    NodeKind::Sentence => "sentence",
+                    NodeKind::Clause => "clause",
+                    _ => return None,
+                };
+                if node.text_ranges.len() != 1 {
+                    return None;
+                }
+                let head = node
+                    .head
+                    .as_ref()
+                    .and_then(|id| self.nodes.iter().find(|n| &n.id == id));
+                Some(SyntaxSpan {
+                    id: node.id.clone(),
+                    kind: kind.into(),
+                    char_range: node.text_ranges[0],
+                    head_char_range: head
+                        .filter(|n| n.text_ranges.len() == 1)
+                        .map(|n| n.text_ranges[0]),
+                    source_id: self.text_sha256.clone(),
+                    surface: Some(node.surface.clone()),
+                    labels: node
+                        .features
+                        .as_object()
+                        .map(|f| f.iter().map(|(k, v)| format!("{k}:{v}")).collect())
+                        .unwrap_or_default(),
+                })
+            })
+            .collect();
+        SyntaxArtifact {
+            schema: crate::syntax::SCHEMA.into(),
+            segment_id: Some(self.text_sha256.clone()),
+            provider: SyntaxProviderDescriptor {
+                id: self.provider.id.clone(),
+                version: Some(self.provider.version.clone()),
+                capabilities: self.provider.capabilities.clone(),
+                license: None,
+            },
+            text_characters: self.text_characters,
+            text_sha256: self.text_sha256.clone(),
+            spans,
+        }
     }
 }
 
@@ -220,7 +343,10 @@ mod tests {
     const TEXT: &str = "　警察署へ\t行った。\n彼は２８歳。 ｶﾞ、か\u{3099}、㍿、𠮷。  \n";
 
     fn samples() -> Vec<SourceArtifact> {
-        serde_json::from_str(include_str!("../../../data/validation/behavior/integration-boundaries.json")).unwrap()
+        serde_json::from_str(include_str!(
+            "../../../data/validation/behavior/integration-boundaries.json"
+        ))
+        .unwrap()
     }
 
     #[test]
@@ -228,10 +354,21 @@ mod tests {
         for source in samples() {
             source.validate(TEXT).unwrap();
             let syntax = source.syntax();
-            assert!(crate::syntax::align_to_text_content(&syntax, TEXT).iter().all(|d| d.status == "aligned"));
-            crate::structure::merge_external(crate::structure::local_candidates(TEXT), &syntax, TEXT).unwrap();
+            assert!(crate::syntax::align_to_text_content(&syntax, TEXT)
+                .iter()
+                .all(|d| d.status == "aligned"));
+            crate::structure::merge_external(
+                crate::structure::local_candidates(TEXT),
+                &syntax,
+                TEXT,
+            )
+            .unwrap();
             if source.provider.id == "kwja" {
-                let nodes: Vec<_> = source.nodes.iter().filter(|node| node.kind == NodeKind::Token && node.surface == "㍿").collect();
+                let nodes: Vec<_> = source
+                    .nodes
+                    .iter()
+                    .filter(|node| node.kind == NodeKind::Token && node.surface == "㍿")
+                    .collect();
                 assert_eq!(nodes.len(), 2);
                 assert_eq!(nodes[0].text_ranges, vec![[24, 25]]);
                 assert_eq!(nodes[1].text_ranges, vec![[24, 25]]);

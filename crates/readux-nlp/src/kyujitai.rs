@@ -11,22 +11,31 @@ static TABLE: OnceLock<HashMap<char, char>> = OnceLock::new();
 
 fn table() -> &'static HashMap<char, char> {
     TABLE.get_or_init(|| {
-        let data: KyujitaiData = serde_json::from_str(include_str!("../../../vendor/kyujitai.js/dist/kyujitai.json"))
-            .expect("kyujitai.js 数据无效");
-        data.kyuji.into_iter().filter_map(|(modern, old, _)| {
-            let modern = modern.chars().next()?;
-            let old = old.chars().next()?;
-            Some((old, modern))
-        }).collect()
+        let data: KyujitaiData = serde_json::from_str(include_str!(
+            "../../../vendor/kyujitai.js/dist/kyujitai.json"
+        ))
+        .expect("kyujitai.js 数据无效");
+        data.kyuji
+            .into_iter()
+            .filter_map(|(modern, old, _)| {
+                let modern = modern.chars().next()?;
+                let old = old.chars().next()?;
+                Some((old, modern))
+            })
+            .collect()
     })
 }
 
 /// 将旧字体字符转换为新字体，保持字符串长度与字符顺序。
 pub fn normalize(text: &str) -> String {
-    text.chars().map(|character| table().get(&character).copied().unwrap_or(character)).collect()
+    text.chars()
+        .map(|character| table().get(&character).copied().unwrap_or(character))
+        .collect()
 }
 
-pub fn normalize_char(character: char) -> char { table().get(&character).copied().unwrap_or(character) }
+pub fn normalize_char(character: char) -> char {
+    table().get(&character).copied().unwrap_or(character)
+}
 
 #[cfg(test)]
 mod tests {

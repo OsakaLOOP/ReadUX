@@ -62,7 +62,10 @@ pub struct NativeProviderDiagnostic {
 
 pub trait NativeStructureProvider: Send + Sync {
     fn manifest(&self) -> &NativeModelManifest;
-    fn analyze(&self, input: NativeProviderInput<'_>) -> Result<SyntaxArtifact, NativeProviderDiagnostic>;
+    fn analyze(
+        &self,
+        input: NativeProviderInput<'_>,
+    ) -> Result<SyntaxArtifact, NativeProviderDiagnostic>;
 }
 
 /// 模型图、权重和解码器尚未具备时保留 provider 身份与资源契约。
@@ -115,7 +118,10 @@ impl NativeStructureProvider for UnavailableNativeProvider {
         &self.manifest
     }
 
-    fn analyze(&self, input: NativeProviderInput<'_>) -> Result<SyntaxArtifact, NativeProviderDiagnostic> {
+    fn analyze(
+        &self,
+        input: NativeProviderInput<'_>,
+    ) -> Result<SyntaxArtifact, NativeProviderDiagnostic> {
         let actual_characters = input.text.chars().count();
         let reason = if actual_characters == input.characters {
             self.reason.clone()

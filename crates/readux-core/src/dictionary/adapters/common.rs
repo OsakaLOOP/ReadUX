@@ -106,10 +106,17 @@ fn canonical_display_form(value: &str) -> String {
     let mut index = 0;
     while index < chars.len() {
         if chars[index] == '（' {
-            if let Some(relative_end) = chars[index + 1..].iter().position(|character| *character == '）') {
+            if let Some(relative_end) = chars[index + 1..]
+                .iter()
+                .position(|character| *character == '）')
+            {
                 let end = index + 1 + relative_end;
                 let optional = &chars[index + 1..end];
-                if !optional.is_empty() && optional.iter().all(|character| matches!(*character, 'ぁ'..='ゖ' | 'ァ'..='ヺ' | 'ー')) {
+                if !optional.is_empty()
+                    && optional
+                        .iter()
+                        .all(|character| matches!(*character, 'ぁ'..='ゖ' | 'ァ'..='ヺ' | 'ー'))
+                {
                     result.extend(optional);
                     index = end + 1;
                     continue;
@@ -119,7 +126,9 @@ fn canonical_display_form(value: &str) -> String {
         result.push(chars[index]);
         index += 1;
     }
-    result.trim_start_matches(['－', '‐', '‑', '–', '—', '-']).to_string()
+    result
+        .trim_start_matches(['－', '‐', '‑', '–', '—', '-'])
+        .to_string()
 }
 
 #[cfg(test)]

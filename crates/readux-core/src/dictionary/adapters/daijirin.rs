@@ -1216,7 +1216,9 @@ fn clean_definition(mut definition: String, has_relations: bool) -> (String, Vec
     (definition, tags)
 }
 
-fn extract_trailing_notes(mut definition: String) -> (String, Vec<crate::dictionary::model::DictionaryText>) {
+fn extract_trailing_notes(
+    mut definition: String,
+) -> (String, Vec<crate::dictionary::model::DictionaryText>) {
     let mut notes = Vec::new();
     loop {
         let Some(captures) = TRAILING_NOTE_RE.captures(&definition) else {
@@ -1368,7 +1370,9 @@ fn structural_links(root: &HtmlElement) -> Vec<crate::dictionary::model::Diction
             for link in navigation_candidates(paragraph) {
                 if !links
                     .iter()
-                    .any(|item: &crate::dictionary::model::DictionaryLink| item.target == link.target)
+                    .any(|item: &crate::dictionary::model::DictionaryLink| {
+                        item.target == link.target
+                    })
                 {
                     links.push(link);
                 }
@@ -1393,9 +1397,12 @@ fn structural_links(root: &HtmlElement) -> Vec<crate::dictionary::model::Diction
             "related"
         };
         for link in common::extract_links(paragraph, relation) {
-            if !links.iter().any(|item: &crate::dictionary::model::DictionaryLink| {
-                item.target == link.target && item.relation == link.relation
-            }) {
+            if !links
+                .iter()
+                .any(|item: &crate::dictionary::model::DictionaryLink| {
+                    item.target == link.target && item.relation == link.relation
+                })
+            {
                 links.push(link);
             }
         }

@@ -5,8 +5,8 @@ use windows_sys::Win32::{
     Foundation::HWND,
     System::LibraryLoader::GetModuleHandleW,
     UI::WindowsAndMessaging::{
-        CreateIcon, DestroyIcon, GetSystemMetrics, LoadImageW, SendMessageW, ICON_BIG, ICON_SMALL, IMAGE_ICON,
-        LR_SHARED, SM_CXICON, SM_CXSMICON, SM_CYICON, SM_CYSMICON, WM_SETICON,
+        CreateIcon, DestroyIcon, GetSystemMetrics, LoadImageW, SendMessageW, ICON_BIG, ICON_SMALL,
+        IMAGE_ICON, LR_SHARED, SM_CXICON, SM_CXSMICON, SM_CYICON, SM_CYSMICON, WM_SETICON,
     },
 };
 
@@ -26,8 +26,14 @@ fn apply_embedded(hwnd: HWND) -> Result<(), Box<dyn std::error::Error>> {
             (ICON_SMALL, SM_CXSMICON, SM_CYSMICON),
             (ICON_BIG, SM_CXICON, SM_CYICON),
         ] {
-            let icon = LoadImageW(module, 32512usize as *const u16, IMAGE_ICON,
-                GetSystemMetrics(width), GetSystemMetrics(height), LR_SHARED);
+            let icon = LoadImageW(
+                module,
+                32512usize as *const u16,
+                IMAGE_ICON,
+                GetSystemMetrics(width),
+                GetSystemMetrics(height),
+                LR_SHARED,
+            );
             if icon.is_null() {
                 return Err(std::io::Error::last_os_error().into());
             }
@@ -41,7 +47,9 @@ struct OwnedIcon(usize);
 
 impl Drop for OwnedIcon {
     fn drop(&mut self) {
-        unsafe { DestroyIcon(self.0 as _); }
+        unsafe {
+            DestroyIcon(self.0 as _);
+        }
     }
 }
 
@@ -59,7 +67,15 @@ fn create_icon(mut rgba: Vec<u8>, size: u32) -> Result<OwnedIcon, String> {
         pixel.swap(0, 2);
     }
     let handle = unsafe {
-        CreateIcon(std::ptr::null_mut(), size as i32, size as i32, 1, 32, mask.as_ptr(), rgba.as_ptr())
+        CreateIcon(
+            std::ptr::null_mut(),
+            size as i32,
+            size as i32,
+            1,
+            32,
+            mask.as_ptr(),
+            rgba.as_ptr(),
+        )
     };
     if handle.is_null() {
         Err(std::io::Error::last_os_error().to_string())
@@ -68,12 +84,19 @@ fn create_icon(mut rgba: Vec<u8>, size: u32) -> Result<OwnedIcon, String> {
     }
 }
 
-fn replace(hwnd: HWND, state: &TaskbarIconState, rgba: Option<Vec<u8>>, size: u32) -> Result<(), String> {
+fn replace(
+    hwnd: HWND,
+    state: &TaskbarIconState,
+    rgba: Option<Vec<u8>>,
+    size: u32,
+) -> Result<(), String> {
     let mut current = state.0.lock().map_err(|error| error.to_string())?;
     if let Some(rgba) = rgba {
         let icon = create_icon(rgba, size)?;
         for kind in [ICON_BIG, ICON_SMALL] {
-            unsafe { SendMessageW(hwnd, WM_SETICON, kind as usize, icon.0 as isize); }
+            unsafe {
+                SendMessageW(hwnd, WM_SETICON, kind as usize, icon.0 as isize);
+            }
         }
         // Windows 已开始使用新图标，随后释放本应用持有的上一张图标。
         *current = Some(icon);
@@ -84,8 +107,18 @@ fn replace(hwnd: HWND, state: &TaskbarIconState, rgba: Option<Vec<u8>>, size: u3
     Ok(())
 }
 
-pub fn update(window: &tauri::WebviewWindow, state: &TaskbarIconState, rgba: Option<Vec<u8>>, size: u32) -> Result<(), String> {
-    replace(window.hwnd().map_err(|error| error.to_string())?.0, state, rgba, size)
+pub fn update(
+    window: &tauri::WebviewWindow,
+    state: &TaskbarIconState,
+    rgba: Option<Vec<u8>>,
+    size: u32,
+) -> Result<(), String> {
+    replace(
+        window.hwnd().map_err(|error| error.to_string())?.0,
+        state,
+        rgba,
+        size,
+    )
 }
 
 #[cfg(test)]
@@ -96,11 +129,29 @@ mod tests {
     #[test]
     fn taskbar_icon_replaces_both_sizes() {
         unsafe {
-            let hwnd = CreateWindowExW(0, windows_sys::w!("STATIC"), windows_sys::w!("ReadUX 图标测试"),
-                0, 0, 0, 100, 100, std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null());
+            let hwnd = CreateWindowExW(
+                0,
+                windows_sys::w!("STATIC"),
+                windows_sys::w!("ReadUX 图标测试"),
+                0,
+                0,
+                0,
+                100,
+                100,
+                std::ptr::null_mut(),
+                std::ptr::null_mut(),
+                std::ptr::null_mut(),
+                std::ptr::null(),
+            );
             assert!(!hwnd.is_null());
-            let default = LoadImageW(std::ptr::null_mut(), 32512usize as *const u16,
-                IMAGE_ICON, 32, 32, LR_SHARED);
+            let default = LoadImageW(
+                std::ptr::null_mut(),
+                32512usize as *const u16,
+                IMAGE_ICON,
+                32,
+                32,
+                LR_SHARED,
+            );
             assert!(!default.is_null());
             for kind in [ICON_BIG, ICON_SMALL] {
                 SendMessageW(hwnd, WM_SETICON, kind as usize, default as isize);
@@ -111,11 +162,17 @@ mod tests {
             let first = SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0);
             assert_ne!(first, 0);
             assert_ne!(first, original);
-            assert_eq!(SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0), first);
+            assert_eq!(
+                SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0),
+                first
+            );
             replace(hwnd, &state, Some(vec![128; 32 * 32 * 4]), 32).unwrap();
             let second = SendMessageW(hwnd, WM_GETICON, ICON_BIG as usize, 0);
             assert_ne!(second, first);
-            assert_eq!(SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0), second);
+            assert_eq!(
+                SendMessageW(hwnd, WM_GETICON, ICON_SMALL as usize, 0),
+                second
+            );
             DestroyWindow(hwnd);
         }
     }

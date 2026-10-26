@@ -70,12 +70,9 @@ mod tests {
 
     #[test]
     fn detects_japanese_from_kanji_or_kana() {
-        for value in ["世間話", "事務所", "人間関係", "読書", "かな", "カタカナ"] {
-            assert_eq!(
-                detect_cjk_language(value),
-                CjkLanguage::Japanese,
-                "{value}"
-            );
+        for value in ["世間話", "事務所", "人間関係", "読書", "かな", "カタカナ"]
+        {
+            assert_eq!(detect_cjk_language(value), CjkLanguage::Japanese, "{value}");
         }
     }
 
