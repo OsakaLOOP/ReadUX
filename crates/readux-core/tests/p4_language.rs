@@ -270,8 +270,10 @@ fn stage_nine_operators_resolve_formal_concepts() {
         ("学生である。", "copula_aru", "grammar.functional.aru"),
         ("静かさを測る。", "nominalization", "grammar.functional.sa"),
         ("食べたら寝る。", "tara_condition", "morphology.mood.conditional"),
+        ("春なら出かける。", "nara_condition", "morphology.mood.conditional"),
         ("歩きながら話す。", "nagara_connection", "grammar.connective.nagara"),
         ("考えつつ進む。", "tsutsu_connection", "grammar.connective.tsutsu"),
+        ("雨なれど行く。", "concessive_connection", "grammar.connective.keredomo"),
         ("ここで騒ぐな。", "prohibitive", "grammar.sentence_particle.na"),
         ("本を読んだり聞いたりする。", "enumerative", "grammar.connective.tari"),
         ("読むとか書くとかする。", "exemplification", "grammar.connective.toka"),
@@ -279,6 +281,13 @@ fn stage_nine_operators_resolve_formal_concepts() {
         ("早く行け。", "imperative", "morphology.form.imperative"),
         ("静かなので帰る。", "node_connection", "grammar.connective.node"),
         ("食べないで寝る。", "negative_de", "grammar.connective.naide"),
+        ("ここに入ってはならない。", "prohibition_tewa_condition_naru", "grammar.prohibition.tewa_naranai"),
+        ("ここに入ってはいけない。", "prohibition_tewa_condition_ikeru", "grammar.prohibition.tewa_ikenai"),
+        ("ここに入ってはだめだ。", "prohibition_tewa_condition_dame", "grammar.prohibition.tewa_dame"),
+        ("見てごらん。", "te_goran", "grammar.auxiliary.goran"),
+        ("会いたくてたまらない。", "te_tamaranai", "grammar.auxiliary.tamaranai"),
+        ("忘れられなくてならない。", "te_naranai", "grammar.auxiliary.naranai"),
+        ("願ってやまない。", "te_yamanai", "grammar.auxiliary.yamanai"),
     ] {
         let doc = analyze(&service, text);
         let operator = doc

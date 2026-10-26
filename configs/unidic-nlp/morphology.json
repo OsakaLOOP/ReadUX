@@ -575,6 +575,18 @@
       "allowed_after": [
         "causative",
         "passive_potential",
+        "desire",
+        "negative",
+        "politeness_masu",
+        "polite_negative",
+        "politeness_desu",
+        "past",
+        "copula_de",
+        "copula_past",
+        "copula",
+        "adverbial_ni",
+        "attributive_na",
+        "adjectival_naru",
         "te_iru",
         "te_aru",
         "te_shimau",
@@ -1359,7 +1371,7 @@
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_category": "用言",
       "output_category": "动词",
       "terminal_mode": "continue",
       "order_rank": 30
@@ -1377,7 +1389,7 @@
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_category": "用言",
       "output_category": "动词",
       "terminal_mode": "continue",
       "order_rank": 30
@@ -1386,7 +1398,7 @@
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_category": "用言",
       "output_category": "动词",
       "terminal_mode": "continue",
       "order_rank": 30
@@ -1395,7 +1407,7 @@
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_category": "用言",
       "output_category": "动词",
       "terminal_mode": "continue",
       "order_rank": 30
@@ -1633,6 +1645,14 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 70
@@ -7027,6 +7047,66 @@
         "形状詞",
         "代名詞"
       ]
+    },
+    {
+      "kind": "te_tamaranai",
+      "tokens": [
+        {
+          "equals": {
+            "pos": ["動詞"],
+            "base": ["たまる", "堪る"]
+          }
+        },
+        {
+          "equals": {
+            "pos": ["助動詞"],
+            "ctype": ["助動詞-ナイ"],
+            "surface": ["ない"]
+          }
+        }
+      ],
+      "forms": ["te"],
+      "operators": ["te_connection"]
+    },
+    {
+      "kind": "te_naranai",
+      "tokens": [
+        {
+          "equals": {
+            "pos": ["動詞"],
+            "base": ["なる", "成る"]
+          }
+        },
+        {
+          "equals": {
+            "pos": ["助動詞"],
+            "ctype": ["助動詞-ナイ"],
+            "surface": ["ない"]
+          }
+        }
+      ],
+      "forms": ["te"],
+      "operators": ["te_connection"]
+    },
+    {
+      "kind": "te_yamanai",
+      "tokens": [
+        {
+          "equals": {
+            "pos": ["動詞"],
+            "base": ["やむ", "止む"]
+          }
+        },
+        {
+          "equals": {
+            "pos": ["助動詞"],
+            "ctype": ["助動詞-ナイ"],
+            "surface": ["ない"]
+          }
+        }
+      ],
+      "forms": ["te"],
+      "operators": ["te_connection"]
     }
   ],
   "predicate_links": [
@@ -8271,14 +8351,14 @@
               "pos": [
                 "動詞",
                 "形容詞",
-                "助動詞"
+                "助動詞",
+                "名詞"
               ]
             }
           },
           "forms": [
             "te"
-          ],
-          "functional": true
+          ]
         }
       ],
       "support_group": "te"

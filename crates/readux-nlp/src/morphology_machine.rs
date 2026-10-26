@@ -1307,7 +1307,15 @@ pub(crate) fn compose(
             let members = context.core_members(morphemes, first);
             let local_step = sequence.map_or_else(
                 || transition(previous, current, &context, source),
-                |rule| Transition::Attach(vec![rule.kind.clone()]),
+                |rule| {
+                    if config::definition(&rule.kind)
+                        .is_some_and(|definition| definition.support.is_some())
+                    {
+                        Transition::Support(rule.kind.as_str())
+                    } else {
+                        Transition::Attach(vec![rule.kind.clone()])
+                    }
+                },
             );
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
             let semantic_connection = nominalization
