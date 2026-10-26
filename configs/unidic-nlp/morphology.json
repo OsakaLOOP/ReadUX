@@ -297,7 +297,43 @@
       "order_rank": 30,
       "allowed_after": [
         "causative",
-        "passive_potential"
+        "passive_potential",
+        "te_iru",
+        "te_aru",
+        "te_shimau",
+        "te_oku",
+        "te_iku",
+        "te_yuku",
+        "te_kuru",
+        "te_miru",
+        "te_kudasaru",
+        "te_morau",
+        "te_ageru",
+        "te_kureru",
+        "te_yaru",
+        "te_hoshii",
+        "te_goran",
+        "te_miseru",
+        "te_tamaranai",
+        "te_naranai",
+        "te_yamanai",
+        "contracted_te_iru",
+        "contracted_te_shimau",
+        "contracted_te_oku",
+        "tari_suru",
+        "tari_dekiru",
+        "excessive",
+        "inceptive",
+        "continuative_aspect",
+        "terminative",
+        "iterative_aspect",
+        "inchoative",
+        "corrective",
+        "incomplete",
+        "completion",
+        "reluctance",
+        "failure",
+        "missed_opportunity"
       ]
     },
     "te_iru": {
@@ -1832,7 +1868,8 @@
           "form": "で"
         }
       ],
-      "output_form": "te"
+      "output_form": "te",
+      "preserve_state": true
     },
     "prohibitive": {
       "label": "禁止",
@@ -1844,7 +1881,8 @@
       "label": "列举",
       "title": "列举",
       "concept": "morphology.chain",
-      "prototype": "たり"
+      "prototype": "たり",
+      "preserve_state": true
     },
     "insertion": {
       "label": "插入语",

@@ -321,6 +321,7 @@ impl AuxiliaryVerbExecutor {
         kind: &str,
         source: &[ProviderToken],
         index: usize,
+        depth: usize,
         diagnostics: &mut Vec<String>,
     ) {
         if !Self::accepts(kind) {
@@ -328,20 +329,28 @@ impl AuxiliaryVerbExecutor {
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("补助动词规则缺少元数据");
-        let has_connector = match metadata.rule_group.as_str() {
-            // 连用形直接接续的补助动词要求连用形前项；て／で构式要求て连接器。
-            "连用形补助" | "て形接续" => {
-                previous.final_state.form == ConnectionForm::Continuative
+        if !accepts_input(&previous.final_state.category, metadata) {
+            atom.status = "candidate".into();
+            diagnostics.push(format!(
+                "auxiliary_input_category:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
+        }
+        let support_group = config::definition(kind)
+            .and_then(|definition| definition.support.as_ref())
+            .map(|support| support.group.as_str());
+        let has_te_connector = previous.final_state.form == ConnectionForm::Te
+            || previous
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "te_connection");
+        let has_connector = match support_group {
+            Some("te") => has_te_connector,
+            Some("contracted") => {
+                has_te_connector || previous.final_state.form == ConnectionForm::Continuative
             }
-            "持续与状态" | "结果存续" | "完成与遗憾" | "预先处置" | "趋向与发展"
-            | "补助动词接续" => {
-                previous.final_state.form == ConnectionForm::Te
-                    || previous
-                        .operators
-                        .iter()
-                        .any(|operator| operator.kind == "te_connection")
-            }
-            _ => true,
+            Some("continuative") => previous.final_state.form == ConnectionForm::Continuative,
+            _ => false,
         };
         if !has_connector {
             atom.status = "candidate".into();
@@ -350,7 +359,22 @@ impl AuxiliaryVerbExecutor {
                 previous.chain_id, index
             ));
         }
-        if index > 0 && source[index - 1].char_range[1] != source[index].char_range[0] {
+        let contiguous_or_inserted = previous.morpheme_range[1] <= index
+            && source
+                .get(previous.morpheme_range[1]..index)
+                .is_some_and(|skipped| {
+                    skipped.iter().all(insertion_token)
+                        && std::iter::once(previous.char_range[1])
+                            .chain(skipped.iter().map(|token| token.char_range[1]))
+                            .zip(
+                                skipped
+                                    .iter()
+                                    .chain(std::iter::once(&source[index]))
+                                    .map(|token| token.char_range[0]),
+                            )
+                            .all(|(end, start)| end == start)
+                });
+        if !contiguous_or_inserted {
             atom.status = "candidate".into();
             diagnostics.push(format!(
                 "auxiliary_non_contiguous:{}:{}",
@@ -362,11 +386,12 @@ impl AuxiliaryVerbExecutor {
         atom.final_state.entity_class = "补助动词类".into();
         atom.evidence
             .push(format!("connector:{}", metadata.rule_group));
-        let depth = previous
-            .operators
-            .iter()
-            .filter(|operator| operator.executor == "auxiliary_verb")
-            .count();
+        if let Some(connector) =
+            config::definition(kind).and_then(|definition| definition.connector.as_deref())
+        {
+            atom.evidence
+                .push(format!("connector_rule:{connector}"));
+        }
         if depth >= CONFIG.max_auxiliary_depth {
             atom.status = "candidate".into();
             diagnostics.push(format!(
@@ -375,6 +400,28 @@ impl AuxiliaryVerbExecutor {
             ));
         }
     }
+}
+
+fn auxiliary_support_depth(chains: &[MorphologyChain], previous_index: usize) -> usize {
+    let mut depth = 0;
+    let mut current = Some(previous_index);
+    while let Some(index) = current {
+        let chain = &chains[index];
+        depth += chain
+            .operators
+            .iter()
+            .filter(|operator| {
+                config::definition(&operator.kind)
+                    .is_some_and(|definition| definition.support.is_some())
+            })
+            .count();
+        current = chain.parent_chain_id.as_ref().and_then(|parent_id| {
+            chains
+                .iter()
+                .position(|candidate| &candidate.chain_id == parent_id)
+        });
+    }
+    depth
 }
 
 /// 文言活用执行器：使用独立的文言活用表，不与现代判断结构共用状态。
@@ -995,6 +1042,7 @@ pub(crate) fn compose(
             }
         }
         if let Some(previous_index) = previous_index {
+            let auxiliary_depth = auxiliary_support_depth(&chains, previous_index);
             let previous = &mut chains[previous_index];
             let first = previous.core_morpheme_indices[0];
             let verb_core = (previous.morpheme_indices.len() == 1
@@ -1113,6 +1161,7 @@ pub(crate) fn compose(
                             kind,
                             source,
                             index,
+                            auxiliary_depth,
                             &mut diagnostics,
                         );
                     } else {
@@ -1130,6 +1179,12 @@ pub(crate) fn compose(
                     }
                     atom.operators
                         .push(operator(previous, &atom, kind.into(), current));
+                    if let Some(connector) =
+                        config::definition(kind).and_then(|definition| definition.connector.as_deref())
+                    {
+                        atom.evidence
+                            .push(format!("connector_rule:{connector}"));
+                    }
                     atom.terminal = matches!(
                         terminal_mode(&kind),
                         "sentence_or_pause" | "pause_or_continue"
@@ -1144,7 +1199,12 @@ pub(crate) fn compose(
                         || relation.is_some()
                         || context.same_word(previous.char_range, atom.char_range)
                         || context.same_bunsetsu(previous.char_range, atom.char_range);
-                    atom.status = if supported { "resolved" } else { "candidate" }.into();
+                    atom.status = if supported && atom.status != "candidate" {
+                        "resolved"
+                    } else {
+                        "candidate"
+                    }
+                    .into();
                     if let Some(e) = relation {
                         atom.source_evidence.push(e);
                     }

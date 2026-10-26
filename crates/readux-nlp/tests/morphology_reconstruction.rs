@@ -167,6 +167,31 @@ fn run(
     readux_nlp::morphology::collect_with_external(&source, &morphemes, &external).unwrap()
 }
 
+fn run_with_support_edges(
+    text: &str,
+    specs: &[Part],
+    support_edges: &[(usize, usize)],
+) -> readux_nlp::morphology::MorphologyArtifact {
+    let (source, morphemes) = parts(text, specs);
+    let mut external = ginza(text, &source, &[]);
+    external.relations.retain(|relation| relation.id != "support");
+    for (offset, (support, parent)) in support_edges.iter().enumerate() {
+        external.relations.push(SourceRelation {
+            id: format!("support{offset}"),
+            kind: RelationKind::Dependency,
+            source: Endpoint::Node {
+                id: format!("t{support}"),
+            },
+            target: Endpoint::Node {
+                id: format!("t{parent}"),
+            },
+            label: "advcl".into(),
+            features: json!({}),
+        });
+    }
+    readux_nlp::morphology::collect_with_external(&source, &morphemes, &[external]).unwrap()
+}
+
 fn verb(surface: &'static str, cform: &'static str) -> Part {
     Part {
         surface,
@@ -180,23 +205,37 @@ fn verb(surface: &'static str, cform: &'static str) -> Part {
 }
 
 fn te() -> Part {
+    te_token("で")
+}
+
+fn te_token(surface: &'static str) -> Part {
     Part {
-        surface: "で",
+        surface,
         pos: "助詞",
         sub: "接続助詞",
         ctype: "",
         cform: "",
-        lemma: "で",
-        orth_base: "で",
+        lemma: surface,
+        orth_base: surface,
     }
 }
+
 fn aux(surface: &'static str, lemma: &'static str, orth_base: &'static str) -> Part {
+    aux_form(surface, lemma, orth_base, "終止形-一般")
+}
+
+fn aux_form(
+    surface: &'static str,
+    lemma: &'static str,
+    orth_base: &'static str,
+    cform: &'static str,
+) -> Part {
     Part {
         surface,
         pos: "動詞",
         sub: "非自立可能",
         ctype: "上一段-ア行",
-        cform: "終止形-一般",
+        cform,
         lemma,
         orth_base,
     }
@@ -860,11 +899,18 @@ fn synthetic_reconstruction_covers_thirty_contract_cases() {
     }
 
     let compounds = [
+        ("読みすぎる", "すぎる", "excessive"),
         ("読み始める", "始める", "inceptive"),
         ("読み続ける", "続ける", "continuative_aspect"),
         ("読み終わる", "終わる", "terminative"),
         ("読みまくる", "まくる", "iterative_aspect"),
+        ("読み出す", "出す", "inchoative"),
+        ("読み直す", "直す", "corrective"),
+        ("読みかける", "かける", "incomplete"),
         ("読み切る", "切る", "completion"),
+        ("読みかねる", "かねる", "reluctance"),
+        ("読み損なう", "損なう", "failure"),
+        ("読みそびれる", "そびれる", "missed_opportunity"),
     ];
     for (text, surface, kind) in compounds {
         let specs = [
@@ -979,6 +1025,11 @@ fn synthetic_reconstruction_covers_thirty_contract_cases() {
                 .map(|operator| &operator.kind)
                 .collect::<Vec<_>>()
         );
+        assert!(
+            chain.evidence.iter().any(|item| item == "connector_rule:te_connection"),
+            "{text}: {:?}",
+            chain.evidence
+        );
     }
 
     let lemma_mappings = [
@@ -1008,4 +1059,208 @@ fn synthetic_reconstruction_covers_thirty_contract_cases() {
             "{text}"
         );
     }
+}
+
+#[test]
+fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
+    let cases = [
+        (
+            "読んでいない",
+            vec![
+                verb("読ん", "連用形-撥音便"),
+                te(),
+                aux_form("い", "居る", "居る", "未然形-一般"),
+                Part {
+                    surface: "ない",
+                    pos: "助動詞",
+                    sub: "",
+                    ctype: "助動詞-ナイ",
+                    cform: "基本形",
+                    lemma: "ない",
+                    orth_base: "ない",
+                },
+            ],
+            &["te_iru", "negative"][..],
+            false,
+        ),
+        (
+            "読んでいなかった",
+            vec![
+                verb("読ん", "連用形-撥音便"),
+                te(),
+                aux_form("い", "居る", "居る", "未然形-一般"),
+                Part {
+                    surface: "なかっ",
+                    pos: "助動詞",
+                    sub: "",
+                    ctype: "助動詞-ナイ",
+                    cform: "連用形-促音便",
+                    lemma: "ない",
+                    orth_base: "ない",
+                },
+                Part {
+                    surface: "た",
+                    pos: "助動詞",
+                    sub: "",
+                    ctype: "助動詞-タ",
+                    cform: "基本形",
+                    lemma: "た",
+                    orth_base: "た",
+                },
+            ],
+            &["te_iru", "negative", "past"][..],
+            true,
+        ),
+        (
+            "読んでいました",
+            vec![
+                verb("読ん", "連用形-撥音便"),
+                te(),
+                aux_form("い", "居る", "居る", "連用形-一般"),
+                Part {
+                    surface: "まし",
+                    pos: "助動詞",
+                    sub: "",
+                    ctype: "助動詞-マス",
+                    cform: "連用形-一般",
+                    lemma: "ます",
+                    orth_base: "ます",
+                },
+                Part {
+                    surface: "た",
+                    pos: "助動詞",
+                    sub: "",
+                    ctype: "助動詞-タ",
+                    cform: "基本形",
+                    lemma: "た",
+                    orth_base: "た",
+                },
+            ],
+            &["te_iru", "politeness_masu", "past"][..],
+            true,
+        ),
+    ];
+
+    for (text, specs, expected_kinds, terminal) in cases {
+        let artifact = run_with_support_edges(text, &specs, &[(2, 0)]);
+        let child = artifact
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+            .unwrap_or_else(|| panic!("{text}: {:?}", artifact.diagnostics));
+        assert_eq!(child.parent_chain_id.as_deref(), Some("morphology:m0"), "{text}");
+        assert_eq!(child.lookup_form, "居る", "{text}");
+        assert_eq!(child.status, "resolved", "{text}: {:?}", artifact.diagnostics);
+        assert_eq!(child.terminal, terminal, "{text}");
+        for kind in expected_kinds {
+            assert!(
+                child.operators.iter().any(|operator| operator.kind == kind),
+                "{text}: {kind} not in {:?}",
+                child.operators.iter().map(|operator| &operator.kind).collect::<Vec<_>>()
+            );
+        }
+        assert!(
+            child.evidence.iter().any(|item| item == "connector_rule:te_connection"),
+            "{text}: {:?}",
+            child.evidence
+        );
+        let occurrence = artifact
+            .occurrences
+            .iter()
+            .find(|occurrence| occurrence.kind == "te_iru")
+            .unwrap();
+        assert_eq!(occurrence.hit_ranges, vec![[2, 3], [3, 4]], "{text}");
+        assert_eq!(occurrence.char_range, [2, 4], "{text}");
+    }
+
+    let tari_specs = [
+        verb("読ん", "連用形-撥音便"),
+        Part {
+            surface: "だり",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-タ",
+            cform: "連用形-一般",
+            lemma: "たり",
+            orth_base: "たり",
+        },
+        Part {
+            surface: "する",
+            pos: "動詞",
+            sub: "自立",
+            ctype: "サ行変格",
+            cform: "終止形-一般",
+            lemma: "する",
+            orth_base: "する",
+        },
+    ];
+    let tari = run_with_support_edges("読んだりする", &tari_specs, &[(2, 0)]);
+    let tari_child = tari
+        .chains
+        .iter()
+        .find(|chain| chain.operators.iter().any(|operator| operator.kind == "tari_suru"))
+        .unwrap_or_else(|| panic!("{:?}", tari.diagnostics));
+    assert_eq!(tari_child.parent_chain_id.as_deref(), Some("morphology:m0"));
+    assert_eq!(tari_child.lookup_form, "する");
+    assert_eq!(tari_child.status, "resolved", "{:?}", tari.diagnostics);
+    assert!(tari_child
+        .evidence
+        .iter()
+        .any(|item| item == "connector_rule:enumerative"));
+
+    let invalid_specs = [
+        Part {
+            surface: "高く",
+            pos: "形容詞",
+            sub: "一般",
+            ctype: "形容詞",
+            cform: "連用形-一般",
+            lemma: "高い",
+            orth_base: "高い",
+        },
+        te_token("て"),
+        aux("いる", "居る", "居る"),
+    ];
+    let invalid = run_with_support_edges("高くている", &invalid_specs, &[(2, 0)]);
+    let invalid_child = invalid
+        .chains
+        .iter()
+        .find(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+        .unwrap();
+    assert_eq!(invalid_child.status, "candidate");
+    assert!(invalid
+        .diagnostics
+        .iter()
+        .any(|item| item.starts_with("auxiliary_input_category:")));
+
+    let mut recursive_specs = vec![verb("読ん", "連用形-撥音便"), te()];
+    let mut recursive_text = String::from("読んで");
+    let mut support_edges = Vec::new();
+    let mut parent_index = 0;
+    for layer in 0..9 {
+        let support_index = recursive_specs.len();
+        recursive_specs.push(aux_form("い", "居る", "居る", "連用形-一般"));
+        recursive_text.push('い');
+        support_edges.push((support_index, parent_index));
+        parent_index = support_index;
+        if layer < 8 {
+            recursive_specs.push(te_token("て"));
+            recursive_text.push('て');
+        }
+    }
+    let recursive = run_with_support_edges(&recursive_text, &recursive_specs, &support_edges);
+    let support_chains = recursive
+        .chains
+        .iter()
+        .filter(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+        .collect::<Vec<_>>();
+    assert_eq!(support_chains.len(), 9);
+    for (index, chain) in support_chains.iter().enumerate() {
+        let expected = if index < 8 { "resolved" } else { "candidate" };
+        assert_eq!(chain.status, expected, "depth {}", index + 1);
+    }
+    assert!(recursive
+        .diagnostics
+        .iter()
+        .any(|item| item.starts_with("auxiliary_depth_limit:")));
 }
