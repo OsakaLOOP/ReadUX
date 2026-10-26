@@ -586,7 +586,12 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                     merge(previous, atom, false); continue;
                 }
                 Transition::Support(kind) => {
-                    AuxiliaryVerbExecutor::apply(previous, &mut atom, kind, source, index, &mut diagnostics);
+                    if AuxiliaryVerbExecutor::accepts(kind) {
+                        AuxiliaryVerbExecutor::apply(previous, &mut atom, kind, source, index, &mut diagnostics);
+                    } else {
+                        // たりする等动词循环连接器仍建立父子链，但活用校验由所属执行器完成。
+                        apply_rule_executor(previous, &mut atom, kind, &mut diagnostics, index);
+                    }
                     atom.role = MorphologyRole::Functional;
                     atom.parent_chain_id = Some(previous.chain_id.clone());
                     if order_conflict(previous, kind) {
