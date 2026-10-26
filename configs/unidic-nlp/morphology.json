@@ -740,7 +740,8 @@
         "te_oku",
         "rashii_modality",
         "rashii_characteristic",
-        "copula_aru"
+        "copula_aru",
+        "politeness_desu"
       ]
     },
     "volitional": {
@@ -776,6 +777,9 @@
         "terminal",
         "attributive",
         "stem"
+      ],
+      "allowed_after": [
+        "copula_past"
       ]
     },
     "sou_modality": {
@@ -904,12 +908,14 @@
         "名詞",
         "代名詞",
         "形状詞",
-        "形容詞"
+        "形容詞",
+        "動詞"
       ],
       "input_forms": [
         "stem",
         "terminal",
-        "attributive"
+        "attributive",
+        "continuative"
       ],
       "allowed_after": [
         "sou_modality",
@@ -917,7 +923,8 @@
         "mitai_modality",
         "obligation",
         "hazu_modality",
-        "copula_de"
+        "copula_de",
+        "polite_negative"
       ]
     },
     "polite_negative": {
@@ -941,12 +948,14 @@
         "名詞",
         "代名詞",
         "形状詞",
-        "形容詞"
+        "形容詞",
+        "動詞"
       ],
       "input_forms": [
         "stem",
         "terminal",
-        "attributive"
+        "attributive",
+        "continuative"
       ],
       "allowed_after": [
         "sou_modality",
@@ -954,7 +963,8 @@
         "mitai_modality",
         "obligation",
         "hazu_modality",
-        "copula_de"
+        "copula_de",
+        "polite_negative"
       ]
     },
     "deshou_modality": {
@@ -1213,13 +1223,17 @@
       "order_rank": 30
     },
     "adjectival_naru": {
-      "stage": "desire",
+      "stage": "conversion",
       "executor": "i_adjective_conversion",
       "rule_group": "形容词转换",
       "input_category": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 40
+      "order_rank": 45,
+      "allowed_after": [
+        "negative",
+        "te_iru"
+      ]
     },
     "hazu_modality": {
       "stage": "modality",
@@ -2027,7 +2041,8 @@
       "inputs": [
         {
           "forms": [
-            "irrealis"
+            "irrealis",
+            "continuative"
           ],
           "categories": [
             "文語用言",
@@ -2213,7 +2228,8 @@
       "inputs": [
         {
           "forms": [
-            "continuative"
+            "continuative",
+            "terminal"
           ],
           "categories": [
             "文語用言",
@@ -2249,7 +2265,8 @@
       "inputs": [
         {
           "forms": [
-            "continuative"
+            "continuative",
+            "terminal"
           ],
           "categories": [
             "文語用言",
@@ -2305,7 +2322,8 @@
       "rule": "classical_classical_nu",
       "class_name": "ナ変型",
       "ctype": [
-        "助動詞-ヌ"
+        "助動詞-ヌ",
+        "文語助動詞-ヌ"
       ],
       "forms": {
         "未然形": [
@@ -2333,7 +2351,8 @@
       "inputs": [
         {
           "forms": [
-            "continuative"
+            "continuative",
+            "irrealis"
           ],
           "categories": [
             "文語用言",
@@ -2891,7 +2910,8 @@
       "rule": "classical_beshi",
       "class_name": "ク活用",
       "ctype": [
-        "助動詞-ベシ"
+        "助動詞-ベシ",
+        "文語助動詞-ベシ"
       ],
       "forms": {
         "未然形": [
@@ -2946,7 +2966,11 @@
             "助動詞-タリ",
             "助動詞-リ",
             "助動詞-メリ",
-            "助動詞-ナリ"
+            "助動詞-ナリ",
+            "助動詞-ズ",
+            "助動詞-ヌ",
+            "文語助動詞-ズ",
+            "文語助動詞-ヌ"
           ],
           "forms": [
             "attributive"
@@ -3073,7 +3097,8 @@
       "inputs": [
         {
           "forms": [
-            "irrealis"
+            "irrealis",
+            "continuative"
           ],
           "categories": [
             "文語用言",
@@ -3148,7 +3173,8 @@
       "inputs": [
         {
           "forms": [
-            "terminal"
+            "terminal",
+            "continuative"
           ],
           "categories": [
             "文語用言",
@@ -3279,7 +3305,8 @@
       "rule": "classical_nari_copula",
       "class_name": "ナリ活用",
       "ctype": [
-        "助動詞-ナリ"
+        "助動詞-ナリ",
+        "文語助動詞-ナリ"
       ],
       "forms": {
         "未然形": [
@@ -3407,7 +3434,8 @@
       "rule": "classical_gotoshi",
       "class_name": "ク活用",
       "ctype": [
-        "助動詞-ゴトシ"
+        "助動詞-ゴトシ",
+        "文語助動詞-ゴトシ"
       ],
       "forms": {
         "未然形": [

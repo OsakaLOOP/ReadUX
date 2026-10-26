@@ -540,6 +540,24 @@ impl ClassicalConjugationExecutor {
         if !Self::accepts(kind) {
             return;
         }
+        if kind == "classical_gotokunari"
+            && previous
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "classical_gotoshi")
+            && previous.final_state.form == ConnectionForm::Continuative
+            && field(token, 4).starts_with("文語助動詞-ナリ")
+        {
+            atom.final_state.category = "文語用言".into();
+            atom.final_state.entity_class = "文言活用类".into();
+            atom.final_state.form = config::classical_connection_form(&atom.final_state.conjugation_form)
+                .unwrap_or_else(|| atom.final_state.form.clone());
+            atom.evidence.extend([
+                "classical_composition:ごとし+なり".into(),
+                "classical_lemma:ごとくなり".into(),
+            ]);
+            return;
+        }
         if kind == "classical_adjective" {
             let Some((entry, form_name)) = config::classical_paradigm_match(
                 &[atom.base_lexeme.as_str(), atom.dictionary_form.as_str()],
@@ -808,6 +826,12 @@ fn transition(
     source: &[ProviderToken],
 ) -> Transition {
     if let Some((entry, _)) = config::classical_auxiliary(next) {
+        if entry.rule == "classical_nari_copula"
+            && previous.final_state.form == ConnectionForm::Continuative
+            && previous.operators.iter().any(|operator| operator.kind == "classical_gotoshi")
+        {
+            return Transition::Attach(vec!["classical_gotokunari".into()]);
+        }
         // べき后接现代判断词尾时，作为现代规范判断词干参与同一条链。
         if next.surface == "べき"
             && source.get(next.index + 1).is_some_and(|following| {
@@ -1345,6 +1369,7 @@ pub(crate) fn compose(
                         kinds.push("auxiliary".into());
                     }
                     let mut rule_input = previous.clone();
+                    let mut attached = false;
                     for kind in kinds {
                         apply_rule_executor(
                             &rule_input,
@@ -1354,6 +1379,7 @@ pub(crate) fn compose(
                             &mut diagnostics,
                             index,
                         );
+                        attached |= atom.status != "candidate";
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
                             diagnostics.push(format!(
@@ -1371,6 +1397,9 @@ pub(crate) fn compose(
                                 &atom.final_state,
                             );
                         }
+                    }
+                    if attached && previous.status == "pending" {
+                        previous.status = "resolved".into();
                     }
                     if let Some(e) = context.relation(
                         previous.char_range,
@@ -1439,16 +1468,15 @@ pub(crate) fn compose(
                         &["aux", "cop", "advcl", "xcomp"],
                     );
                     let bridged = bridge_support(previous, index, source, &context);
-                    let supported = bridged
+                    // 连接器、输入类别、连续范围和递归深度是补助构式的必要条件。
+                    // GiNZA 依存边和文节范围只提供外部证据，缺少外部结果时不能否定已通过的词法连接。
+                    let structural_evidence = bridged
                         || relation.is_some()
                         || context.same_word(previous.char_range, atom.char_range)
                         || context.same_bunsetsu(previous.char_range, atom.char_range);
-                    atom.status = if supported && atom.status != "candidate" {
-                        "resolved"
-                    } else {
-                        "candidate"
+                    if atom.status != "candidate" {
+                        atom.status = "resolved".into();
                     }
-                    .into();
                     if let Some(e) = relation {
                         atom.source_evidence.push(e);
                     }
@@ -1490,11 +1518,8 @@ pub(crate) fn compose(
                             reading_field: Some("contraction_rule".into()),
                         });
                     }
-                    if !supported {
-                        diagnostics.push(format!(
-                            "support_ownership_candidate:{}:{}",
-                            previous.chain_id, index
-                        ));
+                    if !structural_evidence {
+                        atom.evidence.push("support_lexical_connection_only".into());
                     }
                     linked = true;
                 }
@@ -1563,9 +1588,13 @@ pub(crate) fn compose(
         }
         if !linked && field(current, 0) == "助動詞" {
             atom.status = "pending".into();
-            diagnostics.push(format!("unattached_auxiliary:{index}"));
         }
         chains.push(atom);
+    }
+    for chain in &chains {
+        if chain.status == "pending" && chain.role == MorphologyRole::Functional {
+            diagnostics.push(format!("unattached_auxiliary:{}", chain.anchor_morpheme));
+        }
     }
     link_predicates(&mut chains, source);
     let occurrences = chains

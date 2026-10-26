@@ -89,11 +89,21 @@ impl ClassicalAuxiliary {
         cform: &str,
     ) -> Option<&'static str> {
         let form = classical_form_name(cform)?;
-        ((self.ctype.is_empty() || self.ctype.iter().any(|prefix| ctype.starts_with(prefix)))
+        ((self.ctype.is_empty() || self.ctype.iter().any(|prefix| ctype_matches(ctype, prefix)))
             && (self.lemma == lemma || self.aliases.iter().any(|alias| alias == lemma))
             && self.forms.get(form)?.iter().any(|value| value == surface))
         .then_some(form)
     }
+}
+
+fn ctype_matches(actual: &str, prefix: &str) -> bool {
+    actual.starts_with(prefix)
+        || actual
+            .strip_prefix("文語")
+            .is_some_and(|normalized| normalized.starts_with(prefix))
+        || prefix
+            .strip_prefix("文語")
+            .is_some_and(|normalized| actual.starts_with(normalized))
 }
 
 #[derive(Default, Deserialize)]
@@ -476,7 +486,7 @@ pub fn classical_auxiliary(
                             || entry
                                 .ctype
                                 .iter()
-                                .any(|prefix| field(token, 4).starts_with(prefix)))
+                                .any(|prefix| ctype_matches(field(token, 4), prefix)))
                 })
         })?;
     classical_auxiliary_form(&lemma, &token.surface, field(token, 4), field(token, 5))
@@ -493,11 +503,11 @@ pub fn classical_accepts(
                 || input
                     .ctype
                     .iter()
-                    .any(|prefix| state.conjugation_type.starts_with(prefix)))
+                    .any(|prefix| ctype_matches(&state.conjugation_type, prefix)))
             && !input
                 .exclude_ctype
                 .iter()
-                .any(|prefix| state.conjugation_type.starts_with(prefix))
+                .any(|prefix| ctype_matches(&state.conjugation_type, prefix))
     })
 }
 

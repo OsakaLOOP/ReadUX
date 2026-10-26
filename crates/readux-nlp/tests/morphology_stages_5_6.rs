@@ -616,3 +616,122 @@ fn classical_chaining_and_modern_boundaries_use_form_and_context() {
     assert_eq!(zu.chains[0].final_state.form, ConnectionForm::Other);
     assert!(zu.chains[0].terminal);
 }
+
+#[test]
+fn real_classical_gotokunari_composes_gotoshi_and_nari() {
+    let artifact = collect(&[
+        auxiliary("ごとく", "ごとし", "文語助動詞-ゴトシ", "連用形-一般"),
+        auxiliary("なり", "なり", "文語助動詞-ナリ-断定", "終止形-一般"),
+    ]);
+    assert!(
+        artifact.diagnostics.is_empty(),
+        "{:?}",
+        artifact.diagnostics
+    );
+    assert_eq!(artifact.chains.len(), 1);
+    let chain = &artifact.chains[0];
+    assert_eq!(chain.surface_form, "ごとくなり");
+    assert_eq!(chain.status, "resolved");
+    assert_eq!(chain.final_state.entity_class, "文言活用类");
+    assert!(chain
+        .operators
+        .iter()
+        .any(|operator| operator.kind == "classical_gotoshi"));
+    assert!(chain
+        .operators
+        .iter()
+        .any(|operator| operator.kind == "classical_gotokunari"));
+    assert!(chain
+        .evidence
+        .iter()
+        .any(|item| item == "classical_composition:ごとし+なり"));
+}
+
+#[test]
+fn real_classical_input_forms_cover_modern_unidic_boundaries() {
+    let cases = [
+        (
+            "見ざるなり",
+            vec![
+                Token {
+                    surface: "見",
+                    pos: "動詞",
+                    sub: "一般",
+                    ctype: "上一段-マ行",
+                    cform: "連用形-一般",
+                    lemma: "見る",
+                },
+                auxiliary("ざる", "ず", "文語助動詞-ズ", "連体形-補助"),
+                auxiliary("なり", "なり", "文語助動詞-ナリ-断定", "終止形-一般"),
+            ],
+            &["negative_zuni", "classical_nari_copula"][..],
+        ),
+        (
+            "静かなりけり",
+            vec![
+                Token {
+                    surface: "静か",
+                    pos: "形状詞",
+                    sub: "",
+                    ctype: "",
+                    cform: "",
+                    lemma: "静か",
+                },
+                auxiliary("なり", "なり", "文語助動詞-ナリ-断定", "終止形-一般"),
+                auxiliary("けり", "けり", "文語助動詞-ケリ", "終止形-一般"),
+            ],
+            &["classical_nari_copula", "classical_keri"][..],
+        ),
+        (
+            "来まじ",
+            vec![
+                Token {
+                    surface: "来",
+                    pos: "動詞",
+                    sub: "一般",
+                    ctype: "カ行変格",
+                    cform: "連用形-一般",
+                    lemma: "来る",
+                },
+                auxiliary("まじ", "まじ", "文語助動詞-マジ", "終止形-一般"),
+            ],
+            &["classical_maji"][..],
+        ),
+        (
+            "行かざるべからず",
+            vec![
+                Token {
+                    surface: "行か",
+                    pos: "動詞",
+                    sub: "一般",
+                    ctype: "五段-カ行",
+                    cform: "未然形-一般",
+                    lemma: "行く",
+                },
+                auxiliary("ざる", "ず", "文語助動詞-ズ", "連体形-補助"),
+                auxiliary("べから", "べし", "文語助動詞-ベシ", "未然形-補助"),
+                auxiliary("ず", "ず", "助動詞-ヌ", "終止形-一般"),
+            ],
+            &["negative_zuni", "classical_beshi", "negative_zuni"][..],
+        ),
+    ];
+    for (text, specs, expected) in cases {
+        let artifact = collect(&specs);
+        assert!(
+            artifact.diagnostics.is_empty(),
+            "{text}: {:?}",
+            artifact.diagnostics
+        );
+        assert_eq!(artifact.chains.len(), 1, "{text}");
+        assert_eq!(artifact.chains[0].status, "resolved", "{text}");
+        for kind in expected {
+            assert!(
+                artifact.chains[0]
+                    .operators
+                    .iter()
+                    .any(|operator| operator.kind == *kind),
+                "{text}: missing {kind}"
+            );
+        }
+    }
+}
