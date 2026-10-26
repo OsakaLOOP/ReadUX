@@ -2497,11 +2497,15 @@ function toggleEinkMode() {
         <div class="reader-lookup__tree-node reader-lookup__tree-node--root">
           <span>{{ activeDetail.connectionTree.label }}</span>
           <small v-if="activeDetail.connectionTree.summary">{{ activeDetail.connectionTree.summary }}</small>
+          <small v-if="activeDetail.connectionTree.terminal">当前链在此停机</small>
+          <small v-else-if="activeDetail.connectionTree.output">输出：{{ activeDetail.connectionTree.output }}</small>
         </div>
         <div v-for="child in activeDetail.connectionTree.children ?? []" :key="child.label" class="reader-lookup__tree-branch">
           <i aria-hidden="true"></i>
           <div class="reader-lookup__tree-node">
             <span>{{ child.label }}</span>
+            <small v-if="child.stage">{{ child.stage }}</small>
+            <small v-if="child.summary">{{ child.summary }}</small>
             <small v-if="child.output">{{ child.output }}</small>
           </div>
         </div>

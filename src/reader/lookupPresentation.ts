@@ -75,7 +75,7 @@ export interface ReaderMorphologyDetail {
   tags: string[];
   candidates: string[];
   entityClass?: string;
-  connectionTree?: { label: string; summary?: string; inputExamples?: string[]; output?: string; children?: { label: string; summary?: string; inputExamples?: string[]; output?: string }[] } | null;
+  connectionTree?: { label: string; summary?: string; inputExamples?: string[]; output?: string; terminal?: boolean; children?: { label: string; summary?: string; inputExamples?: string[]; output?: string; stage?: string }[] } | null;
   ruleMetadata?: { stage?: string; executor?: string; ruleGroup?: string; inputCategory?: string; outputCategory?: string; terminalMode?: string; orderRank?: number } | null;
 }
 
@@ -378,13 +378,28 @@ function transitionDescription(
   return `${input} → ${output}（${localInput}→${localOutput}）`;
 }
 
-function ruleTreeForClass(entityClass: string | undefined) {
+function ruleTreeForChain(entityClass: string | undefined, chain: MorphologyChain | undefined) {
   if (!entityClass) return null;
   const root = morphologyRuleTree.find((node) => node.label === entityClass);
   if (!root) return null;
+  const operators = (chain?.operators ?? []).filter((operator) => operator.kind !== "conjugation");
+  const matched = operators.map((operator) => ({
+    label: (operator.rule_group || operator.label) + "：" + operator.label,
+    summary: ((operator.state_before?.category || operator.input_category) + " "
+      + (operator.state_before?.form || "") + " → "
+      + (operator.state_after?.category || operator.output_category) + " "
+      + (operator.state_after?.form || "")).trim(),
+    inputExamples: [operator.input_state],
+    output: operator.output_state,
+    stage: operator.stage,
+  }));
   return {
-    label: root.label, summary: root.summary, inputExamples: root.input_examples, output: root.output,
-    children: (root.children ?? []).slice(0, 3).map((child) => ({
+    label: root.label,
+    summary: operators.length ? chain?.surface_form + " 的实际命中规则" : root.summary,
+    inputExamples: root.input_examples,
+    output: chain ? chain.final_state.category + " " + chain.final_state.form : root.output,
+    terminal: chain?.terminal ?? false,
+    children: matched.length ? matched : (root.children ?? []).slice(0, 3).map((child) => ({
       label: child.label, summary: child.summary, inputExamples: child.input_examples, output: child.output,
     })),
   };
@@ -770,7 +785,7 @@ export function readerMorphologyHits(
       tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
       candidates: occurrence.candidates ?? [],
       entityClass: owner?.final_state?.entity_class || operator.state_after?.entity_class,
-      connectionTree: ruleTreeForClass(owner?.final_state?.entity_class || operator.state_after?.entity_class),
+      connectionTree: ruleTreeForChain(owner?.final_state?.entity_class || operator.state_after?.entity_class, owner),
       ruleMetadata: {
         stage: operator.stage, executor: operator.executor, ruleGroup: operator.rule_group,
         inputCategory: operator.input_category, outputCategory: operator.output_category,

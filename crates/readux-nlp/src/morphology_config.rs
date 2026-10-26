@@ -298,6 +298,10 @@ mod tests {
         for (kind, metadata) in &CONFIG.rule_metadata {
             assert!(!metadata.stage.is_empty(), "{kind} 缺少阶段");
             assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");
+            assert!(matches!(metadata.executor.as_str(),
+                "verb_cycle" | "i_adjective_conversion" | "verb_cycle+i_adjective_conversion"
+                | "na_adjective_judgement" | "nominalization" | "auxiliary_verb"
+                | "classical_conjugation" | "insertion"), "{kind} 使用未知执行器 {}", metadata.executor);
         }
         assert_eq!(CONFIG.rule_metadata.get("nominalization").map(|metadata| metadata.executor.as_str()), Some("nominalization"));
         let tree_labels = CONFIG.rule_tree.iter().map(|node| node.label.as_str()).collect::<Vec<_>>();

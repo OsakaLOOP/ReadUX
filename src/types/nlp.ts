@@ -167,6 +167,7 @@ export interface MorphologyChain {
   operators: MorphologyOperator[]; connection_forms: string[]; evidence: string[];
   morpheme_indices: number[]; core_morpheme_indices: number[]; final_state: MorphologyState;
   query_forms: QueryForm[]; source_evidence: SourceEvidence[]; status: string;
+  terminal: boolean;
 }
 export interface MorphologyArtifact { schema: string; chains: MorphologyChain[]; occurrences: MorphologyOccurrence[]; diagnostics: string[]; }
 export interface DictionaryBinding { dictionary: string; entry_key: string; occurrence_id: string; headword: string; reading: string; }

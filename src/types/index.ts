@@ -89,6 +89,7 @@ export interface MorphologyChain {
   operators: MorphologyOperator[];
   connection_forms: string[];
   evidence: string[];
+  terminal?: boolean;
 }
 export interface MorphologyArtifact { chains: MorphologyChain[]; }
 export interface GrammarConcept {

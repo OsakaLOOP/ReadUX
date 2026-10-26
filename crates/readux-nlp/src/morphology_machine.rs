@@ -30,7 +30,27 @@ fn terminal_mode(kind: &str) -> &'static str {
     config::rule_metadata(kind).map_or("continue", |metadata| metadata.terminal_mode.as_str())
 }
 
+fn accepts_input(category: &str, metadata: &config::RuleMetadata) -> bool {
+    match metadata.input_category.as_str() {
+        "動詞" | "动词" => category == "動詞",
+        "形容詞" => category == "形容詞",
+        "形状詞" => category == "形状詞",
+        "名詞" => category == "名詞",
+        "動詞／助動詞" => matches!(category, "動詞" | "助動詞"),
+        "用言" => matches!(category, "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"),
+        "已成立链" | "" => true,
+        _ => false,
+    }
+}
+
 enum Transition { Core, Attach(Vec<String>), Support(&'static str), Insert, Boundary, Stop }
+
+fn declared_output(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str) {
+    let Some(rule) = config::definition(kind) else { return; };
+    if rule.preserve_state { atom.final_state = previous.final_state.clone(); }
+    if let Some(category) = &rule.output_category { atom.final_state.category = category.clone(); }
+    if let Some(form) = &rule.output_form { atom.final_state.form = form.clone(); }
+}
 
 /// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
 struct VerbCycleExecutor;
@@ -42,12 +62,19 @@ impl VerbCycleExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
+        declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("动词循环规则缺少元数据");
-        if metadata.input_category == "動詞" && previous.final_state.category != "動詞" {
+        if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("verb_cycle_input_category:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!("verb_cycle_input_category:{}:{}:{}", previous.chain_id, kind, index));
         }
-        if metadata.output_category == "動詞" { atom.final_state.category = "動詞".into(); }
+        if metadata.output_category == "動詞" || metadata.output_category == "动词" {
+            atom.final_state.category = "動詞".into();
+            atom.final_state.entity_class = "动词循环类".into();
+        } else if metadata.output_category == "用言" {
+            atom.final_state.category = previous.final_state.category.clone();
+            atom.final_state.entity_class = previous.final_state.entity_class.clone();
+        }
     }
 }
 
@@ -61,13 +88,27 @@ impl IAdjectiveConversionExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
-        let accepts_adjective_state = previous.final_state.category == "形容詞";
-        if !accepts_adjective_state && previous.final_state.category != "動詞" && previous.final_state.category != "助動詞" {
+        declared_output(previous, atom, kind);
+        let metadata = config::rule_metadata(kind).expect("イ形容词转换规则缺少元数据");
+        if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("i_adjective_input_category:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!("i_adjective_input_category:{}:{}:{}", previous.chain_id, kind, index));
         }
         atom.final_state.category = "形容詞".into();
         atom.final_state.entity_class = "イ形容词转换类".into();
+    }
+
+    fn continuation(previous: &MorphologyChain, next: &ProviderToken) -> Option<Vec<String>> {
+        if previous.final_state.category != "形容詞"
+            || previous.final_state.entity_class != "イ形容词转换类"
+            || previous.final_state.form != ConnectionForm::Continuative
+        {
+            return None;
+        }
+        let rules: Vec<_> = semantic(next).into_iter()
+            .filter(|kind| matches!(kind.as_str(), "negative" | "past"))
+            .collect();
+        (!rules.is_empty()).then_some(rules)
     }
 }
 
@@ -81,9 +122,11 @@ impl NaAdjectiveJudgementExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
-        if !matches!(previous.final_state.category.as_str(), "動詞" | "形容詞" | "形状詞" | "名詞" | "助動詞") {
+        declared_output(previous, atom, kind);
+        let metadata = config::rule_metadata(kind).expect("ナ形容词判断规则缺少元数据");
+        if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("na_judgement_input_category:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!("na_judgement_input_category:{}:{}:{}", previous.chain_id, kind, index));
         }
         atom.final_state.category = "形状詞".into();
         atom.final_state.entity_class = "ナ形容词判断类".into();
@@ -95,9 +138,11 @@ struct NominalizationExecutor;
 impl NominalizationExecutor {
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()) != Some("nominalization") { return; }
-        if previous.final_state.category.is_empty() {
+        declared_output(previous, atom, kind);
+        let metadata = config::rule_metadata(kind).unwrap();
+        if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("nominalization_input_category:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!("nominalization_input_category:{}:{}:{}", previous.chain_id, kind, index));
         }
         atom.final_state.category = "名詞".into();
         atom.final_state.entity_class.clear();
@@ -114,6 +159,7 @@ impl AuxiliaryVerbExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, source: &[ProviderToken], index: usize, diagnostics: &mut Vec<String>) {
         if !Self::accepts(kind) { return; }
+        declared_output(previous, atom, kind);
         let continuative_auxiliary = config::rule_metadata(kind).is_some_and(|metadata| metadata.rule_group == "连用形补助");
         let has_connector = continuative_auxiliary && previous.final_state.form == ConnectionForm::Continuative
             || previous.final_state.form == ConnectionForm::Te
@@ -148,15 +194,36 @@ impl ClassicalConjugationExecutor {
 
     fn apply(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
         if !Self::accepts(kind) { return; }
-        let classical_operator = matches!(kind, "negative_zuni" | "classical_beshi" | "classical_gotoshi");
-        if classical_operator && previous.final_state.category != "動詞" && previous.final_state.category != "形容詞"
-            && previous.final_state.category != "形状詞" && previous.final_state.category != "名詞"
-            && previous.final_state.category != "助動詞" {
+        declared_output(previous, atom, kind);
+        let metadata = config::rule_metadata(kind).expect("文言规则缺少元数据");
+        if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
-            diagnostics.push(format!("classical_input_category:{}:{}", previous.chain_id, index));
+            diagnostics.push(format!("classical_input_category:{}:{}:{}", previous.chain_id, kind, index));
         }
+        let classical_operator = matches!(kind, "negative_zuni" | "classical_beshi" | "classical_gotoshi");
         atom.final_state.entity_class = "文言活用类".into();
         if classical_operator { atom.final_state.category = "文語用言".into(); }
+    }
+}
+
+/// 按规则元数据选择唯一的状态转换执行器。
+fn apply_rule_executor(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str, diagnostics: &mut Vec<String>, index: usize) {
+    let Some(metadata) = config::rule_metadata(kind) else { return; };
+    match metadata.executor.as_str() {
+        "verb_cycle" => VerbCycleExecutor::apply(previous, atom, kind, diagnostics, index),
+        "i_adjective_conversion" => IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index),
+        "verb_cycle+i_adjective_conversion" if metadata.output_category == "形容詞"
+            || previous.final_state.category == "形容詞" =>
+            IAdjectiveConversionExecutor::apply(previous, atom, kind, diagnostics, index),
+        "verb_cycle+i_adjective_conversion" => VerbCycleExecutor::apply(previous, atom, kind, diagnostics, index),
+        "na_adjective_judgement" => NaAdjectiveJudgementExecutor::apply(previous, atom, kind, diagnostics, index),
+        "nominalization" => NominalizationExecutor::apply(previous, atom, kind, diagnostics, index),
+        "auxiliary_verb" if kind == "te_connection" => declared_output(previous, atom, kind),
+        "classical_conjugation" => ClassicalConjugationExecutor::apply(previous, atom, kind, diagnostics, index),
+        executor => {
+            atom.status = "candidate".into();
+            diagnostics.push(format!("unknown_rule_executor:{kind}:{executor}:{index}"));
+        }
     }
 }
 
@@ -178,6 +245,9 @@ fn bridge_support(previous: &MorphologyChain, index: usize, source: &[ProviderTo
 fn transition(previous: &MorphologyChain, next: &ProviderToken, context: &Context<'_>, source: &[ProviderToken]) -> Transition {
     if insertion_token(next) && previous.operators.iter().any(|op| op.kind == "te_connection") {
         return Transition::Insert;
+    }
+    if let Some(rules) = IAdjectiveConversionExecutor::continuation(previous, next) {
+        return Transition::Attach(rules);
     }
     let last = &source[previous.morpheme_range[1] - 1];
     let following = source.get(next.index + 1);
@@ -450,37 +520,33 @@ pub(crate) fn compose(atoms: Vec<MorphologyChain>, source: &[ProviderToken], mor
                         diagnostics.push(format!("lexical_core_pos_conflict:{}:{index}",previous.chain_id));
                     }
                     previous.source_evidence.extend(atom.source_evidence.clone());
+                    let mut rule_input = previous.clone();
                     for kind in semantic(current) {
-                        VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        NominalizationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        previous.operators.push(operator(previous, &atom, kind, current));
+                        apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
+                        previous.operators.push(operator(&rule_input, &atom, kind, current));
+                        rule_input.final_state = atom.final_state.clone();
                     }
                     merge(previous, atom, true); continue;
                 }
                 Transition::Attach(mut kinds) => {
                     let before = previous.final_state.clone();
-                    for entry in kinds.iter().filter_map(|kind| config::definition(kind)) {
-                        if entry.preserve_state { atom.final_state = before.clone(); }
-                        if let Some(category) = &entry.output_category { atom.final_state.category = category.clone(); }
-                        if let Some(form) = &entry.output_form { atom.final_state.form = form.clone(); }
-                        if before.category == "形状詞" {
-                            if let Some(suffix) = &entry.display_suffix { previous.display_form = format!("{}{suffix}", previous.dictionary_form); }
+                    for kind in &kinds {
+                        if let Some(entry) = config::definition(kind) {
+                            if before.category == "形状詞" {
+                                if let Some(suffix) = &entry.display_suffix { previous.display_form = format!("{}{suffix}", previous.dictionary_form); }
+                            }
                         }
                     }
                     if kinds.is_empty() { kinds.push("auxiliary".into()); }
+                    let mut rule_input = previous.clone();
                     for kind in kinds {
-                        VerbCycleExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        IAdjectiveConversionExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        NaAdjectiveJudgementExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        NominalizationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
-                        ClassicalConjugationExecutor::apply(previous, &mut atom, &kind, &mut diagnostics, index);
+                        apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
                             diagnostics.push(format!("rule_order_conflict:{}:{}:{}", previous.chain_id, kind, index));
                         }
-                        previous.operators.push(operator(previous, &atom, kind, current));
+                        previous.operators.push(operator(&rule_input, &atom, kind, current));
+                        rule_input.final_state = atom.final_state.clone();
                         previous.terminal = matches!(terminal_mode(&previous.operators.last().unwrap().kind), "sentence_or_pause" | "pause_or_continue");
                     }
                     if let Some(e) = context.relation(previous.char_range, atom.char_range, &["aux", "cop", "mark"]) { previous.source_evidence.push(e); }

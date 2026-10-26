@@ -234,6 +234,35 @@ fn synthetic_reconstruction_covers_thirty_contract_cases() {
         assert!(artifact.chains.iter().any(|chain| chain.operators.iter().any(|operator| operator.kind == kind)), "{text}: {kind}");
     }
 
+    let adjective_chains = [
+        ("読みたくない", vec![verb("読み", "連用形-一般"),
+            Part { surface: "たく", pos: "助動詞", sub: "", ctype: "助動詞-タイ", cform: "連用形-一般", lemma: "たい", orth_base: "たい" },
+            Part { surface: "ない", pos: "助動詞", sub: "", ctype: "助動詞-ナイ", cform: "基本形", lemma: "ない", orth_base: "ない" }]),
+        ("読みたかった", vec![verb("読み", "連用形-一般"),
+            Part { surface: "たかっ", pos: "助動詞", sub: "", ctype: "助動詞-タイ", cform: "連用形-促音便", lemma: "たい", orth_base: "たい" },
+            Part { surface: "た", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "た", orth_base: "た" }]),
+        ("読まなかった", vec![verb("読ま", "未然形-一般"),
+            Part { surface: "なかっ", pos: "助動詞", sub: "", ctype: "助動詞-ナイ", cform: "連用形-促音便", lemma: "ない", orth_base: "ない" },
+            Part { surface: "た", pos: "助動詞", sub: "", ctype: "助動詞-タ", cform: "基本形", lemma: "た", orth_base: "た" }]),
+    ];
+    for (text, specs) in adjective_chains {
+        let artifact = run(text, &specs, &[]);
+        let chain = artifact.chains.iter().find(|chain| chain.surface_form == text)
+            .unwrap_or_else(|| panic!("{text}: {:?}", artifact.chains.iter().map(|chain| (&chain.surface_form, &chain.final_state, &chain.operators)).collect::<Vec<_>>()));
+        assert!(chain.operators.iter().any(|operator| operator.kind == "negative" || operator.kind == "desire"), "{text}");
+        assert_eq!(chain.final_state.category, "形容詞", "{text}");
+        assert_eq!(chain.final_state.entity_class, "イ形容词转换类", "{text}");
+        let conversion = chain.operators.iter().find(|operator| operator.kind == "desire" || operator.kind == "negative").unwrap();
+        assert_eq!(conversion.state_after.category, "形容詞", "{text}");
+        assert_eq!(conversion.state_after.entity_class, "イ形容词转换类", "{text}");
+        if text == "読みたくない" || text == "読まなかった" {
+            assert!(chain.operators.iter().any(|operator| operator.kind == "negative"));
+        }
+        if text == "読みたかった" || text == "読まなかった" {
+            assert!(chain.operators.iter().any(|operator| operator.kind == "past"));
+        }
+    }
+
     let compounds = [
         ("読み始める", "始める", "inceptive"), ("読み続ける", "続ける", "continuative_aspect"),
         ("読み終わる", "終わる", "terminative"), ("読みまくる", "まくる", "iterative_aspect"), ("読み切る", "切る", "completion"),
