@@ -19,6 +19,7 @@
 | M-004 | 中     | 逆序诊断               | `読まないたい` 能产生候选诊断，`読みたせる`、`読みましたい` 却主要表现为独立分链，诊断粒度不一致      | 已判定边界 |
 | M-005 | 高     | 文言活用               | 文言助动词在真实 UniDic 的 `文語助動詞-*` cType、同形活用和连续文言链上无法统一接续 | 已验证 |
 | M-006 | 中高   | 旧 operator 迁移       | 20 个实际规则仍使用 `morphology.chain`，正式 concept、目录和查询入口无法表达各自的语法功能 | 已验证 |
+| M-007 | 中高   | て构式重复实体       | 旧 `teConstructions.json` 同时保存补助动词组件词条和 `te_*` 规则，历史实体仍与正式本体并存 | 待修复 |
 
 ## M-001：补助动词父子链归属
 
@@ -163,3 +164,21 @@
 `python scripts/build_grammar_catalog.py --check` 通过；配置回归确认 20 个 operator 均不再使用 `morphology.chain`。真实组合结果和三类尚未形成整条构式的边界样例见 `data/validation/morphology_stage9_before.jsonl`。
 
 当前状态：`已验证`。`春なら` 与三类 `ては...` 构式的识别缺口另行进入后续构式问题，不归入概念迁移。
+
+## M-007：て构式重复实体
+
+### 重要度
+
+中高。重复资源会干扰词条、规则和迁移层的边界，使维护者和资源审计无法判断哪个 ID 是正式查询入口。
+
+### 复现与成因
+
+运行时样例显示 `te_*` 与 `contracted_te_*` 已指向 `grammar.auxiliary.*` 正式 concept；全仓检索确认 `configs/grammar/teConstructions.json` 没有代码引用，但仍保存 19 个 component ID 和 18 个 `rule:te_*` 规则。早期接续形式资源在本体迁移后没有删除，形成重复实体层。
+
+### 修复方案
+
+删除旧 `teConstructions.json`，将 component/rule 历史 ID 写入独立迁移映射；正式 catalog、搜索索引和查询入口继续使用补助动词本体 concept 与 `te_*` operator。`te_goran`、`te_naranai`、`te_tamaranai` 的运行边界另行处理。
+
+阶段 10 的完整审计和样例见 `docs/morphology_stage10_te_migration.md`。
+
+当前状态：`待修复`。

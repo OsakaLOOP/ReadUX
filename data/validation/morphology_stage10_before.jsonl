@@ -1,0 +1,18 @@
+{"text":"読んでいる。","legacy_rule":"rule:te_iru","operator":"te_iru","concept_id":"grammar.auxiliary.iru","status":"resolved","finding":"て接続与いる本体形成单一父子链"}
+{"text":"読んでしまった。","legacy_rule":"rule:te_shimau","operator":"te_shimau","concept_id":"grammar.auxiliary.shimau","status":"resolved","finding":"てしまう接续与后续过去连续成立"}
+{"text":"読んでおく。","legacy_rule":"rule:te_oku","operator":"te_oku","concept_id":"grammar.auxiliary.oku","status":"resolved","finding":"ておく接续成立"}
+{"text":"読んでいく。","legacy_rule":"rule:te_iku","operator":"te_iku","concept_id":"grammar.auxiliary.iku","status":"resolved","finding":"趋向补助本体与て规则分离"}
+{"text":"読んでゆく。","legacy_rule":"rule:te_yuku","operator":"te_yuku","concept_id":"grammar.auxiliary.yuku","status":"resolved","finding":"ゆく本体使用独立正式概念"}
+{"text":"読んでくる。","legacy_rule":"rule:te_kuru","operator":"te_kuru","concept_id":"grammar.auxiliary.kuru","status":"resolved","finding":"くる本体使用独立正式概念"}
+{"text":"やってみる。","legacy_rule":"rule:te_miru","operator":"te_miru","concept_id":"grammar.auxiliary.miru","status":"resolved","finding":"みる本体使用独立正式概念"}
+{"text":"読んでください。","legacy_rule":"rule:te_kudasaru","operator":"te_kudasaru","concept_id":"grammar.auxiliary.kudasaru","status":"resolved","finding":"くださる本体与请求词条分层"}
+{"text":"読んでもらう。","legacy_rule":"rule:te_morau","operator":"te_morau","concept_id":"grammar.auxiliary.morau","status":"resolved","finding":"もらう本体使用独立正式概念"}
+{"text":"読んでほしい。","legacy_rule":"rule:te_hoshii","operator":"te_hoshii","concept_id":"grammar.auxiliary.hoshii","status":"resolved","finding":"ほしい构式已有正式资源"}
+{"text":"見てごらん。","legacy_rule":"rule:te_goran","operator":"te_goran","concept_id":"grammar.auxiliary.goran","status":"unobserved","finding":"本轮分词未进入 te_goran，旧资源不应作为额外实体保留"}
+{"text":"やってみせる。","legacy_rule":"rule:te_miseru","operator":"te_miseru","concept_id":"grammar.auxiliary.miseru","status":"resolved","finding":"みせる本体使用独立正式概念"}
+{"text":"会いたくてたまらない。","legacy_rule":"rule:te_tamaranai","operator":"te_tamaranai","concept_id":"grammar.auxiliary.tamaranai","status":"candidate","finding":"本轮暴露 te 连接顺序边界，属于执行规则问题"}
+{"text":"心配でならない。","legacy_rule":"rule:te_naranai","operator":"te_naranai","concept_id":"grammar.auxiliary.naranai","status":"unobserved","finding":"本轮分词未进入 te_naranai，属于接续输入边界"}
+{"text":"願ってやまない。","legacy_rule":"rule:te_yamanai","operator":"te_yamanai","concept_id":"grammar.auxiliary.yamanai","status":"resolved","finding":"やまない构式已有正式资源"}
+{"text":"読んでん。","legacy_rule":"contracted_te_iru","operator":"contracted_te_iru","concept_id":"grammar.auxiliary.iru","status":"boundary","finding":"缩约形式保留为规则入口，不产生独立正式词条"}
+{"text":"読んじゃった。","legacy_rule":"contracted_te_shimau","operator":"contracted_te_shimau","concept_id":"grammar.auxiliary.shimau","status":"boundary","finding":"缩约形式映射到しまう本体"}
+{"text":"読んどく。","legacy_rule":"contracted_te_oku","operator":"contracted_te_oku","concept_id":"grammar.auxiliary.oku","status":"boundary","finding":"缩约形式映射到おく本体"}
