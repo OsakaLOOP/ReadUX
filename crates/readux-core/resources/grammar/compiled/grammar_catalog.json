@@ -4695,6 +4695,367 @@
       "audit_status": "verified",
       "concept_version": 1,
       "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.tagaru",
+      "kind": "construction",
+      "canonical_label": "〜たがる",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "desire"
+      ],
+      "function_tags": [
+        "outward_desire"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.tagaru",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.functional.sa",
+      "kind": "nominalization",
+      "canonical_label": "さ（名词化）",
+      "aliases": [],
+      "semantic_domains": [
+        "nominalization",
+        "degree"
+      ],
+      "function_tags": [
+        "nominalizer",
+        "property"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.functional.sa",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.nagara",
+      "kind": "connective",
+      "canonical_label": "ながら（伴随）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "simultaneity"
+      ],
+      "function_tags": [
+        "simultaneous"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.nagara",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.tsutsu",
+      "kind": "connective",
+      "canonical_label": "つつ",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "aspect"
+      ],
+      "function_tags": [
+        "simultaneous",
+        "continuative"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard",
+        "formal"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.tsutsu",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.keredomo",
+      "kind": "connective",
+      "canonical_label": "ど／ども（逆接）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "concession"
+      ],
+      "function_tags": [
+        "concessive"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard",
+        "classical"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.keredomo",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.tari",
+      "kind": "connective",
+      "canonical_label": "たり（列举）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "enumeration"
+      ],
+      "function_tags": [
+        "enumerative"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.tari",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.morphology.insertion",
+      "kind": "morphology",
+      "canonical_label": "活用链插入成分",
+      "aliases": [],
+      "semantic_domains": [
+        "morphology",
+        "discourse"
+      ],
+      "function_tags": [
+        "insertion",
+        "scope_extension"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.morphology.insertion",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.toka",
+      "kind": "connective",
+      "canonical_label": "とか（举例）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "exemplification"
+      ],
+      "function_tags": [
+        "exemplification"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard",
+        "spoken"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.toka",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.node",
+      "kind": "connective",
+      "canonical_label": "ので（原因）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "cause"
+      ],
+      "function_tags": [
+        "causal"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.node",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.naide",
+      "kind": "connective",
+      "canonical_label": "ないで",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "polarity"
+      ],
+      "function_tags": [
+        "negative_connection"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.naide",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_naranai",
+      "kind": "construction",
+      "canonical_label": "てはならない",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive",
+        "formal"
+      ],
+      "jlpt_level": 3,
+      "register": [
+        "modern_standard",
+        "formal"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.prohibition.tewa_naranai",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_ikenai",
+      "kind": "construction",
+      "canonical_label": "てはいけない",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.prohibition.tewa_ikenai",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_dame",
+      "kind": "construction",
+      "canonical_label": "てはだめ",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive",
+        "spoken"
+      ],
+      "jlpt_level": 4,
+      "register": [
+        "modern_standard",
+        "spoken"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.prohibition.tewa_dame",
+      "source_refs": [
+        "readux-editorial:morphology-refactor-stage9",
+        "data-validation:morphology-stage9-before"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
     }
   ],
   "senses": [

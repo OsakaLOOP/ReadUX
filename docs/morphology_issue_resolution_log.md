@@ -18,7 +18,7 @@
 | M-003 | 中高   | イ形容词转换、补助动词 | `高くなくなった`、`読んでいなくなった` 中转换结果继续接 `なる` 时出现顺序冲突或父子候选               | 已验证   |
 | M-004 | 中     | 逆序诊断               | `読まないたい` 能产生候选诊断，`読みたせる`、`読みましたい` 却主要表现为独立分链，诊断粒度不一致      | 已判定边界 |
 | M-005 | 高     | 文言活用               | 文言助动词在真实 UniDic 的 `文語助動詞-*` cType、同形活用和连续文言链上无法统一接续 | 已验证 |
-| M-006 | 中高   | 旧 operator 迁移       | 20 个实际规则仍使用 `morphology.chain`，正式 concept、目录和查询入口无法表达各自的语法功能 | 待修复 |
+| M-006 | 中高   | 旧 operator 迁移       | 20 个实际规则仍使用 `morphology.chain`，正式 concept、目录和查询入口无法表达各自的语法功能 | 已验证 |
 
 ## M-001：补助动词父子链归属
 
@@ -154,4 +154,12 @@
 
 按语法功能为每个 operator 指定正式 concept；已有概念直接复用，新功能建立独立 concept、解释、接续条件和代表例句。`insertion` 只表示范围执行器，具体插入词项继续使用自身的正式词条。阶段 9 的完整映射、实验输入和边界判断见 `docs/morphology_stage9_migration.md`。
 
-当前状态：`待修复`。
+### 实际修改
+
+20 个 operator 已分别指向既有正式 concept 或阶段 9 新建 concept；新 concept 的解释、接续条件、正例和反例位于 grammar source bundle，编译 catalog、说明文件和搜索索引已重新生成。执行器仍保留原有状态转换与停机属性。
+
+### 验证
+
+`python scripts/build_grammar_catalog.py --check` 通过；配置回归确认 20 个 operator 均不再使用 `morphology.chain`。真实组合结果和三类尚未形成整条构式的边界样例见 `data/validation/morphology_stage9_before.jsonl`。
+
+当前状态：`已验证`。`春なら` 与三类 `ては...` 构式的识别缺口另行进入后续构式问题，不归入概念迁移。

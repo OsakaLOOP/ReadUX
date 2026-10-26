@@ -262,6 +262,37 @@ fn modern_inflections_and_functional_ownership() {
 }
 
 #[test]
+fn stage_nine_operators_resolve_formal_concepts() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, kind, concept) in [
+        ("行きたがる。", "desire_outward", "grammar.modality.tagaru"),
+        ("学生である。", "copula_aru", "grammar.functional.aru"),
+        ("静かさを測る。", "nominalization", "grammar.functional.sa"),
+        ("食べたら寝る。", "tara_condition", "morphology.mood.conditional"),
+        ("歩きながら話す。", "nagara_connection", "grammar.connective.nagara"),
+        ("考えつつ進む。", "tsutsu_connection", "grammar.connective.tsutsu"),
+        ("ここで騒ぐな。", "prohibitive", "grammar.sentence_particle.na"),
+        ("本を読んだり聞いたりする。", "enumerative", "grammar.connective.tari"),
+        ("読むとか書くとかする。", "exemplification", "grammar.connective.toka"),
+        ("高いくらいだ。", "degree", "grammar.particle.kurai"),
+        ("早く行け。", "imperative", "morphology.form.imperative"),
+        ("静かなので帰る。", "node_connection", "grammar.connective.node"),
+        ("食べないで寝る。", "negative_de", "grammar.connective.naide"),
+    ] {
+        let doc = analyze(&service, text);
+        let operator = doc
+            .morphology
+            .chains
+            .iter()
+            .flat_map(|chain| chain.operators.iter())
+            .find(|operator| operator.kind == kind)
+            .unwrap_or_else(|| panic!("{text}: missing {kind}"));
+        assert_eq!(operator.concept_id, concept, "{text}: {kind}");
+    }
+}
+
+#[test]
 fn i_adjective_conversion_continues_through_polarity_and_tense() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));

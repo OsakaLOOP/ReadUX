@@ -4524,6 +4524,276 @@
         "文言活用",
         "记录用言词干、活用型和实际活用形"
       ]
+    },
+    {
+      "concept_id": "grammar.modality.tagaru",
+      "label": "〜たがる",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "desire"
+      ],
+      "function_tags": [
+        "outward_desire"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.functional.sa",
+      "label": "さ（名词化）",
+      "aliases": [],
+      "semantic_domains": [
+        "nominalization",
+        "degree"
+      ],
+      "function_tags": [
+        "nominalizer",
+        "property"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.nagara",
+      "label": "ながら（伴随）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "simultaneity"
+      ],
+      "function_tags": [
+        "simultaneous"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.tsutsu",
+      "label": "つつ",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "aspect"
+      ],
+      "function_tags": [
+        "simultaneous",
+        "continuative"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [],
+      "register": [
+        "modern_standard",
+        "formal"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.keredomo",
+      "label": "ど／ども（逆接）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "concession"
+      ],
+      "function_tags": [
+        "concessive"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [],
+      "register": [
+        "modern_standard",
+        "classical"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.tari",
+      "label": "たり（列举）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "enumeration"
+      ],
+      "function_tags": [
+        "enumerative"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.morphology.insertion",
+      "label": "活用链插入成分",
+      "aliases": [],
+      "semantic_domains": [
+        "morphology",
+        "discourse"
+      ],
+      "function_tags": [
+        "insertion",
+        "scope_extension"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.toka",
+      "label": "とか（举例）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "exemplification"
+      ],
+      "function_tags": [
+        "exemplification"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard",
+        "spoken"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.node",
+      "label": "ので（原因）",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "cause"
+      ],
+      "function_tags": [
+        "causal"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.naide",
+      "label": "ないで",
+      "aliases": [],
+      "semantic_domains": [
+        "connection",
+        "polarity"
+      ],
+      "function_tags": [
+        "negative_connection"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_naranai",
+      "label": "てはならない",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive",
+        "formal"
+      ],
+      "jlpt_level": 3,
+      "surface_hints": [],
+      "register": [
+        "modern_standard",
+        "formal"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_ikenai",
+      "label": "てはいけない",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_dame",
+      "label": "てはだめ",
+      "aliases": [],
+      "semantic_domains": [
+        "modality",
+        "prohibition"
+      ],
+      "function_tags": [
+        "prohibitive",
+        "spoken"
+      ],
+      "jlpt_level": 4,
+      "surface_hints": [],
+      "register": [
+        "modern_standard",
+        "spoken"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
     }
   ]
 }

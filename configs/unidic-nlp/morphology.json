@@ -4038,7 +4038,7 @@
     "desire_outward": {
       "label": "活用",
       "title": "外向愿望",
-      "concept": "morphology.chain",
+      "concept": "grammar.modality.tagaru",
       "prototype": "たがる"
     },
     "sou_modality": {
@@ -4102,7 +4102,7 @@
     "copula_aru": {
       "label": "判断",
       "title": "断定",
-      "concept": "morphology.chain",
+      "concept": "grammar.functional.aru",
       "prototype": "である",
       "output_category": "形状詞"
     },
@@ -4143,7 +4143,7 @@
     "nominalization": {
       "label": "名词化",
       "title": "名词化",
-      "concept": "morphology.chain",
+      "concept": "grammar.functional.sa",
       "prototype": "さ",
       "variants": [
         {
@@ -4162,13 +4162,13 @@
     "ba_connection": {
       "label": "条件",
       "title": "条件",
-      "concept": "morphology.chain",
+      "concept": "grammar.particle.ba",
       "prototype": "ば"
     },
     "tara_condition": {
       "label": "条件",
       "title": "条件",
-      "concept": "morphology.chain",
+      "concept": "morphology.mood.conditional",
       "prototype": "たら",
       "variants": [
         {
@@ -4186,19 +4186,19 @@
     "nagara_connection": {
       "label": "ながら接続",
       "title": "伴随",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.nagara",
       "prototype": "ながら"
     },
     "tsutsu_connection": {
       "label": "つつ接続",
       "title": "伴随·持续",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.tsutsu",
       "prototype": "つつ"
     },
     "concessive_connection": {
       "label": "逆接",
       "title": "逆接",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.keredomo",
       "prototype": "ど",
       "variants": [
         {
@@ -4236,20 +4236,20 @@
     "prohibitive": {
       "label": "禁止",
       "title": "禁止",
-      "concept": "morphology.chain",
+      "concept": "grammar.sentence_particle.na",
       "prototype": "な"
     },
     "enumerative": {
       "label": "列举",
       "title": "列举",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.tari",
       "prototype": "たり",
       "preserve_state": true
     },
     "insertion": {
       "label": "插入语",
       "title": "插入语",
-      "concept": "morphology.chain",
+      "concept": "grammar.morphology.insertion",
       "prototype": "",
       "token_lemma": true,
       "preserve_state": true
@@ -4257,7 +4257,7 @@
     "exemplification": {
       "label": "举例",
       "title": "举例",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.toka",
       "prototype": "とか",
       "preserve_state": true
     },
@@ -4306,7 +4306,7 @@
     "degree": {
       "label": "程度",
       "title": "程度／约量",
-      "concept": "morphology.chain",
+      "concept": "grammar.particle.kurai",
       "prototype": "くらい",
       "output_category": "名詞",
       "output_form": "stem",
@@ -4332,7 +4332,7 @@
     "imperative": {
       "label": "命令",
       "title": "命令",
-      "concept": "morphology.chain",
+      "concept": "morphology.form.imperative",
       "prototype": ""
     },
     "te_iru": {
@@ -4921,7 +4921,7 @@
     "ga_connection": {
       "label": "逆接",
       "title": "逆接",
-      "concept": "morphology.chain",
+      "concept": "grammar.particle.ga",
       "prototype": "が",
       "output_form": "other"
     },
@@ -4946,7 +4946,7 @@
     "node_connection": {
       "label": "原因",
       "title": "原因",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.node",
       "prototype": "ので",
       "output_form": "other"
     },
@@ -5008,7 +5008,7 @@
     "negative_de": {
       "label": "否定接续",
       "title": "否定接续",
-      "concept": "morphology.chain",
+      "concept": "grammar.connective.naide",
       "prototype": "ないで",
       "output_form": "other"
     },
@@ -5131,7 +5131,7 @@
     "prohibition_tewa_condition_naru": {
       "label": "禁止",
       "title": "禁止",
-      "concept": "morphology.chain",
+      "concept": "grammar.prohibition.tewa_naranai",
       "prototype": "てはならない",
       "variants": [
         {
@@ -5150,7 +5150,7 @@
     "prohibition_tewa_condition_ikeru": {
       "label": "禁止",
       "title": "禁止",
-      "concept": "morphology.chain",
+      "concept": "grammar.prohibition.tewa_ikenai",
       "prototype": "てはいけない",
       "variants": [
         {
@@ -5169,7 +5169,7 @@
     "prohibition_tewa_condition_dame": {
       "label": "禁止",
       "title": "禁止",
-      "concept": "morphology.chain",
+      "concept": "grammar.prohibition.tewa_dame",
       "prototype": "てはだめ",
       "variants": [
         {

@@ -1,0 +1,247 @@
+{
+  "bundle_id": "morphology-stage9-migration",
+  "audit_status": "reviewed",
+  "source_refs": [
+    "readux-editorial:morphology-refactor-stage9",
+    "data-validation:morphology-stage9-before"
+  ],
+  "review": {
+    "method": "按活用 operator 的输入状态、接续条件、停机方式和真实 UniDic 样例迁移正式概念"
+  },
+  "items": [
+    {
+      "concept_id": "grammar.modality.tagaru",
+      "kind": "construction",
+      "canonical_label": "〜たがる",
+      "semantic_domains": ["modality", "desire"],
+      "function_tags": ["outward_desire"],
+      "jlpt_level": 3,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "表示从外部观察到主体表现出愿望或倾向",
+        "function_summary": "与第一人称自述的たい区分，描述第三人称或非意志主体的愿望表现",
+        "connection": "动词连用形或たい形词干＋たがる；たがる本身继续按动词活用。",
+        "formation": "行き＋たがる→行きたがる",
+        "examples": ["子供が外へ行きたがる。"],
+        "counter_examples": ["私は映画を見たい。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.functional.sa",
+      "kind": "nominalization",
+      "canonical_label": "さ（名词化）",
+      "semantic_domains": ["nominalization", "degree"],
+      "function_tags": ["nominalizer", "property"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "把形容词或形状词性质转换为名词",
+        "function_summary": "表示性质、程度或状态的名词化结果",
+        "connection": "形容词或形状词词干＋さ；前项状态被转换为名词。",
+        "formation": "静か＋さ→静かさ",
+        "examples": ["静かさを測る。", "高さが違う。"],
+        "counter_examples": ["静かな部屋（连体修饰，不是名词化）。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.nagara",
+      "kind": "connective",
+      "canonical_label": "ながら（伴随）",
+      "semantic_domains": ["connection", "simultaneity"],
+      "function_tags": ["simultaneous"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "表示两个动作同时进行",
+        "function_summary": "前项动作作为伴随背景，后项为主要叙述",
+        "connection": "动词连用形＋ながら。",
+        "formation": "歩き＋ながら話す",
+        "examples": ["歩きながら話す。"],
+        "counter_examples": ["知りながらも黙った（让步构式）。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.tsutsu",
+      "kind": "connective",
+      "canonical_label": "つつ",
+      "semantic_domains": ["connection", "aspect"],
+      "function_tags": ["simultaneous", "continuative"],
+      "jlpt_level": 3,
+      "register": ["modern_standard", "formal"],
+      "explanation": {
+        "compact_summary": "表示同时进行或持续进行",
+        "function_summary": "以书面或正式语域连接两个动作，也可表达与预期相反的持续状态",
+        "connection": "动词连用形＋つつ。",
+        "formation": "考え＋つつ進む",
+        "examples": ["考えつつ進む。"],
+        "counter_examples": ["考えるつつ進む（前项不是连用形）。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.keredomo",
+      "kind": "connective",
+      "canonical_label": "ど／ども（逆接）",
+      "semantic_domains": ["connection", "concession"],
+      "function_tags": ["concessive"],
+      "jlpt_level": 3,
+      "register": ["modern_standard", "classical"],
+      "explanation": {
+        "compact_summary": "连接前后相反或受限的内容",
+        "function_summary": "表示让步、转折或对比，现代语使用けれども，文言链可见ど／ども",
+        "connection": "用言已然形或条件形＋ど／ども。",
+        "formation": "雨なれど出かける",
+        "examples": ["雨だけど行く。", "知らねど進む。"],
+        "counter_examples": ["が作主格助詞时不属于逆接连接。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.tari",
+      "kind": "connective",
+      "canonical_label": "たり（列举）",
+      "semantic_domains": ["connection", "enumeration"],
+      "function_tags": ["enumerative"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "列举多个动作或状态作为代表",
+        "function_summary": "列举的项目不要求穷尽，后项可接する或其他叙述",
+        "connection": "动词连用形＋たり；浊音化形式为だり。",
+        "formation": "読んだり聞いたりする",
+        "examples": ["本を読んだり音楽を聞いたりする。"],
+        "counter_examples": ["読んだり不能直接解释为过去时停机。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.morphology.insertion",
+      "kind": "morphology",
+      "canonical_label": "活用链插入成分",
+      "semantic_domains": ["morphology", "discourse"],
+      "function_tags": ["insertion", "scope_extension"],
+      "jlpt_level": null,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "在已成立活用链中扩展命中范围并保持前项状态",
+        "function_summary": "描述だけ、は等声明的插入语对活用链范围的影响；具体词项仍按自身词条解释",
+        "connection": "仅允许配置白名单和声明位置的插入成分进入。",
+        "formation": "谓语链＋插入成分",
+        "examples": ["読んではいけない。", "読むだけだ。"],
+        "counter_examples": ["未声明的格助词不能作为活用链插入成分。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.toka",
+      "kind": "connective",
+      "canonical_label": "とか（举例）",
+      "semantic_domains": ["connection", "exemplification"],
+      "function_tags": ["exemplification"],
+      "jlpt_level": 4,
+      "register": ["modern_standard", "spoken"],
+      "explanation": {
+        "compact_summary": "列举一个或多个例子",
+        "function_summary": "表示所举内容只是代表性例子，也可带有不完全列举的语气",
+        "connection": "名词、普通形或短句＋とか。",
+        "formation": "読む＋とか書く＋とか",
+        "examples": ["読むとか書くとかする。"],
+        "counter_examples": ["引用助词と的单独用法不属于举例构式。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.node",
+      "kind": "connective",
+      "canonical_label": "ので（原因）",
+      "semantic_domains": ["connection", "cause"],
+      "function_tags": ["causal"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "说明原因或理由",
+        "function_summary": "以前项原因连接后项结果，语气通常比から更客观",
+        "connection": "普通形＋ので；形状词和名词使用な＋ので。",
+        "formation": "静か＋な＋ので帰る",
+        "examples": ["静かなので帰る。"],
+        "counter_examples": ["ので不能在所有位置替代名词の。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.connective.naide",
+      "kind": "connective",
+      "canonical_label": "ないで",
+      "semantic_domains": ["connection", "polarity"],
+      "function_tags": ["negative_connection"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "表示不进行前项动作而进行后项动作",
+        "function_summary": "连接否定动作与后项，常表达替代、并行或省略前项动作",
+        "connection": "动词未然形＋ない＋で。",
+        "formation": "食べないで寝る",
+        "examples": ["朝食を食べないで出かけた。"],
+        "counter_examples": ["ないで与地点助词で连续出现时需要按语素边界判断。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_naranai",
+      "kind": "construction",
+      "canonical_label": "てはならない",
+      "semantic_domains": ["modality", "prohibition"],
+      "function_tags": ["prohibitive", "formal"],
+      "jlpt_level": 3,
+      "register": ["modern_standard", "formal"],
+      "explanation": {
+        "compact_summary": "以正式语气表示禁止",
+        "function_summary": "规定某动作或状态不得发生",
+        "connection": "动词て形＋は＋ならない；で形后使用ではならない。",
+        "formation": "して＋は＋ならない",
+        "examples": ["ここに入ってはならない。"],
+        "counter_examples": ["ならない的普通否定用法不自动构成禁止。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_ikenai",
+      "kind": "construction",
+      "canonical_label": "てはいけない",
+      "semantic_domains": ["modality", "prohibition"],
+      "function_tags": ["prohibitive"],
+      "jlpt_level": 4,
+      "register": ["modern_standard"],
+      "explanation": {
+        "compact_summary": "表示不允许或禁止",
+        "function_summary": "用于规则、许可和日常提醒中的禁止表达",
+        "connection": "动词て形＋は＋いけない；で形后使用ではいけない。",
+        "formation": "触って＋は＋いけない",
+        "examples": ["ここに触ってはいけない。"],
+        "counter_examples": ["いけない的独立感叹用法不构成禁止。"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.prohibition.tewa_dame",
+      "kind": "construction",
+      "canonical_label": "てはだめ",
+      "semantic_domains": ["modality", "prohibition"],
+      "function_tags": ["prohibitive", "spoken"],
+      "jlpt_level": 4,
+      "register": ["modern_standard", "spoken"],
+      "explanation": {
+        "compact_summary": "以口语表达不允许或禁止",
+        "function_summary": "与てはいけない意义接近，语气更口语化",
+        "connection": "动词て形＋は＋だめ；で形后使用ではだめ。",
+        "formation": "ここに置いて＋は＋だめ",
+        "examples": ["ここに置いてはだめだ。"],
+        "counter_examples": ["だめ的独立评价用法不构成禁止。"],
+        "body_blocks": []
+      }
+    }
+  ]
+}

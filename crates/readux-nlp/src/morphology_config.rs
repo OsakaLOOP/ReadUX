@@ -808,6 +808,41 @@ mod tests {
                 "{kind} 应由补助动词执行器处理"
             );
         }
+
+        for (kind, concept) in [
+            ("desire_outward", "grammar.modality.tagaru"),
+            ("copula_aru", "grammar.functional.aru"),
+            ("nominalization", "grammar.functional.sa"),
+            ("ba_connection", "grammar.particle.ba"),
+            ("tara_condition", "morphology.mood.conditional"),
+            ("nagara_connection", "grammar.connective.nagara"),
+            ("tsutsu_connection", "grammar.connective.tsutsu"),
+            ("concessive_connection", "grammar.connective.keredomo"),
+            ("prohibitive", "grammar.sentence_particle.na"),
+            ("enumerative", "grammar.connective.tari"),
+            ("insertion", "grammar.morphology.insertion"),
+            ("exemplification", "grammar.connective.toka"),
+            ("degree", "grammar.particle.kurai"),
+            ("imperative", "morphology.form.imperative"),
+            ("ga_connection", "grammar.particle.ga"),
+            ("node_connection", "grammar.connective.node"),
+            ("negative_de", "grammar.connective.naide"),
+            (
+                "prohibition_tewa_condition_naru",
+                "grammar.prohibition.tewa_naranai",
+            ),
+            (
+                "prohibition_tewa_condition_ikeru",
+                "grammar.prohibition.tewa_ikenai",
+            ),
+            (
+                "prohibition_tewa_condition_dame",
+                "grammar.prohibition.tewa_dame",
+            ),
+        ] {
+            assert_eq!(CONFIG.operators[kind].concept, concept, "{kind}");
+            assert_ne!(CONFIG.operators[kind].concept, "morphology.chain");
+        }
     }
 
     #[test]
