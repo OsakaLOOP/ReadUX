@@ -55,6 +55,21 @@ fn declared_output(previous: &MorphologyChain, atom: &mut MorphologyChain, kind:
 /// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
 struct VerbCycleExecutor;
 
+/// 动词循环阶段的相对顺序；te_support 由补助执行器管理，不参与本约束。
+fn verb_stage_rank(stage: &str) -> Option<i32> {
+    Some(match stage {
+        "voice" => 10,
+        "classical" => 12,
+        "desire" => 40,
+        "conversion" => 45,
+        "polarity_politeness" => 50,
+        "tense" => 60,
+        "modality" => 70,
+        "boundary" => 80,
+        _ => return None,
+    })
+}
+
 impl VerbCycleExecutor {
     fn accepts(kind: &str) -> bool {
         matches!(config::rule_metadata(kind).map(|metadata| metadata.executor.as_str()), Some("verb_cycle") | Some("verb_cycle+i_adjective_conversion"))
@@ -67,6 +82,20 @@ impl VerbCycleExecutor {
         if !accepts_input(&previous.final_state.category, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!("verb_cycle_input_category:{}:{}:{}", previous.chain_id, kind, index));
+        }
+        // 阶段可跳过，但已在链上的动词循环阶段不得倒退；allowed_after 属于显式豁免。
+        if let Some(rank) = verb_stage_rank(&metadata.stage) {
+            let stage_regression = previous.operators.iter().any(|operator| {
+                config::rule_metadata(&operator.kind).is_some_and(|meta| {
+                    meta.executor.contains("verb_cycle")
+                        && verb_stage_rank(&meta.stage).is_some_and(|before| before > rank)
+                        && !metadata.allowed_after.contains(&operator.kind)
+                })
+            });
+            if stage_regression {
+                atom.status = "candidate".into();
+                diagnostics.push(format!("verb_cycle_stage_order:{}:{}:{}", previous.chain_id, kind, index));
+            }
         }
         if metadata.output_category == "動詞" || metadata.output_category == "动词" {
             atom.final_state.category = "動詞".into();
