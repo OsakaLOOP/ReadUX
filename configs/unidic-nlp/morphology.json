@@ -556,13 +556,13 @@
       "order_rank": 70
     },
     "darou_question": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "conditional": {
       "stage": "voice",
@@ -583,13 +583,13 @@
       "order_rank": 30
     },
     "de_form": {
-      "stage": "voice",
+      "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 30
     },
     "negative_volitional": {
       "stage": "polarity_politeness",
@@ -664,67 +664,67 @@
       "order_rank": 40
     },
     "ba_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "tara_condition": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "nagara_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "tsutsu_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "concessive_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "prohibitive": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "enumerative": {
-      "stage": "voice",
+      "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 30
     },
     "exemplification": {
       "stage": "insertion",
@@ -736,13 +736,13 @@
       "order_rank": 0
     },
     "ni_naru": {
-      "stage": "voice",
+      "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 30
     },
     "adjectival_naru": {
       "stage": "desire",
@@ -763,22 +763,22 @@
       "order_rank": 70
     },
     "degree": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "kamoshirenai": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 70
     },
     "imperative": {
       "stage": "modality",
@@ -1072,67 +1072,67 @@
       "same_layer": ["excessive", "inceptive", "continuative_aspect", "terminative", "iterative_aspect", "inchoative", "corrective", "incomplete", "completion", "reluctance", "failure"]
     },
     "kedo_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "keredomo_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "ga_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "noni_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "kara_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "node_connection": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "to_condition": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "nara_condition": {
       "stage": "modality",
@@ -1171,13 +1171,13 @@
       "order_rank": 50
     },
     "tewa_condition": {
-      "stage": "voice",
+      "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 80
     },
     "negative_de": {
       "stage": "polarity_politeness",
@@ -1189,112 +1189,112 @@
       "order_rank": 50
     },
     "necessity_negative_ba_naru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_ba_ikeru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_ba_dame": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_tewa_naru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_tewa_ikeru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_tewa_dame": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_to_naru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_to_ikeru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "necessity_negative_to_dame": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "prohibition_tewa_condition_naru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "prohibition_tewa_condition_ikeru": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     },
     "prohibition_tewa_condition_dame": {
-      "stage": "voice",
+      "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
       "output_category": "用言",
-      "terminal_mode": "continue",
-      "order_rank": 10
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70
     }
   },
   "classical_forms": [
