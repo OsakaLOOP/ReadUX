@@ -290,6 +290,18 @@ fn stage_nine_operators_resolve_formal_concepts() {
         ("願ってやまない。", "te_yamanai", "grammar.auxiliary.yamanai"),
     ] {
         let doc = analyze(&service, text);
+        let chain = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|operator| operator.kind == kind))
+            .unwrap_or_else(|| panic!("{text}: missing chain for {kind}"));
+        assert_eq!(chain.status, "resolved", "{text}: {kind}");
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {kind}: {:?}",
+            doc.morphology.diagnostics
+        );
         let operator = doc
             .morphology
             .chains

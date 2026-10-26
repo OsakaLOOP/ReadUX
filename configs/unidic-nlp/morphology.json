@@ -1273,7 +1273,15 @@
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
       "input_category": "用言",
-      "output_category": "用言",
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
+      "output_category": "名詞",
       "terminal_mode": "continue",
       "order_rank": 80
     },
@@ -8950,6 +8958,29 @@
       "kinds": [
         "prohibitive"
       ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": ["助動詞"],
+              "ctype": ["助動詞-ダ"]
+            }
+          },
+          "last": {
+            "equals": {
+              "pos": ["助詞"],
+              "sub": ["副助詞"],
+              "surface": ["くらい", "ぐらい"]
+            }
+          },
+          "forms": ["stem"],
+          "operators": ["degree"]
+        }
+      ],
+      "kinds": ["copula"]
     }
   ],
   "forms": [
