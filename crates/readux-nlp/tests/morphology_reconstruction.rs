@@ -174,7 +174,9 @@ fn run_with_support_edges(
 ) -> readux_nlp::morphology::MorphologyArtifact {
     let (source, morphemes) = parts(text, specs);
     let mut external = ginza(text, &source, &[]);
-    external.relations.retain(|relation| relation.id != "support");
+    external
+        .relations
+        .retain(|relation| relation.id != "support");
     for (offset, (support, parent)) in support_edges.iter().enumerate() {
         external.relations.push(SourceRelation {
             id: format!("support{offset}"),
@@ -1026,7 +1028,10 @@ fn synthetic_reconstruction_covers_thirty_contract_cases() {
                 .collect::<Vec<_>>()
         );
         assert!(
-            chain.evidence.iter().any(|item| item == "connector_rule:te_connection"),
+            chain
+                .evidence
+                .iter()
+                .any(|item| item == "connector_rule:te_connection"),
             "{text}: {:?}",
             chain.evidence
         );
@@ -1146,21 +1151,44 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
         let child = artifact
             .chains
             .iter()
-            .find(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+            .find(|chain| {
+                chain
+                    .operators
+                    .iter()
+                    .any(|operator| operator.kind == "te_iru")
+            })
             .unwrap_or_else(|| panic!("{text}: {:?}", artifact.diagnostics));
-        assert_eq!(child.parent_chain_id.as_deref(), Some("morphology:m0"), "{text}");
+        assert_eq!(
+            child.parent_chain_id.as_deref(),
+            Some("morphology:m0"),
+            "{text}"
+        );
         assert_eq!(child.lookup_form, "居る", "{text}");
-        assert_eq!(child.status, "resolved", "{text}: {:?}", artifact.diagnostics);
+        assert_eq!(
+            child.status, "resolved",
+            "{text}: {:?}",
+            artifact.diagnostics
+        );
         assert_eq!(child.terminal, terminal, "{text}");
         for kind in expected_kinds {
             assert!(
-                child.operators.iter().any(|operator| operator.kind == *kind),
+                child
+                    .operators
+                    .iter()
+                    .any(|operator| operator.kind == *kind),
                 "{text}: {kind} not in {:?}",
-                child.operators.iter().map(|operator| &operator.kind).collect::<Vec<_>>()
+                child
+                    .operators
+                    .iter()
+                    .map(|operator| &operator.kind)
+                    .collect::<Vec<_>>()
             );
         }
         assert!(
-            child.evidence.iter().any(|item| item == "connector_rule:te_connection"),
+            child
+                .evidence
+                .iter()
+                .any(|item| item == "connector_rule:te_connection"),
             "{text}: {:?}",
             child.evidence
         );
@@ -1198,7 +1226,12 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
     let tari_child = tari
         .chains
         .iter()
-        .find(|chain| chain.operators.iter().any(|operator| operator.kind == "tari_suru"))
+        .find(|chain| {
+            chain
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "tari_suru")
+        })
         .unwrap_or_else(|| panic!("{:?}", tari.diagnostics));
     assert_eq!(tari_child.parent_chain_id.as_deref(), Some("morphology:m0"));
     assert_eq!(tari_child.lookup_form, "する");
@@ -1225,7 +1258,12 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
     let invalid_child = invalid
         .chains
         .iter()
-        .find(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+        .find(|chain| {
+            chain
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "te_iru")
+        })
         .unwrap();
     assert_eq!(invalid_child.status, "candidate");
     assert!(invalid
@@ -1252,7 +1290,12 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
     let support_chains = recursive
         .chains
         .iter()
-        .filter(|chain| chain.operators.iter().any(|operator| operator.kind == "te_iru"))
+        .filter(|chain| {
+            chain
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "te_iru")
+        })
         .collect::<Vec<_>>();
     assert_eq!(support_chains.len(), 9);
     for (index, chain) in support_chains.iter().enumerate() {
@@ -1263,4 +1306,653 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
         .diagnostics
         .iter()
         .any(|item| item.starts_with("auxiliary_depth_limit:")));
+}
+
+/// 阶段七用例共用来源节点，依存关系按各用例显式声明。
+fn stage_seven_artifact(
+    specs: &[Part],
+    edges: Option<&[(usize, usize, &str)]>,
+) -> readux_nlp::morphology::MorphologyArtifact {
+    let text = specs.iter().map(|part| part.surface).collect::<String>();
+    let (source, morphemes) = parts(&text, specs);
+    let external = edges.map(|edges| {
+        let mut artifact = ginza(&text, &source, &[]);
+        artifact.relations = edges
+            .iter()
+            .enumerate()
+            .map(|(index, &(dependent, head, label))| SourceRelation {
+                id: format!("edge{index}"),
+                kind: RelationKind::Dependency,
+                source: Endpoint::Node {
+                    id: format!("t{dependent}"),
+                },
+                target: Endpoint::Node {
+                    id: format!("t{head}"),
+                },
+                label: label.into(),
+                features: json!({}),
+            })
+            .collect();
+        artifact
+    });
+    readux_nlp::morphology::collect_with_external(
+        &source,
+        &morphemes,
+        &external.into_iter().collect::<Vec<_>>(),
+    )
+    .unwrap()
+}
+
+fn focus_particle(surface: &'static str, sub: &'static str) -> Part {
+    Part {
+        surface,
+        pos: "助詞",
+        sub,
+        ctype: "",
+        cform: "",
+        lemma: surface,
+        orth_base: surface,
+    }
+}
+
+#[test]
+fn stage_seven_whitelist_preserves_owner_state_and_complete_support_evidence() {
+    for (surface, sub) in [
+        ("は", "係助詞"),
+        ("も", "係助詞"),
+        ("さえ", "副助詞"),
+        ("こそ", "係助詞"),
+        ("だけ", "副助詞"),
+        ("まで", "副助詞"),
+        ("しか", "副助詞"),
+        ("すら", "副助詞"),
+        ("なんて", "副助詞"),
+        ("など", "副助詞"),
+        ("とか", "副助詞"),
+    ] {
+        let specs = [
+            verb("読ん", "連用形-撥音便"),
+            te(),
+            focus_particle(surface, sub),
+            aux("いる", "居る", "居る"),
+        ];
+        let artifact = stage_seven_artifact(
+            &specs,
+            Some(&[(1, 0, "mark"), (2, 0, "case"), (3, 0, "advcl")]),
+        );
+        assert_eq!(
+            artifact.chains.len(),
+            2,
+            "{surface}: {:?}",
+            artifact.diagnostics
+        );
+        let owner = &artifact.chains[0];
+        let child = &artifact.chains[1];
+        let insertion = owner
+            .operators
+            .iter()
+            .find(|op| op.kind == "insertion")
+            .unwrap();
+        let connector = owner
+            .operators
+            .iter()
+            .find(|op| op.kind == "te_connection")
+            .unwrap();
+        assert_eq!(owner.lookup_form, "読む", "{surface}");
+        assert_eq!(owner.core_morpheme_indices, vec![0], "{surface}");
+        assert_eq!(owner.morpheme_indices, vec![0, 1, 2], "{surface}");
+        assert_eq!(owner.parent_chain_id, None, "{surface}");
+        assert_eq!(owner.final_state, connector.state_after, "{surface}");
+        assert_eq!(insertion.state_before, connector.state_after, "{surface}");
+        assert_eq!(insertion.state_before, insertion.state_after, "{surface}");
+        assert_eq!(insertion.input_state, "読んで", "{surface}");
+        assert_eq!(insertion.output_state, format!("読んで{surface}"));
+        assert_eq!(insertion.executor, "insertion");
+        assert_eq!(insertion.stage, "insertion");
+        assert_eq!(insertion.order_rank, 0);
+        assert_eq!(insertion.terminal_mode, "preserve");
+        assert!(owner.terminal, "{surface}: て形中顿许可应保持");
+        assert!(insertion
+            .evidence
+            .iter()
+            .any(|e| e == "insertion_position:te_support"));
+        assert!(owner
+            .source_evidence
+            .iter()
+            .any(|e| { e.relation_id.as_deref() == Some("edge1") && e.reason == "case" }));
+        assert_eq!(
+            child.parent_chain_id.as_deref(),
+            Some(owner.chain_id.as_str())
+        );
+        assert_eq!(child.lookup_form, "居る");
+        assert_eq!(
+            child.status, "resolved",
+            "{surface}: {:?}",
+            artifact.diagnostics
+        );
+        let support = artifact
+            .occurrences
+            .iter()
+            .find(|o| o.kind == "te_iru")
+            .unwrap();
+        assert_eq!(support.morpheme_indices, vec![1, 2, 3], "{surface}");
+        assert_eq!(
+            support.hit_ranges,
+            vec![
+                connector.char_range,
+                insertion.char_range,
+                child.anchor_range
+            ],
+            "{surface}",
+        );
+        assert_eq!(
+            support.operator_ids,
+            vec![
+                connector.operator_id.clone(),
+                insertion.operator_id.clone(),
+                child
+                    .operators
+                    .iter()
+                    .find(|o| o.kind == "te_iru")
+                    .unwrap()
+                    .operator_id
+                    .clone()
+            ],
+            "{surface}",
+        );
+        assert!(support.source_evidence.iter().any(|e| e.reason == "case"));
+        let occurrence = artifact
+            .occurrences
+            .iter()
+            .find(|o| o.kind == "insertion")
+            .unwrap();
+        assert_eq!(occurrence.chain_id, owner.chain_id);
+        assert_eq!(occurrence.char_range, insertion.char_range);
+        assert_eq!(occurrence.context_range, owner.char_range);
+        assert_eq!(occurrence.morpheme_indices, vec![2]);
+        assert_eq!(owner.char_range[1], insertion.char_range[1]);
+    }
+}
+
+#[test]
+fn stage_seven_rejects_undeclared_particles_and_incomplete_syntax_bridges() {
+    for particle in [
+        focus_particle("に", "格助詞"),
+        focus_particle("を", "格助詞"),
+        focus_particle("が", "格助詞"),
+        focus_particle("と", "格助詞"),
+        focus_particle("ばかり", "副助詞"),
+        focus_particle("は", "格助詞"),
+    ] {
+        let specs = [
+            verb("読ん", "連用形-撥音便"),
+            te(),
+            particle.clone(),
+            aux("いる", "居る", "居る"),
+        ];
+        let artifact = stage_seven_artifact(
+            &specs,
+            Some(&[(1, 0, "mark"), (2, 0, "case"), (3, 0, "advcl")]),
+        );
+        assert!(
+            !artifact
+                .chains
+                .iter()
+                .any(|chain| chain.operators.iter().any(|op| op.kind == "insertion")),
+            "{}",
+            particle.surface
+        );
+        assert!(
+            !artifact
+                .chains
+                .iter()
+                .any(|chain| chain.operators.iter().any(|op| op.kind == "te_iru")),
+            "{}",
+            particle.surface
+        );
+    }
+    let specs = [
+        verb("読ん", "連用形-撥音便"),
+        te(),
+        focus_particle("は", "係助詞"),
+        aux("いる", "居る", "居る"),
+    ];
+    for edges in [
+        vec![],
+        vec![(1, 0, "mark"), (3, 0, "advcl")],
+        vec![(1, 0, "mark"), (2, 3, "case"), (3, 0, "advcl")],
+        vec![(1, 0, "mark"), (2, 0, "obj"), (3, 0, "advcl")],
+        vec![(1, 0, "mark"), (2, 0, "case")],
+        vec![(0, 1, "mark"), (2, 0, "case"), (3, 0, "advcl")],
+    ] {
+        let artifact = stage_seven_artifact(&specs, Some(&edges));
+        assert!(
+            !artifact
+                .chains
+                .iter()
+                .any(|chain| chain.operators.iter().any(|op| op.kind == "insertion")),
+            "{edges:?}"
+        );
+    }
+    for separator in [
+        Part {
+            surface: " ",
+            pos: "空白",
+            sub: "",
+            ctype: "",
+            cform: "",
+            lemma: " ",
+            orth_base: " ",
+        },
+        Part {
+            surface: "。",
+            pos: "補助記号",
+            sub: "句点",
+            ctype: "",
+            cform: "",
+            lemma: "。",
+            orth_base: "。",
+        },
+    ] {
+        let artifact = stage_seven_artifact(
+            &[
+                specs[0].clone(),
+                specs[1].clone(),
+                specs[2].clone(),
+                separator,
+                specs[3].clone(),
+            ],
+            Some(&[(1, 0, "mark"), (2, 0, "case"), (4, 0, "advcl")]),
+        );
+        assert!(!artifact
+            .chains
+            .iter()
+            .any(|chain| chain.operators.iter().any(|op| op.kind == "insertion")));
+    }
+}
+
+#[test]
+fn stage_seven_consecutive_insertions_keep_original_parent_and_following_inflection() {
+    let specs = [
+        verb("読ん", "連用形-撥音便"),
+        te(),
+        focus_particle("だけ", "副助詞"),
+        focus_particle("は", "係助詞"),
+        aux_form("い", "居る", "居る", "連用形-一般"),
+        Part {
+            surface: "まし",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-マス",
+            cform: "連用形-一般",
+            lemma: "ます",
+            orth_base: "ます",
+        },
+        Part {
+            surface: "た",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-タ",
+            cform: "終止形-一般",
+            lemma: "た",
+            orth_base: "た",
+        },
+    ];
+    let artifact = stage_seven_artifact(
+        &specs,
+        Some(&[
+            (1, 0, "mark"),
+            (2, 0, "case"),
+            (3, 0, "mark"),
+            (4, 0, "advcl"),
+        ]),
+    );
+    assert_eq!(artifact.chains.len(), 2, "{:?}", artifact.diagnostics);
+    let owner = &artifact.chains[0];
+    let child = &artifact.chains[1];
+    let insertions = owner
+        .operators
+        .iter()
+        .filter(|op| op.kind == "insertion")
+        .collect::<Vec<_>>();
+    assert_eq!(insertions.len(), 2);
+    assert_eq!(insertions[0].state_after, insertions[1].state_before);
+    assert_eq!(insertions[1].state_after, owner.final_state);
+    assert_eq!(insertions[0].input_state, "読んで");
+    assert_eq!(insertions[1].input_state, "読んでだけ");
+    assert_eq!(insertions[1].output_state, "読んでだけは");
+    assert_eq!(owner.morpheme_indices, vec![0, 1, 2, 3]);
+    assert_eq!(owner.core_morpheme_indices, vec![0]);
+    assert_eq!(
+        child.parent_chain_id.as_deref(),
+        Some(owner.chain_id.as_str())
+    );
+    assert_eq!(child.surface_form, "いました");
+    assert_eq!(child.lookup_form, "居る");
+    assert_eq!(child.status, "resolved", "{:?}", artifact.diagnostics);
+    assert!(child.terminal);
+    for kind in ["te_iru", "politeness_masu", "past"] {
+        assert!(child.operators.iter().any(|op| op.kind == kind), "{kind}");
+    }
+    let occurrence = artifact
+        .occurrences
+        .iter()
+        .find(|o| o.kind == "te_iru")
+        .unwrap();
+    assert_eq!(occurrence.hit_ranges, vec![[2, 3], [3, 5], [5, 6], [6, 7]]);
+    assert_eq!(occurrence.morpheme_indices, vec![1, 2, 3, 4]);
+    assert_eq!(occurrence.context_range, [0, 10]);
+    assert_eq!(
+        occurrence
+            .source_evidence
+            .iter()
+            .filter(|e| matches!(e.reason.as_str(), "case" | "mark"))
+            .count(),
+        3
+    );
+}
+
+#[test]
+fn stage_seven_general_insertions_preserve_state_terminal_and_nominalization_boundaries() {
+    let noun = Part {
+        surface: "本",
+        pos: "名詞",
+        sub: "普通名詞",
+        ctype: "",
+        cform: "",
+        lemma: "本",
+        orth_base: "本",
+    };
+    let high = Part {
+        surface: "高く",
+        pos: "形容詞",
+        sub: "一般",
+        ctype: "形容詞",
+        cform: "連用形-一般",
+        lemma: "高い",
+        orth_base: "高い",
+    };
+    let nai = Part {
+        surface: "ない",
+        pos: "助動詞",
+        sub: "",
+        ctype: "助動詞-ナイ",
+        cform: "終止形-一般",
+        lemma: "ない",
+        orth_base: "ない",
+    };
+    for prefix in [
+        vec![noun.clone()],
+        vec![verb("読む", "連体形-一般")],
+        vec![verb("読み", "連用形-一般")],
+        vec![high.clone()],
+        vec![
+            verb("読ん", "連用形-撥音便"),
+            Part {
+                surface: "だ",
+                pos: "助動詞",
+                sub: "",
+                ctype: "助動詞-タ",
+                cform: "終止形-一般",
+                lemma: "た",
+                orth_base: "た",
+            },
+        ],
+    ] {
+        let baseline = stage_seven_artifact(&prefix, None);
+        let mut specs = prefix;
+        specs.push(focus_particle("は", "係助詞"));
+        let artifact = stage_seven_artifact(&specs, None);
+        assert_eq!(artifact.chains.len(), 1, "{:?}", artifact.diagnostics);
+        let chain = &artifact.chains[0];
+        assert_eq!(chain.final_state, baseline.chains[0].final_state);
+        assert_eq!(chain.terminal, baseline.chains[0].terminal);
+        assert_eq!(chain.lookup_form, baseline.chains[0].lookup_form);
+        assert_eq!(
+            chain.core_morpheme_indices,
+            baseline.chains[0].core_morpheme_indices
+        );
+        assert_eq!(chain.status, "resolved", "{:?}", artifact.diagnostics);
+        assert!(chain.operators.iter().any(|op| op.executor == "insertion"));
+    }
+    let contrast = stage_seven_artifact(&[high, focus_particle("は", "係助詞"), nai], None);
+    assert_eq!(contrast.chains.len(), 1);
+    assert_eq!(contrast.chains[0].surface_form, "高くはない");
+    assert_eq!(contrast.chains[0].final_state.category, "形容詞");
+    assert_eq!(contrast.chains[0].status, "resolved");
+    let nominalized = stage_seven_artifact(
+        &[
+            verb("読む", "連体形-一般"),
+            focus_particle("だけ", "副助詞"),
+            focus_particle("の", "準体助詞"),
+            Part {
+                surface: "だ",
+                pos: "助動詞",
+                sub: "",
+                ctype: "助動詞-ダ",
+                cform: "終止形-一般",
+                lemma: "だ",
+                orth_base: "だ",
+            },
+        ],
+        None,
+    );
+    assert_eq!(nominalized.chains.len(), 1, "{:?}", nominalized.chains);
+    assert_eq!(
+        nominalized.chains[0]
+            .operators
+            .iter()
+            .filter(|op| op.kind == "insertion")
+            .count(),
+        1
+    );
+    assert!(nominalized.chains[0]
+        .operators
+        .iter()
+        .any(|op| op.kind == "nominalization"));
+
+    for parts in [
+        vec![noun.clone(), focus_particle("とか", "副助詞")],
+        vec![
+            noun,
+            focus_particle("と", "格助詞"),
+            focus_particle("か", "副助詞"),
+        ],
+    ] {
+        let artifact = stage_seven_artifact(&parts, None);
+        assert_eq!(artifact.chains.len(), 1);
+        assert_eq!(artifact.chains[0].final_state.category, "名詞");
+        assert_eq!(
+            artifact.chains[0].status, "resolved",
+            "{:?}",
+            artifact.diagnostics
+        );
+        let operator = artifact.chains[0]
+            .operators
+            .iter()
+            .find(|op| op.kind == "exemplification")
+            .unwrap();
+        assert_eq!(operator.state_before, operator.state_after);
+        assert_eq!(operator.executor, "insertion");
+        assert!(!artifact
+            .diagnostics
+            .iter()
+            .any(|e| e.starts_with("unknown_rule_executor:")));
+    }
+}
+
+#[test]
+fn stage_seven_reenters_recursive_support_without_increasing_insertion_depth() {
+    let specs = [
+        verb("読ん", "連用形-撥音便"),
+        te(),
+        focus_particle("は", "係助詞"),
+        aux_form("い", "居る", "居る", "連用形-一般"),
+        te_token("て"),
+        focus_particle("も", "係助詞"),
+        aux("みる", "見る", "見る"),
+    ];
+    let artifact = stage_seven_artifact(
+        &specs,
+        Some(&[
+            (1, 0, "mark"),
+            (2, 0, "case"),
+            (3, 0, "advcl"),
+            (4, 3, "mark"),
+            (5, 3, "case"),
+            (6, 3, "aux"),
+        ]),
+    );
+    assert_eq!(artifact.chains.len(), 3, "{:?}", artifact.diagnostics);
+    assert!(
+        artifact
+            .chains
+            .iter()
+            .all(|chain| chain.status == "resolved"),
+        "{:?}: {:?}",
+        artifact.diagnostics,
+        artifact
+            .chains
+            .iter()
+            .map(|chain| (&chain.surface_form, &chain.status, &chain.final_state))
+            .collect::<Vec<_>>()
+    );
+    assert_eq!(
+        artifact.chains[1].parent_chain_id.as_deref(),
+        Some(artifact.chains[0].chain_id.as_str())
+    );
+    assert_eq!(
+        artifact.chains[2].parent_chain_id.as_deref(),
+        Some(artifact.chains[1].chain_id.as_str())
+    );
+    assert_eq!(
+        artifact.chains[1]
+            .operators
+            .iter()
+            .filter(|op| op.kind == "insertion")
+            .count(),
+        1
+    );
+    assert_eq!(artifact.chains[2].lookup_form, "見る");
+    let occurrence = artifact
+        .occurrences
+        .iter()
+        .find(|o| o.kind == "te_miru")
+        .unwrap();
+    assert_eq!(occurrence.context_range, [0, 9]);
+    assert_eq!(occurrence.morpheme_indices, vec![4, 5, 6]);
+    assert!(!artifact
+        .diagnostics
+        .iter()
+        .any(|e| e.starts_with("auxiliary_depth_limit:")));
+}
+
+#[test]
+fn stage_seven_restriction_continues_into_judgement_and_explanatory_nominalization() {
+    let specs = [
+        Part {
+            surface: "気付き",
+            pos: "動詞",
+            sub: "一般",
+            ctype: "五段-カ行",
+            cform: "連用形-一般",
+            lemma: "気付く",
+            orth_base: "気付く",
+        },
+        Part {
+            surface: "たく",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-タイ",
+            cform: "連用形-一般",
+            lemma: "たい",
+            orth_base: "たい",
+        },
+        Part {
+            surface: "なかっ",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-ナイ",
+            cform: "連用形-促音便",
+            lemma: "ない",
+            orth_base: "ない",
+        },
+        Part {
+            surface: "た",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-タ",
+            cform: "終止形-一般",
+            lemma: "た",
+            orth_base: "た",
+        },
+        focus_particle("だけ", "副助詞"),
+        Part {
+            surface: "な",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-ダ",
+            cform: "連体形-一般",
+            lemma: "だ",
+            orth_base: "だ",
+        },
+        focus_particle("の", "準体助詞"),
+        Part {
+            surface: "だ",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-ダ",
+            cform: "終止形-一般",
+            lemma: "だ",
+            orth_base: "だ",
+        },
+    ];
+    let artifact = stage_seven_artifact(&specs, None);
+    assert_eq!(
+        artifact.chains.len(),
+        1,
+        "{:?}: {:?}",
+        artifact.diagnostics,
+        artifact
+            .chains
+            .iter()
+            .map(|chain| (
+                &chain.surface_form,
+                &chain.final_state,
+                chain
+                    .operators
+                    .iter()
+                    .map(|op| &op.kind)
+                    .collect::<Vec<_>>()
+            ))
+            .collect::<Vec<_>>()
+    );
+    let owner = &artifact.chains[0];
+    assert_eq!(owner.surface_form, "気付きたくなかっただけなのだ");
+    assert_eq!(owner.lookup_form, "気付く");
+    assert_eq!(owner.core_morpheme_indices, vec![0]);
+    assert_eq!(owner.status, "resolved", "{:?}", artifact.diagnostics);
+    let insertion = owner
+        .operators
+        .iter()
+        .find(|op| op.kind == "insertion")
+        .unwrap();
+    assert_eq!(insertion.state_before.category, "形容詞");
+    assert_eq!(insertion.state_before, insertion.state_after);
+    assert_eq!(
+        insertion.state_before.form,
+        readux_nlp::morphology::ConnectionForm::Terminal
+    );
+    assert_eq!(insertion.source_morpheme_range, [4, 5]);
+    for kind in [
+        "desire",
+        "negative",
+        "past",
+        "attributive_na",
+        "nominalization",
+        "copula",
+    ] {
+        assert!(owner.operators.iter().any(|op| op.kind == kind), "{kind}");
+    }
+    assert!(owner.terminal);
 }

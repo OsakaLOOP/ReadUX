@@ -67,7 +67,12 @@ fn modern_inflections_and_functional_ownership() {
             "発展する",
             vec!["causative"],
         ),
-        ("本である。", "本である", "本", vec!["copula", "copula_aru"]),
+        (
+            "本である。",
+            "本である",
+            "本",
+            vec!["copula_de", "copula_aru"],
+        ),
         (
             "降るらしい。",
             "降るらしい",
@@ -87,6 +92,32 @@ fn modern_inflections_and_functional_ownership() {
             vec!["negative_volitional"],
         ),
         ("読みやすい。", "読みやすい", "読みやすい", vec!["ease"]),
+        (
+            "高くはない。",
+            "高くはない",
+            "高い",
+            vec!["insertion", "negative"],
+        ),
+        (
+            "読むだけだ。",
+            "読むだけだ",
+            "読む",
+            vec!["insertion", "copula"],
+        ),
+        (
+            "気付きたくなかっただけなのだ。",
+            "気付きたくなかっただけなのだ",
+            "気付く",
+            vec![
+                "desire",
+                "negative",
+                "past",
+                "insertion",
+                "attributive_na",
+                "nominalization",
+                "copula",
+            ],
+        ),
     ] {
         let doc = analyze(&service, text);
         let chain = doc
@@ -108,7 +139,14 @@ fn modern_inflections_and_functional_ownership() {
         for kind in kinds {
             assert!(
                 chain.operators.iter().any(|o| o.kind == kind),
-                "{text} 缺少 {kind}"
+                "{text} 缺少 {kind}：{:?}；状态 {:?}；诊断 {:?}",
+                chain
+                    .operators
+                    .iter()
+                    .map(|operator| &operator.kind)
+                    .collect::<Vec<_>>(),
+                chain.final_state,
+                doc.morphology.diagnostics
             );
         }
         let expected_concepts = match text {

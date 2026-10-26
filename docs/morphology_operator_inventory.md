@@ -17,7 +17,7 @@
 | copula / copula_past / copula_de / copula_aru / attributive_na / adverbial_ni / politeness_desu | ナ形容词判断类 | na_adjective_judgement | modality | だ／だった／でした／で／である／な／に／です | 完整过去序列、终止／连体／连用状态和后续活用采用同一执行器 |
 | rashii_characteristic | イ形容词转换类 | i_adjective_conversion | desire | 春らしい／春らしかった | 依据接尾辞身份识别典型性，继续イ形容词活用 |
 | nominalization | 名词化转换 | nominalization | conversion | さ／の | 输出名词状态，已修复名词化回归 |
-| は／も／だけ／さえ／こそ等 | 插入语类 | insertion | insertion | 范围保持与对比提示 | 只对声明白名单生效，普通格助词不参与分类 |
+| は／も／だけ／さえ／こそ等 | 插入语类 | insertion | insertion | 范围保持与对比提示 | 白名单与四组位置限定接续，原链保存逐项 operator 并保持状态、停机与查询身份；连续插入、句法证据、范围投影和递归补助由阶段 7 验收覆盖 |
 
 ## 仍需逐词条完善的内容
 

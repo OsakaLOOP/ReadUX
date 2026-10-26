@@ -25,6 +25,8 @@ pub struct Config {
     pub predicate_links: Vec<PredicateLink>,
     pub forms: Vec<FormRule>,
     pub insertion: Vec<TokenPattern>,
+    #[serde(default)]
+    pub insertion_positions: Vec<InsertionPosition>,
     pub presentation: serde_json::Value,
     #[serde(default = "default_auxiliary_depth")]
     pub max_auxiliary_depth: usize,
@@ -172,6 +174,22 @@ pub struct Support {
     pub expanded: Option<[String; 2]>,
 }
 
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct InsertionPosition {
+    pub id: String,
+    #[serde(default)]
+    pub connector: String,
+    #[serde(default)]
+    pub support_group: String,
+    #[serde(default)]
+    pub categories: Vec<String>,
+    #[serde(default)]
+    pub forms: Vec<ConnectionForm>,
+    #[serde(default)]
+    pub bases: Vec<String>,
+}
+
 #[derive(Default, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct TokenPattern {
@@ -232,6 +250,13 @@ pub fn support_kind(group: &str, token: &ProviderToken) -> Option<&'static str> 
             })
         })
         .map(|(kind, _)| kind.as_str())
+}
+
+pub fn is_insertion(token: &ProviderToken) -> bool {
+    CONFIG
+        .insertion
+        .iter()
+        .any(|pattern| pattern.matches(token))
 }
 
 impl TokenField {
@@ -498,17 +523,10 @@ pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
     let pos = field(token, 0);
     let sub = field(token, 1);
     let lemma = identity(token);
+    if is_insertion(token) {
+        return "插入语类";
+    }
     if pos == "助詞" {
-        if matches!(lemma, "て" | "で") && sub == "接続助詞" {
-            return "";
-        }
-        if matches!(
-            lemma,
-            "は" | "も" | "だけ" | "さえ" | "こそ" | "しか" | "すら" | "など" | "とか"
-        ) || (sub == "副助詞" && matches!(lemma, "まで" | "なんて"))
-        {
-            return "插入语类";
-        }
         return "";
     }
     if matches!(pos, "助動詞") {
@@ -594,6 +612,26 @@ mod tests {
 
     #[test]
     fn references_resolve_within_the_single_configuration() {
+        assert!(!CONFIG.insertion.is_empty());
+        assert!(!CONFIG.insertion_positions.is_empty());
+        for position in &CONFIG.insertion_positions {
+            assert!(!position.id.is_empty());
+            if position.connector.is_empty() {
+                assert!(!position.categories.is_empty(), "{}", position.id);
+                assert!(!position.forms.is_empty(), "{}", position.id);
+                assert!(!position.bases.is_empty(), "{}", position.id);
+            } else {
+                assert_eq!(
+                    CONFIG.rule_metadata[&position.connector].executor, "auxiliary_verb",
+                    "{}",
+                    position.id
+                );
+                assert!(CONFIG.operators.values().any(|operator| operator
+                    .support
+                    .as_ref()
+                    .is_some_and(|support| support.group == position.support_group)));
+            }
+        }
         for sequence in &CONFIG.sequences {
             assert!(
                 sequence.head < sequence.tokens.len(),
@@ -800,15 +838,39 @@ mod tests {
                 .collect(),
         };
         assert_eq!(entity_class_for_token(&token), "");
-        token.fields[7].value = Some("は".into());
-        token.fields[10].value = Some("は".into());
-        token.surface = "は".into();
-        token.fields[1].value = Some("係助詞".into());
-        assert_eq!(entity_class_for_token(&token), "插入语类");
+
+        for (lemma, sub) in [
+            ("は", "係助詞"),
+            ("も", "係助詞"),
+            ("さえ", "副助詞"),
+            ("こそ", "係助詞"),
+            ("だけ", "副助詞"),
+            ("まで", "副助詞"),
+            ("しか", "副助詞"),
+            ("すら", "副助詞"),
+            ("なんて", "副助詞"),
+            ("など", "副助詞"),
+            ("とか", "副助詞"),
+        ] {
+            token.fields[1].value = Some(sub.into());
+            token.fields[7].value = Some(lemma.into());
+            token.fields[10].value = Some(lemma.into());
+            token.surface = lemma.into();
+            assert!(is_insertion(&token), "{lemma}");
+            assert_eq!(entity_class_for_token(&token), "插入语类", "{lemma}");
+        }
+
         token.fields[1].value = Some("格助詞".into());
         token.fields[7].value = Some("に".into());
         token.fields[10].value = Some("に".into());
         token.surface = "に".into();
+        assert!(!is_insertion(&token));
+        assert_eq!(entity_class_for_token(&token), "");
+
+        token.fields[7].value = Some("は".into());
+        token.fields[10].value = Some("は".into());
+        token.surface = "は".into();
+        assert!(!is_insertion(&token));
         assert_eq!(entity_class_for_token(&token), "");
     }
 }

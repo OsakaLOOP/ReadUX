@@ -4,6 +4,8 @@
 
 ## 决策与实现依据
 
+活用第 7 阶段依据[原始重构要求](</D:/DCMT/dev notes/readux活用重构.md>)开头的插入语、阶段顺序与「気付きたくなかっただけなのだ」示例，以及[执行计划第 7 项](docs/morphology_refactor_execution_plan.md)、[插入语执行器设计](docs/morphology_state_machine_design.md)。实现依据统一白名单、原链状态保持和补助父链关系；运行证据见 [Rust 活用验收](crates/readux-nlp/tests/morphology_reconstruction.rs)的六组 stage_seven 用例，以及 [真实 UniDic 验收](crates/readux-core/tests/p4_language.rs)中的插入、判断收尾和条件形样例。
+
 活用第 5、6 阶段依据[原始重构要求](</D:/DCMT/dev notes/readux活用重构.md>)中的判断结构和文语助动词表，以及[状态机设计](docs/morphology_state_machine_design.md)。原稿的文语部分包含助动词完整活用表、接续、意义与时代备注，教育文法部分包含学校文法与教育文法对照；本次逐项核对词形、前接条件、现代判断边界，并使用统一语法词条链路实现。文语表的参考入口为[日语助动词](https://ja.wikipedia.org/wiki/助動詞_(国文法))，术语对照入口为[活用（日语）](https://zh.wikipedia.org/wiki/活用_(日語))。
 
 | 依据 | 对应内容 |
