@@ -4,7 +4,7 @@
 
 - 活用变化的局部提示由 `configs/unidic-nlp/morphology.json` 的 `presentation.transition_tails` 按语法身份、前接形及末尾假名配置。敬体否定整体识别为 `polite_negative`，内置词条位于 `configs/grammar/auxiliaries.json`，成分查询路由位于 `src/grammar/particleEntries.ts`。
 
-- 活用链重构设计与六类实体、专用执行器、规则树和展示契约记录在 `docs/morphology_state_machine_design.md`。`configs/grammar/teConstructions.json` 现为 `readux.grammar-auxiliary-rules.v2`：19 个补助动词本体 entry 与 18 个 `te_*` 规则分离，`ている／てしまう／ておく` 等构式通过规则映射到 `いる／しまう／おく`。
+- 活用链重构设计与六类实体、专用执行器、规则树和展示契约记录在 `docs/morphology_state_machine_design.md`。旧 `configs/grammar/teConstructions.json` 已删除；19 个补助动词本体、18 个 `te_*` 规则和 3 个缩约 operator 的历史 ID 位于 `configs/grammar/migrations/te_construction_ids.json`，前端规则展示读取迁移元数据，正式查询归属使用补助本体 concept。
 
 - 插入语执行器通过 `morphology.json` 的 `insertion` 与 `insertion_positions` 统一限定成员和位置，直接在所属链内增加 operator 并保持状态与查询身份。阶段 7 验收入口为 `crates/readux-nlp/tests/morphology_reconstruction.rs` 的 `stage_seven_*` 用例；补助词仍连接原链，递归深度只统计补助构式。
 

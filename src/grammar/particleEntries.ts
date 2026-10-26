@@ -1,6 +1,6 @@
 import resource from "../../configs/grammar/particles.json" with { type: "json" };
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
-import teConstructions from "../../configs/grammar/teConstructions.json" with { type: "json" };
+import teMigration from "../../configs/grammar/migrations/te_construction_ids.json" with { type: "json" };
 import type { DictEntry, DictionaryLookup, DictionaryLookupRequest, DictionarySense, PosTag } from "../types";
 import type { MorphemeToken, UnifiedDocument } from "../types/nlp";
 import { readerCapsuleRanges } from "../reader/lookupPresentation.ts";
@@ -17,18 +17,43 @@ type ParticleResource = {
     senses: { id: string; subtype: string; title: string; meaning: string; connection: string; examples: { ja: string; zh: string }[] }[];
   }[];
 };
+type TeMigration = {
+  mappings: {
+    legacy_id: string; kind: "component" | "operator"; headword?: string;
+    canonical_operator?: string; representation?: string; component?: string;
+    connector?: string; canonical_concept_id: string;
+  }[];
+};
 const data = resource as ParticleResource;
 const auxiliaryResource = auxiliaries as ParticleResource;
-const constructionResource = teConstructions as ParticleResource;
-const auxiliaryData: ParticleResource = { entries: [
-  ...auxiliaryResource.entries,
-  ...constructionResource.entries,
-] };
+const teMigrationResource = teMigration as TeMigration;
+const auxiliaryData: ParticleResource = { entries: auxiliaryResource.entries };
+const teComponentByHeadword = new Map(
+  teMigrationResource.mappings
+    .filter((item) => item.kind === "component" && item.headword)
+    .map((item) => [item.headword!, item]),
+);
+type TeRule = NonNullable<ParticleResource["rules"]>[number];
+const teRules: TeRule[] = teMigrationResource.mappings
+  .filter((item) => item.kind === "operator" && item.canonical_operator && item.representation && item.component)
+  .map((item) => ({
+    rule_id: item.legacy_id,
+    kind: item.canonical_operator!,
+    label: item.canonical_operator!,
+    representation: item.representation!,
+    component: item.component!,
+    connector: item.connector ?? "te_connection",
+    variants: [],
+    senses: [{
+      id: `${item.legacy_id}:migration`, subtype: "补助动词", title: item.representation!,
+      meaning: "接续规则映射到正式补助动词本体。", connection: "见正式 operator 接续条件。", examples: [],
+    }],
+  }));
 const fallbackPos: PosTag = { major: "助詞", sub1: "*", sub2: "*", sub3: "*" };
 const teConstructionsByKind: Record<string, { form: string; component: string }> = Object.fromEntries(
-  (constructionResource.rules ?? []).map((rule) => [rule.kind, { form: rule.representation, component: rule.component }]),
+  teRules.map((rule) => [rule.kind, { form: rule.representation, component: rule.component }]),
 );
-const teConstructionRules = new Map((constructionResource.rules ?? []).map((rule) => [rule.kind, rule]));
+const teConstructionRules = new Map(teRules.map((rule) => [rule.kind, rule]));
 
 function politeNegativeLookup(document: UnifiedDocument, range: [number, number]): DictionaryLookup | null {
   const occurrence = document.morphology.occurrences.find((item) => item.kind === "polite_negative"
@@ -84,10 +109,23 @@ function constructionLookup(rule: NonNullable<ParticleResource["rules"]>[number]
 export function particleLookup(request: DictionaryLookupRequest, lemma = request.word): DictionaryLookup | null {
   if (!["助詞", "助動詞"].includes(request.pos?.major ?? "")) return null;
   const library = request.pos?.major === "助動詞" ? auxiliaryData : data;
-  const entry = library.entries.find((entry) => entry.headword === lemma
+  let entry = library.entries.find((entry) => entry.headword === lemma
     && request.pos?.major === "助動詞") ?? library.entries.find((entry) => entry.headword === request.word
     && entry.senses.some((sense) => sense.subtype === request.pos?.sub1))
     ?? library.entries.find((entry) => entry.variants.some((variant) => variant.surface === request.word && variant.subtype === request.pos?.sub1));
+  if (!entry && request.pos?.major === "助動詞") {
+    const component = teComponentByHeadword.get(lemma);
+    if (component) {
+      entry = {
+        id: component.legacy_id,
+        headword: component.headword!, reading: component.headword!, pronunciation: component.headword!,
+        variants: [], senses: [{
+          id: `${component.legacy_id}:migration`, subtype: "助動詞", title: component.headword!,
+          meaning: "补助动词本体；接续形式由独立 operator 表达。", connection: "见对应补助 operator。", examples: [],
+        }],
+      };
+    }
+  }
   if (!entry) return null;
   const subtype = request.pos?.major === "助動詞" ? "助動詞" : request.pos?.sub1 ?? "*";
   return {

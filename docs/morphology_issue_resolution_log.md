@@ -173,20 +173,20 @@
 
 ### 复现与成因
 
-运行时样例显示 `te_*` 与 `contracted_te_*` 已指向 `grammar.auxiliary.*` 正式 concept；全仓检索确认 `configs/grammar/teConstructions.json` 没有代码引用，但仍保存 19 个 component ID 和 18 个 `rule:te_*` 规则。早期接续形式资源在本体迁移后没有删除，形成重复实体层。
+运行时样例显示 `te_*` 与 `contracted_te_*` 已指向 `grammar.auxiliary.*` 正式 concept；旧文件保存 19 个 component ID 和 18 个 `rule:te_*` 规则，另有 3 个缩约 operator 只存在于现代活用配置。早期接续形式资源在本体迁移后没有删除，形成重复实体层；前端入口仍直接导入旧文件，属于实际运行依赖。
 
 ### 修复方案
 
-删除旧 `teConstructions.json`，将 component/rule 历史 ID 写入独立迁移映射；正式 catalog、搜索索引和查询入口继续使用补助动词本体 concept 与 `te_*` operator。`te_goran`、`te_naranai`、`te_tamaranai` 的运行边界另行处理。
+删除旧 `teConstructions.json`，将 component、rule 和缩约 operator 的历史 ID 写入独立迁移映射；前端规则展示读取迁移文件中的兼容元数据，正式 catalog、搜索索引和查询归属继续使用补助动词本体 concept 与 `te_*` operator。`te_goran`、`te_naranai`、`te_tamaranai` 的运行边界另行处理。
 
 阶段 10 的完整审计和样例见 `docs/morphology_stage10_te_migration.md`。
 
 ### 实际修改
 
-删除旧 `configs/grammar/teConstructions.json`，新增 `configs/grammar/migrations/te_construction_ids.json`，保存 19 个 component ID 和 18 个 `rule:te_*` ID 到正式 concept／operator 的映射。正式 catalog、搜索索引和运行时查询没有引入迁移文件。
+删除旧 `configs/grammar/teConstructions.json`，新增 `configs/grammar/migrations/te_construction_ids.json`，保存 19 个 component ID、18 个 `rule:te_*` ID 和 3 个缩约 operator ID 到正式 concept／operator 的映射。前端只读取迁移文件中的规则兼容元数据，正式 catalog 和搜索索引没有引入迁移文件。
 
 ### 验证
 
-`python scripts/test_grammar_catalog.py` 通过；静态断言确认旧资源不存在、迁移映射完整，core `p4_language` 9 项通过，代表 `te_*` operator 继续指向正式补助本体 concept。
+`python scripts/test_grammar_catalog.py` 通过；静态断言确认旧资源不存在、40 条迁移映射完整，前端生产构建通过，core `p4_language` 9 项通过，代表 `te_*` operator 继续指向正式补助本体 concept。
 
 当前状态：`已验证`。`te_goran`、`te_naranai`、`te_tamaranai` 的接续边界保留在阶段 10 实验记录中，后续单独处理。

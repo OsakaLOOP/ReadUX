@@ -30,7 +30,7 @@ def main() -> None:
         (ROOT / "configs" / "grammar" / "migrations" / "te_construction_ids.json").read_text(encoding="utf-8")
     )
     assert migration["status"] == "historical_compatibility_only"
-    assert len(migration["mappings"]) == 37
+    assert len(migration["mappings"]) == 40
     assert all("canonical_concept_id" in item for item in migration["mappings"])
     print("grammar catalog ok")
 

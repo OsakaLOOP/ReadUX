@@ -120,7 +120,7 @@ voice → te_support → desire → polarity_politeness → tense → modality �
 
 ## 词条、展示和迁移
 
-configs/grammar/auxiliaries.json 保存独立词条和补助用法说明，configs/grammar/teConstructions.json 迁移为规则语义资料，前端查询将构式命中映射到补助词本体。构式资源中的 headword 不再作为重复词条入口；te_shimau 等规则只保存 rule_id、代表形式、连接器 te_connection、支持词“しまう”和语义说明。
+configs/grammar/auxiliaries.json 保存独立词条和补助用法说明，configs/grammar/migrations/te_construction_ids.json 保存历史 ID 与规则兼容元数据，前端查询将构式命中映射到补助词本体。迁移资源中的 headword 不作为正式词条入口；te_shimau 等规则只保存 operator、代表形式、连接器 te_connection、支持词“しまう”和语义说明。
 
 活用气泡正文下方增加“接续条件”区域，与例文左右分栏，例文列宽略大。接续区域使用白色方块和连线，节点文本来自规则树的命名节点：
 

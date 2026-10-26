@@ -186,7 +186,7 @@ for (const book of selected) {
     runtimeFile: name, runtime: sizes(compact), chunks, displayFile: displayName, display: sizes(display), displayChunks });
 }
 for (const name of ['configs/grammar/particles.json', 'configs/grammar/auxiliaries.json',
-  'configs/grammar/teConstructions.json', 'configs/unidic-nlp/morphology.json',
+  'configs/grammar/migrations/te_construction_ids.json', 'configs/unidic-nlp/morphology.json',
   'crates/readux-core/resources/grammar/compiled/grammar_catalog.json',
   'crates/readux-core/resources/grammar/compiled/grammar_explanations.json',
   'crates/readux-core/resources/grammar/compiled/grammar_search_index.json'])

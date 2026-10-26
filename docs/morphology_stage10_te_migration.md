@@ -23,8 +23,8 @@ te_goran、te_naranai 的代表输入在本轮未命中，te_tamaranai 形成候
 - te_*、contracted_te_* 作为规则 operator，指向本体 concept；
 - 已编译 grammar source 中的正式构式 realization。
 
-删除 configs/grammar/teConstructions.json 这个重复实体资源，新增 configs/grammar/migrations/te_construction_ids.json 保存历史 component/rule ID 到正式 concept 或 operator 的迁移关系。迁移文件只用于兼容和审计，不进入 grammar catalog、搜索索引或前端正式查询。
+删除 configs/grammar/teConstructions.json 这个重复实体资源，新增 configs/grammar/migrations/te_construction_ids.json 保存 19 个 component、18 个 rule 和 3 个缩约 operator 的历史 ID 到正式 concept 或 operator 的迁移关系。前端规则展示读取迁移文件中的规则元数据，查询归属仍来自正式 operator/concept；迁移文件不进入 grammar catalog 或搜索索引。
 
 ## 当前阶段状态
 
-审计完成，重复资源已清理，历史 ID 已转入独立迁移映射。
+审计完成，重复资源已清理，40 个历史 ID 已转入独立迁移映射，前端入口已切换到迁移规则元数据。
