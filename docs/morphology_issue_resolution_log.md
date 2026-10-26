@@ -19,7 +19,7 @@
 | M-004 | 中     | 逆序诊断               | `読まないたい` 能产生候选诊断，`読みたせる`、`読みましたい` 却主要表现为独立分链，诊断粒度不一致      | 已判定边界 |
 | M-005 | 高     | 文言活用               | 文言助动词在真实 UniDic 的 `文語助動詞-*` cType、同形活用和连续文言链上无法统一接续 | 已验证 |
 | M-006 | 中高   | 旧 operator 迁移       | 20 个实际规则仍使用 `morphology.chain`，正式 concept、目录和查询入口无法表达各自的语法功能 | 已验证 |
-| M-007 | 中高   | て构式重复实体       | 旧 `teConstructions.json` 同时保存补助动词组件词条和 `te_*` 规则，历史实体仍与正式本体并存 | 待修复 |
+| M-007 | 中高   | て构式重复实体       | 旧 `teConstructions.json` 同时保存补助动词组件词条和 `te_*` 规则，历史实体仍与正式本体并存 | 已验证 |
 
 ## M-001：补助动词父子链归属
 
@@ -181,4 +181,12 @@
 
 阶段 10 的完整审计和样例见 `docs/morphology_stage10_te_migration.md`。
 
-当前状态：`待修复`。
+### 实际修改
+
+删除旧 `configs/grammar/teConstructions.json`，新增 `configs/grammar/migrations/te_construction_ids.json`，保存 19 个 component ID 和 18 个 `rule:te_*` ID 到正式 concept／operator 的映射。正式 catalog、搜索索引和运行时查询没有引入迁移文件。
+
+### 验证
+
+`python scripts/test_grammar_catalog.py` 通过；静态断言确认旧资源不存在、迁移映射完整，core `p4_language` 9 项通过，代表 `te_*` operator 继续指向正式补助本体 concept。
+
+当前状态：`已验证`。`te_goran`、`te_naranai`、`te_tamaranai` 的接续边界保留在阶段 10 实验记录中，后续单独处理。

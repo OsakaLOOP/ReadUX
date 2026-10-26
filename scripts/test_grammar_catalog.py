@@ -25,6 +25,13 @@ def main() -> None:
     assert manifest["counts"]["rules"] >= 60
     enabled_concepts = [item for item in json.loads((ROOT / "crates" / "readux-core" / "resources" / "grammar" / "compiled" / "grammar_catalog.json").read_text(encoding="utf-8"))["concepts"] if item.get("enabled")]
     assert len(enabled_concepts) == manifest["counts"]["explanations"]
+    assert not (ROOT / "configs" / "grammar" / "teConstructions.json").exists()
+    migration = json.loads(
+        (ROOT / "configs" / "grammar" / "migrations" / "te_construction_ids.json").read_text(encoding="utf-8")
+    )
+    assert migration["status"] == "historical_compatibility_only"
+    assert len(migration["mappings"]) == 37
+    assert all("canonical_concept_id" in item for item in migration["mappings"])
     print("grammar catalog ok")
 
 
