@@ -4,6 +4,8 @@
 
 ## 决策与实现依据
 
+活用第 5、6 阶段依据[原始重构要求](</D:/DCMT/dev notes/readux活用重构.md>)中的判断结构和文语助动词表，以及[状态机设计](docs/morphology_state_machine_design.md)。原稿的文语部分包含助动词完整活用表、接续、意义与时代备注，教育文法部分包含学校文法与教育文法对照；本次逐项核对词形、前接条件、现代判断边界，并使用统一语法词条链路实现。文语表的参考入口为[日语助动词](https://ja.wikipedia.org/wiki/助動詞_(国文法))，术语对照入口为[活用（日语）](https://zh.wikipedia.org/wiki/活用_(日語))。
+
 | 依据 | 对应内容 |
 | --- | --- |
 | [静态资源测量入口](scripts/measure_static_storage.py)、[正式投影与压缩测量](scripts/measure_static_storage.mjs)、[字节数汇总](data/validation/static-storage-summary.json) | 2026-10-24 只读盘点 Windows 文档目录的 ReadUX Library、桌面及仓库 MessagePack 缓存、两课指南、四个词典查询库和源包。覆盖 8 本书的体积、5 本书的 26 个分析单元及 132 条指南例句，158 份快照通过正式投影和序列化还原核对。方法与预算见[空间报告](docs/static_storage_measurement.md)。 |
