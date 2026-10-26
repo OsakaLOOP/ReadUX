@@ -632,8 +632,16 @@ fn ginza_changes_core_boundaries_and_functional_status() {
             .find(|c| c.surface_form == "いる")
             .unwrap()
             .status,
-        "candidate"
+        "resolved"
     );
+    assert!(without
+        .chains
+        .iter()
+        .find(|c| c.surface_form == "いる")
+        .unwrap()
+        .evidence
+        .iter()
+        .any(|item| item == "support_lexical_connection_only"));
 
     let doc = analyze(&service, "情報処理。");
     let mut syntax = syntax;
