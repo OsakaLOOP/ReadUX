@@ -1154,7 +1154,7 @@ fn auxiliary_support_owns_inflection_recursion_and_depth_diagnostics() {
         assert_eq!(child.terminal, terminal, "{text}");
         for kind in expected_kinds {
             assert!(
-                child.operators.iter().any(|operator| operator.kind == kind),
+                child.operators.iter().any(|operator| operator.kind == *kind),
                 "{text}: {kind} not in {:?}",
                 child.operators.iter().map(|operator| &operator.kind).collect::<Vec<_>>()
             );

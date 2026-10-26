@@ -245,6 +245,282 @@
     }
   ],
   "rule_metadata": {
+    "classical_yaunari": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_category": "体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_gotokunari": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_category": "連体形と体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_nari_hearsay": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_category": "终止形或ラ变连用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_nari_copula": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_category": "体言或连体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_mahoshi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "シク活用",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_tashi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ク活用",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_maji": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ク活用",
+      "input_category": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_ji": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_beranari": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_category": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_meri": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_category": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_kerashi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "无变化型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_rashi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "无变化型",
+      "input_category": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_ramu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_category": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_kemu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_mashi": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_muzu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "サ変型",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_mu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_ri": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_category": "サ変の未然形と四段の已然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_tari_copula": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "タリ活用",
+      "input_category": "体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_tari_perfect": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型・タリ活用",
+      "input_category": "用言连用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_classical_nu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナ変型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_tsu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_keri": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_ki": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_category": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_shimu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_sasu": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "四段・ナ変・ラ変以外の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_su": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "四段・ナ変・ラ変の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_raru": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "四段・ナ変・ラ変以外の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_ru": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_category": "四段・ナ変・ラ変の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "rashii_characteristic": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "典型性",
+      "input_category": "名詞",
+      "output_category": "形容詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 40,
+      "input_categories": [
+        "名詞"
+      ],
+      "input_forms": [
+        "stem"
+      ]
+    },
     "nominalization": {
       "stage": "conversion",
       "executor": "nominalization",
@@ -420,7 +696,10 @@
         "desire",
         "te_iru",
         "te_shimau",
-        "te_oku"
+        "te_oku",
+        "rashii_modality",
+        "rashii_characteristic",
+        "copula_de"
       ],
       "same_layer": [
         "politeness_masu"
@@ -457,7 +736,10 @@
         "politeness_masu",
         "te_iru",
         "te_shimau",
-        "te_oku"
+        "te_oku",
+        "rashii_modality",
+        "rashii_characteristic",
+        "copula_aru"
       ]
     },
     "volitional": {
@@ -479,9 +761,21 @@
       "executor": "na_adjective_judgement",
       "rule_group": "推量判断",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "形容詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 71
+      "order_rank": 71,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ]
     },
     "sou_modality": {
       "stage": "modality",
@@ -490,7 +784,9 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
-      "order_rank": 72
+      "order_rank": 72,
+      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
+      "input_forms": ["continuative", "terminal", "attributive", "stem"]
     },
     "you_modality": {
       "stage": "modality",
@@ -499,7 +795,9 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
-      "order_rank": 73
+      "order_rank": 73,
+      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
+      "input_forms": ["terminal", "attributive", "stem"]
     },
     "mitai_modality": {
       "stage": "modality",
@@ -508,7 +806,9 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
-      "order_rank": 74
+      "order_rank": 74,
+      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
+      "input_forms": ["terminal", "attributive", "stem"]
     },
     "obligation": {
       "stage": "modality",
@@ -517,7 +817,15 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
-      "order_rank": 75
+      "order_rank": 75,
+      "input_categories": [
+        "動詞",
+        "文語用言"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive"
+      ]
     },
     "insertion": {
       "stage": "insertion",
@@ -534,8 +842,8 @@
       "rule_group": "文言否定",
       "input_category": "動詞",
       "output_category": "文語用言",
-      "terminal_mode": "continue",
-      "order_rank": 12
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
     },
     "classical_beshi": {
       "stage": "classical",
@@ -543,8 +851,8 @@
       "rule_group": "文言助动词",
       "input_category": "用言",
       "output_category": "文語用言",
-      "terminal_mode": "continue",
-      "order_rank": 13
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
     },
     "classical_gotoshi": {
       "stage": "classical",
@@ -552,8 +860,64 @@
       "rule_group": "文言比况",
       "input_category": "用言",
       "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "classical_adjective": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言形容词活用",
+      "input_category": "已成立链",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0
+    },
+    "copula_de": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "断定连用",
+      "input_category": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ]
+    },
+    "copula_past": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "断定过去",
+      "input_category": "体言／判断词干",
+      "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 76
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "allowed_after": [
+        "sou_modality",
+        "you_modality",
+        "mitai_modality",
+        "obligation",
+        "hazu_modality",
+        "copula_de"
+      ]
     },
     "polite_negative": {
       "stage": "polarity_politeness",
@@ -565,13 +929,32 @@
       "order_rank": 50
     },
     "politeness_desu": {
-      "stage": "polarity_politeness",
-      "executor": "verb_cycle",
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
       "rule_group": "动词活用",
-      "input_category": "動詞",
-      "output_category": "動詞",
-      "terminal_mode": "continue",
-      "order_rank": 50
+      "input_category": "体言／判断词干",
+      "output_category": "形状詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "allowed_after": [
+        "sou_modality",
+        "you_modality",
+        "mitai_modality",
+        "obligation",
+        "hazu_modality",
+        "copula_de"
+      ]
     },
     "deshou_modality": {
       "stage": "modality",
@@ -652,7 +1035,19 @@
       "input_category": "用言",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ]
     },
     "adverbial_ni": {
       "stage": "modality",
@@ -660,8 +1055,15 @@
       "rule_group": "判断与推量",
       "input_category": "用言",
       "output_category": "形状詞",
-      "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal"
+      ]
     },
     "attributive_na": {
       "stage": "modality",
@@ -669,17 +1071,41 @@
       "rule_group": "判断与推量",
       "input_category": "用言",
       "output_category": "形状詞",
-      "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal"
+      ]
     },
     "copula_aru": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_category": "体言／判断词干",
       "output_category": "形状詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "continuative"
+      ],
+      "allowed_after": [
+        "sou_modality",
+        "you_modality",
+        "mitai_modality",
+        "obligation",
+        "hazu_modality",
+        "copula_de"
+      ]
     },
     "ease": {
       "stage": "desire",
@@ -795,8 +1221,20 @@
       "rule_group": "判断与推量",
       "input_category": "用言",
       "output_category": "形状詞",
-      "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "terminal_mode": "continue",
+      "order_rank": 70,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "名詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ]
     },
     "degree": {
       "stage": "boundary",
@@ -1336,74 +1774,1970 @@
   "classical_forms": [
     {
       "lemma": "よし",
+      "lemma_suffix": "し",
       "class_name": "ク活用",
       "forms": {
-        "未然形": "よく",
-        "連用形": "よく",
-        "終止形": "よし",
-        "連体形": "よき",
-        "已然形": "よけれ",
-        "命令形": "よかれ"
+        "未然形": [
+          "く",
+          "から"
+        ],
+        "連用形": [
+          "く",
+          "かり"
+        ],
+        "終止形": [
+          "し"
+        ],
+        "連体形": [
+          "き",
+          "かる"
+        ],
+        "已然形": [
+          "けれ"
+        ],
+        "命令形": [
+          "かれ"
+        ]
       },
-      "connection": ["用言の連用形", "体言"]
+      "connection": [
+        "用言の連用形",
+        "体言"
+      ],
+      "ctype": [
+        "文語形容詞-ク"
+      ]
     },
     {
-      "lemma": "をし",
+      "lemma": "美し",
+      "lemma_suffix": "し",
       "class_name": "シク活用",
       "forms": {
-        "未然形": "をしく",
-        "連用形": "をしく",
-        "終止形": "をし",
-        "連体形": "をしき",
-        "已然形": "をしけれ",
-        "命令形": "をしかれ"
+        "未然形": [
+          "しく",
+          "しから"
+        ],
+        "連用形": [
+          "しく",
+          "しかり"
+        ],
+        "終止形": [
+          "し"
+        ],
+        "連体形": [
+          "しき",
+          "しかる"
+        ],
+        "已然形": [
+          "しけれ"
+        ],
+        "命令形": [
+          "しかれ"
+        ]
       },
-      "connection": ["用言の連用形", "体言"]
+      "connection": [
+        "用言の連用形",
+        "体言"
+      ],
+      "ctype": [
+        "文語形容詞-シク"
+      ]
     },
     {
       "lemma": "静かなり",
+      "lemma_suffix": "なり",
       "class_name": "ナリ活用",
       "forms": {
-        "未然形": "静かなら",
-        "連用形": "静かなり／静かに",
-        "終止形": "静かなり",
-        "連体形": "静かなる",
-        "已然形": "静かなれ",
-        "命令形": "静かなれ"
+        "未然形": [
+          "なら"
+        ],
+        "連用形": [
+          "なり",
+          "に"
+        ],
+        "終止形": [
+          "なり"
+        ],
+        "連体形": [
+          "なる"
+        ],
+        "已然形": [
+          "なれ"
+        ],
+        "命令形": [
+          "なれ"
+        ]
       },
-      "connection": ["体言", "用言の連用形"]
+      "connection": [
+        "体言",
+        "用言の連用形"
+      ],
+      "ctype": [
+        "文語形状詞-ナリ",
+        "文語形容動詞-ナリ"
+      ]
     },
     {
       "lemma": "堂々たり",
+      "lemma_suffix": "たり",
       "class_name": "タリ活用",
       "forms": {
-        "未然形": "堂々たら",
-        "連用形": "堂々たり／堂々と",
-        "終止形": "堂々たり",
-        "連体形": "堂々たる",
-        "已然形": "堂々たれ",
-        "命令形": "堂々たれ"
+        "未然形": [
+          "たら"
+        ],
+        "連用形": [
+          "たり",
+          "と"
+        ],
+        "終止形": [
+          "たり"
+        ],
+        "連体形": [
+          "たる"
+        ],
+        "已然形": [
+          "たれ"
+        ],
+        "命令形": [
+          "たれ"
+        ]
       },
-      "connection": ["体言", "用言の連用形"]
+      "connection": [
+        "体言",
+        "用言の連用形"
+      ],
+      "ctype": [
+        "文語形状詞-タリ",
+        "文語形容動詞-タリ"
+      ]
     },
     {
       "lemma": "ごとし",
-      "class_name": "シク活用",
+      "lemma_suffix": "し",
+      "class_name": "ク活用",
       "forms": {
-        "未然形": "ごとく",
-        "連用形": "ごとく",
-        "終止形": "ごとし",
-        "連体形": "ごとき",
-        "已然形": "ごとけれ",
-        "命令形": "ごとく"
+        "未然形": [
+          "く"
+        ],
+        "連用形": [
+          "く"
+        ],
+        "終止形": [
+          "し"
+        ],
+        "連体形": [
+          "き"
+        ]
       },
       "connection": [
         "体言",
         "連体形"
+      ],
+      "ctype": [
+        "文語形容詞-ク"
+      ]
+    }
+  ],
+  "classical_auxiliaries": [
+    {
+      "lemma": "る",
+      "rule": "classical_ru",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-ル"
+      ],
+      "forms": {
+        "未然形": [
+          "れ"
+        ],
+        "連用形": [
+          "れ"
+        ],
+        "終止形": [
+          "る"
+        ],
+        "連体形": [
+          "るる"
+        ],
+        "已然形": [
+          "るれ"
+        ],
+        "命令形": [
+          "れよ"
+        ]
+      },
+      "connection": [
+        "四段・ナ変・ラ変の未然形"
+      ],
+      "inputs": [
+        {
+          "ctype": [
+            "文語四段",
+            "四段",
+            "文語ナ行変格",
+            "ナ行変格",
+            "文語ラ行変格",
+            "ラ行変格"
+          ],
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "らる",
+      "rule": "classical_raru",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-ラル"
+      ],
+      "forms": {
+        "未然形": [
+          "られ"
+        ],
+        "連用形": [
+          "られ"
+        ],
+        "終止形": [
+          "らる"
+        ],
+        "連体形": [
+          "らるる"
+        ],
+        "已然形": [
+          "らるれ"
+        ],
+        "命令形": [
+          "られよ"
+        ]
+      },
+      "connection": [
+        "四段・ナ変・ラ変以外の未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ],
+          "exclude_ctype": [
+            "文語四段",
+            "四段",
+            "文語ナ行変格",
+            "ナ行変格",
+            "文語ラ行変格",
+            "ラ行変格"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "す",
+      "rule": "classical_su",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-ス"
+      ],
+      "forms": {
+        "未然形": [
+          "せ"
+        ],
+        "連用形": [
+          "せ"
+        ],
+        "終止形": [
+          "す"
+        ],
+        "連体形": [
+          "する"
+        ],
+        "已然形": [
+          "すれ"
+        ],
+        "命令形": [
+          "せよ"
+        ]
+      },
+      "connection": [
+        "四段・ナ変・ラ変の未然形"
+      ],
+      "inputs": [
+        {
+          "ctype": [
+            "文語四段",
+            "四段",
+            "文語ナ行変格",
+            "ナ行変格",
+            "文語ラ行変格",
+            "ラ行変格"
+          ],
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "さす",
+      "rule": "classical_sasu",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-サス"
+      ],
+      "forms": {
+        "未然形": [
+          "させ"
+        ],
+        "連用形": [
+          "させ"
+        ],
+        "終止形": [
+          "さす"
+        ],
+        "連体形": [
+          "さする"
+        ],
+        "已然形": [
+          "さすれ"
+        ],
+        "命令形": [
+          "させよ"
+        ]
+      },
+      "connection": [
+        "四段・ナ変・ラ変以外の未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ],
+          "exclude_ctype": [
+            "文語四段",
+            "四段",
+            "文語ナ行変格",
+            "ナ行変格",
+            "文語ラ行変格",
+            "ラ行変格"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "しむ",
+      "rule": "classical_shimu",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-シム"
+      ],
+      "forms": {
+        "未然形": [
+          "しめ"
+        ],
+        "連用形": [
+          "しめ"
+        ],
+        "終止形": [
+          "しむ"
+        ],
+        "連体形": [
+          "しむる"
+        ],
+        "已然形": [
+          "しむれ"
+        ],
+        "命令形": [
+          "しめよ"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "き",
+      "rule": "classical_ki",
+      "class_name": "特殊型",
+      "ctype": [
+        "助動詞-キ"
+      ],
+      "forms": {
+        "未然形": [
+          "せ"
+        ],
+        "終止形": [
+          "き"
+        ],
+        "連体形": [
+          "し"
+        ],
+        "已然形": [
+          "しか"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "けり",
+      "rule": "classical_keri",
+      "class_name": "ラ変型",
+      "ctype": [
+        "助動詞-ケリ"
+      ],
+      "forms": {
+        "未然形": [
+          "けら"
+        ],
+        "終止形": [
+          "けり"
+        ],
+        "連体形": [
+          "ける"
+        ],
+        "已然形": [
+          "けれ"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "つ",
+      "rule": "classical_tsu",
+      "class_name": "下二段型",
+      "ctype": [
+        "助動詞-ツ"
+      ],
+      "forms": {
+        "未然形": [
+          "て"
+        ],
+        "連用形": [
+          "て"
+        ],
+        "終止形": [
+          "つ"
+        ],
+        "連体形": [
+          "つる"
+        ],
+        "已然形": [
+          "つれ"
+        ],
+        "命令形": [
+          "てよ"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "ぬ",
+      "rule": "classical_classical_nu",
+      "class_name": "ナ変型",
+      "ctype": [
+        "助動詞-ヌ"
+      ],
+      "forms": {
+        "未然形": [
+          "な"
+        ],
+        "連用形": [
+          "に"
+        ],
+        "終止形": [
+          "ぬ"
+        ],
+        "連体形": [
+          "ぬる"
+        ],
+        "已然形": [
+          "ぬれ"
+        ],
+        "命令形": [
+          "ね"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "たり",
+      "rule": "classical_tari_perfect",
+      "class_name": "ラ変型",
+      "ctype": [
+        "助動詞-タリ"
+      ],
+      "forms": {
+        "未然形": [
+          "たら"
+        ],
+        "連用形": [
+          "たり"
+        ],
+        "終止形": [
+          "たり"
+        ],
+        "連体形": [
+          "たる"
+        ],
+        "已然形": [
+          "たれ"
+        ],
+        "命令形": [
+          "たれ"
+        ]
+      },
+      "connection": [
+        "用言连用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "たり",
+      "rule": "classical_tari_copula",
+      "class_name": "タリ活用",
+      "ctype": [
+        "助動詞-タリ"
+      ],
+      "forms": {
+        "未然形": [
+          "たら"
+        ],
+        "連用形": [
+          "たり",
+          "と"
+        ],
+        "終止形": [
+          "たり"
+        ],
+        "連体形": [
+          "たる"
+        ],
+        "已然形": [
+          "たれ"
+        ],
+        "命令形": [
+          "たれ"
+        ]
+      },
+      "connection": [
+        "体言"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "り",
+      "rule": "classical_ri",
+      "class_name": "ラ変型",
+      "ctype": [
+        "助動詞-リ"
+      ],
+      "forms": {
+        "未然形": [
+          "ら"
+        ],
+        "連用形": [
+          "り"
+        ],
+        "終止形": [
+          "り"
+        ],
+        "連体形": [
+          "る"
+        ],
+        "已然形": [
+          "れ"
+        ],
+        "命令形": [
+          "れ"
+        ]
+      },
+      "connection": [
+        "サ変の未然形と四段の已然形"
+      ],
+      "inputs": [
+        {
+          "ctype": [
+            "文語サ行変格",
+            "サ行変格"
+          ],
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        },
+        {
+          "ctype": [
+            "文語四段",
+            "四段"
+          ],
+          "forms": [
+            "conditional"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "む",
+      "aliases": [
+        "ん"
+      ],
+      "rule": "classical_mu",
+      "class_name": "四段型",
+      "ctype": [
+        "助動詞-ム"
+      ],
+      "forms": {
+        "終止形": [
+          "む",
+          "ん"
+        ],
+        "連体形": [
+          "む",
+          "ん"
+        ],
+        "已然形": [
+          "め"
+        ],
+        "未然形": [
+          "ま"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "むず",
+      "rule": "classical_muzu",
+      "class_name": "サ変型",
+      "ctype": [
+        "助動詞-ムズ"
+      ],
+      "forms": {
+        "終止形": [
+          "むず"
+        ],
+        "連体形": [
+          "むずる"
+        ],
+        "已然形": [
+          "むずれ"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "まし",
+      "rule": "classical_mashi",
+      "class_name": "特殊型",
+      "ctype": [
+        "助動詞-マシ"
+      ],
+      "forms": {
+        "未然形": [
+          "ましか",
+          "ませ"
+        ],
+        "終止形": [
+          "まし"
+        ],
+        "連体形": [
+          "まし"
+        ],
+        "已然形": [
+          "ましか"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "けむ",
+      "aliases": [
+        "けん"
+      ],
+      "rule": "classical_kemu",
+      "class_name": "四段型",
+      "ctype": [
+        "助動詞-ケム"
+      ],
+      "forms": {
+        "終止形": [
+          "けむ",
+          "けん"
+        ],
+        "連体形": [
+          "けむ",
+          "けん"
+        ],
+        "已然形": [
+          "けめ"
+        ],
+        "未然形": [
+          "けま"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "らむ",
+      "aliases": [
+        "らん"
+      ],
+      "rule": "classical_ramu",
+      "class_name": "四段型",
+      "ctype": [
+        "助動詞-ラム"
+      ],
+      "forms": {
+        "終止形": [
+          "らむ",
+          "らん"
+        ],
+        "連体形": [
+          "らむ",
+          "らん"
+        ],
+        "已然形": [
+          "らめ"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "らし",
+      "rule": "classical_rashi",
+      "class_name": "无变化型",
+      "ctype": [
+        "助動詞-ラシ"
+      ],
+      "forms": {
+        "終止形": [
+          "らし"
+        ],
+        "連体形": [
+          "らし",
+          "らしき"
+        ],
+        "已然形": [
+          "らし"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "けらし",
+      "rule": "classical_kerashi",
+      "class_name": "无变化型",
+      "ctype": [
+        "助動詞-ケラシ"
+      ],
+      "forms": {
+        "終止形": [
+          "けらし"
+        ],
+        "連体形": [
+          "けらし",
+          "けらしき"
+        ],
+        "已然形": [
+          "けらし"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "めり",
+      "rule": "classical_meri",
+      "class_name": "ラ変型",
+      "ctype": [
+        "助動詞-メリ"
+      ],
+      "forms": {
+        "連用形": [
+          "めり"
+        ],
+        "終止形": [
+          "めり"
+        ],
+        "連体形": [
+          "める"
+        ],
+        "已然形": [
+          "めれ"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "べし",
+      "aliases": [
+        "べき"
+      ],
+      "rule": "classical_beshi",
+      "class_name": "ク活用",
+      "ctype": [
+        "助動詞-ベシ"
+      ],
+      "forms": {
+        "未然形": [
+          "べく",
+          "べから"
+        ],
+        "連用形": [
+          "べく",
+          "べかり"
+        ],
+        "終止形": [
+          "べし"
+        ],
+        "連体形": [
+          "べき",
+          "べかる"
+        ],
+        "已然形": [
+          "べけれ"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "べらなり",
+      "rule": "classical_beranari",
+      "class_name": "ナリ活用",
+      "ctype": [
+        "助動詞-ベラナリ"
+      ],
+      "forms": {
+        "連用形": [
+          "べらに"
+        ],
+        "終止形": [
+          "べらなり"
+        ],
+        "連体形": [
+          "べらなる"
+        ],
+        "已然形": [
+          "べらなれ"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "ず",
+      "rule": "negative_zuni",
+      "class_name": "特殊型",
+      "ctype": [
+        "助動詞-ズ",
+        "助動詞-ヌ"
+      ],
+      "forms": {
+        "未然形": [
+          "ず",
+          "ざら",
+          "な"
+        ],
+        "連用形": [
+          "ず",
+          "ざり",
+          "に"
+        ],
+        "終止形": [
+          "ず"
+        ],
+        "連体形": [
+          "ぬ",
+          "ざる"
+        ],
+        "已然形": [
+          "ね",
+          "ざれ"
+        ],
+        "命令形": [
+          "ざれ"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "aliases": [
+        "ぬ"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "じ",
+      "rule": "classical_ji",
+      "class_name": "特殊型",
+      "ctype": [
+        "助動詞-ジ"
+      ],
+      "forms": {
+        "終止形": [
+          "じ"
+        ],
+        "連体形": [
+          "じ"
+        ],
+        "已然形": [
+          "じ"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "まじ",
+      "rule": "classical_maji",
+      "class_name": "ク活用",
+      "ctype": [
+        "助動詞-マジ"
+      ],
+      "forms": {
+        "未然形": [
+          "まじく",
+          "まじから"
+        ],
+        "連用形": [
+          "まじく",
+          "まじかり"
+        ],
+        "終止形": [
+          "まじ"
+        ],
+        "連体形": [
+          "まじき",
+          "まじかる"
+        ],
+        "已然形": [
+          "まじけれ"
+        ]
+      },
+      "connection": [
+        "終止形とラ変型の連体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "たし",
+      "rule": "classical_tashi",
+      "class_name": "ク活用",
+      "ctype": [
+        "助動詞-タシ"
+      ],
+      "forms": {
+        "未然形": [
+          "たく",
+          "たから"
+        ],
+        "連用形": [
+          "たく",
+          "たかり"
+        ],
+        "終止形": [
+          "たし"
+        ],
+        "連体形": [
+          "たき",
+          "たかる"
+        ],
+        "已然形": [
+          "たけれ"
+        ]
+      },
+      "connection": [
+        "連用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "まほし",
+      "rule": "classical_mahoshi",
+      "class_name": "シク活用",
+      "ctype": [
+        "助動詞-マホシ"
+      ],
+      "forms": {
+        "未然形": [
+          "まほしく",
+          "まほしから"
+        ],
+        "連用形": [
+          "まほしく",
+          "まほしかり"
+        ],
+        "終止形": [
+          "まほし"
+        ],
+        "連体形": [
+          "まほしき",
+          "まほしかる"
+        ],
+        "已然形": [
+          "まほしけれ"
+        ]
+      },
+      "connection": [
+        "未然形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "irrealis"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "なり",
+      "rule": "classical_nari_copula",
+      "class_name": "ナリ活用",
+      "ctype": [
+        "助動詞-ナリ"
+      ],
+      "forms": {
+        "未然形": [
+          "なら"
+        ],
+        "連用形": [
+          "なり",
+          "に"
+        ],
+        "終止形": [
+          "なり"
+        ],
+        "連体形": [
+          "なる"
+        ],
+        "已然形": [
+          "なれ"
+        ],
+        "命令形": [
+          "なれ"
+        ]
+      },
+      "connection": [
+        "体言或连体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "なり",
+      "rule": "classical_nari_hearsay",
+      "class_name": "ナリ活用",
+      "ctype": [
+        "助動詞-ナリ"
+      ],
+      "forms": {
+        "連用形": [
+          "なり"
+        ],
+        "終止形": [
+          "なり"
+        ],
+        "連体形": [
+          "なる"
+        ],
+        "已然形": [
+          "なれ"
+        ]
+      },
+      "connection": [
+        "终止形或ラ变连用形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "terminal"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "exclude_ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ]
+        },
+        {
+          "ctype": [
+            "文語ラ行変格",
+            "ラ行変格",
+            "助動詞-ケリ",
+            "助動詞-タリ",
+            "助動詞-リ",
+            "助動詞-メリ",
+            "助動詞-ナリ"
+          ],
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "ごとし",
+      "aliases": [
+        "如し"
+      ],
+      "rule": "classical_gotoshi",
+      "class_name": "ク活用",
+      "ctype": [
+        "助動詞-ゴトシ"
+      ],
+      "forms": {
+        "未然形": [
+          "ごとく"
+        ],
+        "連用形": [
+          "ごとく"
+        ],
+        "終止形": [
+          "ごとし"
+        ],
+        "連体形": [
+          "ごとき"
+        ]
+      },
+      "connection": [
+        "体言或连体形"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "ごとくなり",
+      "rule": "classical_gotokunari",
+      "class_name": "ナリ活用",
+      "ctype": [
+        "助動詞-ゴトクナリ"
+      ],
+      "forms": {
+        "未然形": [
+          "ごとくなら"
+        ],
+        "連用形": [
+          "ごとくなり",
+          "ごとくに"
+        ],
+        "終止形": [
+          "ごとくなり"
+        ],
+        "連体形": [
+          "ごとくなる"
+        ],
+        "已然形": [
+          "ごとくなれ"
+        ],
+        "命令形": [
+          "ごとくなれ"
+        ]
+      },
+      "connection": [
+        "連体形と体言"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        },
+        {
+          "forms": [
+            "attributive"
+          ],
+          "categories": [
+            "文語用言",
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ]
+        }
+      ]
+    },
+    {
+      "lemma": "やうなり",
+      "aliases": [
+        "ようなり"
+      ],
+      "rule": "classical_yaunari",
+      "class_name": "ナリ活用",
+      "ctype": [
+        "助動詞-ヤウナリ",
+        "助動詞-ヨウナリ"
+      ],
+      "forms": {
+        "未然形": [
+          "やうなら",
+          "ようなら"
+        ],
+        "連用形": [
+          "やうなり",
+          "やうに",
+          "ようなり",
+          "ように"
+        ],
+        "終止形": [
+          "やうなり",
+          "ようなり"
+        ],
+        "連体形": [
+          "やうなる",
+          "ようなる"
+        ],
+        "已然形": [
+          "やうなれ",
+          "ようなれ"
+        ],
+        "命令形": [
+          "やうなれ",
+          "ようなれ"
+        ]
+      },
+      "connection": [
+        "体言"
+      ],
+      "inputs": [
+        {
+          "forms": [
+            "stem"
+          ],
+          "categories": [
+            "名詞",
+            "形状詞",
+            "代名詞"
+          ]
+        }
       ]
     }
   ],
   "operators": {
+    "classical_yaunari": {
+      "label": "比况／例示",
+      "title": "比况／例示",
+      "concept": "grammar.classical.yaunari",
+      "prototype": "やうなり"
+    },
+    "classical_gotokunari": {
+      "label": "比况",
+      "title": "比况",
+      "concept": "grammar.classical.gotokunari",
+      "prototype": "ごとくなり"
+    },
+    "classical_nari_hearsay": {
+      "label": "传闻／推定",
+      "title": "传闻／推定",
+      "concept": "grammar.classical.nari_hearsay",
+      "prototype": "なり"
+    },
+    "classical_nari_copula": {
+      "label": "断定／存在",
+      "title": "断定／存在",
+      "concept": "grammar.classical.nari_copula",
+      "prototype": "なり"
+    },
+    "classical_mahoshi": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "grammar.classical.mahoshi",
+      "prototype": "まほし"
+    },
+    "classical_tashi": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "grammar.classical.tashi",
+      "prototype": "たし"
+    },
+    "classical_maji": {
+      "label": "否定推量／禁止",
+      "title": "否定推量／禁止",
+      "concept": "grammar.classical.maji",
+      "prototype": "まじ"
+    },
+    "classical_ji": {
+      "label": "否定推量／否定意志",
+      "title": "否定推量／否定意志",
+      "concept": "grammar.classical.ji",
+      "prototype": "じ"
+    },
+    "classical_beranari": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.classical.beranari",
+      "prototype": "べらなり"
+    },
+    "classical_meri": {
+      "label": "推定／婉曲",
+      "title": "推定／婉曲",
+      "concept": "grammar.classical.meri",
+      "prototype": "めり"
+    },
+    "classical_kerashi": {
+      "label": "过去推定／咏叹",
+      "title": "过去推定／咏叹",
+      "concept": "grammar.classical.kerashi",
+      "prototype": "けらし"
+    },
+    "classical_rashi": {
+      "label": "推定",
+      "title": "推定",
+      "concept": "grammar.classical.rashi",
+      "prototype": "らし"
+    },
+    "classical_ramu": {
+      "label": "现在推量／传闻",
+      "title": "现在推量／传闻",
+      "concept": "grammar.classical.ramu",
+      "prototype": "らむ"
+    },
+    "classical_kemu": {
+      "label": "过去推量／传闻",
+      "title": "过去推量／传闻",
+      "concept": "grammar.classical.kemu",
+      "prototype": "けむ"
+    },
+    "classical_mashi": {
+      "label": "反实／愿望",
+      "title": "反实／愿望",
+      "concept": "grammar.classical.mashi",
+      "prototype": "まし"
+    },
+    "classical_muzu": {
+      "label": "推量／意志",
+      "title": "推量／意志",
+      "concept": "grammar.classical.muzu",
+      "prototype": "むず"
+    },
+    "classical_mu": {
+      "label": "推量／意志／婉曲",
+      "title": "推量／意志／婉曲",
+      "concept": "grammar.classical.mu",
+      "prototype": "む"
+    },
+    "classical_ri": {
+      "label": "存续／完了",
+      "title": "存续／完了",
+      "concept": "grammar.classical.ri",
+      "prototype": "り"
+    },
+    "classical_tari_copula": {
+      "label": "断定",
+      "title": "断定",
+      "concept": "grammar.classical.tari_copula",
+      "prototype": "たり"
+    },
+    "classical_tari_perfect": {
+      "label": "存续／完了",
+      "title": "存续／完了",
+      "concept": "grammar.classical.tari_perfect",
+      "prototype": "たり"
+    },
+    "classical_classical_nu": {
+      "label": "完了／自然成立",
+      "title": "完了／自然成立",
+      "concept": "grammar.classical.nu",
+      "prototype": "ぬ"
+    },
+    "classical_tsu": {
+      "label": "完了／强意",
+      "title": "完了／强意",
+      "concept": "grammar.classical.tsu",
+      "prototype": "つ"
+    },
+    "classical_keri": {
+      "label": "过去／咏叹",
+      "title": "过去／咏叹",
+      "concept": "grammar.classical.keri",
+      "prototype": "けり"
+    },
+    "classical_ki": {
+      "label": "过去",
+      "title": "过去",
+      "concept": "grammar.classical.ki",
+      "prototype": "き"
+    },
+    "classical_shimu": {
+      "label": "使役／尊敬",
+      "title": "使役／尊敬",
+      "concept": "grammar.classical.shimu",
+      "prototype": "しむ"
+    },
+    "classical_sasu": {
+      "label": "使役／尊敬",
+      "title": "使役／尊敬",
+      "concept": "grammar.classical.sasu",
+      "prototype": "さす"
+    },
+    "classical_su": {
+      "label": "使役",
+      "title": "使役",
+      "concept": "grammar.classical.su",
+      "prototype": "す"
+    },
+    "classical_raru": {
+      "label": "受身／自发／可能／尊敬",
+      "title": "受身／自发／可能／尊敬",
+      "concept": "grammar.classical.raru",
+      "prototype": "らる"
+    },
+    "classical_ru": {
+      "label": "受身／自发／可能／尊敬",
+      "title": "受身／自发／可能／尊敬",
+      "concept": "grammar.classical.ru",
+      "prototype": "る"
+    },
+    "rashii_characteristic": {
+      "label": "典型性",
+      "title": "典型性",
+      "concept": "grammar.modality.rashii",
+      "prototype": "らしい"
+    },
     "polite_negative": {
       "label": "敬体否定",
       "title": "敬体否定",
@@ -1628,28 +3962,8 @@
       "title": "当为",
       "concept": "grammar.obligation.beki",
       "prototype": "べきだ",
-      "variants": [
-        {
-          "token": {
-            "contains": {
-              "lemma": [
-                "べし"
-              ]
-            }
-          },
-          "form": "べし"
-        },
-        {
-          "token": {
-            "contains": {
-              "surface": [
-                "べし"
-              ]
-            }
-          },
-          "form": "べし"
-        }
-      ]
+      "output_form": "stem",
+      "output_category": "形状詞"
     },
     "conditional": {
       "label": "条件",
@@ -1697,31 +4011,40 @@
       "label": "活用",
       "title": "样态 / 传闻",
       "concept": "grammar.modality.sou",
-      "prototype": "そうだ"
+      "prototype": "そうだ",
+      "output_form": "stem",
+      "output_category": "形状詞"
     },
     "you_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.you",
-      "prototype": "ようだ"
+      "prototype": "ようだ",
+      "output_form": "stem",
+      "output_category": "形状詞"
     },
     "mitai_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.mitai",
-      "prototype": "みたいだ"
+      "prototype": "みたいだ",
+      "output_form": "stem",
+      "output_category": "形状詞"
     },
     "rashii_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.rashii",
-      "prototype": "らしい"
+      "prototype": "らしい",
+      "output_category": "形容詞"
     },
     "copula": {
       "label": "判断",
       "title": "断定",
       "concept": "grammar.auxiliary.da",
       "prototype": "だ",
+      "output_category": "形状詞",
+      "output_form": "terminal",
       "display_suffix": "だ"
     },
     "adverbial_ni": {
@@ -1729,6 +4052,8 @@
       "title": "连用修饰",
       "concept": "morphology.form.continuative",
       "prototype": "に",
+      "output_category": "形状詞",
+      "output_form": "continuative",
       "display_suffix": "に"
     },
     "attributive_na": {
@@ -1736,13 +4061,16 @@
       "title": "连体修饰",
       "concept": "morphology.form.adjectival_attributive",
       "prototype": "な",
+      "output_category": "形状詞",
+      "output_form": "attributive",
       "display_suffix": "な"
     },
     "copula_aru": {
       "label": "判断",
       "title": "断定",
       "concept": "morphology.chain",
-      "prototype": "である"
+      "prototype": "である",
+      "output_category": "形状詞"
     },
     "ease": {
       "label": "活用",
@@ -2679,6 +5007,39 @@
       "concept": "grammar.classical.beshi",
       "prototype": "べし"
     },
+    "classical_adjective": {
+      "label": "文言活用",
+      "title": "文言形容词",
+      "concept": "grammar.classical.adjective",
+      "prototype": ""
+    },
+    "copula_de": {
+      "label": "断定连用",
+      "title": "断定接续",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "で",
+      "output_category": "形状詞",
+      "output_form": "continuative"
+    },
+    "copula_past": {
+      "label": "断定过去",
+      "title": "断定过去",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だった",
+      "output_category": "形状詞",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "でした"
+              ]
+            }
+          },
+          "form": "でした"
+        }
+      ]
+    },
     "necessity_negative_ba_naru": {
       "label": "义务",
       "title": "义务",
@@ -2792,6 +5153,35 @@
     }
   },
   "features": [
+    {
+      "token": {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "surface": [
+            "で"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ]
+        }
+      },
+      "kind": "copula_de"
+    },
+    {
+      "token": {
+        "equals": {
+          "base": [
+            "らしい"
+          ],
+          "pos": [
+            "接尾辞"
+          ]
+        }
+      },
+      "kind": "rashii_characteristic"
+    },
     {
       "kind": "classical_beshi",
       "token": {
@@ -3067,6 +5457,14 @@
           "starts_with": {
             "cform": [
               "連体形"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "surface": [
+              "で",
+              "だっ"
             ]
           }
         }
@@ -3581,6 +5979,209 @@
     }
   ],
   "sequences": [
+    {
+      "kind": "classical_gotoshi",
+      "head": 1,
+      "tokens": [
+        {
+          "equals": {
+            "surface": [
+              "の"
+            ],
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞",
+              "連体化"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "pos": [
+              "助動詞",
+              "形容詞"
+            ],
+            "base": [
+              "ごとし",
+              "如し"
+            ]
+          }
+        }
+      ],
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "categories": [
+        "名詞",
+        "代名詞",
+        "動詞",
+        "形容詞",
+        "文語用言"
+      ]
+    },
+    {
+      "categories": [
+        "名詞",
+        "形状詞",
+        "代名詞"
+      ],
+      "kind": "copula_past",
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "surface": [
+              "だっ"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "ctype": [
+              "助動詞-タ"
+            ],
+            "pos": [
+              "助動詞"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categories": [
+        "名詞",
+        "形状詞",
+        "代名詞",
+        "形容詞"
+      ],
+      "kind": "copula_past",
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "surface": [
+              "でし"
+            ],
+            "ctype": [
+              "助動詞-デス"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "ctype": [
+              "助動詞-タ"
+            ],
+            "pos": [
+              "助動詞"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categories": [
+        "名詞",
+        "代名詞"
+      ],
+      "kind": "you_modality",
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞",
+              "連体化"
+            ],
+            "surface": [
+              "の"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "base": [
+              "よう",
+              "様"
+            ],
+            "pos": [
+              "名詞",
+              "形状詞",
+              "助動詞"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categories": [
+        "名詞",
+        "代名詞"
+      ],
+      "kind": "hazu_modality",
+      "forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "tokens": [
+        {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞",
+              "連体化"
+            ],
+            "surface": [
+              "の"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "base": [
+              "はず",
+              "筈"
+            ],
+            "pos": [
+              "名詞",
+              "形状詞",
+              "助動詞"
+            ]
+          }
+        }
+      ]
+    },
     {
       "kind": "polite_negative",
       "tokens": [
@@ -4639,6 +7240,185 @@
     }
   ],
   "connections": [
+    {
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "形容詞",
+                "助動詞"
+              ],
+              "base": [
+                "ない",
+                "無い"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ],
+          "categories": [
+            "形状詞"
+          ],
+          "operators": [
+            "copula_de"
+          ]
+        }
+      ],
+      "action": "attach",
+      "kinds": [
+        "negative"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "categories": [
+            "動詞",
+            "形容詞",
+            "助動詞",
+            "形状詞"
+          ],
+          "next": {
+            "equals": {
+              "base": [
+                "そう",
+                "そうだ"
+              ],
+              "pos": [
+                "助動詞",
+                "形状詞"
+              ]
+            }
+          },
+          "forms": [
+            "continuative",
+            "terminal",
+            "attributive"
+          ]
+        },
+        {
+          "categories": [
+            "形容詞",
+            "形状詞"
+          ],
+          "next": {
+            "equals": {
+              "base": [
+                "そう",
+                "そうだ"
+              ],
+              "pos": [
+                "助動詞",
+                "形状詞"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ]
+        }
+      ],
+      "kinds": [
+        "sou_modality"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "categories": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "next": {
+            "equals": {
+              "base": [
+                "よう",
+                "様",
+                "ようだ"
+              ],
+              "pos": [
+                "名詞",
+                "助動詞",
+                "形状詞"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ]
+        }
+      ],
+      "kinds": [
+        "you_modality"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "categories": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞",
+            "名詞"
+          ],
+          "next": {
+            "equals": {
+              "base": [
+                "みたい",
+                "みたいだ"
+              ],
+              "pos": [
+                "助動詞",
+                "形状詞"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive",
+            "stem"
+          ]
+        }
+      ],
+      "kinds": [
+        "mitai_modality"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "categories": [
+            "名詞"
+          ],
+          "next": {
+            "equals": {
+              "base": [
+                "らしい"
+              ],
+              "pos": [
+                "接尾辞"
+              ]
+            }
+          },
+          "forms": [
+            "stem"
+          ]
+        }
+      ],
+      "kinds": [
+        "rashii_characteristic"
+      ]
+    },
     {
       "action": "attach",
       "when": [

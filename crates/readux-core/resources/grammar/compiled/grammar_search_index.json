@@ -3744,6 +3744,786 @@
         "命名・称谓",
         "把前项作为名称或称谓连接到后续名词"
       ]
+    },
+    {
+      "concept_id": "grammar.classical.yaunari",
+      "label": "やうなり（文言比况／例示）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "体言＋やうなり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "比况／例示",
+        "表示比况／例示"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.gotokunari",
+      "label": "ごとくなり（文言比况）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連体形と体言＋ごとくなり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "比况",
+        "表示比况"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nari_hearsay",
+      "label": "なり（文言传闻／推定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "终止形或ラ变连用形＋なり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "传闻／推定",
+        "表示传闻／推定"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nari_copula",
+      "label": "なり（文言断定／存在）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "体言或连体形＋なり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "断定／存在",
+        "表示断定／存在"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mahoshi",
+      "label": "まほし（文言愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋まほし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "愿望",
+        "表示愿望"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tashi",
+      "label": "たし（文言愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋たし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "愿望",
+        "表示愿望"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.maji",
+      "label": "まじ（文言否定推量／禁止）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "終止形とラ変型の連体形＋まじ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "否定推量／禁止",
+        "表示否定推量／禁止"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ji",
+      "label": "じ（文言否定推量／否定意志）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋じ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "否定推量／否定意志",
+        "表示否定推量／否定意志"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.beranari",
+      "label": "べらなり（文言推量）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "終止形とラ変型の連体形＋べらなり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推量",
+        "表示推量"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.meri",
+      "label": "めり（文言推定／婉曲）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "終止形とラ変型の連体形＋めり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推定／婉曲",
+        "表示推定／婉曲"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.kerashi",
+      "label": "けらし（文言过去推定／咏叹）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋けらし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "过去推定／咏叹",
+        "表示过去推定／咏叹"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.rashi",
+      "label": "らし（文言推定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "終止形とラ変型の連体形＋らし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推定",
+        "表示推定"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ramu",
+      "label": "らむ（文言现在推量／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "終止形とラ変型の連体形＋らむ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "现在推量／传闻",
+        "表示现在推量／传闻"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.kemu",
+      "label": "けむ（文言过去推量／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋けむ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "过去推量／传闻",
+        "表示过去推量／传闻"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mashi",
+      "label": "まし（文言反实／愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋まし"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "反实／愿望",
+        "表示反实／愿望"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.muzu",
+      "label": "むず（文言推量／意志）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋むず"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推量／意志",
+        "表示推量／意志"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mu",
+      "label": "む（文言推量／意志／婉曲）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋む"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "推量／意志／婉曲",
+        "表示推量／意志／婉曲"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ri",
+      "label": "り（文言存续／完了）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "サ変の未然形と四段の已然形＋り"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "存续／完了",
+        "表示存续／完了"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tari_copula",
+      "label": "たり（文言断定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "体言＋たり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "断定",
+        "表示断定"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tari_perfect",
+      "label": "たり（文言存续／完了）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "用言连用形＋たり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "存续／完了",
+        "表示存续／完了"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nu",
+      "label": "ぬ（文言完了／自然成立）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋ぬ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "完了／自然成立",
+        "表示完了／自然成立"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tsu",
+      "label": "つ（文言完了／强意）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋つ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "完了／强意",
+        "表示完了／强意"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.keri",
+      "label": "けり（文言过去／咏叹）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋けり"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "过去／咏叹",
+        "表示过去／咏叹"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ki",
+      "label": "き（文言过去）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "連用形＋き"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "过去",
+        "表示过去"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.shimu",
+      "label": "しむ（文言使役／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "未然形＋しむ"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "使役／尊敬",
+        "表示使役／尊敬"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.sasu",
+      "label": "さす（文言使役／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "四段・ナ変・ラ変以外の未然形＋さす"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "使役／尊敬",
+        "表示使役／尊敬"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.su",
+      "label": "す（文言使役）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "四段・ナ変・ラ変の未然形＋す"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "使役",
+        "表示使役"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.raru",
+      "label": "らる（文言受身／自发／可能／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "四段・ナ変・ラ変以外の未然形＋らる"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "受身／自发／可能／尊敬",
+        "表示受身／自发／可能／尊敬"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ru",
+      "label": "る（文言受身／自发／可能／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "四段・ナ変・ラ変の未然形＋る"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "受身／自发／可能／尊敬",
+        "表示受身／自发／可能／尊敬"
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.adjective",
+      "label": "文言形容词活用",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "conjugation"
+      ],
+      "function_tags": [
+        "classical_inflection"
+      ],
+      "jlpt_level": null,
+      "surface_hints": [
+        "文言用言词干＋活用词尾"
+      ],
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": [
+        "文言活用",
+        "记录用言词干、活用型和实际活用形"
+      ]
     }
   ]
 }

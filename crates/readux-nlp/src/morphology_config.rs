@@ -30,6 +30,8 @@ pub struct Config {
     pub max_auxiliary_depth: usize,
     #[serde(default)]
     pub classical_forms: Vec<ClassicalForm>,
+    #[serde(default)]
+    pub classical_auxiliaries: Vec<ClassicalAuxiliary>,
 }
 
 fn default_auxiliary_depth() -> usize {
@@ -40,10 +42,56 @@ fn default_auxiliary_depth() -> usize {
 #[serde(deny_unknown_fields)]
 pub struct ClassicalForm {
     pub lemma: String,
+    #[serde(default)]
+    pub aliases: Vec<String>,
+    pub lemma_suffix: String,
+    pub ctype: Vec<String>,
     pub class_name: String,
-    pub forms: BTreeMap<String, String>,
+    pub forms: BTreeMap<String, Vec<String>>,
     #[serde(default)]
     pub connection: Vec<String>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ClassicalAuxiliary {
+    pub lemma: String,
+    #[serde(default)]
+    pub aliases: Vec<String>,
+    pub rule: String,
+    pub class_name: String,
+    #[serde(default)]
+    pub ctype: Vec<String>,
+    pub forms: BTreeMap<String, Vec<String>>,
+    pub connection: Vec<String>,
+    pub inputs: Vec<ClassicalInput>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ClassicalInput {
+    pub categories: Vec<String>,
+    pub forms: Vec<ConnectionForm>,
+    #[serde(default)]
+    pub ctype: Vec<String>,
+    #[serde(default)]
+    pub exclude_ctype: Vec<String>,
+}
+
+impl ClassicalAuxiliary {
+    pub fn form(
+        &self,
+        lemma: &str,
+        surface: &str,
+        ctype: &str,
+        cform: &str,
+    ) -> Option<&'static str> {
+        let form = classical_form_name(cform)?;
+        ((self.ctype.is_empty() || self.ctype.iter().any(|prefix| ctype.starts_with(prefix)))
+            && (self.lemma == lemma || self.aliases.iter().any(|alias| alias == lemma))
+            && self.forms.get(form)?.iter().any(|value| value == surface))
+        .then_some(form)
+    }
 }
 
 #[derive(Default, Deserialize)]
@@ -56,6 +104,10 @@ pub struct RuleMetadata {
     pub output_category: String,
     pub terminal_mode: String,
     pub order_rank: i32,
+    #[serde(default)]
+    pub input_categories: Vec<String>,
+    #[serde(default)]
+    pub input_forms: Vec<ConnectionForm>,
     #[serde(default)]
     pub allowed_after: Vec<String>,
     #[serde(default)]
@@ -270,6 +322,8 @@ pub struct ConnectionCondition {
 pub struct Sequence {
     pub kind: String,
     pub tokens: Vec<TokenPattern>,
+    #[serde(default)]
+    pub head: usize,
     pub forms: Vec<ConnectionForm>,
     #[serde(default)]
     pub categories: Vec<String>,
@@ -298,6 +352,147 @@ pub fn rule_metadata(kind: &str) -> Option<&'static RuleMetadata> {
     CONFIG.rule_metadata.get(kind)
 }
 
+pub fn classical_form_name(cform: &str) -> Option<&'static str> {
+    [
+        ("未然形", "未然形"),
+        ("連用形", "連用形"),
+        ("終止形", "終止形"),
+        ("連体形", "連体形"),
+        ("已然形", "已然形"),
+        ("仮定形", "已然形"),
+        ("命令形", "命令形"),
+        ("基本形", "終止形"),
+    ]
+    .into_iter()
+    .find_map(|(prefix, form)| cform.starts_with(prefix).then_some(form))
+}
+
+pub fn classical_connection_form(cform: &str) -> Option<ConnectionForm> {
+    Some(match classical_form_name(cform)? {
+        "未然形" => ConnectionForm::Irrealis,
+        "連用形" => ConnectionForm::Continuative,
+        "終止形" => ConnectionForm::Terminal,
+        "連体形" => ConnectionForm::Attributive,
+        "已然形" => ConnectionForm::Conditional,
+        "命令形" => ConnectionForm::Imperative,
+        _ => return None,
+    })
+}
+
+pub fn classical_paradigm_form(
+    token: &ProviderToken,
+) -> Option<(&'static ClassicalForm, &'static str)> {
+    classical_paradigm_match(
+        &[identity(token), field(token, 7)],
+        &token.surface,
+        field(token, 4),
+        field(token, 5),
+    )
+}
+
+pub fn classical_paradigm_match(
+    lemmas: &[&str],
+    surface: &str,
+    ctype: &str,
+    cform: &str,
+) -> Option<(&'static ClassicalForm, &'static str)> {
+    let form_name = classical_form_name(cform)?;
+    CONFIG.classical_forms.iter().find_map(|entry| {
+        lemmas
+            .iter()
+            .copied()
+            .filter(|lemma| !lemma.is_empty())
+            .find_map(|lemma| {
+                let stem = lemma.strip_suffix(&entry.lemma_suffix)?;
+                let known_lemma = entry.lemma == lemma
+                    || entry.aliases.iter().any(|alias| alias == lemma)
+                    || entry.ctype.iter().any(|prefix| ctype.starts_with(prefix));
+                if !known_lemma {
+                    return None;
+                }
+                let suffixes = entry.forms.get(form_name)?;
+                suffixes
+                    .iter()
+                    .any(|suffix| surface == format!("{stem}{suffix}"))
+                    .then_some((entry, form_name))
+            })
+    })
+}
+
+pub fn classical_auxiliary_form(
+    lemma: &str,
+    surface: &str,
+    ctype: &str,
+    cform: &str,
+) -> Option<(&'static ClassicalAuxiliary, &'static str)> {
+    CONFIG.classical_auxiliaries.iter().find_map(|entry| {
+        entry
+            .form(lemma, surface, ctype, cform)
+            .map(|form| (entry, form))
+    })
+}
+
+pub fn classical_auxiliary(
+    token: &ProviderToken,
+) -> Option<(&'static ClassicalAuxiliary, &'static str)> {
+    if field(token, 0) != "助動詞"
+        && !(field(token, 0) == "形容詞" && matches!(identity(token), "ごとし" | "如し"))
+    {
+        return None;
+    }
+    let lemma = [identity(token), field(token, 7)]
+        .into_iter()
+        .find(|candidate| {
+            !candidate.is_empty()
+                && CONFIG.classical_auxiliaries.iter().any(|entry| {
+                    (entry.lemma == *candidate
+                        || entry.aliases.iter().any(|alias| alias == candidate))
+                        && (entry.ctype.is_empty()
+                            || entry
+                                .ctype
+                                .iter()
+                                .any(|prefix| field(token, 4).starts_with(prefix)))
+                })
+        })?;
+    classical_auxiliary_form(&lemma, &token.surface, field(token, 4), field(token, 5))
+}
+
+pub fn classical_accepts(
+    entry: &ClassicalAuxiliary,
+    state: &crate::morphology::MorphologyState,
+) -> bool {
+    entry.inputs.iter().any(|input| {
+        input.categories.contains(&state.category)
+            && input.forms.contains(&state.form)
+            && (input.ctype.is_empty()
+                || input
+                    .ctype
+                    .iter()
+                    .any(|prefix| state.conjugation_type.starts_with(prefix)))
+            && !input
+                .exclude_ctype
+                .iter()
+                .any(|prefix| state.conjugation_type.starts_with(prefix))
+    })
+}
+
+pub fn classical_rule_for_input(
+    token: &ProviderToken,
+    state: &crate::morphology::MorphologyState,
+) -> Option<&'static str> {
+    CONFIG
+        .classical_auxiliaries
+        .iter()
+        .find(|entry| {
+            [identity(token), field(token, 7)].iter().any(|lemma| {
+                entry
+                    .form(lemma, &token.surface, field(token, 4), field(token, 5))
+                    .is_some()
+            }) && classical_accepts(entry, state)
+        })
+        .map(|entry| entry.rule.as_str())
+}
+
 /// 将来源 token 映射到六类实体。阶段和优先级不参与此判断。
 pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
     let pos = field(token, 0);
@@ -317,12 +512,18 @@ pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
         return "";
     }
     if matches!(pos, "助動詞") {
+        if classical_auxiliary(token).is_some() {
+            return "文言活用类";
+        }
         return match lemma {
             "ない" | "たい" | "らしい" => "イ形容词转换类",
             "そう" | "よう" | "みたい" | "はず" => "ナ形容词判断类",
             "べし" | "ず" | "ぬ" | "ごとし" | "ごとき" => "文言活用类",
             _ => "动词循环类",
         };
+    }
+    if matches!(pos, "形容詞" | "形状詞") && classical_paradigm_form(token).is_some() {
+        return "文言活用类";
     }
     if pos == "動詞"
         && (sub.contains("非自立")
@@ -367,6 +568,9 @@ pub fn prototype(kind: &str, token: &ProviderToken) -> Option<String> {
 }
 
 pub fn features(token: &ProviderToken) -> Vec<String> {
+    if let Some((entry, _)) = classical_auxiliary(token) {
+        return vec![entry.rule.clone()];
+    }
     let mut kinds = Vec::new();
     for rule in &CONFIG.features {
         if rule.token.matches(token)
@@ -375,6 +579,11 @@ pub fn features(token: &ProviderToken) -> Vec<String> {
         {
             kinds.push(rule.kind.clone());
         }
+    }
+    if classical_paradigm_form(token).is_some()
+        && !kinds.iter().any(|kind| kind == "classical_adjective")
+    {
+        kinds.push("classical_adjective".into());
     }
     kinds
 }
@@ -385,6 +594,27 @@ mod tests {
 
     #[test]
     fn references_resolve_within_the_single_configuration() {
+        for sequence in &CONFIG.sequences {
+            assert!(
+                sequence.head < sequence.tokens.len(),
+                "{} 的序列核心越界",
+                sequence.kind
+            );
+        }
+        for entry in &CONFIG.classical_auxiliaries {
+            assert!(
+                !entry.forms.is_empty() && !entry.inputs.is_empty(),
+                "{}",
+                entry.rule
+            );
+            assert_eq!(
+                CONFIG.rule_metadata[&entry.rule].executor,
+                "classical_conjugation"
+            );
+            assert!(CONFIG.operators[&entry.rule]
+                .concept
+                .starts_with("grammar.classical."));
+        }
         for rule in &CONFIG.features {
             assert!(CONFIG.operators.contains_key(&rule.kind), "{}", rule.kind);
         }

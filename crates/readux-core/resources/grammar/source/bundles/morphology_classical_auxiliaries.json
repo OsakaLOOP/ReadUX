@@ -1,0 +1,2820 @@
+{
+  "source_refs": [
+    "morphology-refactor:classical-layer",
+    "readux-editorial:2026-10-26"
+  ],
+  "audit_status": "verified",
+  "items": [
+    {
+      "concept_id": "grammar.classical.yaunari",
+      "kind": "construction",
+      "canonical_label": "やうなり（文言比况／例示）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词やうなり，表示比况／例示",
+        "connection": "体言＋やうなり。",
+        "formation": "ナリ活用：未然形：やうなら、ようなら；連用形：やうなり、やうに、ようなり、ように；終止形：やうなり、ようなり；連体形：やうなる、ようなる；已然形：やうなれ、ようなれ；命令形：やうなれ、ようなれ",
+        "examples": [
+          "夢やうなり"
+        ],
+        "counter_examples": [
+          "现代ようだ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：やうなら、ようなら；連用形：やうなり、やうに、ようなり、ように；終止形：やうなり、ようなり；連体形：やうなる、ようなる；已然形：やうなれ、ようなれ；命令形：やうなれ、ようなれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.yaunari.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示比况／例示",
+          "label": "比况／例示"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "名詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_yaunari"
+                ],
+                "base_forms": [
+                  "やうなり",
+                  "ようなり"
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.yaunari.usage",
+          "possible_sense_ids": [
+            "grammar.classical.yaunari.usage"
+          ],
+          "realization_id": "realization.grammar.classical.yaunari.usage",
+          "counter_examples": [
+            "现代ようだ"
+          ],
+          "examples": [
+            "夢やうなり"
+          ],
+          "connection_signature": "体言＋やうなり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.gotokunari",
+      "kind": "construction",
+      "canonical_label": "ごとくなり（文言比况）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词ごとくなり，表示比况",
+        "connection": "連体形と体言＋ごとくなり。",
+        "formation": "ナリ活用：未然形：ごとくなら；連用形：ごとくなり、ごとくに；終止形：ごとくなり；連体形：ごとくなる；已然形：ごとくなれ；命令形：ごとくなれ",
+        "examples": [
+          "夢ごとくなり"
+        ],
+        "counter_examples": [
+          "现代ようだ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：ごとくなら；連用形：ごとくなり、ごとくに；終止形：ごとくなり；連体形：ごとくなる；已然形：ごとくなれ；命令形：ごとくなれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.gotokunari.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示比况",
+          "label": "比况"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "名詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_gotokunari"
+                ],
+                "base_forms": [
+                  "ごとくなり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.gotokunari.usage",
+          "possible_sense_ids": [
+            "grammar.classical.gotokunari.usage"
+          ],
+          "realization_id": "realization.grammar.classical.gotokunari.usage",
+          "counter_examples": [
+            "现代ようだ"
+          ],
+          "examples": [
+            "夢ごとくなり"
+          ],
+          "connection_signature": "連体形と体言＋ごとくなり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nari_hearsay",
+      "kind": "construction",
+      "canonical_label": "なり（文言传闻／推定）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词なり，表示传闻／推定",
+        "connection": "终止形或ラ变连用形＋なり。",
+        "formation": "ナリ活用：連用形：なり；終止形：なり；連体形：なる；已然形：なれ",
+        "examples": [
+          "雨降るなり"
+        ],
+        "counter_examples": [
+          "体言＋なり为断定"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "連用形：なり；終止形：なり；連体形：なる；已然形：なれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.nari_hearsay.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示传闻／推定",
+          "label": "传闻／推定"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_nari_hearsay"
+                ],
+                "base_forms": [
+                  "なり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.nari_hearsay.usage",
+          "possible_sense_ids": [
+            "grammar.classical.nari_hearsay.usage"
+          ],
+          "realization_id": "realization.grammar.classical.nari_hearsay.usage",
+          "counter_examples": [
+            "体言＋なり为断定"
+          ],
+          "examples": [
+            "雨降るなり"
+          ],
+          "connection_signature": "终止形或ラ变连用形＋なり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nari_copula",
+      "kind": "construction",
+      "canonical_label": "なり（文言断定／存在）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词なり，表示断定／存在",
+        "connection": "体言或连体形＋なり。",
+        "formation": "ナリ活用：未然形：なら；連用形：なり、に；終止形：なり；連体形：なる；已然形：なれ；命令形：なれ",
+        "examples": [
+          "夢なり"
+        ],
+        "counter_examples": [
+          "终止形＋なり为传闻"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：なら；連用形：なり、に；終止形：なり；連体形：なる；已然形：なれ；命令形：なれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.nari_copula.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示断定／存在",
+          "label": "断定／存在"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "代名詞",
+                  "動詞",
+                  "名詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_nari_copula"
+                ],
+                "base_forms": [
+                  "なり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.nari_copula.usage",
+          "possible_sense_ids": [
+            "grammar.classical.nari_copula.usage"
+          ],
+          "realization_id": "realization.grammar.classical.nari_copula.usage",
+          "counter_examples": [
+            "终止形＋なり为传闻"
+          ],
+          "examples": [
+            "夢なり"
+          ],
+          "connection_signature": "体言或连体形＋なり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mahoshi",
+      "kind": "construction",
+      "canonical_label": "まほし（文言愿望）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词まほし，表示愿望",
+        "connection": "未然形＋まほし。",
+        "formation": "シク活用：未然形：まほしく、まほしから；連用形：まほしく、まほしかり；終止形：まほし；連体形：まほしき、まほしかる；已然形：まほしけれ",
+        "examples": [
+          "見まほし"
+        ],
+        "counter_examples": [
+          "连用形＋まほし"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：まほしく、まほしから；連用形：まほしく、まほしかり；終止形：まほし；連体形：まほしき、まほしかる；已然形：まほしけれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.mahoshi.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示愿望",
+          "label": "愿望"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_mahoshi"
+                ],
+                "base_forms": [
+                  "まほし",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.mahoshi.usage",
+          "possible_sense_ids": [
+            "grammar.classical.mahoshi.usage"
+          ],
+          "realization_id": "realization.grammar.classical.mahoshi.usage",
+          "counter_examples": [
+            "连用形＋まほし"
+          ],
+          "examples": [
+            "見まほし"
+          ],
+          "connection_signature": "未然形＋まほし"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tashi",
+      "kind": "construction",
+      "canonical_label": "たし（文言愿望）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词たし，表示愿望",
+        "connection": "連用形＋たし。",
+        "formation": "ク活用：未然形：たく、たから；連用形：たく、たかり；終止形：たし；連体形：たき、たかる；已然形：たけれ",
+        "examples": [
+          "見たし"
+        ],
+        "counter_examples": [
+          "未然形＋たし"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：たく、たから；連用形：たく、たかり；終止形：たし；連体形：たき、たかる；已然形：たけれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.tashi.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示愿望",
+          "label": "愿望"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_tashi"
+                ],
+                "base_forms": [
+                  "たし",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.tashi.usage",
+          "possible_sense_ids": [
+            "grammar.classical.tashi.usage"
+          ],
+          "realization_id": "realization.grammar.classical.tashi.usage",
+          "counter_examples": [
+            "未然形＋たし"
+          ],
+          "examples": [
+            "見たし"
+          ],
+          "connection_signature": "連用形＋たし"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.maji",
+      "kind": "construction",
+      "canonical_label": "まじ（文言否定推量／禁止）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词まじ，表示否定推量／禁止",
+        "connection": "終止形とラ変型の連体形＋まじ。",
+        "formation": "ク活用：未然形：まじく、まじから；連用形：まじく、まじかり；終止形：まじ；連体形：まじき、まじかる；已然形：まじけれ",
+        "examples": [
+          "行くまじ"
+        ],
+        "counter_examples": [
+          "未然形＋まじ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：まじく、まじから；連用形：まじく、まじかり；終止形：まじ；連体形：まじき、まじかる；已然形：まじけれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.maji.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示否定推量／禁止",
+          "label": "否定推量／禁止"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_maji"
+                ],
+                "base_forms": [
+                  "まじ",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.maji.usage",
+          "possible_sense_ids": [
+            "grammar.classical.maji.usage"
+          ],
+          "realization_id": "realization.grammar.classical.maji.usage",
+          "counter_examples": [
+            "未然形＋まじ"
+          ],
+          "examples": [
+            "行くまじ"
+          ],
+          "connection_signature": "終止形とラ変型の連体形＋まじ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ji",
+      "kind": "construction",
+      "canonical_label": "じ（文言否定推量／否定意志）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词じ，表示否定推量／否定意志",
+        "connection": "未然形＋じ。",
+        "formation": "特殊型：終止形：じ；連体形：じ；已然形：じ",
+        "examples": [
+          "行かじ"
+        ],
+        "counter_examples": [
+          "终止形＋じ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：じ；連体形：じ；已然形：じ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.ji.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示否定推量／否定意志",
+          "label": "否定推量／否定意志"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_ji"
+                ],
+                "base_forms": [
+                  "じ",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.ji.usage",
+          "possible_sense_ids": [
+            "grammar.classical.ji.usage"
+          ],
+          "realization_id": "realization.grammar.classical.ji.usage",
+          "counter_examples": [
+            "终止形＋じ"
+          ],
+          "examples": [
+            "行かじ"
+          ],
+          "connection_signature": "未然形＋じ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.beranari",
+      "kind": "construction",
+      "canonical_label": "べらなり（文言推量）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词べらなり，表示推量",
+        "connection": "終止形とラ変型の連体形＋べらなり。",
+        "formation": "ナリ活用：連用形：べらに；終止形：べらなり；連体形：べらなる；已然形：べらなれ",
+        "examples": [
+          "行くべらなり"
+        ],
+        "counter_examples": [
+          "现代べきだ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "連用形：べらに；終止形：べらなり；連体形：べらなる；已然形：べらなれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.beranari.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示推量",
+          "label": "推量"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_beranari"
+                ],
+                "base_forms": [
+                  "べらなり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.beranari.usage",
+          "possible_sense_ids": [
+            "grammar.classical.beranari.usage"
+          ],
+          "realization_id": "realization.grammar.classical.beranari.usage",
+          "counter_examples": [
+            "现代べきだ"
+          ],
+          "examples": [
+            "行くべらなり"
+          ],
+          "connection_signature": "終止形とラ変型の連体形＋べらなり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.meri",
+      "kind": "construction",
+      "canonical_label": "めり（文言推定／婉曲）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词めり，表示推定／婉曲",
+        "connection": "終止形とラ変型の連体形＋めり。",
+        "formation": "ラ変型：連用形：めり；終止形：めり；連体形：める；已然形：めれ",
+        "examples": [
+          "咲くめり"
+        ],
+        "counter_examples": [
+          "未然形＋めり"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "連用形：めり；終止形：めり；連体形：める；已然形：めれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.meri.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示推定／婉曲",
+          "label": "推定／婉曲"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_meri"
+                ],
+                "base_forms": [
+                  "めり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.meri.usage",
+          "possible_sense_ids": [
+            "grammar.classical.meri.usage"
+          ],
+          "realization_id": "realization.grammar.classical.meri.usage",
+          "counter_examples": [
+            "未然形＋めり"
+          ],
+          "examples": [
+            "咲くめり"
+          ],
+          "connection_signature": "終止形とラ変型の連体形＋めり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.kerashi",
+      "kind": "construction",
+      "canonical_label": "けらし（文言过去推定／咏叹）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词けらし，表示过去推定／咏叹",
+        "connection": "連用形＋けらし。",
+        "formation": "无变化型：終止形：けらし；連体形：けらし、けらしき；已然形：けらし",
+        "examples": [
+          "咲きけらし"
+        ],
+        "counter_examples": [
+          "现代过去推量たらしい"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：けらし；連体形：けらし、けらしき；已然形：けらし",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.kerashi.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示过去推定／咏叹",
+          "label": "过去推定／咏叹"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_kerashi"
+                ],
+                "base_forms": [
+                  "けらし",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.kerashi.usage",
+          "possible_sense_ids": [
+            "grammar.classical.kerashi.usage"
+          ],
+          "realization_id": "realization.grammar.classical.kerashi.usage",
+          "counter_examples": [
+            "现代过去推量たらしい"
+          ],
+          "examples": [
+            "咲きけらし"
+          ],
+          "connection_signature": "連用形＋けらし"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.rashi",
+      "kind": "construction",
+      "canonical_label": "らし（文言推定）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词らし，表示推定",
+        "connection": "終止形とラ変型の連体形＋らし。",
+        "formation": "无变化型：終止形：らし；連体形：らし、らしき；已然形：らし",
+        "examples": [
+          "春来るらし"
+        ],
+        "counter_examples": [
+          "现代推量らしい"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：らし；連体形：らし、らしき；已然形：らし",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.rashi.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示推定",
+          "label": "推定"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_rashi"
+                ],
+                "base_forms": [
+                  "らし",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.rashi.usage",
+          "possible_sense_ids": [
+            "grammar.classical.rashi.usage"
+          ],
+          "realization_id": "realization.grammar.classical.rashi.usage",
+          "counter_examples": [
+            "现代推量らしい"
+          ],
+          "examples": [
+            "春来るらし"
+          ],
+          "connection_signature": "終止形とラ変型の連体形＋らし"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ramu",
+      "kind": "construction",
+      "canonical_label": "らむ（文言现在推量／传闻）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词らむ，表示现在推量／传闻",
+        "connection": "終止形とラ変型の連体形＋らむ。",
+        "formation": "四段型：終止形：らむ、らん；連体形：らむ、らん；已然形：らめ",
+        "examples": [
+          "行くらむ"
+        ],
+        "counter_examples": [
+          "未然形＋らむ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：らむ、らん；連体形：らむ、らん；已然形：らめ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.ramu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示现在推量／传闻",
+          "label": "现在推量／传闻"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_ramu"
+                ],
+                "base_forms": [
+                  "らむ",
+                  "らん"
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.ramu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.ramu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.ramu.usage",
+          "counter_examples": [
+            "未然形＋らむ"
+          ],
+          "examples": [
+            "行くらむ"
+          ],
+          "connection_signature": "終止形とラ変型の連体形＋らむ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.kemu",
+      "kind": "construction",
+      "canonical_label": "けむ（文言过去推量／传闻）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词けむ，表示过去推量／传闻",
+        "connection": "連用形＋けむ。",
+        "formation": "四段型：終止形：けむ、けん；連体形：けむ、けん；已然形：けめ；未然形：けま",
+        "examples": [
+          "見けむ"
+        ],
+        "counter_examples": [
+          "未然形＋けむ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：けむ、けん；連体形：けむ、けん；已然形：けめ；未然形：けま",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.kemu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示过去推量／传闻",
+          "label": "过去推量／传闻"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_kemu"
+                ],
+                "base_forms": [
+                  "けむ",
+                  "けん"
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.kemu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.kemu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.kemu.usage",
+          "counter_examples": [
+            "未然形＋けむ"
+          ],
+          "examples": [
+            "見けむ"
+          ],
+          "connection_signature": "連用形＋けむ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mashi",
+      "kind": "construction",
+      "canonical_label": "まし（文言反实／愿望）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词まし，表示反实／愿望",
+        "connection": "未然形＋まし。",
+        "formation": "特殊型：未然形：ましか、ませ；終止形：まし；連体形：まし；已然形：ましか",
+        "examples": [
+          "見まし"
+        ],
+        "counter_examples": [
+          "连用形＋まし"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：ましか、ませ；終止形：まし；連体形：まし；已然形：ましか",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.mashi.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示反实／愿望",
+          "label": "反实／愿望"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_mashi"
+                ],
+                "base_forms": [
+                  "まし",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.mashi.usage",
+          "possible_sense_ids": [
+            "grammar.classical.mashi.usage"
+          ],
+          "realization_id": "realization.grammar.classical.mashi.usage",
+          "counter_examples": [
+            "连用形＋まし"
+          ],
+          "examples": [
+            "見まし"
+          ],
+          "connection_signature": "未然形＋まし"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.muzu",
+      "kind": "construction",
+      "canonical_label": "むず（文言推量／意志）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词むず，表示推量／意志",
+        "connection": "未然形＋むず。",
+        "formation": "サ変型：終止形：むず；連体形：むずる；已然形：むずれ",
+        "examples": [
+          "行かむず"
+        ],
+        "counter_examples": [
+          "终止形＋むず"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：むず；連体形：むずる；已然形：むずれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.muzu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示推量／意志",
+          "label": "推量／意志"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_muzu"
+                ],
+                "base_forms": [
+                  "むず",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.muzu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.muzu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.muzu.usage",
+          "counter_examples": [
+            "终止形＋むず"
+          ],
+          "examples": [
+            "行かむず"
+          ],
+          "connection_signature": "未然形＋むず"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.mu",
+      "kind": "construction",
+      "canonical_label": "む（文言推量／意志／婉曲）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词む，表示推量／意志／婉曲",
+        "connection": "未然形＋む。",
+        "formation": "四段型：終止形：む、ん；連体形：む、ん；已然形：め；未然形：ま",
+        "examples": [
+          "行かむ"
+        ],
+        "counter_examples": [
+          "连用形＋む"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "終止形：む、ん；連体形：む、ん；已然形：め；未然形：ま",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.mu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示推量／意志／婉曲",
+          "label": "推量／意志／婉曲"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_mu"
+                ],
+                "base_forms": [
+                  "む",
+                  "ん"
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.mu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.mu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.mu.usage",
+          "counter_examples": [
+            "连用形＋む"
+          ],
+          "examples": [
+            "行かむ"
+          ],
+          "connection_signature": "未然形＋む"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ri",
+      "kind": "construction",
+      "canonical_label": "り（文言存续／完了）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词り，表示存续／完了",
+        "connection": "サ変の未然形と四段の已然形＋り。",
+        "formation": "ラ変型：未然形：ら；連用形：り；終止形：り；連体形：る；已然形：れ；命令形：れ",
+        "examples": [
+          "咲けり"
+        ],
+        "counter_examples": [
+          "四段未然形＋り"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：ら；連用形：り；終止形：り；連体形：る；已然形：れ；命令形：れ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.ri.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示存续／完了",
+          "label": "存续／完了"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_ri"
+                ],
+                "base_forms": [
+                  "り",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.ri.usage",
+          "possible_sense_ids": [
+            "grammar.classical.ri.usage"
+          ],
+          "realization_id": "realization.grammar.classical.ri.usage",
+          "counter_examples": [
+            "四段未然形＋り"
+          ],
+          "examples": [
+            "咲けり"
+          ],
+          "connection_signature": "サ変の未然形と四段の已然形＋り"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tari_copula",
+      "kind": "construction",
+      "canonical_label": "たり（文言断定）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词たり，表示断定",
+        "connection": "体言＋たり。",
+        "formation": "タリ活用：未然形：たら；連用形：たり、と；終止形：たり；連体形：たる；已然形：たれ；命令形：たれ",
+        "examples": [
+          "堂々たる姿"
+        ],
+        "counter_examples": [
+          "连用形＋たり为存续"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：たら；連用形：たり、と；終止形：たり；連体形：たる；已然形：たれ；命令形：たれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.tari_copula.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示断定",
+          "label": "断定"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "代名詞",
+                  "名詞",
+                  "形状詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_tari_copula"
+                ],
+                "base_forms": [
+                  "たり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.tari_copula.usage",
+          "possible_sense_ids": [
+            "grammar.classical.tari_copula.usage"
+          ],
+          "realization_id": "realization.grammar.classical.tari_copula.usage",
+          "counter_examples": [
+            "连用形＋たり为存续"
+          ],
+          "examples": [
+            "堂々たる姿"
+          ],
+          "connection_signature": "体言＋たり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tari_perfect",
+      "kind": "construction",
+      "canonical_label": "たり（文言存续／完了）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词たり，表示存续／完了",
+        "connection": "用言连用形＋たり。",
+        "formation": "ラ変型：未然形：たら；連用形：たり；終止形：たり；連体形：たる；已然形：たれ；命令形：たれ",
+        "examples": [
+          "花咲きたり"
+        ],
+        "counter_examples": [
+          "体言＋たり为断定"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：たら；連用形：たり；終止形：たり；連体形：たる；已然形：たれ；命令形：たれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.tari_perfect.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示存续／完了",
+          "label": "存续／完了"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_tari_perfect"
+                ],
+                "base_forms": [
+                  "たり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.tari_perfect.usage",
+          "possible_sense_ids": [
+            "grammar.classical.tari_perfect.usage"
+          ],
+          "realization_id": "realization.grammar.classical.tari_perfect.usage",
+          "counter_examples": [
+            "体言＋たり为断定"
+          ],
+          "examples": [
+            "花咲きたり"
+          ],
+          "connection_signature": "用言连用形＋たり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.nu",
+      "kind": "construction",
+      "canonical_label": "ぬ（文言完了／自然成立）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词ぬ，表示完了／自然成立",
+        "connection": "連用形＋ぬ。",
+        "formation": "ナ変型：未然形：な；連用形：に；終止形：ぬ；連体形：ぬる；已然形：ぬれ；命令形：ね",
+        "examples": [
+          "花散りぬ"
+        ],
+        "counter_examples": [
+          "否定ぬ接未然形"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：な；連用形：に；終止形：ぬ；連体形：ぬる；已然形：ぬれ；命令形：ね",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.nu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示完了／自然成立",
+          "label": "完了／自然成立"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_classical_nu"
+                ],
+                "base_forms": [
+                  "ぬ",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.nu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.nu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.nu.usage",
+          "counter_examples": [
+            "否定ぬ接未然形"
+          ],
+          "examples": [
+            "花散りぬ"
+          ],
+          "connection_signature": "連用形＋ぬ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.tsu",
+      "kind": "construction",
+      "canonical_label": "つ（文言完了／强意）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词つ，表示完了／强意",
+        "connection": "連用形＋つ。",
+        "formation": "下二段型：未然形：て；連用形：て；終止形：つ；連体形：つる；已然形：つれ；命令形：てよ",
+        "examples": [
+          "書きつ"
+        ],
+        "counter_examples": [
+          "未然形＋つ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：て；連用形：て；終止形：つ；連体形：つる；已然形：つれ；命令形：てよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.tsu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示完了／强意",
+          "label": "完了／强意"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_tsu"
+                ],
+                "base_forms": [
+                  "つ",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.tsu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.tsu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.tsu.usage",
+          "counter_examples": [
+            "未然形＋つ"
+          ],
+          "examples": [
+            "書きつ"
+          ],
+          "connection_signature": "連用形＋つ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.keri",
+      "kind": "construction",
+      "canonical_label": "けり（文言过去／咏叹）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词けり，表示过去／咏叹",
+        "connection": "連用形＋けり。",
+        "formation": "ラ変型：未然形：けら；終止形：けり；連体形：ける；已然形：けれ",
+        "examples": [
+          "花咲きけり"
+        ],
+        "counter_examples": [
+          "未然形＋けり"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：けら；終止形：けり；連体形：ける；已然形：けれ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.keri.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示过去／咏叹",
+          "label": "过去／咏叹"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_keri"
+                ],
+                "base_forms": [
+                  "けり",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.keri.usage",
+          "possible_sense_ids": [
+            "grammar.classical.keri.usage"
+          ],
+          "realization_id": "realization.grammar.classical.keri.usage",
+          "counter_examples": [
+            "未然形＋けり"
+          ],
+          "examples": [
+            "花咲きけり"
+          ],
+          "connection_signature": "連用形＋けり"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ki",
+      "kind": "construction",
+      "canonical_label": "き（文言过去）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词き，表示过去",
+        "connection": "連用形＋き。",
+        "formation": "特殊型：未然形：せ；終止形：き；連体形：し；已然形：しか",
+        "examples": [
+          "ありし日"
+        ],
+        "counter_examples": [
+          "终止形＋き"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：せ；終止形：き；連体形：し；已然形：しか",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.ki.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示过去",
+          "label": "过去"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_ki"
+                ],
+                "base_forms": [
+                  "き",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.ki.usage",
+          "possible_sense_ids": [
+            "grammar.classical.ki.usage"
+          ],
+          "realization_id": "realization.grammar.classical.ki.usage",
+          "counter_examples": [
+            "终止形＋き"
+          ],
+          "examples": [
+            "ありし日"
+          ],
+          "connection_signature": "連用形＋き"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.shimu",
+      "kind": "construction",
+      "canonical_label": "しむ（文言使役／尊敬）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词しむ，表示使役／尊敬",
+        "connection": "未然形＋しむ。",
+        "formation": "下二段型：未然形：しめ；連用形：しめ；終止形：しむ；連体形：しむる；已然形：しむれ；命令形：しめよ",
+        "examples": [
+          "行かしむ"
+        ],
+        "counter_examples": [
+          "终止形＋しむ"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：しめ；連用形：しめ；終止形：しむ；連体形：しむる；已然形：しむれ；命令形：しめよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.shimu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示使役／尊敬",
+          "label": "使役／尊敬"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_shimu"
+                ],
+                "base_forms": [
+                  "しむ",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.shimu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.shimu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.shimu.usage",
+          "counter_examples": [
+            "终止形＋しむ"
+          ],
+          "examples": [
+            "行かしむ"
+          ],
+          "connection_signature": "未然形＋しむ"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.sasu",
+      "kind": "construction",
+      "canonical_label": "さす（文言使役／尊敬）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词さす，表示使役／尊敬",
+        "connection": "四段・ナ変・ラ変以外の未然形＋さす。",
+        "formation": "下二段型：未然形：させ；連用形：させ；終止形：さす；連体形：さする；已然形：さすれ；命令形：させよ",
+        "examples": [
+          "受けさす"
+        ],
+        "counter_examples": [
+          "四段未然形＋さす"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：させ；連用形：させ；終止形：さす；連体形：さする；已然形：さすれ；命令形：させよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.sasu.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示使役／尊敬",
+          "label": "使役／尊敬"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_sasu"
+                ],
+                "base_forms": [
+                  "さす",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.sasu.usage",
+          "possible_sense_ids": [
+            "grammar.classical.sasu.usage"
+          ],
+          "realization_id": "realization.grammar.classical.sasu.usage",
+          "counter_examples": [
+            "四段未然形＋さす"
+          ],
+          "examples": [
+            "受けさす"
+          ],
+          "connection_signature": "四段・ナ変・ラ変以外の未然形＋さす"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.su",
+      "kind": "construction",
+      "canonical_label": "す（文言使役）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词す，表示使役",
+        "connection": "四段・ナ変・ラ変の未然形＋す。",
+        "formation": "下二段型：未然形：せ；連用形：せ；終止形：す；連体形：する；已然形：すれ；命令形：せよ",
+        "examples": [
+          "行かす"
+        ],
+        "counter_examples": [
+          "四段终止形＋す"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：せ；連用形：せ；終止形：す；連体形：する；已然形：すれ；命令形：せよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.su.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示使役",
+          "label": "使役"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_su"
+                ],
+                "base_forms": [
+                  "す",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.su.usage",
+          "possible_sense_ids": [
+            "grammar.classical.su.usage"
+          ],
+          "realization_id": "realization.grammar.classical.su.usage",
+          "counter_examples": [
+            "四段终止形＋す"
+          ],
+          "examples": [
+            "行かす"
+          ],
+          "connection_signature": "四段・ナ変・ラ変の未然形＋す"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.raru",
+      "kind": "construction",
+      "canonical_label": "らる（文言受身／自发／可能／尊敬）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词らる，表示受身／自发／可能／尊敬",
+        "connection": "四段・ナ変・ラ変以外の未然形＋らる。",
+        "formation": "下二段型：未然形：られ；連用形：られ；終止形：らる；連体形：らるる；已然形：らるれ；命令形：られよ",
+        "examples": [
+          "受けらる"
+        ],
+        "counter_examples": [
+          "四段未然形＋らる"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：られ；連用形：られ；終止形：らる；連体形：らるる；已然形：らるれ；命令形：られよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.raru.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示受身／自发／可能／尊敬",
+          "label": "受身／自发／可能／尊敬"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_raru"
+                ],
+                "base_forms": [
+                  "らる",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.raru.usage",
+          "possible_sense_ids": [
+            "grammar.classical.raru.usage"
+          ],
+          "realization_id": "realization.grammar.classical.raru.usage",
+          "counter_examples": [
+            "四段未然形＋らる"
+          ],
+          "examples": [
+            "受けらる"
+          ],
+          "connection_signature": "四段・ナ変・ラ変以外の未然形＋らる"
+        }
+      ]
+    },
+    {
+      "concept_id": "grammar.classical.ru",
+      "kind": "construction",
+      "canonical_label": "る（文言受身／自发／可能／尊敬）",
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "explanation": {
+        "compact_summary": "文语助动词る，表示受身／自发／可能／尊敬",
+        "connection": "四段・ナ変・ラ変の未然形＋る。",
+        "formation": "下二段型：未然形：れ；連用形：れ；終止形：る；連体形：るる；已然形：るれ；命令形：れよ",
+        "examples": [
+          "書かる"
+        ],
+        "counter_examples": [
+          "未然形之外的四段词形"
+        ],
+        "body_blocks": [
+          {
+            "kind": "comparison_table",
+            "text": "未然形：れ；連用形：れ；終止形：る；連体形：るる；已然形：るれ；命令形：れよ",
+            "label": "活用表"
+          }
+        ]
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.ru.usage",
+          "semantic_features": {
+            "function": "classical_auxiliary"
+          },
+          "function_summary": "表示受身／自发／可能／尊敬",
+          "label": "受身／自发／可能／尊敬"
+        }
+      ],
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "動詞",
+                  "形容詞",
+                  "形状詞",
+                  "助動詞"
+                ],
+                "capture": "predicate"
+              },
+              {
+                "pos_major": [
+                  "助動詞"
+                ],
+                "capture": "auxiliary",
+                "morphology_features": [
+                  "classical_ru"
+                ],
+                "base_forms": [
+                  "る",
+                  null
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate",
+              "auxiliary"
+            ]
+          },
+          "rule_id": "grammar.classical.ru.usage",
+          "possible_sense_ids": [
+            "grammar.classical.ru.usage"
+          ],
+          "realization_id": "realization.grammar.classical.ru.usage",
+          "counter_examples": [
+            "未然形之外的四段词形"
+          ],
+          "examples": [
+            "書かる"
+          ],
+          "connection_signature": "四段・ナ変・ラ変の未然形＋る"
+        }
+      ]
+    },
+    {
+      "jlpt_level": null,
+      "function_tags": [
+        "classical_inflection"
+      ],
+      "canonical_label": "文言形容词活用",
+      "register": [
+        "classical",
+        "written"
+      ],
+      "kind": "construction",
+      "realizations": [
+        {
+          "rule": {
+            "priority": 72,
+            "kind": "grammar_construction",
+            "atoms": [
+              {
+                "pos_major": [
+                  "形容詞",
+                  "形状詞"
+                ],
+                "capture": "predicate",
+                "morphology_features": [
+                  "classical_adjective"
+                ]
+              }
+            ],
+            "show_badge": true,
+            "captures": [
+              "predicate"
+            ]
+          },
+          "rule_id": "grammar.classical.adjective.inflection",
+          "possible_sense_ids": [
+            "grammar.classical.adjective.inflection"
+          ],
+          "realization_id": "realization.grammar.classical.adjective.inflection",
+          "counter_examples": [
+            "现代形容词美しい"
+          ],
+          "examples": [
+            "美しき花。"
+          ],
+          "connection_signature": "文言用言词干＋活用词尾"
+        }
+      ],
+      "concept_id": "grammar.classical.adjective",
+      "semantic_domains": [
+        "classical",
+        "conjugation"
+      ],
+      "explanation": {
+        "examples": [
+          "美しき花。",
+          "堂々たる姿。"
+        ],
+        "formation": "よし／美し／静かなり／堂々たり",
+        "body_blocks": [],
+        "counter_examples": [
+          "现代形容词美しい采用现代活用表"
+        ],
+        "compact_summary": "ク、シク、ナリ、タリ活用按活用型和词干生成文言词形",
+        "connection": "词干与活用词尾组成用言；后接助动词按实际未然形、连用形或终止形等状态判断。"
+      },
+      "senses": [
+        {
+          "sense_id": "grammar.classical.adjective.inflection",
+          "semantic_features": {
+            "function": "classical_inflection"
+          },
+          "function_summary": "记录用言词干、活用型和实际活用形",
+          "label": "文言活用"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "item_count": 30,
+    "method": "按词本体建立普通语法词条，由文言活用表校验词形和前接状态",
+    "baseline": "docs/morphology_state_machine_design.md"
+  },
+  "bundle_id": "morphology-classical-auxiliaries"
+}

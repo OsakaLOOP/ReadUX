@@ -3855,6 +3855,846 @@
       "audit_status": "verified",
       "concept_version": 1,
       "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.yaunari",
+      "kind": "construction",
+      "canonical_label": "やうなり（文言比况／例示）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.yaunari",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.gotokunari",
+      "kind": "construction",
+      "canonical_label": "ごとくなり（文言比况）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.gotokunari",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.nari_hearsay",
+      "kind": "construction",
+      "canonical_label": "なり（文言传闻／推定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.nari_hearsay",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.nari_copula",
+      "kind": "construction",
+      "canonical_label": "なり（文言断定／存在）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.nari_copula",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.mahoshi",
+      "kind": "construction",
+      "canonical_label": "まほし（文言愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.mahoshi",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.tashi",
+      "kind": "construction",
+      "canonical_label": "たし（文言愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.tashi",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.maji",
+      "kind": "construction",
+      "canonical_label": "まじ（文言否定推量／禁止）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.maji",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.ji",
+      "kind": "construction",
+      "canonical_label": "じ（文言否定推量／否定意志）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.ji",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.beranari",
+      "kind": "construction",
+      "canonical_label": "べらなり（文言推量）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.beranari",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.meri",
+      "kind": "construction",
+      "canonical_label": "めり（文言推定／婉曲）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.meri",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.kerashi",
+      "kind": "construction",
+      "canonical_label": "けらし（文言过去推定／咏叹）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.kerashi",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.rashi",
+      "kind": "construction",
+      "canonical_label": "らし（文言推定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.rashi",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.ramu",
+      "kind": "construction",
+      "canonical_label": "らむ（文言现在推量／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.ramu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.kemu",
+      "kind": "construction",
+      "canonical_label": "けむ（文言过去推量／传闻）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.kemu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.mashi",
+      "kind": "construction",
+      "canonical_label": "まし（文言反实／愿望）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.mashi",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.muzu",
+      "kind": "construction",
+      "canonical_label": "むず（文言推量／意志）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.muzu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.mu",
+      "kind": "construction",
+      "canonical_label": "む（文言推量／意志／婉曲）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.mu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.ri",
+      "kind": "construction",
+      "canonical_label": "り（文言存续／完了）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.ri",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.tari_copula",
+      "kind": "construction",
+      "canonical_label": "たり（文言断定）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.tari_copula",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.tari_perfect",
+      "kind": "construction",
+      "canonical_label": "たり（文言存续／完了）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.tari_perfect",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.nu",
+      "kind": "construction",
+      "canonical_label": "ぬ（文言完了／自然成立）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.nu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.tsu",
+      "kind": "construction",
+      "canonical_label": "つ（文言完了／强意）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.tsu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.keri",
+      "kind": "construction",
+      "canonical_label": "けり（文言过去／咏叹）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.keri",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.ki",
+      "kind": "construction",
+      "canonical_label": "き（文言过去）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.ki",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.shimu",
+      "kind": "construction",
+      "canonical_label": "しむ（文言使役／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.shimu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.sasu",
+      "kind": "construction",
+      "canonical_label": "さす（文言使役／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.sasu",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.su",
+      "kind": "construction",
+      "canonical_label": "す（文言使役）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.su",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.raru",
+      "kind": "construction",
+      "canonical_label": "らる（文言受身／自发／可能／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.raru",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.ru",
+      "kind": "construction",
+      "canonical_label": "る（文言受身／自发／可能／尊敬）",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "grammar"
+      ],
+      "function_tags": [
+        "classical_auxiliary"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.ru",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.classical.adjective",
+      "kind": "construction",
+      "canonical_label": "文言形容词活用",
+      "aliases": [],
+      "semantic_domains": [
+        "classical",
+        "conjugation"
+      ],
+      "function_tags": [
+        "classical_inflection"
+      ],
+      "jlpt_level": null,
+      "register": [
+        "classical",
+        "written"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.classical.adjective",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "audit_status": "verified",
+      "concept_version": 1,
+      "enabled": true
     }
   ],
   "senses": [
@@ -6980,6 +7820,486 @@
       "related_sense_ids": [],
       "contrast_sense_ids": [],
       "explanation_id": "explanation.grammar.quotation.to_iu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.yaunari.usage",
+      "concept_id": "grammar.classical.yaunari",
+      "label": "比况／例示",
+      "function_summary": "表示比况／例示",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.yaunari",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.gotokunari.usage",
+      "concept_id": "grammar.classical.gotokunari",
+      "label": "比况",
+      "function_summary": "表示比况",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.gotokunari",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.nari_hearsay.usage",
+      "concept_id": "grammar.classical.nari_hearsay",
+      "label": "传闻／推定",
+      "function_summary": "表示传闻／推定",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.nari_hearsay",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.nari_copula.usage",
+      "concept_id": "grammar.classical.nari_copula",
+      "label": "断定／存在",
+      "function_summary": "表示断定／存在",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.nari_copula",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.mahoshi.usage",
+      "concept_id": "grammar.classical.mahoshi",
+      "label": "愿望",
+      "function_summary": "表示愿望",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.mahoshi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.tashi.usage",
+      "concept_id": "grammar.classical.tashi",
+      "label": "愿望",
+      "function_summary": "表示愿望",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.tashi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.maji.usage",
+      "concept_id": "grammar.classical.maji",
+      "label": "否定推量／禁止",
+      "function_summary": "表示否定推量／禁止",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.maji",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.ji.usage",
+      "concept_id": "grammar.classical.ji",
+      "label": "否定推量／否定意志",
+      "function_summary": "表示否定推量／否定意志",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.ji",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.beranari.usage",
+      "concept_id": "grammar.classical.beranari",
+      "label": "推量",
+      "function_summary": "表示推量",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.beranari",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.meri.usage",
+      "concept_id": "grammar.classical.meri",
+      "label": "推定／婉曲",
+      "function_summary": "表示推定／婉曲",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.meri",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.kerashi.usage",
+      "concept_id": "grammar.classical.kerashi",
+      "label": "过去推定／咏叹",
+      "function_summary": "表示过去推定／咏叹",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.kerashi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.rashi.usage",
+      "concept_id": "grammar.classical.rashi",
+      "label": "推定",
+      "function_summary": "表示推定",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.rashi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.ramu.usage",
+      "concept_id": "grammar.classical.ramu",
+      "label": "现在推量／传闻",
+      "function_summary": "表示现在推量／传闻",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.ramu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.kemu.usage",
+      "concept_id": "grammar.classical.kemu",
+      "label": "过去推量／传闻",
+      "function_summary": "表示过去推量／传闻",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.kemu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.mashi.usage",
+      "concept_id": "grammar.classical.mashi",
+      "label": "反实／愿望",
+      "function_summary": "表示反实／愿望",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.mashi",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.muzu.usage",
+      "concept_id": "grammar.classical.muzu",
+      "label": "推量／意志",
+      "function_summary": "表示推量／意志",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.muzu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.mu.usage",
+      "concept_id": "grammar.classical.mu",
+      "label": "推量／意志／婉曲",
+      "function_summary": "表示推量／意志／婉曲",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.mu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.ri.usage",
+      "concept_id": "grammar.classical.ri",
+      "label": "存续／完了",
+      "function_summary": "表示存续／完了",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.ri",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.tari_copula.usage",
+      "concept_id": "grammar.classical.tari_copula",
+      "label": "断定",
+      "function_summary": "表示断定",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.tari_copula",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.tari_perfect.usage",
+      "concept_id": "grammar.classical.tari_perfect",
+      "label": "存续／完了",
+      "function_summary": "表示存续／完了",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.tari_perfect",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.nu.usage",
+      "concept_id": "grammar.classical.nu",
+      "label": "完了／自然成立",
+      "function_summary": "表示完了／自然成立",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.nu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.tsu.usage",
+      "concept_id": "grammar.classical.tsu",
+      "label": "完了／强意",
+      "function_summary": "表示完了／强意",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.tsu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.keri.usage",
+      "concept_id": "grammar.classical.keri",
+      "label": "过去／咏叹",
+      "function_summary": "表示过去／咏叹",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.keri",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.ki.usage",
+      "concept_id": "grammar.classical.ki",
+      "label": "过去",
+      "function_summary": "表示过去",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.ki",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.shimu.usage",
+      "concept_id": "grammar.classical.shimu",
+      "label": "使役／尊敬",
+      "function_summary": "表示使役／尊敬",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.shimu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.sasu.usage",
+      "concept_id": "grammar.classical.sasu",
+      "label": "使役／尊敬",
+      "function_summary": "表示使役／尊敬",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.sasu",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.su.usage",
+      "concept_id": "grammar.classical.su",
+      "label": "使役",
+      "function_summary": "表示使役",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.su",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.raru.usage",
+      "concept_id": "grammar.classical.raru",
+      "label": "受身／自发／可能／尊敬",
+      "function_summary": "表示受身／自发／可能／尊敬",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.raru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.ru.usage",
+      "concept_id": "grammar.classical.ru",
+      "label": "受身／自发／可能／尊敬",
+      "function_summary": "表示受身／自发／可能／尊敬",
+      "semantic_features": {
+        "function": "classical_auxiliary"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.ru",
+      "sense_version": 1,
+      "audit_status": "verified"
+    },
+    {
+      "sense_id": "grammar.classical.adjective.inflection",
+      "concept_id": "grammar.classical.adjective",
+      "label": "文言活用",
+      "function_summary": "记录用言词干、活用型和实际活用形",
+      "semantic_features": {
+        "function": "classical_inflection"
+      },
+      "context_requirements": [],
+      "exclusion_conditions": [],
+      "related_sense_ids": [],
+      "contrast_sense_ids": [],
+      "explanation_id": "explanation.grammar.classical.adjective",
       "sense_version": 1,
       "audit_status": "verified"
     }
@@ -10617,6 +11937,726 @@
         "corpus:七日の喰い神/第一話:grammar-review-batch-003",
         "ipadic:provider-decomposition"
       ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.yaunari.usage",
+      "concept_id": "grammar.classical.yaunari",
+      "possible_sense_ids": [
+        "grammar.classical.yaunari.usage"
+      ],
+      "rule_id": "grammar.classical.yaunari.usage",
+      "connection_signature": "体言＋やうなり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "夢やうなり"
+      ],
+      "counter_examples": [
+        "现代ようだ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.gotokunari.usage",
+      "concept_id": "grammar.classical.gotokunari",
+      "possible_sense_ids": [
+        "grammar.classical.gotokunari.usage"
+      ],
+      "rule_id": "grammar.classical.gotokunari.usage",
+      "connection_signature": "連体形と体言＋ごとくなり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "夢ごとくなり"
+      ],
+      "counter_examples": [
+        "现代ようだ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.nari_hearsay.usage",
+      "concept_id": "grammar.classical.nari_hearsay",
+      "possible_sense_ids": [
+        "grammar.classical.nari_hearsay.usage"
+      ],
+      "rule_id": "grammar.classical.nari_hearsay.usage",
+      "connection_signature": "终止形或ラ变连用形＋なり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "雨降るなり"
+      ],
+      "counter_examples": [
+        "体言＋なり为断定"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.nari_copula.usage",
+      "concept_id": "grammar.classical.nari_copula",
+      "possible_sense_ids": [
+        "grammar.classical.nari_copula.usage"
+      ],
+      "rule_id": "grammar.classical.nari_copula.usage",
+      "connection_signature": "体言或连体形＋なり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "夢なり"
+      ],
+      "counter_examples": [
+        "终止形＋なり为传闻"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.mahoshi.usage",
+      "concept_id": "grammar.classical.mahoshi",
+      "possible_sense_ids": [
+        "grammar.classical.mahoshi.usage"
+      ],
+      "rule_id": "grammar.classical.mahoshi.usage",
+      "connection_signature": "未然形＋まほし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "見まほし"
+      ],
+      "counter_examples": [
+        "连用形＋まほし"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.tashi.usage",
+      "concept_id": "grammar.classical.tashi",
+      "possible_sense_ids": [
+        "grammar.classical.tashi.usage"
+      ],
+      "rule_id": "grammar.classical.tashi.usage",
+      "connection_signature": "連用形＋たし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "見たし"
+      ],
+      "counter_examples": [
+        "未然形＋たし"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.maji.usage",
+      "concept_id": "grammar.classical.maji",
+      "possible_sense_ids": [
+        "grammar.classical.maji.usage"
+      ],
+      "rule_id": "grammar.classical.maji.usage",
+      "connection_signature": "終止形とラ変型の連体形＋まじ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行くまじ"
+      ],
+      "counter_examples": [
+        "未然形＋まじ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.ji.usage",
+      "concept_id": "grammar.classical.ji",
+      "possible_sense_ids": [
+        "grammar.classical.ji.usage"
+      ],
+      "rule_id": "grammar.classical.ji.usage",
+      "connection_signature": "未然形＋じ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行かじ"
+      ],
+      "counter_examples": [
+        "终止形＋じ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.beranari.usage",
+      "concept_id": "grammar.classical.beranari",
+      "possible_sense_ids": [
+        "grammar.classical.beranari.usage"
+      ],
+      "rule_id": "grammar.classical.beranari.usage",
+      "connection_signature": "終止形とラ変型の連体形＋べらなり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行くべらなり"
+      ],
+      "counter_examples": [
+        "现代べきだ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.meri.usage",
+      "concept_id": "grammar.classical.meri",
+      "possible_sense_ids": [
+        "grammar.classical.meri.usage"
+      ],
+      "rule_id": "grammar.classical.meri.usage",
+      "connection_signature": "終止形とラ変型の連体形＋めり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "咲くめり"
+      ],
+      "counter_examples": [
+        "未然形＋めり"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.kerashi.usage",
+      "concept_id": "grammar.classical.kerashi",
+      "possible_sense_ids": [
+        "grammar.classical.kerashi.usage"
+      ],
+      "rule_id": "grammar.classical.kerashi.usage",
+      "connection_signature": "連用形＋けらし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "咲きけらし"
+      ],
+      "counter_examples": [
+        "现代过去推量たらしい"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.rashi.usage",
+      "concept_id": "grammar.classical.rashi",
+      "possible_sense_ids": [
+        "grammar.classical.rashi.usage"
+      ],
+      "rule_id": "grammar.classical.rashi.usage",
+      "connection_signature": "終止形とラ変型の連体形＋らし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "春来るらし"
+      ],
+      "counter_examples": [
+        "现代推量らしい"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.ramu.usage",
+      "concept_id": "grammar.classical.ramu",
+      "possible_sense_ids": [
+        "grammar.classical.ramu.usage"
+      ],
+      "rule_id": "grammar.classical.ramu.usage",
+      "connection_signature": "終止形とラ変型の連体形＋らむ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行くらむ"
+      ],
+      "counter_examples": [
+        "未然形＋らむ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.kemu.usage",
+      "concept_id": "grammar.classical.kemu",
+      "possible_sense_ids": [
+        "grammar.classical.kemu.usage"
+      ],
+      "rule_id": "grammar.classical.kemu.usage",
+      "connection_signature": "連用形＋けむ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "見けむ"
+      ],
+      "counter_examples": [
+        "未然形＋けむ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.mashi.usage",
+      "concept_id": "grammar.classical.mashi",
+      "possible_sense_ids": [
+        "grammar.classical.mashi.usage"
+      ],
+      "rule_id": "grammar.classical.mashi.usage",
+      "connection_signature": "未然形＋まし",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "見まし"
+      ],
+      "counter_examples": [
+        "连用形＋まし"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.muzu.usage",
+      "concept_id": "grammar.classical.muzu",
+      "possible_sense_ids": [
+        "grammar.classical.muzu.usage"
+      ],
+      "rule_id": "grammar.classical.muzu.usage",
+      "connection_signature": "未然形＋むず",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行かむず"
+      ],
+      "counter_examples": [
+        "终止形＋むず"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.mu.usage",
+      "concept_id": "grammar.classical.mu",
+      "possible_sense_ids": [
+        "grammar.classical.mu.usage"
+      ],
+      "rule_id": "grammar.classical.mu.usage",
+      "connection_signature": "未然形＋む",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行かむ"
+      ],
+      "counter_examples": [
+        "连用形＋む"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.ri.usage",
+      "concept_id": "grammar.classical.ri",
+      "possible_sense_ids": [
+        "grammar.classical.ri.usage"
+      ],
+      "rule_id": "grammar.classical.ri.usage",
+      "connection_signature": "サ変の未然形と四段の已然形＋り",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "咲けり"
+      ],
+      "counter_examples": [
+        "四段未然形＋り"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.tari_copula.usage",
+      "concept_id": "grammar.classical.tari_copula",
+      "possible_sense_ids": [
+        "grammar.classical.tari_copula.usage"
+      ],
+      "rule_id": "grammar.classical.tari_copula.usage",
+      "connection_signature": "体言＋たり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "堂々たる姿"
+      ],
+      "counter_examples": [
+        "连用形＋たり为存续"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.tari_perfect.usage",
+      "concept_id": "grammar.classical.tari_perfect",
+      "possible_sense_ids": [
+        "grammar.classical.tari_perfect.usage"
+      ],
+      "rule_id": "grammar.classical.tari_perfect.usage",
+      "connection_signature": "用言连用形＋たり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "花咲きたり"
+      ],
+      "counter_examples": [
+        "体言＋たり为断定"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.nu.usage",
+      "concept_id": "grammar.classical.nu",
+      "possible_sense_ids": [
+        "grammar.classical.nu.usage"
+      ],
+      "rule_id": "grammar.classical.nu.usage",
+      "connection_signature": "連用形＋ぬ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "花散りぬ"
+      ],
+      "counter_examples": [
+        "否定ぬ接未然形"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.tsu.usage",
+      "concept_id": "grammar.classical.tsu",
+      "possible_sense_ids": [
+        "grammar.classical.tsu.usage"
+      ],
+      "rule_id": "grammar.classical.tsu.usage",
+      "connection_signature": "連用形＋つ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "書きつ"
+      ],
+      "counter_examples": [
+        "未然形＋つ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.keri.usage",
+      "concept_id": "grammar.classical.keri",
+      "possible_sense_ids": [
+        "grammar.classical.keri.usage"
+      ],
+      "rule_id": "grammar.classical.keri.usage",
+      "connection_signature": "連用形＋けり",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "花咲きけり"
+      ],
+      "counter_examples": [
+        "未然形＋けり"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.ki.usage",
+      "concept_id": "grammar.classical.ki",
+      "possible_sense_ids": [
+        "grammar.classical.ki.usage"
+      ],
+      "rule_id": "grammar.classical.ki.usage",
+      "connection_signature": "連用形＋き",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "ありし日"
+      ],
+      "counter_examples": [
+        "终止形＋き"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.shimu.usage",
+      "concept_id": "grammar.classical.shimu",
+      "possible_sense_ids": [
+        "grammar.classical.shimu.usage"
+      ],
+      "rule_id": "grammar.classical.shimu.usage",
+      "connection_signature": "未然形＋しむ",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行かしむ"
+      ],
+      "counter_examples": [
+        "终止形＋しむ"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.sasu.usage",
+      "concept_id": "grammar.classical.sasu",
+      "possible_sense_ids": [
+        "grammar.classical.sasu.usage"
+      ],
+      "rule_id": "grammar.classical.sasu.usage",
+      "connection_signature": "四段・ナ変・ラ変以外の未然形＋さす",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "受けさす"
+      ],
+      "counter_examples": [
+        "四段未然形＋さす"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.su.usage",
+      "concept_id": "grammar.classical.su",
+      "possible_sense_ids": [
+        "grammar.classical.su.usage"
+      ],
+      "rule_id": "grammar.classical.su.usage",
+      "connection_signature": "四段・ナ変・ラ変の未然形＋す",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "行かす"
+      ],
+      "counter_examples": [
+        "四段终止形＋す"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.raru.usage",
+      "concept_id": "grammar.classical.raru",
+      "possible_sense_ids": [
+        "grammar.classical.raru.usage"
+      ],
+      "rule_id": "grammar.classical.raru.usage",
+      "connection_signature": "四段・ナ変・ラ変以外の未然形＋らる",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "受けらる"
+      ],
+      "counter_examples": [
+        "四段未然形＋らる"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.ru.usage",
+      "concept_id": "grammar.classical.ru",
+      "possible_sense_ids": [
+        "grammar.classical.ru.usage"
+      ],
+      "rule_id": "grammar.classical.ru.usage",
+      "connection_signature": "四段・ナ変・ラ変の未然形＋る",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "書かる"
+      ],
+      "counter_examples": [
+        "未然形之外的四段词形"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
+    },
+    {
+      "realization_id": "realization.grammar.classical.adjective.inflection",
+      "concept_id": "grammar.classical.adjective",
+      "possible_sense_ids": [
+        "grammar.classical.adjective.inflection"
+      ],
+      "rule_id": "grammar.classical.adjective.inflection",
+      "connection_signature": "文言用言词干＋活用词尾",
+      "morphology_requirements": [],
+      "functional_requirements": [],
+      "context_requirements": [],
+      "examples": [
+        "美しき花。"
+      ],
+      "counter_examples": [
+        "现代形容词美しい"
+      ],
+      "realization_version": 1,
+      "audit_status": "verified",
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ]
     }
   ],
   "rules": [
@@ -12922,24 +14962,7 @@
       "priority": 80,
       "enabled": true,
       "audit_status": "verified",
-      "atoms": [
-        {
-          "pos_major": ["動詞"],
-          "conjugation_forms": ["連用タ接続"],
-          "capture": "predicate"
-        },
-        {
-          "base_forms": ["て", "で"],
-          "pos_major": ["助詞"],
-          "pos_sub1": ["接続助詞"],
-          "capture": "connector"
-        },
-        {
-          "base_forms": ["ゆく"],
-          "pos_major": ["動詞"],
-          "capture": "functional_verb"
-        }
-      ],
+      "atoms": [],
       "display_from": 1,
       "display_to": null,
       "captures": [
@@ -14432,6 +16455,101 @@
       "show_badge": false
     },
     {
+      "rule_id": "grammar.classical.adjective.inflection",
+      "realization_id": "realization.grammar.classical.adjective.inflection",
+      "concept_id": "grammar.classical.adjective",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "形容詞",
+            "形状詞"
+          ],
+          "capture": "predicate",
+          "morphology_features": [
+            "classical_adjective"
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "美しき花。"
+      ],
+      "counter_examples": [
+        "现代形容词美しい"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.beranari.usage",
+      "realization_id": "realization.grammar.classical.beranari.usage",
+      "concept_id": "grammar.classical.beranari",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_beranari"
+          ],
+          "base_forms": [
+            "べらなり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行くべらなり"
+      ],
+      "counter_examples": [
+        "现代べきだ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
       "rule_id": "grammar.classical.beshi.modality",
       "realization_id": "realization.grammar.classical.beshi.modality",
       "concept_id": "grammar.classical.beshi",
@@ -14485,6 +16603,61 @@
       "show_badge": true
     },
     {
+      "rule_id": "grammar.classical.gotokunari.usage",
+      "realization_id": "realization.grammar.classical.gotokunari.usage",
+      "concept_id": "grammar.classical.gotokunari",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "名詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_gotokunari"
+          ],
+          "base_forms": [
+            "ごとくなり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "夢ごとくなり"
+      ],
+      "counter_examples": [
+        "现代ようだ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
       "rule_id": "grammar.classical.gotoshi.simile",
       "realization_id": "realization.grammar.classical.gotoshi.simile",
       "concept_id": "grammar.classical.gotoshi",
@@ -14531,6 +16704,1466 @@
       "source_refs": [
         "readux-editorial:2026-10-26",
         "morphology-refactor:classical-layer"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.ji.usage",
+      "realization_id": "realization.grammar.classical.ji.usage",
+      "concept_id": "grammar.classical.ji",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_ji"
+          ],
+          "base_forms": [
+            "じ",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行かじ"
+      ],
+      "counter_examples": [
+        "终止形＋じ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.kemu.usage",
+      "realization_id": "realization.grammar.classical.kemu.usage",
+      "concept_id": "grammar.classical.kemu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_kemu"
+          ],
+          "base_forms": [
+            "けむ",
+            "けん"
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "見けむ"
+      ],
+      "counter_examples": [
+        "未然形＋けむ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.kerashi.usage",
+      "realization_id": "realization.grammar.classical.kerashi.usage",
+      "concept_id": "grammar.classical.kerashi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_kerashi"
+          ],
+          "base_forms": [
+            "けらし",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "咲きけらし"
+      ],
+      "counter_examples": [
+        "现代过去推量たらしい"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.keri.usage",
+      "realization_id": "realization.grammar.classical.keri.usage",
+      "concept_id": "grammar.classical.keri",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_keri"
+          ],
+          "base_forms": [
+            "けり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "花咲きけり"
+      ],
+      "counter_examples": [
+        "未然形＋けり"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.ki.usage",
+      "realization_id": "realization.grammar.classical.ki.usage",
+      "concept_id": "grammar.classical.ki",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_ki"
+          ],
+          "base_forms": [
+            "き",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "ありし日"
+      ],
+      "counter_examples": [
+        "终止形＋き"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.mahoshi.usage",
+      "realization_id": "realization.grammar.classical.mahoshi.usage",
+      "concept_id": "grammar.classical.mahoshi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_mahoshi"
+          ],
+          "base_forms": [
+            "まほし",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "見まほし"
+      ],
+      "counter_examples": [
+        "连用形＋まほし"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.maji.usage",
+      "realization_id": "realization.grammar.classical.maji.usage",
+      "concept_id": "grammar.classical.maji",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_maji"
+          ],
+          "base_forms": [
+            "まじ",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行くまじ"
+      ],
+      "counter_examples": [
+        "未然形＋まじ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.mashi.usage",
+      "realization_id": "realization.grammar.classical.mashi.usage",
+      "concept_id": "grammar.classical.mashi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_mashi"
+          ],
+          "base_forms": [
+            "まし",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "見まし"
+      ],
+      "counter_examples": [
+        "连用形＋まし"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.meri.usage",
+      "realization_id": "realization.grammar.classical.meri.usage",
+      "concept_id": "grammar.classical.meri",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_meri"
+          ],
+          "base_forms": [
+            "めり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "咲くめり"
+      ],
+      "counter_examples": [
+        "未然形＋めり"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.mu.usage",
+      "realization_id": "realization.grammar.classical.mu.usage",
+      "concept_id": "grammar.classical.mu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_mu"
+          ],
+          "base_forms": [
+            "む",
+            "ん"
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行かむ"
+      ],
+      "counter_examples": [
+        "连用形＋む"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.muzu.usage",
+      "realization_id": "realization.grammar.classical.muzu.usage",
+      "concept_id": "grammar.classical.muzu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_muzu"
+          ],
+          "base_forms": [
+            "むず",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行かむず"
+      ],
+      "counter_examples": [
+        "终止形＋むず"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.nari_copula.usage",
+      "realization_id": "realization.grammar.classical.nari_copula.usage",
+      "concept_id": "grammar.classical.nari_copula",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "代名詞",
+            "動詞",
+            "名詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_nari_copula"
+          ],
+          "base_forms": [
+            "なり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "夢なり"
+      ],
+      "counter_examples": [
+        "终止形＋なり为传闻"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.nari_hearsay.usage",
+      "realization_id": "realization.grammar.classical.nari_hearsay.usage",
+      "concept_id": "grammar.classical.nari_hearsay",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_nari_hearsay"
+          ],
+          "base_forms": [
+            "なり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "雨降るなり"
+      ],
+      "counter_examples": [
+        "体言＋なり为断定"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.nu.usage",
+      "realization_id": "realization.grammar.classical.nu.usage",
+      "concept_id": "grammar.classical.nu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_classical_nu"
+          ],
+          "base_forms": [
+            "ぬ",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "花散りぬ"
+      ],
+      "counter_examples": [
+        "否定ぬ接未然形"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.ramu.usage",
+      "realization_id": "realization.grammar.classical.ramu.usage",
+      "concept_id": "grammar.classical.ramu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_ramu"
+          ],
+          "base_forms": [
+            "らむ",
+            "らん"
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行くらむ"
+      ],
+      "counter_examples": [
+        "未然形＋らむ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.raru.usage",
+      "realization_id": "realization.grammar.classical.raru.usage",
+      "concept_id": "grammar.classical.raru",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_raru"
+          ],
+          "base_forms": [
+            "らる",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "受けらる"
+      ],
+      "counter_examples": [
+        "四段未然形＋らる"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.rashi.usage",
+      "realization_id": "realization.grammar.classical.rashi.usage",
+      "concept_id": "grammar.classical.rashi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_rashi"
+          ],
+          "base_forms": [
+            "らし",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "春来るらし"
+      ],
+      "counter_examples": [
+        "现代推量らしい"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.ri.usage",
+      "realization_id": "realization.grammar.classical.ri.usage",
+      "concept_id": "grammar.classical.ri",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_ri"
+          ],
+          "base_forms": [
+            "り",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "咲けり"
+      ],
+      "counter_examples": [
+        "四段未然形＋り"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.ru.usage",
+      "realization_id": "realization.grammar.classical.ru.usage",
+      "concept_id": "grammar.classical.ru",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_ru"
+          ],
+          "base_forms": [
+            "る",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "書かる"
+      ],
+      "counter_examples": [
+        "未然形之外的四段词形"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.sasu.usage",
+      "realization_id": "realization.grammar.classical.sasu.usage",
+      "concept_id": "grammar.classical.sasu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_sasu"
+          ],
+          "base_forms": [
+            "さす",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "受けさす"
+      ],
+      "counter_examples": [
+        "四段未然形＋さす"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.shimu.usage",
+      "realization_id": "realization.grammar.classical.shimu.usage",
+      "concept_id": "grammar.classical.shimu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_shimu"
+          ],
+          "base_forms": [
+            "しむ",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行かしむ"
+      ],
+      "counter_examples": [
+        "终止形＋しむ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.su.usage",
+      "realization_id": "realization.grammar.classical.su.usage",
+      "concept_id": "grammar.classical.su",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_su"
+          ],
+          "base_forms": [
+            "す",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "行かす"
+      ],
+      "counter_examples": [
+        "四段终止形＋す"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.tari_copula.usage",
+      "realization_id": "realization.grammar.classical.tari_copula.usage",
+      "concept_id": "grammar.classical.tari_copula",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "代名詞",
+            "名詞",
+            "形状詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_tari_copula"
+          ],
+          "base_forms": [
+            "たり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "堂々たる姿"
+      ],
+      "counter_examples": [
+        "连用形＋たり为存续"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.tari_perfect.usage",
+      "realization_id": "realization.grammar.classical.tari_perfect.usage",
+      "concept_id": "grammar.classical.tari_perfect",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_tari_perfect"
+          ],
+          "base_forms": [
+            "たり",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "花咲きたり"
+      ],
+      "counter_examples": [
+        "体言＋たり为断定"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.tashi.usage",
+      "realization_id": "realization.grammar.classical.tashi.usage",
+      "concept_id": "grammar.classical.tashi",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_tashi"
+          ],
+          "base_forms": [
+            "たし",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "見たし"
+      ],
+      "counter_examples": [
+        "未然形＋たし"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.tsu.usage",
+      "realization_id": "realization.grammar.classical.tsu.usage",
+      "concept_id": "grammar.classical.tsu",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_tsu"
+          ],
+          "base_forms": [
+            "つ",
+            null
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "書きつ"
+      ],
+      "counter_examples": [
+        "未然形＋つ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
+      ],
+      "rule_version": 1,
+      "show_badge": true
+    },
+    {
+      "rule_id": "grammar.classical.yaunari.usage",
+      "realization_id": "realization.grammar.classical.yaunari.usage",
+      "concept_id": "grammar.classical.yaunari",
+      "kind": "grammar_construction",
+      "priority": 72,
+      "enabled": true,
+      "audit_status": "verified",
+      "atoms": [
+        {
+          "pos_major": [
+            "動詞",
+            "名詞",
+            "形容詞",
+            "形状詞",
+            "助動詞"
+          ],
+          "capture": "predicate"
+        },
+        {
+          "pos_major": [
+            "助動詞"
+          ],
+          "capture": "auxiliary",
+          "morphology_features": [
+            "classical_yaunari"
+          ],
+          "base_forms": [
+            "やうなり",
+            "ようなり"
+          ]
+        }
+      ],
+      "display_from": 0,
+      "allow_intervening_particles": false,
+      "display_to": null,
+      "captures": [
+        "predicate",
+        "auxiliary"
+      ],
+      "refines_rule_ids": [],
+      "conflict_group": null,
+      "examples": [
+        "夢やうなり"
+      ],
+      "counter_examples": [
+        "现代ようだ"
+      ],
+      "source_refs": [
+        "morphology-refactor:classical-layer",
+        "readux-editorial:2026-10-26"
       ],
       "rule_version": 1,
       "show_badge": true

@@ -10,19 +10,31 @@ use crate::morphology_config::{self as config, field, identity, Action, CONFIG};
 
 pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
     let raw = field(t, 5);
-    let form = CONFIG
-        .forms
-        .iter()
-        .find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
-        .map(|rule| rule.form.clone())
-        .unwrap_or_else(|| {
-            if raw.is_empty() {
-                ConnectionForm::Stem
-            } else {
-                ConnectionForm::Other
-            }
-        });
-    let category = if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" {
+    let classical = field(t, 4).starts_with("文語")
+        || config::classical_paradigm_form(t).is_some()
+        || config::classical_auxiliary(t).is_some();
+    let form = if classical {
+        config::classical_connection_form(raw)
+    } else {
+        None
+    }
+    .unwrap_or_else(|| {
+        CONFIG
+            .forms
+            .iter()
+            .find(|rule| rule.prefixes.iter().any(|prefix| raw.starts_with(prefix)))
+            .map(|rule| rule.form.clone())
+            .unwrap_or_else(|| {
+                if raw.is_empty() {
+                    ConnectionForm::Stem
+                } else {
+                    ConnectionForm::Other
+                }
+            })
+    });
+    let category = if classical {
+        "文語用言"
+    } else if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" {
         "名詞"
     } else {
         field(t, 0)
@@ -32,7 +44,12 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
         form,
         conjugation_type: field(t, 4).into(),
         conjugation_form: raw.into(),
-        entity_class: config::entity_class_for_token(t).into(),
+        entity_class: if classical {
+            "文言活用类"
+        } else {
+            config::entity_class_for_token(t)
+        }
+        .into(),
     }
 }
 
@@ -72,20 +89,49 @@ fn terminal_mode(kind: &str) -> &'static str {
     config::rule_metadata(kind).map_or("continue", |metadata| metadata.terminal_mode.as_str())
 }
 
-fn accepts_input(category: &str, metadata: &config::RuleMetadata) -> bool {
-    match metadata.input_category.as_str() {
-        "動詞" | "动词" => category == "動詞",
-        "形容詞" => category == "形容詞",
-        "形状詞" => category == "形状詞",
-        "名詞" => category == "名詞",
-        "動詞／助動詞" => matches!(category, "動詞" | "助動詞"),
-        "用言" => matches!(
-            category,
-            "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"
-        ),
-        "已成立链" | "" => true,
-        _ => false,
+fn may_stop(kind: &str, state: &MorphologyState) -> bool {
+    if config::rule_metadata(kind).is_some_and(|metadata| {
+        matches!(
+            metadata.executor.as_str(),
+            "classical_conjugation" | "na_adjective_judgement"
+        )
+    }) {
+        return matches!(
+            state.form,
+            ConnectionForm::Terminal
+                | ConnectionForm::Attributive
+                | ConnectionForm::Conditional
+                | ConnectionForm::Imperative
+                | ConnectionForm::Continuative
+        ) || kind == "negative_zuni" && state.form == ConnectionForm::Other;
     }
+    matches!(
+        terminal_mode(kind),
+        "sentence_or_pause" | "pause_or_continue"
+    )
+}
+
+fn accepts_input(state: &MorphologyState, metadata: &config::RuleMetadata) -> bool {
+    let category = &state.category;
+    let accepted_category = if metadata.input_categories.is_empty() {
+        match metadata.input_category.as_str() {
+            "動詞" | "动词" => category == "動詞",
+            "形容詞" => category == "形容詞",
+            "形状詞" => category == "形状詞",
+            "名詞" => category == "名詞",
+            "動詞／助動詞" => matches!(category.as_str(), "動詞" | "助動詞"),
+            "用言" => matches!(
+                category.as_str(),
+                "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"
+            ),
+            "已成立链" | "" => true,
+            _ => false,
+        }
+    } else {
+        metadata.input_categories.contains(category)
+    };
+    accepted_category
+        && (metadata.input_forms.is_empty() || metadata.input_forms.contains(&state.form))
 }
 
 enum Transition {
@@ -130,6 +176,21 @@ fn verb_stage_rank(stage: &str) -> Option<i32> {
     })
 }
 
+fn connection_form_name(form: &ConnectionForm) -> &'static str {
+    match form {
+        ConnectionForm::Stem => "stem",
+        ConnectionForm::Irrealis => "irrealis",
+        ConnectionForm::Continuative => "continuative",
+        ConnectionForm::Terminal => "terminal",
+        ConnectionForm::Attributive => "attributive",
+        ConnectionForm::Conditional => "conditional",
+        ConnectionForm::Imperative => "imperative",
+        ConnectionForm::Volitional => "volitional",
+        ConnectionForm::Te => "te",
+        ConnectionForm::Other => "other",
+    }
+}
+
 impl VerbCycleExecutor {
     fn accepts(kind: &str) -> bool {
         matches!(
@@ -150,7 +211,7 @@ impl VerbCycleExecutor {
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("动词循环规则缺少元数据");
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if !accepts_input(&previous.final_state, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!(
                 "verb_cycle_input_category:{}:{}:{}",
@@ -207,7 +268,7 @@ impl IAdjectiveConversionExecutor {
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("イ形容词转换规则缺少元数据");
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if !accepts_input(&previous.final_state, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!(
                 "i_adjective_input_category:{}:{}:{}",
@@ -216,6 +277,10 @@ impl IAdjectiveConversionExecutor {
         }
         atom.final_state.category = "形容詞".into();
         atom.final_state.entity_class = "イ形容词转换类".into();
+        if kind == "rashii_characteristic" {
+            atom.evidence
+                .push("judgement_usage:lexical_characteristic".into());
+        }
     }
 
     fn continuation(previous: &MorphologyChain, next: &ProviderToken) -> Option<Vec<String>> {
@@ -249,32 +314,64 @@ impl NaAdjectiveJudgementExecutor {
         atom: &mut MorphologyChain,
         kind: &str,
         diagnostics: &mut Vec<String>,
-        index: usize,
+        _index: usize,
     ) {
         if !Self::accepts(kind) {
             return;
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("ナ形容词判断规则缺少元数据");
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if !accepts_input(&previous.final_state, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!(
-                "na_judgement_input_category:{}:{}:{}",
-                previous.chain_id, kind, index
+                "na_judgement_input_state:{}:{}:{}:{}",
+                previous.chain_id,
+                kind,
+                previous.final_state.category,
+                connection_form_name(&previous.final_state.form)
             ));
         }
-        atom.final_state.category = "形状詞".into();
-        atom.final_state.entity_class = "ナ形容词判断类".into();
-        // 判断词尾的收尾形式由规则声明的 output_form 决定；词干类规则保留 stem，终止/连体/连用收尾分别写入对应状态。
+        let output_category = config::definition(kind)
+            .and_then(|definition| definition.output_category.as_deref())
+            .unwrap_or(metadata.output_category.as_str());
+        atom.final_state.category = match output_category {
+            "形状詞" => "形状詞".into(),
+            "名詞" => "名詞".into(),
+            "用言" | "保持前项" | "" => previous.final_state.category.clone(),
+            category => category.into(),
+        };
+        atom.final_state.entity_class = if atom.final_state.category == "形容詞" {
+            "イ形容词转换类".into()
+        } else {
+            "ナ形容词判断类".into()
+        };
         atom.evidence.push(format!(
-            "judgement_form:{}",
-            match atom.final_state.form {
-                ConnectionForm::Stem => "stem",
-                ConnectionForm::Continuative => "に",
-                ConnectionForm::Attributive => "な",
-                _ => "だ",
-            }
+            "judgement_state:{}:{}->{}:{}",
+            previous.final_state.category,
+            connection_form_name(&previous.final_state.form),
+            atom.final_state.category,
+            connection_form_name(&atom.final_state.form)
         ));
+        let usage = match kind {
+            "sou_modality"
+                if previous.final_state.form == ConnectionForm::Continuative
+                    && matches!(previous.final_state.category.as_str(), "動詞" | "形容詞")
+                    || kind == "sou_modality"
+                        && previous.final_state.form == ConnectionForm::Stem =>
+            {
+                "appearance"
+            }
+            "sou_modality" => "hearsay",
+            "you_modality" | "mitai_modality" => "simile",
+            "obligation" => "normative",
+            "hazu_modality" => "expectation",
+            "rashii_modality" => "inference",
+            "copula_de" => "copula_continuative",
+            "copula_past" => "copula_past",
+            "copula" | "copula_aru" => "copula",
+            _ => "construction",
+        };
+        atom.evidence.push(format!("judgement_usage:{usage}"));
     }
 }
 
@@ -295,7 +392,7 @@ impl NominalizationExecutor {
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).unwrap();
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if !accepts_input(&previous.final_state, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!(
                 "nominalization_input_category:{}:{}:{}",
@@ -329,7 +426,7 @@ impl AuxiliaryVerbExecutor {
         }
         declared_output(previous, atom, kind);
         let metadata = config::rule_metadata(kind).expect("补助动词规则缺少元数据");
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if !accepts_input(&previous.final_state, metadata) {
             atom.status = "candidate".into();
             diagnostics.push(format!(
                 "auxiliary_input_category:{}:{}:{}",
@@ -389,8 +486,7 @@ impl AuxiliaryVerbExecutor {
         if let Some(connector) =
             config::definition(kind).and_then(|definition| definition.connector.as_deref())
         {
-            atom.evidence
-                .push(format!("connector_rule:{connector}"));
+            atom.evidence.push(format!("connector_rule:{connector}"));
         }
         if depth >= CONFIG.max_auxiliary_depth {
             atom.status = "candidate".into();
@@ -437,29 +533,84 @@ impl ClassicalConjugationExecutor {
         previous: &MorphologyChain,
         atom: &mut MorphologyChain,
         kind: &str,
+        token: &ProviderToken,
         diagnostics: &mut Vec<String>,
         index: usize,
     ) {
         if !Self::accepts(kind) {
             return;
         }
-        declared_output(previous, atom, kind);
-        let metadata = config::rule_metadata(kind).expect("文言规则缺少元数据");
-        if !accepts_input(&previous.final_state.category, metadata) {
+        if kind == "classical_adjective" {
+            let Some((entry, form_name)) = config::classical_paradigm_match(
+                &[atom.base_lexeme.as_str(), atom.dictionary_form.as_str()],
+                &atom.surface_form,
+                &atom.final_state.conjugation_type,
+                &atom.final_state.conjugation_form,
+            ) else {
+                atom.status = "candidate".into();
+                diagnostics.push(format!(
+                    "classical_paradigm_unmapped:{}:{}",
+                    atom.chain_id, index
+                ));
+                return;
+            };
+            atom.final_state.category = "文語用言".into();
+            atom.final_state.entity_class = "文言活用类".into();
+            atom.evidence.extend([
+                format!("classical_paradigm:{}:{}", entry.class_name, form_name),
+                format!("classical_lemma:{}", entry.lemma),
+                format!("classical_connection:{}", entry.connection.join("／")),
+            ]);
+            return;
+        }
+        config::rule_metadata(kind).expect("文言规则缺少元数据");
+        let Some((entry, form_name)) = CONFIG
+            .classical_auxiliaries
+            .iter()
+            .filter(|entry| entry.rule == kind)
+            .find_map(|entry| {
+                entry
+                    .form(
+                        identity(token),
+                        &token.surface,
+                        field(token, 4),
+                        field(token, 5),
+                    )
+                    .map(|form| (entry, form))
+            })
+        else {
             atom.status = "candidate".into();
             diagnostics.push(format!(
-                "classical_input_category:{}:{}:{}",
+                "classical_form_unmapped:{}:{}:{}",
+                previous.chain_id, kind, index
+            ));
+            return;
+        };
+        if !config::classical_accepts(entry, &previous.final_state) {
+            atom.status = "candidate".into();
+            diagnostics.push(format!(
+                "classical_input_state:{}:{}:{}",
                 previous.chain_id, kind, index
             ));
         }
-        let classical_operator = matches!(
-            kind,
-            "negative_zuni" | "classical_beshi" | "classical_gotoshi"
-        );
         atom.final_state.entity_class = "文言活用类".into();
-        if classical_operator {
-            atom.final_state.category = "文語用言".into();
+        atom.final_state.category = "文語用言".into();
+        atom.final_state.form =
+            config::classical_connection_form(&atom.final_state.conjugation_form)
+                .unwrap_or_else(|| atom.final_state.form.clone());
+        if kind == "negative_zuni" && atom.morpheme_range[1] > atom.morpheme_range[0] + 1 {
+            atom.final_state.form = ConnectionForm::Other;
         }
+        atom.evidence.extend([
+            format!("classical_paradigm:{}:{}", entry.class_name, form_name),
+            format!("classical_connection:{}", entry.connection.join("／")),
+            format!(
+                "classical_input:{}:{}",
+                previous.final_state.category,
+                connection_form_name(&previous.final_state.form)
+            ),
+            format!("classical_lemma:{}", entry.lemma),
+        ]);
     }
 }
 
@@ -468,6 +619,7 @@ fn apply_rule_executor(
     previous: &MorphologyChain,
     atom: &mut MorphologyChain,
     kind: &str,
+    token: &ProviderToken,
     diagnostics: &mut Vec<String>,
     index: usize,
 ) {
@@ -494,7 +646,7 @@ fn apply_rule_executor(
         "nominalization" => NominalizationExecutor::apply(previous, atom, kind, diagnostics, index),
         "auxiliary_verb" if kind == "te_connection" => declared_output(previous, atom, kind),
         "classical_conjugation" => {
-            ClassicalConjugationExecutor::apply(previous, atom, kind, diagnostics, index)
+            ClassicalConjugationExecutor::apply(previous, atom, kind, token, diagnostics, index)
         }
         executor => {
             atom.status = "candidate".into();
@@ -557,6 +709,23 @@ fn transition(
     context: &Context<'_>,
     source: &[ProviderToken],
 ) -> Transition {
+    if let Some((entry, _)) = config::classical_auxiliary(next) {
+        // べき后接现代判断词尾时，作为现代规范判断词干参与同一条链。
+        if next.surface == "べき"
+            && source.get(next.index + 1).is_some_and(|following| {
+                field(following, 0) == "助動詞"
+                    && matches!(field(following, 4), "助動詞-ダ" | "助動詞-デス")
+            })
+        {
+            return Transition::Attach(vec!["obligation".into()]);
+        }
+        return Transition::Attach(vec![config::classical_rule_for_input(
+            next,
+            &previous.final_state,
+        )
+        .unwrap_or(&entry.rule)
+        .to_owned()]);
+    }
     if insertion_token(next)
         && previous
             .operators
@@ -641,6 +810,7 @@ fn operator(
     token: &ProviderToken,
 ) -> MorphologyOperator {
     let metadata = config::rule_metadata(&kind);
+    let definition = config::definition(&kind);
     MorphologyOperator {
         operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
         source_morpheme_range: atom.morpheme_range,
@@ -649,15 +819,15 @@ fn operator(
         output_state: format!("{}{}", chain.surface_form, atom.surface_form),
         state_before: chain.final_state.clone(),
         state_after: atom.final_state.clone(),
-        normalized_form: config::definition(&kind)
+        normalized_form: definition
             .and_then(|entry| entry.normalized.clone())
             .or_else(|| config::prototype(&kind, token)),
-        concept_id: feature_concept(&kind).into(),
+        concept_id: feature_concept(&kind).to_owned(),
         confidence: 1.0,
         evidence: atom.evidence.clone(),
         candidates: config::definition(&kind)
             .map_or_else(Vec::new, |entry| entry.candidates.clone()),
-        label: feature_label(&kind).into(),
+        label: feature_label(&kind).to_owned(),
         description: format!("{}：{}", feature_label(&kind), atom.surface_form),
         kind,
         stage: metadata.map_or_else(String::new, |m| m.stage.clone()),
@@ -671,6 +841,9 @@ fn operator(
 }
 
 fn merge(chain: &mut MorphologyChain, atom: MorphologyChain, core: bool) {
+    if atom.status == "candidate" {
+        chain.status = "candidate".into();
+    }
     if core {
         let prefix = chain.surface_form.clone();
         let prefix_reading = chain
@@ -964,6 +1137,7 @@ pub(crate) fn compose(
             .last()
             .and_then(|previous| suffix_sequence(previous, index, source, &context));
         if let Some(rule) = sequence {
+            let first_state = atom.final_state.clone();
             for _ in 1..rule.tokens.len() {
                 merge(
                     &mut atom,
@@ -973,7 +1147,11 @@ pub(crate) fn compose(
             }
             atom.operators.clear();
             atom.evidence.extend(rule.phenomena.iter().cloned());
+            if rule.kind == "negative_zuni" {
+                atom.final_state = first_state;
+            }
         }
+        let rule_token = sequence.map_or(current, |rule| &source[index + rule.head]);
         atom.source_evidence = context.evidence(atom.char_range);
         if atom.final_state.conjugation_form.is_empty() {
             if let Some((ctype, cform)) = context
@@ -1092,7 +1270,14 @@ pub(crate) fn compose(
                         .extend(atom.source_evidence.clone());
                     let mut rule_input = previous.clone();
                     for kind in semantic(current) {
-                        apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
+                        apply_rule_executor(
+                            &rule_input,
+                            &mut atom,
+                            &kind,
+                            current,
+                            &mut diagnostics,
+                            index,
+                        );
                         previous
                             .operators
                             .push(operator(&rule_input, &atom, kind, current));
@@ -1118,7 +1303,14 @@ pub(crate) fn compose(
                     }
                     let mut rule_input = previous.clone();
                     for kind in kinds {
-                        apply_rule_executor(&rule_input, &mut atom, &kind, &mut diagnostics, index);
+                        apply_rule_executor(
+                            &rule_input,
+                            &mut atom,
+                            &kind,
+                            rule_token,
+                            &mut diagnostics,
+                            index,
+                        );
                         if order_conflict(previous, &kind) {
                             previous.status = "candidate".into();
                             diagnostics.push(format!(
@@ -1128,12 +1320,10 @@ pub(crate) fn compose(
                         }
                         previous
                             .operators
-                            .push(operator(&rule_input, &atom, kind, current));
+                            .push(operator(&rule_input, &atom, kind, rule_token));
                         rule_input.final_state = atom.final_state.clone();
-                        previous.terminal = matches!(
-                            terminal_mode(&previous.operators.last().unwrap().kind),
-                            "sentence_or_pause" | "pause_or_continue"
-                        );
+                        previous.terminal =
+                            may_stop(&previous.operators.last().unwrap().kind, &atom.final_state);
                     }
                     if let Some(e) = context.relation(
                         previous.char_range,
@@ -1166,7 +1356,14 @@ pub(crate) fn compose(
                         );
                     } else {
                         // たりする等动词循环连接器仍建立父子链，但活用校验由所属执行器完成。
-                        apply_rule_executor(previous, &mut atom, kind, &mut diagnostics, index);
+                        apply_rule_executor(
+                            previous,
+                            &mut atom,
+                            kind,
+                            current,
+                            &mut diagnostics,
+                            index,
+                        );
                     }
                     atom.role = MorphologyRole::Functional;
                     atom.parent_chain_id = Some(previous.chain_id.clone());
@@ -1179,11 +1376,10 @@ pub(crate) fn compose(
                     }
                     atom.operators
                         .push(operator(previous, &atom, kind.into(), current));
-                    if let Some(connector) =
-                        config::definition(kind).and_then(|definition| definition.connector.as_deref())
+                    if let Some(connector) = config::definition(kind)
+                        .and_then(|definition| definition.connector.as_deref())
                     {
-                        atom.evidence
-                            .push(format!("connector_rule:{connector}"));
+                        atom.evidence.push(format!("connector_rule:{connector}"));
                     }
                     atom.terminal = matches!(
                         terminal_mode(&kind),
@@ -1283,10 +1479,25 @@ pub(crate) fn compose(
         }
         let insertion_already_recorded =
             field(current, 0) == "助詞" && atom.operators.iter().any(|op| op.kind == "insertion");
+        if let Some((entry, form)) = config::classical_paradigm_form(current) {
+            atom.evidence
+                .push(format!("classical_paradigm:{}:{form}", entry.class_name));
+            atom.evidence
+                .push(format!("classical_lemma:{}", entry.lemma));
+            atom.evidence.push(format!(
+                "classical_connection:{}",
+                entry.connection.join("／")
+            ));
+        }
         for kind in semantic(current)
             .into_iter()
             .filter(|kind| !(insertion_already_recorded && kind == "insertion"))
         {
+            if kind == "classical_adjective" {
+                let input = atom.clone();
+                apply_rule_executor(&input, &mut atom, &kind, current, &mut diagnostics, index);
+                atom.terminal = may_stop(&kind, &atom.final_state);
+            }
             let mut op = operator(&atom, &atom, kind, current);
             op.input_state = atom.dictionary_form.clone();
             op.output_state = atom.surface_form.clone();
