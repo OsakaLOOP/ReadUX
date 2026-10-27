@@ -1152,6 +1152,56 @@
       "terminal_mode": "preserve",
       "order_rank": 0
     },
+    "volitional_to_connection": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "意向接续",
+      "input_category": "動詞",
+      "input_forms": ["volitional"],
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 70
+    },
+    "volitional_to_suru": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "意向接续",
+      "input_category": "動詞",
+      "input_forms": ["other"],
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30
+    },
+    "shika_nai": {
+      "stage": "conversion",
+      "executor": "i_adjective_conversion",
+      "rule_group": "限定与选择",
+      "input_categories": ["動詞", "形容詞", "助動詞", "名詞", "代名詞", "形状詞"],
+      "input_forms": ["stem", "terminal", "attributive"],
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 50
+    },
+    "koto_nominalization": {
+      "stage": "conversion",
+      "executor": "nominalization",
+      "rule_group": "形式名词",
+      "input_categories": ["動詞", "形容詞", "助動詞"],
+      "input_forms": ["terminal", "attributive"],
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 45
+    },
+    "te_ii": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "许可与认可",
+      "input_categories": ["動詞", "形容詞", "助動詞"],
+      "input_forms": ["te"],
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30
+    },
     "ni_naru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
@@ -4328,6 +4378,43 @@
       "output_form": "other",
       "preserve_state": true
     },
+    "volitional_to_connection": {
+      "label": "意向接续",
+      "title": "意向接续",
+      "concept": "grammar.modality.volitional_to_suru",
+      "prototype": "と",
+      "output_form": "other"
+    },
+    "volitional_to_suru": {
+      "label": "ようとする",
+      "title": "尝试／即将",
+      "concept": "grammar.modality.volitional_to_suru",
+      "prototype": "ようとする",
+      "support": {"group": "volitional", "bases": ["する", "為る"]},
+      "connector": "volitional_to_connection"
+    },
+    "shika_nai": {
+      "label": "しかない",
+      "title": "唯一选择",
+      "concept": "grammar.restriction.shika_nai",
+      "prototype": "しかない"
+    },
+    "koto_nominalization": {
+      "label": "こと",
+      "title": "内容／事件的名词化",
+      "concept": "grammar.formal.koto",
+      "prototype": "こと",
+      "output_form": "stem"
+    },
+    "te_ii": {
+      "label": "ていい",
+      "title": "许可／认可",
+      "concept": "grammar.permission.te_ii",
+      "prototype": "ていい",
+      "variants": [{"token": {"equals": {"base": ["よい", "良い"]}}, "form": "てよい"}],
+      "support": {"group": "te", "bases": ["いい", "よい", "良い"]},
+      "connector": "te_connection"
+    },
     "ni_naru": {
       "label": "になる",
       "title": "变化",
@@ -6096,6 +6183,16 @@
   ],
   "sequences": [
     {
+      "kind": "shika_nai",
+      "head": 1,
+      "tokens": [
+        {"equals": {"pos": ["助詞"], "sub": ["副助詞"], "base": ["しか"]}},
+        {"equals": {"pos": ["形容詞", "助動詞"], "base": ["ない", "無い"]}}
+      ],
+      "categories": ["動詞", "形容詞", "助動詞", "名詞", "代名詞", "形状詞"],
+      "forms": ["stem", "terminal", "attributive"]
+    },
+    {
       "kind": "classical_gotoshi",
       "head": 1,
       "tokens": [
@@ -7435,6 +7532,35 @@
     }
   ],
   "connections": [
+    {
+      "action": "attach",
+      "kinds": ["volitional_to_connection"],
+      "when": [{
+        "next": {"equals": {"pos": ["助詞"], "sub": ["格助詞"], "surface": ["と"]}},
+        "categories": ["動詞"],
+        "forms": ["volitional"],
+        "following": {"equals": {"pos": ["動詞"], "base": ["する", "為る"]}}
+      }]
+    },
+    {
+      "action": "support",
+      "support_group": "volitional",
+      "when": [{
+        "next": {"equals": {"pos": ["動詞"]}},
+        "categories": ["動詞"],
+        "forms": ["other"],
+        "operators": ["volitional_to_connection"]
+      }]
+    },
+    {
+      "action": "attach",
+      "kinds": ["koto_nominalization"],
+      "when": [{
+        "next": {"equals": {"pos": ["名詞"], "lemma": ["事", "こと"], "base": ["こと", "事"]}},
+        "categories": ["動詞", "形容詞", "助動詞"],
+        "forms": ["terminal", "attributive"]
+      }]
+    },
     {
       "action": "attach",
       "when": [

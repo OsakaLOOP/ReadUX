@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 用户提供的七句谓语接续验收见 `docs/morphology_predicate_examples_2026-10-27.md`，测试入口为 `p4_language.rs` 的 `supplied_predicates_*` 与 `attitude_and_humble_support_*`。规则覆盖「しかない」继续否定、意向形＋とする、こと名词化和ていい；「てかかる」按态度补助处理，原始动词词性保留。「ていただく」采用通用授受样例验证。补助概念讲解位于 grammar source 的 `morphology_support_20261027.json`，许可讲解位于 `morphology_permission_20261027.json`。
+
 - 活用链的局部接续设计及 7 条长句验收见 `docs/morphology_local_connections_2026-10-27.md`。执行入口为 `morphology_machine.rs`；阶段数字仅作展示，合法性读取当前词类、活用形、精确活用型及最近连接器。全部 `support` 统一交补助执行器；「たりとか」保持原连接许可，名词性＋になる保留前项身份。真实分词回归为 `p4_language.rs` 的 `recursive_predicates_*` 与 `conditional_toka_*`，单体／分词とか及非法重复活用见 `morphology_reconstruction.rs`。
 
 - 活用链重构的例句进度入口为 `docs/morphology_example_status.md`，按当前版本真实 CWJ UniDic 复测整理 199 条去重输入，分为已通过、边界通过、局部通过、仍有问题和待复核；来源包括三轮合成句、阶段 9／10 记录、专项测试和修复记录。合成分词通过与真实分词命中范围分别记录。

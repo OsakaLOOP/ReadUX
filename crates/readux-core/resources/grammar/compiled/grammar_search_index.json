@@ -4524,6 +4524,21 @@
       ]
     },
     {
+      "concept_id": "grammar.permission.te_ii",
+      "label": "ていい／てよい",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
       "concept_id": "grammar.modality.tagaru",
       "label": "〜たがる",
       "aliases": [],

@@ -16,6 +16,232 @@ fn analyze(service: &AnalysisService, text: &str) -> UnifiedDocument {
 }
 
 #[test]
+fn supplied_predicates_keep_constructions_and_local_boundaries() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, required) in [
+        (
+            "もうファンになっちゃうしかなくない",
+            vec!["ni_naru", "contracted_te_shimau", "shika_nai", "negative"],
+        ),
+        (
+            "屋上から投げ出されそうになった",
+            vec!["passive_potential", "sou_modality", "ni_naru", "past"],
+        ),
+        (
+            "場所を作ろうとしているからな",
+            vec![
+                "volitional",
+                "volitional_to_suru",
+                "te_iru",
+                "kara_connection",
+            ],
+        ),
+        (
+            "順番に達成していくことになる",
+            vec!["te_iku", "koto_nominalization", "ni_naru"],
+        ),
+        (
+            "　置いていかれないように集中した",
+            vec![
+                "te_iku",
+                "passive_potential",
+                "negative",
+                "you_modality",
+                "adverbial_ni",
+                "past",
+            ],
+        ),
+        (
+            "考えなくていいんだから",
+            vec![
+                "negative",
+                "te_ii",
+                "nominalization",
+                "copula",
+                "kara_connection",
+            ],
+        ),
+        (
+            "舐めてかかっていただろう",
+            vec!["te_kakaru", "te_iru", "past", "darou_modality"],
+        ),
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        assert!(
+            doc.morphology
+                .chains
+                .iter()
+                .all(|chain| chain.status == "resolved"),
+            "{text}"
+        );
+        for kind in required {
+            assert!(
+                doc.morphology
+                    .chains
+                    .iter()
+                    .flat_map(|chain| &chain.operators)
+                    .any(|op| op.kind == kind),
+                "{text}: 缺少 {kind}"
+            );
+        }
+        let response = service.dispatch(Request::LookupTargets {
+            analysis_id: doc.id.clone(),
+            range: [0, text.chars().count()],
+        });
+        assert!(response.error.is_none(), "{text}: {:?}", response.error);
+        let targets = response.result.unwrap();
+        for op in doc
+            .morphology
+            .chains
+            .iter()
+            .flat_map(|chain| &chain.operators)
+            .filter(|op| {
+                matches!(
+                    op.kind.as_str(),
+                    "shika_nai"
+                        | "volitional_to_suru"
+                        | "koto_nominalization"
+                        | "te_ii"
+                        | "te_kakaru"
+                )
+            })
+        {
+            let entry = readux_core::grammar_catalog::get(&op.concept_id).unwrap();
+            assert!(
+                !entry.explanation.connection.is_empty(),
+                "{text}: {}",
+                op.kind
+            );
+            assert!(
+                targets["grammar_targets"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .any(|target| target["concept_id"].as_str() == Some(op.concept_id.as_str())),
+                "{text}: {}",
+                op.kind
+            );
+        }
+        if text == "舐めてかかっていただろう" || text == "考えなくていいんだから"
+        {
+            assert_eq!(
+                targets["outer_targets"].as_array().unwrap().len(),
+                1,
+                "{text}"
+            );
+            let expected = if text.starts_with("舐め") {
+                "舐める"
+            } else {
+                "考える"
+            };
+            assert_eq!(
+                targets["outer_targets"][0]["lookup_forms"][0]["form"], expected,
+                "{text}"
+            );
+        }
+        for chain in &doc.morphology.chains {
+            if let Some(parent) = &chain.parent_chain_id {
+                let parent = doc
+                    .morphology
+                    .chains
+                    .iter()
+                    .find(|candidate| &candidate.chain_id == parent)
+                    .unwrap();
+                assert_eq!(parent.char_range[1], chain.char_range[0], "{text}");
+            }
+        }
+    }
+    for (text, kind, lookup, parent_lookup) in [
+        (
+            "場所を作ろうとしているからな",
+            "volitional_to_suru",
+            "する",
+            "作る",
+        ),
+        ("考えなくていいんだから", "te_ii", "いい", "考える"),
+        ("順番に達成していくことになる", "ni_naru", "なる", "いく"),
+    ] {
+        let doc = analyze(&service, text);
+        let child = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == kind))
+            .unwrap();
+        assert_eq!(child.lookup_form, lookup, "{text}");
+        let parent = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())
+            .unwrap();
+        assert_eq!(parent.lookup_form, parent_lookup, "{text}");
+        let occurrence = doc
+            .morphology
+            .occurrences
+            .iter()
+            .find(|item| item.kind == kind)
+            .unwrap();
+        assert!(occurrence.hit_ranges.len() >= 2, "{text}");
+        assert!(
+            occurrence.context_range[0] <= parent.char_range[0],
+            "{text}"
+        );
+    }
+    for (text, kind) in [
+        ("作るとしている", "volitional_to_suru"),
+        ("作ろうと思う", "volitional_to_suru"),
+        ("作ろうと、する", "volitional_to_suru"),
+        ("作ろうと する", "volitional_to_suru"),
+        ("これしか読まない", "shika_nai"),
+        ("読むしか、ない", "shika_nai"),
+        ("読むしか ない", "shika_nai"),
+        ("琴になる", "koto_nominalization"),
+        ("読む、ことになる", "koto_nominalization"),
+        ("読んで、いい", "te_ii"),
+        ("読んで いい", "te_ii"),
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            !doc.morphology
+                .chains
+                .iter()
+                .flat_map(|chain| &chain.operators)
+                .any(|op| op.kind == kind),
+            "{text}"
+        );
+    }
+    // しかない的否定归属与后续否定分别保留；名词化后的变化动词继续递归。
+    for text in [
+        "読むしかなかった",
+        "読むしかなくなった",
+        "帰ることになっちゃった",
+        "読もうとしていなかった",
+        "読まなくてよかった",
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        assert!(
+            doc.morphology
+                .chains
+                .iter()
+                .all(|chain| chain.status == "resolved"),
+            "{text}"
+        );
+    }
+}
+
+#[test]
 fn attitude_and_humble_support_preserve_recursive_inflection() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));

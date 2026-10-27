@@ -1474,19 +1474,19 @@
     "language": "zh-CN",
     "title": "〜ようとする",
     "compact_summary": "表示尝试或即将发生",
-    "function_summary": "表示尝试或即将发生",
-    "connection": "",
-    "formation": "",
+    "function_summary": "意志主体尝试进行前项动作，或某个动作、变化即将发生；进行中的尝试可用「ようとしている」。",
+    "connection": "动词意向形＋格助词と＋する；する按自身活用继续连接ている、否定或过去等形式。",
+    "formation": "作る→作ろう＋と＋して＋いる",
     "usage_notes": [],
     "semantic_constraints": [],
     "pragmatic_notes": [],
-    "examples": [],
-    "counter_examples": [],
+    "examples": ["場所を作ろうとしている。", "日が沈もうとしている。"],
+    "counter_examples": ["作ろうと思う。（引用后的动词为思う）"],
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
     "authoring_status": "verified",
-    "content_version": 1,
+    "content_version": 2,
     "body_blocks": []
   },
   {

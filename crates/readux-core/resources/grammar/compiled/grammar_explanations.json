@@ -1939,19 +1939,24 @@
       "language": "zh-CN",
       "title": "〜ようとする",
       "compact_summary": "表示尝试或即将发生",
-      "function_summary": "表示尝试或即将发生",
-      "connection": "",
-      "formation": "",
+      "function_summary": "意志主体尝试进行前项动作，或某个动作、变化即将发生；进行中的尝试可用「ようとしている」。",
+      "connection": "动词意向形＋格助词と＋する；する按自身活用继续连接ている、否定或过去等形式。",
+      "formation": "作る→作ろう＋と＋して＋いる",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
-      "counter_examples": [],
+      "examples": [
+        "場所を作ろうとしている。",
+        "日が沈もうとしている。"
+      ],
+      "counter_examples": [
+        "作ろうと思う。（引用后的动词为思う）"
+      ],
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
       "authoring_status": "verified",
-      "content_version": 1,
+      "content_version": 2,
       "body_blocks": [],
       "provenance": {
         "origin": "ai",
@@ -5986,6 +5991,40 @@
         "readux-editorial:2026-10-26"
       ],
       "authoring_status": "verified",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.permission.te_ii",
+      "concept_id": "grammar.permission.te_ii",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ていい／てよい",
+      "compact_summary": "表示前项行为或状态可以接受；否定て形后表示没有必要进行该行为",
+      "function_summary": "肯定形式可表示许可或认可；「なくていい」表示不必，后项可继续过去、否定或解释语气。",
+      "connection": "用言て形＋いい／よい；动词否定连用形＋て＋いい形成「なくていい」。",
+      "formation": "考えなくて＋いい＋ん＋だ＋から",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "ここに座っていい。",
+        "考えなくていいんだから。"
+      ],
+      "counter_examples": [
+        "いい本を読んだ。（いい直接修饰名词）"
+      ],
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "authoring_status": "reviewed",
       "content_version": 1,
       "provenance": {
         "origin": "ai",

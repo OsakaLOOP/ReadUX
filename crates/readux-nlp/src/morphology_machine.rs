@@ -403,6 +403,7 @@ impl AuxiliaryVerbExecutor {
             }
             Some("continuative") => previous.final_state.form == ConnectionForm::Continuative,
             Some("enumerative") => connector.is_some_and(|op| op.kind == "enumerative"),
+            Some("volitional") => connector.is_some_and(|op| op.kind == "volitional_to_connection"),
             Some("nominal_change") => connector
                 .is_some_and(|op| matches!(op.kind.as_str(), "nominal_change_ni" | "adverbial_ni")),
             Some("adjectival_change") => previous.final_state.form == ConnectionForm::Continuative,
@@ -1317,7 +1318,8 @@ pub(crate) fn compose(
                     }
                 },
             );
-            let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind| kind == "nominalization"));
+            let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind|
+                config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "nominalization")));
             let semantic_connection = nominalization
                 || matches!(&local_step, Transition::Support(_) | Transition::Insert(_));
             let step = if sequence.is_none()

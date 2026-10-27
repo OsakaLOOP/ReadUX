@@ -4697,6 +4697,27 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.permission.te_ii",
+      "kind": "construction",
+      "canonical_label": "ていい／てよい",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.permission.te_ii",
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.modality.tagaru",
       "kind": "construction",
       "canonical_label": "〜たがる",

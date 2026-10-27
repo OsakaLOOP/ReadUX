@@ -1,0 +1,22 @@
+{
+  "bundle_id": "morphology-permission-20261027",
+  "audit_status": "reviewed",
+  "source_refs": ["readux-editorial:user-examples-20261027"],
+  "review": {"method": "核对真实 UniDic 的否定て形、评价形容词和后续解释语气"},
+  "items": [
+    {
+      "concept_id": "grammar.permission.te_ii",
+      "kind": "construction",
+      "canonical_label": "ていい／てよい",
+      "explanation": {
+        "compact_summary": "表示前项行为或状态可以接受；否定て形后表示没有必要进行该行为",
+        "function_summary": "肯定形式可表示许可或认可；「なくていい」表示不必，后项可继续过去、否定或解释语气。",
+        "connection": "用言て形＋いい／よい；动词否定连用形＋て＋いい形成「なくていい」。",
+        "formation": "考えなくて＋いい＋ん＋だ＋から",
+        "examples": ["ここに座っていい。", "考えなくていいんだから。"],
+        "counter_examples": ["いい本を読んだ。（いい直接修饰名词）"],
+        "body_blocks": []
+      }
+    }
+  ]
+}
