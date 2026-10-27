@@ -141,6 +141,7 @@ export interface MorphologyOperator {
     rule: string; path: string | null; matched_paths: string[];
     predecessor_range: [number, number]; predecessor_surface: string;
     connector_operator_id: string | null; diagnostics: string[];
+    dependency_type?: string; context_range?: [number, number]; context_surface?: string;
   } | null;
   operator_id: string; kind: string; source_morpheme_range: [number, number]; char_range: [number, number];
   input_state: string; output_state: string; concept_id: string; confidence: number; evidence: string[]; candidates: string[];

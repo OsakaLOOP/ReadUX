@@ -106,6 +106,13 @@ pub struct MorphologyConnection {
     pub predecessor_range: [usize; 2],
     pub predecessor_surface: String,
     pub connector_operator_id: Option<String>,
+    /// 结构分类独立于路径数量；上下文范围包含连接器及合法插入成员。
+    #[serde(default)]
+    pub dependency_type: String,
+    #[serde(default)]
+    pub context_range: [usize; 2],
+    #[serde(default)]
+    pub context_surface: String,
     pub diagnostics: Vec<String>,
 }
 

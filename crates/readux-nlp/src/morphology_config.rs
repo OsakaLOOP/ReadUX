@@ -30,6 +30,7 @@ pub struct Config {
     pub presentation: serde_json::Value,
     #[serde(default)]
     pub connection_rules: BTreeMap<String, ConnectionPaths>,
+    pub connection_types: BTreeMap<String, Vec<String>>,
     #[serde(default)]
     pub input_recoveries: Vec<InputRecovery>,
     #[serde(default = "default_auxiliary_depth")]
@@ -51,6 +52,10 @@ pub struct ConnectionPaths {
     pub label: String,
     pub operators: Vec<String>,
     pub paths: Vec<ConnectionPath>,
+    #[serde(default)]
+    pub scope: String,
+    #[serde(default)]
+    pub source: String,
 }
 
 #[derive(Default, Deserialize)]
@@ -68,6 +73,9 @@ pub struct ConnectionPath {
     pub exclude_cform_contains: Vec<String>,
     pub previous_operators: Vec<String>,
     pub exclude_previous_operators: Vec<String>,
+    /// 新增的词类分组保留名词谓语身份，判断兼容路径沿用原条件。
+    pub exact_category: bool,
+    pub evidence: Vec<String>,
     pub next: TokenPattern,
     /// 从当前词条向前读取声明数量的连续语素。
     pub predecessors: Vec<TokenPattern>,
@@ -206,6 +214,7 @@ pub struct Operator {
     pub support: Option<Support>,
     pub compound_candidate: bool,
     pub connector: Option<String>,
+    pub connector_alternatives: Vec<String>,
     pub output_category: Option<String>,
     pub output_form: Option<ConnectionForm>,
     pub preserve_state: bool,
@@ -217,6 +226,8 @@ pub struct Operator {
 pub struct PrototypeVariant {
     pub token: TokenPattern,
     pub form: String,
+    #[serde(default)]
+    pub concept: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -422,6 +433,25 @@ pub struct PredicateLink {
 
 pub fn definition(kind: &str) -> Option<&'static Operator> {
     CONFIG.operators.get(kind)
+}
+
+pub fn connection_type(kind: &str) -> &'static str {
+    CONFIG.connection_types.iter()
+        .find(|(_, kinds)| kinds.iter().any(|member| member == kind))
+        .map_or("direct", |(kind, _)| kind.as_str())
+}
+
+pub fn concept(kind: &str, token: &ProviderToken) -> Option<&'static str> {
+    let entry = definition(kind)?;
+    entry.variants.iter().find(|variant| variant.token.matches(token))
+        .and_then(|variant| variant.concept.as_deref()).or(Some(entry.concept.as_str()))
+}
+
+impl Operator {
+    pub fn accepts_connector(&self, kind: &str) -> bool {
+        self.connector.as_deref() == Some(kind)
+            || self.connector_alternatives.iter().any(|alternative| alternative == kind)
+    }
 }
 
 pub fn rule_metadata(kind: &str) -> Option<&'static RuleMetadata> {

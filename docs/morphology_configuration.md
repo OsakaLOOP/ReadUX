@@ -1,5 +1,13 @@
 # 活用链配置
 
+全部 operator 在 connection_types 中采用统一的接续结构分类，分别为直接接续、连接器接续、连续词尾、谓语构式、词内活用和插入成分。路径分支、语法成员和前项依赖数量分别维护。connection_rules 为每个条目提供直接路径或连接器引用；文言路径的 source 对应 classical_auxiliaries.inputs，义务和禁止构式对应 predicate_links.prefix。新增的词类分组使用 exact_category 保留名词谓语等原始类别，既有判断兼容路径继续共享判断词尾的接续条件。
+
+连接器接续保存连接器之前的输入状态和连接器本身，如「动词连用形＋て／で＋おく」；三个缩约补助形式采用相同的结构分类。connector_alternatives 声明同一用法的其他连接器入口，「になる」同时引用名词后的格助词に和形容动词的连用形に。分析结果的 dependency_type 表示结构类别，predecessor_range 定位具体路径的前项，context_range 与 context_surface 保留包含连接器及合法插入项的上下文。
+
+词内活用的路径声明 scope: inflection，依据自身实际活用状态定位；插入路径通过 evidence 对应执行器已经确认的位置。词条的 variants.concept 按具体成员身份选择讲解，例如名词化の与接尾辞さ分别引用对应正文。
+
+维护约定见 [第 11 阶段展示规范](morphology_stage11_bubble_display.md)。完成修改后可运行 python -X utf8 scripts/check_morphology_connections.py，检查全部条目的分类、路径、连接器、概念正文、例句以及既有路径引用。检查脚本只读取资源。
+
 唯一规则入口为 `configs/unidic-nlp/morphology.json`。Rust 编译时嵌入配置，前端直接导入同一文件；配置内容参与分析缓存标识。修改后重新构建应用即可更新分析和展示。
 
 「意向形＋と＋する」通过 `volitional_to_connection` 保留意向接续，再由 `volitional_to_suru` 建立补助子链。「する」采用自身的活用，可继续连接「ている」等形式；普通引用「と」保留独立身份。

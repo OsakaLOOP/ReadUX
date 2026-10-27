@@ -1,5 +1,59 @@
 # 来源与文档索引
 
+## 全量接续词条与结构分类（2026-10-28）
+
+本轮依据提交 1d032be、用户已审阅的接续规则以及三张界面截图（020042、020059、020051），维护词条身份、接续功能、实际活用形与图中分组。[阶段规范](docs/morphology_stage11_bubble_display.md) 记录定义，[完整性检查](scripts/check_morphology_connections.py) 核对分类、路径来源、连接器、正文与例句。
+
+### 阶段规范完整标题索引
+
+- 活用词条气泡与接续方式展示设计。
+  - 当前界面约定。
+  - 一、设计边界。
+  - 二、活用词条气泡内容。
+  - 三、接续方式气泡：补助动词递归关系、当前词条的前接方式、共用的て／で连接规则、命中、折叠和诊断。
+  - 四、代表性显示稿：例一：読んでいる、例二：読みたい、例三：行かずに／高からずに。
+  - 五、规则内容和数据来源。
+  - 六、额外识别规则设计清单。
+  - 七、维护顺序与完整性：维护顺序、验收条件。
+
+| 外部来源 | 链接 | 使用内容 |
+| --- | --- | --- |
+| Advanced Volitional | <https://guidetojapanese.org/learn/grammar/volitional2> | まい的否定推量、否定意志及各类接续 |
+| Other uses of the te-form | <https://guidetojapanese.org/learn/grammar/teform> | ている、てある、ておく、ていく、てくる |
+| Using する and なる with the に particle | <https://guidetojapanese.org/learn/grammar/surunaru> | 名词、ナ形容词、イ形容词及名词化成分与なる |
+| Compound Sentences | <https://guidetojapanese.org/learn/grammar/compound> | て形、から／ので、が／けど及たりする |
+
+### 外部文档完整标题索引
+
+- Advanced Volitional
+  - Negative Volitional：Vocabulary、Examples。
+  - Using the volitional to express a lack of relation：Vocabulary、Examples。
+  - Using 「であろう」 to express likelihood：Vocabulary、Examples。
+  - Using 「かろう」 as volitional for 「い」 endings：Vocabulary、Examples。
+  - Guide to Japanese grammar、Post navigation、Buy the book、Categories、Social Links、Tags、Credit。
+- Other uses of the te-form
+  - Using 「～ている」 for enduring states：Vocabulary、Example 1–6。
+  - Enduring state-of-being vs enduring state of action：Vocabulary、「知る」、「知る」 vs 「分かる」、Examples。
+  - Motion Verbs (行く、来る、etc.)：Vocabulary、Examples。
+  - Using 「～てある」 for resultant states：Vocabulary、Example 1–2。
+  - Using the 「～ておく」 form as preparation for the future：Vocabulary、Examples。
+  - Using motion verbs （行く、来る） with the te-form：Vocabulary、Examples。
+  - Guide to Japanese grammar、Post navigation、Buy the book、Categories、Social Links、Tags、Credit。
+- Using する and なる with the に particle
+  - Using 「なる」 and 「する」 for nouns and na-adjectives：Vocabulary。
+  - Using 「なる」 with i-adjectives：Vocabulary。
+  - Using 「なる」 and 「する」 with verbs：Vocabulary。
+  - Guide to Japanese grammar、Post navigation、Buy the book、Categories、Social Links、Tags、Credit。
+- Compound Sentences
+  - Expressing a sequence of states：Vocabulary、Examples。
+  - Expressing a sequence of verbs with the te-form：Vocabulary、Examples。
+  - Expressing reason or causation using 「から」 and 「ので」：Vocabulary、Examples、Example 1–3。
+  - Using 「のに」 to mean “despite”：Vocabulary、Examples。
+  - Expressing contradiction using 「が」 and 「けど」：Vocabulary、Examples。
+  - Expressing multiple reasons using 「し」：Vocabulary、Example 1–2。
+  - Expressing multiple actions or states using 「～たりする」：Vocabulary。
+  - Guide to Japanese grammar、Post navigation、Buy the book、Categories、Social Links、Tags、Credit。
+
 ## 活用气泡图形实现依据（2026-10-27）
 
 树布局依据安装包中的 [d3-hierarchy 树布局实现](node_modules/d3-hierarchy/src/tree.js)，连接曲线依据 [d3-shape 水平连接实现](node_modules/d3-shape/src/link.js)。实际句中关系读取 Rust morphology artifact；前接树读取 `configs/unidic-nlp/morphology.json` 的共享路径声明和分析产物中的唯一命中结果。界面规则按本次用户审阅要求整理在 [第 11 阶段展示规范](docs/morphology_stage11_bubble_display.md)。

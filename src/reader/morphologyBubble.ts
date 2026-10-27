@@ -1,6 +1,6 @@
 import explanations from "../../crates/readux-core/resources/grammar/compiled/grammar_explanations.json" with { type: "json" };
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
-import { configuredPrototype, morphologyConnectionRules, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { configuredPrototype, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, UnifiedDocument } from "../types/nlp";
 
 export interface MorphologyEntryContent {
@@ -86,7 +86,8 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
   const prototype = configuredPrototype(operator.kind, token);
   const support = definition?.support;
   const headword = support?.expanded?.[0] ?? (support?.group === "te" || support?.group === "contracted"
-    ? prototype.replace(/^(?:て|で)/u, "") : prototype);
+    ? prototype.replace(/^(?:て|で)/u, "") : support && ["enumerative", "volitional", "nominal_change"].includes(support.group)
+      ? support.bases[0] : prototype);
   const explanation = explanationByConcept.get(operator.concept_id);
   const builtin = auxiliaries.entries.find((entry) => entry.headword === headword);
   const pairs = (explanation?.body_blocks ?? []).filter((block) => block.kind === "example_pair")
@@ -94,11 +95,22 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
   const examples = pairs.length ? pairs : builtin?.senses[0]?.examples
     ?? (explanation?.examples ?? []).map((ja) => ({ ja, zh: "" }));
   const particle = token?.pos?.[0] === "助詞";
+  const structure = morphologyConnectionType(operator.kind);
+  const classicalNominal = operator.evidence.some((evidence) =>
+    evidence.startsWith("classical_paradigm:ナリ活用") || evidence.startsWith("classical_paradigm:タリ活用"));
+  const identity = support ? token?.pos?.[0] === "形容詞" ? "补助形容词"
+    : token?.pos?.[0] === "名詞" ? "补助表达" : "补助动词"
+    : operator.executor === "insertion" ? "插入成分"
+    : structure === "predicate" ? "谓语构式"
+    : structure === "sequence" && operator.source_morpheme_range[1] - operator.source_morpheme_range[0] > 1 ? "复合语法形式"
+    : operator.executor === "classical_conjugation" ? operator.kind === "classical_adjective"
+      ? classicalNominal ? "文言形容动词" : "文言形容词" : "文言助动词"
+    : particle ? ({ 接続助詞: "接续助词", 準体助詞: "准体助词", 終助詞: "终助词",
+      格助詞: "格助词", 副助詞: "副助词", 係助詞: "提示助词" } as Record<string, string>)[token?.pos?.[1] ?? ""] || "助词"
+    : token?.pos?.[0] === "接尾辞" ? "接尾辞" : posLabels[token?.pos?.[0] ?? ""] || "语法成分";
   return {
     headword: headword || token?.surface || operator.normalized_form || "",
-    identity: support ? "补助动词" : operator.executor === "insertion" ? "插入成分"
-      : operator.executor === "classical_conjugation" ? "文言助动词"
-      : particle ? "接续助词" : "助动词",
+    identity,
     conjugation: elementForm(document, operator.source_morpheme_range[1] - 1, operator.state_after, operator.kind, operator.evidence),
     usage: definition?.title || operator.label,
     transition: morphologyLocalTransition(transition),
@@ -254,10 +266,10 @@ export function morphologyConnectionDiagram(
   if (!rule && !sentence.length) return null;
   const connector = connection?.connector_operator_id
     ? document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.operator_id === connection.connector_operator_id) : operator;
-  const separateTe = connection?.rule === "te";
+  const separateTe = connection?.rule === "te" || connection?.rule === "contracted_te";
   const branches = (separateTe ? ["て", "で"] : [""]).map((label) => {
     const groups: ConnectionGroupView[] = [];
-    const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.next?.equals?.surface?.includes(label));
+    const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.steps.at(-1) === label);
     for (const path of paths) {
       let group = groups.find((item) => item.label === path.group);
       if (!group) { group = { id: `${label}:${path.group}`, label: path.group, paths: [] }; groups.push(group); }

@@ -950,7 +950,7 @@ fn operator(
         normalized_form: definition
             .and_then(|entry| entry.normalized.clone())
             .or_else(|| config::prototype(&kind, token)),
-        concept_id: feature_concept(&kind).to_owned(),
+        concept_id: config::concept(&kind, token).unwrap_or_else(|| feature_concept(&kind)).to_owned(),
         confidence: 1.0,
         evidence: atom.evidence.clone(),
         candidates: config::definition(&kind)
@@ -1638,8 +1638,8 @@ pub(crate) fn compose(
                         (op.source_morpheme_range[0]..op.source_morpheme_range[1]).collect();
                     let mut operator_ids = vec![op.operator_id.clone()];
                     let mut context_range = chain.char_range;
-                    if let Some(connector_kind) = config::definition(&op.kind)
-                        .and_then(|entry| entry.connector.as_ref())
+                    if let Some(definition) = config::definition(&op.kind)
+                        .filter(|entry| entry.connector.is_some())
                         .filter(|_| chain.parent_chain_id.is_some())
                     {
                         if let Some(parent) = chains
@@ -1647,7 +1647,7 @@ pub(crate) fn compose(
                             .find(|c| Some(&c.chain_id) == chain.parent_chain_id.as_ref())
                         {
                             if let Some(connector) =
-                                parent.operators.iter().find(|o| &o.kind == connector_kind)
+                                parent.operators.iter().rev().find(|o| definition.accepts_connector(&o.kind))
                             {
                                 hit_ranges.insert(0, connector.char_range);
                                 members.splice(
@@ -1722,33 +1722,47 @@ fn identify_connection_paths(
     source: &[ProviderToken],
     diagnostics: &mut Vec<String>,
 ) {
+    let history: std::collections::BTreeMap<_, _> = chains.iter().map(|chain| (chain.chain_id.clone(),
+        chain.operators.iter().map(|op| (op.kind.clone(), op.executor.clone(), op.char_range[1]))
+            .collect::<Vec<_>>())).collect();
     for chain in chains.iter_mut() {
         for index in 0..chain.operators.len() {
             let op = &chain.operators[index];
             let Some((rule_id, rule)) = CONFIG.connection_rules.iter()
                 .find(|(_, rule)| rule.operators.contains(&op.kind)) else { continue };
             let start = op.source_morpheme_range[0];
+            let own_form = rule.scope == "inflection" && start == chain.anchor_morpheme;
             // 独立词条没有前接对象，其词法边界由原分析保留。
-            if start == 0 || (start == chain.morpheme_range[0] && chain.parent_chain_id.is_none())
-                || source[start - 1].char_range[1] != op.char_range[0]
-                || op.input_state == op.output_state { continue; }
-            let state = &op.state_before;
+            if !own_form && (start == 0
+                || (start == chain.morpheme_range[0] && chain.parent_chain_id.is_none())
+                || source[start - 1].char_range[1] != op.char_range[0]) { continue; }
+            let state = if own_form { &op.state_after } else { &op.state_before };
+            let previous_kind = chain.operators[..index].iter().rev()
+                .find(|previous| previous.executor != "insertion" && previous.char_range[1] <= op.char_range[0])
+                .map(|previous| previous.kind.as_str())
+                .or_else(|| history.get(chain.parent_chain_id.as_ref()?)
+                    .and_then(|operators| operators.iter().rev()
+                        .find(|(_, executor, end)| executor != "insertion" && *end <= op.char_range[0])
+                        .map(|(kind, _, _)| kind.as_str())));
             let matched: Vec<_> = rule.paths.iter().filter(|path| {
-                (path.categories.is_empty() || accepts_category(state, &path.categories))
+                (path.categories.is_empty() || if path.exact_category {
+                    path.categories.contains(&state.category)
+                } else { accepts_category(state, &path.categories) })
                     && (path.forms.is_empty() || path.forms.contains(&state.form))
                     && (path.ctypes.is_empty() || path.ctypes.iter().any(|v| state.conjugation_type.starts_with(v)))
                     && !path.exclude_ctypes.iter().any(|v| state.conjugation_type.starts_with(v))
                     && (path.cform_contains.is_empty() || path.cform_contains.iter().any(|v| state.conjugation_form.contains(v)))
                     && !path.exclude_cform_contains.iter().any(|v| state.conjugation_form.contains(v))
-                    && (path.previous_operators.is_empty() || chain.operators[..index].iter().rev()
-                        .find(|p| p.executor != "insertion").is_some_and(|p| path.previous_operators.contains(&p.kind)))
-                    && !chain.operators[..index].iter().rev().find(|p| p.executor != "insertion")
-                        .is_some_and(|p| path.exclude_previous_operators.contains(&p.kind))
+                    && (path.previous_operators.is_empty() || previous_kind
+                        .is_some_and(|kind| path.previous_operators.iter().any(|expected| expected == kind)))
+                    && !previous_kind.is_some_and(|kind|
+                        path.exclude_previous_operators.iter().any(|excluded| excluded == kind))
+                    && path.evidence.iter().all(|evidence| op.evidence.contains(evidence))
                     && path.next.matches(&source[start])
                     && start >= path.predecessors.len()
                     && path.predecessors.iter().rev().zip(source[..start].iter().rev())
                         .all(|(pattern, token)| pattern.matches(token))
-                    && source[start.saturating_sub(path.predecessors.len().max(1))..=start]
+                    && source[start.saturating_sub(if own_form { 0 } else { path.predecessors.len().max(1) })..=start]
                         .windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
             }).collect();
             let mut messages = Vec::new();
@@ -1757,15 +1771,28 @@ fn identify_connection_paths(
                 diagnostics.push(message.clone());
                 messages.push(message);
             }
-            let count = matched.first().map_or(1, |path| path.predecessors.len().max(1));
-            let range = [source[start.saturating_sub(count)].char_range[0], op.char_range[0]];
+            let count = if own_form { 0 } else {
+                matched.iter().map(|path| path.predecessors.len().max(1)).max().unwrap_or(1)
+            };
+            let range = if own_form { op.char_range } else {
+                [source[start.saturating_sub(count)].char_range[0], op.char_range[0]]
+            };
+            let predecessor_surface: String = if own_form {
+                source[op.source_morpheme_range[0]..op.source_morpheme_range[1]]
+                    .iter().map(|token| token.surface.as_str()).collect()
+            } else {
+                source[start.saturating_sub(count)..start].iter().map(|token| token.surface.as_str()).collect()
+            };
             let connection = MorphologyConnection {
                 rule: rule_id.clone(),
                 path: (matched.len() == 1).then(|| matched[0].id.clone()),
                 matched_paths: matched.iter().map(|path| path.id.clone()).collect(),
                 predecessor_range: range,
-                predecessor_surface: source[start.saturating_sub(count)..start].iter().map(|t| t.surface.as_str()).collect(),
+                context_surface: predecessor_surface.clone(),
+                predecessor_surface,
                 connector_operator_id: None,
+                dependency_type: config::connection_type(&op.kind).into(),
+                context_range: range,
                 diagnostics: messages,
             };
             if connection.path.is_none() { chain.status = "candidate".into(); }
@@ -1776,13 +1803,21 @@ fn identify_connection_paths(
     let all_chains = &*chains;
     let inherited: Vec<_> = all_chains.iter().enumerate().flat_map(|(ci, chain)| {
         chain.operators.iter().enumerate().filter_map(move |(oi, op)| {
-            let connector = config::definition(&op.kind)?.connector.as_ref()?;
+            let definition = config::definition(&op.kind).filter(|entry| entry.connector.is_some())?;
             let parent = all_chains.iter().find(|p| Some(&p.chain_id) == chain.parent_chain_id.as_ref())?;
-            let source = parent.operators.iter().rev().find(|p| &p.kind == connector)?;
-            let mut connection = source.connection.clone()?;
-            connection.connector_operator_id = Some(source.operator_id.clone());
+            let connector = parent.operators.iter().rev().find(|p| definition.accepts_connector(&p.kind))?;
+            let mut connection = connector.connection.clone()?;
+            connection.connector_operator_id = Some(connector.operator_id.clone());
+            connection.dependency_type = config::connection_type(&op.kind).into();
+            connection.context_range = [connection.predecessor_range[0], op.char_range[0]];
+            let context_start = source.partition_point(|token| token.char_range[0] < connection.context_range[0]);
+            connection.context_surface = source[context_start..op.source_morpheme_range[0]].iter()
+                .map(|token| token.surface.as_str()).collect();
             Some((ci, oi, connection))
         })
     }).collect();
-    for (ci, oi, connection) in inherited { chains[ci].operators[oi].connection = Some(connection); }
+    for (ci, oi, connection) in inherited {
+        if connection.path.is_none() { chains[ci].status = "candidate".into(); }
+        chains[ci].operators[oi].connection = Some(connection);
+    }
 }
