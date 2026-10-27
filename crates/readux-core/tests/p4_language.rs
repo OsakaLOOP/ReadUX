@@ -1,3 +1,5 @@
+\\?\D:\PROJ\GIT\kotoclip\crates\readux-core\tests\p4_language.rs:
+
 //! 实际 UniDic 活用与 GiNZA 信息变化的定向验收。
 use readux_core::analysis::{AnalysisService, Request, ResourcePaths};
 use readux_nlp::{
@@ -13,6 +15,251 @@ fn analyze(service: &AnalysisService, text: &str) -> UnifiedDocument {
     });
     assert!(response.error.is_none(), "{:?}", response.error);
     serde_json::from_value(response.result.unwrap()).unwrap()
+}
+
+#[test]
+fn conditional_toka_preserves_enumerative_and_predicate_connections() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for text in [
+        "気合いが入っていたりとかしていない",
+        "読んだりとかしなかった",
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        let owner = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| {
+                chain
+                    .operators
+                    .iter()
+                    .any(|op| op.kind == "exemplification")
+            })
+            .unwrap();
+        assert!(
+            owner.surface_form.ends_with("たりとか") || owner.surface_form.ends_with("だりとか"),
+            "{text}"
+        );
+        let insertion = owner
+            .operators
+            .iter()
+            .find(|op| op.kind == "exemplification")
+            .unwrap();
+        assert_eq!(insertion.state_before, insertion.state_after);
+        assert_eq!(
+            insertion.state_before.form,
+            readux_nlp::morphology::ConnectionForm::Continuative
+        );
+        let child = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == "tari_suru"))
+            .unwrap();
+        assert_eq!(
+            child.parent_chain_id.as_deref(),
+            Some(owner.chain_id.as_str())
+        );
+        assert!(doc
+            .morphology
+            .chains
+            .iter()
+            .all(|chain| chain.status == "resolved"));
+        assert!(doc
+            .morphology
+            .chains
+            .iter()
+            .any(|chain| chain.operators.iter().any(|op| op.kind == "negative")));
+    }
+    for (text, expected) in [("学生ですとか先生だとか", 2), ("本とか読む", 1)] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        let insertions: Vec<_> = doc
+            .morphology
+            .chains
+            .iter()
+            .flat_map(|chain| &chain.operators)
+            .filter(|op| op.kind == "exemplification")
+            .collect();
+        assert_eq!(insertions.len(), expected, "{text}");
+        assert!(insertions
+            .iter()
+            .all(|op| op.state_before == op.state_after));
+    }
+    for text in ["読みとかする", "読んでとかいる", "読んだりしているとかする"]
+    {
+        let doc = analyze(&service, text);
+        // 拒绝将历史连接器重新用于后面的独立谓词。
+        let last = doc.morphology.chains.last().unwrap();
+        assert!(
+            last.parent_chain_id.is_none(),
+            "{text}: {:?}",
+            doc.morphology.chains
+        );
+    }
+    for text in ["読んだりとか、する", "読んだり とかする"] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology
+                .chains
+                .last()
+                .unwrap()
+                .parent_chain_id
+                .is_none(),
+            "{text}"
+        );
+    }
+}
+
+#[test]
+fn recursive_predicates_use_local_inflection_and_preserve_nominal_inputs() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, kind, parent_surface, category) in [
+        ("訪ねてきたりしないよ", "tari_suru", "きたり", "形容詞"),
+        ("読んだりしなかった", "tari_suru", "読んだり", "形容詞"),
+        ("読んだりできなかった", "tari_dekiru", "読んだり", "形容詞"),
+        ("読んだりさせられた", "tari_suru", "読んだり", "動詞"),
+        ("静かだったりしない", "tari_suru", "静かだったり", "形容詞"),
+        ("高かったりできない", "tari_dekiru", "高かったり", "形容詞"),
+        ("読んでいさせられた", "te_iru", "読んで", "動詞"),
+        (
+            "読んでいたくなくなった",
+            "adjectival_naru",
+            "いたくなく",
+            "動詞",
+        ),
+        ("高くなくなってしまった", "te_shimau", "なって", "動詞"),
+        (
+            "キャンセルになるかもしれなくなってしまった",
+            "te_shimau",
+            "なって",
+            "動詞",
+        ),
+        (
+            "自分だけ先に帰ることになっちゃったとかだろうか",
+            "contracted_te_shimau",
+            "なっ",
+            "動詞",
+        ),
+        ("代表になった", "ni_naru", "代表に", "動詞"),
+        ("これになった", "ni_naru", "これに", "動詞"),
+        ("強さになった", "ni_naru", "強さに", "動詞"),
+        ("読むのになった", "ni_naru", "読むのに", "動詞"),
+        ("静かになった", "ni_naru", "静かに", "動詞"),
+        ("読めるようになった", "ni_naru", "読めるように", "動詞"),
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        assert!(
+            doc.morphology
+                .chains
+                .iter()
+                .all(|chain| chain.status == "resolved"),
+            "{text}"
+        );
+        let child = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == kind))
+            .unwrap_or_else(|| panic!("{text}: 缺少 {kind}"));
+        let parent = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| Some(&chain.chain_id) == child.parent_chain_id.as_ref())
+            .unwrap();
+        assert_eq!(parent.surface_form, parent_surface, "{text}");
+        assert_eq!(child.final_state.category, category, "{text}");
+        let op = child.operators.iter().find(|op| op.kind == kind).unwrap();
+        assert_eq!(op.state_after.category, "動詞", "{text}");
+        assert_eq!(
+            child.lookup_form,
+            if kind == "tari_suru" {
+                "する"
+            } else if kind == "tari_dekiru" {
+                "できる"
+            } else if kind == "te_iru" {
+                "いる"
+            } else if matches!(kind, "te_shimau" | "contracted_te_shimau") {
+                "しまう"
+            } else {
+                "なる"
+            },
+            "{text}"
+        );
+        if kind == "ni_naru" {
+            assert!(matches!(
+                parent.final_state.category.as_str(),
+                "名詞" | "代名詞" | "形状詞"
+            ));
+        }
+    }
+    for (text, kind, category) in [
+        ("読めるかもしれなかった", "kamoshirenai", "形容詞"),
+        ("読んでほしくなかった", "te_hoshii", "形容詞"),
+        ("読んじゃいたかった", "contracted_te_shimau", "形容詞"),
+        ("読んだのだったらしい", "rashii_modality", "形容詞"),
+        ("こうならないはずなのだから", "hazu_modality", "形状詞"),
+        ("リサーチしつつ", "tsutsu_connection", "動詞"),
+        ("支え合ったりできるような気がする", "tari_dekiru", "形状詞"),
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        let chain = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == kind))
+            .unwrap();
+        assert_eq!(chain.status, "resolved", "{text}");
+        assert_eq!(chain.final_state.category, category, "{text}");
+    }
+    for text in [
+        "読みましたい",
+        "読みまします",
+        "読まなくたい",
+        "読まないたい",
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology
+                .chains
+                .iter()
+                .any(|chain| chain.status != "resolved"),
+            "{text}"
+        );
+    }
+    let ordinary_case = analyze(&service, "机に置いた");
+    assert!(ordinary_case
+        .morphology
+        .chains
+        .iter()
+        .all(|chain| chain.parent_chain_id.is_none()));
+    let ordinary_noni = analyze(&service, "読むのに時間がかかる");
+    assert!(ordinary_noni.morphology.chains[0]
+        .operators
+        .iter()
+        .any(|op| op.kind == "noni_connection"));
 }
 
 #[test]
@@ -269,25 +516,89 @@ fn stage_nine_operators_resolve_formal_concepts() {
         ("行きたがる。", "desire_outward", "grammar.modality.tagaru"),
         ("学生である。", "copula_aru", "grammar.functional.aru"),
         ("静かさを測る。", "nominalization", "grammar.functional.sa"),
-        ("食べたら寝る。", "tara_condition", "morphology.mood.conditional"),
-        ("春なら出かける。", "nara_condition", "morphology.mood.conditional"),
-        ("歩きながら話す。", "nagara_connection", "grammar.connective.nagara"),
-        ("考えつつ進む。", "tsutsu_connection", "grammar.connective.tsutsu"),
-        ("雨なれど行く。", "concessive_connection", "grammar.connective.keredomo"),
-        ("ここで騒ぐな。", "prohibitive", "grammar.sentence_particle.na"),
-        ("本を読んだり聞いたりする。", "enumerative", "grammar.connective.tari"),
-        ("読むとか書くとかする。", "exemplification", "grammar.connective.toka"),
+        (
+            "食べたら寝る。",
+            "tara_condition",
+            "morphology.mood.conditional",
+        ),
+        (
+            "春なら出かける。",
+            "nara_condition",
+            "morphology.mood.conditional",
+        ),
+        (
+            "歩きながら話す。",
+            "nagara_connection",
+            "grammar.connective.nagara",
+        ),
+        (
+            "考えつつ進む。",
+            "tsutsu_connection",
+            "grammar.connective.tsutsu",
+        ),
+        (
+            "雨なれど行く。",
+            "concessive_connection",
+            "grammar.connective.keredomo",
+        ),
+        (
+            "ここで騒ぐな。",
+            "prohibitive",
+            "grammar.sentence_particle.na",
+        ),
+        (
+            "本を読んだり聞いたりする。",
+            "enumerative",
+            "grammar.connective.tari",
+        ),
+        (
+            "読むとか書くとかする。",
+            "exemplification",
+            "grammar.connective.toka",
+        ),
         ("高いくらいだ。", "degree", "grammar.particle.kurai"),
         ("早く行け。", "imperative", "morphology.form.imperative"),
-        ("静かなので帰る。", "node_connection", "grammar.connective.node"),
-        ("食べないで寝る。", "negative_de", "grammar.connective.naide"),
-        ("ここに入ってはならない。", "prohibition_tewa_condition_naru", "grammar.prohibition.tewa_naranai"),
-        ("ここに入ってはいけない。", "prohibition_tewa_condition_ikeru", "grammar.prohibition.tewa_ikenai"),
-        ("ここに入ってはだめだ。", "prohibition_tewa_condition_dame", "grammar.prohibition.tewa_dame"),
+        (
+            "静かなので帰る。",
+            "node_connection",
+            "grammar.connective.node",
+        ),
+        (
+            "食べないで寝る。",
+            "negative_de",
+            "grammar.connective.naide",
+        ),
+        (
+            "ここに入ってはならない。",
+            "prohibition_tewa_condition_naru",
+            "grammar.prohibition.tewa_naranai",
+        ),
+        (
+            "ここに入ってはいけない。",
+            "prohibition_tewa_condition_ikeru",
+            "grammar.prohibition.tewa_ikenai",
+        ),
+        (
+            "ここに入ってはだめだ。",
+            "prohibition_tewa_condition_dame",
+            "grammar.prohibition.tewa_dame",
+        ),
         ("見てごらん。", "te_goran", "grammar.auxiliary.goran"),
-        ("会いたくてたまらない。", "te_tamaranai", "grammar.auxiliary.tamaranai"),
-        ("忘れられなくてならない。", "te_naranai", "grammar.auxiliary.naranai"),
-        ("願ってやまない。", "te_yamanai", "grammar.auxiliary.yamanai"),
+        (
+            "会いたくてたまらない。",
+            "te_tamaranai",
+            "grammar.auxiliary.tamaranai",
+        ),
+        (
+            "忘れられなくてならない。",
+            "te_naranai",
+            "grammar.auxiliary.naranai",
+        ),
+        (
+            "願ってやまない。",
+            "te_yamanai",
+            "grammar.auxiliary.yamanai",
+        ),
     ] {
         let doc = analyze(&service, text);
         let chain = doc

@@ -1,3 +1,5 @@
+\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\src\morphology_machine.rs:
+
 //! 词法连接状态机。GiNZA 参与复合核心、功能所有权和来源冲突判定。
 use crate::{
     external::{SourceArtifact, SourceNode},
@@ -57,38 +59,14 @@ fn semantic(t: &ProviderToken) -> Vec<String> {
     config::features(t)
 }
 
-fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
-    let Some(metadata) = config::rule_metadata(kind) else {
-        return false;
-    };
-    if previous.operators.iter().any(|operator| {
-        metadata
-            .same_layer
-            .iter()
-            .any(|item| item == &operator.kind)
-            || metadata
-                .allowed_after
-                .iter()
-                .any(|item| item == &operator.kind)
-    }) {
-        return false;
-    }
-    let current = metadata.order_rank;
-    if current == 0 {
-        return false;
-    }
+/// 连接条件读取紧邻的语法步骤；插入语保持原接续许可。
+fn follows_operator(previous: &MorphologyChain, kinds: &[String]) -> bool {
     previous
         .operators
         .iter()
-        // 补助动词子链从补助词本体重新开始动词循环；补助层的阶段值
-        // 不应阻断子链自身的使役、受身／可能等循环。
-        .filter(|operator| {
-            config::rule_metadata(&operator.kind)
-                .is_some_and(|meta| meta.executor.contains("verb_cycle"))
-        })
-        .filter_map(|operator| (operator.order_rank > 0).then_some(operator.order_rank))
-        .max()
-        .is_some_and(|rank| current < rank)
+        .rev()
+        .find(|op| op.executor != "insertion" || kinds.contains(&op.kind))
+        .is_some_and(|op| kinds.contains(&op.kind))
 }
 
 fn terminal_mode(kind: &str) -> &'static str {
@@ -138,6 +116,10 @@ fn accepts_input(state: &MorphologyState, metadata: &config::RuleMetadata) -> bo
     };
     accepted_category
         && (metadata.input_forms.is_empty() || metadata.input_forms.contains(&state.form))
+        && !metadata
+            .exclude_input_ctypes
+            .iter()
+            .any(|ctype| state.conjugation_type == *ctype)
 }
 
 enum Transition {
@@ -166,21 +148,6 @@ fn declared_output(previous: &MorphologyChain, atom: &mut MorphologyChain, kind:
 
 /// 动词循环类执行器：只接受动词范畴内的有限转移，词性转换交给其他执行器。
 struct VerbCycleExecutor;
-
-/// 动词循环阶段的相对顺序；te_support 由补助执行器管理，不参与本约束。
-fn verb_stage_rank(stage: &str) -> Option<i32> {
-    Some(match stage {
-        "voice" => 10,
-        "classical" => 12,
-        "desire" => 40,
-        "conversion" => 45,
-        "polarity_politeness" => 50,
-        "tense" => 60,
-        "modality" => 70,
-        "boundary" => 80,
-        _ => return None,
-    })
-}
 
 fn connection_form_name(form: &ConnectionForm) -> &'static str {
     match form {
@@ -223,23 +190,6 @@ impl VerbCycleExecutor {
                 "verb_cycle_input_category:{}:{}:{}",
                 previous.chain_id, kind, index
             ));
-        }
-        // 阶段可跳过，但已在链上的动词循环阶段不得倒退；allowed_after 属于显式豁免。
-        if let Some(rank) = verb_stage_rank(&metadata.stage) {
-            let stage_regression = previous.operators.iter().any(|operator| {
-                config::rule_metadata(&operator.kind).is_some_and(|meta| {
-                    meta.executor.contains("verb_cycle")
-                        && verb_stage_rank(&meta.stage).is_some_and(|before| before > rank)
-                        && !metadata.allowed_after.contains(&operator.kind)
-                })
-            });
-            if stage_regression {
-                atom.status = "candidate".into();
-                diagnostics.push(format!(
-                    "verb_cycle_stage_order:{}:{}:{}",
-                    previous.chain_id, kind, index
-                ));
-            }
         }
         if metadata.output_category == "動詞" || metadata.output_category == "动词" {
             atom.final_state.category = "動詞".into();
@@ -442,17 +392,22 @@ impl AuxiliaryVerbExecutor {
         let support_group = config::definition(kind)
             .and_then(|definition| definition.support.as_ref())
             .map(|support| support.group.as_str());
-        let has_te_connector = previous.final_state.form == ConnectionForm::Te
-            || previous
-                .operators
-                .iter()
-                .any(|operator| operator.kind == "te_connection");
+        let connector = previous
+            .operators
+            .iter()
+            .rev()
+            .find(|operator| operator.executor != "insertion");
+        let has_te_connector = previous.final_state.form == ConnectionForm::Te;
         let has_connector = match support_group {
             Some("te") => has_te_connector,
             Some("contracted") => {
                 has_te_connector || previous.final_state.form == ConnectionForm::Continuative
             }
             Some("continuative") => previous.final_state.form == ConnectionForm::Continuative,
+            Some("enumerative") => connector.is_some_and(|op| op.kind == "enumerative"),
+            Some("nominal_change") => connector
+                .is_some_and(|op| matches!(op.kind.as_str(), "nominal_change_ni" | "adverbial_ni")),
+            Some("adjectival_change") => previous.final_state.form == ConnectionForm::Continuative,
             _ => false,
         };
         if !has_connector {
@@ -486,7 +441,19 @@ impl AuxiliaryVerbExecutor {
         }
         atom.role = MorphologyRole::Functional;
         atom.parent_chain_id = Some(previous.chain_id.clone());
-        atom.final_state.entity_class = "补助动词类".into();
+        // 后项保留自身活用型和活用形；缩约助动词按展开后的动词身份继续，
+        // ほしい与整体否定构式则进入形容词活用。
+        atom.final_state.category = match metadata.output_category.as_str() {
+            "动词" => "動詞",
+            category => category,
+        }
+        .into();
+        atom.final_state.entity_class = if atom.final_state.category == "形容詞" {
+            "イ形容词转换类"
+        } else {
+            "补助动词类"
+        }
+        .into();
         atom.evidence
             .push(format!("connector:{}", metadata.rule_group));
         if let Some(connector) =
@@ -908,10 +875,7 @@ fn transition(
                         .categories
                         .contains(&previous.final_state.category))
                 && (condition.operators.is_empty()
-                    || previous
-                        .operators
-                        .iter()
-                        .any(|op| condition.operators.contains(&op.kind)))
+                    || follows_operator(previous, &condition.operators))
                 && (condition.suffixes.is_empty()
                     || condition
                         .suffixes
@@ -1185,11 +1149,7 @@ fn suffix_sequence(
             && rule.forms.contains(&previous.final_state.form)
             && (rule.categories.is_empty()
                 || rule.categories.contains(&previous.final_state.category))
-            && (rule.operators.is_empty()
-                || previous
-                    .operators
-                    .iter()
-                    .any(|op| rule.operators.contains(&op.kind)))
+            && (rule.operators.is_empty() || follows_operator(previous, &rule.operators))
             && rule
                 .tokens
                 .iter()
@@ -1198,6 +1158,10 @@ fn suffix_sequence(
             && source[index..end]
                 .windows(2)
                 .all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
+            && !rule
+                .exclude_following
+                .as_ref()
+                .is_some_and(|pattern| source.get(end).is_some_and(|token| pattern.matches(token)))
             && (!rule.terminal_only
                 || source.get(end).is_none_or(|token| {
                     field(token, 0) == "補助記号" && matches!(field(token, 1), "句点" | "括弧閉")
@@ -1426,13 +1390,6 @@ pub(crate) fn compose(
                             index,
                         );
                         attached |= atom.status != "candidate";
-                        if order_conflict(previous, &kind) {
-                            previous.status = "candidate".into();
-                            diagnostics.push(format!(
-                                "rule_order_conflict:{}:{}:{}",
-                                previous.chain_id, kind, index
-                            ));
-                        }
                         previous
                             .operators
                             .push(operator(&rule_input, &atom, kind, rule_token));
@@ -1466,37 +1423,15 @@ pub(crate) fn compose(
                     continue;
                 }
                 Transition::Support(kind) => {
-                    if AuxiliaryVerbExecutor::accepts(kind) {
-                        AuxiliaryVerbExecutor::apply(
-                            previous,
-                            &mut atom,
-                            kind,
-                            source,
-                            index,
-                            auxiliary_depth,
-                            &mut diagnostics,
-                        );
-                    } else {
-                        // たりする等动词循环连接器仍建立父子链，但活用校验由所属执行器完成。
-                        apply_rule_executor(
-                            previous,
-                            &mut atom,
-                            kind,
-                            current,
-                            &mut diagnostics,
-                            index,
-                        );
-                    }
-                    atom.role = MorphologyRole::Functional;
-                    atom.parent_chain_id = Some(previous.chain_id.clone());
-                    // 补助词从自身词干开启新循环，前层补助规则的排序在此结束。
-                    if !AuxiliaryVerbExecutor::accepts(kind) && order_conflict(previous, kind) {
-                        atom.status = "candidate".into();
-                        diagnostics.push(format!(
-                            "rule_order_conflict:{}:{}:{}",
-                            previous.chain_id, kind, index
-                        ));
-                    }
+                    AuxiliaryVerbExecutor::apply(
+                        previous,
+                        &mut atom,
+                        kind,
+                        source,
+                        index,
+                        auxiliary_depth,
+                        &mut diagnostics,
+                    );
                     atom.operators
                         .push(operator(previous, &atom, kind.into(), current));
                     if let Some(connector) = config::definition(kind)

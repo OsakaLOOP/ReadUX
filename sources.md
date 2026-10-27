@@ -1,5 +1,38 @@
 # 来源与文档索引
 
+## 活用链接续审计依据（2026-10-27）
+
+外部参考为 Tae Kim《Using する and なる with the に particle》《Compound Sentences》《Desire and Suggestions》，正文及标题索引均已读取，分别核对名词性成分与形容词接なる、たり后末尾する的否定与时态，以及たい转换后的形容词活用。
+
+### 外部文档完整标题索引
+
+- Using する and なる with the に particle
+  - Using 「なる」 and 「する」 for nouns and na-adjectives：Vocabulary。
+  - Using 「なる」 with i-adjectives：Vocabulary。
+  - Using 「なる」 and 「する」 with verbs：Vocabulary。
+  - Guide to Japanese grammar。
+- Compound Sentences
+  - Expressing a sequence of states：Vocabulary、Examples。
+  - Expressing a sequence of verbs with the te-form：Vocabulary、Examples。
+  - Expressing reason or causation using 「から」 and 「ので」：Vocabulary、Examples、Example 1、Example 2、Example 3。
+  - Using 「のに」 to mean “despite”：Vocabulary、Examples。
+  - Expressing contradiction using 「が」 and 「けど」：Vocabulary、Examples。
+  - Expressing multiple reasons using 「し」：Vocabulary、Example 1、Example 2。
+  - Expressing multiple actions or states using 「～たりする」：Vocabulary。
+  - Guide to Japanese grammar。
+- Desire and Suggestions
+  - How to get your way in Japan。
+  - Verbs you want to do with 「たい」：Vocabulary、Examples。
+  - Indicating things you want or want done using 「欲しい」：Vocabulary、Examples。
+  - Making a motion to do something using the volitional form (casual)：Vocabulary、Examples。
+  - Making a motion to do something using the volitional form (polite)：Vocabulary、Examples。
+  - Making Suggestions using the 「ば」 or 「たら」 conditional：Vocabulary、Examples。
+  - Guide to Japanese grammar。
+
+本轮依据[局部接续报告](docs/morphology_local_connections_2026-10-27.md)、[统一配置](configs/unidic-nlp/morphology.json)、[执行入口](crates/readux-nlp/src/morphology_machine.rs)和真实 CWJ UniDic 输出核对规则作用范围。
+
+本机[三省堂词典索引](data/dicts)通过正式 query_entry 读取记录 147822、147823：「とか」接体言、相当于体言的成分及活用语终止形，例句包含「好きです」とか言ってしまった、「寝たっきりだとか聞いている」。たりとか结合用户输入与真实分词验证。
+
 当前设计依据本次确认的交付目标，以及工作区的模块注册、调用关系、类型和资源配置。外部链接沿用已登记来源，供依赖与格式核对。历史资料保存在 [docs_backup](docs_backup/README.md)。
 
 ## 决策与实现依据

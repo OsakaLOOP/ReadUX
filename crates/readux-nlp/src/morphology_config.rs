@@ -1,3 +1,5 @@
+\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\src\morphology_config.rs:
+
 //! 活用链配置的类型与词法条件匹配；语言规则集中在 morphology.json。
 use crate::{model::ProviderToken, morphology::ConnectionForm};
 use serde::Deserialize;
@@ -121,9 +123,7 @@ pub struct RuleMetadata {
     #[serde(default)]
     pub input_forms: Vec<ConnectionForm>,
     #[serde(default)]
-    pub allowed_after: Vec<String>,
-    #[serde(default)]
-    pub same_layer: Vec<String>,
+    pub exclude_input_ctypes: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -251,8 +251,7 @@ pub fn support_kind(group: &str, token: &ProviderToken) -> Option<&'static str> 
         .iter()
         .find(|(_, entry)| {
             entry.support.as_ref().is_some_and(|support| {
-                support.group == group
-                    && support.bases.iter().any(|base| base == identity(token))
+                support.group == group && support.bases.iter().any(|base| base == identity(token))
             })
         })
         .map(|(kind, _)| kind.as_str())
@@ -362,6 +361,8 @@ pub struct Sequence {
     pub operators: Vec<String>,
     #[serde(default)]
     pub terminal_only: bool,
+    #[serde(default)]
+    pub exclude_following: Option<TokenPattern>,
     #[serde(default)]
     pub phenomena: Vec<String>,
 }
@@ -668,10 +669,13 @@ mod tests {
                 assert!(CONFIG.operators.contains_key(kind), "{kind}");
             }
             if matches!(rule.action, Action::Support) {
-                assert!(CONFIG.operators.values().any(|entry| entry
-                    .support
-                    .as_ref()
-                    .is_some_and(|support| support.group == rule.support_group)));
+                assert!(CONFIG.operators.iter().any(|(kind, entry)| {
+                    entry
+                        .support
+                        .as_ref()
+                        .is_some_and(|support| support.group == rule.support_group)
+                        && CONFIG.rule_metadata[kind].executor == "auxiliary_verb"
+                }));
             }
         }
         for entry in CONFIG.operators.values() {
@@ -681,6 +685,14 @@ mod tests {
             }
             for variant in &entry.variants {
                 assert!(!variant.form.is_empty());
+            }
+        }
+        for (kind, entry) in &CONFIG.operators {
+            if entry.support.is_some() {
+                assert_eq!(
+                    CONFIG.rule_metadata[kind].executor, "auxiliary_verb",
+                    "{kind}"
+                );
             }
         }
         assert!(CONFIG.presentation["inflections"].as_array().is_some());

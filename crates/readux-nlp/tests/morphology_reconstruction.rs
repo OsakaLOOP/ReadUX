@@ -1,3 +1,5 @@
+\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\tests\morphology_reconstruction.rs:
+
 use readux_nlp::{
     external::{
         Endpoint, Manifest, NodeKind, RelationKind, SourceArtifact, SourceNode, SourceRelation,
@@ -16,6 +18,131 @@ struct Part {
     cform: &'static str,
     lemma: &'static str,
     orth_base: &'static str,
+}
+
+#[test]
+fn enumerative_toka_accepts_single_and_split_tokens_without_changing_state() {
+    for inserted in [
+        vec![focus_particle("とか", "副助詞")],
+        vec![
+            focus_particle("と", "格助詞"),
+            focus_particle("か", "副助詞"),
+        ],
+    ] {
+        let mut specs = vec![
+            verb("読ん", "連用形-撥音便"),
+            focus_particle("だり", "副助詞"),
+        ];
+        specs.extend(inserted);
+        specs.push(Part {
+            surface: "し",
+            pos: "動詞",
+            sub: "非自立可能",
+            ctype: "サ行変格",
+            cform: "未然形-一般",
+            lemma: "為る",
+            orth_base: "する",
+        });
+        specs.push(Part {
+            surface: "ない",
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-ナイ",
+            cform: "終止形-一般",
+            lemma: "ない",
+            orth_base: "ない",
+        });
+        let text: String = specs.iter().map(|part| part.surface).collect();
+        let artifact = run(&text, &specs, &[]);
+        assert!(
+            artifact.diagnostics.is_empty(),
+            "{:?}",
+            artifact.diagnostics
+        );
+        assert_eq!(artifact.chains.len(), 2);
+        assert!(artifact
+            .chains
+            .iter()
+            .all(|chain| chain.status == "resolved"));
+        let insertion = artifact.chains[0]
+            .operators
+            .iter()
+            .find(|op| op.kind == "exemplification")
+            .unwrap();
+        assert_eq!(insertion.state_before, insertion.state_after);
+        assert_eq!(artifact.chains[0].surface_form, "読んだりとか");
+        assert_eq!(
+            artifact.chains[1].parent_chain_id.as_deref(),
+            Some("morphology:m0")
+        );
+        let occurrence = artifact
+            .occurrences
+            .iter()
+            .find(|op| op.kind == "tari_suru")
+            .unwrap();
+        assert_eq!(occurrence.hit_ranges, vec![[2, 4], [4, 6], [6, 7]]);
+        assert_eq!(occurrence.context_range, [0, 9]);
+    }
+}
+
+#[test]
+fn local_input_constraints_reject_invalid_reinflection_with_source_edges() {
+    for (tail, lemma, ctype, kind) in [
+        ("たい", "たい", "助動詞-タイ", "desire"),
+        ("ます", "ます", "助動詞-マス", "politeness_masu"),
+        ("せる", "せる", "助動詞-セル", "causative"),
+    ] {
+        let polite = Part {
+            surface: if kind == "causative" {
+                "ませ"
+            } else {
+                "まし"
+            },
+            pos: "助動詞",
+            sub: "",
+            ctype: "助動詞-マス",
+            cform: if kind == "causative" {
+                "未然形-一般"
+            } else {
+                "連用形-一般"
+            },
+            lemma: "ます",
+            orth_base: "ます",
+        };
+        let specs = [
+            verb("読み", "連用形-一般"),
+            polite,
+            Part {
+                surface: tail,
+                pos: "助動詞",
+                sub: "",
+                ctype,
+                cform: "終止形-一般",
+                lemma,
+                orth_base: lemma,
+            },
+        ];
+        let text: String = specs.iter().map(|part| part.surface).collect();
+        let artifact = run_with_support_edges(&text, &specs, &[(2, 0)]);
+        let owner = artifact
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == kind))
+            .unwrap();
+        assert_eq!(
+            owner.status, "candidate",
+            "{text}: {:?}",
+            artifact.diagnostics
+        );
+        assert!(
+            artifact
+                .diagnostics
+                .iter()
+                .any(|item| item.contains("input_category")),
+            "{text}: {:?}",
+            artifact.diagnostics
+        );
+    }
 }
 
 fn parts(text: &str, specs: &[Part]) -> (Vec<ProviderToken>, Vec<MorphemeToken>) {
