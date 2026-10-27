@@ -1279,7 +1279,6 @@
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
       "input_category": "动词",
-      "input_categories": ["動詞", "助動詞"],
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30

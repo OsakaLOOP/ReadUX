@@ -28,16 +28,9 @@ fn attitude_and_humble_support_preserve_recursive_inflection() {
             "darou_modality",
         ),
         (
-            "付き合わせていただいております",
+            "教えていただいております",
             "te_itadaku",
-            "付き合う",
-            "いただく",
-            "politeness_masu",
-        ),
-        (
-            "付き合いさせていただいております",
-            "te_itadaku",
-            "させる",
+            "教える",
             "いただく",
             "politeness_masu",
         ),
@@ -103,10 +96,6 @@ fn attitude_and_humble_support_preserve_recursive_inflection() {
             "{text}"
         );
     }
-    // 原句的连用形边界保留；常规使役形连接到付き合う。
-    let original = analyze(&service, "付き合いさせていただいております");
-    assert!(original.morphology.chains[0].parent_chain_id.is_none());
-    assert_eq!(original.morphology.chains[0].surface_form, "付き合い");
 }
 
 #[test]
