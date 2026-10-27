@@ -2,10 +2,11 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import type { AnnotatedToken, DictionaryLookup } from "../../types";
 import { floatDebug } from "../../explanation/floatDebug";
-import { explanationPanelWidth, measureIntrinsicPanel, placeExplanationPanels, type PopoverPlacement, type RectSnapshot, type Size } from "../../explanation/geometry";
+import { explanationPanelWidth, morphologyPanelWidths, measureIntrinsicPanel, placeExplanationPanels, placeMorphologyPanels, type PanelPlacement, type PopoverPlacement, type RectSnapshot, type Size } from "../../explanation/geometry";
 import TooltipPanel from "../TooltipPanel.vue";
 import ReaderExplanationBubble from "../reader/ReaderExplanationBubble.vue";
-import ParticleGrammarBlock from "../grammar/ParticleGrammarBlock.vue";
+import ReaderMorphologyEntry from "../reader/ReaderMorphologyEntry.vue";
+import ReaderConnectionTree from "../reader/ReaderConnectionTree.vue";
 import type { ReaderMorphologyDetail } from "../../reader/lookupPresentation";
 import type { ReaderTargetPresentation } from "../../reader/lookupPresentation";
 
@@ -31,7 +32,6 @@ const props = defineProps<{
   componentSource?: ReaderTargetPresentation | null;
   summaryVisible?: boolean;
   detail?: ReaderMorphologyDetail | null;
-  grammarLookups?: DictionaryLookup[];
 }>();
 
 const emit = defineEmits<{
@@ -49,6 +49,7 @@ const placement = ref<PopoverPlacement>({
   component: { left: -10000, top: -10000, width: 420, height: 320, maxHeight: 620 },
 });
 const panelWidth = ref(420);
+const connectionPlacement = ref<PanelPlacement | null>(null);
 let observer: ResizeObserver | null = null;
 
 function intrinsicPanelSize(panelId: string): Size | undefined {
@@ -60,6 +61,7 @@ function intrinsicPanelSize(panelId: string): Size | undefined {
 const panelPrefix = computed(() => props.panelPrefix || "explanation");
 const wholePanelId = computed(() => `${panelPrefix.value}-whole-panel`);
 const componentPanelId = computed(() => `${panelPrefix.value}-component-panel`);
+const connectionPanelId = computed(() => `${panelPrefix.value}-connection-panel`);
 const enableShortcuts = computed(() => props.shortcutsEnabled ?? true);
 
 function place() {
@@ -77,6 +79,15 @@ function place() {
     return;
   }
   const wholeSize = intrinsicPanelSize(wholePanelId.value);
+  const connectionSize = intrinsicPanelSize(connectionPanelId.value);
+  if (props.detail?.connection && connectionSize) {
+    const stacked = placeMorphologyPanels(props.anchor, componentSize, connectionSize,
+      wholeSize ?? { width: panelWidth.value, height: 320 }, { width: window.innerWidth, height: window.innerHeight });
+    placement.value = { component: stacked.entry, whole: stacked.dictionary };
+    connectionPlacement.value = stacked.connection;
+    return;
+  }
+  connectionPlacement.value = null;
   placement.value = placeExplanationPanels(
     props.anchor,
     props.componentAnchor,
@@ -106,13 +117,15 @@ async function connectAndPlace() {
     return;
   }
   const hasWhole = Boolean(props.wholeLookup || props.wholeLoading);
-  panelWidth.value = explanationPanelWidth(window.innerWidth, hasWhole);
+  panelWidth.value = props.detail?.connection ? morphologyPanelWidths(window.innerWidth).morphology : explanationPanelWidth(window.innerWidth, hasWhole);
   await nextTick();
   observer?.disconnect();
   observer = new ResizeObserver(place);
   const contents = [
     document.querySelector(`[data-explanation-content="${wholePanelId.value}"]`),
     document.querySelector(`[data-explanation-content="${componentPanelId.value}"]`),
+    document.getElementById(componentPanelId.value),
+    document.getElementById(connectionPanelId.value),
   ].filter((content): content is Element => Boolean(content));
   contents.forEach((content) => observer?.observe(content));
   floatDebug.record("layout", "explanation-popover", "observer-connected", `${contents.length} content nodes`);
@@ -161,7 +174,7 @@ function elementRectSnapshot(element: HTMLElement | null) {
 }
 
 watch(
-  () => [props.show, props.anchor, props.componentAnchor, props.wholeLookup, props.wholeLoading, props.componentLookup, props.componentLoading],
+  () => [props.show, props.anchor, props.componentAnchor, props.wholeLookup, props.wholeLoading, props.componentLookup, props.componentLoading, props.detail],
   connectAndPlace,
   { flush: "post" },
 );
@@ -180,7 +193,7 @@ onBeforeUnmount(() => {
     :show="show"
     :x="placement.whole?.left ?? -10000"
     :y="placement.whole?.top ?? -10000"
-    :width="panelWidth"
+    :width="placement.whole?.width ?? panelWidth"
     :max-height="placement.whole?.maxHeight ?? 620"
     :token="wholeToken"
     :headword="wholeHeadword"
@@ -204,19 +217,15 @@ onBeforeUnmount(() => {
     :show="show"
     :x="placement.component.left"
     :y="placement.component.top"
-    :width="panelWidth"
+    :width="placement.component.width"
     :max-height="placement.component.maxHeight"
-    :title="detail.title"
-    :surface="detail.surface"
+    :title="detail.entry?.usage || detail.title"
+    label="活用词条"
+    :surface="detail.entry?.headword || detail.surface"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
   >
-    <p v-if="detail.description">{{ detail.description }}</p>
-    <span v-for="tag in detail.tags" :key="tag">{{ tag }} </span>
-    <p v-if="detail.candidates.length">可能含义：{{ detail.candidates.join('、') }}</p>
-    <div v-if="grammarLookups?.length" class="morphology-extra">
-      <ParticleGrammarBlock v-for="lookup in grammarLookups" :key="`${lookup.entries[0]?.entry_key}:${lookup.observed_form}`" :lookup="lookup" />
-    </div>
+    <ReaderMorphologyEntry :key="detail.id" :detail="detail" />
   </ReaderExplanationBubble>
   <TooltipPanel
     v-else
@@ -242,8 +251,12 @@ onBeforeUnmount(() => {
     @select-form="emit('selectComponentForm', $event)"
     @back="emit('backComponent')"
   ><template #summary><slot name="summary" /></template></TooltipPanel>
+  <ReaderExplanationBubble v-if="detail?.connection"
+    :id="connectionPanelId" :data-explanation-panel="connectionPanelId" :show="show"
+    :x="connectionPlacement?.left ?? -10000" :y="connectionPlacement?.top ?? -10000"
+    :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300"
+    title="接续方式" surface=""
+    @enter="emit('enter', $event)" @leave="emit('leave', $event)">
+    <ReaderConnectionTree :key="detail.id" :diagram="detail.connection" @resize="place" />
+  </ReaderExplanationBubble>
 </template>
-
-<style scoped>
-.morphology-extra { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
-</style>

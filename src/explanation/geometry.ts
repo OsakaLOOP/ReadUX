@@ -42,10 +42,12 @@ export function snapshotRect(rect: DOMRect): RectSnapshot {
 }
 
 /** 外框高度可能受 max-height 限制；scrollHeight 才是当前宽度下的内容固有高度。 */
-export function measureIntrinsicPanel(panel: Pick<HTMLElement, "getBoundingClientRect" | "scrollHeight">): Size {
+export function measureIntrinsicPanel(panel: Pick<HTMLElement, "getBoundingClientRect" | "scrollHeight"> & Partial<Pick<HTMLElement, "clientHeight" | "querySelector">>): Size {
+  const bounds = panel.getBoundingClientRect();
+  const natural = Number(panel.querySelector?.<HTMLElement>('[data-natural-width]')?.dataset.naturalWidth);
   return {
-    width: panel.getBoundingClientRect().width,
-    height: panel.scrollHeight,
+    width: natural > 0 ? natural + 22 : bounds.width,
+    height: panel.scrollHeight + Math.max(0, bounds.height - (panel.clientHeight ?? bounds.height)),
   };
 }
 
@@ -76,6 +78,14 @@ export function explanationPanelWidth(viewportWidth: number, paired: boolean) {
     ? (viewportWidth - MARGIN * 2 - GAP) / 2
     : viewportWidth - MARGIN * 2;
   return Math.min(DEFAULT_PANEL_WIDTH, Math.max(0, availableWidth));
+}
+
+export function isWithinPanelStackGap(x: number, y: number, first: RectSnapshot, second: RectSnapshot) {
+  const upper = first.top < second.top ? first : second;
+  const lower = upper === first ? second : first;
+  return lower.top >= upper.bottom && lower.top - upper.bottom <= GAP + 2
+    && y >= upper.bottom && y <= lower.top
+    && x >= Math.max(upper.left, lower.left) && x <= Math.min(upper.right, lower.right);
 }
 
 /**
@@ -134,6 +144,40 @@ function placeSinglePanel(anchor: RectSnapshot, size: Size, viewport: Size): Pan
     ? anchor.top - GAP - vertical.height
     : anchor.bottom + GAP;
   return placedPanel(left, top, size, vertical.height);
+}
+
+/** 词条靠近正文，接续面板沿同一侧向外堆叠；高度不足时分别滚动。 */
+export function morphologyPanelWidths(viewportWidth: number, preferredWidth = 440) {
+  const available = Math.max(0, viewportWidth - MARGIN * 2 - GAP);
+  const dictionary = Math.min(360, available * .34);
+  return { dictionary, morphology: Math.min(Math.max(320, preferredWidth), available - dictionary) };
+}
+
+export function placeMorphologyPanels(
+  anchor: RectSnapshot, entrySize: Size, connectionSize: Size, dictionarySize: Size, viewport: Size,
+) {
+  const widths = morphologyPanelWidths(viewport.width, connectionSize.width);
+  const width = widths.morphology;
+  const dictionaryWidth = widths.dictionary;
+  const desired = Math.min(entrySize.height, 300) + GAP + Math.min(connectionSize.height, 720);
+  const available = chooseVerticalPlacement(anchor, Number.POSITIVE_INFINITY, viewport);
+  const vertical = { ...available, height: Math.min(available.height, Math.max(desired, Math.min(dictionarySize.height, MAX_PANEL_HEIGHT))) };
+  const usable = Math.max(0, vertical.height - GAP);
+  const entryHeight = Math.min(entrySize.height, 300, usable * (entrySize.height + connectionSize.height > usable ? .4 : 1));
+  const connectionHeight = Math.min(connectionSize.height, 720, Math.max(0, usable - entryHeight));
+  const groupLeft = clamp(anchor.left + anchor.width / 2 - (dictionaryWidth + GAP + width) / 2,
+    MARGIN, Math.max(MARGIN, viewport.width - MARGIN - dictionaryWidth - GAP - width));
+  const left = groupLeft + dictionaryWidth + GAP;
+  const above = vertical.side === 'above';
+  const entryTop = above ? anchor.top - GAP - entryHeight : anchor.bottom + GAP;
+  const connectionTop = above ? entryTop - GAP - connectionHeight : entryTop + entryHeight + GAP;
+  const dictionaryHeight = Math.min(dictionarySize.height, MAX_PANEL_HEIGHT, vertical.height);
+  return {
+    entry: placedPanel(left, entryTop, { width, height: entryHeight }, entryHeight),
+    connection: placedPanel(left, connectionTop, { width, height: connectionHeight }, connectionHeight),
+    dictionary: placedPanel(groupLeft, above ? anchor.top - GAP - dictionaryHeight : anchor.bottom + GAP,
+      { width: dictionaryWidth, height: dictionaryHeight }, dictionaryHeight),
+  };
 }
 
 function constrainedSize(size: Size, viewport: Size): Size {

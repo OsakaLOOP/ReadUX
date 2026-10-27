@@ -1,12 +1,13 @@
 import dictionaryUrl from "./lesson-1-1-dictionary.json?url";
 import dictionary21Url from "./lesson-2-1-dictionary.json?url";
+import morphologyDictionaryUrl from "./lesson-stage11-dictionary.json?url";
 import type { DictEntry, DictionaryLookup } from "../types";
 
 type GuideDictionaryPackage = { schema: string; entries: Record<string, DictEntry> };
 const dictionaryLoads = new Map<string, Promise<GuideDictionaryPackage>>();
 
 async function loadPackage(lessonId: string) {
-  const url = lessonId === "grammar-2.1" ? dictionary21Url : dictionaryUrl;
+  const url = lessonId === "grammar-stage11" ? morphologyDictionaryUrl : lessonId === "grammar-2.1" ? dictionary21Url : dictionaryUrl;
   let pending = dictionaryLoads.get(lessonId);
   if (!pending) {
     pending = fetch(url).then(async (response) => {

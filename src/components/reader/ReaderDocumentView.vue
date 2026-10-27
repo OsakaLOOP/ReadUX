@@ -30,9 +30,10 @@ import ReaderAppearancePanel from "./ReaderAppearancePanel.vue";
 import ReaderCapsule from "./ReaderCapsule.vue";
 import ReaderMorphologySummary from "./ReaderMorphologySummary.vue";
 import ParticleGrammarPopover from "../grammar/ParticleGrammarPopover.vue";
-import ParticleGrammarBlock from "../grammar/ParticleGrammarBlock.vue";
+import ReaderMorphologyEntry from "./ReaderMorphologyEntry.vue";
+import ReaderConnectionTree from "./ReaderConnectionTree.vue";
 import { capsulesForParts, componentForRange } from "../../reader/capsuleProjection";
-import { chainGrammarLookups, grammarMorphemeLookup } from "../../grammar/particleEntries";
+import { grammarMorphemeLookup } from "../../grammar/particleEntries";
 import ReaderExplanationBubble from "./ReaderExplanationBubble.vue";
 import ReaderImageBlock from "./ReaderImageBlock.vue";
 import ReaderNavigationPanel from "./ReaderNavigationPanel.vue";
@@ -81,6 +82,8 @@ import {
   isWithinPanelGroupTriangle,
   measureIntrinsicPanel,
   placeExplanationPanels,
+  placeMorphologyPanels,
+  isWithinPanelStackGap,
   snapshotRect,
   type Size,
 } from "../../explanation/geometry";
@@ -247,6 +250,7 @@ const lookupAnchor = shallowRef<ReturnType<typeof snapshotRect> | null>(null);
 const lookupCompanion = ref<"component" | "detail" | null>(null);
 const lookupPosition = ref({ x: 12, y: 72, width: 420, maxHeight: 480 });
 const detailPosition = ref({ x: 12, y: 12, width: 310, maxHeight: 240 });
+const connectionPosition = ref({ x: 12, y: 12, width: 310, maxHeight: 280 });
 const componentPosition = ref({ x: 12, y: 12, width: 420, maxHeight: 480 });
 const relatedWord = ref("");
 const relatedSearch = shallowRef<QueryOutput | null>(null);
@@ -453,14 +457,6 @@ function sourcePresentationForHit(hit: TargetHit | null) {
 const activeSourcePresentation = computed(() => sourcePresentationForHit(activeHit.value));
 const componentSourcePresentation = computed(() => sourcePresentationForHit(componentHit.value));
 
-const morphologyParticles = computed(() => {
-  const hit = activeHit.value;
-  const document = hit?.selectionDocument ?? hit?.unit.unit.document;
-  if (!hit || !document) return [];
-  const offset = hit.selectionDocument ? 0 : hit.unit.contextOffset;
-  return chainGrammarLookups({ ...hit.target, char_range: [hit.target.char_range[0] - offset, hit.target.char_range[1] - offset] }, document,
-    activeDetail.value ? { detailId: activeDetail.value.id, range: [hit.range[0] - offset, hit.range[1] - offset] } : undefined);
-});
 const activeParticle = computed(() => activeHit.value ? builtinParticle(activeHit.value) : null);
 const componentParticle = computed(() => componentHit.value ? builtinParticle(componentHit.value) : null);
 const activeParticleX = computed(() => lookupPosition.value.x);
@@ -1376,6 +1372,17 @@ function refreshLookupPosition() {
     width: dictionaryWidth,
     height: 420,
   });
+  if (companion === "detail" && activeDetail.value?.connection) {
+    const placement = placeMorphologyPanels(anchor,
+      intrinsicLookupPanelSize("reader-morphology-detail", { width: Math.min(340, width), height: 230 }),
+      intrinsicLookupPanelSize("reader-morphology-connection", { width: Math.min(340, width), height: 300 }),
+      dictionarySize, { width: window.innerWidth, height: window.innerHeight });
+    const position = (panel: typeof placement.entry) => ({ x: panel.left, y: panel.top, width: panel.width, maxHeight: panel.maxHeight });
+    detailPosition.value = position(placement.entry);
+    connectionPosition.value = position(placement.connection);
+    lookupPosition.value = position(placement.dictionary);
+    return;
+  }
   const companionSize =
     companion === "component"
       ? intrinsicLookupPanelSize("reader-component-dictionary", {
@@ -1420,6 +1427,7 @@ function observeLookupPosition() {
     document.getElementById("reader-dictionary"),
     document.getElementById("reader-component-dictionary"),
     document.getElementById("reader-morphology-detail"),
+    document.getElementById("reader-morphology-connection"),
     document.querySelector('[data-explanation-content="reader-dictionary"]'),
     document.querySelector(
       '[data-explanation-content="reader-component-dictionary"]',
@@ -1648,12 +1656,13 @@ function pointerInLookupTriangle(x: number, y: number): boolean {
       '[data-explanation-panel^="reader-"]',
     ),
     document.getElementById("reader-morphology-detail"),
+    document.getElementById("reader-morphology-connection"),
   ].filter((panel): panel is HTMLElement => Boolean(panel));
   return panels.some((panel, index) =>
     panels
       .slice(index + 1)
       .some((other) =>
-        isWithinPanelGroupTriangle(
+        isWithinPanelStackGap(x, y, snapshotRect(panel.getBoundingClientRect()), snapshotRect(other.getBoundingClientRect())) || isWithinPanelGroupTriangle(
           x,
           y,
           snapshotRect(panel.getBoundingClientRect()),
@@ -1684,7 +1693,8 @@ function insideLookupRegion(
       document
         .getElementById("reader-component-dictionary")
         ?.contains(target) ||
-      document.getElementById("reader-morphology-detail")?.contains(target),
+      document.getElementById("reader-morphology-detail")?.contains(target) ||
+      document.getElementById("reader-morphology-connection")?.contains(target),
     );
   return (
     insideElement ||
@@ -2477,48 +2487,24 @@ function toggleEinkMode() {
       :y="detailPosition.y"
       :width="detailPosition.width"
       :max-height="detailPosition.maxHeight"
-      :title="activeDetail.title"
-      :surface="activeDetail.surface"
+      :title="activeDetail.entry?.usage || activeDetail.title"
+      label="活用词条"
+      :surface="activeDetail.entry?.headword || activeDetail.surface"
       @enter="cancelCloseLookup"
       @leave="scheduleCloseLookup"
     >
-      <p v-if="activeDetail.description">{{ activeDetail.description }}</p>
-      <span
-        v-for="tag in activeDetail.tags"
-        :key="tag"
-        class="reader-lookup__tag"
-        >{{ tag }}</span
-      >
-      <p v-if="activeDetail.candidates.length">
-        可能含义：{{ activeDetail.candidates.join("、") }}
-      </p>
-      <section v-if="activeDetail.connectionTree" class="reader-lookup__connection-tree" aria-label="接续条件">
-        <strong>接续条件</strong>
-        <div class="reader-lookup__tree-node reader-lookup__tree-node--root">
-          <span>{{ activeDetail.connectionTree.label }}</span>
-          <small v-if="activeDetail.connectionTree.summary">{{ activeDetail.connectionTree.summary }}</small>
-          <small v-if="activeDetail.connectionTree.terminal">当前链在此停机</small>
-          <small v-else-if="activeDetail.connectionTree.output">输出：{{ activeDetail.connectionTree.output }}</small>
-        </div>
-        <div v-for="child in activeDetail.connectionTree.children ?? []" :key="child.label" class="reader-lookup__tree-branch">
-          <i aria-hidden="true"></i>
-          <div class="reader-lookup__tree-node">
-            <span>{{ child.label }}</span>
-            <small v-if="child.stage">{{ child.stage }}</small>
-            <small v-if="child.summary">{{ child.summary }}</small>
-            <small v-if="child.output">{{ child.output }}</small>
-          </div>
-        </div>
-      </section>
-      <div v-if="activeDetail.ruleMetadata?.stage" class="reader-lookup__rule-metadata">
-        <span>{{ activeDetail.ruleMetadata.stage }}</span>
-        <span v-if="activeDetail.ruleMetadata.executor">{{ activeDetail.ruleMetadata.executor }}</span>
-        <span v-if="activeDetail.ruleMetadata.inputCategory">{{ activeDetail.ruleMetadata.inputCategory }} → {{ activeDetail.ruleMetadata.outputCategory }}</span>
-        <span v-if="activeDetail.ruleMetadata.terminalMode">{{ activeDetail.ruleMetadata.terminalMode }}</span>
-      </div>
-      <div v-if="morphologyParticles.length" class="reader-lookup__chain-particles">
-        <ParticleGrammarBlock v-for="item in morphologyParticles" :key="`${item.entries[0]?.entry_key}:${item.observed_form}`" :lookup="item" />
-      </div>
+      <ReaderMorphologyEntry :key="activeDetail.id" :detail="activeDetail" />
+    </ReaderExplanationBubble>
+    <ReaderExplanationBubble
+      v-if="activeDetail?.connection && !relatedWord && !componentHit"
+      id="reader-morphology-connection"
+      :show="Boolean(activeHit)"
+      :x="connectionPosition.x" :y="connectionPosition.y"
+      :width="connectionPosition.width" :max-height="connectionPosition.maxHeight"
+      title="接续方式" surface=""
+      @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
+    >
+      <ReaderConnectionTree :key="activeDetail.id" :diagram="activeDetail.connection" @resize="refreshLookupPosition" />
     </ReaderExplanationBubble>
 
     <ReaderProgressBar

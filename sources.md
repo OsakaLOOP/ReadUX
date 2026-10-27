@@ -1,5 +1,9 @@
 # 来源与文档索引
 
+## 活用气泡图形实现依据（2026-10-27）
+
+树布局依据安装包中的 [d3-hierarchy 树布局实现](node_modules/d3-hierarchy/src/tree.js)，连接曲线依据 [d3-shape 水平连接实现](node_modules/d3-shape/src/link.js)。实际句中关系读取 Rust morphology artifact；前接树读取 `configs/unidic-nlp/morphology.json` 的共享路径声明和分析产物中的唯一命中结果。界面规则按本次用户审阅要求整理在 [第 11 阶段展示规范](docs/morphology_stage11_bubble_display.md)。
+
 ## 活用链接续审计依据（2026-10-27）
 
 外部参考为 Tae Kim《Using する and なる with the に particle》《Compound Sentences》《Desire and Suggestions》，正文及标题索引均已读取，分别核对名词性成分与形容词接なる、たり后末尾する的否定与时态，以及たい转换后的形容词活用。

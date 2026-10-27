@@ -12,7 +12,8 @@ interface OperatorDefinition {
   prototype: string;
   normalized?: string;
   token_lemma?: boolean;
-  support?: { group: string };
+  support?: { group: string; expanded?: string[] };
+  connector?: string;
   variants?: { token: TokenPattern; form: string }[];
 }
 export interface RuleTreeNode {
@@ -28,6 +29,7 @@ export const morphologyPresentation = configuration.presentation;
 export const operatorDefinitions: Record<string, OperatorDefinition> = configuration.operators;
 export const morphologyEntityClasses = configuration.entity_classes ?? {};
 export const morphologyRuleTree: RuleTreeNode[] = configuration.rule_tree ?? [];
+export const morphologyConnectionRules = configuration.connection_rules;
 
 export function morphologyTags(kind: string, cform = "", evidence: string[] = []): string[] {
   const labels = operatorDefinitions[kind]?.support?.group === "contracted" ? [morphologyPresentation.contraction_label] : [];

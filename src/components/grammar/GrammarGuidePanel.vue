@@ -5,8 +5,10 @@ import ReaderSurface from "../reader/ReaderSurface.vue";
 import { markdownBlocks, renderMarkdownBlock } from "../../grammar-guide/markdown";
 import grammar11Package from "../../grammar-guide/lesson-1-1.json";
 import grammar21Package from "../../grammar-guide/lesson-2-1.json";
+import morphologyPackage from "../../grammar-guide/lesson-stage11.json";
 import grammar11AnalysisUrl from "../../grammar-guide/lesson-1-1-analysis.json?url";
 import grammar21AnalysisUrl from "../../grammar-guide/lesson-2-1-analysis.json?url";
+import morphologyAnalysisUrl from "../../grammar-guide/lesson-stage11-analysis.json?url";
 import type { AnnotatedToken } from "../../types";
 import type { GuideLookupSnapshot, GuideReaderSnapshot } from "../../grammar-guide/types";
 import GrammarGuideExample from "./GrammarGuideExample.vue";
@@ -64,11 +66,13 @@ type GuideAnalysisPackage = {
 const guideLessons = [
   { id: "grammar-1.1", number: "1.1", label: "1.1 句法入门", package: grammar11Package as unknown as GuidePackage, analysisUrl: grammar11AnalysisUrl, exampleCount: 43, originalExampleCount: 0 },
   { id: "grammar-2.1", number: "2.1", label: "2.1 认识实词、虚词、助词", package: grammar21Package as unknown as GuidePackage, analysisUrl: grammar21AnalysisUrl, exampleCount: 70, originalExampleCount: 19 },
+  { id: "grammar-stage11", number: "测试", label: "活用与接续 · 气泡测试", package: morphologyPackage as unknown as GuidePackage, analysisUrl: morphologyAnalysisUrl, exampleCount: morphologyPackage.examples.length, originalExampleCount: 0 },
 ] as const;
 
 const props = defineProps<{ show: boolean }>();
 const emit = defineEmits<{ close: [] }>();
-const activeLessonId = ref<string>(guideLessons[0].id);
+const requestedLesson = new URLSearchParams(window.location.search).get("lesson");
+const activeLessonId = ref<string>(guideLessons.find((lesson) => lesson.id === requestedLesson)?.id ?? guideLessons[0].id);
 const activeLesson = computed(() => guideLessons.find((lesson) => lesson.id === activeLessonId.value) ?? guideLessons[0]);
 const storageKeyFor = (lessonId: string) => "readux.grammarGuide.v2." + lessonId.replace("grammar-", "");
 const loadedStorageKeyFor = (lessonId: string) => storageKeyFor(lessonId) + ".loaded";

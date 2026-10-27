@@ -26,7 +26,7 @@ def request(process, command, **payload):
 
 def main():
     parser = argparse.ArgumentParser(description="生成课节分析和词典静态资源。")
-    parser.add_argument("--lesson", choices=("1.1", "2.1"), default="1.1")
+    parser.add_argument("--lesson", choices=("1.1", "2.1", "stage11"), default="1.1")
     lesson = parser.parse_args().lesson
     stem = f"lesson-{lesson.replace('.', '-')}.json"
     package_path = ROOT / "src/grammar-guide" / stem
@@ -50,6 +50,12 @@ def main():
             if not enriched["providers"] or any(p["status"] != "ready" for p in enriched["providers"]):
                 raise RuntimeError(f'{example["id"]}：GiNZA 来源未就绪：{enriched["providers"]}')
             document = enriched["document"]
+            if lesson == "stage11":
+                cases = json.loads((ROOT / "data/validation/morphology_stage11_cases.json").read_text(encoding="utf-8"))
+                case = next(case for case in cases if case["text"] == example["ja"])
+                operators = [op for chain in document["morphology"]["chains"] for op in chain["operators"] if op["kind"] == case["kind"]]
+                if len(operators) != 1 or operators[0].get("connection", {}).get("matched_paths") != [case["path"]]:
+                    raise RuntimeError(f'{example["id"]}：接续分支与验收清单不一致')
             if document["text"] != example["ja"]:
                 raise RuntimeError(f'{example["id"]}：分析文字与例句不一致')
             group = request(process, "lookup_targets", analysis_id=document["id"], range=[0, len(document["text"])])

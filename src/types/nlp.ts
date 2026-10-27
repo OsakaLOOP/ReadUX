@@ -137,6 +137,11 @@ export interface ExpressionOccurrence {
 }
 export interface ProjectionTarget { id: string; char_range: [number, number]; layer: string; source_id: string; status: string; }
 export interface MorphologyOperator {
+  connection?: {
+    rule: string; path: string | null; matched_paths: string[];
+    predecessor_range: [number, number]; predecessor_surface: string;
+    connector_operator_id: string | null; diagnostics: string[];
+  } | null;
   operator_id: string; kind: string; source_morpheme_range: [number, number]; char_range: [number, number];
   input_state: string; output_state: string; concept_id: string; confidence: number; evidence: string[]; candidates: string[];
   label: string; description: string;

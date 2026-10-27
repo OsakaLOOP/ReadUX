@@ -4,10 +4,10 @@ import { BookMarked, Info } from "@lucide/vue";
 import type { DictionaryLookup } from "../../types";
 import type { GuideReaderSnapshot } from "../../grammar-guide/types";
 import { guideLinkedLookup, hydrateGuideLookup } from "../../grammar-guide/dictionary";
-import { chainGrammarLookups, grammarMorphemeLookup } from "../../grammar/particleEntries";
+import { grammarMorphemeLookup } from "../../grammar/particleEntries";
 import { componentForRange, projectReaderSentence, type LookupTarget } from "../../reader/capsuleProjection";
 import { kanjiRubySegments, readerChains, readerTargetPresentation, type ReaderMorphologyDetail } from "../../reader/lookupPresentation";
-import { snapshotRect, type RectSnapshot } from "../../explanation/geometry";
+import { snapshotRect, isWithinPanelStackGap, type RectSnapshot } from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
 import ReaderCapsule from "../reader/ReaderCapsule.vue";
 import ReaderMorphologySummary from "../reader/ReaderMorphologySummary.vue";
@@ -42,10 +42,6 @@ const activeSourcePresentation = computed(() => active.value && props.snapshot
 const componentSourcePresentation = computed(() => component.value && props.snapshot
   ? readerTargetPresentation(component.value, props.snapshot.document)
   : null);
-const chainParticles = computed(() => {
-  if (!active.value || !props.snapshot || !detail.value) return [];
-  return chainGrammarLookups(active.value, props.snapshot.document, { detailId: detail.value.id, range: activeRange.value ?? undefined });
-});
 const activeParticle = computed(() => active.value ? particleFor(active.value) : null);
 const particleX = computed(() => Math.max(12, (anchor.value?.left ?? 12) + (anchor.value?.width ?? 0) / 2 - 195));
 const particleY = computed(() => Math.min(window.innerHeight - 12, (anchor.value?.bottom ?? 0) + 8));
@@ -169,7 +165,17 @@ function outside(event: PointerEvent) {
   close();
 }
 function keydown(event: KeyboardEvent) { if (event.key === "Escape") close(); }
+function monitorPointer(event: PointerEvent) {
+  if (!active.value) return;
+  const panels = [...document.querySelectorAll<HTMLElement>(`[data-guide-panels="${props.id}"] [data-explanation-panel]`)];
+  const inside = event.target instanceof Element && event.target.closest(`[data-guide-panels="${props.id}"]`);
+  const gap = panels.some((panel, index) => panels.slice(index + 1).some((other) =>
+    isWithinPanelStackGap(event.clientX, event.clientY, snapshotRect(panel.getBoundingClientRect()), snapshotRect(other.getBoundingClientRect()))));
+  if (inside || gap) cancelClose();
+  else if (!(event.target instanceof Node && root.value?.contains(event.target))) scheduleClose();
+}
 onMounted(() => {
+  window.addEventListener("pointermove", monitorPointer);
   window.addEventListener("readux:guide-lookup", otherSource);
   window.addEventListener("pointerdown", outside);
   window.addEventListener("keydown", keydown);
@@ -177,6 +183,7 @@ onMounted(() => {
   window.addEventListener("scroll", onViewportChange, true);
 });
 onBeforeUnmount(() => {
+  window.removeEventListener("pointermove", monitorPointer);
   close();
   window.removeEventListener("readux:guide-lookup", otherSource);
   window.removeEventListener("pointerdown", outside);
@@ -223,7 +230,7 @@ onBeforeUnmount(() => {
       :whole-loading="hasCompanion && wholeLoading" :component-loading="hasCompanion ? componentLoading : wholeLoading"
       :whole-can-go-back="wholeHistory.length > 0"
       :component-can-go-back="(hasCompanion ? componentHistory : wholeHistory).length > 0"
-      :component-label="component ? '组分' : ''" :detail="detail" :summary-visible="chains.length > 0" :grammar-lookups="chainParticles"
+      :component-label="component ? '组分' : ''" :detail="detail" :summary-visible="chains.length > 0"
       :panel-prefix="`guide-${id}`" :shortcuts-enabled="false" presentation="guide"
       @enter="cancelClose" @leave="scheduleClose"
       @navigate-whole="navigate($event, false)" @navigate-component="navigate($event, Boolean(component))"

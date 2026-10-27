@@ -1,6 +1,7 @@
 import type { DictionaryLookup, PosTag } from "../types";
 import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
+import { morphologyConnectionDiagram, morphologyEntry, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 
 export interface ReaderTargetPresentation {
   pos: PosTag;
@@ -68,6 +69,9 @@ export interface ReaderChainSummary {
 }
 
 export interface ReaderMorphologyDetail {
+  entry?: MorphologyEntryContent;
+  connection?: ConnectionDiagram | null;
+  status?: string;
   id: string;
   title: string;
   surface: string;
@@ -779,6 +783,9 @@ export function readerMorphologyHits(
       : null;
     const detail: ReaderMorphologyDetail = {
       id: occurrence.id,
+      entry: morphologyEntry(operator, document, step?.description),
+      connection: morphologyConnectionDiagram(operator, owner, document, occurrence.status),
+      status: occurrence.status,
       title: step ? step.conceptTitle : grammaticalConceptTitle(operator),
       surface: step ? step.prototypeForm : operatorPrototypeForm(operator, document.morphemes),
       description: step ? step.description : (operator.description || ""),
