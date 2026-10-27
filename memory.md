@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 活用链重构的例句进度入口为 `docs/morphology_example_status.md`，按当前版本真实 CWJ UniDic 复测整理 199 条去重输入，分为已通过、边界通过、局部通过、仍有问题和待复核；来源包括三轮合成句、阶段 9／10 记录、专项测试和修复记录。合成分词通过与真实分词命中范围分别记录。
+
 - 静态资源空间测量入口为 `scripts/measure_static_storage.py` 与 `scripts/measure_static_storage.mjs`，报告为 `docs/static_storage_measurement.md`，数据为 `data/validation/static-storage-summary.json`。结合用户策略文档的路线建议见 `docs/web_product_strategy.md`，属于讨论稿。正式书库位于 Windows 文档目录的 `ReadUX Library/library.sqlite`，正文为 `books/<id>/content.md`；桌面分析缓存为 `%APPDATA%/com.readux.app/analysis-cache/*.msgpack`，根对象包含 `document` 和 `lookup`。仓库缓存同时包含旧协议，统计须按正文去重。当前指南 `lesson-1-1.json` 为《句法入门》，`lesson-2-1.json` 为《认识实词、虚词、助词》；历史规格文件名仍为 `grammar_guide_1_1.md`。
 
 - 活用变化的局部提示由 `configs/unidic-nlp/morphology.json` 的 `presentation.transition_tails` 按语法身份、前接形及末尾假名配置。敬体否定整体识别为 `polite_negative`，内置词条位于 `configs/grammar/auxiliaries.json`，成分查询路由位于 `src/grammar/particleEntries.ts`。
