@@ -16,6 +16,28 @@ fn analyze(service: &AnalysisService, text: &str) -> UnifiedDocument {
 }
 
 #[test]
+fn stage_eleven_real_tokens_have_unique_connection_paths() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    let cases: Vec<serde_json::Value> = serde_json::from_str(include_str!(
+        "../../../data/validation/morphology_stage11_cases.json"
+    )).unwrap();
+    let mut failures = Vec::new();
+    for case in cases {
+        let text = case["text"].as_str().unwrap();
+        let document = analyze(&service, text);
+        let ops: Vec<_> = document.morphology.chains.iter().flat_map(|c| &c.operators)
+            .filter(|op| op.kind == case["kind"].as_str().unwrap()).collect();
+        if ops.len() != 1 || ops[0].connection.as_ref().is_none_or(|c|
+            c.rule != case["rule"] || c.path.as_deref() != case["path"].as_str()
+                || c.matched_paths.len() != 1 || !c.diagnostics.is_empty()) {
+            failures.push(format!("{text}: {ops:?}; {:?}", document.morphology.diagnostics));
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+#[test]
 fn supplied_predicates_keep_constructions_and_local_boundaries() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));

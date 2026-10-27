@@ -1,4 +1,83 @@
 {
+  "input_recoveries": [{
+    "id": "taka_kara_zuni", "lemma": "高い", "reading": "たかい", "surface_reading": "たかから", "ctype": "形容詞-ク復元",
+    "previous": {"equals": {"surface": ["高"], "pos": ["接尾辞"], "sub": ["名詞的"]}},
+    "next": {"equals": {"surface": ["から"], "pos": ["助詞"], "sub": ["格助詞"]}},
+    "following": [{"equals": {"surface": ["ず"], "pos": ["助動詞"], "ctype": ["助動詞-ヌ", "助動詞-ズ"]}}, {"equals": {"surface": ["に"], "pos": ["助詞"], "sub": ["格助詞"]}}]
+  }],
+  "connection_rules": {
+    "continuative": {
+      "label": "连用形接续",
+      "operators": ["desire", "politeness_masu", "polite_negative", "nagara_connection", "tsutsu_connection", "ease", "difficulty", "inceptive", "terminative", "completion", "continuative_aspect", "iterative_aspect", "inchoative", "corrective", "incomplete", "reluctance", "failure", "missed_opportunity", "desire_outward"],
+      "paths": [{"id": "verb", "group": "动词", "label": "连用形", "steps": ["连用形"], "categories": ["動詞", "助動詞"], "forms": ["continuative"], "exclude_ctypes": ["助動詞-マス", "助動詞-タ", "助動詞-デス"]}]
+    },
+    "te": {
+      "label": "て／で",
+      "operators": ["te_connection", "copula_de"],
+      "paths": [
+        {"id": "ichidan", "group": "动词", "label": "一段动词", "steps": ["连用形：去る", "て"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["上一段", "下一段"], "exclude_previous_operators": ["causative", "passive_potential"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "kuru", "group": "动词", "label": "カ变动词", "steps": ["连用形：き", "て"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["カ行変格"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "suru", "group": "动词", "label": "サ变动词", "steps": ["连用形：し", "て"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["サ行変格"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "godan_te", "group": "动词", "label": "五段动词 · 清音", "steps": ["连用形・イ音便／促音便", "て"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["五段"], "exclude_ctypes": ["五段-ガ行", "五段-ナ行", "五段-バ行", "五段-マ行"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "godan_de", "group": "动词", "label": "五段动词 · 浊音", "steps": ["连用形・拨音便／イ音便", "で"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["五段-ガ行", "五段-ナ行", "五段-バ行", "五段-マ行"], "next": {"equals": {"surface": ["で"]}}},
+        {"id": "voice", "group": "助动词", "label": "被动／使役", "steps": ["连用形：去る", "て"], "categories": ["動詞", "助動詞"], "forms": ["continuative"], "previous_operators": ["causative", "passive_potential"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "masu", "group": "助动词", "label": "敬体ます", "steps": ["连用形：まし", "て"], "forms": ["continuative"], "ctypes": ["助動詞-マス"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "adjective", "group": "イ形容词", "label": "形容词", "steps": ["连用形：词尾变く", "て"], "categories": ["形容詞"], "forms": ["continuative"], "exclude_ctypes": ["助動詞-ナイ", "助動詞-タイ"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "negative", "group": "否定", "label": "否定ない", "steps": ["连用形：なく", "て"], "categories": ["形容詞"], "forms": ["continuative"], "ctypes": ["助動詞-ナイ"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "desire", "group": "助动词", "label": "愿望たい", "steps": ["连用形：たく", "て"], "categories": ["形容詞"], "forms": ["continuative"], "ctypes": ["助動詞-タイ"], "next": {"equals": {"surface": ["て"]}}},
+        {"id": "na", "group": "ナ形容词", "label": "判断连用", "steps": ["词干", "で"], "categories": ["形状詞"], "forms": ["stem", "terminal", "attributive"], "next": {"equals": {"surface": ["で"]}}},
+        {"id": "noun", "group": "名词", "label": "判断连用", "steps": ["名词", "で"], "categories": ["名詞", "代名詞"], "forms": ["stem"], "next": {"equals": {"surface": ["で"]}}}
+      ]
+    },
+    "negative": {
+      "label": "否定ない",
+      "operators": ["negative"],
+      "paths": [
+        {"id": "verb", "group": "动词", "label": "动词否定", "steps": ["未然形"], "categories": ["動詞", "助動詞"], "forms": ["irrealis"]},
+        {"id": "adjective", "group": "イ形容词", "label": "形容词否定", "steps": ["连用形：く"], "categories": ["形容詞"], "forms": ["continuative"]},
+        {"id": "judgement", "group": "名词／ナ形容词", "label": "判断否定", "steps": ["判断连用形", "で"], "categories": ["形状詞"], "forms": ["continuative"], "previous_operators": ["copula_de"], "predecessors": [{}, {"equals": {"surface": ["で"]}}]}
+      ]
+    },
+    "past": {
+      "label": "过去た／だ",
+      "operators": ["past"],
+      "paths": [
+        {"id": "verb_te", "group": "动词", "label": "一段／变格／五段清音", "steps": ["连用形及音便", "た"], "categories": ["動詞"], "forms": ["continuative"], "exclude_ctypes": ["五段-ガ行", "五段-ナ行", "五段-バ行", "五段-マ行", "助動詞-マス"], "next": {"equals": {"surface": ["た", "たら", "たり"]}}},
+        {"id": "verb_de", "group": "动词", "label": "五段浊音", "steps": ["连用形・拨音便／イ音便", "だ"], "categories": ["動詞"], "forms": ["continuative"], "ctypes": ["五段-ガ行", "五段-ナ行", "五段-バ行", "五段-マ行"], "next": {"equals": {"surface": ["だ", "だら", "だり"]}}},
+        {"id": "adjective", "group": "イ形容词", "label": "形容词／ない／たい", "steps": ["连用形：かった", "た"], "categories": ["形容詞"], "forms": ["continuative"]},
+        {"id": "auxiliary", "group": "助动词", "label": "敬体ます", "steps": ["连用形：まし", "た"], "forms": ["continuative"], "ctypes": ["助動詞-マス"]},
+        {"id": "classical", "group": "助动词", "label": "文言助动词", "steps": ["连用形", "た"], "categories": ["助動詞", "文語用言"], "forms": ["continuative"], "exclude_ctypes": ["助動詞-マス"]},
+        {"id": "judgement", "group": "判断", "label": "判断结构", "steps": ["连用形：だっ／でし", "た"], "categories": ["形状詞"], "forms": ["continuative"]}
+      ]
+    },
+    "zuni": {
+      "label": "文言否定ず（に）",
+      "operators": ["negative_zuni"],
+      "paths": [
+        {"id": "verb", "group": "动词", "label": "动词未然", "steps": ["未然形", "ず", "に（接续用法）"], "categories": ["動詞", "助動詞"], "forms": ["irrealis", "continuative"]},
+        {"id": "classical", "group": "文言用言", "label": "文言活用", "steps": ["文言前接形", "ず"], "categories": ["文語用言"], "forms": ["irrealis", "continuative"], "exclude_ctypes": ["文語形容詞"]},
+        {"id": "adjective", "group": "形容词", "label": "形容词未然", "steps": ["未然形：から", "ず", "に（接续用法）"], "categories": ["形容詞", "文語用言"], "forms": ["irrealis"], "ctypes": ["形容詞", "文語形容詞"], "exclude_ctypes": ["形容詞-ク復元"]},
+        {"id": "recovered_adjective", "group": "形容词", "label": "形容词未然 · 分词恢复", "steps": ["未然形：から", "ず", "に"], "categories": ["形容詞"], "forms": ["irrealis"], "ctypes": ["形容詞-ク復元"], "predecessors": [{"equals": {"surface": ["高"]}}, {"equals": {"surface": ["から"]}}]}
+      ]
+    },
+    "excessive": {
+      "label": "过度すぎる", "operators": ["excessive"],
+      "paths": [
+        {"id": "verb", "group": "动词", "label": "动作过度", "steps": ["连用形"], "categories": ["動詞"], "forms": ["continuative"]},
+        {"id": "adjective", "group": "イ形容词", "label": "性质过度", "steps": ["词干"], "categories": ["形容詞"], "forms": ["stem"]},
+        {"id": "na", "group": "ナ形容词", "label": "性质过度", "steps": ["词干"], "categories": ["形状詞"], "forms": ["stem"]}
+      ]
+    },
+    "judgement_past": {
+      "label": "判断过去",
+      "operators": ["copula_past"],
+      "paths": [
+        {"id": "noun", "group": "名词", "label": "名词判断", "steps": ["名词", "だっ／でし", "た"], "categories": ["名詞", "代名詞"], "forms": ["stem", "terminal", "attributive"]},
+        {"id": "na", "group": "ナ形容词", "label": "形容词判断", "steps": ["词干", "だっ／でし", "た"], "categories": ["形状詞"], "forms": ["stem", "terminal", "attributive"]},
+        {"id": "adjective", "group": "イ形容词", "label": "形容词敬体", "steps": ["终止形", "でし", "た"], "categories": ["形容詞"], "forms": ["terminal", "attributive"]}
+      ]
+    }
+  },
   "entity_classes": {
     "动词循环类": {
       "label": "动词循环类",
@@ -3204,6 +3283,7 @@
         "ぬ"
       ],
       "inputs": [
+        {"forms": ["irrealis"], "categories": ["形容詞"]},
         {
           "forms": [
             "irrealis",

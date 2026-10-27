@@ -950,6 +950,7 @@ fn operator(
         output_category: metadata.map_or_else(String::new, |m| m.output_category.clone()),
         terminal_mode: metadata.map_or_else(String::new, |m| m.terminal_mode.clone()),
         order_rank: metadata.map_or(0, |m| m.order_rank),
+        connection: None,
     }
 }
 
@@ -1248,6 +1249,36 @@ pub(crate) fn compose(
     while let Some(mut atom) = atoms.pop_front() {
         let index = atom.anchor_morpheme;
         let current = &source[index];
+        if let Some(previous) = chains.last_mut().filter(|previous|
+            previous.morpheme_range[1] == index && previous.char_range[1] == atom.char_range[0]
+                && previous.morpheme_indices.len() == 1) {
+            if let Some(recovery) = CONFIG.input_recoveries.iter().find(|rule| {
+                rule.previous.matches(&source[index - 1]) && rule.next.matches(current)
+                    && index + 1 + rule.following.len() <= source.len()
+                    && rule.following.iter().zip(&source[index + 1..])
+                        .all(|(pattern, token)| pattern.matches(token))
+                    && source[index - 1..index + 1 + rule.following.len()].windows(2)
+                        .all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
+            }) {
+                atom.final_state = MorphologyState {
+                    category: "形容詞".into(), form: ConnectionForm::Irrealis,
+                    conjugation_type: recovery.ctype.clone(), conjugation_form: "未然形-一般".into(),
+                    entity_class: "イ形容词转换类".into(),
+                };
+                merge(previous, atom, true);
+                previous.base_lexeme = recovery.lemma.clone();
+                previous.dictionary_form = recovery.lemma.clone();
+                previous.lemma_form = recovery.lemma.clone();
+                previous.lookup_form = recovery.lemma.clone();
+                previous.display_form = recovery.lemma.clone();
+                previous.query_forms = vec![
+                    QueryForm { kind: "base".into(), form: recovery.lemma.clone(), reading: Some(recovery.reading.clone()), reading_field: Some("configured_recovery".into()) },
+                    QueryForm { kind: "observed".into(), form: previous.surface_form.clone(), reading: Some(recovery.surface_reading.clone()), reading_field: Some("configured_recovery".into()) },
+                ];
+                previous.evidence.push(format!("input_recovery:{}", recovery.id));
+                continue;
+            }
+        }
         let sequence = chains
             .last()
             .and_then(|previous| suffix_sequence(previous, index, source, &context));
@@ -1578,6 +1609,7 @@ pub(crate) fn compose(
         }
     }
     link_predicates(&mut chains, source);
+    identify_connection_paths(&mut chains, source, &mut diagnostics);
     let occurrences = chains
         .iter()
         .flat_map(|chain| {
@@ -1667,4 +1699,75 @@ pub(crate) fn compose(
         occurrences,
         diagnostics,
     }
+}
+
+/// 只回看路径声明的语素和当前输入状态，保留全部匹配以检测规则冲突。
+fn identify_connection_paths(
+    chains: &mut [MorphologyChain],
+    source: &[ProviderToken],
+    diagnostics: &mut Vec<String>,
+) {
+    for chain in chains.iter_mut() {
+        for index in 0..chain.operators.len() {
+            let op = &chain.operators[index];
+            let Some((rule_id, rule)) = CONFIG.connection_rules.iter()
+                .find(|(_, rule)| rule.operators.contains(&op.kind)) else { continue };
+            let start = op.source_morpheme_range[0];
+            // 独立词条没有前接对象，其词法边界由原分析保留。
+            if start == 0 || (start == chain.morpheme_range[0] && chain.parent_chain_id.is_none())
+                || source[start - 1].char_range[1] != op.char_range[0]
+                || op.input_state == op.output_state { continue; }
+            let state = &op.state_before;
+            let matched: Vec<_> = rule.paths.iter().filter(|path| {
+                (path.categories.is_empty() || path.categories.contains(&state.category))
+                    && (path.forms.is_empty() || path.forms.contains(&state.form))
+                    && (path.ctypes.is_empty() || path.ctypes.iter().any(|v| state.conjugation_type.starts_with(v)))
+                    && !path.exclude_ctypes.iter().any(|v| state.conjugation_type.starts_with(v))
+                    && (path.cform_contains.is_empty() || path.cform_contains.iter().any(|v| state.conjugation_form.contains(v)))
+                    && !path.exclude_cform_contains.iter().any(|v| state.conjugation_form.contains(v))
+                    && (path.previous_operators.is_empty() || chain.operators[..index].iter().rev()
+                        .find(|p| p.executor != "insertion").is_some_and(|p| path.previous_operators.contains(&p.kind)))
+                    && !chain.operators[..index].iter().rev().find(|p| p.executor != "insertion")
+                        .is_some_and(|p| path.exclude_previous_operators.contains(&p.kind))
+                    && path.next.matches(&source[start])
+                    && start >= path.predecessors.len()
+                    && path.predecessors.iter().rev().zip(source[..start].iter().rev())
+                        .all(|(pattern, token)| pattern.matches(token))
+                    && source[start.saturating_sub(path.predecessors.len().max(1))..=start]
+                        .windows(2).all(|pair| pair[0].char_range[1] == pair[1].char_range[0])
+            }).collect();
+            let mut messages = Vec::new();
+            if matched.len() != 1 {
+                let message = format!("connection_path_count:{}:{}:{}", op.operator_id, rule_id, matched.len());
+                diagnostics.push(message.clone());
+                messages.push(message);
+            }
+            let count = matched.first().map_or(1, |path| path.predecessors.len().max(1));
+            let range = [source[start.saturating_sub(count)].char_range[0], op.char_range[0]];
+            let connection = MorphologyConnection {
+                rule: rule_id.clone(),
+                path: (matched.len() == 1).then(|| matched[0].id.clone()),
+                matched_paths: matched.iter().map(|path| path.id.clone()).collect(),
+                predecessor_range: range,
+                predecessor_surface: source[start.saturating_sub(count)..start].iter().map(|t| t.surface.as_str()).collect(),
+                connector_operator_id: None,
+                diagnostics: messages,
+            };
+            if connection.path.is_none() { chain.status = "candidate".into(); }
+            chain.operators[index].connection = Some(connection);
+        }
+    }
+    // 补助条目复用实际父链连接器的命中结果。
+    let all_chains = &*chains;
+    let inherited: Vec<_> = all_chains.iter().enumerate().flat_map(|(ci, chain)| {
+        chain.operators.iter().enumerate().filter_map(move |(oi, op)| {
+            let connector = config::definition(&op.kind)?.connector.as_ref()?;
+            let parent = all_chains.iter().find(|p| Some(&p.chain_id) == chain.parent_chain_id.as_ref())?;
+            let source = parent.operators.iter().rev().find(|p| &p.kind == connector)?;
+            let mut connection = source.connection.clone()?;
+            connection.connector_operator_id = Some(source.operator_id.clone());
+            Some((ci, oi, connection))
+        })
+    }).collect();
+    for (ci, oi, connection) in inherited { chains[ci].operators[oi].connection = Some(connection); }
 }

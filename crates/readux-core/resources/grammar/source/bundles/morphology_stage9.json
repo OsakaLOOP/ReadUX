@@ -55,12 +55,22 @@
       "register": ["modern_standard"],
       "explanation": {
         "compact_summary": "表示两个动作同时进行",
-        "function_summary": "前项动作作为伴随背景，后项为主要叙述",
+        "function_summary": "表示两个动作同时进行，前项作为伴随背景，后项为主要叙述。",
         "connection": "动词连用形＋ながら。",
         "formation": "歩き＋ながら話す",
-        "examples": ["歩きながら話す。"],
-        "counter_examples": ["知りながらも黙った（让步构式）。"],
-        "body_blocks": []
+        "examples": [
+          "歩きながら話す。"
+        ],
+        "counter_examples": [
+          "知りながらも黙った（让步构式）。"
+        ],
+        "body_blocks": [
+          {
+            "kind": "example_pair",
+            "label": "歩きながら話す。",
+            "text": "边走边说。"
+          }
+        ]
       }
     },
     {
@@ -73,12 +83,22 @@
       "register": ["modern_standard", "formal"],
       "explanation": {
         "compact_summary": "表示同时进行或持续进行",
-        "function_summary": "以书面或正式语域连接两个动作，也可表达与预期相反的持续状态",
+        "function_summary": "用于书面或正式表达，表示两个动作同时进行或某种状态持续。",
         "connection": "动词连用形＋つつ。",
         "formation": "考え＋つつ進む",
-        "examples": ["考えつつ進む。"],
-        "counter_examples": ["考えるつつ進む（前项不是连用形）。"],
-        "body_blocks": []
+        "examples": [
+          "考えつつ進む。"
+        ],
+        "counter_examples": [
+          "考えるつつ進む（前项不是连用形）。"
+        ],
+        "body_blocks": [
+          {
+            "kind": "example_pair",
+            "label": "考えつつ進む。",
+            "text": "一边思考一边前进。"
+          }
+        ]
       }
     },
     {

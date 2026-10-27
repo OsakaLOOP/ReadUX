@@ -28,6 +28,10 @@ pub struct Config {
     #[serde(default)]
     pub insertion_positions: Vec<InsertionPosition>,
     pub presentation: serde_json::Value,
+    #[serde(default)]
+    pub connection_rules: BTreeMap<String, ConnectionPaths>,
+    #[serde(default)]
+    pub input_recoveries: Vec<InputRecovery>,
     #[serde(default = "default_auxiliary_depth")]
     pub max_auxiliary_depth: usize,
     #[serde(default)]
@@ -38,6 +42,48 @@ pub struct Config {
 
 fn default_auxiliary_depth() -> usize {
     8
+}
+
+/// 接续路径同时用于识别与词条图示；显示字段不参与匹配。
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ConnectionPaths {
+    pub label: String,
+    pub operators: Vec<String>,
+    pub paths: Vec<ConnectionPath>,
+}
+
+#[derive(Default, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct ConnectionPath {
+    pub id: String,
+    pub group: String,
+    pub label: String,
+    pub steps: Vec<String>,
+    pub categories: Vec<String>,
+    pub forms: Vec<ConnectionForm>,
+    pub ctypes: Vec<String>,
+    pub exclude_ctypes: Vec<String>,
+    pub cform_contains: Vec<String>,
+    pub exclude_cform_contains: Vec<String>,
+    pub previous_operators: Vec<String>,
+    pub exclude_previous_operators: Vec<String>,
+    pub next: TokenPattern,
+    /// 从当前词条向前读取声明数量的连续语素。
+    pub predecessors: Vec<TokenPattern>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct InputRecovery {
+    pub id: String,
+    pub previous: TokenPattern,
+    pub next: TokenPattern,
+    pub following: Vec<TokenPattern>,
+    pub lemma: String,
+    pub reading: String,
+    pub surface_reading: String,
+    pub ctype: String,
 }
 
 #[derive(Deserialize)]

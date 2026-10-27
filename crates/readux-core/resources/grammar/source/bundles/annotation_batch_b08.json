@@ -12,7 +12,7 @@
       "function_tags": ["excessive"],
       "jlpt_level": 4,
       "register": ["modern_standard"],
-      "explanation": {"compact_summary": "接在动词连用形或形容词词干后表示程度过度", "connection": "动词连用形／イ形容词词干／ナ形容词词干＋すぎる；整体仍可继续活用。", "formation": "読みすぎる／高すぎる／静かすぎる", "examples": ["本を読みすぎた。", "高すぎて買えない。"], "counter_examples": ["すぎる作为经过地点的独立动词"], "body_blocks": []},
+      "explanation": {"compact_summary": "接在动词连用形或形容词词干后表示程度过度", "connection": "动词连用形／イ形容词词干／ナ形容词词干＋すぎる；整体仍可继续活用。", "formation": "読みすぎる／高すぎる／静かすぎる", "examples": ["昨日は食べすぎた。", "本を読みすぎた。", "高すぎて買えない。"], "counter_examples": ["すぎる作为经过地点的独立动词"], "body_blocks": [{"kind": "example_pair", "label": "昨日は食べすぎた。", "text": "昨天吃得太多了。"}], "function_summary": "表示动作或性质超过适当的程度。"},
       "senses": [{"sense_id": "grammar.auxiliary.sugiru.excessive", "label": "程度过度", "function_summary": "表示动作或性质超过适当程度", "semantic_features": {"function": "excessive"}}],
       "realizations": [{"realization_id": "realization.grammar.auxiliary.sugiru.excessive", "rule_id": "grammar.auxiliary.sugiru.excessive", "possible_sense_ids": ["grammar.auxiliary.sugiru.excessive"], "connection_signature": "连用形／词干＋すぎる", "examples": ["読みすぎる。"], "counter_examples": ["駅を過ぎる。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞", "形容詞", "形状詞"], "conjugation_forms": ["連用形", "語幹"], "capture": "predicate"}, {"base_forms": ["すぎる", "過ぎる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
     },
@@ -24,7 +24,7 @@
       "function_tags": ["inceptive"],
       "jlpt_level": 4,
       "register": ["modern_standard"],
-      "explanation": {"compact_summary": "接在动词连用形后表示动作开始", "connection": "动词连用形＋始める；补助动词自身可继续活用。", "formation": "読み始める／降り始めた", "examples": ["雨が降り始めた。"], "counter_examples": ["始める作为独立动词表示开始某事"], "body_blocks": []},
+      "explanation": {"compact_summary": "接在动词连用形后表示动作开始", "connection": "动词连用形＋始める；补助动词自身可继续活用。", "formation": "読み始める／降り始めた", "examples": ["雨が降り始めた。"], "counter_examples": ["始める作为独立动词表示开始某事"], "body_blocks": [{"kind": "example_pair", "label": "雨が降り始めた。", "text": "开始下雨了。"}], "function_summary": "表示前项动作开始发生。"},
       "senses": [{"sense_id": "grammar.auxiliary.hajimeru.inceptive", "label": "动作开始", "function_summary": "表示前项动作开始发生", "semantic_features": {"function": "inceptive"}}],
       "realizations": [{"realization_id": "realization.grammar.auxiliary.hajimeru.inceptive", "rule_id": "grammar.auxiliary.hajimeru.inceptive", "possible_sense_ids": ["grammar.auxiliary.hajimeru.inceptive"], "connection_signature": "动词连用形＋始める", "examples": ["読み始める。"], "counter_examples": ["始める前に確認する。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["始める", "はじめる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
     },
@@ -48,7 +48,7 @@
       "function_tags": ["terminative"],
       "jlpt_level": 4,
       "register": ["modern_standard"],
-      "explanation": {"compact_summary": "接在动词连用形后表示动作完成或做完", "connection": "动词连用形＋終わる／終える。", "formation": "読み終わる／書き終えた", "examples": ["本を読み終わった。"], "counter_examples": ["終わる作为独立谓词而没有前项动作"], "body_blocks": []},
+      "explanation": {"compact_summary": "接在动词连用形后表示动作完成或做完", "connection": "动词连用形＋終わる／終える。", "formation": "読み終わる／書き終えた", "examples": ["本を読み終わった。"], "counter_examples": ["終わる作为独立谓词而没有前项动作"], "body_blocks": [{"kind": "example_pair", "label": "本を読み終わった。", "text": "读完了书。"}], "function_summary": "表示前项动作已经完成。"},
       "senses": [{"sense_id": "grammar.auxiliary.owaru.terminative", "label": "动作完成", "function_summary": "表示前项动作完成", "semantic_features": {"function": "terminative"}}],
       "realizations": [{"realization_id": "realization.grammar.auxiliary.owaru.terminative", "rule_id": "grammar.auxiliary.owaru.terminative", "possible_sense_ids": ["grammar.auxiliary.owaru.terminative"], "connection_signature": "动词连用形＋終わる／終える", "examples": ["読み終わる。"], "counter_examples": ["授業が終わる。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["終わる", "おわる", "終える", "おえる"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
     },
@@ -108,7 +108,7 @@
       "function_tags": ["completion"],
       "jlpt_level": 3,
       "register": ["modern_standard"],
-      "explanation": {"compact_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽", "connection": "动词连用形＋切る／抜く／尽くす。", "formation": "使い切る／やり抜く／食べ尽くす", "examples": ["最後までやり抜いた。"], "counter_examples": ["切る作为切断的独立动词"], "body_blocks": []},
+      "explanation": {"compact_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽", "connection": "动词连用形＋切る／抜く／尽くす。", "formation": "使い切る／やり抜く／食べ尽くす", "examples": ["最後まで読みきった。", "最後までやり抜いた。"], "counter_examples": ["切る作为切断的独立动词"], "body_blocks": [{"kind": "example_pair", "label": "最後まで読みきった。", "text": "一直读到了最后。"}], "function_summary": "表示动作进行到底或彻底完成。"},
       "senses": [{"sense_id": "grammar.auxiliary.kiru.completion", "label": "彻底完成", "function_summary": "表示动作贯彻到底或资源耗尽", "semantic_features": {"function": "completion"}}],
       "realizations": [{"realization_id": "realization.grammar.auxiliary.kiru.completion", "rule_id": "grammar.auxiliary.kiru.completion", "possible_sense_ids": ["grammar.auxiliary.kiru.completion"], "connection_signature": "动词连用形＋切る／抜く／尽くす", "examples": ["やり抜く。", "食べ尽くす。"], "counter_examples": ["紙を切る。"], "rule": {"kind": "grammar_construction", "priority": 78, "atoms": [{"pos_major": ["動詞"], "conjugation_forms": ["連用形"], "capture": "predicate"}, {"base_forms": ["切る", "きる", "抜く", "ぬく", "尽くす", "つくす"], "pos_major": ["動詞"], "capture": "auxiliary"}], "captures": ["predicate", "auxiliary"], "show_badge": true}}]
     },

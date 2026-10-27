@@ -93,6 +93,20 @@ pub struct MorphologyOperator {
     pub terminal_mode: String,
     #[serde(default)]
     pub order_rank: i32,
+    #[serde(default)]
+    pub connection: Option<MorphologyConnection>,
+}
+
+/// 已识别的局部前接路径；共享连接器通过 operator 身份引用。
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct MorphologyConnection {
+    pub rule: String,
+    pub path: Option<String>,
+    pub matched_paths: Vec<String>,
+    pub predecessor_range: [usize; 2],
+    pub predecessor_surface: String,
+    pub connector_operator_id: Option<String>,
+    pub diagnostics: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -320,6 +334,7 @@ pub fn collect_with_external(
                 output_category: pos_major.clone(),
                 terminal_mode: String::new(),
                 order_rank: 0,
+                connection: None,
             });
         }
         let connection_forms = [value(source, 17), value(source, 18)]

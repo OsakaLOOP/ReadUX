@@ -344,20 +344,28 @@
       "language": "zh-CN",
       "title": "ます体",
       "compact_summary": "礼貌陈述形式",
-      "function_summary": "礼貌陈述形式",
+      "function_summary": "以礼貌的语气陈述动作或状态，可进一步表示过去、否定或推量。",
       "connection": "",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "毎朝、本を読みます。"
+      ],
       "counter_examples": [],
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
       "authoring_status": "verified",
       "content_version": 1,
-      "body_blocks": [],
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "毎朝、本を読みます。",
+          "text": "每天早晨读书。"
+        }
+      ],
       "provenance": {
         "origin": "ai",
         "author": "Codex",
@@ -373,20 +381,28 @@
       "language": "zh-CN",
       "title": "〜たい",
       "compact_summary": "表示愿望",
-      "function_summary": "表示愿望",
+      "function_summary": "表示说话人或询问对象想进行某项动作的愿望。「たい」本身按イ形容词活用。",
       "connection": "",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "熱いお茶を飲みたい。"
+      ],
       "counter_examples": [],
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
       "authoring_status": "verified",
       "content_version": 1,
-      "body_blocks": [],
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "熱いお茶を飲みたい。",
+          "text": "想喝热茶。"
+        }
+      ],
       "provenance": {
         "origin": "ai",
         "author": "Codex",
@@ -1417,20 +1433,28 @@
       "language": "zh-CN",
       "title": "いる（补助用法）",
       "compact_summary": "表示进行或结果状态",
-      "function_summary": "表示进行或结果状态",
+      "function_summary": "表示动作正在进行、习惯性的活动，或动作结果形成的持续状态。",
       "connection": "",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "庭で花を育てている。"
+      ],
       "counter_examples": [],
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
       "authoring_status": "verified",
       "content_version": 1,
-      "body_blocks": [],
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "庭で花を育てている。",
+          "text": "在庭院里种着花。"
+        }
+      ],
       "provenance": {
         "origin": "ai",
         "author": "Codex",
@@ -1533,20 +1557,28 @@
       "language": "zh-CN",
       "title": "しまう（补助用法）",
       "compact_summary": "表示彻底完成或遗憾",
-      "function_summary": "表示彻底完成或遗憾",
+      "function_summary": "表示动作彻底完成，也可表达对结果的遗憾或意外。",
       "connection": "",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "大切な手紙を捨ててしまった。"
+      ],
       "counter_examples": [],
       "source_refs": [
         "readux-editorial:2026-07-16"
       ],
       "authoring_status": "verified",
       "content_version": 1,
-      "body_blocks": [],
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "大切な手紙を捨ててしまった。",
+          "text": "不小心扔掉了重要的信。"
+        }
+      ],
       "provenance": {
         "origin": "ai",
         "author": "Codex",
@@ -2547,7 +2579,7 @@
       "language": "zh-CN",
       "title": "〜やすい（容易）",
       "compact_summary": "接在动词连用形后，表示动作容易实现或容易发生",
-      "function_summary": "接在动词连用形后，表示动作容易实现或容易发生",
+      "function_summary": "表示动作容易进行或某种变化容易发生，整体按イ形容词活用。",
       "connection": "动词连用形＋やすい；整体按イ形容词活用，过去为やすかった，否定为やすくない。",
       "formation": "动词连用形＋やすい／やすくない／やすかった／やすくて",
       "usage_notes": [],
@@ -2574,7 +2606,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "この本は読みやすい。",
+          "text": "这本书容易读。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.adjective.nikui",
@@ -2583,7 +2621,7 @@
       "language": "zh-CN",
       "title": "〜にくい／〜づらい（困难）",
       "compact_summary": "接在动词连用形后，表示动作难以实现；づらい常带主观负担色彩",
-      "function_summary": "接在动词连用形后，表示动作难以实现；づらい常带主观负担色彩",
+      "function_summary": "表示动作难以进行或实现。「づらい」常带有主观负担的含义。",
       "connection": "动词连用形＋にくい／づらい；整体按イ形容词活用，过去为にくかった／づらかった，否定为にくくない／づらくない。",
       "formation": "动词连用形＋にくい／づらい及其イ形容词活用",
       "usage_notes": [],
@@ -2610,7 +2648,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "この字は読みにくい。",
+          "text": "这个字难以辨认。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.sugiru",
@@ -2619,13 +2663,14 @@
       "language": "zh-CN",
       "title": "〜すぎる（过度）",
       "compact_summary": "接在动词连用形或形容词词干后表示程度过度",
-      "function_summary": "接在动词连用形或形容词词干后表示程度过度",
+      "function_summary": "表示动作或性质超过适当的程度。",
       "connection": "动词连用形／イ形容词词干／ナ形容词词干＋すぎる；整体仍可继续活用。",
       "formation": "読みすぎる／高すぎる／静かすぎる",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
       "examples": [
+        "昨日は食べすぎた。",
         "本を読みすぎた。",
         "高すぎて買えない。"
       ],
@@ -2645,7 +2690,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "昨日は食べすぎた。",
+          "text": "昨天吃得太多了。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.hajimeru",
@@ -2654,7 +2705,7 @@
       "language": "zh-CN",
       "title": "〜始める（开始）",
       "compact_summary": "接在动词连用形后表示动作开始",
-      "function_summary": "接在动词连用形后表示动作开始",
+      "function_summary": "表示前项动作开始发生。",
       "connection": "动词连用形＋始める；补助动词自身可继续活用。",
       "formation": "読み始める／降り始めた",
       "usage_notes": [],
@@ -2679,7 +2730,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "雨が降り始めた。",
+          "text": "开始下雨了。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.tsuzukeru",
@@ -2723,7 +2780,7 @@
       "language": "zh-CN",
       "title": "〜終わる／〜終える（完成）",
       "compact_summary": "接在动词连用形后表示动作完成或做完",
-      "function_summary": "接在动词连用形后表示动作完成或做完",
+      "function_summary": "表示前项动作已经完成。",
       "connection": "动词连用形＋終わる／終える。",
       "formation": "読み終わる／書き終えた",
       "usage_notes": [],
@@ -2748,7 +2805,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "本を読み終わった。",
+          "text": "读完了书。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.makuru",
@@ -2893,13 +2956,14 @@
       "language": "zh-CN",
       "title": "〜切る／〜抜く／〜尽くす（彻底）",
       "compact_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽",
-      "function_summary": "接在动词连用形后表示彻底完成、做到最后或耗尽",
+      "function_summary": "表示动作进行到底或彻底完成。",
       "connection": "动词连用形＋切る／抜く／尽くす。",
       "formation": "使い切る／やり抜く／食べ尽くす",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
       "examples": [
+        "最後まで読みきった。",
         "最後までやり抜いた。"
       ],
       "counter_examples": [
@@ -2918,7 +2982,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "最後まで読みきった。",
+          "text": "一直读到了最后。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.kaneru",
@@ -6111,7 +6181,7 @@
       "language": "zh-CN",
       "title": "ながら（伴随）",
       "compact_summary": "表示两个动作同时进行",
-      "function_summary": "前项动作作为伴随背景，后项为主要叙述",
+      "function_summary": "表示两个动作同时进行，前项作为伴随背景，后项为主要叙述。",
       "connection": "动词连用形＋ながら。",
       "formation": "歩き＋ながら話す",
       "usage_notes": [],
@@ -6136,7 +6206,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "歩きながら話す。",
+          "text": "边走边说。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.connective.tsutsu",
@@ -6145,7 +6221,7 @@
       "language": "zh-CN",
       "title": "つつ",
       "compact_summary": "表示同时进行或持续进行",
-      "function_summary": "以书面或正式语域连接两个动作，也可表达与预期相反的持续状态",
+      "function_summary": "用于书面或正式表达，表示两个动作同时进行或某种状态持续。",
       "connection": "动词连用形＋つつ。",
       "formation": "考え＋つつ進む",
       "usage_notes": [],
@@ -6170,7 +6246,13 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "考えつつ進む。",
+          "text": "一边思考一边前进。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.connective.keredomo",

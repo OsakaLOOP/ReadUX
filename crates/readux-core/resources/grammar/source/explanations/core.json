@@ -264,20 +264,28 @@
     "language": "zh-CN",
     "title": "ます体",
     "compact_summary": "礼貌陈述形式",
-    "function_summary": "礼貌陈述形式",
+    "function_summary": "以礼貌的语气陈述动作或状态，可进一步表示过去、否定或推量。",
     "connection": "",
     "formation": "",
     "usage_notes": [],
     "semantic_constraints": [],
     "pragmatic_notes": [],
-    "examples": [],
+    "examples": [
+      "毎朝、本を読みます。"
+    ],
     "counter_examples": [],
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
     "authoring_status": "verified",
     "content_version": 1,
-    "body_blocks": []
+    "body_blocks": [
+      {
+        "kind": "example_pair",
+        "label": "毎朝、本を読みます。",
+        "text": "每天早晨读书。"
+      }
+    ]
   },
   {
     "explanation_id": "explanation.morphology.modality.desire",
@@ -286,20 +294,28 @@
     "language": "zh-CN",
     "title": "〜たい",
     "compact_summary": "表示愿望",
-    "function_summary": "表示愿望",
+    "function_summary": "表示说话人或询问对象想进行某项动作的愿望。「たい」本身按イ形容词活用。",
     "connection": "",
     "formation": "",
     "usage_notes": [],
     "semantic_constraints": [],
     "pragmatic_notes": [],
-    "examples": [],
+    "examples": [
+      "熱いお茶を飲みたい。"
+    ],
     "counter_examples": [],
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
     "authoring_status": "verified",
     "content_version": 1,
-    "body_blocks": []
+    "body_blocks": [
+      {
+        "kind": "example_pair",
+        "label": "熱いお茶を飲みたい。",
+        "text": "想喝热茶。"
+      }
+    ]
   },
   {
     "explanation_id": "explanation.morphology.mood.volitional",
@@ -1078,20 +1094,28 @@
     "language": "zh-CN",
     "title": "いる（补助用法）",
     "compact_summary": "表示进行或结果状态",
-    "function_summary": "表示进行或结果状态",
+    "function_summary": "表示动作正在进行、习惯性的活动，或动作结果形成的持续状态。",
     "connection": "",
     "formation": "",
     "usage_notes": [],
     "semantic_constraints": [],
     "pragmatic_notes": [],
-    "examples": [],
+    "examples": [
+      "庭で花を育てている。"
+    ],
     "counter_examples": [],
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
     "authoring_status": "verified",
     "content_version": 1,
-    "body_blocks": []
+    "body_blocks": [
+      {
+        "kind": "example_pair",
+        "label": "庭で花を育てている。",
+        "text": "在庭院里种着花。"
+      }
+    ]
   },
   {
     "explanation_id": "explanation.grammar.auxiliary.aru",
@@ -1166,20 +1190,28 @@
     "language": "zh-CN",
     "title": "しまう（补助用法）",
     "compact_summary": "表示彻底完成或遗憾",
-    "function_summary": "表示彻底完成或遗憾",
+    "function_summary": "表示动作彻底完成，也可表达对结果的遗憾或意外。",
     "connection": "",
     "formation": "",
     "usage_notes": [],
     "semantic_constraints": [],
     "pragmatic_notes": [],
-    "examples": [],
+    "examples": [
+      "大切な手紙を捨ててしまった。"
+    ],
     "counter_examples": [],
     "source_refs": [
       "readux-editorial:2026-07-16"
     ],
     "authoring_status": "verified",
     "content_version": 1,
-    "body_blocks": []
+    "body_blocks": [
+      {
+        "kind": "example_pair",
+        "label": "大切な手紙を捨ててしまった。",
+        "text": "不小心扔掉了重要的信。"
+      }
+    ]
   },
   {
     "explanation_id": "explanation.grammar.auxiliary.iku",
