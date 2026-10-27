@@ -1,5 +1,3 @@
-\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\src\morphology_config.rs:
-
 //! 活用链配置的类型与词法条件匹配；语言规则集中在 morphology.json。
 use crate::{model::ProviderToken, morphology::ConnectionForm};
 use serde::Deserialize;

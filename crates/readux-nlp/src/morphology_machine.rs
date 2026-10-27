@@ -1,5 +1,3 @@
-\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\src\morphology_machine.rs:
-
 //! 词法连接状态机。GiNZA 参与复合核心、功能所有权和来源冲突判定。
 use crate::{
     external::{SourceArtifact, SourceNode},

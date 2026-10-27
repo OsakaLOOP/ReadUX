@@ -1,5 +1,3 @@
-\\?\D:\PROJ\GIT\kotoclip\crates\readux-nlp\tests\morphology_reconstruction.rs:
-
 use readux_nlp::{
     external::{
         Endpoint, Manifest, NodeKind, RelationKind, SourceArtifact, SourceNode, SourceRelation,

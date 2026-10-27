@@ -1,5 +1,3 @@
-\\?\D:\PROJ\GIT\kotoclip\crates\readux-core\tests\p4_language.rs:
-
 //! 实际 UniDic 活用与 GiNZA 信息变化的定向验收。
 use readux_core::analysis::{AnalysisService, Request, ResourcePaths};
 use readux_nlp::{
