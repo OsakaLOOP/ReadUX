@@ -80,6 +80,12 @@ fn order_conflict(previous: &MorphologyChain, kind: &str) -> bool {
     previous
         .operators
         .iter()
+        // 补助动词子链从补助词本体重新开始动词循环；补助层的阶段值
+        // 不应阻断子链自身的使役、受身／可能等循环。
+        .filter(|operator| {
+            config::rule_metadata(&operator.kind)
+                .is_some_and(|meta| meta.executor.contains("verb_cycle"))
+        })
         .filter_map(|operator| (operator.order_rank > 0).then_some(operator.order_rank))
         .max()
         .is_some_and(|rank| current < rank)
@@ -550,8 +556,9 @@ impl ClassicalConjugationExecutor {
         {
             atom.final_state.category = "文語用言".into();
             atom.final_state.entity_class = "文言活用类".into();
-            atom.final_state.form = config::classical_connection_form(&atom.final_state.conjugation_form)
-                .unwrap_or_else(|| atom.final_state.form.clone());
+            atom.final_state.form =
+                config::classical_connection_form(&atom.final_state.conjugation_form)
+                    .unwrap_or_else(|| atom.final_state.form.clone());
             atom.evidence.extend([
                 "classical_composition:ごとし+なり".into(),
                 "classical_lemma:ごとくなり".into(),
@@ -578,6 +585,29 @@ impl ClassicalConjugationExecutor {
                 format!("classical_paradigm:{}:{}", entry.class_name, form_name),
                 format!("classical_lemma:{}", entry.lemma),
                 format!("classical_connection:{}", entry.connection.join("／")),
+            ]);
+            return;
+        }
+        // UniDic 在「泣かざりし」等真实文言输入中偶尔将「し」标为接续助词，
+        // 词元失去助动词 cType。前项已由「ざり」确认文言否定时，保留受限的
+        // き连体形接续，避免把普通接续助词泛化为文言过去。
+        if kind == "classical_ki"
+            && token.surface == "し"
+            && field(token, 0) == "助詞"
+            && field(token, 1) == "接続助詞"
+            && previous
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "negative_zuni")
+        {
+            atom.final_state.category = "文語用言".into();
+            atom.final_state.entity_class = "文言活用类".into();
+            atom.final_state.form = ConnectionForm::Attributive;
+            atom.evidence.extend([
+                "classical_paradigm:特殊型:連体形".into(),
+                "classical_lemma:き".into(),
+                "classical_connection:連用形".into(),
+                "classical_unidic_pos_fallback".into(),
             ]);
             return;
         }
@@ -740,7 +770,7 @@ fn bridge_support_for_position(
             .map(|token| token.char_range)
             .collect::<Vec<_>>(),
         source[index].char_range,
-    )
+    ) || context.ginza.is_none()
 }
 
 /// 插入语执行器：按位置声明保留词性、活用状态、阶段和停机许可。
@@ -828,7 +858,10 @@ fn transition(
     if let Some((entry, _)) = config::classical_auxiliary(next) {
         if entry.rule == "classical_nari_copula"
             && previous.final_state.form == ConnectionForm::Continuative
-            && previous.operators.iter().any(|operator| operator.kind == "classical_gotoshi")
+            && previous
+                .operators
+                .iter()
+                .any(|operator| operator.kind == "classical_gotoshi")
         {
             return Transition::Attach(vec!["classical_gotokunari".into()]);
         }
@@ -1054,7 +1087,11 @@ fn merge_verb_core(
     supplemented.fields[0].value = Some("動詞".into());
     supplemented.fields[4].value = Some(conjugation_type.into());
     supplemented.fields[5].value = Some(conjugation_form.into());
-    let verb_state = state(&supplemented);
+    let mut verb_state = state(&supplemented);
+    // GiNZA 已确认这是词汇动词核心；即使其 cType 使用文言范式，
+    // 词汇核心仍属于动词循环类，文言类别留给文言助动词接续。
+    verb_state.category = "動詞".into();
+    verb_state.entity_class = "动词循环类".into();
     let mut conjugation = operator(chain, &atom, "conjugation".into(), current);
     conjugation.input_state = lemma.into();
     conjugation.output_state = conjugation_form.into();
@@ -1125,15 +1162,16 @@ fn suffix_sequence(
                 !position.connector.is_empty()
                     && kinds.contains(&position.connector)
                     && config::support_kind(&position.support_group, &source[end]).is_some()
-                    && context.confirms_inserted_support(
-                        source[previous.core_morpheme_indices[0]].char_range,
-                        source[index].char_range,
-                        &source[index + 1..end]
-                            .iter()
-                            .map(|token| token.char_range)
-                            .collect::<Vec<_>>(),
-                        source[end].char_range,
-                    )
+                    && (context.ginza.is_none()
+                        || context.confirms_inserted_support(
+                            source[previous.core_morpheme_indices[0]].char_range,
+                            source[index].char_range,
+                            &source[index + 1..end]
+                                .iter()
+                                .map(|token| token.char_range)
+                                .collect::<Vec<_>>(),
+                            source[end].char_range,
+                        ))
             })
         {
             return None;
@@ -1526,7 +1564,7 @@ pub(crate) fn compose(
                             reading_field: Some("contraction_rule".into()),
                         });
                     }
-                    if !structural_evidence {
+                    if !structural_evidence || context.ginza.is_none() {
                         atom.evidence.push("support_lexical_connection_only".into());
                     }
                     linked = true;

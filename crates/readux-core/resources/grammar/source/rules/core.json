@@ -3006,35 +3006,5 @@
     ],
     "rule_version": 1,
     "show_badge": true
-  },
-  {
-    "rule_id": "construction.te_yuku",
-    "realization_id": "realization.construction.te_yuku",
-    "concept_id": "grammar.auxiliary.yuku",
-    "kind": "grammar_construction",
-    "priority": 80,
-    "enabled": true,
-    "audit_status": "verified",
-    "atoms": [],
-    "display_from": 1,
-    "display_to": null,
-    "captures": [
-      "predicate",
-      "connector",
-      "functional_verb"
-    ],
-    "refines_rule_ids": [],
-    "conflict_group": null,
-    "examples": [
-      "読んでゆく"
-    ],
-    "counter_examples": [
-      "ゆくを自立谓词として用いる。"
-    ],
-    "source_refs": [
-      "readux-editorial:2026-07-16"
-    ],
-    "rule_version": 1,
-    "show_badge": true
   }
 ]

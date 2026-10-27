@@ -1321,28 +1321,5 @@
     "source_refs": [
       "readux-editorial:2026-07-16"
     ]
-  },
-  {
-    "realization_id": "realization.construction.te_yuku",
-    "concept_id": "grammar.auxiliary.yuku",
-    "possible_sense_ids": [
-      "grammar.auxiliary.yuku.direction"
-    ],
-    "rule_id": "construction.te_yuku",
-    "connection_signature": "読んでゆく",
-    "morphology_requirements": [],
-    "functional_requirements": [],
-    "context_requirements": [],
-    "examples": [
-      "読んでゆく"
-    ],
-    "counter_examples": [
-      "ゆくを自立谓词として用いる。"
-    ],
-    "realization_version": 1,
-    "audit_status": "verified",
-    "source_refs": [
-      "readux-editorial:2026-07-16"
-    ]
   }
 ]

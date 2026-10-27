@@ -529,7 +529,7 @@
       "output_category": "名詞",
       "terminal_mode": "continue",
       "order_rank": 45,
-      "allowed_after": ["insertion", "attributive_na"]
+      "allowed_after": ["insertion", "attributive_na", "past"]
     },
     "nominal_change_ni": {
       "stage": "desire",
@@ -8952,11 +8952,43 @@
           "forms": [
             "terminal",
             "attributive"
+          ],
+          "categories": [
+            "動詞"
           ]
         }
       ],
       "kinds": [
         "prohibitive"
+      ]
+    },
+    {
+      "action": "attach",
+      "when": [
+        {
+          "next": {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "接続助詞"
+              ],
+              "surface": [
+                "し"
+              ]
+            }
+          },
+          "forms": [
+            "continuative"
+          ],
+          "operators": [
+            "negative_zuni"
+          ]
+        }
+      ],
+      "kinds": [
+        "classical_ki"
       ]
     },
     {

@@ -246,17 +246,13 @@ pub fn identity(token: &ProviderToken) -> &str {
 }
 
 pub fn support_kind(group: &str, token: &ProviderToken) -> Option<&'static str> {
-    let potential = crate::morphology::potential_lemma(token);
     CONFIG
         .operators
         .iter()
         .find(|(_, entry)| {
             entry.support.as_ref().is_some_and(|support| {
                 support.group == group
-                    && support.bases.iter().any(|base| {
-                        base == identity(token)
-                            || potential.as_ref().is_some_and(|query| &query.form == base)
-                    })
+                    && support.bases.iter().any(|base| base == identity(token))
             })
         })
         .map(|(kind, _)| kind.as_str())

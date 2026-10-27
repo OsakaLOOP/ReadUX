@@ -250,7 +250,7 @@ fn ginza_verb_core_recovers_classical_verb_without_orphan_auxiliary() {
     assert!(artifact
         .chains
         .iter()
-        .any(|chain| chain.surface_form == "なり" && chain.status == "pending"));
+        .any(|chain| chain.surface_form == "風なり" && chain.status == "resolved"));
     assert!(artifact
         .chains
         .iter()
