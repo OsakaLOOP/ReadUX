@@ -921,7 +921,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "断定过去",
       "input_category": "体言／判断词干",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
       "input_categories": [
@@ -956,9 +956,9 @@
     "politeness_desu": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
-      "rule_group": "动词活用",
+      "rule_group": "敬体判断",
       "input_category": "体言／判断词干",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
       "input_categories": [
@@ -980,7 +980,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 70
     },
@@ -989,7 +989,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 70
     },
@@ -1058,7 +1058,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
       "input_categories": [
@@ -1079,7 +1079,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "continue",
       "order_rank": 80,
       "input_categories": [
@@ -1095,7 +1095,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "用言",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "continue",
       "order_rank": 80,
       "input_categories": [
@@ -1116,7 +1116,7 @@
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
       "input_category": "体言／判断词干",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
       "input_categories": [
@@ -1821,7 +1821,7 @@
         "動詞",
         "助動詞"
       ],
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 70
     },
@@ -4266,7 +4266,7 @@
       "title": "断定",
       "concept": "grammar.auxiliary.da",
       "prototype": "だ",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "output_form": "terminal",
       "display_suffix": "だ"
     },
@@ -4275,7 +4275,7 @@
       "title": "连用修饰",
       "concept": "morphology.form.continuative",
       "prototype": "に",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "output_form": "continuative",
       "display_suffix": "に"
     },
@@ -4284,7 +4284,7 @@
       "title": "连体修饰",
       "concept": "morphology.form.adjectival_attributive",
       "prototype": "な",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "output_form": "attributive",
       "display_suffix": "な"
     },
@@ -4293,7 +4293,7 @@
       "title": "断定",
       "concept": "grammar.functional.aru",
       "prototype": "である",
-      "output_category": "形状詞"
+      "output_category": "保持前项"
     },
     "ease": {
       "label": "活用",
@@ -5301,7 +5301,7 @@
       "title": "断定接续",
       "concept": "grammar.auxiliary.da",
       "prototype": "で",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "output_form": "continuative"
     },
     "copula_past": {
@@ -5309,7 +5309,7 @@
       "title": "断定过去",
       "concept": "grammar.auxiliary.da",
       "prototype": "だった",
-      "output_category": "形状詞",
+      "output_category": "保持前项",
       "variants": [
         {
           "token": {

@@ -8,6 +8,7 @@ const emit = defineEmits<{ toggle: [key: string]; resize: [] }>();
 const current = shallowRef(props.layout);
 const markerId = `morphology-arrow-${useId().replace(/:/g, '')}`;
 const nodeMap = computed(() => new Map(current.value.nodes.map((node) => [node.id, node])));
+const orderedLinks = computed(() => [...current.value.links].sort((a, b) => Number(a.matched) - Number(b.matched)));
 let frame = 0;
 
 function textY(node: GraphNode, index: number) {
@@ -79,8 +80,8 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
         </marker>
       </defs>
       <g class="morphology-graph__edges" aria-hidden="true">
-        <g v-for="link in current.links" :key="link.id" :class="{ 'is-matched': link.matched, 'is-fold': link.vertical }">
-          <path :d="morphologyGraphLink(link, nodeMap)" :marker-end="link.matched ? `url(#${markerId})` : undefined" />
+        <g v-for="link in orderedLinks" :key="link.id" :class="{ 'is-matched': link.matched, 'is-fold': link.vertical }">
+          <path :d="morphologyGraphLink(link, nodeMap)" :marker-end="`url(#${markerId})`" />
           <text v-if="link.label && nodeMap.get(link.source) && nodeMap.get(link.target)"
             :x="nodeMap.get(link.source)!.x + nodeMap.get(link.source)!.width / 2 + 9"
             :y="(nodeMap.get(link.source)!.y + nodeMap.get(link.source)!.height + nodeMap.get(link.target)!.y) / 2 + 3">{{ link.label }}</text>
@@ -135,8 +136,8 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-graph__edges .is-fold path { stroke: color-mix(in srgb, var(--accent-color) 65%, var(--border-color)); stroke-width: 1.6; }
 .morphology-graph__edges text { fill: var(--text-muted); font-size: 10px; }
 .morphology-graph__node rect { fill: var(--bg-primary, #fff); stroke: var(--border-color); stroke-width: 1; }
-.morphology-graph__node.is-matched rect { stroke: var(--accent-color); stroke-width: 1.5; }
 .morphology-graph__node.is-insertion rect { stroke-dasharray: 4 3; fill: color-mix(in srgb, var(--bg-primary, #fff) 94%, var(--accent-color)); }
+.morphology-graph__node.is-matched > rect { fill: color-mix(in srgb, var(--bg-primary, #fff) 92%, var(--accent-color)); stroke: var(--accent-color); stroke-width: 1.5; }
 .morphology-graph__node text { pointer-events: none; fill: var(--text-primary); }
 .morphology-graph__node .line-main { font-weight: 500; font-size: 12px; }
 .morphology-graph__node.is-sentence .line-main, .morphology-graph__node.is-connector .line-main, .morphology-graph__node.is-target .line-main { font: 600 15px var(--font-ja); }
@@ -147,7 +148,7 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-graph__node .run-arrow { fill: var(--text-muted); font: 13px var(--font-ui); }
 .morphology-graph__node.is-target rect, .morphology-graph__node.is-connector.is-matched rect { stroke: var(--accent-color); }
 .morphology-graph__node.is-action > rect { cursor: pointer; outline: none; }
-.morphology-graph__node.is-action:hover rect, .morphology-graph__node.is-action:focus-visible rect { stroke: var(--accent-color); stroke-width: 2; }
+.morphology-graph__node.is-action > rect:hover, .morphology-graph__node.is-action > rect:focus-visible { stroke: var(--accent-color); stroke-width: 2; }
 .morphology-graph__toggle text { fill: var(--text-muted); font: 11px var(--font-ui); }
 .morphology-graph__toggle { pointer-events: none; }
 .morphology-graph__toggle path, .morphology-graph__list-stem { fill: none; stroke: var(--text-muted); stroke-width: 1; }

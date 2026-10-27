@@ -22,7 +22,7 @@
 /* 语义区分 */
 .dictionary-content--crown .mean_kubun,
 .dictionary-content--crown .kg_shokubun_par {
-  color: var(--text-muted);
+  color: var(--dictionary-muted);
   font-size: 0.85em;
   font-weight: 400;
 }
@@ -42,7 +42,7 @@
   display: inline-block;
   margin-left: 4px;
   font-size: 0.8em;
-  color: var(--text-muted);
+  color: var(--dictionary-muted);
   font-weight: 400;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .dictionary-content--crown .kg_wake {
-  color: var(--border-color);
+  color: var(--dictionary-muted);
   opacity: 0.7;
 }
 
@@ -65,12 +65,12 @@
 
 .dictionary-content--crown .kg_eiyaku_par,
 .dictionary-content--crown .kg_eiyaku {
-  color: var(--text-muted);
+  color: var(--dictionary-muted);
 }
 
 .dictionary-content--crown .mean_eiyaku {
   font-style: italic;
-  color: var(--text-muted);
+  color: var(--dictionary-muted);
   background: var(--bg-secondary);
   padding: 1px 4px;
   border-radius: 3px;
@@ -97,7 +97,7 @@
 }
 
 .dictionary-content--crown .mean_yorei {
-  color: var(--text-secondary);
+  color: var(--dictionary-secondary);
   font-weight: 500;
 }
 
@@ -107,11 +107,11 @@
 
 .dictionary-content--crown .kg_reiyaku_box {
   margin-inline: 6px;
-  color: var(--border-color);
+  color: var(--dictionary-muted);
 }
 
 .dictionary-content--crown .mean_reiyaku {
-  color: var(--text-muted);
+  color: var(--dictionary-muted);
 }
 
 /* 复合词 */
@@ -164,7 +164,7 @@
 }
 
 .dictionary-content--crown .mean_data_hikaku {
-  color: var(--text-secondary);
+  color: var(--dictionary-secondary);
 }
 
 .dictionary-content--crown .kg_data_hikaku {

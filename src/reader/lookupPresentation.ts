@@ -1,7 +1,7 @@
 import type { DictionaryLookup, PosTag } from "../types";
 import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
-import { morphologyConnectionDiagram, morphologyEntry, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
+import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 
 export interface ReaderTargetPresentation {
   pos: PosTag;
@@ -552,7 +552,12 @@ function buildChainStepMap(
     if (!isLast && contractedOutput) output = contractedOutput;
     if (!output) output = currentSlice || op.output_state || chain.surface_form;
 
-    const desc = op.char_range ? transitionDescription(input, output, op, nonInflectionOperators.slice(0, i).map(({ op }) => op), rootStart) : (op.description || "");
+    let desc = op.description || "";
+    if (op.char_range) {
+      desc = hasCoreInflection && i === 0
+        ? `${input} → ${output}`
+        : transitionDescription(input, output, op, nonInflectionOperators.slice(0, i).map(({ op }) => op), rootStart);
+    }
 
     result.set(op.operator_id, {
       operatorId: op.operator_id,
@@ -813,6 +818,8 @@ export function readerMorphologyHits(
       targetId: target.id,
       detail: {
         id: `${chain.chain_id}:core-conjugation`,
+        connection: morphologyStemDiagram(chain, document, syntheticRange),
+        status: chain.status,
         title: synthetic.label,
         surface: characters.slice(...syntheticRange).join(""),
         description: synthetic.description,
@@ -829,6 +836,8 @@ export function readerMorphologyHits(
           targetId: target.id,
           detail: {
             id: operator.operator_id,
+            connection: morphologyStemDiagram(chain, document, operator.char_range),
+            status: chain.status,
             title: step.conceptTitle,
             surface: step.prototypeForm || characters.slice(operator.char_range[0], operator.char_range[1]).join(""),
             description: step.description,

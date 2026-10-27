@@ -7,6 +7,7 @@ import TooltipPanel from "../TooltipPanel.vue";
 import ReaderExplanationBubble from "../reader/ReaderExplanationBubble.vue";
 import ReaderMorphologyEntry from "../reader/ReaderMorphologyEntry.vue";
 import ReaderConnectionTree from "../reader/ReaderConnectionTree.vue";
+import { morphologyLocalTransition } from "../../reader/morphologyBubble";
 import type { ReaderMorphologyDetail } from "../../reader/lookupPresentation";
 import type { ReaderTargetPresentation } from "../../reader/lookupPresentation";
 
@@ -222,6 +223,9 @@ onBeforeUnmount(() => {
     :title="detail.entry?.usage || detail.title"
     label="活用词条"
     :surface="detail.entry?.headword || detail.surface"
+    :identity="detail.entry?.identity"
+    :conjugation="detail.entry?.conjugation"
+    :transition="detail.entry?.transition || morphologyLocalTransition(detail.description, true)"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
   >
@@ -255,7 +259,7 @@ onBeforeUnmount(() => {
     :id="connectionPanelId" :data-explanation-panel="connectionPanelId" :show="show"
     :x="connectionPlacement?.left ?? -10000" :y="connectionPlacement?.top ?? -10000"
     :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300"
-    title="接续方式" surface=""
+    title="" surface="" label="接续方式与接续规则"
     @enter="emit('enter', $event)" @leave="emit('leave', $event)">
     <ReaderConnectionTree :key="detail.id" :diagram="detail.connection" @resize="place" />
   </ReaderExplanationBubble>

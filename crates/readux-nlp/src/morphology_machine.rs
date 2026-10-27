@@ -93,6 +93,15 @@ fn may_stop(kind: &str, state: &MorphologyState) -> bool {
     )
 }
 
+/// 名词谓语与形容动词共用判断词尾的接续表，词汇类别保持各自身份。
+fn accepts_category(state: &MorphologyState, categories: &[String]) -> bool {
+    categories.contains(&state.category)
+        || matches!(state.category.as_str(), "名詞" | "代名詞")
+            && state.entity_class == "ナ形容词判断类"
+            && state.form != ConnectionForm::Stem
+            && categories.iter().any(|category| category == "形状詞")
+}
+
 fn accepts_input(state: &MorphologyState, metadata: &config::RuleMetadata) -> bool {
     let category = &state.category;
     let accepted_category = if metadata.input_categories.is_empty() {
@@ -105,12 +114,14 @@ fn accepts_input(state: &MorphologyState, metadata: &config::RuleMetadata) -> bo
             "用言" => matches!(
                 category.as_str(),
                 "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"
-            ),
+            ) || matches!(category.as_str(), "名詞" | "代名詞")
+                && state.entity_class == "ナ形容词判断类"
+                && state.form != ConnectionForm::Stem,
             "已成立链" | "" => true,
             _ => false,
         }
     } else {
-        metadata.input_categories.contains(category)
+        accepts_category(state, &metadata.input_categories)
     };
     accepted_category
         && (metadata.input_forms.is_empty() || metadata.input_forms.contains(&state.form))
@@ -294,6 +305,12 @@ impl NaAdjectiveJudgementExecutor {
             "用言" | "保持前项" | "" => previous.final_state.category.clone(),
             category => category.into(),
         };
+        // 传闻そう承接完整命题；样态そう形成可接判断词尾的词干。
+        if kind == "sou_modality"
+            && matches!(previous.final_state.form, ConnectionForm::Terminal | ConnectionForm::Attributive)
+        {
+            atom.final_state.category = previous.final_state.category.clone();
+        }
         atom.final_state.entity_class = if atom.final_state.category == "形容詞" {
             "イ形容词转换类".into()
         } else {
@@ -870,9 +887,7 @@ fn transition(
                 && (condition.forms.is_empty()
                     || condition.forms.contains(&previous.final_state.form))
                 && (condition.categories.is_empty()
-                    || condition
-                        .categories
-                        .contains(&previous.final_state.category))
+                    || accepts_category(&previous.final_state, &condition.categories))
                 && (condition.operators.is_empty()
                     || follows_operator(previous, &condition.operators))
                 && (condition.suffixes.is_empty()
@@ -1148,7 +1163,7 @@ fn suffix_sequence(
             && previous.char_range[1] == source[index].char_range[0]
             && rule.forms.contains(&previous.final_state.form)
             && (rule.categories.is_empty()
-                || rule.categories.contains(&previous.final_state.category))
+                || accepts_category(&previous.final_state, &rule.categories))
             && (rule.operators.is_empty() || follows_operator(previous, &rule.operators))
             && rule
                 .tokens
@@ -1719,7 +1734,7 @@ fn identify_connection_paths(
                 || op.input_state == op.output_state { continue; }
             let state = &op.state_before;
             let matched: Vec<_> = rule.paths.iter().filter(|path| {
-                (path.categories.is_empty() || path.categories.contains(&state.category))
+                (path.categories.is_empty() || accepts_category(state, &path.categories))
                     && (path.forms.is_empty() || path.forms.contains(&state.form))
                     && (path.ctypes.is_empty() || path.ctypes.iter().any(|v| state.conjugation_type.starts_with(v)))
                     && !path.exclude_ctypes.iter().any(|v| state.conjugation_type.starts_with(v))

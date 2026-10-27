@@ -15,13 +15,13 @@ function toggle(key: string) {
 
 <template>
   <div class="connection-diagrams" :data-natural-width="Math.ceil(Math.max(sentence.width, rules.width))">
-    <section v-if="sentence.nodes.length" aria-label="句中关系">
-      <h3>句中关系</h3>
+    <section v-if="sentence.nodes.length" aria-label="接续方式">
+      <h3>接续方式</h3>
       <ReaderMorphologyGraph :layout="sentence" label="完整活用链" @resize="emit('resize')" />
     </section>
-    <section v-if="rules.nodes.length" aria-label="前接规则">
-      <h3>前接规则 <span v-if="diagram.status === 'candidate'">候选</span></h3>
-      <ReaderMorphologyGraph :layout="rules" label="前接规则树" @toggle="toggle" @resize="emit('resize')" />
+    <section v-if="rules.nodes.length" aria-label="接续规则">
+      <h3>接续规则 <span v-if="diagram.status === 'candidate'">候选</span></h3>
+      <ReaderMorphologyGraph :layout="rules" label="接续规则树" @toggle="toggle" @resize="emit('resize')" />
     </section>
   </div>
 </template>

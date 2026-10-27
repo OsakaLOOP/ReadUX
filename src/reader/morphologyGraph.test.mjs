@@ -38,6 +38,8 @@ test("实际递归链的节点内部固定两行，每次折行后从左向右�
   assert.equal(first.runs.find((run) => run.role === "form").lang, "ja");
   const support = layout.nodes.find((node) => node.lines[0].text.includes("补助"));
   assert.equal(support.lines[0].runs[0].lang, "zh-CN");
+  assert.equal(support.lines[0].text, "补助 しまう → しまっ");
+  assert.equal(first.text, "読む → 読ん");
 });
 
 test("前接只连接词性节点，未显示的单条条件可展开，完整显示的当前路径无重复入口", () => {
@@ -61,5 +63,32 @@ test("前接只连接词性节点，未显示的单条条件可展开，完整�
     assert.ok(expanded.nodes.every((node) => !node.action || node.action.count >= 1));
     const current = expanded.nodes.flatMap((node) => node.list ?? []).filter((row) => row.matched);
     assert.equal(current.length, 1);
+  }
+});
+
+test("前接图各父节点按子节点范围自然居中，末个分类只计算标题", () => {
+  const path = (id, matched) => ({ id, label: id, condition: `${id}接续条件`, matched, actual: "" });
+  const diagram = {
+    target: "ません",
+    branches: [
+      { id: "te", label: "て", matched: true, groups: [
+        { id: "verbs", label: "动词", paths: [path("当前路径", true), path("展开路径", false)] },
+        { id: "adjectives", label: "形容词", paths: [path("形容词路径", true)] },
+      ] },
+      { id: "de", label: "で", matched: false, groups: [
+        { id: "nouns", label: "名词", paths: [path("名词路径", true)] },
+      ] },
+    ],
+  };
+  const layout = layoutConnectionRules(diagram, "verbs");
+  const categories = layout.nodes.filter((node) => node.kind === "group").sort((a, b) => a.y - b.y);
+  assert.ok(categories[0].height > 28);
+  for (const parent of layout.nodes.filter((node) => node.kind !== "group")) {
+    const children = layout.links.filter((link) => link.target === parent.id)
+      .map((link) => layout.nodes.find((node) => node.id === link.source)).sort((a, b) => a.y - b.y);
+    const first = children[0];
+    const last = children.at(-1);
+    const bottom = last.y + (last.kind === "group" ? 28 : last.height);
+    assert.equal(parent.y + parent.height / 2, (first.y + bottom) / 2);
   }
 });

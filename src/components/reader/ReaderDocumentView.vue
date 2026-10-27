@@ -31,6 +31,7 @@ import ReaderCapsule from "./ReaderCapsule.vue";
 import ReaderMorphologySummary from "./ReaderMorphologySummary.vue";
 import ParticleGrammarPopover from "../grammar/ParticleGrammarPopover.vue";
 import ReaderMorphologyEntry from "./ReaderMorphologyEntry.vue";
+import { morphologyLocalTransition } from "../../reader/morphologyBubble";
 import ReaderConnectionTree from "./ReaderConnectionTree.vue";
 import { capsulesForParts, componentForRange } from "../../reader/capsuleProjection";
 import { grammarMorphemeLookup } from "../../grammar/particleEntries";
@@ -2490,6 +2491,9 @@ function toggleEinkMode() {
       :title="activeDetail.entry?.usage || activeDetail.title"
       label="活用词条"
       :surface="activeDetail.entry?.headword || activeDetail.surface"
+      :identity="activeDetail.entry?.identity"
+      :conjugation="activeDetail.entry?.conjugation"
+      :transition="activeDetail.entry?.transition || morphologyLocalTransition(activeDetail.description, true)"
       @enter="cancelCloseLookup"
       @leave="scheduleCloseLookup"
     >
@@ -2501,7 +2505,7 @@ function toggleEinkMode() {
       :show="Boolean(activeHit)"
       :x="connectionPosition.x" :y="connectionPosition.y"
       :width="connectionPosition.width" :max-height="connectionPosition.maxHeight"
-      title="接续方式" surface=""
+      title="" surface="" label="接续方式与接续规则"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
     >
       <ReaderConnectionTree :key="activeDetail.id" :diagram="activeDetail.connection" @resize="refreshLookupPosition" />
