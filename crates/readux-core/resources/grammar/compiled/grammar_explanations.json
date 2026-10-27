@@ -6440,6 +6440,74 @@
       },
       "review_status": "ai_checked",
       "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.itadaku",
+      "concept_id": "grammar.auxiliary.itadaku",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "ていただく",
+      "compact_summary": "以自谦方式表示接受对方的行为或帮助",
+      "function_summary": "表示对方的行为给自己或己方带来益处；使役形后可表示承蒙许可进行某事。",
+      "connection": "动词て形＋いただく；いただく按五段动词继续活用。",
+      "formation": "付き合わせて＋いただいて＋おります",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "先生に教えていただいた。",
+        "付き合わせていただいております。"
+      ],
+      "counter_examples": [
+        "本をいただいた。（いただく的独立动词用法）"
+      ],
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.auxiliary.kakaru",
+      "concept_id": "grammar.auxiliary.kakaru",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "てかかる",
+      "compact_summary": "表示以前项所示的态度应对某事或对待对方",
+      "function_summary": "前项说明贯穿应对过程的态度。「舐めてかかる」表示带着轻视态度对待对方。",
+      "connection": "动词て形＋かかる；かかる按五段动词继续活用。",
+      "formation": "舐めて＋かかって＋いた＋だろう",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "相手を舐めてかかっていただろう。",
+        "最初から疑ってかかる。"
+      ],
+      "counter_examples": [
+        "時間がかかる。（所需时间的独立动词用法）"
+      ],
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-07-16",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": []
     }
   ]
 }

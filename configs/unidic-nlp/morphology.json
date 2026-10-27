@@ -1274,6 +1274,25 @@
       "terminal_mode": "continue",
       "order_rank": 30
     },
+    "te_itadaku": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_category": "动词",
+      "input_categories": ["動詞", "助動詞"],
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30
+    },
+    "te_kakaru": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "态度接续",
+      "input_category": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30
+    },
     "te_ageru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
@@ -4528,6 +4547,28 @@
       },
       "connector": "te_connection",
       "normalized": "てもらう"
+    },
+    "te_itadaku": {
+      "label": "ていただく",
+      "title": "受惠（自谦）",
+      "concept": "grammar.auxiliary.itadaku",
+      "prototype": "ていただく",
+      "support": {
+        "group": "te",
+        "bases": ["いただく", "頂く", "戴く"]
+      },
+      "connector": "te_connection"
+    },
+    "te_kakaru": {
+      "label": "てかかる",
+      "title": "态度／应对",
+      "concept": "grammar.auxiliary.kakaru",
+      "prototype": "てかかる",
+      "support": {
+        "group": "te",
+        "bases": ["かかる", "掛かる", "掛る"]
+      },
+      "connector": "te_connection"
     },
     "te_ageru": {
       "label": "てあげる",

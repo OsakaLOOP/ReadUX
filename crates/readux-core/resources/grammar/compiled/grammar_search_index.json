@@ -4792,6 +4792,41 @@
       "related_concept_ids": [],
       "contrast_concept_ids": [],
       "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.auxiliary.itadaku",
+      "label": "ていただく",
+      "aliases": [
+        "て頂く",
+        "て戴く"
+      ],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.auxiliary.kakaru",
+      "label": "てかかる",
+      "aliases": [
+        "て掛かる"
+      ],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
     }
   ]
 }

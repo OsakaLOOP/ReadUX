@@ -1,0 +1,38 @@
+{
+  "bundle_id": "morphology-support-20261027",
+  "audit_status": "reviewed",
+  "source_refs": ["readux-editorial:user-examples-20261027"],
+  "review": {"method": "核对真实 UniDic 分词、补助归属与递归活用"},
+  "items": [
+    {
+      "concept_id": "grammar.auxiliary.itadaku",
+      "kind": "auxiliary",
+      "canonical_label": "ていただく",
+      "aliases": ["て頂く", "て戴く"],
+      "explanation": {
+        "compact_summary": "以自谦方式表示接受对方的行为或帮助",
+        "function_summary": "表示对方的行为给自己或己方带来益处；使役形后可表示承蒙许可进行某事。",
+        "connection": "动词て形＋いただく；いただく按五段动词继续活用。",
+        "formation": "付き合わせて＋いただいて＋おります",
+        "examples": ["先生に教えていただいた。", "付き合わせていただいております。"],
+        "counter_examples": ["本をいただいた。（いただく的独立动词用法）"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.auxiliary.kakaru",
+      "kind": "auxiliary",
+      "canonical_label": "てかかる",
+      "aliases": ["て掛かる"],
+      "explanation": {
+        "compact_summary": "表示以前项所示的态度应对某事或对待对方",
+        "function_summary": "前项说明贯穿应对过程的态度。「舐めてかかる」表示带着轻视态度对待对方。",
+        "connection": "动词て形＋かかる；かかる按五段动词继续活用。",
+        "formation": "舐めて＋かかって＋いた＋だろう",
+        "examples": ["相手を舐めてかかっていただろう。", "最初から疑ってかかる。"],
+        "counter_examples": ["時間がかかる。（所需时间的独立动词用法）"],
+        "body_blocks": []
+      }
+    }
+  ]
+}

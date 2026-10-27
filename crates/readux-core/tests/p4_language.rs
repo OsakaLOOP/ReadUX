@@ -16,6 +16,100 @@ fn analyze(service: &AnalysisService, text: &str) -> UnifiedDocument {
 }
 
 #[test]
+fn attitude_and_humble_support_preserve_recursive_inflection() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let service = AnalysisService::new(ResourcePaths::development(&root));
+    for (text, kind, parent_form, lookup_form, tail) in [
+        (
+            "舐めてかかっていただろう",
+            "te_kakaru",
+            "舐める",
+            "かかる",
+            "darou_modality",
+        ),
+        (
+            "付き合わせていただいております",
+            "te_itadaku",
+            "付き合う",
+            "いただく",
+            "politeness_masu",
+        ),
+        (
+            "付き合いさせていただいております",
+            "te_itadaku",
+            "させる",
+            "いただく",
+            "politeness_masu",
+        ),
+        ("教えて頂いた", "te_itadaku", "教える", "頂く", "past"),
+        ("疑って掛かった", "te_kakaru", "疑う", "掛かる", "past"),
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            doc.morphology.diagnostics.is_empty(),
+            "{text}: {:?}",
+            doc.morphology.diagnostics
+        );
+        let support = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| chain.operators.iter().any(|op| op.kind == kind))
+            .unwrap();
+        assert_eq!(support.lookup_form, lookup_form, "{text}");
+        assert_eq!(support.role, MorphologyRole::Functional, "{text}");
+        let parent = doc
+            .morphology
+            .chains
+            .iter()
+            .find(|chain| Some(&chain.chain_id) == support.parent_chain_id.as_ref())
+            .unwrap();
+        assert_eq!(parent.lookup_form, parent_form, "{text}");
+        let last = doc.morphology.chains.last().unwrap();
+        assert!(last.operators.iter().any(|op| op.kind == tail), "{text}");
+        assert!(
+            doc.morphology
+                .chains
+                .iter()
+                .all(|chain| chain.status == "resolved"),
+            "{text}"
+        );
+        if text.contains("かかって") || text.contains("いただいて") {
+            assert_eq!(
+                last.parent_chain_id.as_ref(),
+                Some(&support.chain_id),
+                "{text}"
+            );
+            assert!(
+                last.operators.iter().any(|op| op.kind == "te_iru"),
+                "{text}"
+            );
+        }
+    }
+    for text in [
+        "時間がかかった",
+        "屋根に掛かった",
+        "本をいただいた",
+        "舐めて、かかった",
+        "教えて いただいた",
+    ] {
+        let doc = analyze(&service, text);
+        assert!(
+            !doc.morphology
+                .chains
+                .iter()
+                .flat_map(|chain| &chain.operators)
+                .any(|op| matches!(op.kind.as_str(), "te_kakaru" | "te_itadaku")),
+            "{text}"
+        );
+    }
+    // 原句的连用形边界保留；常规使役形连接到付き合う。
+    let original = analyze(&service, "付き合いさせていただいております");
+    assert!(original.morphology.chains[0].parent_chain_id.is_none());
+    assert_eq!(original.morphology.chains[0].surface_form, "付き合い");
+}
+
+#[test]
 fn conditional_toka_preserves_enumerative_and_predicate_connections() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let service = AnalysisService::new(ResourcePaths::development(&root));

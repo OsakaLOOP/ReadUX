@@ -5056,6 +5056,53 @@
       "audit_status": "reviewed",
       "concept_version": 1,
       "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.itadaku",
+      "kind": "auxiliary",
+      "canonical_label": "ていただく",
+      "aliases": [
+        "て頂く",
+        "て戴く"
+      ],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.itadaku",
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.auxiliary.kakaru",
+      "kind": "auxiliary",
+      "canonical_label": "てかかる",
+      "aliases": [
+        "て掛かる"
+      ],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.auxiliary.kakaru",
+      "source_refs": [
+        "readux-editorial:user-examples-20261027"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
     }
   ],
   "senses": [
