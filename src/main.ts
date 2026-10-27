@@ -8,7 +8,7 @@ console.log(
   (window as any).__main_loaded_time - (window as any).__boot_start_time
 );
 
-const application = import.meta.env.DEV && !isTauri()
+const application = import.meta.env.MODE === "frontend" && !isTauri()
   ? import("./dev/HeaderAnimationPreview.vue")
   : import("./App.vue");
 

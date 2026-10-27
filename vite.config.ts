@@ -9,8 +9,11 @@ const host = process.env.TAURI_DEV_HOST;
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => ({
   plugins: [vue(), ...(mode === "frontend" ? [] : [nlpBridge()])],
+  // 两个开发模式独立维护预构建结果，支持同时预览与验收。
+  cacheDir: `node_modules/.vite/${mode}`,
 
   optimizeDeps: {
+    entries: ["index.html"],
     include: ["@lucide/vue", "@tanstack/vue-virtual", "vue"]
   },
 
@@ -32,7 +35,12 @@ export default defineConfig(async ({ mode }) => ({
       : undefined,
     watch: {
       // 3. tell Vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
+      ignored: [
+        "**/src-tauri/**", "**/.agents/**", "**/target/**", "**/target-*/**",
+        "**/experiments/**", "**/release-resources/**", "**/upload-resources/**",
+        "**/unidic-*/**", "**/ipadic/**", "**/nlp_retraining/**",
+        "**/packages/**", "**/vendor/**", "**/data/**",
+      ],
     },
   },
 }));
