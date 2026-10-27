@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 活用链第 11 阶段的气泡接入规范见 docs/morphology_stage11_bubble_display.md：现有活用词条气泡保持原职责，新增接续方式气泡并与其上下堆叠；补助父子关系递归显示，当前词条前接规则按唯一线性路径或多分支投影。て／で共用连接规则，普通规则只回看声明所需的前项；条目类别、用法说明、例句与词形标签分层呈现。后续按文档清单处理「ない」「ずに」「た／だ」及判断收尾等多路径规则。
+
 - 用户提供的七句谓语接续验收见 `docs/morphology_predicate_examples_2026-10-27.md`，测试入口为 `p4_language.rs` 的 `supplied_predicates_*` 与 `attitude_and_humble_support_*`。规则覆盖「しかない」继续否定、意向形＋とする、こと名词化和ていい；「てかかる」按态度补助处理，原始动词词性保留。「ていただく」采用通用授受样例验证。补助概念讲解位于 grammar source 的 `morphology_support_20261027.json`，许可讲解位于 `morphology_permission_20261027.json`。
 
 - 活用链的局部接续设计及 7 条长句验收见 `docs/morphology_local_connections_2026-10-27.md`。执行入口为 `morphology_machine.rs`；阶段数字仅作展示，合法性读取当前词类、活用形、精确活用型及最近连接器。全部 `support` 统一交补助执行器；「たりとか」保持原连接许可，名词性＋になる保留前项身份。真实分词回归为 `p4_language.rs` 的 `recursive_predicates_*` 与 `conditional_toka_*`，单体／分词とか及非法重复活用见 `morphology_reconstruction.rs`。
