@@ -1,0 +1,106 @@
+{
+  "bundle_id": "morphology-connections-20261028",
+  "audit_status": "reviewed",
+  "source_refs": ["readux-editorial:connection-entry-completion-20261028"],
+  "provenance": {"origin": "ai", "author": "Codex", "date": "2026-10-28", "version": "1"},
+  "review_status": "ai_checked",
+  "items": [
+    {
+      "concept_id": "grammar.modality.darou",
+      "kind": "auxiliary",
+      "canonical_label": "だろう（推量）",
+      "explanation": {
+        "compact_summary": "以简体表达推量或征求确认",
+        "function_summary": "根据现有认识推测某事成立，也可用于征求确认；后接か时构成带有推量的疑问。",
+        "connection": "名词／ナ形容词词干或用言终止形＋だろう；后接终助词か形成だろうか。",
+        "formation": "来る＋だろう＋か",
+        "examples": ["明日は晴れるだろう。", "彼は来るだろうか。"],
+        "counter_examples": [],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "明日は晴れるだろう。", "text": "明天大概会放晴。"},
+          {"kind": "example_pair", "label": "彼は来るだろうか。", "text": "他会来吗？"}
+        ]
+      }
+    },
+    {
+      "concept_id": "grammar.modality.deshou",
+      "kind": "auxiliary",
+      "canonical_label": "でしょう（敬体推量）",
+      "explanation": {
+        "compact_summary": "以敬体表达推量或征求确认",
+        "function_summary": "礼貌地推测某事成立，或请对方确认有关判断。",
+        "connection": "名词／ナ形容词词干或用言终止形＋でしょう。",
+        "formation": "晴れる＋でしょう",
+        "examples": ["明日は晴れるでしょう。"],
+        "counter_examples": [],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "明日は晴れるでしょう。", "text": "明天大概会放晴。"}
+        ]
+      }
+    },
+    {
+      "concept_id": "grammar.connective.ga",
+      "kind": "connective",
+      "canonical_label": "が（逆接）",
+      "explanation": {
+        "compact_summary": "连接转折关系，或引出后续内容",
+        "function_summary": "说明前后内容的转折，也可用前项引出话题或为后续表达作铺垫。",
+        "connection": "谓语终止形＋接续助词が。",
+        "formation": "高い＋が＋便利だ",
+        "examples": ["この本は高いが、便利だ。"],
+        "counter_examples": ["雨が降る。（が标记主语）"],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "この本は高いが、便利だ。", "text": "这本书虽然贵，但很实用。"}
+        ]
+      }
+    },
+    {
+      "concept_id": "grammar.connective.kara",
+      "kind": "connective",
+      "canonical_label": "から（原因）",
+      "explanation": {
+        "compact_summary": "以前项说明后项成立的原因或理由",
+        "function_summary": "将前项的事实或判断作为后项行动、结论或请求的理由。",
+        "connection": "谓语终止形＋接续助词から；名词和ナ形容词通过だ／です等判断词尾连接。",
+        "formation": "寒い＋から＋窓を閉める",
+        "examples": ["寒いから、窓を閉める。"],
+        "counter_examples": ["駅から歩く。（から表示起点）"],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "寒いから、窓を閉める。", "text": "因为冷，所以关上窗户。"}
+        ]
+      }
+    },
+    {
+      "concept_id": "grammar.nominalization.no",
+      "kind": "nominalization",
+      "canonical_label": "の／ん（准体名词化）",
+      "explanation": {
+        "compact_summary": "将动作、性质或判断作为名词性内容使用",
+        "function_summary": "将前项表示的内容名词化，以便继续连接助词或判断词尾；口语中可采用ん。",
+        "connection": "用言连体形＋准体助词の／ん；ナ形容词及名词谓语通过连体形な连接。",
+        "formation": "読む＋の＋が",
+        "examples": ["本を読むのが好きだ。"],
+        "counter_examples": ["私の本。（の表示领属）"],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "本を読むのが好きだ。", "text": "我喜欢读书。"}
+        ]
+      }
+    },
+    {
+      "concept_id": "grammar.modality.mai",
+      "kind": "auxiliary",
+      "canonical_label": "まい（否定推量／否定意志）",
+      "explanation": {
+        "compact_summary": "表示否定推量或否定意志",
+        "function_summary": "表示某事不会发生的推量，或决意不进行某项动作。",
+        "connection": "动词终止形＋まい；一段动词及する等可采用相应未然形／连用形，敬体形式可用ます＋まい。",
+        "formation": "行く＋まい／見＋まい",
+        "examples": ["彼はもう来るまい。"],
+        "counter_examples": [],
+        "body_blocks": [
+          {"kind": "example_pair", "label": "彼はもう来るまい。", "text": "他大概不会再来了。"}
+        ]
+      }
+    }
+  ]
+}

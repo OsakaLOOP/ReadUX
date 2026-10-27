@@ -4697,6 +4697,132 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.modality.darou",
+      "kind": "auxiliary",
+      "canonical_label": "だろう（推量）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.darou",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.deshou",
+      "kind": "auxiliary",
+      "canonical_label": "でしょう（敬体推量）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.deshou",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.ga",
+      "kind": "connective",
+      "canonical_label": "が（逆接）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.ga",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.connective.kara",
+      "kind": "connective",
+      "canonical_label": "から（原因）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.connective.kara",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.nominalization.no",
+      "kind": "nominalization",
+      "canonical_label": "の／ん（准体名词化）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.nominalization.no",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.modality.mai",
+      "kind": "auxiliary",
+      "canonical_label": "まい（否定推量／否定意志）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.modality.mai",
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.permission.te_ii",
       "kind": "construction",
       "canonical_label": "ていい／てよい",

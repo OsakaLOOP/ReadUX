@@ -169,28 +169,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "て形",
-      "compact_summary": "连接后续成分",
-      "function_summary": "连接后续成分",
-      "connection": "",
+      "compact_summary": "连接前后动作、性质或状态，也用于连接补助用言。",
+      "function_summary": "连接前后动作、性质或状态，也用于连接补助用言。",
+      "connection": "用言采用相应连用形式，连接て／で；实际形式依据活用型及音便确定。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "本を読んでいる。",
+        "窓を開けておく。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "本を読んでいる。",
+          "text": "正在读书。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "窓を開けておく。",
+          "text": "预先打开窗户。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.morphology.form.de",
@@ -198,28 +213,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "で形",
-      "compact_summary": "连接后续成分",
-      "function_summary": "连接后续成分",
-      "connection": "",
+      "compact_summary": "作为て的浊音形式连接后项，具体表记由前项活用型确定。",
+      "function_summary": "作为て的浊音形式连接后项，具体表记由前项活用型确定。",
+      "connection": "五段ガ、ナ、バ、マ行等的音便形＋で。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "本を読んでいる。",
+        "川で泳いでいた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "本を読んでいる。",
+          "text": "正在读书。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "川で泳いでいた。",
+          "text": "当时正在河里游泳。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.morphology.tense.past",
@@ -285,28 +315,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "使役",
-      "compact_summary": "表示使令或许可",
-      "function_summary": "表示使令或许可",
-      "connection": "",
+      "compact_summary": "表示使某人进行某项动作，或允许其进行该动作。",
+      "function_summary": "表示使某人进行某项动作，或允许其进行该动作。",
+      "connection": "动词未然形＋せる／させる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "子供に本を読ませた。",
+        "好きなだけ遊ばせた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "子供に本を読ませた。",
+          "text": "让孩子读了书。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "好きなだけ遊ばせた。",
+          "text": "允许他尽情玩耍。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.morphology.voice.passive_potential",
@@ -314,28 +359,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "られる候选",
-      "compact_summary": "表示受身、可能、尊敬或自发候选",
-      "function_summary": "表示受身、可能、尊敬或自发候选",
-      "connection": "",
+      "compact_summary": "表示动作的被动、可能、尊敬或自发，具体意义由语境确定。",
+      "function_summary": "表示动作的被动、可能、尊敬或自发，具体意义由语境确定。",
+      "connection": "动词未然形＋れる／られる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "先生に褒められた。",
+        "ここから海が見られる。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "先生に褒められた。",
+          "text": "受到老师表扬了。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "ここから海が見られる。",
+          "text": "从这里能看见海。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.morphology.politeness.masu",
@@ -417,28 +477,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "意向形",
-      "compact_summary": "表示意志或提议",
-      "function_summary": "表示意志或提议",
-      "connection": "",
+      "compact_summary": "表示说话人的意志、打算，或向对方提出共同进行某事。",
+      "function_summary": "表示说话人的意志、打算，或向对方提出共同进行某事。",
+      "connection": "动词采用意向形；独立词尾分析时连接未然形＋う／よう。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "一緒に読もう。",
+        "明日は早く起きよう。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "一緒に読もう。",
+          "text": "一起读吧。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "明日は早く起きよう。",
+          "text": "明天早点起床吧。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.morphology.mood.conditional",
@@ -446,28 +521,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "假定形",
-      "compact_summary": "形成条件连接",
-      "function_summary": "形成条件连接",
-      "connection": "",
+      "compact_summary": "设定后项成立的条件；具体关系由ば、たら、なら、と等接续形式及语境确定。",
+      "function_summary": "设定后项成立的条件；具体关系由ば、たら、なら、と等接续形式及语境确定。",
+      "connection": "用言的假定形、过去条件形、判断条件形或终止形连接相应条件成分。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "読めば分かる。",
+        "時間があったら行く。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "読めば分かる。",
+          "text": "读了就会明白。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "時間があったら行く。",
+          "text": "有时间就去。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.particle.ga",
@@ -881,28 +971,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "ば",
-      "compact_summary": "形成条件关系",
-      "function_summary": "形成条件关系",
-      "connection": "",
+      "compact_summary": "表示前项条件成立时，后项随之成立或可以成立。",
+      "function_summary": "表示前项条件成立时，后项随之成立或可以成立。",
+      "connection": "用言假定形＋ば；文言已然形的用法由相应规则说明。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "安ければ買う。",
+        "読めば分かる。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "安ければ買う。",
+          "text": "便宜就买。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "読めば分かる。",
+          "text": "读了就会明白。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.nai",
@@ -997,28 +1102,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "です",
-      "compact_summary": "礼貌判断",
-      "function_summary": "礼貌判断",
-      "connection": "",
+      "compact_summary": "以礼貌语体作出判断，或礼貌地陈述性质与状态。",
+      "function_summary": "以礼貌语体作出判断，或礼貌地陈述性质与状态。",
+      "connection": "名词／ナ形容词词干＋です；イ形容词终止形＋です。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "私は学生です。",
+        "今日は寒いです。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "私は学生です。",
+          "text": "我是学生。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "今日は寒いです。",
+          "text": "今天很冷。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.da",
@@ -1027,27 +1147,42 @@
       "language": "zh-CN",
       "title": "だ",
       "compact_summary": "判断助动词",
-      "function_summary": "判断助动词",
-      "connection": "",
+      "function_summary": "表示身份或性质的判断；だ为终止形式，で为连用形式，だった／でした表示过去判断。",
+      "connection": "名词或ナ形容词词干＋だ／で／だった等判断词尾。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "彼は学生で、妹は先生だ。",
+        "去年は学生だった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
       "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "彼は学生で、妹は先生だ。",
+          "text": "他是学生，妹妹是老师。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "去年は学生だった。",
+          "text": "去年还是学生。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.functional.iru",
@@ -1403,28 +1538,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "なる（功能）",
-      "compact_summary": "参与必要等固定构式",
-      "function_summary": "参与必要等固定构式",
-      "connection": "",
+      "compact_summary": "表示主体的身份、性质或状态发生变化；前项说明变化后的结果。",
+      "function_summary": "表示主体的身份、性质或状态发生变化；前项说明变化后的结果。",
+      "connection": "名词／ナ形容词＋に＋なる；イ形容词／否定成分的く形＋なる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "彼は医者になった。",
+        "部屋が暖かくなった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "彼は医者になった。",
+          "text": "他成了医生。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "部屋が暖かくなった。",
+          "text": "房间暖和起来了。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.iru",
@@ -1469,28 +1619,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "ある（补助用法）",
-      "compact_summary": "表示人为动作留下的结果状态",
-      "function_summary": "表示人为动作留下的结果状态",
-      "connection": "",
+      "compact_summary": "表示有意进行某项动作后留下的结果状态。",
+      "function_summary": "表示有意进行某项动作后留下的结果状态。",
+      "connection": "动词て形＋ある。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "窓が開けてある。",
+        "予定が書いてある。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "窓が開けてある。",
+          "text": "窗户已经打开了。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "予定が書いてある。",
+          "text": "日程已经写好了。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.oku",
@@ -1498,28 +1663,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "おく（补助用法）",
-      "compact_summary": "表示预先处置或保持状态",
-      "function_summary": "表示预先处置或保持状态",
-      "connection": "",
+      "compact_summary": "表示为后续事项预先进行某项动作，或维持动作形成的状态。",
+      "function_summary": "表示为后续事项预先进行某项动作，或维持动作形成的状态。",
+      "connection": "动词て形＋おく；缩约形式とく／どく保留相同的连接关系。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "明日の資料を読んでおく。",
+        "窓を開けておく。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "明日の資料を読んでおく。",
+          "text": "预先阅读明天要用的资料。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "窓を開けておく。",
+          "text": "让窗户保持开着。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.miru",
@@ -1527,28 +1707,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "みる（补助用法）",
-      "compact_summary": "表示尝试做某事",
-      "function_summary": "表示尝试做某事",
-      "connection": "",
+      "compact_summary": "表示尝试进行某项动作，以了解结果或体验。",
+      "function_summary": "表示尝试进行某项动作，以了解结果或体验。",
+      "connection": "动词て形＋みる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "一度使ってみる。",
+        "先生に聞いてみた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "一度使ってみる。",
+          "text": "试着用一次。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "先生に聞いてみた。",
+          "text": "试着问了老师。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.shimau",
@@ -1593,28 +1788,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "いく（补助用法）",
-      "compact_summary": "表示变化远离当前或继续发展",
-      "function_summary": "表示变化远离当前或继续发展",
-      "connection": "",
+      "compact_summary": "表示动作或变化从当前向以后持续发展，或从说话人的位置离去。",
+      "function_summary": "表示动作或变化从当前向以后持续发展，或从说话人的位置离去。",
+      "connection": "动词て形＋いく。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "これからも勉強していく。",
+        "鳥が飛んでいった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "これからも勉強していく。",
+          "text": "今后会继续学习。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "鳥が飛んでいった。",
+          "text": "鸟飞走了。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.kuru",
@@ -1622,28 +1832,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "くる（补助用法）",
-      "compact_summary": "表示变化接近当前或逐渐出现",
-      "function_summary": "表示变化接近当前或逐渐出现",
-      "connection": "",
+      "compact_summary": "表示动作或变化向当前或说话人的位置发展，也可表示某种变化开始出现。",
+      "function_summary": "表示动作或变化向当前或说话人的位置发展，也可表示某种变化开始出现。",
+      "connection": "动词て形＋くる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "雨が降ってきた。",
+        "友達が走ってきた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "雨が降ってきた。",
+          "text": "开始下雨了。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "友達が走ってきた。",
+          "text": "朋友跑过来了。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.yaru",
@@ -1651,28 +1876,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "やる（补助用法）",
-      "compact_summary": "表示说话者为他者做某事",
-      "function_summary": "表示说话者为他者做某事",
-      "connection": "",
+      "compact_summary": "表示为关系亲近、地位较低的人或动物等进行某项动作，带有相应的语体色彩。",
+      "function_summary": "表示为关系亲近、地位较低的人或动物等进行某项动作，带有相应的语体色彩。",
+      "connection": "动词て形＋やる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "子犬に餌を分けてやった。",
+        "弟の宿題を見てやった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "子犬に餌を分けてやった。",
+          "text": "分了一些食物给小狗。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "弟の宿題を見てやった。",
+          "text": "给弟弟看了作业。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.ageru",
@@ -1680,28 +1920,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "あげる（补助用法）",
-      "compact_summary": "表示为他者做某事",
-      "function_summary": "表示为他者做某事",
-      "connection": "",
+      "compact_summary": "从行为者的角度表示为他人进行某项动作。",
+      "function_summary": "从行为者的角度表示为他人进行某项动作。",
+      "connection": "动词て形＋あげる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "弟に本を読んであげた。",
+        "友達に道を教えてあげた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "弟に本を読んであげた。",
+          "text": "给弟弟读了书。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "友達に道を教えてあげた。",
+          "text": "给朋友指了路。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.kureru",
@@ -1709,28 +1964,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "くれる（补助用法）",
-      "compact_summary": "表示他者为说话者一方做某事",
-      "function_summary": "表示他者为说话者一方做某事",
-      "connection": "",
+      "compact_summary": "表示他人为说话人或说话人一方进行某项动作。",
+      "function_summary": "表示他人为说话人或说话人一方进行某项动作。",
+      "connection": "动词て形＋くれる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "友達が手伝ってくれた。",
+        "姉が本を読んでくれた。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "友達が手伝ってくれた。",
+          "text": "朋友帮了我的忙。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "姉が本を読んでくれた。",
+          "text": "姐姐给我读了书。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.kudasaru",
@@ -1738,28 +2008,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "くださる（补助用法）",
-      "compact_summary": "表示尊敬对象为己方做某事",
-      "function_summary": "表示尊敬对象为己方做某事",
-      "connection": "",
+      "compact_summary": "表示值得尊敬的人为说话人或说话人一方进行某项动作。",
+      "function_summary": "表示值得尊敬的人为说话人或说话人一方进行某项动作。",
+      "connection": "动词て形＋くださる。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "先生が説明してくださった。",
+        "先生が本を貸してくださった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "先生が説明してくださった。",
+          "text": "老师为我作了说明。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "先生が本を貸してくださった。",
+          "text": "老师借给了我一本书。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.auxiliary.morau",
@@ -1767,28 +2052,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "もらう（补助用法）",
-      "compact_summary": "从接受者视角表示请人或承受恩惠",
-      "function_summary": "从接受者视角表示请人或承受恩惠",
-      "connection": "",
+      "compact_summary": "从接受者的角度表示接受他人进行的行为，或请他人为自己做某事。",
+      "function_summary": "从接受者的角度表示接受他人进行的行为，或请他人为自己做某事。",
+      "connection": "动词て形＋もらう。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "友達に手伝ってもらった。",
+        "先生に説明してもらった。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "友達に手伝ってもらった。",
+          "text": "请朋友帮了忙。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "先生に説明してもらった。",
+          "text": "请老师作了说明。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.request.te_kudasai",
@@ -1825,28 +2125,43 @@
       "sense_id": null,
       "language": "zh-CN",
       "title": "〜なければならない",
-      "compact_summary": "表示必须做某事",
-      "function_summary": "表示必须做某事",
-      "connection": "",
+      "compact_summary": "表示为满足要求或条件，有必要进行前项动作；后项采用ならない、いけない或だめ等形式。",
+      "function_summary": "表示为满足要求或条件，有必要进行前项动作；后项采用ならない、いけない或だめ等形式。",
+      "connection": "否定条件なければ／なくては／ないと＋ならない／いけない／だめ。",
       "formation": "",
       "usage_notes": [],
       "semantic_constraints": [],
       "pragmatic_notes": [],
-      "examples": [],
+      "examples": [
+        "毎日勉強しなければならない。",
+        "明日は早く起きないといけない。"
+      ],
       "counter_examples": [],
       "source_refs": [
-        "readux-editorial:2026-07-16"
+        "readux-editorial:2026-07-16",
+        "readux-editorial:connection-entry-completion-20261028"
       ],
-      "authoring_status": "verified",
-      "content_version": 1,
-      "body_blocks": [],
+      "authoring_status": "reviewed",
+      "content_version": 2,
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "毎日勉強しなければならない。",
+          "text": "必须每天学习。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "明日は早く起きないといけない。",
+          "text": "明天必须早点起床。"
+        }
+      ],
+      "review_status": "ai_checked",
       "provenance": {
         "origin": "ai",
         "author": "Codex",
         "date": "2026-07-16",
         "version": "1"
-      },
-      "review_status": "ai_checked"
+      }
     },
     {
       "explanation_id": "explanation.grammar.particle.ni_wa",
@@ -6070,6 +6385,240 @@
       },
       "review_status": "ai_checked",
       "body_blocks": []
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.darou",
+      "concept_id": "grammar.modality.darou",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "だろう（推量）",
+      "compact_summary": "以简体表达推量或征求确认",
+      "function_summary": "根据现有认识推测某事成立，也可用于征求确认；后接か时构成带有推量的疑问。",
+      "connection": "名词／ナ形容词词干或用言终止形＋だろう；后接终助词か形成だろうか。",
+      "formation": "来る＋だろう＋か",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "明日は晴れるだろう。",
+        "彼は来るだろうか。"
+      ],
+      "counter_examples": [],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "明日は晴れるだろう。",
+          "text": "明天大概会放晴。"
+        },
+        {
+          "kind": "example_pair",
+          "label": "彼は来るだろうか。",
+          "text": "他会来吗？"
+        }
+      ]
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.deshou",
+      "concept_id": "grammar.modality.deshou",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "でしょう（敬体推量）",
+      "compact_summary": "以敬体表达推量或征求确认",
+      "function_summary": "礼貌地推测某事成立，或请对方确认有关判断。",
+      "connection": "名词／ナ形容词词干或用言终止形＋でしょう。",
+      "formation": "晴れる＋でしょう",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "明日は晴れるでしょう。"
+      ],
+      "counter_examples": [],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "明日は晴れるでしょう。",
+          "text": "明天大概会放晴。"
+        }
+      ]
+    },
+    {
+      "explanation_id": "explanation.grammar.connective.ga",
+      "concept_id": "grammar.connective.ga",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "が（逆接）",
+      "compact_summary": "连接转折关系，或引出后续内容",
+      "function_summary": "说明前后内容的转折，也可用前项引出话题或为后续表达作铺垫。",
+      "connection": "谓语终止形＋接续助词が。",
+      "formation": "高い＋が＋便利だ",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "この本は高いが、便利だ。"
+      ],
+      "counter_examples": [
+        "雨が降る。（が标记主语）"
+      ],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "この本は高いが、便利だ。",
+          "text": "这本书虽然贵，但很实用。"
+        }
+      ]
+    },
+    {
+      "explanation_id": "explanation.grammar.connective.kara",
+      "concept_id": "grammar.connective.kara",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "から（原因）",
+      "compact_summary": "以前项说明后项成立的原因或理由",
+      "function_summary": "将前项的事实或判断作为后项行动、结论或请求的理由。",
+      "connection": "谓语终止形＋接续助词から；名词和ナ形容词通过だ／です等判断词尾连接。",
+      "formation": "寒い＋から＋窓を閉める",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "寒いから、窓を閉める。"
+      ],
+      "counter_examples": [
+        "駅から歩く。（から表示起点）"
+      ],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "寒いから、窓を閉める。",
+          "text": "因为冷，所以关上窗户。"
+        }
+      ]
+    },
+    {
+      "explanation_id": "explanation.grammar.nominalization.no",
+      "concept_id": "grammar.nominalization.no",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "の／ん（准体名词化）",
+      "compact_summary": "将动作、性质或判断作为名词性内容使用",
+      "function_summary": "将前项表示的内容名词化，以便继续连接助词或判断词尾；口语中可采用ん。",
+      "connection": "用言连体形＋准体助词の／ん；ナ形容词及名词谓语通过连体形な连接。",
+      "formation": "読む＋の＋が",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "本を読むのが好きだ。"
+      ],
+      "counter_examples": [
+        "私の本。（の表示领属）"
+      ],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "本を読むのが好きだ。",
+          "text": "我喜欢读书。"
+        }
+      ]
+    },
+    {
+      "explanation_id": "explanation.grammar.modality.mai",
+      "concept_id": "grammar.modality.mai",
+      "sense_id": null,
+      "language": "zh-CN",
+      "title": "まい（否定推量／否定意志）",
+      "compact_summary": "表示否定推量或否定意志",
+      "function_summary": "表示某事不会发生的推量，或决意不进行某项动作。",
+      "connection": "动词终止形＋まい；一段动词及する等可采用相应未然形／连用形，敬体形式可用ます＋まい。",
+      "formation": "行く＋まい／見＋まい",
+      "usage_notes": [],
+      "semantic_constraints": [],
+      "pragmatic_notes": [],
+      "examples": [
+        "彼はもう来るまい。"
+      ],
+      "counter_examples": [],
+      "source_refs": [
+        "readux-editorial:connection-entry-completion-20261028"
+      ],
+      "authoring_status": "reviewed",
+      "content_version": 1,
+      "provenance": {
+        "origin": "ai",
+        "author": "Codex",
+        "date": "2026-10-28",
+        "version": "1"
+      },
+      "review_status": "ai_checked",
+      "body_blocks": [
+        {
+          "kind": "example_pair",
+          "label": "彼はもう来るまい。",
+          "text": "他大概不会再来了。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.permission.te_ii",

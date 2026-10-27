@@ -4524,6 +4524,96 @@
       ]
     },
     {
+      "concept_id": "grammar.modality.darou",
+      "label": "だろう（推量）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.modality.deshou",
+      "label": "でしょう（敬体推量）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.ga",
+      "label": "が（逆接）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.connective.kara",
+      "label": "から（原因）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.nominalization.no",
+      "label": "の／ん（准体名词化）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.modality.mai",
+      "label": "まい（否定推量／否定意志）",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
       "concept_id": "grammar.permission.te_ii",
       "label": "ていい／てよい",
       "aliases": [],
