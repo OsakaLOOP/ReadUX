@@ -1,6 +1,6 @@
 import type { DictionaryLookup, PosTag } from "../types";
 import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
-import type { MorphologyChain, MorphologyOperator, QueryOutput, UnifiedDocument } from "../types/nlp";
+import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 
 export interface ReaderTargetPresentation {
@@ -75,6 +75,7 @@ export interface ReaderMorphologyDetail {
   id: string;
   title: string;
   surface: string;
+  conjugation?: string;
   description: string;
   tags: string[];
   candidates: string[];
@@ -288,10 +289,21 @@ function grammaticalLabel(value: string) {
     ?? value;
 }
 
-function conjugationLabel(type = "", form = "", category = "", stateForm = "") {
-  const family = Object.entries(morphologyPresentation.families).find(([prefix]) => type.startsWith(prefix))?.[1]
+function conjugationFamilyLabel(type = "", category = "") {
+  return Object.entries(morphologyPresentation.families).find(([prefix]) => type.startsWith(prefix))?.[1]
     ?? (morphologyPresentation.category_labels as Record<string, string>)[category] ?? "";
-  return [family, conjugationFormLabel(form, stateForm, "")].filter(Boolean).join(" - ");
+}
+
+function conjugationLabel(type = "", form = "", category = "", stateForm = "") {
+  return [conjugationFamilyLabel(type, category), conjugationFormLabel(form, stateForm, "")].filter(Boolean).join(" - ");
+}
+
+function stemConjugationTitle(chain: MorphologyChain, state: MorphologyState | undefined, document: UnifiedDocument) {
+  const category = document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
+    || state?.category || chain.final_state?.category || "";
+  const pos = category === "形状詞" ? "形容動詞" : category;
+  const family = conjugationFamilyLabel(state?.conjugation_type || chain.final_state?.conjugation_type, category);
+  return family.startsWith(pos) ? family : [pos, family].filter(Boolean).join("・");
 }
 
 function conjugationFormLabel(form = "", stateForm = "", fallback = "活用") {
@@ -815,8 +827,9 @@ export function readerMorphologyHits(
         id: `${chain.chain_id}:core-conjugation`,
         connection: morphologyStemDiagram(chain, document, syntheticRange),
         status: chain.status,
-        title: synthetic.label,
+        title: stemConjugationTitle(chain, firstOperator?.state_before, document),
         surface: characters.slice(...syntheticRange).join(""),
+        conjugation: synthetic.label,
         description: synthetic.description,
         tags: synthetic.tags,
         candidates: [],
@@ -833,8 +846,11 @@ export function readerMorphologyHits(
             id: operator.operator_id,
             connection: morphologyStemDiagram(chain, document, operator.char_range),
             status: chain.status,
-            title: step.conceptTitle,
+            title: stemConjugationTitle(chain, operator.state_after ?? chain.final_state, document),
             surface: step.prototypeForm || characters.slice(operator.char_range[0], operator.char_range[1]).join(""),
+            conjugation: operator.evidence?.includes("unidic:potential") ? step.conceptTitle
+              : conjugationFormLabel(operator.state_after?.conjugation_form || chain.final_state?.conjugation_form,
+                operator.state_after?.form || chain.final_state?.form),
             description: step.description,
             tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
             candidates: [],

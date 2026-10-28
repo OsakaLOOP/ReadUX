@@ -256,7 +256,8 @@ test("普通词尾活用生成单体说明而保留词典目标", () => {
   };
   const [hit] = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
   assert.equal(hit.targetId, "word");
-  assert.equal(hit.detail.title, "五段活用 - 連用形");
+  assert.equal(hit.detail.title, "動詞・五段活用");
+  assert.equal(hit.detail.conjugation, "連用形");
   assert.equal(hit.detail.description, "読む → 読ん（む→ん）");
 });
 
@@ -273,7 +274,8 @@ test("可能动词的两个气泡统一从词元推导当前词形", () => {
   const target = { id: "word", char_range: [0, 4], lexical_core_ids: ["core"], source_formation_ids: [], morpheme_ids: ["m0"] };
   const [hit] = readerMorphologyHits([target], document);
   const [chain] = readerChains(target, document);
-  assert.equal(hit.detail.title, "未然形 - 可能形");
+  assert.equal(hit.detail.title, "動詞・下一段活用");
+  assert.equal(hit.detail.conjugation, "未然形 - 可能形");
   assert.equal(hit.detail.description, "立ち回る → 立ち回れ（る→れ）");
   assert.equal(chain.lookupForm, "立ち回る");
   assert.equal(chain.steps[0].description, hit.detail.description);
@@ -318,7 +320,8 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
 
   // 1. 核心词未然形屈折命中
   assert.ok(coreHit);
-  assert.equal(coreHit.detail.title, "未然形");
+  assert.equal(coreHit.detail.title, "動詞・五段活用");
+  assert.equal(coreHit.detail.conjugation, "未然形");
   assert.equal(coreHit.detail.description, "読む → 読ま（む→ま）");
 
   // 2. 否定算子命中：title 为概念标题 否定形，surface 为现实原型 ない，推导终点以ない原型结束

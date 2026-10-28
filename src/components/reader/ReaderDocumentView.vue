@@ -2492,7 +2492,7 @@ function toggleEinkMode() {
       label="活用词条"
       :surface="activeDetail.entry?.headword || activeDetail.surface"
       :identity="activeDetail.entry?.identity"
-      :conjugation="activeDetail.entry?.conjugation"
+      :conjugation="activeDetail.entry?.conjugation || activeDetail.conjugation"
       :transition="activeDetail.entry?.transition || morphologyLocalTransition(activeDetail.description, true)"
       @enter="cancelCloseLookup"
       @leave="scheduleCloseLookup"
