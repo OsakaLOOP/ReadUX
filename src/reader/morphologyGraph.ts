@@ -120,8 +120,9 @@ export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraph
     runs.push({ text: original, lang: 'ja', role: 'form' });
     if (original !== part.surface) runs.push({ text: ' → ', lang: 'zh-CN', role: 'arrow' }, { text: part.surface, lang: 'ja', role: 'form' });
     const lines: GraphLine[] = [{ text: primary, kind: "main", runs }, { text: part.form || "无活用", kind: "secondary" }];
+    // 节点宽度按主行与副行内容加统一内边距计算，保持左右留白一致。
     const primaryWidth = runs.reduce((sum, run) => sum + textWidth(run.text, run.role === 'label' ? 12 : 15), 0);
-    const width = Math.max(70, Math.max(primaryWidth, textWidth(part.form, 11)) + 18);
+    const width = Math.max(primaryWidth, textWidth(part.form, 11)) + 24;
     const height = 44;
     const previous = nodes[index - 1];
     if (part.breakBefore && previous) {
