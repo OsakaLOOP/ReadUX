@@ -1761,6 +1761,13 @@ fn identify_connection_paths(
                         path.exclude_previous_operators.iter().any(|excluded| excluded == kind))
                     && path.evidence.iter().all(|evidence| op.evidence.contains(evidence))
                     && path.next.matches(&source[start])
+                    && path.connector.as_ref().is_none_or(|kind|
+                        chain.operators[..index].iter().rev()
+                            .find(|previous| previous.executor != "insertion")
+                            .is_some_and(|previous| &previous.kind == kind
+                                && previous.char_range[1] == op.char_range[0]
+                                && previous.connection.as_ref().and_then(|connection| connection.path.as_ref())
+                                    .is_some_and(|id| path.connector_paths.contains(id))))
                     && path.following.as_ref().is_none_or(|pattern|
                         following.is_some_and(|token| pattern.matches(token)))
                     && path.exclude_following.as_ref().is_none_or(|pattern|
@@ -1805,16 +1812,31 @@ fn identify_connection_paths(
             chain.operators[index].connection = Some(connection);
         }
     }
-    // 补助条目复用实际父链连接器的命中结果。
+    // 路径连接器位于同链，补助连接器位于父链；前项范围均采用连接器的输入。
     let all_chains = &*chains;
     let inherited: Vec<_> = all_chains.iter().enumerate().flat_map(|(ci, chain)| {
         chain.operators.iter().enumerate().filter_map(move |(oi, op)| {
-            let definition = config::definition(&op.kind).filter(|entry| entry.connector.is_some())?;
-            let parent = all_chains.iter().find(|p| Some(&p.chain_id) == chain.parent_chain_id.as_ref())?;
-            let connector = parent.operators.iter().rev().find(|p| definition.accepts_connector(&p.kind))?;
+            let path = op.connection.as_ref().and_then(|connection|
+                CONFIG.connection_rules.get(&connection.rule)?.paths.iter()
+                    .find(|path| Some(&path.id) == connection.path.as_ref() && path.connector.is_some()));
+            let connector = if let Some(path) = path {
+                chain.operators[..oi].iter().rev()
+                    .find(|previous| previous.executor != "insertion")
+                    .filter(|previous| Some(&previous.kind) == path.connector.as_ref())?
+            } else {
+                let definition = config::definition(&op.kind).filter(|entry| entry.connector.is_some())?;
+                let parent = all_chains.iter().find(|p| Some(&p.chain_id) == chain.parent_chain_id.as_ref())?;
+                parent.operators.iter().rev().find(|p| definition.accepts_connector(&p.kind))?
+            };
             let mut connection = connector.connection.clone()?;
+            if path.is_some() {
+                let own = op.connection.as_ref()?;
+                connection.rule = own.rule.clone();
+                connection.path = own.path.clone();
+                connection.matched_paths = own.matched_paths.clone();
+            }
             connection.connector_operator_id = Some(connector.operator_id.clone());
-            connection.dependency_type = config::connection_type(&op.kind).into();
+            connection.dependency_type = if path.is_some() { "connector" } else { config::connection_type(&op.kind) }.into();
             connection.context_range = [connection.predecessor_range[0], op.char_range[0]];
             let context_start = source.partition_point(|token| token.char_range[0] < connection.context_range[0]);
             connection.context_surface = source[context_start..op.source_morpheme_range[0]].iter()

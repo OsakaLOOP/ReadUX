@@ -295,8 +295,8 @@ export function morphologyConnectionDiagram(
   operator: MorphologyOperator, owner: MorphologyChain | undefined, document: UnifiedDocument, status: string,
 ): ConnectionDiagram | null {
   const connection = operator.connection;
-  type Path = { id: string; group: string; label: string; steps: string[] };
-  const rules: Record<string, { label: string; paths: Path[] }> = morphologyConnectionRules;
+  type Path = { id: string; group: string; label: string; steps: string[]; connector?: string; connector_paths?: string[] };
+  const rules: Record<string, { label: string; operators: string[]; paths: Path[] }> = morphologyConnectionRules;
   const rule = connection && rules[connection.rule];
   const sentence = morphologySentenceParts(operator, owner, document);
   if (!rule && !sentence.length) return null;
@@ -305,17 +305,26 @@ export function morphologyConnectionDiagram(
   const separateTe = connection?.rule === "te" || connection?.rule === "contracted_te";
   const connectorLabel = connection?.connector_operator_id && connector
     ? document.morphemes.slice(...connector.source_morpheme_range).map((item) => item.surface).join("") : "";
-  const branches = (separateTe ? ["て", "で"] : [connectorLabel]).map((label) => {
+  // 路径引用展开为共享前接规则，连接器保留独立节点。
+  const inputs = (rule?.paths ?? []).flatMap((path) => {
+    const matched = connection?.matched_paths.includes(path.id) ?? false;
+    if (!path.connector) return [{ path, id: path.id, branch: operatorDefinitions[operator.kind]?.connector ? connectorLabel : "", matched }];
+    const shared = Object.values(rules).find((rule) => rule.operators.includes(path.connector!));
+    return (shared?.paths ?? []).filter((input) => path.connector_paths?.includes(input.id)).map((input) => ({
+      path: input, id: `${path.id}:${input.id}`, branch: operatorDefinitions[path.connector!]?.prototype ?? "",
+      matched: matched && connector?.kind === path.connector && Boolean(connector?.connection?.matched_paths.includes(input.id)),
+    }));
+  });
+  const branches = (separateTe ? ["て", "で"] : [...new Set(inputs.map((input) => input.branch))]).map((label) => {
     const groups: ConnectionGroupView[] = [];
-    const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.steps[path.steps.length - 1] === label);
-    for (const path of paths) {
+    const paths = inputs.filter((input) => separateTe ? input.path.steps[input.path.steps.length - 1] === label : input.branch === label);
+    for (const { path, id, matched } of paths) {
       let group = groups.find((item) => item.label === path.group);
       if (!group) { group = { id: `${label}:${path.group}`, label: path.group, paths: [] }; groups.push(group); }
-      const matched = connection?.matched_paths.includes(path.id) ?? false;
       const steps = path.steps.filter((step) => !separateTe || step !== label);
       // 词条自身的组成由目标节点说明，前接卡片仅保留输入条件。
       const conditions = connection?.rule === "zuni" ? steps.filter((step) => !["ず", "に", "に（接续用法）"].includes(step)) : steps;
-      group.paths.push({ id: path.id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched,
+      group.paths.push({ id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched,
         actual: matched ? [connection?.predecessor_surface, ...morphologyTags("", connector?.state_before?.conjugation_form)].filter(Boolean).join(" · ") : "" });
     }
     return { id: label || connection?.rule || "", label, groups, matched: groups.some((group) => group.paths.some((path) => path.matched)) };

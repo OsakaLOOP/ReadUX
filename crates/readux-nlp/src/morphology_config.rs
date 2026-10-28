@@ -79,6 +79,9 @@ pub struct ConnectionPath {
     pub next: TokenPattern,
     /// 从当前词条向前读取声明数量的连续语素。
     pub predecessors: Vec<TokenPattern>,
+    /// 当前路径经由连接器，复用该连接器中列出的前接路径。
+    pub connector: Option<String>,
+    pub connector_paths: Vec<String>,
     /// 核对当前词条之后紧邻的语素，用于区分后续接续用途。
     pub following: Option<TokenPattern>,
     pub exclude_following: Option<TokenPattern>,

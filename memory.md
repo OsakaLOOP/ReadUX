@@ -4,7 +4,7 @@
 
 - 全量接续词条的结构分类入口为 morphology.json 的 connection_types，覆盖全部 150 个 operator；完整性检查为 scripts/check_morphology_connections.py，只检查分类、路径、连接器、概念和例句。connector_alternatives 关联「になる」的两种に；dependency_type 与 context_range/context_surface 分别保存结构和连接器上下文。「まい」「だろう／でしょう」「が／から」及准体名词化の的独立讲解位于 grammar source bundle morphology_connections_20261028.json，variants.concept 区分の与さ。
 
-- 「なの／なん」的名词化路径为 no_noun_na 与 no_na_attributive，通过 previous_operators 和 predecessors 核对连体修饰「な」及连续前两项；一般谓语路径排除 attributive_na。「な」的名词路径 noun_nominalization 用 following 确认紧邻的名词化「の／ん」，一般分支用 exclude_following 与之区分。配置维护说明见 docs/morphology_configuration.md。
+- 「なの／なん」采用与て形相同的连接器关系。名词化路径 no_noun_na 与 no_na_attributive 用 connector 指向 attributive_na，用 connector_paths 引用「な」的 noun_nominalization 或 na 路径；图示必须有独立「な」节点，显示「名词／ナ形容词→な→の」。前项范围读取连接器输入，例如「はず」，connector_operator_id 定位「な」。「な」的 noun_nominalization 用 following 确认「の／ん」，一般分支用 exclude_following 与之区分。配置说明见 docs/morphology_configuration.md。
 
 - 指南的路径高亮与前项范围读取静态分析快照；配置热更新会更新图示文案。规则修改后须重新编译分析服务并生成相关快照。开发 bridge 占用 target/debug/readux-nlp.exe 时，可用 cargo rustc -p readux-core --bin readux-nlp -- -o target/debug/readux-nlp-guide.exe 生成独立指南服务，再以生成器的 --service 参数指定。命令说明见 docs/development.md。
 

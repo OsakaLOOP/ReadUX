@@ -57,6 +57,12 @@ def check():
             for field in ("previous_operators", "exclude_previous_operators"):
                 if not set(path.get(field, [])).issubset(operators):
                     raise ValueError(f"{name}/{path['id']} 的前项引用无效")
+            if connector := path.get("connector"):
+                shared = next((entry for entry in rules.values() if connector in entry["operators"]), None)
+                if not shared or not path.get("connector_paths") or not set(path["connector_paths"]).issubset(
+                    entry["id"] for entry in shared["paths"]
+                ):
+                    raise ValueError(f"{name}/{path['id']} 的连接器路径引用无效")
         if rule.get("source") == "classical_auxiliaries":
             entry = next(item for item in config["classical_auxiliaries"] if item["rule"] in rule["operators"])
             expected = set()
@@ -79,7 +85,10 @@ def check():
             raise ValueError(f"{kind} 存在循环连接器引用")
         entry = operators[kind]
         resolved = [owners[kind]] if kind in owners else []
-        for connector in ([entry["connector"]] if entry.get("connector") else []) + entry.get("connector_alternatives", []):
+        connectors = ([entry["connector"]] if entry.get("connector") else []) + entry.get("connector_alternatives", [])
+        if kind in owners:
+            connectors += [path["connector"] for path in rules[owners[kind]]["paths"] if path.get("connector")]
+        for connector in connectors:
             if connector not in operators:
                 raise ValueError(f"{kind} 引用了未定义的连接器")
             resolved.extend(resolved_rules(connector, (*visiting, kind)))

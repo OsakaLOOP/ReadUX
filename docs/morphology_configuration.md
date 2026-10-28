@@ -6,7 +6,9 @@
 
 词内活用的路径声明 scope: inflection，依据自身实际活用状态定位；插入路径通过 evidence 对应执行器已经确认的位置。词条的 variants.concept 按具体成员身份选择讲解，例如名词化の与接尾辞さ分别引用对应正文。
 
-「名词／形容动词词干＋な＋の／ん」由名词化的专用路径声明连续前两项，previous_operators 要求最近步骤为 attributive_na，predecessors 核对前项及连体形「な」。一般谓语名词化路径通过 exclude_previous_operators 与之区分。「な」的名词路径采用 following 确认紧邻的名词化「の／ん」，其他用途采用 exclude_following 排除该后项；两个字段均为单个 token 条件，并检查字符连续性。名词谓语及形容动词的类别继续保留，前接图直接读取各路径的 steps。
+同一词条包含直接接续和连接器接续时，各路径用 connector 指定连接器，用 connector_paths 引用其前接路径。「の／ん」的名词路径引用 attributive_na 的 noun_nominalization，形容动词路径引用 na；「な」负责声明前项要求，名词化负责声明后项身份。分析结果保留名词化路径及实际 connector_operator_id，前项范围采用「な」的输入，图示展开共享规则并显示独立节点「名词→な→の」或「ナ形容词→な→の」。一般谓语名词化路径通过 exclude_previous_operators 与之区分。
+
+「な」的名词化接续路径采用 following 确认紧邻的「の／ん」，其他用途采用 exclude_following 排除该后项；两个字段均为单个 token 条件，并检查字符连续性。名词谓语及形容动词的类别继续保留。
 
 维护约定见 [第 11 阶段展示规范](morphology_stage11_bubble_display.md)。完成修改后可运行 python -X utf8 scripts/check_morphology_connections.py，检查全部条目的分类、路径、连接器、概念正文、例句以及既有路径引用。检查脚本只读取资源。
 
