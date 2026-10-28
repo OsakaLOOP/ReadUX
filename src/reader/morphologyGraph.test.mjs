@@ -218,6 +218,77 @@ test("实际递归链的节点内部固定两行，每次折行后从左向右�
   assert.equal(first.text, "読む → 読ん");
 });
 
+function sentenceRows(parts) {
+  const rows = [];
+  for (const part of parts) {
+    if (part.breakBefore || !rows.length) rows.push("");
+    rows[rows.length - 1] += part.surface;
+  }
+  return rows;
+}
+
+test("补助连接器与本体同行，普通活用和认识单元内部连续排列", () => {
+  for (const [id, kind, rows] of [
+    ["M-complex-001", "ni_naru", ["ファン", "になっ", "ちゃうしかなくない"]],
+    ["M-complex-003", "te_iru", ["作ろう", "とし", "ているから"]],
+    ["M-complex-004", "te_iku", ["達成し", "ていくこと", "になる"]],
+    ["M-complex-005", "te_iku", ["置い", "ていかれない", "ように"]],
+    ["M-complex-008", "te_iru", ["舐め", "てかかっ", "ていた", "だろう"]],
+    ["M-complex-010", "ni_naru", ["帰ること", "になっ", "ちゃったとか", "だろうか"]],
+    ["M-complex-012", "ni_naru", ["キャンセル", "になる", "かもしれなく", "なっ", "てしまった"]],
+    ["M11-39", "te_iru", ["読ん", "でしまっ", "ていた"]],
+    ["M11-33", "negative", ["読まなかった"]],
+    ["M-E002", "desire", ["読みたくなかった"]],
+    ["M11-20", "te_connection", ["寒くて"]],
+    ["M11-21", "desire", ["読みたくて"]],
+    ["M-regression-126", "sou_modality", ["読めそうだ"]],
+  ]) {
+    const diagram = diagramFor(id, kind);
+    assert.deepEqual(sentenceRows(diagram.sentence), rows, id);
+    const layout = layoutSentenceChain(diagram.sentence);
+    assert.equal(layout.links.filter((link) => link.vertical).length, rows.length - 1, id);
+    for (const part of diagram.sentence) if (!part.breakBefore) assert.equal(part.relation, "", id);
+  }
+});
+
+test("かもしれない合并为完整节点，承接补助层时折行并保留末尾活用", () => {
+  const parts = diagramFor("M-complex-012", "kamoshirenai").sentence;
+  const first = parts.find((part) => part.surface === "かもしれなく");
+  assert.ok(first.breakBefore);
+  assert.equal(first.caption, "かもしれない");
+  assert.equal(first.form, "连用形");
+  assert.equal(first.label, "可能性");
+  assert.equal(parts.filter((part) => part.unit === first.unit).length, 1);
+  const document = snapshots["M-complex-012"].document;
+  const operator = document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.kind === "kamoshirenai");
+  assert.deepEqual(first.range, operator.char_range);
+  assert.equal(parts[parts.indexOf(first) + 1].surface, "なっ");
+  assert.ok(parts[parts.indexOf(first) + 1].breakBefore);
+  const node = layoutSentenceChain(parts).nodes.find((node) => node.id === first.id);
+  assert.equal(node.lines[0].text, "可能性 かもしれない → かもしれなく");
+});
+
+test("使役被动、否定和时态同行，认识单元后接过去与推量时连续排列", () => {
+  const surfaces = ["読ま", "せ", "られ", "なかっ", "た", "よう", "だっ", "た", "らしい"];
+  let end = 0;
+  const morphemes = surfaces.map((surface, index) => {
+    const start = end;
+    end += surface.length;
+    return { surface, source_index: index, char_range: [start, end], pos: [index ? "助動詞" : "動詞"] };
+  });
+  const operators = [
+    ["causative", 1, 2], ["passive_potential", 2, 3], ["negative", 3, 4], ["past", 4, 5],
+    ["you_modality", 5, 6], ["copula_past", 6, 8], ["rashii_modality", 8, 9],
+  ].map(([kind, start, finish]) => ({
+    operator_id: kind, kind, evidence: [], source_morpheme_range: [start, finish],
+    char_range: [morphemes[start].char_range[0], morphemes[finish - 1].char_range[1]],
+  }));
+  const chain = { chain_id: "core", lookup_form: "読む", anchor_morpheme: 0, morpheme_range: [0, morphemes.length], operators };
+  const document = { text: surfaces.join(""), morphemes, source: { tokens: [] }, morphology: { chains: [chain] } };
+  const diagram = morphologyConnectionDiagram(operators[4], chain, document, "observed");
+  assert.deepEqual(sentenceRows(diagram.sentence), ["読ませられなかった", "ようだったらしい"]);
+});
+
 test("前接只连接词性节点，未显示的单条条件可展开，完整显示的当前路径无重复入口", () => {
   const diagram = diagramFor("M11-39", "te_iru");
   const initial = layoutConnectionRules(diagram, null);

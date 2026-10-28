@@ -10374,6 +10374,25 @@
     }
   ],
   "presentation": {
+    "sentence_compounds": ["kamoshirenai"],
+    "sentence_layers": {
+      "predicate": [
+        "causative", "passive_potential", "negative", "negative_de", "negative_zuni",
+        "polite_negative", "politeness_masu", "politeness_desu", "past", "copula_past",
+        "classical_shimu", "classical_sasu", "classical_su", "classical_raru", "classical_ru",
+        "classical_ki", "classical_keri", "classical_classical_nu", "classical_tsu",
+        "classical_ri", "classical_tari_perfect"
+      ],
+      "modality": [
+        "darou_modality", "darou_question", "deshou_modality", "negative_volitional",
+        "sou_modality", "you_modality", "mitai_modality", "rashii_modality",
+        "hazu_modality", "kamoshirenai", "obligation",
+        "classical_nari_hearsay", "classical_beranari", "classical_meri", "classical_kerashi",
+        "classical_rashi", "classical_ramu", "classical_kemu", "classical_muzu", "classical_mu",
+        "classical_maji", "classical_ji", "classical_gotoshi", "classical_beshi",
+        "classical_yaunari", "classical_gotokunari"
+      ]
+    },
     "contraction_label": "缩略形式",
     "observed_steps": [
       "politeness_desu"

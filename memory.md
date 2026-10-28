@@ -6,7 +6,9 @@
 
 - 谓语关系审阅记录位于 `docs/morphology_predicate_relations_review.md`。判断词尾保留前项类别，名词谓语通过判断实体身份共享接续表；前端箭头按接续功能命名，既有静态指南由链内前置成分恢复判断对象身份。D3 父节点按直属子节点顶部至末个分类标题底部居中，末类列表不参与居中计算。
 
-- 活用气泡的内容投影位于 `src/reader/morphologyBubble.ts`，D3 布局位于 `src/reader/morphologyGraph.ts`，绘制组件为 `ReaderMorphologyGraph.vue`。句中节点内部固定两行，中文标签与日文词形分字体；每行由左向右连接。前接图保留全部词性节点，细分列表采用单项展开，当前路径固定显示；分类节点统一定宽，展开图标和计数在左，标题居中。列表使用从词性节点向下伸出的悬挂引导线，当前连接显示高亮箭头。39 条接续分支验收样例位于 `data/validation/morphology_stage11_cases.json`，同时用于指南内容与静态快照的生成校验。
+- 接续图中的复合词条合并由 `presentation.sentence_compounds` 配置，现用于「かもしれない」；整体节点采用完整成员范围，活用读取末尾「ない」，后接补助层独立排列。
+
+- 活用气泡的内容投影位于 `src/reader/morphologyBubble.ts`，D3 布局位于 `src/reader/morphologyGraph.ts`，绘制组件为 `ReaderMorphologyGraph.vue`。句中节点内部固定两行，中文标签与日文词形分字体；每行由左向右连接。补助层从连接器之前折行，纯接续形连续排列；认识单元直接承接使役被动、极性、礼貌、时态或补助层时折行一次，内部连续排列，展示分组为 `presentation.sentence_layers`。前接图保留全部词性节点，细分列表采用单项展开，当前路径固定显示；分类节点统一定宽，展开图标和计数在左，标题居中。列表使用从词性节点向下伸出的悬挂引导线，当前连接显示高亮箭头。39 条接续分支验收样例位于 `data/validation/morphology_stage11_cases.json`，同时用于指南内容与静态快照的生成校验。
 
 - 活用链第 11 阶段的气泡接入规范见 docs/morphology_stage11_bubble_display.md：现有活用词条气泡保持原职责，新增接续方式气泡并与其上下堆叠；补助父子关系递归显示，当前词条前接规则按唯一线性路径或多分支投影。て／で共用连接规则，普通规则只回看声明所需的前项；条目类别、用法说明、例句与词形标签分层呈现。后续按文档清单处理「ない」「ずに」「た／だ」及判断收尾等多路径规则。
 

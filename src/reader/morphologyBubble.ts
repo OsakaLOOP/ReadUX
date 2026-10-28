@@ -230,37 +230,53 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
         const definition = operatorDefinitions[op.kind];
         const first = index === op.source_morpheme_range[0];
         const inserted = op.executor === "insertion";
+        const combined = inserted || morphologyPresentation.sentence_compounds.includes(op.kind);
         const support = definition?.support;
         const before = predecessorCategory(op, chain, document);
         const after = predicateEndings.has(op.kind) ? before : category(op.state_after, before);
-        const converted = before !== after;
-        const prior = parts[parts.length - 1];
-        const connectorId = op.connection?.connector_operator_id;
-        const jointSupport = support && connectorId && parts.some((part) => part.unit === connectorId)
-          && parts.slice(parts.findIndex((part) => part.unit === connectorId) + 1).every((part) => part.inserted);
-        const particle = token.pos?.[0] === "助詞";
-        const breakBefore = Boolean(first && prior && !inserted && (support ? !jointSupport : particle || converted || predicateEndings.has(op.kind)));
         const entry = morphologyEntry(op, document);
         const multi = op.source_morpheme_range[1] - op.source_morpheme_range[0] > 1;
-        const end = inserted ? op.source_morpheme_range[1] : index + 1;
+        const end = combined ? op.source_morpheme_range[1] : index + 1;
         const members = document.morphemes.slice(index, end);
         const surface = members.map((item) => item.surface).join("");
         const lexicalInflection = morphologyConnectionType(op.kind) === "inflection" && index === chain.anchor_morpheme;
         const caption = contractionForm(op)
           || (lexicalInflection ? chain.lookup_form || chain.dictionary_form || token.lemma || entry.headword
-            : inserted ? surface : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
+            : inserted ? surface : combined ? entry.headword
+              : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
         const label = inserted ? "插入语" : !first && multi ? "" : support ? "补助" : op.kind === "negative" ? "否定形" : entry.usage;
         parts.push({ id: `${op.operator_id}:${index}`, surface, caption, label,
-          range: inserted ? op.char_range : token.char_range,
-          form: elementForm(document, end - 1, op.state_after, op.kind, op.evidence), breakBefore,
-          relation: breakBefore ? support ? "补助接续" : connectionFunction(op, before, after,
-            document.morphemes.slice(...op.source_morpheme_range).map((item) => item.surface).join("")) : "",
+          range: combined ? op.char_range : token.char_range,
+          form: elementForm(document, end - 1, op.state_after, op.kind, op.evidence), breakBefore: false,
+          relation: support ? "补助接续" : connectionFunction(op, before, after,
+            document.morphemes.slice(...op.source_morpheme_range).map((item) => item.surface).join("")),
           inserted, selected: op.operator_id === operator?.operator_id, unit: op.operator_id });
         index = end - 1;
       }
       index++;
     }
   }
+  // 补助层从连接器开始；认识单元承接谓语或补助层时只折行一次。
+  const operators = new Map(family.flatMap((chain) => chain.operators.map((op) => [op.operator_id, op] as const)));
+  const layers = morphologyPresentation.sentence_layers;
+  let previous: MorphologyOperator | undefined;
+  let inModality = false;
+  for (const [index, part] of parts.entries()) {
+    const op = operators.get(part.unit);
+    if (!op || part.inserted || op.operator_id === previous?.operator_id) continue;
+    if (operatorDefinitions[op.kind]?.support) {
+      const connectorIndex = parts.findIndex((item) => item.unit === op.connection?.connector_operator_id);
+      const start = connectorIndex >= 0 ? connectorIndex : index;
+      parts[start].breakBefore = start > 0;
+      inModality = false;
+    } else if (layers.modality.includes(op.kind)) {
+      part.breakBefore = !inModality && Boolean(previous
+        && (layers.predicate.includes(previous.kind) || operatorDefinitions[previous.kind]?.support));
+      inModality = true;
+    }
+    previous = op;
+  }
+  for (const part of parts) if (!part.breakBefore) part.relation = "";
   return parts;
 }
 
