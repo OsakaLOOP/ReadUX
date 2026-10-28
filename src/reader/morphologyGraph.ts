@@ -115,13 +115,14 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
   return { width: width - 24, height, nodes, links };
 }
 
-/** 折行以语法边界为依据；下一行首项与上一行末项保持中心对齐。 */
+/** 按语法边界折行；逻辑横坐标达到 2 时向左退一项，以 45° 连至下一行。 */
 export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraphLayout {
   const nodes: GraphNode[] = [];
   const links: GraphLink[] = [];
   let x = 0;
   let y = 4;
   let rowHeight = 0;
+  let column = 0;
   for (const [index, part] of parts.entries()) {
     const original = part.caption || part.surface;
     const form = original !== part.surface ? `${original} → ${part.surface}` : part.surface;
@@ -136,11 +137,14 @@ export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraph
     const height = 44;
     const previous = nodes[index - 1];
     if (part.breakBefore && previous) {
-      y += rowHeight + 26;
-      x = previous.x + previous.width / 2 - width / 2;
+      const shift = column >= 2 ? (previous.width + width) / 2 + 18 : 0;
+      y += rowHeight + (shift || 26);
+      x = previous.x + previous.width / 2 - width / 2 - shift;
+      if (shift) column--;
       rowHeight = 0;
     } else if (previous) {
       x = previous.x + previous.width + 18;
+      column++;
     }
     const node: GraphNode = { id: part.id, x, y, width, height, lines, kind: "sentence", matched: part.selected, inserted: part.inserted, opacity: 1 };
     nodes.push(node);
@@ -159,8 +163,14 @@ export function morphologyGraphLink(link: GraphLink, nodes: ReadonlyMap<string, 
   const target = nodes.get(link.target);
   if (!source || !target) return "";
   if (link.vertical) {
-    const x = source.x + source.width / 2;
-    return `M${x},${source.y + source.height}L${x},${target.y - 5}`;
+    const startX = source.x + source.width / 2;
+    const startY = source.y + source.height;
+    const endX = target.x + target.width / 2;
+    const dx = endX - startX;
+    const dy = target.y - startY;
+    const gap = Math.min(5, Math.hypot(dx, dy));
+    const length = Math.hypot(dx, dy) || 1;
+    return `M${startX},${startY}L${endX - dx / length * gap},${target.y - dy / length * gap}`;
   }
   const forward = target.x > source.x;
   const start: [number, number] = [forward ? source.x + source.width : source.x, source.y + (source.kind === 'group' ? 14 : source.height / 2)];
