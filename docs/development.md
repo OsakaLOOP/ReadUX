@@ -18,6 +18,13 @@ npx tauri dev
 
 `npm run acceptance` 在 1420 端口提供正式应用和 Rust 分析 bridge；纯前端预览使用 5173 端口。Vite 的依赖扫描入口固定为 `index.html`，监听范围排除模型、构建产物和浏览器测试目录；各模式使用独立的依赖预构建缓存。气泡测试页可通过查询参数 `?view=grammar-guide&lesson=grammar-stage11` 直接打开。
 
+指南例句读取预生成的分析快照。Vite 热更新会加载接续配置中的图示文案，实际命中路径和前项范围由快照保存。修改 Rust 接续规则后，须使用重新编译的服务生成对应快照，再刷新浏览器页面。开发 bridge 占用默认服务时，可生成独立的指南服务；以下命令更新复杂句组：
+
+```powershell
+cargo rustc -p readux-core --bin readux-nlp -- -o target/debug/readux-nlp-guide.exe
+python -X utf8 scripts/generate_grammar_guide_analysis.py --lesson stage11 --group complex --service target/debug/readux-nlp-guide.exe
+```
+
 header 的统一动画资源为 `src/branding/readux-animated.svg`，由 `python -X utf8 scripts/generate_header_mark.py` 从两种品牌姿态生成。`ReadingMark.vue` 挂载单个 SVG，`markPlayback.ts` 统一控制 2.2 秒时间轴。眼睛与刀身在前 45%（约 1 秒）完成变换，使用较弱的缓动；书本保持前 42% 进入、后 58% 展开的节奏。各部分同时触发，由速度差形成先后顺序。路径或书本设计调整后执行生成脚本。
 
 `npm run test:header` 验证初始姿态、路径插值、打开与关闭、重复操作、减少动态效果设置以及桌面和窄屏截图。需要可用的 Playwright，沿用 `PLAYWRIGHT_MODULE` 指定本机模块路径，`READUX_TEST_URL` 可覆盖预览地址。

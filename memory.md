@@ -6,6 +6,8 @@
 
 - 「なの／なん」的名词化路径为 no_noun_na 与 no_na_attributive，通过 previous_operators 和 predecessors 核对连体修饰「な」及连续前两项；一般谓语路径排除 attributive_na。「な」的名词路径 noun_nominalization 用 following 确认紧邻的名词化「の／ん」，一般分支用 exclude_following 与之区分。配置维护说明见 docs/morphology_configuration.md。
 
+- 指南的路径高亮与前项范围读取静态分析快照；配置热更新会更新图示文案。规则修改后须重新编译分析服务并生成相关快照。开发 bridge 占用 target/debug/readux-nlp.exe 时，可用 cargo rustc -p readux-core --bin readux-nlp -- -o target/debug/readux-nlp-guide.exe 生成独立指南服务，再以生成器的 --service 参数指定。命令说明见 docs/development.md。
+
 - 谓语关系审阅记录位于 `docs/morphology_predicate_relations_review.md`。判断词尾保留前项类别，名词谓语通过判断实体身份共享接续表；前端箭头按接续功能命名，既有静态指南由链内前置成分恢复判断对象身份。D3 父节点按直属子节点顶部至末个分类标题底部居中，末类列表不参与居中计算。
 
 - 接续图中的复合词条合并由 `presentation.sentence_compounds` 配置，现用于「かもしれない」；整体节点采用完整成员范围，活用读取末尾「ない」，后接补助层独立排列。
