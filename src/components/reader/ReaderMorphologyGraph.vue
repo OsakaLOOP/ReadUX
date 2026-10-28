@@ -1,15 +1,52 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, shallowRef, useId, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, useId, watch } from "vue";
 import { interpolateNumber } from "d3-interpolate";
 import { morphologyGraphLink, type GraphNode, type MorphologyGraphLayout } from "../../reader/morphologyGraph";
 
 const props = defineProps<{ layout: MorphologyGraphLayout; label: string }>();
 const emit = defineEmits<{ toggle: [key: string]; resize: [] }>();
 const current = shallowRef(props.layout);
+const viewport = shallowRef<HTMLDivElement | null>(null);
+const viewportWidth = shallowRef(0);
 const markerId = `morphology-arrow-${useId().replace(/:/g, '')}`;
 const nodeMap = computed(() => new Map(current.value.nodes.map((node) => [node.id, node])));
 const orderedLinks = computed(() => [...current.value.links].sort((a, b) => Number(a.matched) - Number(b.matched)));
+const selectedIds = computed(() => new Set(props.layout.nodes.filter((node) => node.matched).map((node) => node.id)));
+const selectedBounds = computed(() => {
+  const nodes = current.value.nodes.filter((node) => selectedIds.value.has(node.id));
+  return nodes.length ? {
+    left: Math.min(...nodes.map((node) => node.x)),
+    right: Math.max(...nodes.map((node) => node.x + node.width)),
+  } : null;
+});
+const scale = computed(() => {
+  const bounds = selectedBounds.value;
+  return bounds && viewportWidth.value > 16
+    ? Math.min(1, (viewportWidth.value - 16) / (bounds.right - bounds.left)) : 1;
+});
 let frame = 0;
+let observer: ResizeObserver | undefined;
+
+onMounted(() => {
+  const element = viewport.value;
+  if (!element) return;
+  viewportWidth.value = element.clientWidth;
+  observer = new ResizeObserver(() => { viewportWidth.value = element.clientWidth; });
+  observer.observe(element);
+});
+
+watch([current, viewportWidth], async () => {
+  await nextTick();
+  const element = viewport.value;
+  if (!element) return;
+  const bounds = selectedBounds.value;
+  if (bounds && element.clientWidth) {
+    // 按全部选中元素的联合范围定位，随布局动画与可视宽度同步更新。
+    const left = (bounds.left + bounds.right) / 2 * scale.value - element.clientWidth / 2;
+    element.scrollLeft = Math.max(0, Math.min(left, element.scrollWidth - element.clientWidth));
+  }
+  emit('resize');
+}, { flush: 'post' });
 
 function textY(node: GraphNode, index: number) {
   const contentHeight = node.lines.reduce((sum, line) => sum + (line.kind === 'secondary' ? 15 : 18), 0);
@@ -41,7 +78,7 @@ function currentGuide(node: GraphNode) {
 watch(() => props.layout, (next) => {
   cancelAnimationFrame(frame);
   const before = current.value;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { current.value = next; void nextTick(() => emit('resize')); return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { current.value = next; return; }
   const previous = new Map(before.nodes.map((node) => [node.id, node]));
   const nextIds = new Set(next.nodes.map((node) => node.id));
   const tweens = next.nodes.map((node) => {
@@ -63,17 +100,19 @@ watch(() => props.layout, (next) => {
         width: tween.width(eased), height: tween.height(eased), opacity: tween.opacity(eased) })),
         ...exiting.map((node) => ({ ...node, opacity: node.opacity * (1 - eased) }))],
     };
-    void nextTick(() => emit('resize'));
     if (progress < 1) frame = requestAnimationFrame(animate);
   };
   frame = requestAnimationFrame(animate);
 });
-onBeforeUnmount(() => cancelAnimationFrame(frame));
+onBeforeUnmount(() => {
+  cancelAnimationFrame(frame);
+  observer?.disconnect();
+});
 </script>
 
 <template>
-  <div class="morphology-graph" tabindex="0" :aria-label="`${label}，可横向滚动`">
-    <svg :width="current.width" :height="current.height" :viewBox="`0 0 ${current.width} ${current.height}`" role="group" :aria-label="label">
+  <div ref="viewport" class="morphology-graph" tabindex="0" :aria-label="`${label}，可横向滚动`">
+    <svg :width="current.width * scale" :height="current.height * scale" :viewBox="`0 0 ${current.width} ${current.height}`" role="group" :aria-label="label">
       <defs>
         <marker :id="markerId" viewBox="0 0 7 7" refX="6" refY="3.5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
           <path d="M1,1 L6,3.5 L1,6" fill="none" stroke="context-stroke" stroke-width="1.1" />
