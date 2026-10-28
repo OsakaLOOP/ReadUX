@@ -102,7 +102,7 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
   return { width: width - 24, height, nodes, links };
 }
 
-/** 横坐标从 1 计数；达到 2 时以 45° 向左下折行，间距为普通折行的两倍。 */
+/** 横坐标从 1 计数；达到 2 时向左下折行，水平位移为垂直间距的两倍。 */
 export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraphLayout {
   const nodes: GraphNode[] = [];
   const links: GraphLink[] = [];
@@ -127,9 +127,8 @@ export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraph
     const previous = nodes[index - 1];
     if (part.breakBefore && previous) {
       const diagonal = column >= 2;
-      const gap = rowGap * (diagonal ? 2 : 1);
-      y += rowHeight + gap;
-      x = previous.x + previous.width / 2 - width / 2 - (diagonal ? gap : 0);
+      y += rowHeight + rowGap;
+      x = previous.x + previous.width / 2 - width / 2 - (diagonal ? rowGap * 2 : 0);
       if (diagonal) column--;
       rowHeight = 0;
     } else if (previous) {
