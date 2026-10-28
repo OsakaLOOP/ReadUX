@@ -244,8 +244,10 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
         const end = inserted ? op.source_morpheme_range[1] : index + 1;
         const members = document.morphemes.slice(index, end);
         const surface = members.map((item) => item.surface).join("");
+        const lexicalInflection = morphologyConnectionType(op.kind) === "inflection" && index === chain.anchor_morpheme;
         const caption = contractionForm(op)
-          || (inserted ? surface : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
+          || (lexicalInflection ? chain.lookup_form || chain.dictionary_form || token.lemma || entry.headword
+            : inserted ? surface : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
         const label = inserted ? "插入语" : !first && multi ? "" : support ? "补助" : op.kind === "negative" ? "否定形" : entry.usage;
         parts.push({ id: `${op.operator_id}:${index}`, surface, caption, label,
           range: inserted ? op.char_range : token.char_range,

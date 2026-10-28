@@ -76,6 +76,15 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
     const bottom = Math.max(...connectors.map((node) => node.x + node.data.height / 2));
     const offset = categoryCenter - (top + bottom) / 2;
     connectors.forEach((node) => { node.x += offset; });
+    // 调整连接器层后重新计算其父节点，保持每个父节点位于直属子节点范围中心。
+    positioned.eachAfter((node) => {
+      if (!node.children?.length || node.data.kind === "group") return;
+      const first = node.children[0];
+      const last = node.children[node.children.length - 1];
+      const childTop = first.x - first.data.height / 2;
+      const childBottom = last.x - last.data.height / 2 + (last.data.kind === "group" ? 28 : last.data.height);
+      node.x = (childTop + childBottom) / 2;
+    });
   }
   const depthWidths: number[] = [];
   for (const node of positioned.descendants()) depthWidths[node.depth] = Math.max(depthWidths[node.depth] ?? 0, node.data.width);

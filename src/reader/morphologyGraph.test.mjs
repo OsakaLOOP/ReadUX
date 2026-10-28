@@ -107,6 +107,35 @@ test("分词与单体とか均显示一个完整插入单元", () => {
   }
 });
 
+test("词内意向形采用词汇辞典形，独立词尾采用自身原型", () => {
+  const diagram = diagramFor("M-complex-003", "volitional");
+  const part = diagram.sentence.find((part) => part.selected);
+  assert.equal(part.caption, "作る");
+  assert.equal(part.surface, "作ろう");
+  assert.deepEqual(part.range, [3, 6]);
+  const node = layoutSentenceChain(diagram.sentence).nodes.find((node) => node.matched);
+  assert.equal(node.lines[0].text, "意向形 作る → 作ろう");
+  const document = structuredClone(snapshots["M-complex-003"].document);
+  const owner = document.morphology.chains.find((chain) => chain.operators.some((op) => op.kind === "volitional"));
+  const operator = owner.operators.find((op) => op.kind === "volitional");
+  const [start] = operator.source_morpheme_range;
+  // 用相同的句中范围验证词干与独立词尾分词时的展示身份。
+  document.morphemes.splice(start, 1,
+    { ...document.morphemes[start], surface: "作ろ", char_range: [3, 5] },
+    { ...document.morphemes[start], surface: "う", lemma: "う", pos: ["助動詞"], char_range: [5, 6] });
+  for (const chain of document.morphology.chains) {
+    const shift = (index) => index > start ? index + 1 : index;
+    chain.morpheme_range = chain.morpheme_range.map(shift);
+    chain.anchor_morpheme = shift(chain.anchor_morpheme);
+    for (const op of chain.operators) op.source_morpheme_range = op.source_morpheme_range.map(shift);
+  }
+  operator.source_morpheme_range = [start + 1, start + 2];
+  operator.char_range = [5, 6];
+  const split = morphologyConnectionDiagram(operator, owner, document, owner.status);
+  assert.equal(split.sentence.find((part) => part.selected).caption, "う");
+  assert.equal(split.sentence.map((part) => part.surface).join(""), diagram.sentence.map((part) => part.surface).join(""));
+});
+
 test("实际递归链的节点内部固定两行，每次折行后从左向右连接", () => {
   const diagram = diagramFor("M11-39", "te_iru");
   assert.equal(diagram.sentence.map((part) => part.surface).join(""), "読んでしまっていた");
