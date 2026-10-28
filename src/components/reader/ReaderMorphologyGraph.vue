@@ -172,8 +172,9 @@ onBeforeUnmount(() => {
 svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--font-ui); }
 .morphology-graph__edges path { fill: none; stroke: color-mix(in srgb, var(--text-muted) 45%, var(--border-color)); stroke-width: 1.1; }
 .morphology-graph__edges .is-matched path { stroke: var(--accent-color); stroke-width: 1.6; }
-.morphology-graph__edges .is-fold path { stroke: color-mix(in srgb, var(--accent-color) 65%, var(--border-color)); stroke-width: 1.6; }
+.morphology-graph__edges .is-fold:not(.is-matched) path { stroke: color-mix(in srgb, var(--accent-color) 65%, var(--border-color)); stroke-width: 1.6; }
 .morphology-graph__edges text { fill: var(--text-muted); font-size: 10px; }
+.morphology-graph__edges .is-matched text { fill: var(--accent-color); }
 .morphology-graph__node rect { fill: var(--bg-primary, #fff); stroke: var(--border-color); stroke-width: 1; }
 .morphology-graph__node.is-insertion rect { stroke-dasharray: 4 3; fill: color-mix(in srgb, var(--bg-primary, #fff) 94%, var(--accent-color)); }
 .morphology-graph__node.is-matched > rect { fill: color-mix(in srgb, var(--bg-primary, #fff) 92%, var(--accent-color)); stroke: var(--accent-color); stroke-width: 1.5; }
