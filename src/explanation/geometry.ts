@@ -146,7 +146,7 @@ function placeSinglePanel(anchor: RectSnapshot, size: Size, viewport: Size): Pan
   return placedPanel(left, top, size, vertical.height);
 }
 
-/** 词条靠近正文，接续面板沿同一侧向外堆叠；高度不足时分别滚动。 */
+/** 词条与接续面板共用横向列宽。 */
 export function morphologyPanelWidths(viewportWidth: number, preferredWidth = 440) {
   const available = Math.max(0, viewportWidth - MARGIN * 2 - GAP);
   const dictionary = Math.min(360, available * .34);
@@ -161,16 +161,26 @@ export function placeMorphologyPanels(
   const dictionaryWidth = widths.dictionary;
   const desired = Math.min(entrySize.height, 300) + GAP + Math.min(connectionSize.height, 720);
   const available = chooseVerticalPlacement(anchor, Number.POSITIVE_INFINITY, viewport);
+  const above = available.side === 'above';
+  const oppositeHeight = Math.max(0, above
+    ? viewport.height - anchor.bottom - GAP - MARGIN
+    : anchor.top - GAP - MARGIN);
+  const preferredEntryHeight = Math.min(entrySize.height, 300, available.height);
+  // 比较正文两侧的实际空间；同向时保留词条与外侧接续面板的堆叠布局。
+  const connectionOpposite = oppositeHeight > available.height - preferredEntryHeight;
   const vertical = { ...available, height: Math.min(available.height, Math.max(desired, Math.min(dictionarySize.height, MAX_PANEL_HEIGHT))) };
   const usable = Math.max(0, vertical.height - GAP);
-  const entryHeight = Math.min(entrySize.height, 300, usable * (entrySize.height + connectionSize.height > usable ? .4 : 1));
-  const connectionHeight = Math.min(connectionSize.height, 720, Math.max(0, usable - entryHeight));
+  const entryHeight = connectionOpposite ? preferredEntryHeight
+    : Math.min(entrySize.height, 300, usable * (entrySize.height + connectionSize.height > usable ? .4 : 1));
+  const connectionHeight = Math.min(connectionSize.height, 720,
+    connectionOpposite ? oppositeHeight : Math.max(0, usable - entryHeight));
   const groupLeft = clamp(anchor.left + anchor.width / 2 - (dictionaryWidth + GAP + width) / 2,
     MARGIN, Math.max(MARGIN, viewport.width - MARGIN - dictionaryWidth - GAP - width));
   const left = groupLeft + dictionaryWidth + GAP;
-  const above = vertical.side === 'above';
   const entryTop = above ? anchor.top - GAP - entryHeight : anchor.bottom + GAP;
-  const connectionTop = above ? entryTop - GAP - connectionHeight : entryTop + entryHeight + GAP;
+  const connectionTop = connectionOpposite
+    ? above ? anchor.bottom + GAP : anchor.top - GAP - connectionHeight
+    : above ? entryTop - GAP - connectionHeight : entryTop + entryHeight + GAP;
   const dictionaryHeight = Math.min(dictionarySize.height, MAX_PANEL_HEIGHT, vertical.height);
   return {
     entry: placedPanel(left, entryTop, { width, height: entryHeight }, entryHeight),
