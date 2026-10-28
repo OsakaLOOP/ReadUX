@@ -4,6 +4,8 @@
 
 - 全量接续词条的结构分类入口为 morphology.json 的 connection_types，覆盖全部 150 个 operator；完整性检查为 scripts/check_morphology_connections.py，只检查分类、路径、连接器、概念和例句。connector_alternatives 关联「になる」的两种に；dependency_type 与 context_range/context_surface 分别保存结构和连接器上下文。「まい」「だろう／でしょう」「が／から」及准体名词化の的独立讲解位于 grammar source bundle morphology_connections_20261028.json，variants.concept 区分の与さ。
 
+- 「なの／なん」的名词化路径为 no_noun_na 与 no_na_attributive，通过 previous_operators 和 predecessors 核对连体修饰「な」及连续前两项；一般谓语路径排除 attributive_na。「な」的名词路径 noun_nominalization 用 following 确认紧邻的名词化「の／ん」，一般分支用 exclude_following 与之区分。配置维护说明见 docs/morphology_configuration.md。
+
 - 谓语关系审阅记录位于 `docs/morphology_predicate_relations_review.md`。判断词尾保留前项类别，名词谓语通过判断实体身份共享接续表；前端箭头按接续功能命名，既有静态指南由链内前置成分恢复判断对象身份。D3 父节点按直属子节点顶部至末个分类标题底部居中，末类列表不参与居中计算。
 
 - 接续图中的复合词条合并由 `presentation.sentence_compounds` 配置，现用于「かもしれない」；整体节点采用完整成员范围，活用读取末尾「ない」，后接补助层独立排列。

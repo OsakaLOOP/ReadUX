@@ -780,13 +780,15 @@
       "label": "名词化",
       "operators": ["nominalization"],
       "paths": [
-        {"id": "no_judgement_noun", "group": "名词", "label": "判断连体形：な＋の／ん", "steps": ["判断连体形：な"], "categories": ["名詞", "代名詞"], "forms": ["attributive"], "ctypes": ["助動詞-ダ"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}},
+        {"id": "no_judgement_noun", "group": "名词", "label": "谓语连体形＋の／ん", "steps": ["谓语连体形"], "categories": ["名詞", "代名詞"], "forms": ["terminal", "attributive"], "exact_category": true, "exclude_previous_operators": ["attributive_na"], "next": {"equals": {"surface": ["の", "ん"]}}},
+        {"id": "no_noun_na", "group": "名词", "label": "判断词干＋な＋の／ん", "steps": ["判断词干", "连体修饰：な"], "categories": ["名詞", "代名詞"], "forms": ["attributive"], "ctypes": ["助動詞-ダ"], "exact_category": true, "previous_operators": ["attributive_na"], "predecessors": [{}, {"equals": {"pos": ["助動詞"], "ctype": ["助動詞-ダ"], "surface": ["な"]}, "starts_with": {"cform": ["連体形"]}}], "next": {"equals": {"pos": ["助詞"], "lemma": ["の"], "surface": ["の", "ん"]}}},
         {"id": "sa_adjective", "group": "イ形容词", "label": "词干＋さ", "steps": ["词干＋さ"], "categories": ["形容詞"], "forms": ["stem"], "exact_category": true, "next": {"equals": {"base": ["さ"]}}},
         {"id": "sa_na", "group": "ナ形容词", "label": "词干＋さ", "steps": ["词干＋さ"], "categories": ["形状詞"], "forms": ["stem"], "exact_category": true, "next": {"equals": {"base": ["さ"]}}},
         {"id": "sa_auxiliary", "group": "助动词", "label": "词干＋さ", "steps": ["词干＋さ"], "categories": ["助動詞"], "forms": ["stem"], "exact_category": true, "next": {"equals": {"base": ["さ"]}}},
         {"id": "no_verb", "group": "动词", "label": "连体形＋の／ん", "steps": ["连体形＋の／ん"], "categories": ["動詞"], "forms": ["terminal", "attributive"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}},
         {"id": "no_adjective", "group": "イ形容词", "label": "连体形＋の／ん", "steps": ["连体形＋の／ん"], "categories": ["形容詞"], "forms": ["terminal", "attributive"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}},
-        {"id": "no_na", "group": "ナ形容词", "label": "连体形＋の／ん", "steps": ["连体形＋の／ん"], "categories": ["形状詞"], "forms": ["terminal", "attributive"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}},
+        {"id": "no_na", "group": "ナ形容词", "label": "谓语连体形＋の／ん", "steps": ["谓语连体形"], "categories": ["形状詞"], "forms": ["terminal", "attributive"], "exact_category": true, "exclude_previous_operators": ["attributive_na"], "next": {"equals": {"surface": ["の", "ん"]}}},
+        {"id": "no_na_attributive", "group": "ナ形容词", "label": "词干＋な＋の／ん", "steps": ["词干", "连体修饰：な"], "categories": ["形状詞"], "forms": ["attributive"], "ctypes": ["助動詞-ダ"], "exact_category": true, "previous_operators": ["attributive_na"], "predecessors": [{}, {"equals": {"pos": ["助動詞"], "ctype": ["助動詞-ダ"], "surface": ["な"]}, "starts_with": {"cform": ["連体形"]}}], "next": {"equals": {"pos": ["助詞"], "lemma": ["の"], "surface": ["の", "ん"]}}},
         {"id": "no_auxiliary", "group": "助动词", "label": "连体形＋の／ん", "steps": ["连体形＋の／ん"], "categories": ["助動詞"], "forms": ["terminal", "attributive"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}},
         {"id": "no_classical", "group": "文言用言", "label": "连体形＋の／ん", "steps": ["连体形＋の／ん"], "categories": ["文語用言"], "forms": ["terminal", "attributive"], "exact_category": true, "next": {"equals": {"surface": ["の", "ん"]}}}
       ]
@@ -873,7 +875,8 @@
       "label": "连体修饰",
       "operators": ["attributive_na"],
       "paths": [
-        {"id": "noun", "group": "名词", "label": "判断词干", "steps": ["判断词干"], "categories": ["名詞", "代名詞"], "forms": ["stem", "terminal", "attributive"], "exact_category": true},
+        {"id": "noun", "group": "名词", "label": "判断词干", "steps": ["判断词干"], "categories": ["名詞", "代名詞"], "forms": ["stem", "terminal", "attributive"], "exact_category": true, "exclude_following": {"equals": {"pos": ["助詞"], "lemma": ["の"], "surface": ["の", "ん"]}}},
+        {"id": "noun_nominalization", "group": "名词", "label": "判断词干・后接名词化の／ん", "steps": ["判断词干", "后接名词化の／ん"], "categories": ["名詞", "代名詞"], "forms": ["stem", "terminal", "attributive"], "exact_category": true, "following": {"equals": {"pos": ["助詞"], "lemma": ["の"], "surface": ["の", "ん"]}}},
         {"id": "na", "group": "ナ形容词", "label": "判断词干", "steps": ["判断词干"], "categories": ["形状詞"], "forms": ["stem", "terminal", "attributive"], "exact_category": true}
       ]
     },

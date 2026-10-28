@@ -1716,7 +1716,7 @@ pub(crate) fn compose(
     }
 }
 
-/// 只回看路径声明的语素和当前输入状态，保留全部匹配以检测规则冲突。
+/// 核对路径声明的连续语素和输入状态，保留全部匹配以检测规则冲突。
 fn identify_connection_paths(
     chains: &mut [MorphologyChain],
     source: &[ProviderToken],
@@ -1737,6 +1737,8 @@ fn identify_connection_paths(
                 || (start == chain.morpheme_range[0] && chain.parent_chain_id.is_none())
                 || source[start - 1].char_range[1] != op.char_range[0]) { continue; }
             let state = if own_form { &op.state_after } else { &op.state_before };
+            let following = source.get(op.source_morpheme_range[1])
+                .filter(|token| token.char_range[0] == op.char_range[1]);
             let previous_kind = chain.operators[..index].iter().rev()
                 .find(|previous| previous.executor != "insertion" && previous.char_range[1] <= op.char_range[0])
                 .map(|previous| previous.kind.as_str())
@@ -1759,6 +1761,10 @@ fn identify_connection_paths(
                         path.exclude_previous_operators.iter().any(|excluded| excluded == kind))
                     && path.evidence.iter().all(|evidence| op.evidence.contains(evidence))
                     && path.next.matches(&source[start])
+                    && path.following.as_ref().is_none_or(|pattern|
+                        following.is_some_and(|token| pattern.matches(token)))
+                    && path.exclude_following.as_ref().is_none_or(|pattern|
+                        following.is_none_or(|token| !pattern.matches(token)))
                     && start >= path.predecessors.len()
                     && path.predecessors.iter().rev().zip(source[..start].iter().rev())
                         .all(|(pattern, token)| pattern.matches(token))
