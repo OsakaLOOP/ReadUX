@@ -261,6 +261,6 @@ onBeforeUnmount(() => {
     :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300"
     title="" surface="" label="接续方式与接续规则"
     @enter="emit('enter', $event)" @leave="emit('leave', $event)">
-    <ReaderConnectionTree :key="detail.id" :diagram="detail.connection" @resize="place" />
+    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" @resize="place" />
   </ReaderExplanationBubble>
 </template>

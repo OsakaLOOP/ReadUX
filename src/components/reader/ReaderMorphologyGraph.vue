@@ -170,12 +170,12 @@ onBeforeUnmount(() => {
 .morphology-graph { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
 .morphology-graph::-webkit-scrollbar { display: none; }
 svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--font-ui); }
-.morphology-graph__edges path { fill: none; stroke: color-mix(in srgb, var(--text-muted) 45%, var(--border-color)); stroke-width: 1.1; }
+.morphology-graph__edges path { fill: none; stroke: color-mix(in srgb, var(--text-muted) 45%, var(--border-color)); stroke-width: 1.1; transition: stroke 180ms ease, stroke-width 180ms ease; }
 .morphology-graph__edges .is-matched path { stroke: var(--accent-color); stroke-width: 1.6; }
 .morphology-graph__edges .is-fold:not(.is-matched) path { stroke: color-mix(in srgb, var(--accent-color) 65%, var(--border-color)); stroke-width: 1.6; }
-.morphology-graph__edges text { fill: var(--text-muted); font-size: 10px; }
+.morphology-graph__edges text { fill: var(--text-muted); font-size: 10px; transition: fill 180ms ease; }
 .morphology-graph__edges .is-matched text { fill: var(--accent-color); }
-.morphology-graph__node rect { fill: var(--bg-primary, #fff); stroke: var(--border-color); stroke-width: 1; }
+.morphology-graph__node rect { fill: var(--bg-primary, #fff); stroke: var(--border-color); stroke-width: 1; transition: fill 180ms ease, stroke 180ms ease; }
 .morphology-graph__node.is-insertion rect { stroke-dasharray: 4 3; fill: color-mix(in srgb, var(--bg-primary, #fff) 94%, var(--accent-color)); }
 .morphology-graph__node.is-matched > rect { fill: color-mix(in srgb, var(--bg-primary, #fff) 92%, var(--accent-color)); stroke: var(--accent-color); stroke-width: 1.5; }
 .morphology-graph__node text { pointer-events: none; fill: var(--text-primary); }
@@ -195,8 +195,11 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-graph__current-stem { fill: none; stroke: var(--accent-color); stroke-width: 1.6; }
 .morphology-rule-list { box-sizing: border-box; font: 12px/18px var(--font-ui); color: var(--text-primary); }
 .morphology-rule-list__row { padding: 3px 0; }
-.morphology-rule-list__heading { display: flex; align-items: baseline; gap: 4px; }
+.morphology-rule-list__heading { display: flex; align-items: baseline; gap: 4px; transition: color 180ms ease; }
 .morphology-rule-list__condition { color: var(--text-secondary); font-size: 11px; line-height: 15px; overflow-wrap: anywhere; }
 .morphology-rule-list__heading b { margin-left: auto; color: var(--accent-color); font: 500 12px/18px var(--font-ja); white-space: nowrap; }
 .morphology-rule-list__row.is-current .morphology-rule-list__heading { color: var(--accent-color); }
+@media (prefers-reduced-motion: reduce) {
+  .morphology-graph__edges path, .morphology-graph__edges text, .morphology-graph__node rect, .morphology-rule-list__heading { transition: none; }
+}
 </style>

@@ -2508,7 +2508,7 @@ function toggleEinkMode() {
       title="" surface="" label="接续方式与接续规则"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
     >
-      <ReaderConnectionTree :key="activeDetail.id" :diagram="activeDetail.connection" @resize="refreshLookupPosition" />
+      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" @resize="refreshLookupPosition" />
     </ReaderExplanationBubble>
 
     <ReaderProgressBar
