@@ -115,14 +115,15 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
   return { width: width - 24, height, nodes, links };
 }
 
-/** 按语法边界折行；逻辑横坐标达到 2 时向左退一项，以 45° 连至下一行。 */
+/** 横坐标从 1 计数；达到 2 时以 45° 向左下折行，间距为普通折行的两倍。 */
 export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraphLayout {
   const nodes: GraphNode[] = [];
   const links: GraphLink[] = [];
   let x = 0;
   let y = 4;
   let rowHeight = 0;
-  let column = 0;
+  const rowGap = 26;
+  let column = 1;
   for (const [index, part] of parts.entries()) {
     const original = part.caption || part.surface;
     const form = original !== part.surface ? `${original} → ${part.surface}` : part.surface;
@@ -137,10 +138,11 @@ export function layoutSentenceChain(parts: SentenceChainPart[]): MorphologyGraph
     const height = 44;
     const previous = nodes[index - 1];
     if (part.breakBefore && previous) {
-      const shift = column >= 2 ? (previous.width + width) / 2 + 18 : 0;
-      y += rowHeight + (shift || 26);
-      x = previous.x + previous.width / 2 - width / 2 - shift;
-      if (shift) column--;
+      const diagonal = column >= 2;
+      const gap = rowGap * (diagonal ? 2 : 1);
+      y += rowHeight + gap;
+      x = previous.x + previous.width / 2 - width / 2 - (diagonal ? gap : 0);
+      if (diagonal) column--;
       rowHeight = 0;
     } else if (previous) {
       x = previous.x + previous.width + 18;
