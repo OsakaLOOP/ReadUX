@@ -90,7 +90,7 @@ function contractionForm(operator: MorphologyOperator) {
   return path?.steps[path.steps.length - 1] === "で" ? prototype.replace(/^て/u, "で") : prototype;
 }
 
-export function morphologyEntry(operator: MorphologyOperator, document: UnifiedDocument, transition = ""): MorphologyEntryContent {
+export function morphologyEntry(operator: MorphologyOperator, document: UnifiedDocument, transition = "", fullTransition = false): MorphologyEntryContent {
   const definition = operatorDefinitions[operator.kind];
   const token = document.morphemes?.[operator.source_morpheme_range?.[0]];
   const prototype = configuredPrototype(operator.kind, token);
@@ -124,7 +124,8 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
     identity,
     conjugation: elementForm(document, operator.source_morpheme_range[1] - 1, operator.state_after, operator.kind, operator.evidence),
     usage: definition?.title || operator.label,
-    transition: expanded ? `${expanded} → ${document.morphemes.slice(...operator.source_morpheme_range).map((item) => item.surface).join("")}`
+    transition: fullTransition && transition ? morphologyLocalTransition(transition, true)
+      : expanded ? `${expanded} → ${document.morphemes.slice(...operator.source_morpheme_range).map((item) => item.surface).join("")}`
       : morphologyLocalTransition(transition),
     summary: operator.kind === "polite_negative" ? builtin?.senses[0]?.meaning || "礼貌地否定动作或状态。"
       : explanation?.function_summary || builtin?.senses[0]?.meaning || definition?.title || operator.description,

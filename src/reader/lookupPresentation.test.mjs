@@ -1,7 +1,21 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits, readerRubyAnnotations, readerTargetPresentation } from "./lookupPresentation.ts";
+import { dictionaryLookupFromSearch, displayReading, readerCapsuleRanges, readerChains, readerMorphologyHits as projectMorphologyHits, readerRubyAnnotations, readerTargetPresentation } from "./lookupPresentation.ts";
 import { posDisplayLabel } from "../explanation/morphologyView.ts";
+
+// 历史查询样例提供气泡内容投影需要的分析字段。
+function readerMorphologyHits(targets, source) {
+  const document = structuredClone(source);
+  document.source ??= { tokens: [] };
+  document.morphemes ??= [];
+  for (const chain of document.morphology?.chains ?? []) {
+    for (const operator of chain.operators ?? []) {
+      operator.evidence ??= [];
+      operator.source_morpheme_range ??= [0, 0];
+    }
+  }
+  return projectMorphologyHits(targets, document);
+}
 
 test("表屈折形查辞书形时仍以目标锚点语素显示词性", () => {
   const document = {
@@ -311,7 +325,8 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
   assert.ok(negHit);
   assert.equal(negHit.detail.title, "未然形 - ない形");
   assert.equal(negHit.detail.surface, "ない");
-  assert.equal(negHit.detail.description, "読ま → 読まない（ま→まない）");
+  assert.equal(negHit.detail.description, "読ま → 読まない");
+  assert.equal(negHit.detail.entry.transition, "読ま → 読まない");
 
   // 3. 过去算子命中：title 为概念标题 过去，surface 为现实原型 た，起点从上一步的原型読まない开始，终点到当前实际形式読まなかった
   assert.ok(pastHit);
@@ -325,7 +340,7 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
   assert.equal(chain.steps[0].label, "未然形");
   assert.equal(chain.steps[0].description, "読む → 読ま（む→ま）");
   assert.equal(chain.steps[1].label, "未然形 - ない形");
-  assert.equal(chain.steps[1].description, "読ま → 読まない（ま→まない）");
+  assert.equal(chain.steps[1].description, "読ま → 読まない");
   assert.equal(chain.steps[2].label, "連用形 - た形");
   assert.equal(chain.steps[2].description, "読まない → 読まなかった（ない→なかった）");
 });

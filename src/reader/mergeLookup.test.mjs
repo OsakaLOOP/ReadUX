@@ -37,6 +37,7 @@ function inflectedDocument(prefix = "") {
   const state = { conjugation_type: "五段", conjugation_form: "連用形", category: "動詞", form: "continuative" };
   return {
     text: `${prefix}読んでいた`,
+    source: { tokens: [] },
     morphemes: [
       { id: "read", surface: "読ん", reading: "ヨン", pos: ["動詞"], char_range: [offset, offset + 2] },
       { id: "aux", surface: "でいた", reading: "デイタ", pos: ["助動詞"], char_range: [offset + 2, offset + 5] },
@@ -45,7 +46,7 @@ function inflectedDocument(prefix = "") {
     morphology: {
       chains: [
         { chain_id: "core", role: "lexical", parent_chain_id: null, anchor_range: [offset, offset + 2], char_range: [offset, offset + 2], surface_form: "読ん", lookup_form: "読む", lemma_form: "読む", dictionary_form: "読む", core_morpheme_indices: [0], morpheme_indices: [0], operators: [], connection_forms: [], final_state: state },
-        { chain_id: "aux", role: "functional", parent_chain_id: "core", char_range: [offset + 2, offset + 5], surface_form: "でいた", lookup_form: "いる", lemma_form: "いる", dictionary_form: "いる", core_morpheme_indices: [1], morpheme_indices: [1], operators: [{ operator_id: "progressive", kind: "progressive", label: "进行", description: "动作持续", normalized_form: "ている" }], connection_forms: [], final_state: state },
+        { chain_id: "aux", role: "functional", parent_chain_id: "core", char_range: [offset + 2, offset + 5], surface_form: "でいた", lookup_form: "いる", lemma_form: "いる", dictionary_form: "いる", core_morpheme_indices: [1], morpheme_indices: [1], operators: [{ operator_id: "progressive", kind: "progressive", label: "进行", description: "动作持续", normalized_form: "ている", evidence: [], source_morpheme_range: [1, 2] }], connection_forms: [], final_state: state },
       ],
       occurrences: [{ id: "progressive-hit", chain_id: "aux", operator_ids: ["progressive"], kind: "progressive", char_range: [offset + 2, offset + 5], hit_ranges: [[offset + 2, offset + 5]], candidates: [] }],
     },

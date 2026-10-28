@@ -351,7 +351,7 @@ function chainRoot(chains: ReadonlyArray<MorphologyChain>, chain: MorphologyChai
 }
 
 function transitionDescription(
-  input: string, output: string, operator?: MorphologyOperator,
+  input: string, output: string,
   preceding: ReadonlyArray<MorphologyOperator> = [], rootStart = 0,
 ) {
   if (!input || !output || input === output) return `${input || ""} → ${output || ""}`;
@@ -359,23 +359,12 @@ function transitionDescription(
   const after = Array.from(output);
   let prefixLength = 0;
   while (prefixLength < before.length && prefixLength < after.length && before[prefixLength] === after[prefixLength]) prefixLength += 1;
-  if (prefixLength === before.length) {
-    const rule = operator && morphologyPresentation.transition_tails.find((rule) =>
-      rule.forms.includes(operator.state_before?.form ?? "")
-      && ("kinds" in rule ? rule.kinds?.includes(operator.kind)
-        : rule.support_group === operatorDefinitions[operator.kind]?.support?.group)
-      && (!("type_prefixes" in rule) || rule.type_prefixes?.some((type) => operator.state_before?.conjugation_type?.startsWith(type)))
-      && (!("cform_contains" in rule) || rule.cform_contains?.some((form) => operator.state_before?.conjugation_form?.includes(form)))
-      && rule.endings.some((ending) => input.endsWith(ending)));
-    const ending = rule?.endings.find((ending) => input.endsWith(ending));
-    if (!ending) return `${input} → ${output}`;
-    prefixLength -= Array.from(ending).length;
-  } else {
-    // 已有功能成分发生变化时，保留其完整词形，如ます→ません、ない→なかった。
-    const changed = preceding.find((step) => step.char_range && step.char_range[0] > rootStart
-      && step.char_range[0] - rootStart <= prefixLength && prefixLength < step.char_range[1] - rootStart);
-    if (changed?.char_range) prefixLength = changed.char_range[0] - rootStart;
-  }
+  // 从差异位置回溯至最近成分的起点；纯追加时保留上一个完整成分。
+  // 前一步的原型可能长于实际表记，如いる→い，范围终点以输入词形为准。
+  const changed = [...preceding].reverse().find((step) => step.char_range
+    && step.char_range[0] - rootStart <= prefixLength && step.char_range[0] - rootStart < before.length);
+  if (changed?.char_range) prefixLength = changed.char_range[0] - rootStart;
+  else if (prefixLength === before.length && prefixLength > 0) prefixLength -= 1;
   if (prefixLength === 0) return `${input} → ${output}`;
   const localInput = before.slice(prefixLength).join("") || "∅";
   const localOutput = after.slice(prefixLength).join("") || "∅";
@@ -425,14 +414,13 @@ export function operatorPrototypeForm(
 // 兼容已有导出的别名
 export const operatorPrototypeTitle = operatorPrototypeForm;
 
-function combinePrototype(prefix: string, prototype: string): string {
-  if (!prefix) return prototype;
-  for (const join of morphologyPresentation.prototype_joins) {
-    if (!prototype.startsWith(join.prefix)) continue;
-    const ending = join.endings.find((ending) => prefix.endsWith(ending));
-    if (ending) return prefix.slice(0, -ending.length) + ending + prototype.slice(join.prefix.length);
-  }
-  return `${prefix}${prototype}`;
+function combinePrototype(prefix: string, prototype: string, operator: MorphologyOperator, document: UnifiedDocument): string {
+  // 独立连接器已属于前项，后项只采用自身成员的原型。
+  const members = operator.connection?.connector_operator_id && operator.source_morpheme_range
+    ? document.morphemes.slice(...operator.source_morpheme_range) : [];
+  const localPrototype = members.map((token, index) => index === members.length - 1
+    ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : token.surface).join("");
+  return prefix + (localPrototype || prototype);
 }
 
 function contractedStepOutput(operator: MorphologyOperator, document: UnifiedDocument, rootStart: number, currentSlice: string): string | null {
@@ -459,6 +447,7 @@ export interface DerivedStepInfo {
   output: string;
   description: string;
   normalizedForm: string | null;
+  fullTransition: boolean;
 }
 
 function collectChainFamily(chains: ReadonlyArray<MorphologyChain>, targetChain: MorphologyChain) {
@@ -515,6 +504,8 @@ function buildChainStepMap(
   // 若核心词未单独作为屈折步骤展示（例如サ变力説して），首个变形的起点承接辞书原形
   const initialBase = hasCoreInflection ? coreBase : (rootLemma || coreBase);
   let currentForm = initialBase;
+  const firstSuffix = nonInflectionOperators.findIndex(({ op }) => !op.char_range || !root.anchor_range
+    || op.char_range[0] !== root.anchor_range[0] || op.char_range[1] > root.anchor_range[1]);
 
   for (let i = 0; i < nonInflectionOperators.length; i++) {
     const { op, chain } = nonInflectionOperators[i];
@@ -537,7 +528,7 @@ function buildChainStepMap(
     const input = coreInflection ? rootLemma : currentForm;
 
     // 当前算子的现实原型形式（以该算子的现实原型结束，如 読まない、読み始める、読んでおく）
-    const stepPrototype = combinePrototype(precedingSlice || coreBase, prototypeForm);
+    const stepPrototype = combinePrototype(precedingSlice || coreBase, prototypeForm, op, document);
 
     // 终点：后续还有算子时以原型结束；末尾算子输出当前实际完整呈现形式
     const isLast = i === nonInflectionOperators.length - 1;
@@ -547,16 +538,17 @@ function buildChainStepMap(
       && other.char_range[0] < op.char_range[0] && op.char_range[1] <= other.char_range[1]);
     if (enclosing?.op.char_range) output = characters.slice(rootStart, enclosing.op.char_range[1]).join("");
     const observedStep = morphologyPresentation.observed_steps.includes(op.kind);
-    if (observedStep && currentSlice) output = currentSlice;
+    // 词干状态保留当前成员，如みたい、そう、べき；判断词尾由后续步骤生成。
+    if ((observedStep || op.state_after?.form === "stem") && currentSlice) output = currentSlice;
     const contractedOutput = contractedStepOutput(op, document, rootStart, currentSlice);
     if (!isLast && contractedOutput) output = contractedOutput;
     if (!output) output = currentSlice || op.output_state || chain.surface_form;
 
     let desc = op.description || "";
     if (op.char_range) {
-      desc = hasCoreInflection && i === 0
+      desc = hasCoreInflection && (coreInflection || i === firstSuffix)
         ? `${input} → ${output}`
-        : transitionDescription(input, output, op, nonInflectionOperators.slice(0, i).map(({ op }) => op), rootStart);
+        : transitionDescription(input, output, nonInflectionOperators.slice(0, i).map(({ op }) => op), rootStart);
     }
 
     result.set(op.operator_id, {
@@ -569,6 +561,7 @@ function buildChainStepMap(
       output,
       description: desc,
       normalizedForm: op.normalized_form ?? null,
+      fullTransition: coreInflection || i === firstSuffix,
     });
 
     currentForm = output;
@@ -611,6 +604,7 @@ function resolveOperatorStep(
       output,
       description: transitionDescription(input, output),
       normalizedForm: operator.normalized_form ?? null,
+      fullTransition: true,
     };
   }
 
@@ -644,6 +638,7 @@ function resolveOperatorStep(
     output: output || operator.output_state || chain.surface_form,
     description: operator.char_range ? transitionDescription(input, output) : (operator.description || ""),
     normalizedForm: operator.normalized_form ?? null,
+    fullTransition: false,
   };
 }
 
@@ -788,7 +783,7 @@ export function readerMorphologyHits(
       : null;
     const detail: ReaderMorphologyDetail = {
       id: occurrence.id,
-      entry: morphologyEntry(operator, document, step?.description),
+      entry: morphologyEntry(operator, document, step?.description, step?.fullTransition),
       connection: morphologyConnectionDiagram(operator, owner, document, occurrence.status),
       status: occurrence.status,
       title: step ? step.conceptTitle : grammaticalConceptTitle(operator),

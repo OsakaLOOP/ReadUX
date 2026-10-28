@@ -18,7 +18,7 @@
 
 - 静态资源空间测量入口为 `scripts/measure_static_storage.py` 与 `scripts/measure_static_storage.mjs`，报告为 `docs/static_storage_measurement.md`，数据为 `data/validation/static-storage-summary.json`。结合用户策略文档的路线建议见 `docs/web_product_strategy.md`，属于讨论稿。正式书库位于 Windows 文档目录的 `ReadUX Library/library.sqlite`，正文为 `books/<id>/content.md`；桌面分析缓存为 `%APPDATA%/com.readux.app/analysis-cache/*.msgpack`，根对象包含 `document` 和 `lookup`。仓库缓存同时包含旧协议，统计须按正文去重。当前指南 `lesson-1-1.json` 为《句法入门》，`lesson-2-1.json` 为《认识实词、虚词、助词》；历史规格文件名仍为 `grammar_guide_1_1.md`。
 
-- 活用变化的局部提示由 `configs/unidic-nlp/morphology.json` 的 `presentation.transition_tails` 按语法身份、前接形及末尾假名配置。敬体否定整体识别为 `polite_negative`，内置词条位于 `configs/grammar/auxiliaries.json`，成分查询路由位于 `src/grammar/particleEntries.ts`。
+- 活用变化范围由 `src/reader/lookupPresentation.ts` 根据前后词形与前序成分起点统一投影，词干及其后首个活用显示完整变化，后续变化保留对应成分，纯追加保留上一成分。独立连接器使用 `connector_operator_id` 定位，后项原型仅取自身成员，覆盖「こと」「とする」「たりとかする」；实际「い」对应输入原型「いる」时继续显示完整成分。语法指南真实快照回归位于 `morphologyGraph.test.mjs`。敬体否定整体识别为 `polite_negative`，内置词条位于 `configs/grammar/auxiliaries.json`，成分查询路由位于 `src/grammar/particleEntries.ts`。
 
 - 活用链重构设计与六类实体、专用执行器、规则树和展示契约记录在 `docs/morphology_state_machine_design.md`。旧 `configs/grammar/teConstructions.json` 已删除；19 个补助动词本体、18 个 `te_*` 规则和 3 个缩约 operator 的历史 ID 位于 `configs/grammar/migrations/te_construction_ids.json`，前端规则展示读取迁移元数据，正式查询归属使用补助本体 concept。
 

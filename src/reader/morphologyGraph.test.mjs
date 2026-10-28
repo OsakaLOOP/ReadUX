@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyLocalTransition } from "./morphologyBubble.ts";
 import { layoutConnectionRules, layoutSentenceChain } from "./morphologyGraph.ts";
+import { readerMorphologyHits } from "./lookupPresentation.ts";
 
 const snapshots = JSON.parse(readFileSync(new URL("../grammar-guide/lesson-stage11-analysis.json", import.meta.url), "utf8")).examples;
 
@@ -16,6 +17,63 @@ function diagramFor(id, kind) {
 test("词干保留辞典形到实际词形，后接成分采用局部变化", () => {
   assert.equal(morphologyLocalTransition("高い → 高かっ（い→かっ）", true), "高い → 高かっ");
   assert.equal(morphologyLocalTransition("読まない → 読まなかった（ない→なかった）"), "ない → なかった");
+});
+
+test("活用词条按成分范围展示首个完整变化与后续局部变化", () => {
+  for (const [id, expected] of [
+    ["M11-01", { desire: "読み → 読みたい" }],
+    ["M-regression-028", { mitai_modality: "夢 → 夢みたい", copula: "みたい → みたいだ" }],
+    ["M-regression-126", { sou_modality: "読め → 読めそう", copula: "そう → そうだ" }],
+    ["M-synthetic-298", { obligation: "読む → 読むべき", copula: "べき → べきだ" }],
+    ["M-regression-134", { contracted_te_shimau: "読ん → 読んじゃう", past: "じゃう → じゃった" }],
+    ["M-complex-003", {
+      volitional: "作る → 作ろう", volitional_to_connection: "作ろう → 作ろうと",
+      volitional_to_suru: "と → とする", te_connection: "する → して", kara_connection: "いる → いるから",
+    }],
+    ["M-complex-004", {
+      te_connection: "達成し → 達成して", koto_nominalization: "いく → いくこと",
+      nominal_change_ni: "こと → ことに", ni_naru: "に → になる",
+    }],
+    ["M-complex-011", {
+      enumerative: "いる → いたり", exemplification: "たり → たりとか",
+      tari_suru: "とか → とかする", negative: "いる → いない",
+    }],
+    ["M11-39", {
+      te_connection: ["読ん → 読んで", "しまう → しまって"],
+      te_shimau: "で → でしまう", te_iru: "て → ている", past: "いる → いた",
+    }],
+  ]) {
+    const { document, group } = snapshots[id];
+    const hits = readerMorphologyHits(group.outer_targets, document);
+    for (const [kind, transitions] of Object.entries(expected)) {
+      const operators = document.morphology.chains.flatMap((chain) => chain.operators).filter((op) => op.kind === kind);
+      const actual = [...new Set(operators.flatMap((operator) => hits
+        .filter((hit) => hit.detail.id === `occurrence:${operator.operator_id}`)
+        .map((hit) => hit.detail.entry.transition)))];
+      assert.deepEqual(actual, [transitions].flat(), `${id}: ${kind}`);
+    }
+    for (const hit of hits) assert.ok(!hit.detail.description.includes("とようとする")
+      && !hit.detail.description.includes("とかたりする"), `${id}: ${hit.detail.description}`);
+  }
+});
+
+test("新增活用类型沿用相同的范围投影与独立连接器拼接", () => {
+  for (const [id, kinds] of [
+    ["M-complex-003", ["volitional_to_connection", "volitional_to_suru", "kara_connection"]],
+    ["M-complex-004", ["koto_nominalization", "nominal_change_ni", "ni_naru"]],
+    ["M-complex-011", ["exemplification", "tari_suru", "negative"]],
+    ["M-regression-028", ["mitai_modality", "copula"]],
+    ["M-synthetic-298", ["obligation", "copula"]],
+  ]) {
+    const { document, group } = snapshots[id];
+    const updated = structuredClone(document);
+    for (const chain of updated.morphology.chains) {
+      for (const operator of chain.operators) if (kinds.includes(operator.kind)) operator.kind = `new_${operator.kind}`;
+    }
+    const project = (source) => readerMorphologyHits(group.outer_targets, source)
+      .filter((hit) => hit.detail.entry).map((hit) => hit.detail.entry.transition);
+    assert.deepEqual(project(updated), project(document), id);
+  }
 });
 
 test("缩约节点和词条变化保留连接器、清浊及实际活用", () => {
