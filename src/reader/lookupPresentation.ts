@@ -857,7 +857,36 @@ export function readerMorphologyHits(
           },
         }];
       });
-    return [...syntheticHits, ...operatorHits];
+    const hits = [...syntheticHits, ...operatorHits];
+    const anchor = chain.anchor_range;
+    if (!anchor || hits.some((hit) => hit.range[0] <= anchor[0] && anchor[1] <= hit.range[1])) return hits;
+    // 同形词干与无活用词干沿用完整接续图，使链内悬浮保持连续。
+    const diagram = morphologyStemDiagram(chain, document, anchor);
+    const stem = diagram?.sentence.find((part) => part.unit === `${chain.chain_id}:core` && part.selected);
+    if (!stem?.range) return hits;
+    const token = document.morphemes[chain.anchor_morpheme];
+    const state = (chain.operators ?? []).find((operator) => !morphologyPresentation.inflections.includes(operator.kind))?.state_before
+      ?? chain.final_state;
+    const category = token?.pos?.[0] || state?.category || '';
+    const inflecting = ['動詞', '形容詞', '形状詞', '形容動詞', '助動詞'].includes(category)
+      || category === '接尾辞' && ['動詞的', '形容詞的'].includes(token?.pos?.[1] ?? '');
+    const surface = characters.slice(...stem.range).join('');
+    const prototype = chain.lookup_form || stem.caption || surface;
+    return [...hits, {
+      range: stem.range,
+      targetId: target.id,
+      detail: {
+        id: `${chain.chain_id}:core-conjugation`,
+        connection: diagram,
+        status: chain.status,
+        title: stemConjugationTitle(chain, state, document),
+        surface,
+        conjugation: inflecting ? conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
+        description: prototype === surface ? '' : transitionDescription(prototype, surface),
+        tags: inflecting ? morphologyTags('conjugation', state?.conjugation_form) : [],
+        candidates: [],
+      },
+    }];
   });
   return [...occurrences, ...conjugations];
 }
