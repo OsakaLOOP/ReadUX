@@ -38,6 +38,40 @@ test("缩约节点和词条变化保留连接器、清浊及实际活用", () =>
   }
 });
 
+test("名词性变化经实际连接器进入なる，形容词连用形直接接なる", () => {
+  const connectorRules = new Set();
+  let directCount = 0;
+  for (const { document } of Object.values(snapshots)) {
+    for (const owner of document.morphology.chains) {
+      for (const operator of owner.operators.filter((op) => ["ni_naru", "adjectival_naru"].includes(op.kind))) {
+        const diagram = morphologyConnectionDiagram(operator, owner, document, owner.status);
+        assert.equal(diagram.target, "なる");
+        const layout = layoutConnectionRules(diagram, null);
+        if (operator.kind === "ni_naru") {
+          connectorRules.add(operator.connection.rule);
+          assert.deepEqual(diagram.branches.map((branch) => branch.label), ["に"]);
+          const connector = layout.nodes.find((node) => node.kind === "connector");
+          assert.equal(connector.lines[0].text, "に");
+          assert.ok(connector.matched);
+          assert.ok(layout.links.some((link) => link.source === connector.id && link.target === "target" && link.matched));
+          for (const group of layout.nodes.filter((node) => node.kind === "group")) {
+            assert.ok(layout.links.some((link) => link.source === group.id && link.target === connector.id));
+          }
+          const current = diagram.branches.flatMap((branch) => branch.groups).flatMap((group) => group.paths).find((path) => path.matched);
+          assert.equal(current.actual, operator.connection.predecessor_surface);
+        } else {
+          directCount++;
+          assert.deepEqual(diagram.branches.map((branch) => branch.label), [""]);
+          assert.ok(layout.nodes.every((node) => node.kind !== "connector"));
+          assert.ok(layout.links.some((link) => link.target === "target" && link.matched));
+        }
+      }
+    }
+  }
+  assert.deepEqual([...connectorRules].sort(), ["judgement_adverbial", "nominal_change"]);
+  assert.ok(directCount > 0);
+});
+
 test("实际递归链的节点内部固定两行，每次折行后从左向右连接", () => {
   const diagram = diagramFor("M11-39", "te_iru");
   assert.equal(diagram.sentence.map((part) => part.surface).join(""), "読んでしまっていた");

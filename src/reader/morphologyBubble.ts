@@ -280,7 +280,9 @@ export function morphologyConnectionDiagram(
   const connector = connection?.connector_operator_id
     ? document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.operator_id === connection.connector_operator_id) : operator;
   const separateTe = connection?.rule === "te" || connection?.rule === "contracted_te";
-  const branches = (separateTe ? ["て", "で"] : [""]).map((label) => {
+  const connectorLabel = connection?.connector_operator_id && connector
+    ? document.morphemes.slice(...connector.source_morpheme_range).map((item) => item.surface).join("") : "";
+  const branches = (separateTe ? ["て", "で"] : [connectorLabel]).map((label) => {
     const groups: ConnectionGroupView[] = [];
     const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.steps[path.steps.length - 1] === label);
     for (const path of paths) {
