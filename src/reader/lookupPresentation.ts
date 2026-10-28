@@ -859,7 +859,7 @@ export function readerMorphologyHits(
         }];
       });
     const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
-    const entryVisible = !['名詞', '代名詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
+    const entryVisible = !['名詞', '代名詞', '副詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
       || firstOperator?.state_before?.category || chain.final_state?.category || '');
     for (const hit of hits) hit.detail.entryVisible = entryVisible;
     const anchor = chain.anchor_range;
@@ -893,7 +893,7 @@ export function readerMorphologyHits(
       },
     }];
   });
-  // 接续气泡显示句中实际存在的连接；独立名词沿用词典查询。
+  // 接续气泡显示句中实际存在的连接；独立的无活用词沿用词典查询。
   return [...occurrences, ...conjugations].flatMap((hit) => {
     if (hit.detail.connection && hit.detail.connection.sentence.length < 2) hit.detail.connection = null;
     return hit.detail.entryVisible === false && !hit.detail.connection ? [] : [hit];
