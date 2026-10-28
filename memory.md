@@ -22,7 +22,7 @@
 
 - 接续面板的两栏高度由 `ReaderConnectionTree.vue` 分配，优先完整显示较短栏，滚动栏至少占可用图示高度的三分之一；外层面板固定。`data-natural-height` 声明完整内容高度供 `measureIntrinsicPanel` 定位，`ReaderMorphologyGraph.vue` 负责两轴居中及当前规则条目的纵向定位。同一活用链以首个句中节点 ID 保留组件实例，支持连续的聚焦颜色过渡。
 
-- 词干气泡入口由 `lookupPresentation.ts` 的 `readerMorphologyHits` 生成。既有屈折命中之外，同形词干、名词及形容动词等沿用 `morphologyStemDiagram` 定位词干范围；名词与代名词显示“无活用”。词干与后续成分共享完整接续图，旧连接线在新布局首帧移除。
+- 词干气泡入口由 `lookupPresentation.ts` 的 `readerMorphologyHits` 生成。同形词干、名词及形容动词等沿用 `morphologyStemDiagram` 定位范围；名词与代名词以 `entryVisible: false` 仅显示接续气泡，节点标注“无活用”。句中关系不足两个元素时，各词性均隐藏接续气泡，独立名词保留词典查询。`placeMorphologyPanels` 接收空词条尺寸时按单个接续面板定位。词干与后续成分共享完整图示，旧连接线在新布局首帧移除。
 
 - 活用链第 11 阶段的气泡接入规范见 docs/morphology_stage11_bubble_display.md：现有活用词条气泡保持原职责，新增接续方式气泡并与其上下堆叠；补助父子关系递归显示，当前词条前接规则按唯一线性路径或多分支投影。て／で共用连接规则，普通规则只回看声明所需的前项；条目类别、用法说明、例句与词形标签分层呈现。后续按文档清单处理「ない」「ずに」「た／だ」及判断收尾等多路径规则。
 

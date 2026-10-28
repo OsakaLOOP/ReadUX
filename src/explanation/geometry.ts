@@ -157,24 +157,26 @@ export function morphologyPanelWidths(viewportWidth: number, preferredWidth = 44
 }
 
 export function placeMorphologyPanels(
-  anchor: RectSnapshot, entrySize: Size, connectionSize: Size, dictionarySize: Size, viewport: Size,
+  anchor: RectSnapshot, entrySize: Size | null, connectionSize: Size, dictionarySize: Size, viewport: Size,
 ) {
   const widths = morphologyPanelWidths(viewport.width, connectionSize.width);
   const width = widths.morphology;
   const dictionaryWidth = widths.dictionary;
-  const desired = Math.min(entrySize.height, 300) + GAP + Math.min(connectionSize.height, 720);
+  const entryNaturalHeight = entrySize?.height ?? 0;
+  const stackGap = entrySize ? GAP : 0;
+  const desired = Math.min(entryNaturalHeight, 300) + stackGap + Math.min(connectionSize.height, 720);
   const available = chooseVerticalPlacement(anchor, Number.POSITIVE_INFINITY, viewport);
   const above = available.side === 'above';
   const oppositeHeight = Math.max(0, above
     ? viewport.height - anchor.bottom - GAP - MARGIN
     : anchor.top - GAP - MARGIN);
-  const preferredEntryHeight = Math.min(entrySize.height, 300, available.height);
+  const preferredEntryHeight = Math.min(entryNaturalHeight, 300, available.height);
   // 比较正文两侧的实际空间；同向时保留词条与外侧接续面板的堆叠布局。
-  const connectionOpposite = oppositeHeight > available.height - preferredEntryHeight;
+  const connectionOpposite = Boolean(entrySize) && oppositeHeight > available.height - preferredEntryHeight;
   const vertical = { ...available, height: Math.min(available.height, Math.max(desired, Math.min(dictionarySize.height, MAX_PANEL_HEIGHT))) };
-  const usable = Math.max(0, vertical.height - GAP);
+  const usable = Math.max(0, vertical.height - stackGap);
   const entryHeight = connectionOpposite ? preferredEntryHeight
-    : Math.min(entrySize.height, 300, usable * (entrySize.height + connectionSize.height > usable ? .4 : 1));
+    : Math.min(entryNaturalHeight, 300, usable * (entryNaturalHeight + connectionSize.height > usable ? .4 : 1));
   const connectionHeight = Math.min(connectionSize.height, 720,
     connectionOpposite ? oppositeHeight : Math.max(0, usable - entryHeight));
   const groupLeft = clamp(anchor.left + anchor.width / 2 - (dictionaryWidth + GAP + width) / 2,
@@ -183,7 +185,7 @@ export function placeMorphologyPanels(
   const entryTop = above ? anchor.top - GAP - entryHeight : anchor.bottom + GAP;
   const connectionTop = connectionOpposite
     ? above ? anchor.bottom + GAP : anchor.top - GAP - connectionHeight
-    : above ? entryTop - GAP - connectionHeight : entryTop + entryHeight + GAP;
+    : above ? entryTop - stackGap - connectionHeight : entryTop + entryHeight + stackGap;
   const dictionaryHeight = Math.min(dictionarySize.height, MAX_PANEL_HEIGHT, vertical.height);
   return {
     entry: placedPanel(left, entryTop, { width, height: entryHeight }, entryHeight),

@@ -75,17 +75,18 @@ function place() {
     return;
   }
   const componentSize = intrinsicPanelSize(componentPanelId.value);
-  if (!componentSize) {
-    floatDebug.record("layout", "explanation-popover", "place-skipped", "component-panel-unmounted");
-    return;
-  }
   const wholeSize = intrinsicPanelSize(wholePanelId.value);
   const connectionSize = intrinsicPanelSize(connectionPanelId.value);
-  if (props.detail?.connection && connectionSize) {
-    const stacked = placeMorphologyPanels(props.anchor, componentSize, connectionSize,
+  const entrySize = props.detail?.entryVisible === false ? null : componentSize;
+  if (props.detail?.connection && connectionSize && entrySize !== undefined) {
+    const stacked = placeMorphologyPanels(props.anchor, entrySize, connectionSize,
       wholeSize ?? { width: panelWidth.value, height: 320 }, { width: window.innerWidth, height: window.innerHeight });
     placement.value = { component: stacked.entry, whole: stacked.dictionary };
     connectionPlacement.value = stacked.connection;
+    return;
+  }
+  if (!componentSize) {
+    floatDebug.record("layout", "explanation-popover", "place-skipped", "component-panel-unmounted");
     return;
   }
   connectionPlacement.value = null;
@@ -212,7 +213,7 @@ onBeforeUnmount(() => {
     @back="emit('backWhole')"
   ><template #summary><slot name="summary" /></template></TooltipPanel>
   <ReaderExplanationBubble
-    v-if="detail"
+    v-if="detail && detail.entryVisible !== false"
     :id="componentPanelId"
     :data-explanation-panel="componentPanelId"
     :show="show"
@@ -232,7 +233,7 @@ onBeforeUnmount(() => {
     <ReaderMorphologyEntry :key="detail.id" :detail="detail" />
   </ReaderExplanationBubble>
   <TooltipPanel
-    v-else
+    v-else-if="!detail"
     :panel-id="componentPanelId"
     :show="show"
     :x="placement.component.left"

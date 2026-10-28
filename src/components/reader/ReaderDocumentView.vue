@@ -1375,7 +1375,8 @@ function refreshLookupPosition() {
   });
   if (companion === "detail" && activeDetail.value?.connection) {
     const placement = placeMorphologyPanels(anchor,
-      intrinsicLookupPanelSize("reader-morphology-detail", { width: Math.min(340, width), height: 230 }),
+      activeDetail.value.entryVisible === false ? null
+        : intrinsicLookupPanelSize("reader-morphology-detail", { width: Math.min(340, width), height: 230 }),
       intrinsicLookupPanelSize("reader-morphology-connection", { width: Math.min(340, width), height: 300 }),
       dictionarySize, { width: window.innerWidth, height: window.innerHeight });
     const position = (panel: typeof placement.entry) => ({ x: panel.left, y: panel.top, width: panel.width, maxHeight: panel.maxHeight });
@@ -2481,7 +2482,7 @@ function toggleEinkMode() {
     <ParticleGrammarPopover v-if="componentParticle" :show="Boolean(activeHit)" :x="componentParticleX" :y="componentParticleY" :lookup="componentParticle"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup" />
     <ReaderExplanationBubble
-      v-if="activeDetail && !relatedWord && !componentHit"
+      v-if="activeDetail && activeDetail.entryVisible !== false && !relatedWord && !componentHit"
       id="reader-morphology-detail"
       :show="Boolean(activeHit) && Boolean(activeDetail)"
       :x="detailPosition.x"

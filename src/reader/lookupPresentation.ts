@@ -70,6 +70,7 @@ export interface ReaderChainSummary {
 
 export interface ReaderMorphologyDetail {
   entry?: MorphologyEntryContent;
+  entryVisible?: boolean;
   connection?: ConnectionDiagram | null;
   status?: string;
   id: string;
@@ -857,7 +858,10 @@ export function readerMorphologyHits(
           },
         }];
       });
-    const hits = [...syntheticHits, ...operatorHits];
+    const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
+    const entryVisible = !['名詞', '代名詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
+      || firstOperator?.state_before?.category || chain.final_state?.category || '');
+    for (const hit of hits) hit.detail.entryVisible = entryVisible;
     const anchor = chain.anchor_range;
     if (!anchor || hits.some((hit) => hit.range[0] <= anchor[0] && anchor[1] <= hit.range[1])) return hits;
     // 同形词干与无活用词干沿用完整接续图，使链内悬浮保持连续。
@@ -877,6 +881,7 @@ export function readerMorphologyHits(
       targetId: target.id,
       detail: {
         id: `${chain.chain_id}:core-conjugation`,
+        entryVisible,
         connection: diagram,
         status: chain.status,
         title: stemConjugationTitle(chain, state, document),
@@ -888,7 +893,11 @@ export function readerMorphologyHits(
       },
     }];
   });
-  return [...occurrences, ...conjugations];
+  // 接续气泡显示句中实际存在的连接；独立名词沿用词典查询。
+  return [...occurrences, ...conjugations].flatMap((hit) => {
+    if (hit.detail.connection && hit.detail.connection.sentence.length < 2) hit.detail.connection = null;
+    return hit.detail.entryVisible === false && !hit.detail.connection ? [] : [hit];
+  });
 }
 
 export function dictionaryLookupFromSearch(output: QueryOutput, word: string, formId = output.selected_form_id): DictionaryLookup {
