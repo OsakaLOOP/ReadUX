@@ -38,7 +38,7 @@ export default defineConfig(async ({ mode }) => ({
       ignored: [
         "**/src-tauri/**", "**/.agents/**", "**/target/**", "**/target-*/**",
         "**/experiments/**", "**/release-resources/**", "**/upload-resources/**",
-        "**/unidic-*/**", "**/ipadic/**", "**/nlp_retraining/**",
+        "**/unidic-cwj-*/**", "**/unidic-csj-*/**", "**/ipadic/**", "**/nlp_retraining/**",
         "**/packages/**", "**/vendor/**", "**/data/**",
       ],
     },

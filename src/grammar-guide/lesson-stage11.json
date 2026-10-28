@@ -1,10 +1,33 @@
 {
   "lessonId": "grammar-stage11",
   "title": "活用与接续 · 气泡测试",
-  "version": 1,
+  "version": 2,
   "status": "draft",
-  "sourceMarkdown": "# 活用与接续\n\n悬浮日文例句中的活用成分，查看词条与接续方式。点击分支可展开细节。\n\n## 线性接续\n\n检查单一前接路径、词条正文与例句。\n\n## て／で与补助递归\n\n检查共享接续分支、命中高亮和补助关系。\n\n## 否定接续\n\n检查动词、形容词及判断结构的否定。\n\n## 过去与判断\n\n检查音便、形容词和判断结构的过去形式。\n\n## ずに与形容词未然形\n\n检查文言否定的前接方式。",
+  "sourceMarkdown": "# 活用与接续\n\n悬浮日文例句中的活用成分，查看词条与接续方式。点击分支可展开细节。\n\n## 复杂句子\n\n查看复杂句子的活用与递归接续。\n\n## 线性接续\n\n检查单一前接路径、词条正文与例句。\n\n## て／で与补助递归\n\n检查共享接续分支、命中高亮和补助关系。\n\n## 否定接续\n\n检查动词、形容词及判断结构的否定。\n\n## 过去与判断\n\n检查音便、形容词和判断结构的过去形式。\n\n## ずに与形容词未然形\n\n检查文言否定的前接方式。\n\n## 真实分词专项\n\n查看真实分词测试中的活用与边界例句。\n\n## 合成接续与文言词形\n\n查看合成测试中的词形组合、插入语与接续边界。\n\n## 历史验收例句\n\n查看历次活用验收中使用的例句。",
   "placements": [
+    {
+      "group": "complex",
+      "title": "复杂句子",
+      "exampleIds": [
+        "M-complex-001",
+        "M-complex-002",
+        "M-complex-003",
+        "M-complex-004",
+        "M-complex-005",
+        "M-complex-006",
+        "M-complex-007",
+        "M-complex-008",
+        "M-complex-009",
+        "M-complex-010",
+        "M-complex-011",
+        "M-complex-012",
+        "M-complex-013",
+        "M-complex-014",
+        "M-complex-015"
+      ],
+      "layout": "list",
+      "anchor": "查看复杂句子的活用与递归接续。"
+    },
     {
       "group": "linear",
       "title": "线性接续",
@@ -83,6 +106,656 @@
       ],
       "layout": "list",
       "anchor": "检查文言否定的前接方式。"
+    },
+    {
+      "group": "regression",
+      "title": "真实分词专项",
+      "exampleIds": [
+        "M-regression-002",
+        "M-regression-004",
+        "M-regression-005",
+        "M-regression-006",
+        "M-regression-007",
+        "M-regression-010",
+        "M-regression-011",
+        "M-regression-012",
+        "M-regression-013",
+        "M-regression-014",
+        "M-regression-015",
+        "M-regression-019",
+        "M-regression-020",
+        "M-regression-021",
+        "M-regression-022",
+        "M-regression-023",
+        "M-regression-024",
+        "M-regression-025",
+        "M-regression-028",
+        "M-regression-029",
+        "M-regression-030",
+        "M-regression-031",
+        "M-regression-033",
+        "M-regression-034",
+        "M-regression-037",
+        "M-regression-039",
+        "M-regression-040",
+        "M-regression-041",
+        "M-regression-042",
+        "M-regression-045",
+        "M-regression-046",
+        "M-regression-047",
+        "M-regression-049",
+        "M-regression-050",
+        "M-regression-051",
+        "M-regression-052",
+        "M-regression-053",
+        "M-regression-054",
+        "M-regression-055",
+        "M-regression-056",
+        "M-regression-058",
+        "M-regression-061",
+        "M-regression-062",
+        "M-regression-063",
+        "M-regression-074",
+        "M-regression-077",
+        "M-regression-079",
+        "M-regression-080",
+        "M-regression-081",
+        "M-regression-084",
+        "M-regression-085",
+        "M-regression-086",
+        "M-regression-087",
+        "M-regression-090",
+        "M-regression-093",
+        "M-regression-094",
+        "M-regression-095",
+        "M-regression-096",
+        "M-regression-097",
+        "M-regression-098",
+        "M-regression-099",
+        "M-regression-102",
+        "M-regression-104",
+        "M-regression-106",
+        "M-regression-108",
+        "M-regression-110",
+        "M-regression-111",
+        "M-regression-112",
+        "M-regression-113",
+        "M-regression-114",
+        "M-regression-115",
+        "M-regression-116",
+        "M-regression-117",
+        "M-regression-118",
+        "M-regression-119",
+        "M-regression-120",
+        "M-regression-121",
+        "M-regression-122",
+        "M-regression-123",
+        "M-regression-124",
+        "M-regression-125",
+        "M-regression-126",
+        "M-regression-127",
+        "M-regression-128",
+        "M-regression-129",
+        "M-regression-130",
+        "M-regression-131",
+        "M-regression-132",
+        "M-regression-133",
+        "M-regression-134",
+        "M-regression-135",
+        "M-regression-136",
+        "M-regression-137",
+        "M-regression-138",
+        "M-regression-139",
+        "M-regression-140",
+        "M-regression-141",
+        "M-regression-142",
+        "M-regression-143",
+        "M-regression-144",
+        "M-regression-145",
+        "M-regression-146",
+        "M-regression-147",
+        "M-regression-148",
+        "M-regression-149",
+        "M-regression-150",
+        "M-regression-151",
+        "M-regression-152",
+        "M-regression-153",
+        "M-regression-154",
+        "M-regression-155",
+        "M-regression-156",
+        "M-regression-157",
+        "M-regression-158",
+        "M-regression-159",
+        "M-regression-160",
+        "M-regression-161",
+        "M-regression-162",
+        "M-regression-163",
+        "M-regression-164",
+        "M-regression-165",
+        "M-regression-166",
+        "M-regression-168",
+        "M-regression-169",
+        "M-regression-172",
+        "M-regression-173",
+        "M-regression-174",
+        "M-regression-175",
+        "M-regression-176",
+        "M-regression-178",
+        "M-regression-180",
+        "M-regression-181",
+        "M-regression-182",
+        "M-regression-183",
+        "M-regression-184",
+        "M-regression-186",
+        "M-regression-187",
+        "M-regression-188",
+        "M-regression-189",
+        "M-regression-190",
+        "M-regression-191",
+        "M-regression-193",
+        "M-regression-196",
+        "M-regression-197",
+        "M-regression-198",
+        "M-regression-199",
+        "M-regression-200",
+        "M-regression-201"
+      ],
+      "layout": "list",
+      "anchor": "查看真实分词测试中的活用与边界例句。"
+    },
+    {
+      "group": "synthetic",
+      "title": "合成接续与文言词形",
+      "exampleIds": [
+        "M-synthetic-001",
+        "M-synthetic-002",
+        "M-synthetic-003",
+        "M-synthetic-004",
+        "M-synthetic-005",
+        "M-synthetic-006",
+        "M-synthetic-007",
+        "M-synthetic-008",
+        "M-synthetic-009",
+        "M-synthetic-010",
+        "M-synthetic-011",
+        "M-synthetic-012",
+        "M-synthetic-013",
+        "M-synthetic-014",
+        "M-synthetic-015",
+        "M-synthetic-016",
+        "M-synthetic-017",
+        "M-synthetic-018",
+        "M-synthetic-019",
+        "M-synthetic-020",
+        "M-synthetic-021",
+        "M-synthetic-022",
+        "M-synthetic-023",
+        "M-synthetic-024",
+        "M-synthetic-025",
+        "M-synthetic-026",
+        "M-synthetic-027",
+        "M-synthetic-028",
+        "M-synthetic-029",
+        "M-synthetic-030",
+        "M-synthetic-031",
+        "M-synthetic-032",
+        "M-synthetic-033",
+        "M-synthetic-034",
+        "M-synthetic-035",
+        "M-synthetic-036",
+        "M-synthetic-037",
+        "M-synthetic-038",
+        "M-synthetic-039",
+        "M-synthetic-040",
+        "M-synthetic-041",
+        "M-synthetic-042",
+        "M-synthetic-043",
+        "M-synthetic-044",
+        "M-synthetic-045",
+        "M-synthetic-046",
+        "M-synthetic-047",
+        "M-synthetic-048",
+        "M-synthetic-049",
+        "M-synthetic-050",
+        "M-synthetic-051",
+        "M-synthetic-052",
+        "M-synthetic-053",
+        "M-synthetic-054",
+        "M-synthetic-055",
+        "M-synthetic-056",
+        "M-synthetic-057",
+        "M-synthetic-058",
+        "M-synthetic-059",
+        "M-synthetic-060",
+        "M-synthetic-061",
+        "M-synthetic-062",
+        "M-synthetic-063",
+        "M-synthetic-064",
+        "M-synthetic-065",
+        "M-synthetic-066",
+        "M-synthetic-067",
+        "M-synthetic-068",
+        "M-synthetic-069",
+        "M-synthetic-070",
+        "M-synthetic-071",
+        "M-synthetic-072",
+        "M-synthetic-073",
+        "M-synthetic-074",
+        "M-synthetic-075",
+        "M-synthetic-076",
+        "M-synthetic-077",
+        "M-synthetic-078",
+        "M-synthetic-079",
+        "M-synthetic-080",
+        "M-synthetic-081",
+        "M-synthetic-082",
+        "M-synthetic-083",
+        "M-synthetic-084",
+        "M-synthetic-085",
+        "M-synthetic-086",
+        "M-synthetic-087",
+        "M-synthetic-088",
+        "M-synthetic-089",
+        "M-synthetic-090",
+        "M-synthetic-091",
+        "M-synthetic-092",
+        "M-synthetic-093",
+        "M-synthetic-094",
+        "M-synthetic-095",
+        "M-synthetic-096",
+        "M-synthetic-097",
+        "M-synthetic-098",
+        "M-synthetic-099",
+        "M-synthetic-100",
+        "M-synthetic-101",
+        "M-synthetic-102",
+        "M-synthetic-103",
+        "M-synthetic-104",
+        "M-synthetic-105",
+        "M-synthetic-106",
+        "M-synthetic-107",
+        "M-synthetic-108",
+        "M-synthetic-109",
+        "M-synthetic-110",
+        "M-synthetic-111",
+        "M-synthetic-112",
+        "M-synthetic-113",
+        "M-synthetic-114",
+        "M-synthetic-115",
+        "M-synthetic-116",
+        "M-synthetic-117",
+        "M-synthetic-118",
+        "M-synthetic-119",
+        "M-synthetic-120",
+        "M-synthetic-121",
+        "M-synthetic-122",
+        "M-synthetic-123",
+        "M-synthetic-124",
+        "M-synthetic-125",
+        "M-synthetic-126",
+        "M-synthetic-127",
+        "M-synthetic-128",
+        "M-synthetic-129",
+        "M-synthetic-130",
+        "M-synthetic-131",
+        "M-synthetic-132",
+        "M-synthetic-133",
+        "M-synthetic-134",
+        "M-synthetic-135",
+        "M-synthetic-136",
+        "M-synthetic-137",
+        "M-synthetic-138",
+        "M-synthetic-139",
+        "M-synthetic-140",
+        "M-synthetic-141",
+        "M-synthetic-142",
+        "M-synthetic-143",
+        "M-synthetic-144",
+        "M-synthetic-145",
+        "M-synthetic-146",
+        "M-synthetic-147",
+        "M-synthetic-148",
+        "M-synthetic-149",
+        "M-synthetic-150",
+        "M-synthetic-151",
+        "M-synthetic-152",
+        "M-synthetic-153",
+        "M-synthetic-154",
+        "M-synthetic-155",
+        "M-synthetic-156",
+        "M-synthetic-157",
+        "M-synthetic-158",
+        "M-synthetic-159",
+        "M-synthetic-160",
+        "M-synthetic-161",
+        "M-synthetic-162",
+        "M-synthetic-163",
+        "M-synthetic-164",
+        "M-synthetic-165",
+        "M-synthetic-166",
+        "M-synthetic-167",
+        "M-synthetic-168",
+        "M-synthetic-169",
+        "M-synthetic-170",
+        "M-synthetic-171",
+        "M-synthetic-172",
+        "M-synthetic-173",
+        "M-synthetic-174",
+        "M-synthetic-175",
+        "M-synthetic-176",
+        "M-synthetic-177",
+        "M-synthetic-178",
+        "M-synthetic-179",
+        "M-synthetic-180",
+        "M-synthetic-181",
+        "M-synthetic-182",
+        "M-synthetic-183",
+        "M-synthetic-184",
+        "M-synthetic-185",
+        "M-synthetic-186",
+        "M-synthetic-187",
+        "M-synthetic-188",
+        "M-synthetic-189",
+        "M-synthetic-190",
+        "M-synthetic-191",
+        "M-synthetic-192",
+        "M-synthetic-193",
+        "M-synthetic-194",
+        "M-synthetic-195",
+        "M-synthetic-196",
+        "M-synthetic-197",
+        "M-synthetic-198",
+        "M-synthetic-199",
+        "M-synthetic-200",
+        "M-synthetic-201",
+        "M-synthetic-202",
+        "M-synthetic-203",
+        "M-synthetic-204",
+        "M-synthetic-205",
+        "M-synthetic-206",
+        "M-synthetic-207",
+        "M-synthetic-208",
+        "M-synthetic-209",
+        "M-synthetic-210",
+        "M-synthetic-211",
+        "M-synthetic-212",
+        "M-synthetic-213",
+        "M-synthetic-214",
+        "M-synthetic-215",
+        "M-synthetic-216",
+        "M-synthetic-217",
+        "M-synthetic-218",
+        "M-synthetic-219",
+        "M-synthetic-220",
+        "M-synthetic-221",
+        "M-synthetic-222",
+        "M-synthetic-223",
+        "M-synthetic-224",
+        "M-synthetic-225",
+        "M-synthetic-226",
+        "M-synthetic-227",
+        "M-synthetic-228",
+        "M-synthetic-229",
+        "M-synthetic-230",
+        "M-synthetic-231",
+        "M-synthetic-232",
+        "M-synthetic-233",
+        "M-synthetic-234",
+        "M-synthetic-235",
+        "M-synthetic-236",
+        "M-synthetic-237",
+        "M-synthetic-238",
+        "M-synthetic-239",
+        "M-synthetic-240",
+        "M-synthetic-241",
+        "M-synthetic-242",
+        "M-synthetic-243",
+        "M-synthetic-244",
+        "M-synthetic-245",
+        "M-synthetic-246",
+        "M-synthetic-247",
+        "M-synthetic-248",
+        "M-synthetic-249",
+        "M-synthetic-250",
+        "M-synthetic-251",
+        "M-synthetic-252",
+        "M-synthetic-253",
+        "M-synthetic-254",
+        "M-synthetic-255",
+        "M-synthetic-256",
+        "M-synthetic-257",
+        "M-synthetic-258",
+        "M-synthetic-259",
+        "M-synthetic-260",
+        "M-synthetic-261",
+        "M-synthetic-262",
+        "M-synthetic-263",
+        "M-synthetic-264",
+        "M-synthetic-265",
+        "M-synthetic-266",
+        "M-synthetic-267",
+        "M-synthetic-268",
+        "M-synthetic-269",
+        "M-synthetic-270",
+        "M-synthetic-271",
+        "M-synthetic-272",
+        "M-synthetic-273",
+        "M-synthetic-274",
+        "M-synthetic-277",
+        "M-synthetic-278",
+        "M-synthetic-279",
+        "M-synthetic-280",
+        "M-synthetic-281",
+        "M-synthetic-282",
+        "M-synthetic-283",
+        "M-synthetic-284",
+        "M-synthetic-285",
+        "M-synthetic-286",
+        "M-synthetic-287",
+        "M-synthetic-288",
+        "M-synthetic-289",
+        "M-synthetic-290",
+        "M-synthetic-291",
+        "M-synthetic-292",
+        "M-synthetic-293",
+        "M-synthetic-294",
+        "M-synthetic-295",
+        "M-synthetic-296",
+        "M-synthetic-297",
+        "M-synthetic-298",
+        "M-synthetic-299",
+        "M-synthetic-300",
+        "M-synthetic-301",
+        "M-synthetic-302",
+        "M-synthetic-303",
+        "M-synthetic-304",
+        "M-synthetic-305",
+        "M-synthetic-306",
+        "M-synthetic-307",
+        "M-synthetic-308",
+        "M-synthetic-309",
+        "M-synthetic-310",
+        "M-synthetic-311",
+        "M-synthetic-312",
+        "M-synthetic-313",
+        "M-synthetic-314",
+        "M-synthetic-315",
+        "M-synthetic-316",
+        "M-synthetic-317",
+        "M-synthetic-318",
+        "M-synthetic-319",
+        "M-synthetic-320",
+        "M-synthetic-321",
+        "M-synthetic-322",
+        "M-synthetic-323",
+        "M-synthetic-324",
+        "M-synthetic-325",
+        "M-synthetic-326",
+        "M-synthetic-327",
+        "M-synthetic-328",
+        "M-synthetic-329",
+        "M-synthetic-330",
+        "M-synthetic-331",
+        "M-synthetic-332",
+        "M-synthetic-333",
+        "M-synthetic-334",
+        "M-synthetic-335",
+        "M-synthetic-336",
+        "M-synthetic-337",
+        "M-synthetic-338",
+        "M-synthetic-340",
+        "M-synthetic-341",
+        "M-synthetic-342",
+        "M-synthetic-343",
+        "M-synthetic-344",
+        "M-synthetic-345",
+        "M-synthetic-346",
+        "M-synthetic-347",
+        "M-synthetic-348",
+        "M-synthetic-349",
+        "M-synthetic-350",
+        "M-synthetic-351",
+        "M-synthetic-352",
+        "M-synthetic-353",
+        "M-synthetic-354",
+        "M-synthetic-355",
+        "M-synthetic-356",
+        "M-synthetic-357",
+        "M-synthetic-358",
+        "M-synthetic-359",
+        "M-synthetic-360",
+        "M-synthetic-361",
+        "M-synthetic-362",
+        "M-synthetic-363",
+        "M-synthetic-364",
+        "M-synthetic-365",
+        "M-synthetic-366",
+        "M-synthetic-367",
+        "M-synthetic-368",
+        "M-synthetic-369",
+        "M-synthetic-370",
+        "M-synthetic-371",
+        "M-synthetic-372",
+        "M-synthetic-373",
+        "M-synthetic-374",
+        "M-synthetic-375",
+        "M-synthetic-376",
+        "M-synthetic-377"
+      ],
+      "layout": "list",
+      "anchor": "查看合成测试中的词形组合、插入语与接续边界。"
+    },
+    {
+      "group": "historical",
+      "title": "历史验收例句",
+      "exampleIds": [
+        "M-E001",
+        "M-E002",
+        "M-E003",
+        "M-E004",
+        "M-E005",
+        "M-E007",
+        "M-E008",
+        "M-E012",
+        "M-E013",
+        "M-E014",
+        "M-E015",
+        "M-E018",
+        "M-E019",
+        "M-E020",
+        "M-E021",
+        "M-E022",
+        "M-E023",
+        "M-E024",
+        "M-E025",
+        "M-E026",
+        "M-E027",
+        "M-E028",
+        "M-E029",
+        "M-E031",
+        "M-E032",
+        "M-E033",
+        "M-E034",
+        "M-E036",
+        "M-E037",
+        "M-E038",
+        "M-E039",
+        "M-E040",
+        "M-E041",
+        "M-E043",
+        "M-E044",
+        "M-E045",
+        "M-E046",
+        "M-E047",
+        "M-E048",
+        "M-E049",
+        "M-E050",
+        "M-E051",
+        "M-E052",
+        "M-E053",
+        "M-E054",
+        "M-E055",
+        "M-E056",
+        "M-E057",
+        "M-E058",
+        "M-E065",
+        "M-E069",
+        "M-E079",
+        "M-E080",
+        "M-E082",
+        "M-E083",
+        "M-E084",
+        "M-E085",
+        "M-E086",
+        "M-E087",
+        "M-E088",
+        "M-E089",
+        "M-E091",
+        "M-E158",
+        "M-E159",
+        "M-E160",
+        "M-E161",
+        "M-E162",
+        "M-E163",
+        "M-E164",
+        "M-E165",
+        "M-E166",
+        "M-E167",
+        "M-E168",
+        "M-E169",
+        "M-E170",
+        "M-E171",
+        "M-E172",
+        "M-E173",
+        "M-E174",
+        "M-E175",
+        "M-E176",
+        "M-E177",
+        "M-E178",
+        "M-E179",
+        "M-E180",
+        "M-E181",
+        "M-E182",
+        "M-E183",
+        "M-E184",
+        "M-E185",
+        "M-E186",
+        "M-E187",
+        "M-E188",
+        "M-E189",
+        "M-E190",
+        "M-E191",
+        "M-E192",
+        "M-E193",
+        "M-E194",
+        "M-E195",
+        "M-E196",
+        "M-E197",
+        "M-E198",
+        "M-E199"
+      ],
+      "layout": "list",
+      "anchor": "查看历次活用验收中使用的例句。"
     }
   ],
   "originalExamplesAnchor": "",
@@ -94,7 +767,7 @@
       "ja": "本を読みたい。",
       "kana": "",
       "zh": "想读书。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -103,7 +776,7 @@
       "ja": "本を読みます。",
       "kana": "",
       "zh": "读书。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -112,7 +785,7 @@
       "ja": "本を読みません。",
       "kana": "",
       "zh": "不读书。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -121,7 +794,7 @@
       "ja": "本を読みながら歩く。",
       "kana": "",
       "zh": "边读书边走。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -130,7 +803,7 @@
       "ja": "本を読みつつ考える。",
       "kana": "",
       "zh": "一边读书一边思考。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -139,7 +812,7 @@
       "ja": "この本は読みやすい。",
       "kana": "",
       "zh": "这本书容易读。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -148,7 +821,7 @@
       "ja": "この字は読みにくい。",
       "kana": "",
       "zh": "这个字难以辨认。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -157,7 +830,7 @@
       "ja": "昨日は食べすぎた。",
       "kana": "",
       "zh": "昨天吃得太多了。",
-      "note": "动词 · 动作过度",
+      "note": "",
       "focus": []
     },
     {
@@ -166,7 +839,7 @@
       "ja": "本を読み始める。",
       "kana": "",
       "zh": "开始读书。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -175,7 +848,7 @@
       "ja": "本を読み終わる。",
       "kana": "",
       "zh": "读完书。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -184,7 +857,7 @@
       "ja": "最後まで読みきる。",
       "kana": "",
       "zh": "读到最后。",
-      "note": "动词 · 连用形",
+      "note": "",
       "focus": []
     },
     {
@@ -193,7 +866,7 @@
       "ja": "本を読んでいる。",
       "kana": "",
       "zh": "正在读书。",
-      "note": "动词 · 五段动词 · 浊音",
+      "note": "",
       "focus": []
     },
     {
@@ -202,7 +875,7 @@
       "ja": "食べている。",
       "kana": "",
       "zh": "正在吃。",
-      "note": "动词 · 一段动词",
+      "note": "",
       "focus": []
     },
     {
@@ -211,7 +884,7 @@
       "ja": "来ている。",
       "kana": "",
       "zh": "已经来了。",
-      "note": "动词 · カ变动词",
+      "note": "",
       "focus": []
     },
     {
@@ -220,7 +893,7 @@
       "ja": "勉強している。",
       "kana": "",
       "zh": "正在学习。",
-      "note": "动词 · サ变动词",
+      "note": "",
       "focus": []
     },
     {
@@ -229,7 +902,7 @@
       "ja": "書いている。",
       "kana": "",
       "zh": "正在写。",
-      "note": "动词 · 五段动词 · 清音",
+      "note": "",
       "focus": []
     },
     {
@@ -238,7 +911,7 @@
       "ja": "泳いでいる。",
       "kana": "",
       "zh": "正在游泳。",
-      "note": "动词 · 五段动词 · 浊音",
+      "note": "",
       "focus": []
     },
     {
@@ -247,7 +920,7 @@
       "ja": "待っている。",
       "kana": "",
       "zh": "正在等。",
-      "note": "动词 · 五段动词 · 清音",
+      "note": "",
       "focus": []
     },
     {
@@ -256,7 +929,7 @@
       "ja": "読ませている。",
       "kana": "",
       "zh": "让人读。",
-      "note": "助动词 · 被动／使役",
+      "note": "",
       "focus": []
     },
     {
@@ -265,7 +938,7 @@
       "ja": "寒くて困る。",
       "kana": "",
       "zh": "冷得难受。",
-      "note": "イ形容词 · 形容词",
+      "note": "",
       "focus": []
     },
     {
@@ -274,7 +947,7 @@
       "ja": "読みたくて困る。",
       "kana": "",
       "zh": "想读得不得了。",
-      "note": "助动词 · 愿望たい",
+      "note": "",
       "focus": []
     },
     {
@@ -283,7 +956,7 @@
       "ja": "読まなくていい。",
       "kana": "",
       "zh": "不读也可以。",
-      "note": "否定 · 否定ない",
+      "note": "",
       "focus": []
     },
     {
@@ -292,7 +965,7 @@
       "ja": "静かで美しい。",
       "kana": "",
       "zh": "安静而美丽。",
-      "note": "ナ形容词 · 判断连用",
+      "note": "",
       "focus": []
     },
     {
@@ -301,7 +974,7 @@
       "ja": "彼は学生である。",
       "kana": "",
       "zh": "他是学生。",
-      "note": "名词 · 判断连用",
+      "note": "",
       "focus": []
     },
     {
@@ -310,7 +983,7 @@
       "ja": "本を読まない。",
       "kana": "",
       "zh": "不读书。",
-      "note": "动词 · 动词否定",
+      "note": "",
       "focus": []
     },
     {
@@ -319,7 +992,7 @@
       "ja": "高くない。",
       "kana": "",
       "zh": "不高。",
-      "note": "イ形容词 · 形容词否定",
+      "note": "",
       "focus": []
     },
     {
@@ -328,7 +1001,7 @@
       "ja": "学生でない。",
       "kana": "",
       "zh": "不是学生。",
-      "note": "名词／ナ形容词 · 判断否定",
+      "note": "",
       "focus": []
     },
     {
@@ -337,7 +1010,7 @@
       "ja": "静かでない。",
       "kana": "",
       "zh": "不安静。",
-      "note": "名词／ナ形容词 · 判断否定",
+      "note": "",
       "focus": []
     },
     {
@@ -346,7 +1019,7 @@
       "ja": "本を読んだ。",
       "kana": "",
       "zh": "读了书。",
-      "note": "动词 · 五段浊音",
+      "note": "",
       "focus": []
     },
     {
@@ -355,7 +1028,7 @@
       "ja": "本を書いた。",
       "kana": "",
       "zh": "写了书。",
-      "note": "动词 · 一段／变格／五段清音",
+      "note": "",
       "focus": []
     },
     {
@@ -364,7 +1037,7 @@
       "ja": "食べた。",
       "kana": "",
       "zh": "吃过了。",
-      "note": "动词 · 一段／变格／五段清音",
+      "note": "",
       "focus": []
     },
     {
@@ -373,7 +1046,7 @@
       "ja": "高かった。",
       "kana": "",
       "zh": "以前很高。",
-      "note": "イ形容词 · 形容词／ない／たい",
+      "note": "",
       "focus": []
     },
     {
@@ -382,7 +1055,7 @@
       "ja": "読まなかった。",
       "kana": "",
       "zh": "没有读。",
-      "note": "イ形容词 · 形容词／ない／たい",
+      "note": "",
       "focus": []
     },
     {
@@ -391,7 +1064,7 @@
       "ja": "読みました。",
       "kana": "",
       "zh": "读过了。",
-      "note": "助动词 · 敬体ます",
+      "note": "",
       "focus": []
     },
     {
@@ -400,7 +1073,7 @@
       "ja": "学生だった。",
       "kana": "",
       "zh": "以前是学生。",
-      "note": "名词 · 名词判断",
+      "note": "",
       "focus": []
     },
     {
@@ -409,7 +1082,7 @@
       "ja": "静かだった。",
       "kana": "",
       "zh": "以前很安静。",
-      "note": "ナ形容词 · 形容词判断",
+      "note": "",
       "focus": []
     },
     {
@@ -418,7 +1091,7 @@
       "ja": "行かずに帰る。",
       "kana": "",
       "zh": "没有去就回来了。",
-      "note": "动词 · 动词未然",
+      "note": "",
       "focus": []
     },
     {
@@ -427,7 +1100,7 @@
       "ja": "高からずに済む。",
       "kana": "",
       "zh": "价格不高就解决了。",
-      "note": "形容词 · 形容词未然 · 分词恢复",
+      "note": "",
       "focus": []
     },
     {
@@ -436,11 +1109,5782 @@
       "ja": "本を読んでしまっていた。",
       "kana": "",
       "zh": "当时已经读完了书。",
-      "note": "动词 · 五段动词 · 清音",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-001",
+      "group": "complex",
+      "ja": "もうファンになっちゃうしかなくない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-002",
+      "group": "complex",
+      "ja": "屋上から投げ出されそうになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-003",
+      "group": "complex",
+      "ja": "場所を作ろうとしているからな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-004",
+      "group": "complex",
+      "ja": "順番に達成していくことになる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-005",
+      "group": "complex",
+      "ja": "　置いていかれないように集中した",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-006",
+      "group": "complex",
+      "ja": "考えなくていいんだから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-007",
+      "group": "complex",
+      "ja": "付き合いさせていただいております",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-008",
+      "group": "complex",
+      "ja": "舐めてかかっていただろう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-009",
+      "group": "complex",
+      "ja": "こうならないはずなのだから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-010",
+      "group": "complex",
+      "ja": "自分だけ先に帰ることになっちゃったとかだろうか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-011",
+      "group": "complex",
+      "ja": "気合いが入っていたりとかしていない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-012",
+      "group": "complex",
+      "ja": "キャンセルになるかもしれなくなってしまった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-013",
+      "group": "complex",
+      "ja": "リサーチしつつ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-014",
+      "group": "complex",
+      "ja": "支え合ったりできるような気がする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-complex-015",
+      "group": "complex",
+      "ja": "訪ねてきたりしないよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-002",
+      "group": "regression",
+      "ja": "「食べるの？」",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-004",
+      "group": "regression",
+      "ja": "ここで騒ぐな。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-005",
+      "group": "regression",
+      "ja": "ここに入ってはいけない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-006",
+      "group": "regression",
+      "ja": "ここに入ってはだめだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-007",
+      "group": "regression",
+      "ja": "ここに入ってはならない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-010",
+      "group": "regression",
+      "ja": "これしか読まない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-011",
+      "group": "regression",
+      "ja": "これになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-012",
+      "group": "regression",
+      "ja": "そこにいる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-013",
+      "group": "regression",
+      "ja": "なにそれ食べられるの？",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-014",
+      "group": "regression",
+      "ja": "なれたら。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-015",
+      "group": "regression",
+      "ja": "なれたらいいな。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-019",
+      "group": "regression",
+      "ja": "代わられてゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-020",
+      "group": "regression",
+      "ja": "代表になった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-021",
+      "group": "regression",
+      "ja": "会いたくてたまらない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-022",
+      "group": "regression",
+      "ja": "作るとしている",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-023",
+      "group": "regression",
+      "ja": "作ろうと する",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-024",
+      "group": "regression",
+      "ja": "作ろうと、する",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-025",
+      "group": "regression",
+      "ja": "作ろうと思う",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-028",
+      "group": "regression",
+      "ja": "夢みたいだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-029",
+      "group": "regression",
+      "ja": "夢みたいな話。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-030",
+      "group": "regression",
+      "ja": "夢みたいに見える。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-031",
+      "group": "regression",
+      "ja": "学校へゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-033",
+      "group": "regression",
+      "ja": "学生である。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-034",
+      "group": "regression",
+      "ja": "学生ですとか先生だとか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-037",
+      "group": "regression",
+      "ja": "専有してしまっている。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-039",
+      "group": "regression",
+      "ja": "屋根に掛かった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-040",
+      "group": "regression",
+      "ja": "帰ることになっちゃった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-041",
+      "group": "regression",
+      "ja": "広がってゆきました。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-042",
+      "group": "regression",
+      "ja": "強さになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-045",
+      "group": "regression",
+      "ja": "忘れられなくてならない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-046",
+      "group": "regression",
+      "ja": "情報処理。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-047",
+      "group": "regression",
+      "ja": "成立した。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-049",
+      "group": "regression",
+      "ja": "教えて いただいた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-050",
+      "group": "regression",
+      "ja": "教えていただいております",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-051",
+      "group": "regression",
+      "ja": "教えて頂いた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-052",
+      "group": "regression",
+      "ja": "散布されて ゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-053",
+      "group": "regression",
+      "ja": "散布されて、ゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-054",
+      "group": "regression",
+      "ja": "散布されてゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-055",
+      "group": "regression",
+      "ja": "早く行け。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-056",
+      "group": "regression",
+      "ja": "春なら出かける。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-058",
+      "group": "regression",
+      "ja": "時間がかかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-061",
+      "group": "regression",
+      "ja": "本である。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-062",
+      "group": "regression",
+      "ja": "本とか読む",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-063",
+      "group": "regression",
+      "ja": "本をいただいた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-074",
+      "group": "regression",
+      "ja": "本を読んだり聞いたりする。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-077",
+      "group": "regression",
+      "ja": "机に置いた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-079",
+      "group": "regression",
+      "ja": "来なかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-080",
+      "group": "regression",
+      "ja": "歩きながら話す。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-081",
+      "group": "regression",
+      "ja": "気付きたくなかっただけなのだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-084",
+      "group": "regression",
+      "ja": "琴になる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-085",
+      "group": "regression",
+      "ja": "疑って掛かった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-086",
+      "group": "regression",
+      "ja": "発展せしめる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-087",
+      "group": "regression",
+      "ja": "考えつつ進む。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-090",
+      "group": "regression",
+      "ja": "舐めて、かかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-093",
+      "group": "regression",
+      "ja": "行かせられなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-094",
+      "group": "regression",
+      "ja": "行きたがる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-095",
+      "group": "regression",
+      "ja": "行きたくなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-096",
+      "group": "regression",
+      "ja": "行くな。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-097",
+      "group": "regression",
+      "ja": "行くまい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-098",
+      "group": "regression",
+      "ja": "見てごらん。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-099",
+      "group": "regression",
+      "ja": "覗かれてる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-102",
+      "group": "regression",
+      "ja": "読まないたい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-104",
+      "group": "regression",
+      "ja": "読まなくたい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-106",
+      "group": "regression",
+      "ja": "読まなくてよかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-108",
+      "group": "regression",
+      "ja": "読みとかする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-110",
+      "group": "regression",
+      "ja": "読みましたい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-111",
+      "group": "regression",
+      "ja": "読みまします",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-112",
+      "group": "regression",
+      "ja": "読みませんでした。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-113",
+      "group": "regression",
+      "ja": "読みやすい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-114",
+      "group": "regression",
+      "ja": "読みやすかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-115",
+      "group": "regression",
+      "ja": "読む、ことになる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-116",
+      "group": "regression",
+      "ja": "読むしか ない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-117",
+      "group": "regression",
+      "ja": "読むしか、ない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-118",
+      "group": "regression",
+      "ja": "読むしかなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-119",
+      "group": "regression",
+      "ja": "読むしかなくなった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-120",
+      "group": "regression",
+      "ja": "読むだけだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-121",
+      "group": "regression",
+      "ja": "読むとか書くとかする。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-122",
+      "group": "regression",
+      "ja": "読むのになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-123",
+      "group": "regression",
+      "ja": "読むのに時間がかかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-124",
+      "group": "regression",
+      "ja": "読むのをやめた。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-125",
+      "group": "regression",
+      "ja": "読め。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-126",
+      "group": "regression",
+      "ja": "読めそうだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-127",
+      "group": "regression",
+      "ja": "読めば。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-128",
+      "group": "regression",
+      "ja": "読めば分かる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-129",
+      "group": "regression",
+      "ja": "読めるかもしれなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-130",
+      "group": "regression",
+      "ja": "読めるようになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-131",
+      "group": "regression",
+      "ja": "読もう。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-132",
+      "group": "regression",
+      "ja": "読もうとしていなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-133",
+      "group": "regression",
+      "ja": "読んじゃいたかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-134",
+      "group": "regression",
+      "ja": "読んじゃった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-135",
+      "group": "regression",
+      "ja": "読んだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-136",
+      "group": "regression",
+      "ja": "読んだの。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-137",
+      "group": "regression",
+      "ja": "読んだのが好き。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-138",
+      "group": "regression",
+      "ja": "読んだのだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-139",
+      "group": "regression",
+      "ja": "読んだのだったらしい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-140",
+      "group": "regression",
+      "ja": "読んだら。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-141",
+      "group": "regression",
+      "ja": "読んだり とかする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-142",
+      "group": "regression",
+      "ja": "読んだりさせられた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-143",
+      "group": "regression",
+      "ja": "読んだりしているとかする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-144",
+      "group": "regression",
+      "ja": "読んだりしなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-145",
+      "group": "regression",
+      "ja": "読んだりできなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-146",
+      "group": "regression",
+      "ja": "読んだりとか、する",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-147",
+      "group": "regression",
+      "ja": "読んだりとかしなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-148",
+      "group": "regression",
+      "ja": "読んだんです。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-149",
+      "group": "regression",
+      "ja": "読んだん？",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-150",
+      "group": "regression",
+      "ja": "読んで いい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-151",
+      "group": "regression",
+      "ja": "読んで いる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-152",
+      "group": "regression",
+      "ja": "読んで、いい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-153",
+      "group": "regression",
+      "ja": "読んで。いる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-154",
+      "group": "regression",
+      "ja": "読んでいさせられた",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-155",
+      "group": "regression",
+      "ja": "読んでいたくなくなった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-156",
+      "group": "regression",
+      "ja": "読んでいる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-157",
+      "group": "regression",
+      "ja": "読んでくださった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-158",
+      "group": "regression",
+      "ja": "読んでとかいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-159",
+      "group": "regression",
+      "ja": "読んでほしくなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-160",
+      "group": "regression",
+      "ja": "読んでゆく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-161",
+      "group": "regression",
+      "ja": "読んでる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-162",
+      "group": "regression",
+      "ja": "読んどく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-163",
+      "group": "regression",
+      "ja": "降るらしい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-164",
+      "group": "regression",
+      "ja": "雨なれど行く。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-165",
+      "group": "regression",
+      "ja": "静かさを測る。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-166",
+      "group": "regression",
+      "ja": "静かだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-168",
+      "group": "regression",
+      "ja": "静かだったら。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-169",
+      "group": "regression",
+      "ja": "静かだったりしない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-172",
+      "group": "regression",
+      "ja": "静かなので帰る。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-173",
+      "group": "regression",
+      "ja": "静かな町。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-174",
+      "group": "regression",
+      "ja": "静かな町だ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-175",
+      "group": "regression",
+      "ja": "静かになった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-176",
+      "group": "regression",
+      "ja": "静かに歩く。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-178",
+      "group": "regression",
+      "ja": "願ってやまない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-180",
+      "group": "regression",
+      "ja": "食べたかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-181",
+      "group": "regression",
+      "ja": "食べたくない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-182",
+      "group": "regression",
+      "ja": "食べたら。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-183",
+      "group": "regression",
+      "ja": "食べたら寝る。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-184",
+      "group": "regression",
+      "ja": "食べちゃった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-186",
+      "group": "regression",
+      "ja": "食べとく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-187",
+      "group": "regression",
+      "ja": "食べないで寝る。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-188",
+      "group": "regression",
+      "ja": "食べられるの",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-189",
+      "group": "regression",
+      "ja": "食べるのね。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-190",
+      "group": "regression",
+      "ja": "駅に行くな。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-191",
+      "group": "regression",
+      "ja": "高いくらいだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-193",
+      "group": "regression",
+      "ja": "高かったりできない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-196",
+      "group": "regression",
+      "ja": "高くなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-197",
+      "group": "regression",
+      "ja": "高くなくなってしまった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-198",
+      "group": "regression",
+      "ja": "高くはない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-199",
+      "group": "regression",
+      "ja": "鳥のようだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-200",
+      "group": "regression",
+      "ja": "鳥のような姿。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-regression-201",
+      "group": "regression",
+      "ja": "鳥のように飛ぶ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-001",
+      "group": "synthetic",
+      "ja": "ごとき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-002",
+      "group": "synthetic",
+      "ja": "ごとく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-003",
+      "group": "synthetic",
+      "ja": "ごとくなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-004",
+      "group": "synthetic",
+      "ja": "ごとし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-005",
+      "group": "synthetic",
+      "ja": "したのだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-006",
+      "group": "synthetic",
+      "ja": "したんだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-007",
+      "group": "synthetic",
+      "ja": "そう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-008",
+      "group": "synthetic",
+      "ja": "はず",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-009",
+      "group": "synthetic",
+      "ja": "よう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-010",
+      "group": "synthetic",
+      "ja": "よから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-011",
+      "group": "synthetic",
+      "ja": "よかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-012",
+      "group": "synthetic",
+      "ja": "よかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-013",
+      "group": "synthetic",
+      "ja": "よかれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-014",
+      "group": "synthetic",
+      "ja": "よき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-015",
+      "group": "synthetic",
+      "ja": "よく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-016",
+      "group": "synthetic",
+      "ja": "よけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-017",
+      "group": "synthetic",
+      "ja": "よし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-018",
+      "group": "synthetic",
+      "ja": "厳然たる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-019",
+      "group": "synthetic",
+      "ja": "堂々たら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-020",
+      "group": "synthetic",
+      "ja": "堂々たり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-021",
+      "group": "synthetic",
+      "ja": "堂々たる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-022",
+      "group": "synthetic",
+      "ja": "堂々たれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-023",
+      "group": "synthetic",
+      "ja": "堂々と",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-024",
+      "group": "synthetic",
+      "ja": "夢ごとき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-025",
+      "group": "synthetic",
+      "ja": "夢ごとく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-026",
+      "group": "synthetic",
+      "ja": "夢ごとくなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-027",
+      "group": "synthetic",
+      "ja": "夢ごとくなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-028",
+      "group": "synthetic",
+      "ja": "夢ごとくなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-029",
+      "group": "synthetic",
+      "ja": "夢ごとくなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-030",
+      "group": "synthetic",
+      "ja": "夢ごとくに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-031",
+      "group": "synthetic",
+      "ja": "夢ごとし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-032",
+      "group": "synthetic",
+      "ja": "夢たら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-033",
+      "group": "synthetic",
+      "ja": "夢たり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-034",
+      "group": "synthetic",
+      "ja": "夢たる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-035",
+      "group": "synthetic",
+      "ja": "夢たれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-036",
+      "group": "synthetic",
+      "ja": "夢ですし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-037",
+      "group": "synthetic",
+      "ja": "夢ですとか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-038",
+      "group": "synthetic",
+      "ja": "夢と",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-039",
+      "group": "synthetic",
+      "ja": "夢なら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-040",
+      "group": "synthetic",
+      "ja": "夢なり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-041",
+      "group": "synthetic",
+      "ja": "夢なる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-042",
+      "group": "synthetic",
+      "ja": "夢なれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-043",
+      "group": "synthetic",
+      "ja": "夢に",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-044",
+      "group": "synthetic",
+      "ja": "夢のごとき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-045",
+      "group": "synthetic",
+      "ja": "夢のごとし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-046",
+      "group": "synthetic",
+      "ja": "夢のよう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-047",
+      "group": "synthetic",
+      "ja": "夢のようだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-048",
+      "group": "synthetic",
+      "ja": "夢やうなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-049",
+      "group": "synthetic",
+      "ja": "夢やうなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-050",
+      "group": "synthetic",
+      "ja": "夢やうなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-051",
+      "group": "synthetic",
+      "ja": "夢やうなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-052",
+      "group": "synthetic",
+      "ja": "夢やうに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-053",
+      "group": "synthetic",
+      "ja": "夢ようなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-054",
+      "group": "synthetic",
+      "ja": "夢ようなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-055",
+      "group": "synthetic",
+      "ja": "夢ようなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-056",
+      "group": "synthetic",
+      "ja": "夢ようなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-057",
+      "group": "synthetic",
+      "ja": "夢ように",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-058",
+      "group": "synthetic",
+      "ja": "子どもみたいだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-059",
+      "group": "synthetic",
+      "ja": "子どもみたいだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-060",
+      "group": "synthetic",
+      "ja": "子どもみたいで",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-061",
+      "group": "synthetic",
+      "ja": "子どもみたいでした",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-062",
+      "group": "synthetic",
+      "ja": "子どもみたいな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-063",
+      "group": "synthetic",
+      "ja": "子どもみたいに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-064",
+      "group": "synthetic",
+      "ja": "底知れなさ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-065",
+      "group": "synthetic",
+      "ja": "彼のはずだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-066",
+      "group": "synthetic",
+      "ja": "悲しき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-067",
+      "group": "synthetic",
+      "ja": "明日でしょ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-068",
+      "group": "synthetic",
+      "ja": "明日でしょう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-069",
+      "group": "synthetic",
+      "ja": "春らしかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-070",
+      "group": "synthetic",
+      "ja": "書かり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-071",
+      "group": "synthetic",
+      "ja": "書かれけり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-072",
+      "group": "synthetic",
+      "ja": "本",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-073",
+      "group": "synthetic",
+      "ja": "本とか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-074",
+      "group": "synthetic",
+      "ja": "本は",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-075",
+      "group": "synthetic",
+      "ja": "来まじ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-076",
+      "group": "synthetic",
+      "ja": "気付きたくなかっただけなのだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-077",
+      "group": "synthetic",
+      "ja": "穏やかなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-078",
+      "group": "synthetic",
+      "ja": "美し",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-079",
+      "group": "synthetic",
+      "ja": "美しから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-080",
+      "group": "synthetic",
+      "ja": "美しかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-081",
+      "group": "synthetic",
+      "ja": "美しかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-082",
+      "group": "synthetic",
+      "ja": "美しかれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-083",
+      "group": "synthetic",
+      "ja": "美しき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-084",
+      "group": "synthetic",
+      "ja": "美しく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-085",
+      "group": "synthetic",
+      "ja": "美しけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-086",
+      "group": "synthetic",
+      "ja": "行かさす",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-087",
+      "group": "synthetic",
+      "ja": "行かさする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-088",
+      "group": "synthetic",
+      "ja": "行かさすれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-089",
+      "group": "synthetic",
+      "ja": "行かさせ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-090",
+      "group": "synthetic",
+      "ja": "行かさせよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-091",
+      "group": "synthetic",
+      "ja": "行かざら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-092",
+      "group": "synthetic",
+      "ja": "行かざり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-093",
+      "group": "synthetic",
+      "ja": "行かざる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-094",
+      "group": "synthetic",
+      "ja": "行かざるべからず",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-095",
+      "group": "synthetic",
+      "ja": "行かざれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-096",
+      "group": "synthetic",
+      "ja": "行かしむ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-097",
+      "group": "synthetic",
+      "ja": "行かしむる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-098",
+      "group": "synthetic",
+      "ja": "行かしむれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-099",
+      "group": "synthetic",
+      "ja": "行かしめ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-100",
+      "group": "synthetic",
+      "ja": "行かしめよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-101",
+      "group": "synthetic",
+      "ja": "行かじ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-102",
+      "group": "synthetic",
+      "ja": "行かす",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-103",
+      "group": "synthetic",
+      "ja": "行かする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-104",
+      "group": "synthetic",
+      "ja": "行かすれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-105",
+      "group": "synthetic",
+      "ja": "行かず",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-106",
+      "group": "synthetic",
+      "ja": "行かずに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-107",
+      "group": "synthetic",
+      "ja": "行かせ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-108",
+      "group": "synthetic",
+      "ja": "行かせよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-109",
+      "group": "synthetic",
+      "ja": "行かな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-110",
+      "group": "synthetic",
+      "ja": "行かに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-111",
+      "group": "synthetic",
+      "ja": "行かぬ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-112",
+      "group": "synthetic",
+      "ja": "行かぬる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-113",
+      "group": "synthetic",
+      "ja": "行かぬれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-114",
+      "group": "synthetic",
+      "ja": "行かね",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-115",
+      "group": "synthetic",
+      "ja": "行かま",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-116",
+      "group": "synthetic",
+      "ja": "行かまし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-117",
+      "group": "synthetic",
+      "ja": "行かましか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-118",
+      "group": "synthetic",
+      "ja": "行かませ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-119",
+      "group": "synthetic",
+      "ja": "行かまほし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-120",
+      "group": "synthetic",
+      "ja": "行かまほしから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-121",
+      "group": "synthetic",
+      "ja": "行かまほしかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-122",
+      "group": "synthetic",
+      "ja": "行かまほしかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-123",
+      "group": "synthetic",
+      "ja": "行かまほしき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-124",
+      "group": "synthetic",
+      "ja": "行かまほしく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-125",
+      "group": "synthetic",
+      "ja": "行かまほしけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-126",
+      "group": "synthetic",
+      "ja": "行かむ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-127",
+      "group": "synthetic",
+      "ja": "行かむず",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-128",
+      "group": "synthetic",
+      "ja": "行かむずる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-129",
+      "group": "synthetic",
+      "ja": "行かむずれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-130",
+      "group": "synthetic",
+      "ja": "行かめ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-131",
+      "group": "synthetic",
+      "ja": "行から",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-132",
+      "group": "synthetic",
+      "ja": "行からる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-133",
+      "group": "synthetic",
+      "ja": "行からるる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-134",
+      "group": "synthetic",
+      "ja": "行からるれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-135",
+      "group": "synthetic",
+      "ja": "行かられ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-136",
+      "group": "synthetic",
+      "ja": "行かられよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-137",
+      "group": "synthetic",
+      "ja": "行かり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-138",
+      "group": "synthetic",
+      "ja": "行かる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-139",
+      "group": "synthetic",
+      "ja": "行かるる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-140",
+      "group": "synthetic",
+      "ja": "行かるれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-141",
+      "group": "synthetic",
+      "ja": "行かれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-142",
+      "group": "synthetic",
+      "ja": "行かれよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-143",
+      "group": "synthetic",
+      "ja": "行かん",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-144",
+      "group": "synthetic",
+      "ja": "行きき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-145",
+      "group": "synthetic",
+      "ja": "行きけま",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-146",
+      "group": "synthetic",
+      "ja": "行きけむ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-147",
+      "group": "synthetic",
+      "ja": "行きけめ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-148",
+      "group": "synthetic",
+      "ja": "行きけら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-149",
+      "group": "synthetic",
+      "ja": "行きけらし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-150",
+      "group": "synthetic",
+      "ja": "行きけらしき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-151",
+      "group": "synthetic",
+      "ja": "行きけり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-152",
+      "group": "synthetic",
+      "ja": "行きける",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-153",
+      "group": "synthetic",
+      "ja": "行きけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-154",
+      "group": "synthetic",
+      "ja": "行きけん",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-155",
+      "group": "synthetic",
+      "ja": "行きざら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-156",
+      "group": "synthetic",
+      "ja": "行きざり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-157",
+      "group": "synthetic",
+      "ja": "行きざる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-158",
+      "group": "synthetic",
+      "ja": "行きざれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-159",
+      "group": "synthetic",
+      "ja": "行きし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-160",
+      "group": "synthetic",
+      "ja": "行きしか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-161",
+      "group": "synthetic",
+      "ja": "行きず",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-162",
+      "group": "synthetic",
+      "ja": "行きせ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-163",
+      "group": "synthetic",
+      "ja": "行きたから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-164",
+      "group": "synthetic",
+      "ja": "行きたかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-165",
+      "group": "synthetic",
+      "ja": "行きたかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-166",
+      "group": "synthetic",
+      "ja": "行きたき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-167",
+      "group": "synthetic",
+      "ja": "行きたく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-168",
+      "group": "synthetic",
+      "ja": "行きたけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-169",
+      "group": "synthetic",
+      "ja": "行きたし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-170",
+      "group": "synthetic",
+      "ja": "行きたら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-171",
+      "group": "synthetic",
+      "ja": "行きたり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-172",
+      "group": "synthetic",
+      "ja": "行きたる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-173",
+      "group": "synthetic",
+      "ja": "行きたれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-174",
+      "group": "synthetic",
+      "ja": "行きつ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-175",
+      "group": "synthetic",
+      "ja": "行きつる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-176",
+      "group": "synthetic",
+      "ja": "行きつれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-177",
+      "group": "synthetic",
+      "ja": "行きて",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-178",
+      "group": "synthetic",
+      "ja": "行きてよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-179",
+      "group": "synthetic",
+      "ja": "行きな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-180",
+      "group": "synthetic",
+      "ja": "行きなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-181",
+      "group": "synthetic",
+      "ja": "行きなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-182",
+      "group": "synthetic",
+      "ja": "行きなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-183",
+      "group": "synthetic",
+      "ja": "行きに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-184",
+      "group": "synthetic",
+      "ja": "行きぬ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-185",
+      "group": "synthetic",
+      "ja": "行きぬる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-186",
+      "group": "synthetic",
+      "ja": "行きぬれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-187",
+      "group": "synthetic",
+      "ja": "行きね",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-188",
+      "group": "synthetic",
+      "ja": "行きまじ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-189",
+      "group": "synthetic",
+      "ja": "行きまじから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-190",
+      "group": "synthetic",
+      "ja": "行きまじかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-191",
+      "group": "synthetic",
+      "ja": "行きまじかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-192",
+      "group": "synthetic",
+      "ja": "行きまじき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-193",
+      "group": "synthetic",
+      "ja": "行きまじく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-194",
+      "group": "synthetic",
+      "ja": "行きまじけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-195",
+      "group": "synthetic",
+      "ja": "行きらる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-196",
+      "group": "synthetic",
+      "ja": "行きらるる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-197",
+      "group": "synthetic",
+      "ja": "行きらるれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-198",
+      "group": "synthetic",
+      "ja": "行きられ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-199",
+      "group": "synthetic",
+      "ja": "行きられよ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-200",
+      "group": "synthetic",
+      "ja": "行くき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-201",
+      "group": "synthetic",
+      "ja": "行くけら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-202",
+      "group": "synthetic",
+      "ja": "行くけり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-203",
+      "group": "synthetic",
+      "ja": "行くける",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-204",
+      "group": "synthetic",
+      "ja": "行くけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-205",
+      "group": "synthetic",
+      "ja": "行くごとき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-206",
+      "group": "synthetic",
+      "ja": "行くごとく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-207",
+      "group": "synthetic",
+      "ja": "行くごとくなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-208",
+      "group": "synthetic",
+      "ja": "行くごとくなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-209",
+      "group": "synthetic",
+      "ja": "行くごとくなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-210",
+      "group": "synthetic",
+      "ja": "行くごとくなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-211",
+      "group": "synthetic",
+      "ja": "行くごとくに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-212",
+      "group": "synthetic",
+      "ja": "行くごとし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-213",
+      "group": "synthetic",
+      "ja": "行くし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-214",
+      "group": "synthetic",
+      "ja": "行くしか",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-215",
+      "group": "synthetic",
+      "ja": "行くせ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-216",
+      "group": "synthetic",
+      "ja": "行くな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-217",
+      "group": "synthetic",
+      "ja": "行くなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-218",
+      "group": "synthetic",
+      "ja": "行くなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-219",
+      "group": "synthetic",
+      "ja": "行くなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-220",
+      "group": "synthetic",
+      "ja": "行くなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-221",
+      "group": "synthetic",
+      "ja": "行くに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-222",
+      "group": "synthetic",
+      "ja": "行くべから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-223",
+      "group": "synthetic",
+      "ja": "行くべかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-224",
+      "group": "synthetic",
+      "ja": "行くべかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-225",
+      "group": "synthetic",
+      "ja": "行くべき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-226",
+      "group": "synthetic",
+      "ja": "行くべく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-227",
+      "group": "synthetic",
+      "ja": "行くべけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-228",
+      "group": "synthetic",
+      "ja": "行くべし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-229",
+      "group": "synthetic",
+      "ja": "行くべらなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-230",
+      "group": "synthetic",
+      "ja": "行くべらなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-231",
+      "group": "synthetic",
+      "ja": "行くべらなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-232",
+      "group": "synthetic",
+      "ja": "行くべらに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-233",
+      "group": "synthetic",
+      "ja": "行くまじ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-234",
+      "group": "synthetic",
+      "ja": "行くまじから",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-235",
+      "group": "synthetic",
+      "ja": "行くまじかり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-236",
+      "group": "synthetic",
+      "ja": "行くまじかる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-237",
+      "group": "synthetic",
+      "ja": "行くまじき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-238",
+      "group": "synthetic",
+      "ja": "行くまじく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-239",
+      "group": "synthetic",
+      "ja": "行くまじけれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-240",
+      "group": "synthetic",
+      "ja": "行くめり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-241",
+      "group": "synthetic",
+      "ja": "行くめる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-242",
+      "group": "synthetic",
+      "ja": "行くめれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-243",
+      "group": "synthetic",
+      "ja": "行くらし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-244",
+      "group": "synthetic",
+      "ja": "行くらしき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-245",
+      "group": "synthetic",
+      "ja": "行くらむ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-246",
+      "group": "synthetic",
+      "ja": "行くらめ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-247",
+      "group": "synthetic",
+      "ja": "行くらん",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-248",
+      "group": "synthetic",
+      "ja": "行けら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-249",
+      "group": "synthetic",
+      "ja": "行けり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-250",
+      "group": "synthetic",
+      "ja": "行ける",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-251",
+      "group": "synthetic",
+      "ja": "行けれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-252",
+      "group": "synthetic",
+      "ja": "見ざるなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-253",
+      "group": "synthetic",
+      "ja": "読まずに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-254",
+      "group": "synthetic",
+      "ja": "読ませる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-255",
+      "group": "synthetic",
+      "ja": "読まない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-256",
+      "group": "synthetic",
+      "ja": "読まなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-257",
+      "group": "synthetic",
+      "ja": "読まれる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-258",
+      "group": "synthetic",
+      "ja": "読み",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-259",
+      "group": "synthetic",
+      "ja": "読みかける",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-260",
+      "group": "synthetic",
+      "ja": "読みかねる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-261",
+      "group": "synthetic",
+      "ja": "読みすぎる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-262",
+      "group": "synthetic",
+      "ja": "読みそう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-263",
+      "group": "synthetic",
+      "ja": "読みそうだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-264",
+      "group": "synthetic",
+      "ja": "読みそうだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-265",
+      "group": "synthetic",
+      "ja": "読みそうで",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-266",
+      "group": "synthetic",
+      "ja": "読みそうでした",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-267",
+      "group": "synthetic",
+      "ja": "読みそうな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-268",
+      "group": "synthetic",
+      "ja": "読みそうに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-269",
+      "group": "synthetic",
+      "ja": "読みそびれる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-270",
+      "group": "synthetic",
+      "ja": "読みたい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-271",
+      "group": "synthetic",
+      "ja": "読みたかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-272",
+      "group": "synthetic",
+      "ja": "読みたくない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-273",
+      "group": "synthetic",
+      "ja": "読みは",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-274",
+      "group": "synthetic",
+      "ja": "読みまくる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-277",
+      "group": "synthetic",
+      "ja": "読みます",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-278",
+      "group": "synthetic",
+      "ja": "読みませせる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-279",
+      "group": "synthetic",
+      "ja": "読み出す",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-280",
+      "group": "synthetic",
+      "ja": "読み切る",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-281",
+      "group": "synthetic",
+      "ja": "読み始める",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-282",
+      "group": "synthetic",
+      "ja": "読み損なう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-283",
+      "group": "synthetic",
+      "ja": "読み直す",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-284",
+      "group": "synthetic",
+      "ja": "読み終わる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-285",
+      "group": "synthetic",
+      "ja": "読み続ける",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-286",
+      "group": "synthetic",
+      "ja": "読む",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-287",
+      "group": "synthetic",
+      "ja": "読むそう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-288",
+      "group": "synthetic",
+      "ja": "読むだけのだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-289",
+      "group": "synthetic",
+      "ja": "読むでしょ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-290",
+      "group": "synthetic",
+      "ja": "読むでしょう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-291",
+      "group": "synthetic",
+      "ja": "読むの",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-292",
+      "group": "synthetic",
+      "ja": "読むは",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-293",
+      "group": "synthetic",
+      "ja": "読むはずだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-294",
+      "group": "synthetic",
+      "ja": "読むはずだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-295",
+      "group": "synthetic",
+      "ja": "読むはずで",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-296",
+      "group": "synthetic",
+      "ja": "読むはずでした",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-297",
+      "group": "synthetic",
+      "ja": "読むべき",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-298",
+      "group": "synthetic",
+      "ja": "読むべきだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-299",
+      "group": "synthetic",
+      "ja": "読むべきだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-300",
+      "group": "synthetic",
+      "ja": "読むべきで",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-301",
+      "group": "synthetic",
+      "ja": "読むべきでした",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-302",
+      "group": "synthetic",
+      "ja": "読むべきな",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-303",
+      "group": "synthetic",
+      "ja": "読むべきに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-304",
+      "group": "synthetic",
+      "ja": "読むべく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-305",
+      "group": "synthetic",
+      "ja": "読むべし",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-306",
+      "group": "synthetic",
+      "ja": "読むようだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-307",
+      "group": "synthetic",
+      "ja": "読むようだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-308",
+      "group": "synthetic",
+      "ja": "読むようで",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-309",
+      "group": "synthetic",
+      "ja": "読むようでした",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-310",
+      "group": "synthetic",
+      "ja": "読むような",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-311",
+      "group": "synthetic",
+      "ja": "読むように",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-312",
+      "group": "synthetic",
+      "ja": "読むらしかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-313",
+      "group": "synthetic",
+      "ja": "読め",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-314",
+      "group": "synthetic",
+      "ja": "読めば",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-315",
+      "group": "synthetic",
+      "ja": "読もう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-316",
+      "group": "synthetic",
+      "ja": "読んだ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-317",
+      "group": "synthetic",
+      "ja": "読んだは",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-318",
+      "group": "synthetic",
+      "ja": "読んだりする",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-319",
+      "group": "synthetic",
+      "ja": "読んだりとかしない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-320",
+      "group": "synthetic",
+      "ja": "読んでいていていていていていていていてい",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-321",
+      "group": "synthetic",
+      "ja": "読んでいない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-322",
+      "group": "synthetic",
+      "ja": "読んでいなかった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-323",
+      "group": "synthetic",
+      "ja": "読んでいました",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-324",
+      "group": "synthetic",
+      "ja": "読んでいます",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-325",
+      "group": "synthetic",
+      "ja": "読んでいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-326",
+      "group": "synthetic",
+      "ja": "読んでおいてみる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-327",
+      "group": "synthetic",
+      "ja": "読んでおく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-328",
+      "group": "synthetic",
+      "ja": "読んでがいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-329",
+      "group": "synthetic",
+      "ja": "読んでくださる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-330",
+      "group": "synthetic",
+      "ja": "読んでこそいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-331",
+      "group": "synthetic",
+      "ja": "読んでさえいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-332",
+      "group": "synthetic",
+      "ja": "読んでさえおく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-333",
+      "group": "synthetic",
+      "ja": "読んでしかいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-334",
+      "group": "synthetic",
+      "ja": "読んでしまう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-335",
+      "group": "synthetic",
+      "ja": "読んですらいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-336",
+      "group": "synthetic",
+      "ja": "読んでだけいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-337",
+      "group": "synthetic",
+      "ja": "読んでだけはいました",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-338",
+      "group": "synthetic",
+      "ja": "読んでといる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-340",
+      "group": "synthetic",
+      "ja": "読んでなどいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-341",
+      "group": "synthetic",
+      "ja": "読んでなんている",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-342",
+      "group": "synthetic",
+      "ja": "読んでにいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-343",
+      "group": "synthetic",
+      "ja": "読んでは いる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-344",
+      "group": "synthetic",
+      "ja": "読んでは。いる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-345",
+      "group": "synthetic",
+      "ja": "読んではいてもみる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-346",
+      "group": "synthetic",
+      "ja": "読んではいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-347",
+      "group": "synthetic",
+      "ja": "読んではおく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-348",
+      "group": "synthetic",
+      "ja": "読んでばかりいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-349",
+      "group": "synthetic",
+      "ja": "読んでまでいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-350",
+      "group": "synthetic",
+      "ja": "読んでみる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-351",
+      "group": "synthetic",
+      "ja": "読んでもいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-352",
+      "group": "synthetic",
+      "ja": "読んでもおく",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-353",
+      "group": "synthetic",
+      "ja": "読んでもみる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-354",
+      "group": "synthetic",
+      "ja": "読んでをいる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-355",
+      "group": "synthetic",
+      "ja": "読んで下さる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-356",
+      "group": "synthetic",
+      "ja": "読んで仕舞う",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-357",
+      "group": "synthetic",
+      "ja": "読んで居る",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-358",
+      "group": "synthetic",
+      "ja": "読んで置く",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-359",
+      "group": "synthetic",
+      "ja": "読んで見る",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-360",
+      "group": "synthetic",
+      "ja": "静かだっ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-361",
+      "group": "synthetic",
+      "ja": "静かだった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-362",
+      "group": "synthetic",
+      "ja": "静かであった",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-363",
+      "group": "synthetic",
+      "ja": "静かでない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-364",
+      "group": "synthetic",
+      "ja": "静かではない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-365",
+      "group": "synthetic",
+      "ja": "静かなら",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-366",
+      "group": "synthetic",
+      "ja": "静かなり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-367",
+      "group": "synthetic",
+      "ja": "静かなりけり",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-368",
+      "group": "synthetic",
+      "ja": "静かなる",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-369",
+      "group": "synthetic",
+      "ja": "静かなれ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-370",
+      "group": "synthetic",
+      "ja": "静かに",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-371",
+      "group": "synthetic",
+      "ja": "高いでしょ",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-372",
+      "group": "synthetic",
+      "ja": "高いでしょう",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-373",
+      "group": "synthetic",
+      "ja": "高き",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-374",
+      "group": "synthetic",
+      "ja": "高く",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-375",
+      "group": "synthetic",
+      "ja": "高くている",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-376",
+      "group": "synthetic",
+      "ja": "高くは",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-synthetic-377",
+      "group": "synthetic",
+      "ja": "高くはない",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E001",
+      "group": "historical",
+      "ja": "読みたい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E002",
+      "group": "historical",
+      "ja": "読みたくなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E003",
+      "group": "historical",
+      "ja": "読ませられなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E004",
+      "group": "historical",
+      "ja": "読んでしまっていた。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E005",
+      "group": "historical",
+      "ja": "読んではいけない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E007",
+      "group": "historical",
+      "ja": "静かではなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E008",
+      "group": "historical",
+      "ja": "花のようだった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E012",
+      "group": "historical",
+      "ja": "見ればよかったのに。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E013",
+      "group": "historical",
+      "ja": "行かざるを得なかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E014",
+      "group": "historical",
+      "ja": "ごときものなり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E015",
+      "group": "historical",
+      "ja": "読まない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E018",
+      "group": "historical",
+      "ja": "読みたいです。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E019",
+      "group": "historical",
+      "ja": "読みたくありません。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E020",
+      "group": "historical",
+      "ja": "読んでいなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E021",
+      "group": "historical",
+      "ja": "読んでしまった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E022",
+      "group": "historical",
+      "ja": "読んでおいた。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E023",
+      "group": "historical",
+      "ja": "読み始めた。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E024",
+      "group": "historical",
+      "ja": "読みすぎた。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E025",
+      "group": "historical",
+      "ja": "読めばよかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E026",
+      "group": "historical",
+      "ja": "読めなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E027",
+      "group": "historical",
+      "ja": "静かでなくなった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E028",
+      "group": "historical",
+      "ja": "静かそうだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E029",
+      "group": "historical",
+      "ja": "静からしい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E031",
+      "group": "historical",
+      "ja": "学生ではない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E032",
+      "group": "historical",
+      "ja": "行かぬ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E033",
+      "group": "historical",
+      "ja": "行かない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E034",
+      "group": "historical",
+      "ja": "読ませられない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E036",
+      "group": "historical",
+      "ja": "読みません。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E037",
+      "group": "historical",
+      "ja": "読ませられました。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E038",
+      "group": "historical",
+      "ja": "読まされなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E039",
+      "group": "historical",
+      "ja": "読んでいられない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E040",
+      "group": "historical",
+      "ja": "読んでいなくなった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E041",
+      "group": "historical",
+      "ja": "高くなくなった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E043",
+      "group": "historical",
+      "ja": "高くはなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E044",
+      "group": "historical",
+      "ja": "静かだったらしい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E045",
+      "group": "historical",
+      "ja": "静かではありませんでした。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E046",
+      "group": "historical",
+      "ja": "花のようではなかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E047",
+      "group": "historical",
+      "ja": "読むだけではない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E048",
+      "group": "historical",
+      "ja": "読むだけの本。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E049",
+      "group": "historical",
+      "ja": "見ることができる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E050",
+      "group": "historical",
+      "ja": "行かずに読んだ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E051",
+      "group": "historical",
+      "ja": "ごとくなり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E052",
+      "group": "historical",
+      "ja": "べきだった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E053",
+      "group": "historical",
+      "ja": "べきではない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E054",
+      "group": "historical",
+      "ja": "読みたせる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E055",
+      "group": "historical",
+      "ja": "読まないたい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E056",
+      "group": "historical",
+      "ja": "読みましたい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E057",
+      "group": "historical",
+      "ja": "彼は映画を見たが、帰った。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E058",
+      "group": "historical",
+      "ja": "行けば分かる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E065",
+      "group": "historical",
+      "ja": "本を読んだり音楽を聞いたりする。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E069",
+      "group": "historical",
+      "ja": "雨だが行く。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E079",
+      "group": "historical",
+      "ja": "読んでおく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E080",
+      "group": "historical",
+      "ja": "読んでいく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E082",
+      "group": "historical",
+      "ja": "読んでくる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E083",
+      "group": "historical",
+      "ja": "やってみる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E084",
+      "group": "historical",
+      "ja": "読んでください。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E085",
+      "group": "historical",
+      "ja": "読んでもらう。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E086",
+      "group": "historical",
+      "ja": "読んであげる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E087",
+      "group": "historical",
+      "ja": "読んでくれる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E088",
+      "group": "historical",
+      "ja": "読んでやる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E089",
+      "group": "historical",
+      "ja": "読んでほしい。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E091",
+      "group": "historical",
+      "ja": "やってみせる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E158",
+      "group": "historical",
+      "ja": "行かざる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E159",
+      "group": "historical",
+      "ja": "泣かざりし。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E160",
+      "group": "historical",
+      "ja": "見ざるなり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E161",
+      "group": "historical",
+      "ja": "静かなり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E162",
+      "group": "historical",
+      "ja": "静かなりけり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E163",
+      "group": "historical",
+      "ja": "行くべし。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E164",
+      "group": "historical",
+      "ja": "行くべきだった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E165",
+      "group": "historical",
+      "ja": "行かざるべからず。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E166",
+      "group": "historical",
+      "ja": "読みたる本。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E167",
+      "group": "historical",
+      "ja": "行かむ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E168",
+      "group": "historical",
+      "ja": "来まじ。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E169",
+      "group": "historical",
+      "ja": "見ざりけり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E170",
+      "group": "historical",
+      "ja": "水のごとくなり。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E171",
+      "group": "historical",
+      "ja": "読ませる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E172",
+      "group": "historical",
+      "ja": "読まれる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E173",
+      "group": "historical",
+      "ja": "読みます。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E174",
+      "group": "historical",
+      "ja": "読みたくない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E175",
+      "group": "historical",
+      "ja": "読みたかった。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E176",
+      "group": "historical",
+      "ja": "読みすぎる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E177",
+      "group": "historical",
+      "ja": "読み始める。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E178",
+      "group": "historical",
+      "ja": "読み続ける。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E179",
+      "group": "historical",
+      "ja": "読み終わる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E180",
+      "group": "historical",
+      "ja": "読みまくる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E181",
+      "group": "historical",
+      "ja": "読み出す。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E182",
+      "group": "historical",
+      "ja": "読み直す。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E183",
+      "group": "historical",
+      "ja": "読みかける。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E184",
+      "group": "historical",
+      "ja": "読み切る。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E185",
+      "group": "historical",
+      "ja": "読みかねる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E186",
+      "group": "historical",
+      "ja": "読み損なう。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E187",
+      "group": "historical",
+      "ja": "読みそびれる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E188",
+      "group": "historical",
+      "ja": "読んでしまう。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E189",
+      "group": "historical",
+      "ja": "読んでみる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E190",
+      "group": "historical",
+      "ja": "読んでくださる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E191",
+      "group": "historical",
+      "ja": "読んではおく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E192",
+      "group": "historical",
+      "ja": "読んでもおく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E193",
+      "group": "historical",
+      "ja": "読んでさえおく。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E194",
+      "group": "historical",
+      "ja": "読んではいる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E195",
+      "group": "historical",
+      "ja": "読んでもみる。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E196",
+      "group": "historical",
+      "ja": "読んでいない。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E197",
+      "group": "historical",
+      "ja": "読んでいました。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E198",
+      "group": "historical",
+      "ja": "読んだりする。",
+      "kana": "",
+      "zh": "",
+      "note": "",
+      "focus": []
+    },
+    {
+      "id": "M-E199",
+      "group": "historical",
+      "ja": "高くている。",
+      "kana": "",
+      "zh": "",
+      "note": "",
       "focus": []
     }
   ],
   "generatedFrom": {
-    "cases": "data/validation/morphology_stage11_cases.json"
+    "cases": "data/validation/morphology_stage11_cases.json",
+    "staticCases": "data/validation/morphology_static_cases.json",
+    "history": "docs/morphology_example_status.md"
   }
 }

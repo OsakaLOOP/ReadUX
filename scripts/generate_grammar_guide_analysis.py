@@ -27,7 +27,10 @@ def request(process, command, **payload):
 def main():
     parser = argparse.ArgumentParser(description="生成课节分析和词典静态资源。")
     parser.add_argument("--lesson", choices=("1.1", "2.1", "stage11"), default="1.1")
-    lesson = parser.parse_args().lesson
+    parser.add_argument("--service", type=Path, default=SERVICE, help="正式分析服务的可执行文件路径")
+    parser.add_argument("--group", help="只更新指定例句组的快照")
+    args = parser.parse_args()
+    lesson = args.lesson
     stem = f"lesson-{lesson.replace('.', '-')}.json"
     package_path = ROOT / "src/grammar-guide" / stem
     output_path = package_path.with_name(package_path.stem + "-analysis.json")
@@ -36,9 +39,21 @@ def main():
     particles = json.loads(PARTICLES.read_text(encoding="utf-8"))["entries"]
     particle_ids = {entry["headword"]: entry["id"] for entry in particles}
     examples = package["examples"] + package["originalExamples"]
+    if args.group:
+        examples = [example for example in examples if example["group"] == args.group]
+        if not examples:
+            raise ValueError(f"例句组不存在：{args.group}")
+    connection_cases = {
+        case["text"]: case for case in json.loads((ROOT / "data/validation/morphology_stage11_cases.json").read_text(encoding="utf-8"))
+    } if lesson == "stage11" else {}
     output, dictionary = {}, {}
+    if args.group:
+        if output_path.exists():
+            output = json.loads(output_path.read_text(encoding="utf-8"))["examples"]
+        if dictionary_path.exists():
+            dictionary = json.loads(dictionary_path.read_text(encoding="utf-8"))["entries"]
     process = subprocess.Popen(
-        [str(SERVICE), "stdio"], cwd=ROOT, stdin=subprocess.PIPE,
+        [str(args.service.resolve()), "stdio"], cwd=ROOT, stdin=subprocess.PIPE,
         stdout=subprocess.PIPE, text=True, encoding="utf-8", bufsize=1,
     )
     try:
@@ -50,9 +65,7 @@ def main():
             if not enriched["providers"] or any(p["status"] != "ready" for p in enriched["providers"]):
                 raise RuntimeError(f'{example["id"]}：GiNZA 来源未就绪：{enriched["providers"]}')
             document = enriched["document"]
-            if lesson == "stage11":
-                cases = json.loads((ROOT / "data/validation/morphology_stage11_cases.json").read_text(encoding="utf-8"))
-                case = next(case for case in cases if case["text"] == example["ja"])
+            if case := connection_cases.get(example["ja"]):
                 operators = [op for chain in document["morphology"]["chains"] for op in chain["operators"] if op["kind"] == case["kind"]]
                 if len(operators) != 1 or operators[0].get("connection", {}).get("matched_paths") != [case["path"]]:
                     raise RuntimeError(f'{example["id"]}：接续分支与验收清单不一致')
@@ -66,10 +79,9 @@ def main():
                 if particle:
                     surface = particle["surface"]
                     canonical = "て" if surface == "で" and particle["pos"][1] == "接続助詞" else surface
-                    if canonical not in particle_ids:
-                        raise RuntimeError(f'{example["id"]}：缺少内置助词词条 {surface}')
-                    particle_refs[target["id"]] = particle_ids[canonical]
-                    continue
+                    if canonical in particle_ids:
+                        particle_refs[target["id"]] = particle_ids[canonical]
+                        continue
                 if target["decision"] == "grammar":
                     continue
                 result = request(process, "query_target", analysis_id=document["id"], target_id=target["id"])

@@ -178,7 +178,7 @@ function connectionFunction(operator: MorphologyOperator, before: string, after:
     obligation: "当为判断", hazu_modality: "预期判断", kamoshirenai: "可能性推量",
   };
   if (modality[kind]) return modality[kind];
-  if (before !== after && ["i_adjective_conversion", "verb_cycle+i_adjective_conversion"].includes(operator.executor)) {
+  if (before !== after && ["i_adjective_conversion", "verb_cycle+i_adjective_conversion"].includes(operator.executor ?? "")) {
     return `${posLabels[before] || before} → ${posLabels[after] || after}`;
   }
   return operatorDefinitions[kind]?.title || operator.label || "接续";
@@ -259,7 +259,7 @@ export function morphologyConnectionDiagram(
   operator: MorphologyOperator, owner: MorphologyChain | undefined, document: UnifiedDocument, status: string,
 ): ConnectionDiagram | null {
   const connection = operator.connection;
-  type Path = { id: string; group: string; label: string; steps: string[]; next?: { equals?: { surface?: string[] } } };
+  type Path = { id: string; group: string; label: string; steps: string[] };
   const rules: Record<string, { label: string; paths: Path[] }> = morphologyConnectionRules;
   const rule = connection && rules[connection.rule];
   const sentence = morphologySentenceParts(operator, owner, document);
@@ -269,7 +269,7 @@ export function morphologyConnectionDiagram(
   const separateTe = connection?.rule === "te" || connection?.rule === "contracted_te";
   const branches = (separateTe ? ["て", "で"] : [""]).map((label) => {
     const groups: ConnectionGroupView[] = [];
-    const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.steps.at(-1) === label);
+    const paths = (rule?.paths ?? []).filter((path) => !separateTe || path.steps[path.steps.length - 1] === label);
     for (const path of paths) {
       let group = groups.find((item) => item.label === path.group);
       if (!group) { group = { id: `${label}:${path.group}`, label: path.group, paths: [] }; groups.push(group); }
