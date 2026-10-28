@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
         <g v-for="link in orderedLinks" :key="link.id" :class="{ 'is-matched': link.matched, 'is-fold': link.vertical }">
           <path :d="morphologyGraphLink(link, nodeMap)" :marker-end="`url(#${markerId})`" />
           <text v-if="link.label && nodeMap.get(link.source) && nodeMap.get(link.target)"
-            :x="nodeMap.get(link.source)!.x + nodeMap.get(link.source)!.width / 2 + 9"
+            :x="(nodeMap.get(link.source)!.x + nodeMap.get(link.source)!.width / 2 + nodeMap.get(link.target)!.x + nodeMap.get(link.target)!.width / 2) / 2 + 9"
             :y="(nodeMap.get(link.source)!.y + nodeMap.get(link.source)!.height + nodeMap.get(link.target)!.y) / 2 + 3">{{ link.label }}</text>
         </g>
       </g>
