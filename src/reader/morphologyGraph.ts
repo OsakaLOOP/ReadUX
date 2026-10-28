@@ -16,8 +16,18 @@ export interface GraphLink { id: string; source: string; target: string; vertica
 export interface MorphologyGraphLayout { width: number; height: number; nodes: GraphNode[]; links: GraphLink[] }
 interface RuleNode { id: string; label: string; kind: GraphNode["kind"]; width: number; height: number; matched: boolean; children?: RuleNode[]; group?: ConnectionGroupView; list?: GraphNode["list"]; hidden?: boolean }
 
+// 优先用 canvas 实际测量；节点测试环境无 canvas 时回退到按字符宽度的估算。
+let context: CanvasRenderingContext2D | null | undefined;
+try {
+  context ??= typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
+} catch { context = null; }
 function textWidth(text: string, size = 12) {
-  return Array.from(text).reduce((width, character) => width + (character.codePointAt(0)! > 0x2ff ? size : size * .57), 0);
+  const fallback = () => Array.from(text).reduce((width, character) => width + (character.codePointAt(0)! > 0x2ff ? size : size * .57), 0);
+  if (!context) return fallback();
+  const ui = getComputedStyle(document.documentElement).getPropertyValue("--font-ui").trim() || "sans-serif";
+  const ja = getComputedStyle(document.documentElement).getPropertyValue("--font-ja").trim() || ui;
+  context.font = `${size}px ${ja}`;
+  return context.measureText(text).width;
 }
 function wrap(text: string, width: number, size = 11): string[] {
   if (!text) return [];
