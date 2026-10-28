@@ -20,6 +20,8 @@
 
 - 阅读器与指南的气泡定位共用 src/explanation/geometry.ts 的 placeMorphologyPanels。以当前悬浮词条为基准，反向可用高度大于正向可用高度减去活用气泡独立显示高度时，接续气泡放在反向；否则保留同向外侧堆叠。上下词条间距均为 10 px，页面边距均为 12 px。
 
+- 接续面板的两栏高度由 `ReaderConnectionTree.vue` 分配，优先完整显示较短栏，滚动栏至少占可用图示高度的三分之一；外层面板固定。`data-natural-height` 声明完整内容高度供 `measureIntrinsicPanel` 定位，`ReaderMorphologyGraph.vue` 负责两轴居中及当前规则条目的纵向定位。同一活用链以首个句中节点 ID 保留组件实例，支持连续的聚焦颜色过渡。
+
 - 活用链第 11 阶段的气泡接入规范见 docs/morphology_stage11_bubble_display.md：现有活用词条气泡保持原职责，新增接续方式气泡并与其上下堆叠；补助父子关系递归显示，当前词条前接规则按唯一线性路径或多分支投影。て／で共用连接规则，普通规则只回看声明所需的前项；条目类别、用法说明、例句与词形标签分层呈现。后续按文档清单处理「ない」「ずに」「た／だ」及判断收尾等多路径规则。
 
 - 用户提供的七句谓语接续验收见 `docs/morphology_predicate_examples_2026-10-27.md`，测试入口为 `p4_language.rs` 的 `supplied_predicates_*` 与 `attitude_and_humble_support_*`。规则覆盖「しかない」继续否定、意向形＋とする、こと名词化和ていい；「てかかる」按态度补助处理，原始动词词性保留。「ていただく」采用通用授受样例验证。补助概念讲解位于 grammar source 的 `morphology_support_20261027.json`，许可讲解位于 `morphology_permission_20261027.json`。

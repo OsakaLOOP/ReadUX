@@ -11,6 +11,7 @@ defineProps<{
   identity?: string;
   conjugation?: string;
   transition?: string;
+  contained?: boolean;
 }>();
 
 const emit = defineEmits<{ enter: [event: PointerEvent]; leave: [event: PointerEvent] }>();
@@ -21,6 +22,7 @@ const emit = defineEmits<{ enter: [event: PointerEvent]; leave: [event: PointerE
     <aside
       v-if="show"
       class="reader-explanation"
+      :class="{ 'reader-explanation--contained': contained }"
       :style="{ left: `${x}px`, top: `${y}px`, width: `${width}px`, maxHeight: `${maxHeight}px` }"
       role="dialog"
       :aria-label="label || title"
@@ -37,7 +39,7 @@ const emit = defineEmits<{ enter: [event: PointerEvent]; leave: [event: PointerE
           <span v-if="transition" class="reader-explanation__transition" lang="ja">{{ transition }}</span>
         </div>
       </header>
-      <slot />
+      <slot :available="Math.max(0, maxHeight - 20)" />
     </aside>
   </Transition>
 </template>
@@ -45,6 +47,7 @@ const emit = defineEmits<{ enter: [event: PointerEvent]; leave: [event: PointerE
 <style scoped>
 .reader-explanation { position: fixed; z-index: 1001; box-sizing: border-box; width: min(310px, calc(100vw - 24px)); overflow: auto; overflow-wrap: anywhere; overscroll-behavior: contain; padding: 9px 10px; border: 1px solid var(--glass-border); border-radius: var(--radius-md); background: var(--glass-bg); backdrop-filter: var(--glass-filter); box-shadow: var(--shadow-md); color: var(--text-primary); font: .84rem/1.5 var(--font-ui); }
 .reader-explanation { scrollbar-width: none; overflow-anchor: none; }
+.reader-explanation--contained { overflow: hidden; }
 .reader-explanation::-webkit-scrollbar { display: none; }
 .reader-explanation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
 .reader-explanation header .reader-explanation__heading { display: grid; min-width: 0; gap: 1px; }

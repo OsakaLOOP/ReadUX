@@ -2506,9 +2506,10 @@ function toggleEinkMode() {
       :x="connectionPosition.x" :y="connectionPosition.y"
       :width="connectionPosition.width" :max-height="connectionPosition.maxHeight"
       title="" surface="" label="接续方式与接续规则"
+      contained v-slot="{ available }"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
     >
-      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" @resize="refreshLookupPosition" />
+      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" :max-height="available" @resize="refreshLookupPosition" />
     </ReaderExplanationBubble>
 
     <ReaderProgressBar

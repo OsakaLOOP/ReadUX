@@ -260,7 +260,8 @@ onBeforeUnmount(() => {
     :x="connectionPlacement?.left ?? -10000" :y="connectionPlacement?.top ?? -10000"
     :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300"
     title="" surface="" label="接续方式与接续规则"
+    contained v-slot="{ available }"
     @enter="emit('enter', $event)" @leave="emit('leave', $event)">
-    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" @resize="place" />
+    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" :max-height="available" @resize="place" />
   </ReaderExplanationBubble>
 </template>

@@ -41,13 +41,16 @@ export function snapshotRect(rect: DOMRect): RectSnapshot {
   };
 }
 
-/** 外框高度可能受 max-height 限制；scrollHeight 才是当前宽度下的内容固有高度。 */
+/** 内部滚动的图示声明完整内容高度；其他面板通过 scrollHeight 读取固有高度。 */
 export function measureIntrinsicPanel(panel: Pick<HTMLElement, "getBoundingClientRect" | "scrollHeight"> & Partial<Pick<HTMLElement, "clientHeight" | "querySelector">>): Size {
   const bounds = panel.getBoundingClientRect();
-  const natural = Number(panel.querySelector?.<HTMLElement>('[data-natural-width]')?.dataset.naturalWidth);
+  const content = panel.querySelector?.<HTMLElement>('[data-natural-width]');
+  const natural = Number(content?.dataset.naturalWidth);
+  const naturalHeight = Number(content?.dataset.naturalHeight);
   return {
     width: natural > 0 ? natural + 22 : bounds.width,
-    height: panel.scrollHeight + Math.max(0, bounds.height - (panel.clientHeight ?? bounds.height)),
+    height: naturalHeight > 0 ? naturalHeight + 20
+      : panel.scrollHeight + Math.max(0, bounds.height - (panel.clientHeight ?? bounds.height)),
   };
 }
 
