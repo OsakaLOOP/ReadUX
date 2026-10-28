@@ -135,7 +135,6 @@ watch(() => props.layout, (next) => {
       width: interpolateNumber(source.width, node.width), height: interpolateNumber(source.height, node.height), opacity: interpolateNumber(source.opacity, 1) };
   });
   const exiting = before.nodes.filter((node) => !nextIds.has(node.id));
-  const oldLinks = before.links.filter((link) => !next.links.some((item) => item.id === link.id));
   const width = interpolateNumber(before.width, next.width);
   const height = interpolateNumber(before.height, next.height);
   const start = performance.now();
@@ -143,7 +142,7 @@ watch(() => props.layout, (next) => {
     const progress = Math.min(1, (time - start) / 280);
     const eased = 1 - Math.pow(1 - progress, 3);
     current.value = progress === 1 ? next : {
-      width: width(eased), height: height(eased), links: [...next.links, ...oldLinks],
+      width: width(eased), height: height(eased), links: next.links,
       nodes: [...tweens.map((tween) => ({ ...tween.node, x: tween.x(eased), y: tween.y(eased),
         width: tween.width(eased), height: tween.height(eased), opacity: tween.opacity(eased) })),
         ...exiting.map((node) => ({ ...node, opacity: node.opacity * (1 - eased) }))],
