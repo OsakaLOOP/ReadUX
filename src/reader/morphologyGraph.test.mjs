@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { morphologyConnectionDiagram, morphologyLocalTransition } from "./morphologyBubble.ts";
+import { morphologyConnectionDiagram, morphologyEntry, morphologyLocalTransition } from "./morphologyBubble.ts";
 import { layoutConnectionRules, layoutSentenceChain } from "./morphologyGraph.ts";
 
 const snapshots = JSON.parse(readFileSync(new URL("../grammar-guide/lesson-stage11-analysis.json", import.meta.url), "utf8")).examples;
@@ -16,6 +16,26 @@ function diagramFor(id, kind) {
 test("词干保留辞典形到实际词形，后接成分采用局部变化", () => {
   assert.equal(morphologyLocalTransition("高い → 高かっ（い→かっ）", true), "高い → 高かっ");
   assert.equal(morphologyLocalTransition("読まない → 読まなかった（ない→なかった）"), "ない → なかった");
+});
+
+test("缩约节点和词条变化保留连接器、清浊及实际活用", () => {
+  for (const [id, kind, expanded, surface] of [
+    ["M-complex-001", "contracted_te_shimau", "てしまう", "ちゃう"],
+    ["M-regression-134", "contracted_te_shimau", "でしまう", "じゃっ"],
+    ["M-regression-099", "contracted_te_iru", "ている", "てる"],
+    ["M-regression-162", "contracted_te_oku", "でおく", "どく"],
+  ]) {
+    const diagram = diagramFor(id, kind);
+    const part = diagram.sentence.find((part) => part.selected);
+    assert.equal(part.caption, expanded);
+    assert.equal(part.surface, surface);
+    assert.ok(part.form.includes("缩略形式"));
+    const node = layoutSentenceChain(diagram.sentence).nodes.find((node) => node.matched);
+    assert.equal(node.lines[0].text, `补助 ${expanded} → ${surface}`);
+    const document = snapshots[id].document;
+    const operator = document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.kind === kind);
+    assert.equal(morphologyEntry(operator, document).transition, `${expanded} → ${surface}`);
+  }
 });
 
 test("实际递归链的节点内部固定两行，每次折行后从左向右连接", () => {

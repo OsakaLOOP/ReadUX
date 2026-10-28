@@ -80,6 +80,16 @@ export function morphologyLocalTransition(description: string, lexical = false) 
   return local.includes("→") ? local.split("→").map((part) => part.trim()).join(" → ") : "";
 }
 
+/** 缩约形式保留连接器与补助本体，并沿命中路径恢复清浊形式。 */
+function contractionForm(operator: MorphologyOperator) {
+  if (operatorDefinitions[operator.kind]?.support?.group !== "contracted") return "";
+  const connection = operator.connection;
+  const path = connection && morphologyConnectionRules[connection.rule as keyof typeof morphologyConnectionRules]?.paths
+    .find((path) => connection.matched_paths.includes(path.id));
+  const prototype = configuredPrototype(operator.kind);
+  return path?.steps[path.steps.length - 1] === "で" ? prototype.replace(/^て/u, "で") : prototype;
+}
+
 export function morphologyEntry(operator: MorphologyOperator, document: UnifiedDocument, transition = ""): MorphologyEntryContent {
   const definition = operatorDefinitions[operator.kind];
   const token = document.morphemes?.[operator.source_morpheme_range?.[0]];
@@ -95,6 +105,7 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
   const examples = pairs.length ? pairs : builtin?.senses[0]?.examples
     ?? (explanation?.examples ?? []).map((ja) => ({ ja, zh: "" }));
   const particle = token?.pos?.[0] === "助詞";
+  const expanded = contractionForm(operator);
   const structure = morphologyConnectionType(operator.kind);
   const classicalNominal = operator.evidence.some((evidence) =>
     evidence.startsWith("classical_paradigm:ナリ活用") || evidence.startsWith("classical_paradigm:タリ活用"));
@@ -113,7 +124,8 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
     identity,
     conjugation: elementForm(document, operator.source_morpheme_range[1] - 1, operator.state_after, operator.kind, operator.evidence),
     usage: definition?.title || operator.label,
-    transition: morphologyLocalTransition(transition),
+    transition: expanded ? `${expanded} → ${document.morphemes.slice(...operator.source_morpheme_range).map((item) => item.surface).join("")}`
+      : morphologyLocalTransition(transition),
     summary: operator.kind === "polite_negative" ? builtin?.senses[0]?.meaning || "礼貌地否定动作或状态。"
       : explanation?.function_summary || builtin?.senses[0]?.meaning || definition?.title || operator.description,
     examples: examples.slice(0, 2),
@@ -229,7 +241,8 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
         const breakBefore = Boolean(first && prior && !inserted && (support ? !jointSupport : particle || converted || predicateEndings.has(op.kind)));
         const entry = morphologyEntry(op, document);
         const multi = op.source_morpheme_range[1] - op.source_morpheme_range[0] > 1;
-        const caption = multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword;
+        const caption = contractionForm(op)
+          || (multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
         const label = inserted ? "插入语" : !first && multi ? "" : support ? "补助" : op.kind === "negative" ? "否定形" : entry.usage;
         parts.push({ id: `${op.operator_id}:${index}`, surface: token.surface, caption, label,
           range: token.char_range,
