@@ -383,7 +383,7 @@ const dictionaryFormConjugation = computed(() => {
     ?? props.lookup?.query
     ?? "";
   if (!observed || !lookup || observed !== lookup) return "";
-  return "終止形・連体形 - 辞書形";
+  return "終止形・連体形";
 });
 
 const matchHint = computed(() => {
