@@ -241,15 +241,19 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
         const breakBefore = Boolean(first && prior && !inserted && (support ? !jointSupport : particle || converted || predicateEndings.has(op.kind)));
         const entry = morphologyEntry(op, document);
         const multi = op.source_morpheme_range[1] - op.source_morpheme_range[0] > 1;
+        const end = inserted ? op.source_morpheme_range[1] : index + 1;
+        const members = document.morphemes.slice(index, end);
+        const surface = members.map((item) => item.surface).join("");
         const caption = contractionForm(op)
-          || (multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
+          || (inserted ? surface : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
         const label = inserted ? "插入语" : !first && multi ? "" : support ? "补助" : op.kind === "negative" ? "否定形" : entry.usage;
-        parts.push({ id: `${op.operator_id}:${index}`, surface: token.surface, caption, label,
-          range: token.char_range,
-          form: elementForm(document, index, op.state_after, op.kind, op.evidence), breakBefore,
+        parts.push({ id: `${op.operator_id}:${index}`, surface, caption, label,
+          range: inserted ? op.char_range : token.char_range,
+          form: elementForm(document, end - 1, op.state_after, op.kind, op.evidence), breakBefore,
           relation: breakBefore ? support ? "补助接续" : connectionFunction(op, before, after,
             document.morphemes.slice(...op.source_morpheme_range).map((item) => item.surface).join("")) : "",
           inserted, selected: op.operator_id === operator?.operator_id, unit: op.operator_id });
+        index = end - 1;
       }
       index++;
     }

@@ -72,6 +72,41 @@ test("名词性变化经实际连接器进入なる，形容词连用形直接�
   assert.ok(directCount > 0);
 });
 
+test("分词与单体とか均显示一个完整插入单元", () => {
+  for (const id of ["M-complex-010", "M-complex-011", "M-regression-034"]) {
+    const document = snapshots[id].document;
+    for (const owner of document.morphology.chains) {
+      for (const operator of owner.operators.filter((op) => op.kind === "exemplification")) {
+        const diagram = morphologyConnectionDiagram(operator, owner, document, owner.status);
+        const inserted = diagram.sentence.filter((part) => part.unit === operator.operator_id);
+        assert.equal(inserted.length, 1);
+        assert.equal(inserted[0].surface, "とか");
+        assert.equal(inserted[0].caption, "とか");
+        assert.equal(inserted[0].form, "无活用");
+        assert.deepEqual(inserted[0].range, operator.char_range);
+        const single = structuredClone(document);
+        const [start, end] = operator.source_morpheme_range;
+        single.morphemes[start].surface = "とか";
+        single.morphemes[start].char_range = operator.char_range;
+        single.morphemes.splice(start + 1, end - start - 1);
+        for (const chain of single.morphology.chains) {
+          const shift = (index) => index > start ? index - (end - start - 1) : index;
+          chain.morpheme_range = chain.morpheme_range.map(shift);
+          chain.anchor_morpheme = shift(chain.anchor_morpheme);
+          for (const op of chain.operators) op.source_morpheme_range = op.source_morpheme_range.map(shift);
+        }
+        const singleOwner = single.morphology.chains.find((chain) => chain.chain_id === owner.chain_id);
+        const singleOperator = singleOwner.operators.find((op) => op.operator_id === operator.operator_id);
+        const singleDiagram = morphologyConnectionDiagram(singleOperator, singleOwner, single, singleOwner.status);
+        const content = (parts) => parts.map(({ id, ...part }) => part);
+        assert.deepEqual(content(singleDiagram.sentence), content(diagram.sentence));
+        const ordered = [...diagram.sentence].sort((a, b) => a.range[0] - b.range[0]);
+        for (let index = 1; index < ordered.length; index++) assert.equal(ordered[index - 1].range[1], ordered[index].range[0]);
+      }
+    }
+  }
+});
+
 test("实际递归链的节点内部固定两行，每次折行后从左向右连接", () => {
   const diagram = diagramFor("M11-39", "te_iru");
   assert.equal(diagram.sentence.map((part) => part.surface).join(""), "読んでしまっていた");
