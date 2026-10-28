@@ -47,45 +47,30 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
     return { id: `group:${group.id}`, label: group.label, kind: "group", width, height,
       matched: group.paths.some((path) => path.matched), group, list };
   };
+  const hasConnectors = diagram.branches.some((branch) => branch.label);
   const root: RuleNode = {
     id: "target", label: diagram.target ?? "", kind: "target", width: diagram.target ? Math.max(72, Math.min(132, textWidth(diagram.target, 14) + 24)) : 0,
     height: 32, matched: true, hidden: !diagram.target,
     children: diagram.branches.map((branch) => branch.label ? {
       id: `connector:${branch.id}`, label: branch.label, kind: "connector" as const, width: 44, height: 32, matched: branch.matched,
       children: branch.groups.map(groupNode),
+    } : hasConnectors ? {
+      // 直接路径预留连接器列，全部词类参与同一层的间距计算。
+      id: `direct:${branch.id}`, label: "", kind: "connector" as const, width: 0, height: 0,
+      matched: branch.matched, hidden: true, children: branch.groups.map(groupNode),
     } : branch.groups.map(groupNode)).flat(),
   };
   const hierarchyRoot = hierarchy(root);
   const positioned = tree<RuleNode>().nodeSize([1, 1]).separation((a, b) => (a.data.height + b.data.height) / 2 + 6)(hierarchyRoot);
   positioned.eachAfter((node) => {
     if (!node.children?.length) return;
-    const first = node.children[0];
-    const last = node.children[node.children.length - 1];
+    const children = node.children.flatMap((child) => child.data.hidden ? child.children ?? [] : [child]);
+    const first = children[0];
+    const last = children[children.length - 1];
     const top = first.x - first.data.height / 2;
     const bottom = last.x - last.data.height / 2 + (last.data.kind === "group" ? 28 : last.data.height);
     node.x = (top + bottom) / 2;
   });
-  const categories = positioned.leaves().filter((node) => node.data.kind === "group").sort((a, b) => a.x - b.x);
-  const connectors = positioned.descendants().filter((node) => node.data.kind === "connector");
-  if (categories.length && connectors.length) {
-    // 接续层整体居中于分类范围，保留层内间距及词条节点的位置。
-    const first = categories[0];
-    const last = categories[categories.length - 1];
-    const categoryCenter = (first.x - first.data.height / 2 + last.x - last.data.height / 2 + 28) / 2;
-    const top = Math.min(...connectors.map((node) => node.x - node.data.height / 2));
-    const bottom = Math.max(...connectors.map((node) => node.x + node.data.height / 2));
-    const offset = categoryCenter - (top + bottom) / 2;
-    connectors.forEach((node) => { node.x += offset; });
-    // 调整连接器层后重新计算其父节点，保持每个父节点位于直属子节点范围中心。
-    positioned.eachAfter((node) => {
-      if (!node.children?.length || node.data.kind === "group") return;
-      const first = node.children[0];
-      const last = node.children[node.children.length - 1];
-      const childTop = first.x - first.data.height / 2;
-      const childBottom = last.x - last.data.height / 2 + (last.data.kind === "group" ? 28 : last.data.height);
-      node.x = (childTop + childBottom) / 2;
-    });
-  }
   const depthWidths: number[] = [];
   for (const node of positioned.descendants()) depthWidths[node.depth] = Math.max(depthWidths[node.depth] ?? 0, node.data.width);
   const depthX: number[] = [];
@@ -109,7 +94,9 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
       list: data.list,
       action: data.group?.paths.some((path) => !path.matched)
         ? { key: data.group.id, expanded: expanded === data.group.id, count: data.group.paths.length } : undefined });
-    if (node.parent && !node.parent.data.hidden) links.push({ id: `${data.id}:${node.parent.data.id}`, source: data.id, target: node.parent.data.id, matched: data.matched });
+    let parent = node.parent;
+    while (parent?.data.hidden) parent = parent.parent;
+    if (parent) links.push({ id: `${data.id}:${parent.data.id}`, source: data.id, target: parent.data.id, matched: data.matched });
     height = Math.max(height, y + data.height + 4);
   }
   return { width: width - 24, height, nodes, links };
