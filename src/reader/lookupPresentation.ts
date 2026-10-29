@@ -961,7 +961,7 @@ export function readerMorphologyHits(
         highlight: {
           unit: stem.unit,
           range: stem.range,
-          segments: [{ range: stem.range, tone: "blue" }],
+          segments: [{ range: stem.range, tone: "blue" as const }],
         },
         status: chain.status,
         title: stemConjugationTitle(chain, state, document),
