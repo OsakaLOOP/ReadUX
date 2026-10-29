@@ -4,7 +4,7 @@ import type { ConnectionDiagram } from "../../reader/morphologyBubble";
 import { layoutConnectionRules, layoutSentenceChain } from "../../reader/morphologyGraph";
 import ReaderMorphologyGraph from "./ReaderMorphologyGraph.vue";
 const props = defineProps<{ diagram: ConnectionDiagram; maxHeight: number; scrollMode?: "split" | "flow" }>();
-const emit = defineEmits<{ resize: [] }>();
+const emit = defineEmits<{ resize: []; select: [id: string] }>();
 const expanded = shallowRef<string | null>(null);
 const rules = computed(() => layoutConnectionRules(props.diagram, expanded.value));
 const sentence = computed(() => layoutSentenceChain(props.diagram.sentence));
@@ -46,7 +46,7 @@ function toggle(key: string) {
   <div class="connection-diagrams" :class="{ 'connection-diagrams--flow': scrollMode === 'flow' }" :data-natural-width="Math.ceil(Math.max(sentence.width, rules.width))" :data-natural-height="Math.ceil(naturalHeight)">
     <section v-if="sentence.nodes.length" aria-label="接续方式">
       <h3>接续方式</h3>
-      <ReaderMorphologyGraph :layout="sentence" :height="viewportHeights.sentence" :flow="scrollMode === 'flow'" label="完整活用链" @resize="resizeGraph('sentence', $event)" />
+      <ReaderMorphologyGraph :layout="sentence" :height="viewportHeights.sentence" :flow="scrollMode === 'flow'" label="完整活用链" @resize="resizeGraph('sentence', $event)" @select="emit('select', $event)" />
     </section>
     <section v-if="rules.nodes.length" aria-label="接续规则">
       <h3>接续规则 <span v-if="diagram.status === 'candidate'">候选</span></h3>

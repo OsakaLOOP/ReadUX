@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
 import { BookMarked, Info } from "@lucide/vue";
 import type { DictionaryLookup } from "../../types";
 import type { GuideReaderSnapshot } from "../../grammar-guide/types";
@@ -11,6 +11,7 @@ import { kanjiRubySegments, readerChains, readerTargetPresentation, type ReaderM
 import { snapshotRect, type RectSnapshot } from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
 import { useMorphologyLayout } from "../../explanation/morphologyLayout";
+import { useTouchBrush } from "../../composables/useTouchBrush";
 import ReaderCapsule from "../reader/ReaderCapsule.vue";
 import ReaderMorphologySummary from "../reader/ReaderMorphologySummary.vue";
 import ExplanationPopover from "../explanation/ExplanationPopover.vue";
@@ -18,7 +19,7 @@ import ParticleGrammarPopover from "./ParticleGrammarPopover.vue";
 
 const props = defineProps<{
   id: string; ja: string; zh: string; note?: string; source?: string; snapshot?: GuideReaderSnapshot;
-  paragraphId: number; showChinese: boolean; showRuby: boolean; lessonId: string;
+  paragraphId: number; showChinese: boolean; showRuby: boolean; lessonId: string; sheetHeight: number;
 }>();
 const morphologyLayout = useMorphologyLayout();
 const root = ref<HTMLElement | null>(null);
@@ -55,6 +56,14 @@ let generation = 0;
 let closeTimer: ReturnType<typeof setTimeout> | undefined;
 let hoverTimer: ReturnType<typeof setTimeout> | undefined;
 const owner = Symbol("guide-source");
+const touchBrush = useTouchBrush("[data-touch-brush]", (element, key) => {
+  const [start, end] = key.split(":").map(Number);
+  const part = projection.value.flatMap((capsule) => capsule.parts).find((item) => item.range[0] === start && item.range[1] === end);
+  if (part?.target) void open(part, element);
+});
+watch([morphologyLayout.mode, () => props.sheetHeight], ([mode]) => {
+  if (mode === "sheet" && active.value && sourceElement.value) void keepSourceAboveSheet(sourceElement.value);
+});
 
 function cancelClose() { clearTimeout(closeTimer); closeTimer = undefined; }
 function close() {
@@ -106,6 +115,7 @@ async function open(part: Part, source: HTMLElement) {
   morphologyLayout.active.value = true;
   morphologyLayout.contentKey.value = `${props.id}:${part.target.id}:${part.range.join(':')}`;
   sourceElement.value = source;
+  if (morphologyLayout.mode.value === "sheet") void keepSourceAboveSheet(source);
   anchor.value = snapshotRect(source.getBoundingClientRect());
   const child = !part.detail ? componentForRange(
     props.snapshot?.group.inner_targets.filter((item) => item.parent_outer_id === part.target!.id) ?? [], part.range,
@@ -117,6 +127,7 @@ async function open(part: Part, source: HTMLElement) {
   component.value = child;
   detail.value = part.detail;
   activeRange.value = part.range;
+  if (part.detailRole === "grammar") void scrollMorphologyToTop();
   wholeHistory.value = [];
   componentHistory.value = [];
   wholeLookup.value = null;
@@ -132,8 +143,33 @@ async function open(part: Part, source: HTMLElement) {
   } catch (reason) {
     if (current === generation) error.value = reason instanceof Error ? reason.message : String(reason);
   } finally {
-    if (current === generation) { wholeLoading.value = false; componentLoading.value = false; }
+    if (current === generation) {
+      wholeLoading.value = false;
+      componentLoading.value = false;
+      if (part.detailRole === "grammar") void scrollMorphologyToTop();
+    }
   }
+}
+async function keepSourceAboveSheet(source: HTMLElement) {
+  await nextTick();
+  await nextTick();
+  const reading = root.value?.closest<HTMLElement>(".guide-reading");
+  const sheet = document.getElementById("grammar-guide-dock-pane");
+  if (!reading || !sheet || !source.isConnected) return;
+  let previousTop = Number.NaN;
+  let stableFrames = 0;
+  for (let frame = 0; frame < 12 && stableFrames < 2; frame++) {
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    const top = sheet.getBoundingClientRect().top;
+    stableFrames = Math.abs(top - previousTop) < 0.5 ? stableFrames + 1 : 0;
+    previousTop = top;
+  }
+  const area = reading.getBoundingClientRect();
+  const boundary = Math.min(area.bottom, sheet.getBoundingClientRect().top - 32);
+  const target = source.getBoundingClientRect();
+  const offset = target.top < area.top ? target.top - area.top : target.bottom > boundary ? target.bottom - boundary : 0;
+  console.log("sheet-source", target.bottom, boundary, offset, reading.scrollTop);
+  if (offset) reading.scrollBy({ top: offset, behavior: "auto" });
 }
 function hover(part: Part, event: PointerEvent) {
   if (morphologyLayout.docked.value) return;
@@ -144,11 +180,34 @@ function hover(part: Part, event: PointerEvent) {
   hoverTimer = setTimeout(() => void open(part, source), 60);
 }
 function activatePart(part: Part, event: MouseEvent) {
+  if (touchBrush.consumeClick()) return;
   if (part.target)
     void open(part, event.currentTarget as HTMLElement);
 }
+async function scrollMorphologyToTop() {
+  if (!morphologyLayout.docked.value) return;
+  await nextTick();
+  await nextTick();
+  const scroll = document.querySelector<HTMLElement>("#grammar-guide-dock-pane [data-explanation-scroll]");
+  const entry = scroll?.querySelector<HTMLElement>(".reader-explanation--docked:not(.reader-explanation--contained)");
+  if (scroll && entry) scroll.scrollTop += entry.getBoundingClientRect().top - scroll.getBoundingClientRect().top;
+}
+function selectConnectionPart(id: string) {
+  const range = detail.value?.connection?.sentence.find((part) => part.id === id)?.range;
+  if (!range) return;
+  const parts = projection.value.flatMap((capsule) => capsule.parts).filter((item) => item.target
+    && item.range[0] < range[1] && item.range[1] > range[0]);
+  const part = parts.find((item) => item.detailRole === "grammar") ?? parts[0];
+  if (!part) return;
+  const source = root.value?.querySelector<HTMLElement>(`[data-char-start="${part.range[0]}"][data-char-end="${part.range[1]}"]`);
+  if (source) void open(part, source);
+}
 function activeRangesForCapsule(capsule: ReturnType<typeof projectReaderSentence>[number]): CapsuleActiveRange[] {
   if (!active.value) return [];
+  if (active.value.decision === "grammar") return capsule.parts.flatMap((part) =>
+    part.range[0] < active.value!.char_range[1] && part.range[1] > active.value!.char_range[0]
+      ? [{ range: part.range, tone: "grammar" as const, group: active.value!.id }]
+      : []);
   if (detail.value) {
     const related = capsule.parts.filter((part) => part.target?.id === active.value!.id);
     const selected = related.filter((part) => part.detail?.id === detail.value!.id);
@@ -161,7 +220,7 @@ function activeRangesForCapsule(capsule: ReturnType<typeof projectReaderSentence
   }
   return capsule.parts.flatMap((part) => {
     if (part.range[0] >= active.value!.char_range[1] || part.range[1] <= active.value!.char_range[0]) return [];
-    return [{ range: part.range, tone: part.detailRole === "grammar" ? "grammar" as const : "blue" as const, group: active.value!.id }];
+    return [{ range: part.range, tone: part.detailRole === "grammar" || active.value!.decision === "grammar" ? "grammar" as const : "blue" as const, group: active.value!.id }];
   });
 }
 async function changeForm(form: string, inner: boolean) {
@@ -244,9 +303,11 @@ onBeforeUnmount(() => {
             <template #default="{ part }">
               <span class="reader-capsule__part" :class="{ 'reader-capsule__part--lookup': part.target }"
                 :tabindex="part.target ? 0 : undefined" :role="part.target ? 'button' : undefined"
+                :data-touch-brush="part.target ? part.range.join(':') : undefined"
+                @pointerdown="touchBrush.start"
                 @keydown.enter.stop.prevent="part.target && open(part, $event.currentTarget as HTMLElement)"
                 @keydown.space.stop.prevent="part.target && open(part, $event.currentTarget as HTMLElement)"
-                :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id"
+                :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id" :data-detail-role="part.detailRole"
                 @pointerenter="part.target ? hover(part, $event) : scheduleClose()"
                 @pointerleave="scheduleClose" @click.stop="activatePart(part, $event)">{{ part.text }}</span>
             </template>
@@ -276,7 +337,7 @@ onBeforeUnmount(() => {
       :component-label="component ? '组分' : ''" :detail="detail" :summary-visible="chains.length > 0"
       :panel-prefix="`guide-${id}`" :shortcuts-enabled="false" presentation="guide"
       layout-target="#grammar-guide-dock-pane-content"
-      @enter="cancelClose" @leave="scheduleClose"
+      @enter="cancelClose" @leave="scheduleClose" @select-connection="selectConnectionPart"
       @navigate-whole="navigate($event, false)" @navigate-component="navigate($event, Boolean(component))"
       @select-whole-form="changeForm($event, false)" @select-component-form="changeForm($event, Boolean(component))"
       @back-whole="back(false)" @back-component="back(Boolean(component))">
@@ -296,7 +357,7 @@ onBeforeUnmount(() => {
 .guide-example__index { flex: none; color: var(--accent-color); font: 700 11px/1 var(--font-ui); letter-spacing: .02em; }
 .guide-example__scroll { box-sizing: border-box; min-width: 0; margin-inline: -8px; padding-inline: 8px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; scrollbar-width: thin; white-space: nowrap; }
 .guide-example__source { display: block; margin-top: 1px; color: var(--text-secondary); font: 12px/1.5 var(--font-ui); white-space: normal; }
-.reader-capsule__part--lookup { cursor: pointer; }
+.reader-capsule__part--lookup { cursor: pointer; touch-action: pan-y; }
 .guide-example__translation { grid-column: 2; grid-row: 2; margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }
 .guide-example__note { position: relative; grid-column: 1; grid-row: 2; align-self: baseline; justify-self: center; line-height: 1; }
 .guide-example__note button { display: inline-grid; width: 17px; height: 17px; place-items: center; padding: 0; border: 0; border-radius: 4px; background: transparent; color: var(--accent-color); cursor: help; vertical-align: baseline; }

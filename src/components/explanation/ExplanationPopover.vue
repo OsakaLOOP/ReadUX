@@ -45,6 +45,7 @@ const emit = defineEmits<{
   navigateComponent: [target: string];
   selectWholeForm: [formId: string];
   selectComponentForm: [formId: string];
+  selectConnection: [id: string];
   backWhole: [];
   backComponent: [];
 }>();
@@ -275,7 +276,7 @@ onBeforeUnmount(() => {
     title="" surface="" label="接续方式与接续规则"
     contained v-slot="{ available }"
     @enter="emit('enter', $event)" @leave="emit('leave', $event)">
-    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="place" />
+    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="place" @select="emit('selectConnection', $event)" />
   </ReaderExplanationBubble>
   </Teleport>
 </template>

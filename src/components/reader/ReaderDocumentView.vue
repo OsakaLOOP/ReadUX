@@ -33,6 +33,7 @@ import ParticleGrammarPopover from "../grammar/ParticleGrammarPopover.vue";
 import MorphologyLayoutToggle from "../explanation/MorphologyLayoutToggle.vue";
 import { useMorphologyLayout } from "../../explanation/morphologyLayout";
 import { useExplanationSheet } from "../../composables/useExplanationSheet";
+import { useTouchBrush } from "../../composables/useTouchBrush";
 import ReaderMorphologyEntry from "./ReaderMorphologyEntry.vue";
 import { morphologyLocalTransition } from "../../reader/morphologyBubble";
 import ReaderConnectionTree from "./ReaderConnectionTree.vue";
@@ -253,7 +254,9 @@ const componentHistory = ref<
   { query: DictionaryLookup; word: string; search: QueryOutput | null }[]
 >([]);
 const activeDetail = ref<ReaderMorphologyDetail | null>(null);
+const activeDetailRole = ref<"stem" | "grammar" | undefined>();
 const activeQuery = shallowRef<DictionaryLookup | null>(null);
+const lookupSource = shallowRef<HTMLElement | null>(null);
 const queryBusy = ref(false);
 const queryError = ref("");
 const lookupAnchor = shallowRef<ReturnType<typeof snapshotRect> | null>(null);
@@ -1006,6 +1009,10 @@ const visibleParts = computed(
         .map((part) => [part.key, part]),
     ),
 );
+const touchBrush = useTouchBrush("[data-touch-brush]", (element, key) => {
+  const part = visibleParts.value.get(key);
+  if (part?.hit) openLookup(part.hit, element, part.range, part.detail);
+});
 const mergeRange = computed<[number, number] | null>(() => {
   const drag = mergeDrag.value;
   if (!drag?.moved) return null;
@@ -1260,6 +1267,7 @@ function finishMerge(event: PointerEvent) {
 }
 
 function clickPart(part: TextPart, event: MouseEvent) {
+  if (touchBrush.consumeClick()) return;
   if (suppressPartClick) {
     suppressPartClick = false;
     return;
@@ -1272,10 +1280,19 @@ function clickPart(part: TextPart, event: MouseEvent) {
     scheduleLookup(part.hit, event, part.detail);
 }
 
+function preventCapsuleTextSelection(event: Event) {
+  const target = event.target instanceof Element ? event.target : event.target instanceof Node ? event.target.parentElement : null;
+  if (target?.closest(".reader-capsule")) event.preventDefault();
+}
+
 function activeRangesForCapsule(capsule: TextCapsule): CapsuleActiveRange[] {
   if (!activeHit.value) return [];
   const query = componentHit.value ?? activeHit.value;
   if (!capsule.parts.some((part) => part.hit?.unit.unit.unit_id === query.unit.unit.unit_id)) return [];
+  if (query.target.decision === "grammar") return capsule.parts.flatMap((part) =>
+    part.hit?.unit.unit.unit_id === query.unit.unit.unit_id && part.range[0] < query.range[1] && part.range[1] > query.range[0]
+      ? [{ range: part.range, tone: "grammar" as const, group: query.target.id }]
+      : []);
   if (activeDetail.value) {
     const related = capsule.parts.filter((part) => part.hit?.unit.unit.unit_id === query.unit.unit.unit_id
       && part.hit.target.id === query.target.id);
@@ -1289,8 +1306,51 @@ function activeRangesForCapsule(capsule: TextCapsule): CapsuleActiveRange[] {
   }
   return capsule.parts.flatMap((part) => {
     if (part.hit?.unit.unit.unit_id !== query.unit.unit.unit_id || part.range[0] >= query.range[1] || part.range[1] <= query.range[0]) return [];
-    return [{ range: part.range, tone: part.detailRole === "grammar" ? "grammar" as const : "blue" as const, group: query.target.id }];
+    return [{ range: part.range, tone: part.detailRole === "grammar" || query.target.decision === "grammar" ? "grammar" as const : "blue" as const, group: query.target.id }];
   });
+}
+
+async function scrollMorphologyToTop() {
+  if (!morphologyLayout.docked.value) return;
+  await nextTick();
+  await nextTick();
+  const scroll = sheetElement.value?.querySelector<HTMLElement>("[data-explanation-scroll]");
+  const entry = scroll?.querySelector<HTMLElement>(".reader-explanation--docked:not(.reader-explanation--contained)");
+  if (!scroll || !entry) return;
+  scroll.scrollTop += entry.getBoundingClientRect().top - scroll.getBoundingClientRect().top;
+}
+
+async function keepLookupSourceAboveSheet() {
+  await nextTick();
+  await nextTick();
+  const source = lookupSource.value;
+  const scroll = scrollElement.value;
+  const sheet = sheetElement.value;
+  if (!source?.isConnected || !scroll || !sheet || morphologyLayout.mode.value !== "sheet") return;
+  let previousTop = Number.NaN;
+  let stableFrames = 0;
+  for (let frame = 0; frame < 12 && stableFrames < 2; frame++) {
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    const top = sheet.getBoundingClientRect().top;
+    stableFrames = Math.abs(top - previousTop) < 0.5 ? stableFrames + 1 : 0;
+    previousTop = top;
+  }
+  const area = scroll.getBoundingClientRect();
+  const boundary = Math.min(area.bottom, sheet.getBoundingClientRect().top - 32);
+  const target = source.getBoundingClientRect();
+  const offset = target.top < area.top ? target.top - area.top : target.bottom > boundary ? target.bottom - boundary : 0;
+  if (offset) scroll.scrollBy({ top: offset, behavior: "auto" });
+}
+
+function selectConnectionPart(id: string) {
+  const range = activeDetail.value?.connection?.sentence.find((part) => part.id === id)?.range;
+  const unitId = activeHit.value?.unit.unit.unit_id;
+  if (!range || !unitId) return;
+  const parts = [...visibleCapsules.value.values()].flat().flatMap((capsule) => capsule.parts).filter((item) =>
+    item.hit?.unit.unit.unit_id === unitId && item.detail && item.range[0] < range[1] && item.range[1] > range[0]);
+  const part = parts.find((item) => item.detailRole === "grammar") ?? parts[0];
+  const source = part && scrollElement.value?.querySelector<HTMLElement>(`[data-part-key="${CSS.escape(part.key)}"]`);
+  if (part?.hit && source) openLookup(part.hit, source, part.range, part.detail);
 }
 
 function selectionOffset(node: Node, offset: number): number | null {
@@ -1540,6 +1600,8 @@ function openLookup(
 ) {
   clearTimeout(closeTimer);
   closeTimer = undefined;
+  lookupSource.value = source;
+  if (morphologyLayout.mode.value === "sheet") void keepLookupSourceAboveSheet();
   morphologyLayout.active.value = true;
   morphologyLayout.contentKey.value = `${hit.key}:${range.join(':')}`;
   activePartRange.value = range;
@@ -1552,6 +1614,8 @@ function openLookup(
     component ? "component" : detail ? "detail" : null,
   );
   activeDetail.value = detail;
+  activeDetailRole.value = source.dataset.detailRole as "stem" | "grammar" | undefined;
+  if (detail && source.dataset.detailRole === "grammar") void scrollMorphologyToTop();
   if (activeHit.value?.key !== outer.key || relatedWord.value)
     void queryTarget(outer);
   if (componentHit.value?.key !== component?.key) {
@@ -2188,11 +2252,15 @@ watch(
 );
 watch([morphologyLayout.docked, morphologyLayout.mode, sheetHeight], () => {
   if (activeHit.value && lookupAnchor.value) refreshLookupPosition();
+  if (activeHit.value && morphologyLayout.mode.value === "sheet") void keepLookupSourceAboveSheet();
 }, { flush: "post" });
 watch([morphologyLayout.active, morphologyLayout.mode], ([active, mode]) => {
   if (active && mode !== "modal") panelExpanded.value = true;
   else if (mode === "modal") panelExpanded.value = false;
 });
+watch([activeQuery, componentQuery, activeDetail, activeDetailRole], () => {
+  if (activeDetailRole.value === "grammar") void scrollMorphologyToTop();
+}, { flush: "post" });
 watch([findQuery, () => prepared.value.text], () => {
   findActiveIndex.value = 0;
   void nextTick().then(revealFindMatch);
@@ -2247,7 +2315,7 @@ function toggleEinkMode() {
 </script>
 
 <template>
-  <section class="reader-view" :class="{ 'reader-view--docked': morphologyLayout.docked.value, 'reader-view--sheet': morphologyLayout.mode.value === 'sheet' }">
+  <section class="reader-view" :class="{ 'reader-view--docked': morphologyLayout.docked.value, 'reader-view--sheet': morphologyLayout.mode.value === 'sheet' }" @selectstart="preventCapsuleTextSelection">
     <Teleport to="#reader-header-actions">
         <div class="reader-view__actions">
           <button
@@ -2405,6 +2473,8 @@ function toggleEinkMode() {
                         findMatchClass(part.range),
                       ]"
                       :data-part-key="part.key"
+                      :data-detail-role="part.detailRole"
+                      :data-touch-brush="part.hit && part.hit.target.decision !== 'grammar' || part.detail || part.hit && builtinParticle(part.hit) ? part.key : undefined"
                       :data-char-start="part.range[0]"
                       :data-char-end="part.range[1]"
                       :data-find-active="
@@ -2425,7 +2495,7 @@ function toggleEinkMode() {
                       "
                       @pointerleave="leavePart"
                       @pointerdown="
-                        startMerge(part, visible.row.paragraph, $event)
+                        (touchBrush.start($event), startMerge(part, visible.row.paragraph, $event))
                       "
                       @click="clickPart(part, $event)"
                       >{{ part.text }}</span
@@ -2584,7 +2654,7 @@ function toggleEinkMode() {
       contained v-slot="{ available }"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
     >
-      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="refreshLookupPosition" />
+      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="refreshLookupPosition" @select="selectConnectionPart" />
     </ReaderExplanationBubble>
       </div>
       </div>
@@ -2986,6 +3056,7 @@ function toggleEinkMode() {
 }
 .reader-capsule__part--lookup {
   cursor: pointer;
+  touch-action: pan-y;
 }
 .reader-capsule__part--merging {
   background: var(--accent-light);

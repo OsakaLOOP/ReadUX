@@ -346,6 +346,10 @@ function htmlForBlock(blockIndex: number) { return renderMarkdownBlock(blocks.va
 function paragraphId(example: GuideExample) {
   return [...example.id].reduce((value, character) => ((value * 31 + character.charCodeAt(0)) >>> 0), 0) % 2_000_000_000;
 }
+function preventCapsuleTextSelection(event: Event) {
+  const target = event.target instanceof Element ? event.target : event.target instanceof Node ? event.target.parentElement : null;
+  if (target?.closest(".reader-capsule")) event.preventDefault();
+}
 </script>
 
 <template>
@@ -389,7 +393,7 @@ function paragraphId(example: GuideExample) {
         </div>
       </aside>
       </Transition>
-      <main class="guide-reading" aria-label="语法讲解正文">
+      <main class="guide-reading" aria-label="语法讲解正文" @selectstart="preventCapsuleTextSelection">
         <template v-for="(block, index) in blocks" :key="index">
           <article :id="`guide-block-${index}`" class="guide-source" :class="[`guide-source--${block.kind}`, { 'guide-source--highlighted': sourceHighlight?.blockIndex === index && !sourceHighlight.range }]" v-html="htmlForBlock(index)" />
           <section v-for="placement in placementMap.get(block.source) ?? []" :key="placement.group" class="guide-examples" :class="`guide-examples--${placement.layout}`" :aria-label="placement.title">
@@ -408,6 +412,7 @@ function paragraphId(example: GuideExample) {
                     :show-chinese="showChineseFor(placement.group)"
                     :show-ruby="showRuby"
                     :lesson-id="activeLessonId"
+                    :sheet-height="sheetHeight"
                   />
                   </template>
                 </template>

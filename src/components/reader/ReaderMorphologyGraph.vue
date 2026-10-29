@@ -2,9 +2,11 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, useId, watch } from "vue";
 import { interpolateNumber } from "d3-interpolate";
 import { morphologyGraphLink, type GraphNode, type MorphologyGraphLayout } from "../../reader/morphologyGraph";
+import { useTouchBrush } from "../../composables/useTouchBrush";
 
 const props = defineProps<{ layout: MorphologyGraphLayout; label: string; height?: number; flow?: boolean }>();
-const emit = defineEmits<{ toggle: [key: string]; resize: [height: number] }>();
+const emit = defineEmits<{ toggle: [key: string]; select: [id: string]; resize: [height: number] }>();
+const touchBrush = useTouchBrush("[data-touch-brush]", (_element, id) => emit("select", id));
 const current = shallowRef(props.layout);
 const viewport = shallowRef<HTMLDivElement | null>(null);
 const viewportWidth = shallowRef(0);
@@ -162,7 +164,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="viewport" class="morphology-graph" :class="{ 'morphology-graph--flow': flow }" :style="height === undefined ? undefined : { height: `${height}px` }" tabindex="0" :aria-label="flow ? label : `${label}，可滚动`">
-    <svg :width="current.width * scale" :height="current.height * scale" :viewBox="`0 0 ${current.width} ${current.height}`" role="group" :aria-label="label">
+    <svg :width="current.width * scale" :height="current.height * scale" :viewBox="`0 0 ${current.width} ${current.height}`" role="group" :aria-label="label" @pointerdown="touchBrush.start" @click.capture="touchBrush.consumeClick() && $event.stopImmediatePropagation()">
       <defs>
         <marker :id="markerId" viewBox="0 0 7 7" refX="6" refY="3.5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
           <path d="M1,1 L6,3.5 L1,6" fill="none" stroke="context-stroke" stroke-width="1.1" />
@@ -179,16 +181,16 @@ onBeforeUnmount(() => {
       <g v-for="node in current.nodes" :key="node.id" class="morphology-graph__node"
         :class="[`is-${node.kind}`, { 'is-matched': node.matched, 'is-insertion': node.inserted, 'is-action': node.action }]"
         :transform="`translate(${node.x},${node.y})`" :opacity="node.opacity"
-        :data-node-id="node.id" :data-matched="node.matched ? '' : undefined"
+        :data-node-id="node.id" :data-matched="node.matched ? '' : undefined" :data-touch-brush="node.kind === 'sentence' ? node.id : undefined"
         role="group" :aria-label="node.lines.map(line => line.text).join('，')">
         <title>{{ node.lines.map(line => line.text).join(' · ') }}</title>
         <rect :width="node.width" :height="node.kind === 'group' ? 28 : node.height" rx="6"
-          :role="node.action ? 'button' : undefined" :tabindex="node.action ? 0 : undefined"
-          :aria-label="node.action ? `${node.action.expanded ? '收起' : '展开'}${node.lines[0].text}的其他接续路径` : undefined"
+          :role="node.action || node.kind === 'sentence' ? 'button' : undefined" :tabindex="node.action || node.kind === 'sentence' ? 0 : undefined"
+          :aria-label="node.action ? `${node.action.expanded ? '收起' : '展开'}${node.lines[0].text}的其他接续路径` : node.kind === 'sentence' ? node.lines[0].text : undefined"
           :aria-expanded="node.action ? node.action.expanded : undefined"
-          @click="node.action && emit('toggle', node.action.key)"
-          @keydown.enter.prevent="node.action && emit('toggle', node.action.key)"
-          @keydown.space.prevent="node.action && emit('toggle', node.action.key)" />
+          @click="node.action ? emit('toggle', node.action.key) : node.kind === 'sentence' && emit('select', node.id)"
+          @keydown.enter.prevent="node.action ? emit('toggle', node.action.key) : node.kind === 'sentence' && emit('select', node.id)"
+          @keydown.space.prevent="node.action ? emit('toggle', node.action.key) : node.kind === 'sentence' && emit('select', node.id)" />
         <text v-for="(line, index) in node.lines" :key="index" :x="node.width / 2"
           :y="textY(node, index)" text-anchor="middle"
           :class="`line-${line.kind}`" :lang="line.kind === 'actual' ? 'ja' : 'zh-CN'">
@@ -217,7 +219,8 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.morphology-graph { min-width: 0; min-height: 0; max-width: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.morphology-graph { min-width: 0; min-height: 0; max-width: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; user-select: none; -webkit-user-select: none; }
+.morphology-graph__node rect { touch-action: pan-y; }
 .morphology-graph::-webkit-scrollbar { display: none; }
 .morphology-graph--flow { overflow: visible; }
 svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--font-ui); }
@@ -240,6 +243,8 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-graph__node.is-target rect, .morphology-graph__node.is-connector.is-matched rect { stroke: var(--accent-color); }
 .morphology-graph__node.is-action > rect { cursor: pointer; outline: none; }
 .morphology-graph__node.is-action > rect:hover, .morphology-graph__node.is-action > rect:focus-visible { stroke: var(--accent-color); stroke-width: 2; }
+.morphology-graph__node rect:focus:not(:focus-visible) { outline: none; }
+.morphology-graph__node rect:focus-visible { outline: none; stroke: var(--accent-color); stroke-width: 2; }
 .morphology-graph__toggle text { fill: var(--text-muted); font: 11px var(--font-ui); }
 .morphology-graph__toggle { pointer-events: none; }
 .morphology-graph__toggle path, .morphology-graph__list-stem { fill: none; stroke: var(--text-muted); stroke-width: 1; }
