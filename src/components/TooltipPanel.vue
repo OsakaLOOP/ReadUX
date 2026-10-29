@@ -43,6 +43,7 @@ const props = defineProps<{
   shortcutsEnabled?: boolean;
   presentation?: "reader" | "guide";
   sourcePresentation?: ReaderTargetPresentation | null;
+  docked?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -474,16 +475,21 @@ function handleDefinitionClick(event: MouseEvent) {
     <section
       v-if="show && (token || headword)"
       class="tooltip-panel"
+      :class="{ 'tooltip-panel--docked': docked }"
       :id="panelId"
       :data-explanation-panel="panelId"
-      :style="{ left: x + 'px', top: y + 'px', width: width ? width + 'px' : undefined, maxHeight: maxHeight === undefined ? undefined : maxHeight + 'px' }"
-      role="dialog"
+      :aria-busy="loading"
+      :style="docked
+        ? { position: 'relative', left: 'auto', top: 'auto', width: '100%', height: 'auto', maxHeight: 'none' }
+        : { left: `${x}px`, top: `${y}px`, width: width ? `${width}px` : undefined, maxHeight: maxHeight === undefined ? undefined : `${maxHeight}px` }"
+      :role="docked ? 'region' : 'dialog'"
       aria-label="词典释义"
       @pointerenter="emit('enter', $event)"
       @pointerleave="emit('leave', $event)"
       @wheel.stop
     >
       <div class="tooltip-content" :data-explanation-content="panelId" :data-presentation="presentation || 'reader'">
+        <h2 v-if="docked" class="dock-section-title">{{ kindLabel ? `${kindLabel}词典` : '词典' }}</h2>
         <header class="tooltip-header">
           <button v-if="canGoBack" type="button" class="back-button" aria-label="返回上一词条" @click="emit('back')"><ChevronLeft :size="20" aria-hidden="true" /></button>
           <div class="header-grid" :class="{ 'header-grid--single': !activePosLabel && !dictionaryFormConjugation }">
@@ -504,6 +510,7 @@ function handleDefinitionClick(event: MouseEvent) {
               <span v-if="dictionaryFormConjugation" class="header-conjugation">{{ dictionaryFormConjugation }}</span>
             </div>
           </div>
+          <slot name="actions" />
         </header>
 
         <section v-if="guideTags.length" class="guide-tag-list" aria-label="语法标签">
@@ -583,6 +590,12 @@ function handleDefinitionClick(event: MouseEvent) {
 <style scoped>
 .tooltip-panel { position: fixed; z-index: 1000; box-sizing: border-box; width: min(480px, calc(100vw - 24px)); overflow: auto; overscroll-behavior: contain; padding: 14px; background: var(--glass-bg); backdrop-filter: var(--glass-filter); border: 1px solid var(--glass-border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); color: var(--text-primary); font: .88rem/1.55 var(--font-ui); overflow-wrap: anywhere; pointer-events: auto; scrollbar-gutter: stable; }
 .tooltip-header { position: sticky; top: -14px; z-index: 3; display: flex; gap: 8px; align-items: flex-start; margin: -14px -14px 6px; padding: 14px 14px 10px; background: linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 94%, transparent) 0%, color-mix(in srgb, var(--bg-primary) 82%, transparent) 76%, transparent 100%); border-bottom: 1px solid color-mix(in srgb, var(--border-color) 65%, transparent); backdrop-filter: blur(18px); }
+.tooltip-header :deep(.morphology-layout-toggle) { margin-left: auto; }
+.tooltip-panel--docked { flex: 0 0 auto; overflow: visible; padding: 20px; border: 0; border-bottom: 1px solid #dce1e8; border-radius: 0; background: #fff; backdrop-filter: none; box-shadow: none; scrollbar-gutter: auto; }
+.tooltip-panel--docked .tooltip-header { position: static; margin: 0 0 12px; padding: 0 0 12px; background: transparent; backdrop-filter: none; }
+.tooltip-panel--docked .header-grid { grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: 12px; }
+.tooltip-panel--docked .header-grid--single { grid-template-columns: minmax(0, 1fr); }
+.dock-section-title { margin: 0 0 14px; color: var(--text-secondary); font: 600 13px/1.5 var(--font-ui); }
 .header-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, .9fr) minmax(160px, 1.1fr); gap: 12px; align-items: center; }
 .header-grid--single { grid-template-columns: minmax(0, 1fr); }
 .headword-block { min-width: 0; }

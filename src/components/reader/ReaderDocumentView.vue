@@ -30,10 +30,14 @@ import ReaderAppearancePanel from "./ReaderAppearancePanel.vue";
 import ReaderCapsule from "./ReaderCapsule.vue";
 import ReaderMorphologySummary from "./ReaderMorphologySummary.vue";
 import ParticleGrammarPopover from "../grammar/ParticleGrammarPopover.vue";
+import MorphologyLayoutToggle from "../explanation/MorphologyLayoutToggle.vue";
+import { useMorphologyLayout } from "../../explanation/morphologyLayout";
+import { useExplanationSheet } from "../../composables/useExplanationSheet";
 import ReaderMorphologyEntry from "./ReaderMorphologyEntry.vue";
 import { morphologyLocalTransition } from "../../reader/morphologyBubble";
 import ReaderConnectionTree from "./ReaderConnectionTree.vue";
 import { capsulesForParts, componentForRange } from "../../reader/capsuleProjection";
+import type { CapsuleActiveRange } from "../../reader/capsuleRuns";
 import { grammarMorphemeLookup } from "../../grammar/particleEntries";
 import ReaderExplanationBubble from "./ReaderExplanationBubble.vue";
 import ReaderImageBlock from "./ReaderImageBlock.vue";
@@ -80,11 +84,9 @@ import {
 } from "../../reader/mergeLookup";
 import {
   explanationPanelWidth,
-  isWithinPanelGroupTriangle,
   measureIntrinsicPanel,
   placeExplanationPanels,
   placeMorphologyPanels,
-  isWithinPanelStackGap,
   snapshotRect,
   type Size,
 } from "../../explanation/geometry";
@@ -152,6 +154,8 @@ interface TextPart {
   range: [number, number];
   hit: TargetHit | null;
   detail: ReaderMorphologyDetail | null;
+  detailRole?: "stem" | "grammar";
+  detailRange?: [number, number];
   capsuleKey: string | null;
 }
 
@@ -222,6 +226,10 @@ const showNavigation = ref(false);
 const showAppearance = ref(false);
 const showExport = ref(false);
 const showDictionarySettings = ref(false);
+const morphologyLayout = useMorphologyLayout();
+const panelExpanded = ref(false);
+const { element: sheetElement, height: sheetHeight, dragging: sheetDragging,
+  startDrag: startSheetDrag, moveDrag: moveSheetDrag, endDrag: finishSheetDrag, handleKey: sheetKeydown } = useExplanationSheet(morphologyLayout);
 const showFind = ref(false);
 const findQuery = ref("");
 const findActiveIndex = ref(0);
@@ -235,6 +243,7 @@ const targetErrors = shallowRef(new Map<string, string>());
 const targetError = computed(() => [...targetErrors.value.values()][0] ?? "");
 const activeHit = shallowRef<TargetHit | null>(null);
 const componentHit = shallowRef<TargetHit | null>(null);
+const activePartRange = shallowRef<[number, number] | null>(null);
 const componentQuery = shallowRef<DictionaryLookup | null>(null);
 const componentBusy = ref(false);
 const componentError = ref("");
@@ -922,6 +931,8 @@ function partsFor(row: ReaderTextRow, lookups: UnitLookup[]): TextPart[] {
         range: [start, end] as [number, number],
         hit,
         detail: detail?.detail ?? null,
+        detailRole: detail?.role,
+        detailRange: detail?.range,
         capsuleKey: capsule?.key ?? null,
       };
     })
@@ -1140,10 +1151,7 @@ function startMerge(
   )
     return;
   event.preventDefault();
-  closeLookup();
-  clearPendingSelection();
   const source = event.currentTarget as HTMLElement;
-  scrollElement.value?.setPointerCapture(event.pointerId);
   mergeDrag.value = {
     pointerId: event.pointerId,
     source,
@@ -1183,6 +1191,11 @@ function moveMerge(event: PointerEvent) {
     return;
   const focus = drag.free ? pointerTextOffset(event) : part.range[1];
   if (focus === null) return;
+  if (!drag.moved) {
+    closeLookup();
+    clearPendingSelection();
+    scrollElement.value?.setPointerCapture(event.pointerId);
+  }
   if (!drag.moved || part.key !== drag.end.key || focus !== drag.focus)
     mergeDrag.value = { ...drag, end: part, focus, moved: true };
 }
@@ -1257,6 +1270,27 @@ function clickPart(part: TextPart, event: MouseEvent) {
   }
   else if (part.hit && part.detail)
     scheduleLookup(part.hit, event, part.detail);
+}
+
+function activeRangesForCapsule(capsule: TextCapsule): CapsuleActiveRange[] {
+  if (!activeHit.value) return [];
+  const query = componentHit.value ?? activeHit.value;
+  if (!capsule.parts.some((part) => part.hit?.unit.unit.unit_id === query.unit.unit.unit_id)) return [];
+  if (activeDetail.value) {
+    const related = capsule.parts.filter((part) => part.hit?.unit.unit.unit_id === query.unit.unit.unit_id
+      && part.hit.target.id === query.target.id);
+    const selected = related.filter((part) => part.detail?.id === activeDetail.value!.id);
+    if (!selected.length) return [];
+    const clicked = selected.find((part) => activePartRange.value
+      && part.range[0] < activePartRange.value[1] && part.range[1] > activePartRange.value[0]) ?? selected[0];
+    if (clicked.detail?.highlight) return clicked.detail.highlight.segments.map((segment) => ({ ...segment, group: clicked.detail!.highlight!.unit }));
+    const detailRange = clicked.detailRange ?? clicked.range;
+    return [{ range: detailRange, tone: clicked.detailRole === "stem" ? "blue" : "grammar", group: clicked.detail?.id }];
+  }
+  return capsule.parts.flatMap((part) => {
+    if (part.hit?.unit.unit.unit_id !== query.unit.unit.unit_id || part.range[0] >= query.range[1] || part.range[1] <= query.range[0]) return [];
+    return [{ range: part.range, tone: part.detailRole === "grammar" ? "grammar" as const : "blue" as const, group: query.target.id }];
+  });
 }
 
 function selectionOffset(node: Node, offset: number): number | null {
@@ -1363,6 +1397,7 @@ function intrinsicLookupPanelSize(panelId: string, fallback: Size): Size {
 }
 
 function refreshLookupPosition() {
+  if (morphologyLayout.docked.value) return;
   const anchor = lookupAnchor.value;
   if (!anchor) return;
   const companion = lookupCompanion.value;
@@ -1503,6 +1538,11 @@ function openLookup(
   range: [number, number],
   detail: ReaderMorphologyDetail | null,
 ) {
+  clearTimeout(closeTimer);
+  closeTimer = undefined;
+  morphologyLayout.active.value = true;
+  morphologyLayout.contentKey.value = `${hit.key}:${range.join(':')}`;
+  activePartRange.value = range;
   if (mergedHit.value?.key === hit.key) detail ??= activeDetail.value;
   const outer = outerForHit(hit);
   const component = componentForHit(hit, range, detail);
@@ -1563,6 +1603,7 @@ function scheduleLookup(
   event: MouseEvent,
   detail: ReaderMorphologyDetail | null,
 ) {
+  if (morphologyLayout.docked.value) return;
   if (
     mergedHit.value ||
     mergeDrag.value ||
@@ -1590,6 +1631,7 @@ function scheduleLookup(
     !relatedWord.value
   ) {
     activeCapsule = capsule;
+    activePartRange.value = range;
     activeDetail.value = detail;
     positionLookupAt(
       anchor,
@@ -1623,6 +1665,7 @@ function scheduleLookup(
 }
 
 function scheduleCloseLookup(event?: PointerEvent) {
+  if (morphologyLayout.docked.value) return;
   if (mergedHit.value) return;
   if (event) pointerPosition = { x: event.clientX, y: event.clientY };
   if (
@@ -1652,32 +1695,10 @@ function cancelCloseLookup() {
   closeTimer = undefined;
 }
 
-function pointerInLookupTriangle(x: number, y: number): boolean {
-  const panels = [
-    ...document.querySelectorAll<HTMLElement>(
-      '[data-explanation-panel^="reader-"]',
-    ),
-    document.getElementById("reader-morphology-detail"),
-    document.getElementById("reader-morphology-connection"),
-  ].filter((panel): panel is HTMLElement => Boolean(panel));
-  return panels.some((panel, index) =>
-    panels
-      .slice(index + 1)
-      .some((other) =>
-        isWithinPanelStackGap(x, y, snapshotRect(panel.getBoundingClientRect()), snapshotRect(other.getBoundingClientRect())) || isWithinPanelGroupTriangle(
-          x,
-          y,
-          snapshotRect(panel.getBoundingClientRect()),
-          snapshotRect(other.getBoundingClientRect()),
-        ),
-      ),
-  );
-}
-
 function insideLookupRegion(
   target: EventTarget | null,
-  x?: number,
-  y?: number,
+  _x?: number,
+  _y?: number,
 ): boolean {
   const part =
     target instanceof Element
@@ -1687,6 +1708,8 @@ function insideLookupRegion(
     activeCapsule = part.closest<HTMLElement>(".reader-capsule") ?? part;
     return true;
   }
+  if (target instanceof Element && target.closest("[data-explanation-panel]"))
+    return true;
   const insideElement =
     target instanceof Node &&
     Boolean(
@@ -1696,17 +1719,15 @@ function insideLookupRegion(
         .getElementById("reader-component-dictionary")
         ?.contains(target) ||
       document.getElementById("reader-morphology-detail")?.contains(target) ||
-      document.getElementById("reader-morphology-connection")?.contains(target),
+      document.getElementById("reader-morphology-connection")?.contains(target) ||
+      (target instanceof Element && Boolean(target.closest('[data-morphology-layout-shell="reader"]'))),
     );
-  return (
-    insideElement ||
-    (x !== undefined && y !== undefined && pointerInLookupTriangle(x, y))
-  );
+  return insideElement;
 }
 
 function monitorLookupPointer(event: PointerEvent) {
   pointerPosition = { x: event.clientX, y: event.clientY };
-  if (!activeHit.value || mergedHit.value) return;
+  if (!activeHit.value || mergedHit.value || morphologyLayout.docked.value) return;
   const target = document.elementFromPoint(event.clientX, event.clientY);
   if (insideLookupRegion(target, event.clientX, event.clientY))
     cancelCloseLookup();
@@ -1856,6 +1877,8 @@ function closeLookup() {
   pendingCapsule = null;
   pointerPosition = null;
   activeHit.value = null;
+  activePartRange.value = null;
+  morphologyLayout.active.value = false;
   mergedHit.value = null;
   activeDetail.value = null;
   componentHit.value = null;
@@ -2018,7 +2041,7 @@ function handleScroll() {
   if (!element) return;
   cancelMerge();
   if (mergedHit.value) handleLookupResize();
-  else closeLookup();
+  else if (!morphologyLayout.docked.value) closeLookup();
   const firstVisible = virtualizer.value
     .getVirtualItems()
     .find((item) => item.end > element.scrollTop);
@@ -2034,6 +2057,10 @@ function handleScroll() {
 }
 
 function handleLookupResize() {
+  if (morphologyLayout.docked.value) {
+    refreshLookupPosition();
+    return;
+  }
   if (!mergedHit.value) {
     closeLookup();
     return;
@@ -2073,7 +2100,14 @@ async function restoreOffset() {
 
 function dismissLookup(event: PointerEvent) {
   if (mergeDrag.value) return;
+  if (event.target instanceof Element && event.target.closest(".morphology-layout-toggle")) return;
+  if (event.target instanceof Element && event.target.closest("[data-lookup-key]")) return;
   if (!insideLookupRegion(event.target)) closeLookup();
+}
+
+function finishPanelClose() {
+  if (!morphologyLayout.active.value || morphologyLayout.mode.value === "modal")
+    panelExpanded.value = false;
 }
 
 function handleEscape(event: KeyboardEvent) {
@@ -2152,6 +2186,13 @@ watch(
     virtualizer.value.measure();
   },
 );
+watch([morphologyLayout.docked, morphologyLayout.mode, sheetHeight], () => {
+  if (activeHit.value && lookupAnchor.value) refreshLookupPosition();
+}, { flush: "post" });
+watch([morphologyLayout.active, morphologyLayout.mode], ([active, mode]) => {
+  if (active && mode !== "modal") panelExpanded.value = true;
+  else if (mode === "modal") panelExpanded.value = false;
+});
 watch([findQuery, () => prepared.value.text], () => {
   findActiveIndex.value = 0;
   void nextTick().then(revealFindMatch);
@@ -2206,7 +2247,7 @@ function toggleEinkMode() {
 </script>
 
 <template>
-  <section class="reader-view">
+  <section class="reader-view" :class="{ 'reader-view--docked': morphologyLayout.docked.value, 'reader-view--sheet': morphologyLayout.mode.value === 'sheet' }">
     <Teleport to="#reader-header-actions">
         <div class="reader-view__actions">
           <button
@@ -2284,6 +2325,11 @@ function toggleEinkMode() {
           >
             <RotateCcw :size="17" aria-hidden="true" />
           </button>
+          <MorphologyLayoutToggle
+            :docked="morphologyLayout.docked.value"
+            :narrow="morphologyLayout.mode.value === 'sheet'"
+            @toggle="morphologyLayout.toggle"
+          />
         </div>
     </Teleport>
 
@@ -2292,6 +2338,7 @@ function toggleEinkMode() {
       <button type="button" @click="void syncTargets(true)">重试</button>
     </div>
 
+    <div class="reader-view__workspace" :class="{ 'reader-view__workspace--panel': morphologyLayout.active.value && morphologyLayout.mode.value === 'panel' }">
     <div
       ref="scrollElement"
       class="reader-view__scroll"
@@ -2304,6 +2351,7 @@ function toggleEinkMode() {
         class="reader-view__content"
         :style="{
           maxWidth: `${appearance.contentWidth}px`,
+          '--reader-text-width': `${appearance.contentWidth}px`,
           fontSize: `${appearance.fontSize}px`,
           lineHeight: appearance.lineHeight,
           '--reader-paragraph-gap': `${appearance.paragraphGap}px`,
@@ -2341,6 +2389,7 @@ function toggleEinkMode() {
                   :key="capsule.key"
                   :grouped="Boolean(capsule.capsuleKey)"
                   :merged="Boolean(mergedHit && capsule.capsuleKey === mergedHit.key)"
+                  :active-ranges="activeRangesForCapsule(capsule)"
                   :runs="capsule.runs"
                   @pointerleave="leaveCapsule"
                   ><template #default="{ part }"><span
@@ -2388,12 +2437,32 @@ function toggleEinkMode() {
       </main>
     </div>
 
+    <div v-if="morphologyLayout.active.value && morphologyLayout.mode.value === 'sheet'" class="reader-sheet-guard" :style="{ bottom: `${sheetHeight}px` }" aria-hidden="true" @pointerdown.stop />
+    <div ref="sheetElement" class="reader-view__layout-pane"
+      :class="{
+        'reader-view__layout-pane--dragging': sheetDragging,
+        'reader-view__layout-pane--panel': morphologyLayout.mode.value === 'panel',
+        'reader-view__layout-pane--sheet': panelExpanded && morphologyLayout.mode.value === 'sheet',
+      }"
+      data-morphology-layout-shell="reader"
+      :style="panelExpanded && morphologyLayout.mode.value === 'sheet' ? { height: `${sheetHeight}px` } : undefined"
+      @pointerdown.self="morphologyLayout.docked.value && closeLookup()">
+      <button v-if="morphologyLayout.active.value && morphologyLayout.mode.value === 'sheet'" type="button" class="reader-view__sheet-handle" aria-label="展开或收起词典、活用与接续面板"
+        @pointerdown="startSheetDrag" @pointermove="moveSheetDrag" @pointerup="finishSheetDrag" @pointercancel="finishSheetDrag" @keydown="sheetKeydown">
+        <span />
+      </button>
+      <Transition name="reader-dock" @after-leave="finishPanelClose">
+      <div v-show="morphologyLayout.mode.value === 'modal' || morphologyLayout.active.value" class="reader-view__layout-scroll" data-explanation-scroll
+        :class="{ 'reader-view__layout-scroll--modal': morphologyLayout.mode.value === 'modal' }">
+      <div class="reader-view__layout-content" data-explanation-flow :class="{ 'reader-view__layout-content--modal': morphologyLayout.mode.value === 'modal' }">
+
     <TooltipPanel
       :show="Boolean(activeHit) && !activeParticle && (activeHit?.target.decision !== 'grammar' || Boolean(activeHit && builtinParticle(activeHit)))"
       :x="lookupPosition.x"
       :y="lookupPosition.y"
       :width="lookupPosition.width"
       :max-height="lookupPosition.maxHeight"
+      :docked="morphologyLayout.docked.value"
       :token="null"
       :headword="relatedWord || activeHit?.target.surface"
       :lookup="activeQuery"
@@ -2441,6 +2510,7 @@ function toggleEinkMode() {
       :y="componentPosition.y"
       :width="componentPosition.width"
       :max-height="componentPosition.maxHeight"
+      :docked="morphologyLayout.docked.value"
       :token="null"
       :headword="componentWord || componentHit.target.surface"
       :lookup="componentQuery"
@@ -2478,8 +2548,10 @@ function toggleEinkMode() {
       </template>
     </TooltipPanel>
     <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="activeParticleX" :y="activeParticleY" :lookup="activeParticle"
+      :docked="morphologyLayout.docked.value"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup" />
     <ParticleGrammarPopover v-if="componentParticle" :show="Boolean(activeHit)" :x="componentParticleX" :y="componentParticleY" :lookup="componentParticle"
+      :docked="morphologyLayout.docked.value"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup" />
     <ReaderExplanationBubble
       v-if="activeDetail && activeDetail.entryVisible !== false && !relatedWord && !componentHit"
@@ -2489,6 +2561,7 @@ function toggleEinkMode() {
       :y="detailPosition.y"
       :width="detailPosition.width"
       :max-height="detailPosition.maxHeight"
+      :docked="morphologyLayout.docked.value"
       :title="activeDetail.entry?.usage || activeDetail.title"
       label="活用词条"
       :surface="activeDetail.entry?.headword || activeDetail.surface"
@@ -2506,12 +2579,18 @@ function toggleEinkMode() {
       :show="Boolean(activeHit)"
       :x="connectionPosition.x" :y="connectionPosition.y"
       :width="connectionPosition.width" :max-height="connectionPosition.maxHeight"
+      :docked="morphologyLayout.docked.value"
       title="" surface="" label="接续方式与接续规则"
       contained v-slot="{ available }"
       @enter="cancelCloseLookup" @leave="scheduleCloseLookup"
     >
-      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" :max-height="available" @resize="refreshLookupPosition" />
+      <ReaderConnectionTree :key="activeDetail.connection.sentence[0]?.id ?? activeDetail.connection.id" :diagram="activeDetail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="refreshLookupPosition" />
     </ReaderExplanationBubble>
+      </div>
+      </div>
+      </Transition>
+    </div>
+    </div>
 
     <ReaderProgressBar
       :percent="estimate.percent"
@@ -2623,12 +2702,98 @@ function toggleEinkMode() {
 
 <style scoped>
 .reader-view {
+  --reader-side-panel-width: clamp(340px, 32vw, 400px);
   position: relative;
   display: flex;
   min-height: 0;
   flex: 1;
   flex-direction: column;
   background: var(--bg-primary);
+}
+.reader-view__workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 0;
+  grid-template-rows: minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  transition: grid-template-columns 220ms cubic-bezier(0.2, 0, 0, 1);
+}
+.reader-view__workspace--panel {
+  grid-template-columns: minmax(0, 1fr) var(--reader-side-panel-width);
+}
+@media (min-width: 961px) {
+  .reader-view__content {
+    width: min(var(--reader-text-width), calc(100vw - var(--reader-side-panel-width) - 64px));
+    min-width: min(var(--reader-text-width), calc(100vw - var(--reader-side-panel-width) - 64px));
+  }
+}
+.reader-view__layout-pane {
+  display: contents;
+}
+.reader-view__layout-pane--panel {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border-left: 1px solid var(--border-color);
+  background: #fff;
+  scrollbar-width: thin;
+}
+.reader-view__layout-pane--sheet {
+  position: fixed;
+  z-index: 1005;
+  inset: auto 12px 0;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border-color);
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+  scrollbar-width: thin;
+}
+.reader-view__layout-content { display: flex; width: calc(var(--reader-side-panel-width) - 1px); min-width: calc(var(--reader-side-panel-width) - 1px); flex: 0 0 auto; flex-direction: column; }
+.reader-view__layout-content--modal { display: contents; }
+.reader-view__layout-scroll { flex: 1 1 auto; min-height: 0; min-width: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.reader-view__layout-scroll--modal { display: contents; }
+.reader-view__layout-pane--sheet .reader-view__layout-content { width: 100%; min-width: 0; }
+.reader-dock-enter-active,
+.reader-dock-leave-active { transition: opacity 180ms ease, transform 180ms ease; }
+.reader-dock-enter-from,
+.reader-dock-leave-to { opacity: 0; }
+.reader-view__layout-pane--panel .reader-dock-enter-from,
+.reader-view__layout-pane--panel .reader-dock-leave-to { transform: translateX(14px); }
+.reader-view__layout-pane--sheet .reader-dock-enter-from,
+.reader-view__layout-pane--sheet .reader-dock-leave-to { transform: translateY(14px); }
+.reader-view__sheet-handle {
+  position: relative;
+  z-index: 1012;
+  display: grid;
+  box-sizing: border-box;
+  height: 22px;
+  min-height: 22px;
+  flex: 0 0 22px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: #fff;
+  touch-action: none;
+  cursor: grab;
+}
+.reader-view__sheet-handle:focus-visible { outline: 2px solid var(--accent-color); outline-offset: -3px; }
+.reader-sheet-guard { position: fixed; z-index: 1004; left: 12px; right: 12px; height: 32px; }
+.reader-view__sheet-handle:active { cursor: grabbing; }
+.reader-view__sheet-handle span {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--text-muted);
 }
 .reader-view__actions {
   display: flex;
@@ -2946,5 +3111,10 @@ function toggleEinkMode() {
   .reader-view__scroll {
     padding-inline: 16px;
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-view__workspace { transition: none; }
+  .reader-dock-enter-active,
+  .reader-dock-leave-active { transition: none; }
 }
 </style>

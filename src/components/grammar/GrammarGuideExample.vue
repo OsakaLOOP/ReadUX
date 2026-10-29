@@ -6,9 +6,11 @@ import type { GuideReaderSnapshot } from "../../grammar-guide/types";
 import { guideLinkedLookup, hydrateGuideLookup } from "../../grammar-guide/dictionary";
 import { grammarMorphemeLookup } from "../../grammar/particleEntries";
 import { componentForRange, projectReaderSentence, type LookupTarget } from "../../reader/capsuleProjection";
+import type { CapsuleActiveRange } from "../../reader/capsuleRuns";
 import { kanjiRubySegments, readerChains, readerTargetPresentation, type ReaderMorphologyDetail } from "../../reader/lookupPresentation";
-import { snapshotRect, isWithinPanelStackGap, type RectSnapshot } from "../../explanation/geometry";
+import { snapshotRect, type RectSnapshot } from "../../explanation/geometry";
 import { EXPLANATION_CLOSE_GRACE_MS } from "../../explanation/closeGrace";
+import { useMorphologyLayout } from "../../explanation/morphologyLayout";
 import ReaderCapsule from "../reader/ReaderCapsule.vue";
 import ReaderMorphologySummary from "../reader/ReaderMorphologySummary.vue";
 import ExplanationPopover from "../explanation/ExplanationPopover.vue";
@@ -18,6 +20,7 @@ const props = defineProps<{
   id: string; ja: string; zh: string; note?: string; source?: string; snapshot?: GuideReaderSnapshot;
   paragraphId: number; showChinese: boolean; showRuby: boolean; lessonId: string;
 }>();
+const morphologyLayout = useMorphologyLayout();
 const root = ref<HTMLElement | null>(null);
 const active = shallowRef<LookupTarget | null>(null);
 const component = shallowRef<LookupTarget | null>(null);
@@ -55,6 +58,7 @@ const owner = Symbol("guide-source");
 
 function cancelClose() { clearTimeout(closeTimer); closeTimer = undefined; }
 function close() {
+  if (active.value) morphologyLayout.active.value = false;
   ++generation;
   clearTimeout(hoverTimer);
   cancelClose();
@@ -67,6 +71,7 @@ function close() {
   sourceElement.value = null;
 }
 function scheduleClose(event?: PointerEvent) {
+  if (morphologyLayout.docked.value) return;
   const next = event?.relatedTarget;
   if (next instanceof Element && (root.value?.contains(next) || next.closest(`[data-guide-panels="${props.id}"]`))) return;
   clearTimeout(hoverTimer);
@@ -98,6 +103,8 @@ async function open(part: Part, source: HTMLElement) {
   cancelClose();
   if (!part.target || window.getSelection()?.isCollapsed === false) return;
   activate();
+  morphologyLayout.active.value = true;
+  morphologyLayout.contentKey.value = `${props.id}:${part.target.id}:${part.range.join(':')}`;
   sourceElement.value = source;
   anchor.value = snapshotRect(source.getBoundingClientRect());
   const child = !part.detail ? componentForRange(
@@ -129,11 +136,33 @@ async function open(part: Part, source: HTMLElement) {
   }
 }
 function hover(part: Part, event: PointerEvent) {
+  if (morphologyLayout.docked.value) return;
   cancelClose();
   clearTimeout(hoverTimer);
   if (event.buttons) return;
   const source = event.currentTarget as HTMLElement;
   hoverTimer = setTimeout(() => void open(part, source), 60);
+}
+function activatePart(part: Part, event: MouseEvent) {
+  if (part.target)
+    void open(part, event.currentTarget as HTMLElement);
+}
+function activeRangesForCapsule(capsule: ReturnType<typeof projectReaderSentence>[number]): CapsuleActiveRange[] {
+  if (!active.value) return [];
+  if (detail.value) {
+    const related = capsule.parts.filter((part) => part.target?.id === active.value!.id);
+    const selected = related.filter((part) => part.detail?.id === detail.value!.id);
+    if (!selected.length) return [];
+    const clicked = selected.find((part) => activeRange.value
+      && part.range[0] < activeRange.value[1] && part.range[1] > activeRange.value[0]) ?? selected[0];
+    if (clicked.detail?.highlight) return clicked.detail.highlight.segments.map((segment) => ({ ...segment, group: clicked.detail!.highlight!.unit }));
+    const detailRange = clicked.detailRange ?? clicked.range;
+    return [{ range: detailRange, tone: clicked.detailRole === "stem" ? "blue" : "grammar", group: clicked.detail?.id }];
+  }
+  return capsule.parts.flatMap((part) => {
+    if (part.range[0] >= active.value!.char_range[1] || part.range[1] <= active.value!.char_range[0]) return [];
+    return [{ range: part.range, tone: part.detailRole === "grammar" ? "grammar" as const : "blue" as const, group: active.value!.id }];
+  });
 }
 async function changeForm(form: string, inner: boolean) {
   const target = inner ? component.value : active.value;
@@ -161,24 +190,35 @@ function onViewportChange() {
 }
 function outside(event: PointerEvent) {
   const target = event.target;
-  if (!(target instanceof Element) || root.value?.contains(target) || target.closest(`[data-guide-panels="${props.id}"]`)) return;
+  if (target instanceof Element && target.closest(".morphology-layout-toggle")) return;
+  if (target instanceof Element && target.closest("[data-target-id]")) return;
+  if (target instanceof Element && target.closest(`[data-explanation-panel^="guide-${props.id}-"]`)) return;
+  if (target instanceof Element && target.closest("[data-guide-layout-pane]")) {
+    if (target.matches("[data-guide-layout-pane]")) close();
+    return;
+  }
+  if (!(target instanceof Element) || target.closest(`[data-guide-panels="${props.id}"]`)) return;
   close();
 }
-function keydown(event: KeyboardEvent) { if (event.key === "Escape") close(); }
+function keydown(event: KeyboardEvent) {
+  if (event.key !== "Escape" || !active.value) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  const source = sourceElement.value;
+  close();
+  source?.focus({ preventScroll: true });
+}
 function monitorPointer(event: PointerEvent) {
-  if (!active.value) return;
-  const panels = [...document.querySelectorAll<HTMLElement>(`[data-guide-panels="${props.id}"] [data-explanation-panel]`)];
-  const inside = event.target instanceof Element && event.target.closest(`[data-guide-panels="${props.id}"]`);
-  const gap = panels.some((panel, index) => panels.slice(index + 1).some((other) =>
-    isWithinPanelStackGap(event.clientX, event.clientY, snapshotRect(panel.getBoundingClientRect()), snapshotRect(other.getBoundingClientRect()))));
-  if (inside || gap) cancelClose();
+  if (!active.value || morphologyLayout.docked.value) return;
+  const inside = event.target instanceof Element && event.target.closest(`[data-explanation-panel^="guide-${props.id}-"]`);
+  if (inside) cancelClose();
   else if (!(event.target instanceof Node && root.value?.contains(event.target))) scheduleClose();
 }
 onMounted(() => {
   window.addEventListener("pointermove", monitorPointer);
   window.addEventListener("readux:guide-lookup", otherSource);
   window.addEventListener("pointerdown", outside);
-  window.addEventListener("keydown", keydown);
+  window.addEventListener("keydown", keydown, true);
   window.addEventListener("resize", onViewportChange);
   window.addEventListener("scroll", onViewportChange, true);
 });
@@ -187,7 +227,7 @@ onBeforeUnmount(() => {
   close();
   window.removeEventListener("readux:guide-lookup", otherSource);
   window.removeEventListener("pointerdown", outside);
-  window.removeEventListener("keydown", keydown);
+  window.removeEventListener("keydown", keydown, true);
   window.removeEventListener("resize", onViewportChange);
   window.removeEventListener("scroll", onViewportChange, true);
 });
@@ -200,12 +240,15 @@ onBeforeUnmount(() => {
       <span class="guide-example__index">{{ id }}</span>
       <span class="guide-example__scroll">
         <template v-if="projection.length">
-          <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :grouped="Boolean(capsule.capsuleKey)">
+          <ReaderCapsule v-for="capsule in projection" :key="capsule.key" :runs="capsule.runs" :active-ranges="activeRangesForCapsule(capsule)" :grouped="Boolean(capsule.capsuleKey)">
             <template #default="{ part }">
               <span class="reader-capsule__part" :class="{ 'reader-capsule__part--lookup': part.target }"
+                :tabindex="part.target ? 0 : undefined" :role="part.target ? 'button' : undefined"
+                @keydown.enter.stop.prevent="part.target && open(part, $event.currentTarget as HTMLElement)"
+                @keydown.space.stop.prevent="part.target && open(part, $event.currentTarget as HTMLElement)"
                 :data-char-start="part.range[0]" :data-char-end="part.range[1]" :data-target-id="part.target?.id"
                 @pointerenter="part.target ? hover(part, $event) : scheduleClose()"
-                @pointerleave="scheduleClose" @click.stop>{{ part.text }}</span>
+                @pointerleave="scheduleClose" @click.stop="activatePart(part, $event)">{{ part.text }}</span>
             </template>
           </ReaderCapsule>
         </template>
@@ -232,14 +275,17 @@ onBeforeUnmount(() => {
       :component-can-go-back="(hasCompanion ? componentHistory : wholeHistory).length > 0"
       :component-label="component ? '组分' : ''" :detail="detail" :summary-visible="chains.length > 0"
       :panel-prefix="`guide-${id}`" :shortcuts-enabled="false" presentation="guide"
+      layout-target="#grammar-guide-dock-pane-content"
       @enter="cancelClose" @leave="scheduleClose"
       @navigate-whole="navigate($event, false)" @navigate-component="navigate($event, Boolean(component))"
       @select-whole-form="changeForm($event, false)" @select-component-form="changeForm($event, Boolean(component))"
       @back-whole="back(false)" @back-component="back(Boolean(component))">
       <template #summary><ReaderMorphologySummary :chains="chains" /></template>
     </ExplanationPopover>
-    <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="particleX" :y="particleY" :lookup="activeParticle"
-      @enter="cancelClose" @leave="scheduleClose" />
+    <Teleport v-if="activeParticle" defer :to="morphologyLayout.docked.value ? '#grammar-guide-dock-pane-content' : 'body'">
+      <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="particleX" :y="particleY" :lookup="activeParticle"
+        :docked="morphologyLayout.docked.value" :panel-id="`guide-${id}-particle-panel`" @enter="cancelClose" @leave="scheduleClose" />
+    </Teleport>
   </div>
 </template>
 

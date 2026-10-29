@@ -2,6 +2,7 @@ import type { DictionaryLookup, PosTag } from "../types";
 import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
+import { inflectionStemAndEnding } from "./japaneseInflectionRanges.ts";
 
 export interface ReaderTargetPresentation {
   pos: PosTag;
@@ -83,12 +84,40 @@ export interface ReaderMorphologyDetail {
   entityClass?: string;
   connectionTree?: { label: string; summary?: string; inputExamples?: string[]; output?: string; terminal?: boolean; children?: { label: string; summary?: string; inputExamples?: string[]; output?: string; stage?: string }[] } | null;
   ruleMetadata?: { stage?: string; executor?: string; ruleGroup?: string; inputCategory?: string; outputCategory?: string; terminalMode?: string; orderRank?: number } | null;
+  /** 正文命中对象在接续图中的唯一节点及其完整显示范围。 */
+  highlight?: MorphologyHighlightObject;
+}
+
+export interface MorphologyHighlightObject {
+  unit: string;
+  range: [number, number];
+  segments: { range: [number, number]; tone: "blue" | "grammar" }[];
+}
+
+/** 将正文 token 范围同步路由到接续图的唯一句中节点。 */
+export function morphologyHighlightForToken(
+  diagram: ConnectionDiagram | null | undefined,
+  tokenRange: [number, number],
+  fallbackUnit: string,
+): MorphologyHighlightObject {
+  const exact = diagram?.sentence.filter((part) => part.range
+    && part.range[0] < tokenRange[1] && tokenRange[0] < part.range[1]) ?? [];
+  const selected = exact.find((part) => part.range?.[0] === tokenRange[0] && part.range?.[1] === tokenRange[1])
+    ?? exact.find((part) => part.selected)
+    ?? exact[0];
+  const range = selected?.range ?? tokenRange;
+  return {
+    unit: selected?.unit ?? fallbackUnit,
+    range: [range[0], range[1]],
+    segments: [{ range: [range[0], range[1]], tone: "grammar" }],
+  };
 }
 
 export interface ReaderMorphologyHit {
   range: [number, number];
   targetId: string;
   detail: ReaderMorphologyDetail;
+  role: "stem" | "grammar";
 }
 
 export interface ReaderCapsuleRange { id: string; range: [number, number] }
@@ -812,7 +841,15 @@ export function readerMorphologyHits(
         terminalMode: operator.terminal_mode, orderRank: operator.order_rank,
       },
     };
-    return (occurrence.hit_ranges ?? []).map((range) => ({ range, targetId: target.id, detail }));
+    return (occurrence.hit_ranges ?? []).map((range) => ({
+      range,
+      targetId: target.id,
+      detail: {
+        ...detail,
+        highlight: morphologyHighlightForToken(detail.connection, range, operator.operator_id),
+      },
+      role: "grammar" as const,
+    }));
   });
   const conjugations = (document.morphology?.chains ?? []).flatMap((chain) => {
     const target = targetForChain(chain.chain_id);
@@ -821,12 +858,20 @@ export function readerMorphologyHits(
     const synthetic = syntheticConjugationStep(chain, chainRange[1], document, chain.operators ?? []);
     const firstOperator = (chain.operators ?? [])[0];
     const syntheticRange: [number, number] = [chainRange[0], firstOperator?.char_range ? firstOperator.char_range[0] : chainRange[0]];
+    const syntheticDiagram = synthetic && syntheticRange[0] < syntheticRange[1]
+      ? morphologyStemDiagram(chain, document, syntheticRange) : null;
     const syntheticHits: ReaderMorphologyHit[] = synthetic && syntheticRange[0] < syntheticRange[1] ? [{
       range: syntheticRange,
       targetId: target.id,
+      role: "stem" as const,
       detail: {
         id: `${chain.chain_id}:core-conjugation`,
-        connection: morphologyStemDiagram(chain, document, syntheticRange),
+        connection: syntheticDiagram,
+        highlight: {
+          unit: `${chain.chain_id}:core`,
+          range: syntheticRange,
+          segments: [{ range: syntheticRange, tone: "blue" as const }],
+        },
         status: chain.status,
         title: stemConjugationTitle(chain, firstOperator?.state_before, document),
         surface: characters.slice(...syntheticRange).join(""),
@@ -840,22 +885,51 @@ export function readerMorphologyHits(
       .flatMap((operator) => {
         const step = resolveOperatorStep(chain, operator, document, document.morphology?.chains ?? []);
         if (step.input === step.output) return [];
+        const diagram = morphologyStemDiagram(chain, document, operator.char_range);
+        const detail = {
+          id: operator.operator_id,
+          connection: diagram,
+          highlight: morphologyHighlightForToken(diagram, operator.char_range, operator.operator_id),
+          status: chain.status,
+          title: stemConjugationTitle(chain, operator.state_after ?? chain.final_state, document),
+          surface: step.prototypeForm || characters.slice(operator.char_range[0], operator.char_range[1]).join(""),
+          conjugation: operator.evidence?.includes("unidic:potential") ? step.conceptTitle
+            : conjugationFormLabel(operator.state_after?.conjugation_form || chain.final_state?.conjugation_form,
+              operator.state_after?.form || chain.final_state?.form),
+          description: step.description,
+          tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
+          candidates: [],
+        };
+        const surface = characters.slice(operator.char_range[0], operator.char_range[1]).join("");
+        const sourceToken = document.morphemes[operator.source_morpheme_range[0]];
+        const sourceFields = document.source.tokens.find((token) => token.index === sourceToken?.source_index)?.fields ?? [];
+        const conjugationType = sourceFields.find((field) => field.name === "cType")?.value ?? "";
+        const conjugationForm = sourceFields.find((field) => field.name === "cForm")?.value ?? "";
+        const split = chain.parent_chain_id === null
+          ? inflectionStemAndEnding(surface, operator.char_range, conjugationType, conjugationForm)
+          : null;
+        if (split) {
+          const groupedDetail = {
+            ...detail,
+            highlight: {
+              unit: detail.highlight.unit,
+              range: [split.stem[0], split.ending[1]] as [number, number],
+              segments: [
+                { range: split.stem, tone: "blue" as const },
+                { range: split.ending, tone: "grammar" as const },
+              ],
+            },
+          };
+          return [
+            { range: split.stem, targetId: target.id, role: "stem" as const, detail: groupedDetail },
+            { range: split.ending, targetId: target.id, role: "grammar" as const, detail: groupedDetail },
+          ];
+        }
         return [{
           range: operator.char_range,
           targetId: target.id,
-          detail: {
-            id: operator.operator_id,
-            connection: morphologyStemDiagram(chain, document, operator.char_range),
-            status: chain.status,
-            title: stemConjugationTitle(chain, operator.state_after ?? chain.final_state, document),
-            surface: step.prototypeForm || characters.slice(operator.char_range[0], operator.char_range[1]).join(""),
-            conjugation: operator.evidence?.includes("unidic:potential") ? step.conceptTitle
-              : conjugationFormLabel(operator.state_after?.conjugation_form || chain.final_state?.conjugation_form,
-                operator.state_after?.form || chain.final_state?.form),
-            description: step.description,
-            tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
-            candidates: [],
-          },
+          role: "grammar" as const,
+          detail,
         }];
       });
     const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
@@ -879,10 +953,16 @@ export function readerMorphologyHits(
     return [...hits, {
       range: stem.range,
       targetId: target.id,
+      role: "stem" as const,
       detail: {
         id: `${chain.chain_id}:core-conjugation`,
         entryVisible,
         connection: diagram,
+        highlight: {
+          unit: stem.unit,
+          range: stem.range,
+          segments: [{ range: stem.range, tone: "blue" }],
+        },
         status: chain.status,
         title: stemConjugationTitle(chain, state, document),
         surface,

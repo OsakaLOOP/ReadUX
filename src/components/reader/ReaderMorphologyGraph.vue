@@ -3,7 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, useId, watc
 import { interpolateNumber } from "d3-interpolate";
 import { morphologyGraphLink, type GraphNode, type MorphologyGraphLayout } from "../../reader/morphologyGraph";
 
-const props = defineProps<{ layout: MorphologyGraphLayout; label: string; height?: number }>();
+const props = defineProps<{ layout: MorphologyGraphLayout; label: string; height?: number; flow?: boolean }>();
 const emit = defineEmits<{ toggle: [key: string]; resize: [height: number] }>();
 const current = shallowRef(props.layout);
 const viewport = shallowRef<HTMLDivElement | null>(null);
@@ -35,6 +35,7 @@ const selectedBounds = computed(() => {
   } : null;
 });
 const scale = computed(() => {
+  if (props.flow && viewportWidth.value > 16) return Math.min(1, (viewportWidth.value - 16) / current.value.width);
   const bounds = selectedBounds.value;
   return bounds && viewportWidth.value > 16
     ? Math.min(1, (viewportWidth.value - 16) / (bounds.right - bounds.left)) : 1;
@@ -46,6 +47,7 @@ let scrollTarget = { left: 0, top: 0 };
 let observer: ResizeObserver | undefined;
 
 function centerSelection() {
+  if (props.flow) return;
   const element = viewport.value;
   const bounds = selectedBounds.value;
   if (!element || !bounds || !element.clientWidth || !element.clientHeight) return;
@@ -159,7 +161,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="viewport" class="morphology-graph" :style="height === undefined ? undefined : { height: `${height}px` }" tabindex="0" :aria-label="`${label}，可滚动`">
+  <div ref="viewport" class="morphology-graph" :class="{ 'morphology-graph--flow': flow }" :style="height === undefined ? undefined : { height: `${height}px` }" tabindex="0" :aria-label="flow ? label : `${label}，可滚动`">
     <svg :width="current.width * scale" :height="current.height * scale" :viewBox="`0 0 ${current.width} ${current.height}`" role="group" :aria-label="label">
       <defs>
         <marker :id="markerId" viewBox="0 0 7 7" refX="6" refY="3.5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
@@ -217,6 +219,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .morphology-graph { min-width: 0; min-height: 0; max-width: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
 .morphology-graph::-webkit-scrollbar { display: none; }
+.morphology-graph--flow { overflow: visible; }
 svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--font-ui); }
 .morphology-graph__edges path { fill: none; stroke: color-mix(in srgb, var(--text-muted) 45%, var(--border-color)); stroke-width: 1.1; transition: stroke 180ms ease, stroke-width 180ms ease; }
 .morphology-graph__edges .is-matched path { stroke: var(--accent-color); stroke-width: 1.6; }

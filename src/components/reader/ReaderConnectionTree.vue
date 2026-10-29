@@ -3,7 +3,7 @@ import { computed, nextTick, shallowRef } from "vue";
 import type { ConnectionDiagram } from "../../reader/morphologyBubble";
 import { layoutConnectionRules, layoutSentenceChain } from "../../reader/morphologyGraph";
 import ReaderMorphologyGraph from "./ReaderMorphologyGraph.vue";
-const props = defineProps<{ diagram: ConnectionDiagram; maxHeight: number }>();
+const props = defineProps<{ diagram: ConnectionDiagram; maxHeight: number; scrollMode?: "split" | "flow" }>();
 const emit = defineEmits<{ resize: [] }>();
 const expanded = shallowRef<string | null>(null);
 const rules = computed(() => layoutConnectionRules(props.diagram, expanded.value));
@@ -20,6 +20,7 @@ const chromeHeight = computed(() => (Number(Boolean(sentence.value.nodes.length)
 const naturalHeight = computed(() => contentHeights.value.sentence + contentHeights.value.rules + chromeHeight.value);
 const viewportHeights = computed(() => {
   const heights = contentHeights.value;
+  if (props.scrollMode === "flow") return heights;
   const available = Math.max(0, props.maxHeight - chromeHeight.value);
   if (heights.sentence + heights.rules <= available) return heights;
   if (!sentence.value.nodes.length) return { sentence: 0, rules: available };
@@ -42,20 +43,21 @@ function toggle(key: string) {
 </script>
 
 <template>
-  <div class="connection-diagrams" :data-natural-width="Math.ceil(Math.max(sentence.width, rules.width))" :data-natural-height="Math.ceil(naturalHeight)">
+  <div class="connection-diagrams" :class="{ 'connection-diagrams--flow': scrollMode === 'flow' }" :data-natural-width="Math.ceil(Math.max(sentence.width, rules.width))" :data-natural-height="Math.ceil(naturalHeight)">
     <section v-if="sentence.nodes.length" aria-label="接续方式">
       <h3>接续方式</h3>
-      <ReaderMorphologyGraph :layout="sentence" :height="viewportHeights.sentence" label="完整活用链" @resize="resizeGraph('sentence', $event)" />
+      <ReaderMorphologyGraph :layout="sentence" :height="viewportHeights.sentence" :flow="scrollMode === 'flow'" label="完整活用链" @resize="resizeGraph('sentence', $event)" />
     </section>
     <section v-if="rules.nodes.length" aria-label="接续规则">
       <h3>接续规则 <span v-if="diagram.status === 'candidate'">候选</span></h3>
-      <ReaderMorphologyGraph :layout="rules" :height="viewportHeights.rules" label="接续规则树" @toggle="toggle" @resize="resizeGraph('rules', $event)" />
+      <ReaderMorphologyGraph :layout="rules" :height="viewportHeights.rules" :flow="scrollMode === 'flow'" label="接续规则树" @toggle="toggle" @resize="resizeGraph('rules', $event)" />
     </section>
   </div>
 </template>
 
 <style scoped>
 .connection-diagrams { display: grid; gap: 8px; min-height: 0; overflow: hidden; }
+.connection-diagrams--flow { overflow: visible; }
 .connection-diagrams > section { min-width: 0; min-height: 0; }
 .connection-diagrams > section + section { padding-top: 7px; border-top: 1px solid var(--glass-border); }
 h3 { display: flex; gap: 8px; margin: 0 0 3px; color: var(--text-secondary); font: 600 12px/1.5 var(--font-ui); }

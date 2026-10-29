@@ -10,6 +10,7 @@ import ReaderConnectionTree from "../reader/ReaderConnectionTree.vue";
 import { morphologyLocalTransition } from "../../reader/morphologyBubble";
 import type { ReaderMorphologyDetail } from "../../reader/lookupPresentation";
 import type { ReaderTargetPresentation } from "../../reader/lookupPresentation";
+import { useMorphologyLayout } from "../../explanation/morphologyLayout";
 
 const props = defineProps<{
   show: boolean;
@@ -33,7 +34,9 @@ const props = defineProps<{
   componentSource?: ReaderTargetPresentation | null;
   summaryVisible?: boolean;
   detail?: ReaderMorphologyDetail | null;
+  layoutTarget?: string;
 }>();
+const morphologyLayout = useMorphologyLayout();
 
 const emit = defineEmits<{
   enter: [event: PointerEvent];
@@ -66,6 +69,7 @@ const connectionPanelId = computed(() => `${panelPrefix.value}-connection-panel`
 const enableShortcuts = computed(() => props.shortcutsEnabled ?? true);
 
 function place() {
+  if (morphologyLayout.docked.value) return;
   if (!props.show || !props.anchor || !props.componentAnchor) {
     floatDebug.record("layout", "explanation-popover", "place-skipped", "render-input-missing", {
       show: props.show,
@@ -176,7 +180,7 @@ function elementRectSnapshot(element: HTMLElement | null) {
 }
 
 watch(
-  () => [props.show, props.anchor, props.componentAnchor, props.wholeLookup, props.wholeLoading, props.componentLookup, props.componentLoading, props.detail],
+  () => [props.show, props.anchor, props.componentAnchor, props.wholeLookup, props.wholeLoading, props.componentLookup, props.componentLoading, props.detail, morphologyLayout.mode.value],
   connectAndPlace,
   { flush: "post" },
 );
@@ -189,6 +193,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <Teleport v-if="show" defer :to="morphologyLayout.docked.value && layoutTarget ? layoutTarget : 'body'">
   <TooltipPanel
     v-if="wholeLookup || wholeLoading"
     :panel-id="wholePanelId"
@@ -206,12 +211,15 @@ onBeforeUnmount(() => {
     :can-go-back="wholeCanGoBack"
     :shortcuts-enabled="false"
     :presentation="presentation"
+    :docked="morphologyLayout.docked.value"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
     @navigate="emit('navigateWhole', $event)"
     @select-form="emit('selectWholeForm', $event)"
     @back="emit('backWhole')"
-  ><template #summary><slot name="summary" /></template></TooltipPanel>
+  >
+    <template #summary><slot name="summary" /></template>
+  </TooltipPanel>
   <ReaderExplanationBubble
     v-if="detail && detail.entryVisible !== false"
     :id="componentPanelId"
@@ -221,6 +229,7 @@ onBeforeUnmount(() => {
     :y="placement.component.top"
     :width="placement.component.width"
     :max-height="placement.component.maxHeight"
+    :docked="morphologyLayout.docked.value"
     :title="detail.entry?.usage || detail.title"
     label="活用词条"
     :surface="detail.entry?.headword || detail.surface"
@@ -250,19 +259,23 @@ onBeforeUnmount(() => {
     :can-go-back="componentCanGoBack"
     :shortcuts-enabled="enableShortcuts"
     :presentation="presentation"
+    :docked="morphologyLayout.docked.value"
     @enter="emit('enter', $event)"
     @leave="emit('leave', $event)"
     @navigate="emit('navigateComponent', $event)"
     @select-form="emit('selectComponentForm', $event)"
     @back="emit('backComponent')"
-  ><template #summary><slot name="summary" /></template></TooltipPanel>
+  >
+    <template #summary><slot name="summary" /></template>
+  </TooltipPanel>
   <ReaderExplanationBubble v-if="detail?.connection"
     :id="connectionPanelId" :data-explanation-panel="connectionPanelId" :show="show"
     :x="connectionPlacement?.left ?? -10000" :y="connectionPlacement?.top ?? -10000"
-    :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300"
+    :width="connectionPlacement?.width ?? panelWidth" :max-height="connectionPlacement?.maxHeight ?? 300" :docked="morphologyLayout.docked.value"
     title="" surface="" label="接续方式与接续规则"
     contained v-slot="{ available }"
     @enter="emit('enter', $event)" @leave="emit('leave', $event)">
-    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" :max-height="available" @resize="place" />
+    <ReaderConnectionTree :key="detail.connection.sentence[0]?.id ?? detail.connection.id" :diagram="detail.connection" :max-height="morphologyLayout.docked.value ? Number.POSITIVE_INFINITY : available" :scroll-mode="morphologyLayout.docked.value ? 'flow' : 'split'" @resize="place" />
   </ReaderExplanationBubble>
+  </Teleport>
 </template>

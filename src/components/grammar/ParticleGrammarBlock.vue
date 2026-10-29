@@ -2,12 +2,12 @@
 import type { DictionaryLookup } from "../../types";
 import DictionaryExamples from "../dictionary/DictionaryExamples.vue";
 
-defineProps<{ lookup: DictionaryLookup }>();
+defineProps<{ lookup: DictionaryLookup; showHeader?: boolean }>();
 </script>
 
 <template>
   <article class="particle-grammar">
-    <header>
+    <header v-if="showHeader !== false">
       <strong>{{ lookup.entries[0]?.headword ?? lookup.query }}</strong>
       <span>{{ ({ 格助詞: "格助词", 係助詞: "係助词", 副助詞: "副助词", 接続助詞: "接续助词", 終助詞: "终助词", 準体助詞: "准体助词", 助動詞: "助动词" } as Record<string, string>)[lookup.pos?.sub1 ?? ""] ?? "助词" }}</span>
       <span v-if="lookup.observed_form && lookup.observed_form !== lookup.entries[0]?.headword">本句：<i lang="ja">{{ lookup.observed_form }}</i></span>

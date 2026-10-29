@@ -48,7 +48,8 @@ export function componentForRange(children: LookupTarget[], range: [number, numb
 
 export function projectReaderSentence(document: UnifiedDocument, group: LookupGroup, ruby: CapsulePart["annotation"][]) {
   const capsules = readerCapsuleRanges(group.outer_targets, document);
-  const details = readerMorphologyHits([...group.outer_targets, ...group.inner_targets], document);
+  const details = readerMorphologyHits([...group.outer_targets, ...group.inner_targets], document)
+    .sort((left, right) => (left.range[1] - left.range[0]) - (right.range[1] - right.range[0]));
   const boundaries = new Set([0, Array.from(document.text).length]);
   for (const item of [...group.outer_targets, ...group.inner_targets]) item.char_range.forEach((offset) => boundaries.add(offset));
   for (const item of [...capsules, ...details]) item.range.forEach((offset) => boundaries.add(offset));
@@ -64,6 +65,8 @@ export function projectReaderSentence(document: UnifiedDocument, group: LookupGr
     return {
       key: `${start}:${end}`, text: characters.slice(start, end).join(""), range: [start, end] as [number, number],
       capsuleKey: capsule?.id ?? null, target, detail: detail?.detail ?? null as ReaderMorphologyDetail | null,
+      detailRole: detail?.role,
+      detailRange: detail?.range,
       annotation: ruby.find((item) => item && item.char_range[0] <= start && end <= item.char_range[1]),
     };
   });
