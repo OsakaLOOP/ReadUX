@@ -282,7 +282,7 @@ onBeforeUnmount(() => {
       @back-whole="back(false)" @back-component="back(Boolean(component))">
       <template #summary><ReaderMorphologySummary :chains="chains" /></template>
     </ExplanationPopover>
-    <Teleport v-if="activeParticle" defer :to="morphologyLayout.docked.value ? '#grammar-guide-dock-pane-content' : 'body'">
+    <Teleport v-if="activeParticle" defer :disabled="!morphologyLayout.docked.value" :to="morphologyLayout.docked.value ? '#grammar-guide-dock-pane-content' : 'body'">
       <ParticleGrammarPopover :show="Boolean(activeParticle)" :x="particleX" :y="particleY" :lookup="activeParticle"
         :docked="morphologyLayout.docked.value" :panel-id="`guide-${id}-particle-panel`" @enter="cancelClose" @leave="scheduleClose" />
     </Teleport>
@@ -294,7 +294,7 @@ onBeforeUnmount(() => {
 .guide-example__bookmark { grid-column: 1; grid-row: 1; align-self: baseline; justify-self: center; color: var(--accent-color); }
 .guide-example__text { display: flex; align-items: baseline; gap: 8px; grid-column: 2; grid-row: 1; min-width: 0; font: 21px/1.9 var(--font-ja); overflow-wrap: anywhere; }
 .guide-example__index { flex: none; color: var(--accent-color); font: 700 11px/1 var(--font-ui); letter-spacing: .02em; }
-.guide-example__scroll { min-width: 0; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; scrollbar-width: thin; white-space: nowrap; }
+.guide-example__scroll { box-sizing: border-box; min-width: 0; margin-inline: -8px; padding-inline: 8px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; scrollbar-width: thin; white-space: nowrap; }
 .guide-example__source { display: block; margin-top: 1px; color: var(--text-secondary); font: 12px/1.5 var(--font-ui); white-space: normal; }
 .reader-capsule__part--lookup { cursor: pointer; }
 .guide-example__translation { grid-column: 2; grid-row: 2; margin: 2px 0 0; color: var(--text-secondary); font: 13px/1.6 var(--font-ui); }

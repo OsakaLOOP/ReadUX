@@ -35,7 +35,7 @@ function highlightStyle(group?: string) {
 </script>
 
 <template>
-  <span class="reader-capsule" :class="{ 'reader-capsule--group': grouped, 'reader-capsule--merged': merged }">
+  <span class="reader-capsule" :class="{ 'reader-capsule--group': grouped, 'reader-capsule--merged': merged, 'reader-capsule--active': activeRanges?.length }">
     <template v-for="group in groups" :key="group.key">
       <span v-if="group.active" class="reader-capsule__query-object" :style="highlightStyle(group.activeGroup)">
         <component v-for="run in group.runs" :key="run.key" :is="run.reading ? 'ruby' : 'span'">
@@ -56,7 +56,8 @@ function highlightStyle(group?: string) {
 <style scoped>
 .reader-capsule { display: inline; }
 .reader-capsule--group { border-radius: var(--radius-sm); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.reader-capsule--group:hover { outline: 1px solid var(--border-color); }
+.reader-capsule--group:hover,
+.reader-capsule--group.reader-capsule--active { outline: 1px solid var(--border-color); }
 .reader-capsule--merged { outline: 1px solid var(--accent-color); }
 .reader-capsule__query-object { border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 rt { user-select: none; }

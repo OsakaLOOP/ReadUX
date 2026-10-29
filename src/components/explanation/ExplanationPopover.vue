@@ -193,7 +193,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Teleport v-if="show" defer :to="morphologyLayout.docked.value && layoutTarget ? layoutTarget : 'body'">
+  <Teleport v-if="show" defer :disabled="!morphologyLayout.docked.value" :to="morphologyLayout.docked.value && layoutTarget ? layoutTarget : 'body'">
   <TooltipPanel
     v-if="wholeLookup || wholeLoading"
     :panel-id="wholePanelId"
