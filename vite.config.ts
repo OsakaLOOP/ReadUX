@@ -10,7 +10,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => ({
-  plugins: [vue(), grammarGuideAssets(), ...(mode === "frontend" ? [] : [nlpBridge()])],
+  plugins: [vue(), grammarGuideAssets(), ...(["frontend", "static"].includes(mode) ? [] : [nlpBridge()])],
   // 两个开发模式独立维护预构建结果，支持同时预览与验收。
   cacheDir: `node_modules/.vite/${mode}`,
 

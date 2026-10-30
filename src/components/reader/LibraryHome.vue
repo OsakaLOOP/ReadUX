@@ -28,6 +28,7 @@ const props = defineProps<{
   error: string | null;
   libraryPath: string;
   coverUrl: (book: LibraryBookSummary) => string | undefined;
+  desktop?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -47,7 +48,7 @@ const importActions = computed(() => [
     label: "粘贴 Markdown",
     description: "从纯文本开始阅读",
     icon: FileText,
-    disabled: props.importing || Boolean(props.openingBookId),
+    disabled: props.desktop === false || props.importing || Boolean(props.openingBookId),
     theme: { color: "#4d79b8", textColor: "#28486f" },
   },
   {
@@ -55,7 +56,7 @@ const importActions = computed(() => [
     label: props.importing ? "正在导入…" : "导入 EPUB",
     description: "保留封面、章节与插图",
     icon: FileUp,
-    disabled: props.importing || Boolean(props.openingBookId),
+    disabled: props.desktop === false || props.importing || Boolean(props.openingBookId),
     theme: { color: "#b9ce32", textColor: "#52620f" },
   },
 ]);
@@ -412,7 +413,7 @@ watch(shelfTotalPages, (pageCount) => {
     <div class="library-toolbar">
       <div>
         <h1>书架</h1>
-        <button class="library-location" type="button" title="在资源管理器中显示书库" @click="emit('reveal')">
+        <button v-if="desktop !== false" class="library-location" type="button" title="在资源管理器中显示书库" @click="emit('reveal')">
           <FolderOpen :size="14" aria-hidden="true" />
           <span>{{ libraryPath || '正在读取书库位置…' }}</span>
         </button>
@@ -671,7 +672,7 @@ watch(shelfTotalPages, (pageCount) => {
         <button class="book-context-menu__item" type="button" role="menuitem" @click="showDetails(contextMenu.book)">
           <Info :size="16" aria-hidden="true" />查看详情
         </button>
-        <button class="book-context-menu__item" type="button" role="menuitem" @click="requestReveal(contextMenu.book)">
+        <button v-if="desktop !== false" class="book-context-menu__item" type="button" role="menuitem" @click="requestReveal(contextMenu.book)">
           <FolderOpen :size="16" aria-hidden="true" />在文件夹中显示
         </button>
         <div class="book-context-menu__rule"></div>
@@ -697,7 +698,7 @@ watch(shelfTotalPages, (pageCount) => {
         <button class="book-context-menu__item" type="button" role="menuitem" @click="requestReset(contextMenu.book)">
           <RotateCcw :size="16" aria-hidden="true" />重置阅读进度
         </button>
-        <button class="book-context-menu__item book-context-menu__item--danger" type="button" role="menuitem" @click="requestRemove(contextMenu.book)">
+        <button v-if="desktop !== false" class="book-context-menu__item book-context-menu__item--danger" type="button" role="menuitem" @click="requestRemove(contextMenu.book)">
           <Trash2 :size="16" aria-hidden="true" />从书架删除
         </button>
       </div>

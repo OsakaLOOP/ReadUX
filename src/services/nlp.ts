@@ -1,6 +1,8 @@
 import { invoke, isTauri } from '@tauri-apps/api/core';
+import { isStaticReader, staticNlpRequest } from './staticAnalysis';
 
 export async function nlpRequest<T>(request: Record<string, unknown>): Promise<T> {
+  if (isStaticReader) return staticNlpRequest(request) as Promise<T>;
   const response: { result: T | null; error: string | null } = isTauri()
     ? await invoke('nlp_request', { request })
     : await fetch('/api/nlp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) })

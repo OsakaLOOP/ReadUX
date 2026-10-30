@@ -26,6 +26,7 @@
 | [云端 SaaS 路线](cloud_saas_roadmap.md)            | BERT large 云端推理、订阅配额、容量成本与阶段 catalog       |
 | [Web 产品路线建议](web_product_strategy.md) | 结合空间实测的产品入口、内容分发、宿主适配及阶段建议；讨论稿 |
 | [静态线上化空间测量](static_storage_measurement.md) | 指南压缩、小说每千字索引、共用词典与数据库体积实测 |
+| [静态书库](static_library.md) | 生成与部署、分析分块、词典及语法内容包、浏览器阅读状态 |
 | [首个云端部署实验](cloud_gpu_first_experiment.md) | 本地直连 RunPod、推理镜像、性能资源与实际费用实验 |
 | [GiNZA CUDA 测量](ginza_cuda_measurement.md) | RTX 3050 显存与批次上限、七种配置、量化差异及二十处人工复核 |
 | [GiNZA BERT 优化交接](ginza_optimization_handoff.md) | BERT 阶段模型、CPU 并行、GPU 批次/多流实测与 4060 Ti 后续任务 |

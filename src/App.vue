@@ -16,6 +16,7 @@ import { compileReaderDocumentAsync, type ReaderDocument } from "./reader/docume
 import { DEFAULT_READER_APPEARANCE, type ReaderAppearance } from "./reader/reading";
 import type { LibraryBook, LibraryBookSummary } from "./reader/library";
 import { readerRequest } from "./services/reader";
+import { staticUrl } from "./services/staticLibrary";
 import { nlpRequest } from "./services/nlp";
 import type { SavedSelection } from "./types/reader";
 import { readerAnalysisProgress } from "./reader/readerProgress";
@@ -47,7 +48,7 @@ const readerAnalysisError = computed(() => session.error.value || Object.values(
 const readerProgress = computed(() => readerAnalysisProgress(sessionState.value, readerPreparing.value));
 const readerEntered = ref(false);
 const readerVisible = ref(false);
-const grammarGuideOpen = ref(!isTauri() || new URLSearchParams(window.location.search).get("view") === "grammar-guide");
+const grammarGuideOpen = ref(new URLSearchParams(window.location.search).get("view") === "grammar-guide");
 const headerRef = ref<{ playBookAnimation: (open: boolean) => Promise<void> } | null>(null);
 const headerReading = computed(() => view.value === "reader");
 const progressTransitioning = ref(false);
@@ -351,7 +352,7 @@ async function removeBook(book: LibraryBookSummary) {
 }
 
 function coverUrl(book: LibraryBookSummary) {
-  return book.coverPath && isTauri() ? convertFileSrc(book.coverPath) : undefined;
+  return book.coverPath ? isTauri() ? convertFileSrc(book.coverPath) : staticUrl(book.coverPath) : undefined;
 }
 
 const headerBook = computed(() => openingSummary.value || currentBook.value || books.value.find((book) => book.id === openingBookId.value) || null);
@@ -404,13 +405,11 @@ onMounted(() => {
     const saved = localStorage.getItem("readux.reader.appearance");
     if (saved) appearance.value = { ...DEFAULT_READER_APPEARANCE, ...JSON.parse(saved) };
   } catch { /* 使用默认排版 */ }
+  void loadLibrary();
   if (isTauri()) {
-    void loadLibrary();
     void nlpRequest<{ settings: { analysis_timing_enabled: boolean } }>({ command: "provider_status" })
       .then((result) => { timingEnabled.value = result.settings.analysis_timing_enabled; })
       .catch((error) => { libraryError.value = String(error); });
-  } else {
-    libraryLoading.value = false;
   }
 });
 
@@ -450,6 +449,7 @@ onBeforeUnmount(() => { void closeSession(); });
       :error="libraryError || null"
       :library-path="libraryPath"
       :cover-url="coverUrl"
+      :desktop="isTauri()"
       @import="void importEpub()"
       @open="void openBook($event)"
       @input="openTextInput"
@@ -501,11 +501,11 @@ onBeforeUnmount(() => { void closeSession(); });
       </div>
       <AnalysisProgressPanel :progress="readerProgress" :active="readerAnalysisActive" />
       <p v-if="readerAnalysisError" class="reader-progress__error" role="alert">{{ readerAnalysisError }}</p>
-      <div v-if="sessionState" class="reader-progress__diagnostics">
+      <div v-if="sessionState && isTauri()" class="reader-progress__diagnostics">
         <button type="button" :disabled="timingSaving" @click="void toggleTiming()">{{ timingEnabled ? '关闭耗时记录' : '开启耗时记录' }}</button>
         <button type="button" @click="exportTiming">导出耗时</button>
       </div>
-      <button v-if="!readerVisible && sessionState?.progress.failed" class="reader-progress__retry" type="button" :disabled="sessionControlling > 0" @click="void session.control('retry_document', { unit_id: null })">{{ sessionControlling > 0 ? '正在重试' : '重试分析' }}</button>
+      <button v-if="readerAnalysisError && sessionState" class="reader-progress__retry" type="button" :disabled="sessionControlling > 0" @click="void session.control('retry_document', { unit_id: null })">{{ sessionControlling > 0 ? '正在重试' : isTauri() ? '重试分析' : '重试加载' }}</button>
     </main>
 
     <ReaderSurface :show="textInputOpen" variant="modal" title="打开文本" @close="textInputOpen = false">

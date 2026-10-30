@@ -47,6 +47,7 @@ import ReaderProgressBar from "./ReaderProgressBar.vue";
 import ReaderSurface from "./ReaderSurface.vue";
 import { isTauri } from "@tauri-apps/api/core";
 import { nlpRequest } from "../../services/nlp";
+import { isStaticReader } from "../../services/staticAnalysis";
 import { readerRequest } from "../../services/reader";
 import {
   isSessionGenerationError,
@@ -1854,7 +1855,7 @@ async function queryTarget(hit: TargetHit, selectedForm?: string) {
   queryError.value = "";
   try {
     if (hit.target.decision === "selection") {
-      if (!hit.selectionDocument) {
+      if (!hit.selectionDocument && !isStaticReader) {
         const document = await nlpRequest<UnifiedDocument>({
           command: "analyze_routed",
           text: hit.target.surface,

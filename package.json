@@ -10,6 +10,8 @@
     "dev": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel dev",
     "verify:release-resources": "node scripts/check_release_resources.mjs",
     "frontend:dev": "vite --mode frontend --port 5173",
+    "static:dev": "vite --mode static --port 5174",
+    "generate:library": "python -X utf8 scripts/generate_static_library.py",
     "build": "vue-tsc --noEmit && vite build",
     "insider": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel insider",
     "test:ui": "node --test --experimental-strip-types src/explanation/*.test.mjs src/reader/*.test.mjs src/utils/*.test.mjs",

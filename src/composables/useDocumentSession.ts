@@ -1,5 +1,6 @@
 import { onUnmounted, ref, shallowRef } from 'vue';
 import { nlpRequest } from '../services/nlp';
+import { isStaticReader } from '../services/staticAnalysis';
 import { documentControlRequest, isSessionGenerationError, mergeSession, openSession, type DocumentControlCommand, type DocumentPlan, type DocumentSession, type DocumentUpdate } from '../reader/session';
 import type { RegisterPolicy } from '../types/nlp';
 
@@ -42,6 +43,7 @@ export function useDocumentSession() {
   }
 
   async function poll() {
+    if (isStaticReader) return;
     const current = state.value;
     const expected = operation;
     if (!current) return;

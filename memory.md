@@ -1,6 +1,8 @@
 # 开发入口记忆
 
-- EdgeOne Makers 静态部署使用 `npm run build` 和 `dist`。指南分析与词典的生产压缩入口为 `scripts/grammar_guide_assets.mjs`，解压入口为 `src/grammar-guide/loadJson.ts`；开发模式读取 JSON，正式构建读取 `.json.gz`。浏览器默认打开指南，三课合计 812 条例句。平台单文件限制为 25 MB，部署说明见 `docs/development.md`。
+- 静态书库生成入口为 scripts/generate_static_library.py，输出位于 public/library。浏览器宿主入口为 src/services/staticLibrary.ts 和 src/services/staticAnalysis.ts，分析结果按六个桌面单元分片；开发预览使用 npm run static:dev。
+
+- EdgeOne Pages 静态部署使用 `npm run build` 和 `dist`，浏览器默认打开静态书架，资源结构与部署说明见 `docs/static_library.md`。指南分析与词典的生产压缩入口为 `scripts/grammar_guide_assets.mjs`，解压入口为 `src/grammar-guide/loadJson.ts`；开发模式读取 JSON，正式构建读取 `.json.gz`。指南三课合计 812 条例句，平台单文件限制为 25 MB。
 
 - 解释布局状态入口为 `src/explanation/morphologyLayout.ts`，抽屉高度与交互入口为 `src/composables/useExplanationSheet.ts`。工具栏按钮默认选择固定布局，960 px 以内使用 sheet，其余使用独立右侧栏，列宽动画期间正文行宽固定。sheet 左右留 12 px、底边贴屏，把手高 22 px，内容统一滚动；换词保持展开，收纳后换词自动恢复词典位置。指南使用激活时创建、延迟挂载的 Teleport；退出不使用词条高度或三角死区，仅 sheet 把手上方保留 32 px。阅读器拖选超过 5 px 后才关闭查询并捕获指针。说明见 `docs/explanation_layout.md`。
 

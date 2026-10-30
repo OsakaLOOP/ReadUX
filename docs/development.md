@@ -53,11 +53,11 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 正式构建自动将三课指南的分析、词典快照压缩为 `.json.gz`，前端通过浏览器原生 `DecompressionStream` 解压后读取。开发服务继续使用 JSON。静态托管按普通 gzip 文件提供这些资源，浏览器负责解压文件内容。
 
-浏览器首页直接打开语法指南，三课共 812 条例句采用预生成分析与词典内容。课节直达链接使用 `/?view=grammar-guide&lesson=grammar-1.1`、`grammar-2.1` 或 `grammar-stage11`。指南正文、注音、译文、词典与活用接续图均可通过静态资源提供；书库导入和即时分析依赖桌面宿主。
+浏览器首页显示静态书架，已发布图书按阅读范围分块加载分析结果，生成与部署说明见[静态书库](static_library.md)。语法指南通过右上角按钮打开，三课共 812 条例句采用预生成分析与词典内容。课节直达链接使用 `/?view=grammar-guide&lesson=grammar-1.1`、`grammar-2.1` 或 `grammar-stage11`。网页中的书库导入和即时分析入口禁用。
 
 平台规定单文件最大 25 MB，项目最多 20000 个文件；构建产物应按这两个条件核对。本次官方文档正文和完整索引暂存于 `.agents/analysis/edgeone-docs/`。
 
-2026-10-30 构建产物共 23 个文件、13.77 MiB，最大压缩快照为 6.90 MiB；六份 gzip 文件解压后均与源 JSON 一致。纯静态 HTTP 服务已验证三课切换、词典、注音与译文开关、活用接续图、悬浮气泡及 390 px 抽屉布局，页面无脚本错误、失败资源请求或分析 API 请求。气泡测试课有 7 条孤立助动词样例的原始快照缺少查询目标，按纯文本显示：`M-synthetic-001` 至 `M-synthetic-004`、`M-E051` 至 `M-E053`。验收报告和截图位于 `.agents/analysis/edgeone-static/`。
+指南资源的六份 gzip 文件已核对源 JSON，纯静态 HTTP 服务已验证三课切换、词典、注音与译文开关、活用接续图、悬浮气泡及 390 px 抽屉布局。气泡测试课有 7 条孤立助动词样例的原始快照缺少查询目标，按纯文本显示：`M-synthetic-001` 至 `M-synthetic-004`、`M-E051` 至 `M-E053`。指南验收报告位于 `.agents/analysis/edgeone-static/`；书库验收报告位于 `.agents/analysis/static-library/verification.json`。
 
 ## 当前资源定位
 
