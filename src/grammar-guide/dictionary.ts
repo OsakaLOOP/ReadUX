@@ -2,6 +2,7 @@ import dictionaryUrl from "./lesson-1-1-dictionary.json?url";
 import dictionary21Url from "./lesson-2-1-dictionary.json?url";
 import morphologyDictionaryUrl from "./lesson-stage11-dictionary.json?url";
 import type { DictEntry, DictionaryLookup } from "../types";
+import { loadGuideJson } from "./loadJson";
 
 type GuideDictionaryPackage = { schema: string; entries: Record<string, DictEntry> };
 const dictionaryLoads = new Map<string, Promise<GuideDictionaryPackage>>();
@@ -10,11 +11,9 @@ async function loadPackage(lessonId: string) {
   const url = lessonId === "grammar-stage11" ? morphologyDictionaryUrl : lessonId === "grammar-2.1" ? dictionary21Url : dictionaryUrl;
   let pending = dictionaryLoads.get(lessonId);
   if (!pending) {
-    pending = fetch(url).then(async (response) => {
-    if (!response.ok) throw new Error("词典快照加载失败：" + response.status);
-    const value = await response.json() as GuideDictionaryPackage;
-    if (value.schema !== "readux.grammar-guide-dictionary.v1") throw new Error("语法指南词典快照版本无效");
-    return value;
+    pending = loadGuideJson<GuideDictionaryPackage>(url).then((value) => {
+      if (value.schema !== "readux.grammar-guide-dictionary.v1") throw new Error("语法指南词典快照版本无效");
+      return value;
     }).catch((error: unknown) => { dictionaryLoads.delete(lessonId); throw error; });
     dictionaryLoads.set(lessonId, pending);
   }

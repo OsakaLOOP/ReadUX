@@ -47,6 +47,18 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 `npm run dev` 使用开发资源配置启动桌面应用；`npm run insider` 准备独立运行资源、以 release 配置生成 `target/release/ReadUX.exe`，再组织 Windows 便携包，产物位于 `packages/ReadUX-insider-portable-win64.zip`。具体行为见 [run_channel.ps1](../scripts/run_channel.ps1)。
 
+## EdgeOne Makers 静态部署
+
+在仓库根目录运行 `npm ci`、`npm run build`，输出目录为 `dist`。EdgeOne Makers 的框架选择 Vue 或 Vite，根目录为 `./`，构建命令为 `npm run build`，输出目录为 `dist`，Node.js 可选择 22.21.1。直接上传时选择整个 `dist` 文件夹，ZIP 上传须保证 `index.html` 位于压缩包根目录。
+
+正式构建自动将三课指南的分析、词典快照压缩为 `.json.gz`，前端通过浏览器原生 `DecompressionStream` 解压后读取。开发服务继续使用 JSON。静态托管按普通 gzip 文件提供这些资源，浏览器负责解压文件内容。
+
+浏览器首页直接打开语法指南，三课共 812 条例句采用预生成分析与词典内容。课节直达链接使用 `/?view=grammar-guide&lesson=grammar-1.1`、`grammar-2.1` 或 `grammar-stage11`。指南正文、注音、译文、词典与活用接续图均可通过静态资源提供；书库导入和即时分析依赖桌面宿主。
+
+平台规定单文件最大 25 MB，项目最多 20000 个文件；构建产物应按这两个条件核对。本次官方文档正文和完整索引暂存于 `.agents/analysis/edgeone-docs/`。
+
+2026-10-30 构建产物共 23 个文件、13.77 MiB，最大压缩快照为 6.90 MiB；六份 gzip 文件解压后均与源 JSON 一致。纯静态 HTTP 服务已验证三课切换、词典、注音与译文开关、活用接续图、悬浮气泡及 390 px 抽屉布局，页面无脚本错误、失败资源请求或分析 API 请求。气泡测试课有 7 条孤立助动词样例的原始快照缺少查询目标，按纯文本显示：`M-synthetic-001` 至 `M-synthetic-004`、`M-E051` 至 `M-E053`。验收报告和截图位于 `.agents/analysis/edgeone-static/`。
+
 ## 当前资源定位
 
 | 资源 | 开发位置或覆盖项 |

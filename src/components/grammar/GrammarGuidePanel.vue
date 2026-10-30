@@ -11,6 +11,7 @@ import grammar21AnalysisUrl from "../../grammar-guide/lesson-2-1-analysis.json?u
 import morphologyAnalysisUrl from "../../grammar-guide/lesson-stage11-analysis.json?url";
 import type { AnnotatedToken } from "../../types";
 import type { GuideLookupSnapshot, GuideReaderSnapshot } from "../../grammar-guide/types";
+import { loadGuideJson } from "../../grammar-guide/loadJson";
 import GrammarGuideExample from "./GrammarGuideExample.vue";
 import MorphologyLayoutToggle from "../explanation/MorphologyLayoutToggle.vue";
 import { provideMorphologyLayout } from "../../explanation/morphologyLayout";
@@ -147,7 +148,7 @@ function activateLesson(lessonId: string) {
     if (savedDraft) { const value = JSON.parse(savedDraft) as GuidePackage; validatePackage(value, lessonId); draftPackage.value = value; }
     if (savedLoaded) { const value = JSON.parse(savedLoaded) as GuidePackage; validatePackage(value, lessonId); loadedPackage.value = value; }
   } catch { /* 页面继续使用内置课节 */ }
-  void fetch(lesson.analysisUrl).then((response) => response.json() as Promise<GuideAnalysisPackage>).then((analysis) => {
+  void loadGuideJson<GuideAnalysisPackage>(lesson.analysisUrl).then((analysis) => {
     if (generation !== analysisLoadGeneration) return;
     if (analysis.schema !== "readux.grammar-guide-analysis.v2") throw new Error("语法指南分析快照版本无效");
     analysisPackage.value = analysis;

@@ -2,13 +2,15 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 // @ts-expect-error 本地 Node 验收桥接由 Vite 加载。
 import { nlpBridge } from "./scripts/nlp_bridge.mjs";
+// @ts-expect-error 指南静态资源压缩由 Vite 加载。
+import { grammarGuideAssets } from "./scripts/grammar_guide_assets.mjs";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => ({
-  plugins: [vue(), ...(mode === "frontend" ? [] : [nlpBridge()])],
+  plugins: [vue(), grammarGuideAssets(), ...(mode === "frontend" ? [] : [nlpBridge()])],
   // 两个开发模式独立维护预构建结果，支持同时预览与验收。
   cacheDir: `node_modules/.vite/${mode}`,
 

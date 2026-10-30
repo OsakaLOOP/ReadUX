@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- EdgeOne Makers 静态部署使用 `npm run build` 和 `dist`。指南分析与词典的生产压缩入口为 `scripts/grammar_guide_assets.mjs`，解压入口为 `src/grammar-guide/loadJson.ts`；开发模式读取 JSON，正式构建读取 `.json.gz`。浏览器默认打开指南，三课合计 812 条例句。平台单文件限制为 25 MB，部署说明见 `docs/development.md`。
+
 - 解释布局状态入口为 `src/explanation/morphologyLayout.ts`，抽屉高度与交互入口为 `src/composables/useExplanationSheet.ts`。工具栏按钮默认选择固定布局，960 px 以内使用 sheet，其余使用独立右侧栏，列宽动画期间正文行宽固定。sheet 左右留 12 px、底边贴屏，把手高 22 px，内容统一滚动；换词保持展开，收纳后换词自动恢复词典位置。指南使用激活时创建、延迟挂载的 Teleport；退出不使用词条高度或三角死区，仅 sheet 把手上方保留 32 px。阅读器拖选超过 5 px 后才关闭查询并捕获指针。说明见 `docs/explanation_layout.md`。
 
 - 语法指南“活用与接续 · 气泡测试”收录 680 条去重输入，含用户提供的 15 条复杂句；静态测试清单位于 `data/validation/morphology_static_cases.json`，历史清单为 `docs/morphology_example_status.md`。内容生成入口为 `scripts/build_morphology_stage11_guide.py`，快照生成使用 `scripts/generate_grammar_guide_analysis.py --lesson stage11`，可用 `--group complex` 单独更新复杂句。Vite 只忽略 `unidic-cwj-*` 与 `unidic-csj-*` 词典目录；`configs/unidic-nlp` 必须参与监听，否则接续配置更新后会造成气泡渲染异常和课节切换中断。
