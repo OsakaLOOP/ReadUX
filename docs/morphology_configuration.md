@@ -12,7 +12,9 @@
 
 维护约定见 [第 11 阶段展示规范](morphology_stage11_bubble_display.md)。完成修改后可运行 python -X utf8 scripts/check_morphology_connections.py，检查全部条目的分类、路径、连接器、概念正文、例句以及既有路径引用。检查脚本只读取资源。
 
-唯一规则入口为 `configs/unidic-nlp/morphology.json`。Rust 编译时嵌入配置，前端直接导入同一文件；配置内容参与分析缓存标识。修改后重新构建应用即可更新分析和展示。
+运行配置入口为 `configs/unidic-nlp/morphology.json`，协议为 `readux.morphology-config.v1`。Rust 编译时嵌入配置，前端导入同一文件；配置内容参与基础分析与完整分析缓存标识。`max_auxiliary_depth` 显式声明为 8。字段契约、顺序语义和后续分文件编译方案见[配置协议与存储重构](morphology_storage_refactor_analysis.md)。
+
+`intrinsic_features` 保存 `conjugation`、`initial_alternation`、`final_alternation` 三种由分析阶段创建的原子特征，用于 occurrence、查询目标和展示筛选。`connection_types.inflection` 则记录四个词内活用 operator 的接续结构分类。Rust 与前端在配置加载后建立 operator 到规则、分类的索引。
 
 「意向形＋と＋する」通过 `volitional_to_connection` 保留意向接续，再由 `volitional_to_suru` 建立补助子链。「する」采用自身的活用，可继续连接「ている」等形式；普通引用「と」保留独立身份。
 
@@ -20,15 +22,19 @@
 
 「ていい／てよい」「ていただく」「てかかる」共用て形补助入口；后项分别采用形容词、动词、动词活用。「なくていい」的否定属于前项，「いい」可继续连接解释语气「んだ」与原因接续。「てかかる」表示以前项所示态度应对某事，原始词性和补助功能分别保存。七句验收见 [谓语接续例句验收](morphology_predicate_examples_2026-10-27.md)。
 
-规则合法性依据当前状态与后项词法条件。`stage`、`order_rank` 保留展示信息；`input_categories`、`input_forms` 及 `exclude_input_ctypes` 定义局部输入约束。活用型排除采用精确匹配，「助動詞-タ」与「助動詞-タイ」分别处理。补助词的输入条件针对前项，输出状态采用后项自身活用；名词化与词性转换后继续使用新状态。
+规则合法性依据当前状态与后项词法条件。`stage`、`order_rank` 保留展示信息；`input_label` 保存输入说明，`input_category_mode` 指定任意词类、精确词类或判断谓语兼容匹配，结合 `input_categories`、`input_forms` 及 `exclude_input_ctypes` 定义局部输入约束。活用型排除采用精确匹配，「助動詞-タ」与「助動詞-タイ」分别处理。补助词的输入条件针对前项，输出状态采用后项自身活用；名词化与词性转换后继续使用新状态。
 
-`operators` 按形式身份定义概念目录路由、标题、原型、候选解释及输出状态。`variants` 按顺序选择原型；`normalized` 用于具有固定展开形式的缩约和补助结构。原始表记、成员及来源字段保存在分析对象中。补助用言的 `support` 声明词元和连接组，`connector` 指向前项接续形式，`compound_candidate` 控制整体查词候选。
+`operators` 按形式身份定义概念目录路由、标题、原型与候选解释；`rule_metadata` 统一声明输出词类 `output_category`、输出活用形 `output_form` 和状态继承 `preserve_state`。はず的输出词类为名词。补助用言的 `support` 声明词元和连接组，`connector` 指向前项接续形式，`compound_candidate` 控制整体查词候选。
+
+Rust 根据完整 UniDic 字段按顺序选择 `variants`，并将本句原型写入 `normalized_form`；固定展开形式优先读取 `normalized`。前端气泡与推导通过 `morphologyPrototype` 共用本句结果，静态条目通过 `configuredPrototype` 读取配置原型。原始表记、成员及来源字段保存在分析对象中。
 
 `support.group` 为 `contracted` 的实际缩约显示“缩略形式”标签，文案由 `presentation.contraction_label` 定义。原型和规范化字段用于形式展示及查询，缩约身份由连接组明确指定。
 
 `title` 使用中文语法名称，气泡副标题使用日语原型。例如「进行／状态持续 · ている」「完成／遗憾 · てしまう」；缩略形式共享对应的中文标题，日语原型与实际缩略词形分别用于副标题和推导步骤。
 
 `presentation.phenomena` 根据活用形和显式识别证据生成现象标签。四类音便分别采用 UniDic 的イ音便、促音便、撥音便、ウ音便字段。「なきゃ／なけりゃ」等融合形式归为口语缩略，统一显示“缩略形式”。普通可能形保留可能活用说明。
+
+`presentation.families` 与 `presentation.raw_form_labels` 为按顺序匹配的 `{prefix, label}` 数组。数组顺序定义首个命中的标签，配置对象的键顺序只用于组织数据。
 
 缩略形式的日语副标题沿用规范原型，步骤输出保留缩略，后续步骤直接承接该输出。例如义务形式副标题为「なければいけない」，推导为「謝ら → 謝らなきゃいけない」，后续名词化为「謝らなきゃいけない → 謝らなきゃいけないの」。缩略补助动词需要继续屈折时，步骤采用其缩略基本表记，例如「読んじゃう → 読んじゃった」。
 
@@ -54,6 +60,8 @@
 
 `classical_forms` 根据明确的词元或文语 cType、词元词尾与实际词形识别ク／シク／ナリ／タリ活用，表中词元提供代表形式，文语 cType 允许同型词推广。`classical_auxiliaries` 按词元、cType、cForm 和完整词形匹配助动词，并通过 `inputs` 的任选条件组同时校验前项 `categories`、`forms`、`ctype` 与 `exclude_ctype`。例如り分别声明サ变未然形、四段已然形两组输入；なり和たり依据意义拆分接续规则。
 
+文言 inputs 对应的 31 组接续规则显式声明 `ctype_mode: classical_prefix`，与文言执行器共用兼容“文語”前缀的匹配。普通规则默认采用 `prefix`；`source` 保留规则的数据来源说明。
+
 文言规则与其他规则共用 `operators` 和 `rule_metadata`，词条位于普通 grammar source bundle，编译目录、搜索索引和气泡查询沿用同一入口。范式与接续证据写入 operator 的 evidence；终止、连体、连用和条件等状态决定句末、从句或中顿的可停机性。验收入口为 `morphology_stages_5_6.rs`，覆盖每个已声明的词形、接续组及其输入活用形。
 
 | 形式组     | 规则范围                                                                   |
@@ -76,7 +84,7 @@
 
 连续词尾仅在首项能够形成 `te_connection`、后续插入助词与补助动词又有 GiNZA 依存证据时，让位于て形的跨助词连接。「たりとか」保持连续词尾组合及后项父链；「読んではいる」继续采用て形插入连接。
 
-「とか」兼容单个副助词和「と＋か」分词，可接在名词或用言的终止形、连体形后。作为插入语时，`operators.preserve_state` 保留前项的词类、活用形和接续状态，后续语法形式继续按前项接续；实际成员及范围仍完整保存。连续规则记录 `phenomenon:insertion`，展示沿用现象标签，标注“插入语”。
+「とか」兼容单个副助词和「と＋か」分词，可接在名词或用言的终止形、连体形后。作为插入语时，`rule_metadata.preserve_state` 保留前项的词类、活用形和接续状态，后续语法形式继续按前项接续；实际成员及范围仍完整保存。连续规则记录 `phenomenon:insertion`，展示沿用现象标签，标注“插入语”。
 
 「は、も、さえ、こそ、だけ、まで、しか、すら、なんて、など、とか」须符合白名单的基本表记、词性和助词小类。四组位置分别覆盖て形补助连接、谓语末尾、名词后及连用形焦点成分；各组 bases 进一步限制成员。て形位置要求完整句法证据，其他位置依据已声明的词法条件执行并保存可用的来源关系。阶段 7 的验收入口为 `morphology_reconstruction.rs` 中的 `stage_seven_*` 用例。
 

@@ -103,25 +103,12 @@ fn accepts_category(state: &MorphologyState, categories: &[String]) -> bool {
 }
 
 fn accepts_input(state: &MorphologyState, metadata: &config::RuleMetadata) -> bool {
-    let category = &state.category;
-    let accepted_category = if metadata.input_categories.is_empty() {
-        match metadata.input_category.as_str() {
-            "動詞" | "动词" => category == "動詞",
-            "形容詞" => category == "形容詞",
-            "形状詞" => category == "形状詞",
-            "名詞" => category == "名詞",
-            "動詞／助動詞" => matches!(category.as_str(), "動詞" | "助動詞"),
-            "用言" => matches!(
-                category.as_str(),
-                "動詞" | "形容詞" | "形状詞" | "助動詞" | "文語用言"
-            ) || matches!(category.as_str(), "名詞" | "代名詞")
-                && state.entity_class == "ナ形容词判断类"
-                && state.form != ConnectionForm::Stem,
-            "已成立链" | "" => true,
-            _ => false,
+    let accepted_category = match metadata.input_category_mode {
+        config::InputCategoryMode::Any => true,
+        config::InputCategoryMode::Exact => metadata.input_categories.contains(&state.category),
+        config::InputCategoryMode::JudgementCompatible => {
+            accepts_category(state, &metadata.input_categories)
         }
-    } else {
-        accepts_category(state, &metadata.input_categories)
     };
     accepted_category
         && (metadata.input_forms.is_empty() || metadata.input_forms.contains(&state.form))
@@ -141,14 +128,11 @@ enum Transition {
 }
 
 fn declared_output(previous: &MorphologyChain, atom: &mut MorphologyChain, kind: &str) {
-    let Some(rule) = config::definition(kind) else {
+    let Some(rule) = config::rule_metadata(kind) else {
         return;
     };
     if rule.preserve_state {
         atom.final_state = previous.final_state.clone();
-    }
-    if let Some(category) = &rule.output_category {
-        atom.final_state.category = category.clone();
     }
     if let Some(form) = &rule.output_form {
         atom.final_state.form = form.clone();
@@ -200,12 +184,14 @@ impl VerbCycleExecutor {
                 previous.chain_id, kind, index
             ));
         }
-        if metadata.output_category == "動詞" || metadata.output_category == "动词" {
+        if metadata.output_category == "動詞" {
             atom.final_state.category = "動詞".into();
             atom.final_state.entity_class = "动词循环类".into();
         } else if metadata.output_category == "用言" {
             atom.final_state.category = previous.final_state.category.clone();
             atom.final_state.entity_class = previous.final_state.entity_class.clone();
+        } else if metadata.output_category == "名詞" {
+            atom.final_state.category = "名詞".into();
         }
     }
 }
@@ -296,10 +282,7 @@ impl NaAdjectiveJudgementExecutor {
                 connection_form_name(&previous.final_state.form)
             ));
         }
-        let output_category = config::definition(kind)
-            .and_then(|definition| definition.output_category.as_deref())
-            .unwrap_or(metadata.output_category.as_str());
-        atom.final_state.category = match output_category {
+        atom.final_state.category = match metadata.output_category.as_str() {
             "形状詞" => "形状詞".into(),
             "名詞" => "名詞".into(),
             "用言" | "保持前项" | "" => previous.final_state.category.clone(),
@@ -459,11 +442,7 @@ impl AuxiliaryVerbExecutor {
         atom.parent_chain_id = Some(previous.chain_id.clone());
         // 后项保留自身活用型和活用形；缩约助动词按展开后的动词身份继续，
         // ほしい与整体否定构式则进入形容词活用。
-        atom.final_state.category = match metadata.output_category.as_str() {
-            "动词" => "動詞",
-            category => category,
-        }
-        .into();
+        atom.final_state.category = metadata.output_category.clone();
         atom.final_state.entity_class = if atom.final_state.category == "形容詞" {
             "イ形容词转换类"
         } else {
@@ -801,9 +780,8 @@ impl InsertionExecutor {
         index: usize,
     ) {
         let metadata = config::rule_metadata(kind).expect("插入语规则缺少元数据");
-        let declared = config::definition(kind).expect("插入语规则缺少定义");
         assert_eq!(metadata.executor, "insertion");
-        assert!(declared.preserve_state);
+        assert!(metadata.preserve_state);
         if !accepts_input(&previous.final_state, metadata)
             || kind == "insertion" && !insertion_token(token)
             || kind == "exemplification"
@@ -961,7 +939,7 @@ fn operator(
         stage: metadata.map_or_else(String::new, |m| m.stage.clone()),
         executor: metadata.map_or_else(String::new, |m| m.executor.clone()),
         rule_group: metadata.map_or_else(String::new, |m| m.rule_group.clone()),
-        input_category: metadata.map_or_else(String::new, |m| m.input_category.clone()),
+        input_category: metadata.map_or_else(String::new, |m| m.input_label.clone()),
         output_category: metadata.map_or_else(String::new, |m| m.output_category.clone()),
         terminal_mode: metadata.map_or_else(String::new, |m| m.terminal_mode.clone()),
         order_rank: metadata.map_or(0, |m| m.order_rank),
@@ -1239,7 +1217,7 @@ fn link_predicates(chains: &mut [MorphologyChain], source: &[ProviderToken]) {
                 .retain(|op| op.operator_id != prefix.operator_id);
             right.operators.retain(|op| {
                 op.source_morpheme_range[1] > body_end
-                    || config::definition(&op.kind).is_some_and(|entry| entry.output_form.is_some())
+                    || config::rule_metadata(&op.kind).is_some_and(|entry| entry.output_form.is_some())
                     || !config::is_inflection(&op.kind)
                         && !rule.required_operators.contains(&op.kind)
             });
@@ -1728,8 +1706,7 @@ fn identify_connection_paths(
     for chain in chains.iter_mut() {
         for index in 0..chain.operators.len() {
             let op = &chain.operators[index];
-            let Some((rule_id, rule)) = CONFIG.connection_rules.iter()
-                .find(|(_, rule)| rule.operators.contains(&op.kind)) else { continue };
+            let Some((rule_id, rule)) = config::connection_rule(&op.kind) else { continue };
             let start = op.source_morpheme_range[0];
             let own_form = rule.scope == "inflection" && start == chain.anchor_morpheme;
             // 独立词条没有前接对象，其词法边界由原分析保留。
@@ -1751,8 +1728,8 @@ fn identify_connection_paths(
                     path.categories.contains(&state.category)
                 } else { accepts_category(state, &path.categories) })
                     && (path.forms.is_empty() || path.forms.contains(&state.form))
-                    && (path.ctypes.is_empty() || path.ctypes.iter().any(|v| state.conjugation_type.starts_with(v)))
-                    && !path.exclude_ctypes.iter().any(|v| state.conjugation_type.starts_with(v))
+                    && (path.ctypes.is_empty() || path.ctypes.iter().any(|v| rule.matches_ctype(&state.conjugation_type, v)))
+                    && !path.exclude_ctypes.iter().any(|v| rule.matches_ctype(&state.conjugation_type, v))
                     && (path.cform_contains.is_empty() || path.cform_contains.iter().any(|v| state.conjugation_form.contains(v)))
                     && !path.exclude_cform_contains.iter().any(|v| state.conjugation_form.contains(v))
                     && (path.previous_operators.is_empty() || previous_kind
@@ -1797,7 +1774,7 @@ fn identify_connection_paths(
                 source[start.saturating_sub(count)..start].iter().map(|token| token.surface.as_str()).collect()
             };
             let connection = MorphologyConnection {
-                rule: rule_id.clone(),
+                rule: rule_id.to_owned(),
                 path: (matched.len() == 1).then(|| matched[0].id.clone()),
                 matched_paths: matched.iter().map(|path| path.id.clone()).collect(),
                 predecessor_range: range,

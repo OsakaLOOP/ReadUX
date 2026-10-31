@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 活用配置已采用 `readux.morphology-config.v1`。`rule_metadata` 统一保存输出状态，`input_label` 与 `input_category_mode`／`input_categories` 分离说明与条件；`intrinsic_features` 保存三个原子特征。前端通过 `morphologyPrototype` 读取 Rust 的 `normalized_form`，接续规则和分类在加载时建立索引。文言路径使用 `ctype_mode: classical_prefix`；展示前缀表为有序数组。最终协议与后续分文件编译方案见 `docs/morphology_storage_refactor_analysis.md`，当前运行入口仍为 `configs/unidic-nlp/morphology.json`，编译器尚待实施。
+
 - 静态书库生成入口为 scripts/generate_static_library.py，输出位于 public/library。浏览器宿主入口为 src/services/staticLibrary.ts 和 src/services/staticAnalysis.ts，分析结果按六个桌面单元分片；开发预览使用 npm run static:dev。
 
 - EdgeOne Pages 静态部署使用 `npm run build` 和 `dist`，浏览器默认打开静态书架，资源结构与部署说明见 `docs/static_library.md`。指南分析与词典的生产压缩入口为 `scripts/grammar_guide_assets.mjs`，解压入口为 `src/grammar-guide/loadJson.ts`；开发模式读取 JSON，正式构建读取 `.json.gz`。指南三课合计 812 条例句，平台单文件限制为 25 MB。

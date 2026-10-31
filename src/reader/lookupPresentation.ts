@@ -1,5 +1,5 @@
 import type { DictionaryLookup, PosTag } from "../types";
-import { configuredPrototype, morphologyPresentation, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { isIntrinsicFeature, morphologyPresentation, morphologyPrototype, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 import { inflectionStemAndEnding } from "./japaneseInflectionRanges.ts";
@@ -320,7 +320,7 @@ function grammaticalLabel(value: string) {
 }
 
 function conjugationFamilyLabel(type = "", category = "") {
-  return Object.entries(morphologyPresentation.families).find(([prefix]) => type.startsWith(prefix))?.[1]
+  return morphologyPresentation.families.find(({ prefix }) => type.startsWith(prefix))?.label
     ?? (morphologyPresentation.category_labels as Record<string, string>)[category] ?? "";
 }
 
@@ -345,7 +345,7 @@ function conjugationFormLabel(form = "", stateForm = "", fallback = "活用") {
   if (/命令形/.test(normalized)) return "命令形";
   if (/意志推量形|意向形/.test(normalized)) return "意向形";
   return formLabels[stateForm]
-    ?? Object.entries(morphologyPresentation.raw_form_labels).find(([prefix]) => normalized.startsWith(prefix))?.[1]
+    ?? morphologyPresentation.raw_form_labels.find(({ prefix }) => normalized.startsWith(prefix))?.label
     ?? fallback;
 }
 
@@ -448,9 +448,8 @@ export function operatorPrototypeForm(
   operator: MorphologyOperator,
   morphemes?: ReadonlyArray<{ surface: string; lemma?: string | null; pos?: (string | null)[] }>,
 ): string {
-  if (operator.normalized_form) return operator.normalized_form;
   const token = morphemes && operator.source_morpheme_range ? morphemes[operator.source_morpheme_range[0]] : undefined;
-  return configuredPrototype(operator.kind, token) || token?.surface || grammaticalLabel(operator.label) || "活用";
+  return morphologyPrototype(operator) || token?.surface || grammaticalLabel(operator.label) || "活用";
 }
 
 // 兼容已有导出的别名
@@ -518,7 +517,7 @@ function buildChainStepMap(
 
   const nonInflectionOperators = familyChains
     .flatMap((c) => (c.operators ?? []).map((op) => ({ op, chain: c })))
-    .filter(({ op }) => !morphologyPresentation.inflections.includes(op.kind))
+    .filter(({ op }) => !isIntrinsicFeature(op.kind))
     .sort((a, b) => {
       const aStart = a.op.char_range ? a.op.char_range[0] : 0;
       const bStart = b.op.char_range ? b.op.char_range[0] : 0;
@@ -618,7 +617,7 @@ function resolveOperatorStep(
   document: UnifiedDocument,
   chains: ReadonlyArray<MorphologyChain>,
 ): DerivedStepInfo {
-  if (morphologyPresentation.inflections.includes(operator.kind)) {
+  if (isIntrinsicFeature(operator.kind)) {
     const characters = Array.from(document.text ?? "");
     const charRange = operator.char_range || chain.char_range;
     const output = charRange
@@ -701,7 +700,7 @@ function syntheticConjugationStep(
   document: UnifiedDocument,
   visibleOperators: ReadonlyArray<MorphologyOperator>,
 ) {
-  if (visibleOperators.some((operator) => morphologyPresentation.inflections.includes(operator.kind))) return null;
+  if (visibleOperators.some((operator) => isIntrinsicFeature(operator.kind))) return null;
   const next = (chain.operators ?? []).find((operator) => operator.char_range ? operator.char_range[0] >= targetEnd : false)
     ?? visibleOperators[0];
   const state = next?.state_before;
@@ -762,7 +761,7 @@ export function readerChains(
       const state = visibleState(chain, targetEnd);
       return conjugationLabel(state?.conjugation_type, state?.conjugation_form, state?.category, state?.form);
     })(),
-    formName: [...new Set(visibleOperators(chain).filter((operator) => !morphologyPresentation.inflections.includes(operator.kind))
+    formName: [...new Set(visibleOperators(chain).filter((operator) => !isIntrinsicFeature(operator.kind))
       .map((operator) => grammaticalLabel(operator.label)).filter(Boolean))].join(" · "),
     connections: (chain.connection_forms ?? []).filter((value) => value && value !== "*"),
     members: (chain.morpheme_indices ?? []).filter((index) => (document.morphemes?.[index]?.char_range?.[1] ?? 0) <= targetEnd).flatMap((index) => {
@@ -776,7 +775,7 @@ export function readerChains(
         ...(synthetic ? [synthetic] : []),
         ...operators.flatMap((operator) => {
           const step = resolveOperatorStep(chain, operator, document, document.morphology?.chains ?? []);
-          if (morphologyPresentation.inflections.includes(operator.kind) && step.input === step.output) return [];
+          if (isIntrinsicFeature(operator.kind) && step.input === step.output) return [];
           return [{
             label: step.conceptTitle,
             description: step.description,
@@ -952,7 +951,7 @@ export function readerMorphologyHits(
     const stem = diagram?.sentence.find((part) => part.unit === `${chain.chain_id}:core` && part.selected);
     if (!stem?.range) return hits;
     const token = document.morphemes[chain.anchor_morpheme];
-    const state = (chain.operators ?? []).find((operator) => !morphologyPresentation.inflections.includes(operator.kind))?.state_before
+    const state = (chain.operators ?? []).find((operator) => !isIntrinsicFeature(operator.kind))?.state_before
       ?? chain.final_state;
     const category = token?.pos?.[0] || state?.category || '';
     const inflecting = ['動詞', '形容詞', '形状詞', '形容動詞', '助動詞'].includes(category)

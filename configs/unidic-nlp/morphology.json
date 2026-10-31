@@ -1,4 +1,7 @@
 {
+  "schema": "readux.morphology-config.v1",
+  "max_auxiliary_depth": 8,
+  "intrinsic_features": ["conjugation", "initial_alternation", "final_alternation"],
   "input_recoveries": [{
     "id": "taka_kara_zuni", "lemma": "高い", "reading": "たかい", "surface_reading": "たかから", "ctype": "形容詞-ク復元",
     "previous": {"equals": {"surface": ["高"], "pos": ["接尾辞"], "sub": ["名詞的"]}},
@@ -21,7 +24,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_muzu": {
       "label": "推量／意志",
@@ -30,7 +34,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_mashi": {
       "label": "反实／愿望",
@@ -39,7 +44,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_kemu": {
       "label": "过去推量／传闻",
@@ -48,7 +54,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形", "steps": ["连用形"], "categories": ["文語用言"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形", "steps": ["连用形"], "categories": ["動詞"], "forms": ["continuative"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_ramu": {
       "label": "现在推量／传闻",
@@ -65,7 +72,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_rashi": {
       "label": "推定",
@@ -82,7 +90,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_kerashi": {
       "label": "过去推定／咏叹",
@@ -91,7 +100,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形", "steps": ["连用形"], "categories": ["文語用言"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形", "steps": ["连用形"], "categories": ["動詞"], "forms": ["continuative"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_meri": {
       "label": "推定／婉曲",
@@ -108,7 +118,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_beshi": {
       "label": "べし",
@@ -125,7 +136,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ", "助動詞-ズ", "助動詞-ヌ", "文語助動詞-ズ", "文語助動詞-ヌ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ", "助動詞-ズ", "助動詞-ヌ", "文語助動詞-ズ", "文語助動詞-ヌ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ", "助動詞-ズ", "助動詞-ヌ", "文語助動詞-ズ", "文語助動詞-ヌ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_beranari": {
       "label": "推量",
@@ -142,7 +154,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_ji": {
       "label": "否定推量／否定意志",
@@ -151,7 +164,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_maji": {
       "label": "否定推量／禁止",
@@ -168,7 +182,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_tashi": {
       "label": "愿望",
@@ -177,7 +192,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形", "steps": ["连用形"], "categories": ["文語用言"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形", "steps": ["连用形"], "categories": ["動詞"], "forms": ["continuative"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_mahoshi": {
       "label": "愿望",
@@ -186,7 +202,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_nari_copula": {
       "label": "断定／存在",
@@ -200,7 +217,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形", "steps": ["连体形"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_nari_hearsay": {
       "label": "传闻／推定",
@@ -217,7 +235,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形容詞"], "forms": ["continuative"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_na", "group": "ナ形容词", "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["形状詞"], "forms": ["continuative"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ", "steps": ["连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"], "categories": ["助動詞"], "forms": ["continuative"], "exact_category": true, "ctypes": ["文語ラ行変格", "ラ行変格", "助動詞-ケリ", "助動詞-タリ", "助動詞-リ", "助動詞-メリ", "助動詞-ナリ"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_gotoshi": {
       "label": "如同／仿佛",
@@ -231,7 +250,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形", "steps": ["连体形"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_gotokunari": {
       "label": "比况",
@@ -245,7 +265,8 @@
         {"id": "input1_adjective", "group": "イ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形容詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_na", "group": "ナ形容词", "label": "连体形", "steps": ["连体形"], "categories": ["形状詞"], "forms": ["attributive"], "exact_category": true},
         {"id": "input1_auxiliary", "group": "助动词", "label": "连体形", "steps": ["连体形"], "categories": ["助動詞"], "forms": ["attributive"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_yaunari": {
       "label": "比况／例示",
@@ -254,7 +275,8 @@
       "paths": [
         {"id": "input0_noun", "group": "名词", "label": "词干", "steps": ["词干"], "categories": ["名詞", "代名詞"], "forms": ["stem"], "exact_category": true},
         {"id": "input0_na", "group": "ナ形容词", "label": "词干", "steps": ["词干"], "categories": ["形状詞"], "forms": ["stem"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "necessity_negative_ba_naru": {
       "label": "义务",
@@ -456,7 +478,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格", "steps": ["未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true, "ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]},
         {"id": "input0_verb", "group": "动词", "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格", "steps": ["未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true, "ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_raru": {
       "label": "受身／自发／可能／尊敬",
@@ -465,7 +488,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形／连用形 · 排除指定活用型", "steps": ["未然形／连用形 · 排除指定活用型"], "categories": ["文語用言"], "forms": ["irrealis", "continuative"], "exact_category": true, "exclude_ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]},
         {"id": "input0_verb", "group": "动词", "label": "未然形／连用形 · 排除指定活用型", "steps": ["未然形／连用形 · 排除指定活用型"], "categories": ["動詞"], "forms": ["irrealis", "continuative"], "exact_category": true, "exclude_ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_su": {
       "label": "使役",
@@ -474,7 +498,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格", "steps": ["未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true, "ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]},
         {"id": "input0_verb", "group": "动词", "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格", "steps": ["未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true, "ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_sasu": {
       "label": "使役／尊敬",
@@ -483,7 +508,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形 · 排除指定活用型", "steps": ["未然形 · 排除指定活用型"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true, "exclude_ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]},
         {"id": "input0_verb", "group": "动词", "label": "未然形 · 排除指定活用型", "steps": ["未然形 · 排除指定活用型"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true, "exclude_ctypes": ["文語四段", "四段", "文語ナ行変格", "ナ行変格", "文語ラ行変格", "ラ行変格"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_shimu": {
       "label": "使役／尊敬",
@@ -492,7 +518,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "未然形", "steps": ["未然形"], "categories": ["文語用言"], "forms": ["irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "未然形", "steps": ["未然形"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_ki": {
       "label": "过去",
@@ -501,7 +528,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形／终止形", "steps": ["连用形／终止形"], "categories": ["文語用言"], "forms": ["continuative", "terminal"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形／终止形", "steps": ["连用形／终止形"], "categories": ["動詞"], "forms": ["continuative", "terminal"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_keri": {
       "label": "过去／咏叹",
@@ -510,7 +538,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形／终止形", "steps": ["连用形／终止形"], "categories": ["文語用言"], "forms": ["continuative", "terminal"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形／终止形", "steps": ["连用形／终止形"], "categories": ["動詞"], "forms": ["continuative", "terminal"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_tsu": {
       "label": "完了／强意",
@@ -519,7 +548,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形", "steps": ["连用形"], "categories": ["文語用言"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形", "steps": ["连用形"], "categories": ["動詞"], "forms": ["continuative"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_classical_nu": {
       "label": "完了／自然成立",
@@ -528,7 +558,8 @@
       "paths": [
         {"id": "input0_classical", "group": "文言用言", "label": "连用形／未然形", "steps": ["连用形／未然形"], "categories": ["文語用言"], "forms": ["continuative", "irrealis"], "exact_category": true},
         {"id": "input0_verb", "group": "动词", "label": "连用形／未然形", "steps": ["连用形／未然形"], "categories": ["動詞"], "forms": ["continuative", "irrealis"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_tari_perfect": {
       "label": "存续／完了",
@@ -540,7 +571,8 @@
         {"id": "input0_adjective", "group": "イ形容词", "label": "连用形", "steps": ["连用形"], "categories": ["形容詞"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_na", "group": "ナ形容词", "label": "连用形", "steps": ["连用形"], "categories": ["形状詞"], "forms": ["continuative"], "exact_category": true},
         {"id": "input0_auxiliary", "group": "助动词", "label": "连用形", "steps": ["连用形"], "categories": ["助動詞"], "forms": ["continuative"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_tari_copula": {
       "label": "断定",
@@ -549,7 +581,8 @@
       "paths": [
         {"id": "input0_noun", "group": "名词", "label": "词干", "steps": ["词干"], "categories": ["名詞", "代名詞"], "forms": ["stem"], "exact_category": true},
         {"id": "input0_na", "group": "ナ形容词", "label": "词干", "steps": ["词干"], "categories": ["形状詞"], "forms": ["stem"], "exact_category": true}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "classical_ri": {
       "label": "存续／完了",
@@ -560,7 +593,8 @@
         {"id": "input0_verb", "group": "动词", "label": "未然形 · 文語サ行変格／サ行変格", "steps": ["未然形 · 文語サ行変格／サ行変格"], "categories": ["動詞"], "forms": ["irrealis"], "exact_category": true, "ctypes": ["文語サ行変格", "サ行変格"]},
         {"id": "input1_classical", "group": "文言用言", "label": "已然形 · 文語四段／四段", "steps": ["已然形 · 文語四段／四段"], "categories": ["文語用言"], "forms": ["conditional"], "exact_category": true, "ctypes": ["文語四段", "四段"]},
         {"id": "input1_verb", "group": "动词", "label": "已然形 · 文語四段／四段", "steps": ["已然形 · 文語四段／四段"], "categories": ["動詞"], "forms": ["conditional"], "exact_category": true, "ctypes": ["文語四段", "四段"]}
-      ]
+      ],
+      "ctype_mode": "classical_prefix"
     },
     "tewa": {
       "label": "取立条件",
@@ -1276,268 +1310,326 @@
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナリ活用",
-      "input_category": "体言",
+      "input_label": "体言",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_gotokunari": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナリ活用",
-      "input_category": "連体形と体言",
+      "input_label": "連体形と体言",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_nari_hearsay": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナリ活用",
-      "input_category": "终止形或ラ变连用形",
+      "input_label": "终止形或ラ变连用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_nari_copula": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナリ活用",
-      "input_category": "体言或连体形",
+      "input_label": "体言或连体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_mahoshi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "シク活用",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_tashi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ク活用",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_maji": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ク活用",
-      "input_category": "終止形とラ変型の連体形",
+      "input_label": "終止形とラ変型の連体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_ji": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "特殊型",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_beranari": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナリ活用",
-      "input_category": "終止形とラ変型の連体形",
+      "input_label": "終止形とラ変型の連体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_meri": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ラ変型",
-      "input_category": "終止形とラ変型の連体形",
+      "input_label": "終止形とラ変型の連体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_kerashi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "无变化型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_rashi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "无变化型",
-      "input_category": "終止形とラ変型の連体形",
+      "input_label": "終止形とラ変型の連体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_ramu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "四段型",
-      "input_category": "終止形とラ変型の連体形",
+      "input_label": "終止形とラ変型の連体形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_kemu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "四段型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_mashi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "特殊型",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_muzu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "サ変型",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_mu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "四段型",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_ri": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ラ変型",
-      "input_category": "サ変の未然形と四段の已然形",
+      "input_label": "サ変の未然形と四段の已然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_tari_copula": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "タリ活用",
-      "input_category": "体言",
+      "input_label": "体言",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_tari_perfect": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ラ変型・タリ活用",
-      "input_category": "用言连用形",
+      "input_label": "用言连用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_classical_nu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ナ変型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_tsu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_keri": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "ラ変型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_ki": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "特殊型",
-      "input_category": "連用形",
+      "input_label": "連用形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_shimu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "未然形",
+      "input_label": "未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_sasu": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "四段・ナ変・ラ変以外の未然形",
+      "input_label": "四段・ナ変・ラ変以外の未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_su": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "四段・ナ変・ラ変の未然形",
+      "input_label": "四段・ナ変・ラ変の未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_raru": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "四段・ナ変・ラ変以外の未然形",
+      "input_label": "四段・ナ変・ラ変以外の未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "classical_ru": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "下二段型",
-      "input_category": "四段・ナ変・ラ変の未然形",
+      "input_label": "四段・ナ変・ラ変の未然形",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
     },
     "rashii_characteristic": {
       "stage": "desire",
       "executor": "i_adjective_conversion",
       "rule_group": "典型性",
-      "input_category": "名詞",
+      "input_label": "名詞",
       "output_category": "形容詞",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 40,
@@ -1546,22 +1638,31 @@
       ],
       "input_forms": [
         "stem"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "nominalization": {
       "stage": "conversion",
       "executor": "nominalization",
       "rule_group": "名词化",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "名詞",
       "terminal_mode": "continue",
-      "order_rank": 45
+      "order_rank": 45,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "nominal_change_ni": {
       "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "变化接续",
-      "input_category": "名词性成分",
+      "input_label": "名词性成分",
       "output_category": "用言",
       "terminal_mode": "continue",
       "order_rank": 0,
@@ -1572,14 +1673,17 @@
       ],
       "input_forms": [
         "stem"
-      ]
+      ],
+      "output_form": "other",
+      "preserve_state": true,
+      "input_category_mode": "judgement_compatible"
     },
     "causative": {
       "stage": "voice",
       "executor": "verb_cycle",
       "rule_group": "使役",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 10,
       "exclude_input_ctypes": [
@@ -1587,14 +1691,18 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "passive_potential": {
       "stage": "voice",
       "executor": "verb_cycle",
       "rule_group": "受身・可能",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 20,
       "exclude_input_ctypes": [
@@ -1602,76 +1710,110 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "te_connection": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "て形接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "output_form": "te",
+      "preserve_state": true,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_iru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "持续与状态",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 31
+      "order_rank": 31,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_aru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "结果存续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 32
+      "order_rank": 32,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_shimau": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "完成与遗憾",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 33
+      "order_rank": 33,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_oku": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "预先处置",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 34
+      "order_rank": 34,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_iku": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "趋向与发展",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 35
+      "order_rank": 35,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_yuku": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "趋向与发展",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 36
+      "order_rank": 36,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "desire": {
       "stage": "desire",
       "executor": "i_adjective_conversion",
       "rule_group": "主观愿望",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "形容詞",
       "terminal_mode": "continue",
       "order_rank": 40,
@@ -1680,13 +1822,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "negative": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle+i_adjective_conversion",
       "rule_group": "否定",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
       "order_rank": 50,
@@ -1694,13 +1840,21 @@
         "助動詞-マス",
         "助動詞-タ",
         "助動詞-デス"
+      ],
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
       ]
     },
     "politeness_masu": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "礼貌",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 51,
@@ -1709,31 +1863,47 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "past": {
       "stage": "tense",
       "executor": "verb_cycle+i_adjective_conversion",
       "rule_group": "过去与完成",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 60
+      "order_rank": 60,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "volitional": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "意向",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "rashii_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "推量判断",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 71,
@@ -1748,46 +1918,84 @@
         "terminal",
         "attributive",
         "stem"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "sou_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "样态判断",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
       "order_rank": 72,
-      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
-      "input_forms": ["continuative", "terminal", "attributive", "stem"]
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "continuative",
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "you_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "比况判断",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
       "order_rank": 73,
-      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
-      "input_forms": ["terminal", "attributive", "stem"]
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "mitai_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "比况判断",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
       "order_rank": 74,
-      "input_categories": ["動詞", "形容詞", "名詞", "形状詞", "助動詞"],
-      "input_forms": ["terminal", "attributive", "stem"]
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "obligation": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "当为判断",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形状詞",
       "terminal_mode": "continue",
       "order_rank": 75,
@@ -1798,58 +2006,86 @@
       "input_forms": [
         "terminal",
         "attributive"
-      ]
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "insertion": {
       "stage": "insertion",
       "executor": "insertion",
       "rule_group": "插入语",
-      "input_category": "已成立链",
+      "input_label": "已成立链",
       "output_category": "保持前项",
       "terminal_mode": "preserve",
-      "order_rank": 0
+      "order_rank": 0,
+      "preserve_state": true,
+      "input_category_mode": "any",
+      "input_categories": []
     },
     "negative_zuni": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "文言否定",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "classical_beshi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "文言助动词",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "classical_gotoshi": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "文言比况",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "classical_adjective": {
       "stage": "classical",
       "executor": "classical_conjugation",
       "rule_group": "文言形容词活用",
-      "input_category": "已成立链",
+      "input_label": "已成立链",
       "output_category": "文語用言",
       "terminal_mode": "pause_or_continue",
-      "order_rank": 0
+      "order_rank": 0,
+      "input_category_mode": "any",
+      "input_categories": []
     },
     "copula_de": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "断定连用",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "continue",
       "order_rank": 80,
@@ -1862,13 +2098,15 @@
         "stem",
         "terminal",
         "attributive"
-      ]
+      ],
+      "output_form": "continuative",
+      "input_category_mode": "judgement_compatible"
     },
     "copula_past": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "断定过去",
-      "input_category": "体言／判断词干",
+      "input_label": "体言／判断词干",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
@@ -1884,13 +2122,14 @@
         "terminal",
         "attributive",
         "continuative"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "polite_negative": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 50,
@@ -1899,13 +2138,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "politeness_desu": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "敬体判断",
-      "input_category": "体言／判断词干",
+      "input_label": "体言／判断词干",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
@@ -1921,76 +2164,125 @@
         "terminal",
         "attributive",
         "continuative"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "deshou_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "darou_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "darou_question": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "conditional": {
       "stage": "voice",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 10
+      "order_rank": 10,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "te_form": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "de_form": {
       "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "negative_volitional": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 50
+      "order_rank": 50,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "desire_outward": {
       "stage": "desire",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 40,
@@ -1999,13 +2291,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "copula": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
@@ -2020,13 +2316,15 @@
         "stem",
         "terminal",
         "attributive"
-      ]
+      ],
+      "output_form": "terminal",
+      "input_category_mode": "judgement_compatible"
     },
     "adverbial_ni": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "continue",
       "order_rank": 80,
@@ -2036,13 +2334,15 @@
       "input_forms": [
         "stem",
         "terminal"
-      ]
+      ],
+      "output_form": "continuative",
+      "input_category_mode": "judgement_compatible"
     },
     "attributive_na": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "保持前项",
       "terminal_mode": "continue",
       "order_rank": 80,
@@ -2057,13 +2357,15 @@
         "stem",
         "terminal",
         "attributive"
-      ]
+      ],
+      "output_form": "attributive",
+      "input_category_mode": "judgement_compatible"
     },
     "copula_aru": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "体言／判断词干",
+      "input_label": "体言／判断词干",
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
       "order_rank": 80,
@@ -2075,13 +2377,14 @@
       ],
       "input_forms": [
         "continuative"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "ease": {
       "stage": "desire",
       "executor": "i_adjective_conversion",
       "rule_group": "形容词转换",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "形容詞",
       "terminal_mode": "continue",
       "order_rank": 40,
@@ -2090,13 +2393,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "difficulty": {
       "stage": "desire",
       "executor": "i_adjective_conversion",
       "rule_group": "形容词转换",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "形容詞",
       "terminal_mode": "continue",
       "order_rank": 40,
@@ -2105,135 +2412,243 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "ba_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "tara_condition": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "nagara_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "tsutsu_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "concessive_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "prohibitive": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "enumerative": {
       "stage": "te_support",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "preserve_state": true,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "exemplification": {
       "stage": "insertion",
       "executor": "insertion",
       "rule_group": "插入语",
-      "input_category": "已成立链",
+      "input_label": "已成立链",
       "output_category": "保持前项",
       "terminal_mode": "preserve",
-      "order_rank": 0
+      "order_rank": 0,
+      "preserve_state": true,
+      "input_category_mode": "any",
+      "input_categories": []
     },
     "volitional_to_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "意向接续",
-      "input_category": "動詞",
-      "input_forms": ["volitional"],
+      "input_label": "動詞",
+      "input_forms": [
+        "volitional"
+      ],
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 70
+      "order_rank": 70,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "volitional_to_suru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "意向接续",
-      "input_category": "動詞",
-      "input_forms": ["other"],
+      "input_label": "動詞",
+      "input_forms": [
+        "other"
+      ],
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "shika_nai": {
       "stage": "conversion",
       "executor": "i_adjective_conversion",
       "rule_group": "限定与选择",
-      "input_categories": ["動詞", "形容詞", "助動詞", "名詞", "代名詞", "形状詞"],
-      "input_forms": ["stem", "terminal", "attributive"],
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞",
+        "名詞",
+        "代名詞",
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
     },
     "koto_nominalization": {
       "stage": "conversion",
       "executor": "nominalization",
       "rule_group": "形式名词",
-      "input_categories": ["動詞", "形容詞", "助動詞"],
-      "input_forms": ["terminal", "attributive"],
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive"
+      ],
       "output_category": "名詞",
       "terminal_mode": "continue",
-      "order_rank": 45
+      "order_rank": 45,
+      "output_form": "stem",
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
     },
     "te_ii": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "许可与认可",
-      "input_categories": ["動詞", "形容詞", "助動詞"],
-      "input_forms": ["te"],
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "te"
+      ],
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
     },
     "ni_naru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "变化接续",
-      "input_category": "名词性成分",
+      "input_label": "名词性成分",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30,
@@ -2245,26 +2660,31 @@
       "input_forms": [
         "other",
         "continuative"
-      ]
+      ],
+      "input_category_mode": "judgement_compatible"
     },
     "adjectival_naru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "变化接续",
-      "input_category": "形容詞",
+      "input_label": "形容詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30,
       "input_forms": [
         "continuative"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "形容詞"
       ]
     },
     "hazu_modality": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
-      "output_category": "形状詞",
+      "input_label": "用言",
+      "output_category": "名詞",
       "terminal_mode": "continue",
       "order_rank": 70,
       "input_categories": [
@@ -2278,13 +2698,15 @@
         "stem",
         "terminal",
         "attributive"
-      ]
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "degree": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "input_categories": [
         "名詞",
         "代名詞",
@@ -2295,167 +2717,257 @@
       ],
       "output_category": "名詞",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
     },
     "kamoshirenai": {
       "stage": "modality",
       "executor": "i_adjective_conversion",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "imperative": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_kuru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_miru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_kudasaru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_morau": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_itadaku": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_label": "动词",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_kakaru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "态度接续",
-      "input_category": "动词",
+      "input_label": "动词",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_ageru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_kureru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_yaru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_hoshii": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
+      "input_label": "动词",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_goran": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "名詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "te_miseru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "te_tamaranai": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "te_naranai": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "te_yamanai": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "形容詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "contracted_te_iru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30,
       "exclude_input_ctypes": [
@@ -2463,14 +2975,18 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "contracted_te_shimau": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30,
       "exclude_input_ctypes": [
@@ -2478,14 +2994,18 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "contracted_te_oku": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "补助动词接续",
-      "input_category": "动词",
-      "output_category": "动词",
+      "input_label": "动词",
+      "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 30,
       "exclude_input_ctypes": [
@@ -2493,31 +3013,51 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "tari_suru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "列举接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "tari_dekiru": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "列举接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 30
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "excessive": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2526,13 +3066,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "inceptive": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2541,13 +3085,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "continuative_aspect": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2556,13 +3104,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "terminative": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2571,13 +3123,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "iterative_aspect": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2586,13 +3142,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "inchoative": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2601,13 +3161,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "corrective": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2616,13 +3180,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "incomplete": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2631,13 +3199,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "completion": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2646,13 +3218,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "reluctance": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2661,13 +3237,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "failure": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2676,13 +3256,17 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "missed_opportunity": {
       "stage": "te_support",
       "executor": "auxiliary_verb",
       "rule_group": "连用形补助",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
       "order_rank": 37,
@@ -2691,76 +3275,143 @@
         "助動詞-タ",
         "助動詞-デス",
         "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
       ]
     },
     "kedo_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "keredomo_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "ga_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "noni_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "kara_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "node_connection": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "to_condition": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "nara_condition": {
       "stage": "modality",
       "executor": "na_adjective_judgement",
       "rule_group": "判断与推量",
-      "input_category": "用言",
+      "input_label": "用言",
       "input_categories": [
         "名詞",
         "代名詞",
@@ -2771,160 +3422,287 @@
       ],
       "output_category": "保持前项",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible"
     },
     "negative_ba": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "negative_tewa": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "negative_to": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "tewa_condition": {
       "stage": "boundary",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "continue",
-      "order_rank": 80
+      "order_rank": 80,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "negative_de": {
       "stage": "polarity_politeness",
       "executor": "verb_cycle",
       "rule_group": "动词活用",
-      "input_category": "動詞",
+      "input_label": "動詞",
       "output_category": "動詞",
       "terminal_mode": "continue",
-      "order_rank": 50
+      "order_rank": 50,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
     },
     "necessity_negative_ba_naru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_ba_ikeru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_ba_dame": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_tewa_naru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_tewa_ikeru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_tewa_dame": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_to_naru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_to_ikeru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "necessity_negative_to_dame": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "prohibition_tewa_condition_naru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "prohibition_tewa_condition_ikeru": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     },
     "prohibition_tewa_condition_dame": {
       "stage": "modality",
       "executor": "verb_cycle",
       "rule_group": "兼容接续",
-      "input_category": "用言",
+      "input_label": "用言",
       "output_category": "用言",
       "terminal_mode": "sentence_or_pause",
-      "order_rank": 70
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
     }
   },
   "classical_forms": [
@@ -5132,9 +5910,7 @@
       "label": "当为",
       "title": "当为",
       "concept": "grammar.obligation.beki",
-      "prototype": "べきだ",
-      "output_form": "stem",
-      "output_category": "形状詞"
+      "prototype": "べきだ"
     },
     "conditional": {
       "label": "条件",
@@ -5182,40 +5958,31 @@
       "label": "活用",
       "title": "样态 / 传闻",
       "concept": "grammar.modality.sou",
-      "prototype": "そうだ",
-      "output_form": "stem",
-      "output_category": "形状詞"
+      "prototype": "そうだ"
     },
     "you_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.you",
-      "prototype": "ようだ",
-      "output_form": "stem",
-      "output_category": "形状詞"
+      "prototype": "ようだ"
     },
     "mitai_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.mitai",
-      "prototype": "みたいだ",
-      "output_form": "stem",
-      "output_category": "形状詞"
+      "prototype": "みたいだ"
     },
     "rashii_modality": {
       "label": "活用",
       "title": "推量",
       "concept": "grammar.modality.rashii",
-      "prototype": "らしい",
-      "output_category": "形容詞"
+      "prototype": "らしい"
     },
     "copula": {
       "label": "判断",
       "title": "断定",
       "concept": "grammar.auxiliary.da",
       "prototype": "だ",
-      "output_category": "保持前项",
-      "output_form": "terminal",
       "display_suffix": "だ"
     },
     "adverbial_ni": {
@@ -5223,8 +5990,6 @@
       "title": "连用修饰",
       "concept": "morphology.form.continuative",
       "prototype": "に",
-      "output_category": "保持前项",
-      "output_form": "continuative",
       "display_suffix": "に"
     },
     "attributive_na": {
@@ -5232,16 +5997,13 @@
       "title": "连体修饰",
       "concept": "morphology.form.adjectival_attributive",
       "prototype": "な",
-      "output_category": "保持前项",
-      "output_form": "attributive",
       "display_suffix": "な"
     },
     "copula_aru": {
       "label": "判断",
       "title": "断定",
       "concept": "grammar.copula.de_aru",
-      "prototype": "である",
-      "output_category": "保持前项"
+      "prototype": "である"
     },
     "ease": {
       "label": "活用",
@@ -5294,8 +6056,7 @@
           "form": "の",
           "concept": "grammar.nominalization.no"
         }
-      ],
-      "output_category": "名詞"
+      ]
     },
     "ba_connection": {
       "label": "条件",
@@ -5367,9 +6128,7 @@
           },
           "form": "で"
         }
-      ],
-      "output_form": "te",
-      "preserve_state": true
+      ]
     },
     "prohibitive": {
       "label": "禁止",
@@ -5381,38 +6140,32 @@
       "label": "列举",
       "title": "列举",
       "concept": "grammar.connective.tari",
-      "prototype": "たり",
-      "preserve_state": true
+      "prototype": "たり"
     },
     "insertion": {
       "label": "插入语",
       "title": "插入语",
       "concept": "grammar.morphology.insertion",
       "prototype": "",
-      "token_lemma": true,
-      "preserve_state": true
+      "token_lemma": true
     },
     "exemplification": {
       "label": "举例",
       "title": "举例",
       "concept": "grammar.connective.toka",
-      "prototype": "とか",
-      "preserve_state": true
+      "prototype": "とか"
     },
     "nominal_change_ni": {
       "label": "变化接续",
       "title": "变化接续",
       "concept": "grammar.functional.naru",
-      "prototype": "に",
-      "output_form": "other",
-      "preserve_state": true
+      "prototype": "に"
     },
     "volitional_to_connection": {
       "label": "意向接续",
       "title": "意向接续",
       "concept": "grammar.modality.volitional_to_suru",
-      "prototype": "と",
-      "output_form": "other"
+      "prototype": "と"
     },
     "volitional_to_suru": {
       "label": "ようとする",
@@ -5432,8 +6185,7 @@
       "label": "こと",
       "title": "内容／事件的名词化",
       "concept": "grammar.formal.koto",
-      "prototype": "こと",
-      "output_form": "stem"
+      "prototype": "こと"
     },
     "te_ii": {
       "label": "ていい",
@@ -5476,17 +6228,13 @@
       "label": "预期",
       "title": "预期判断",
       "concept": "grammar.expectation.hazu",
-      "prototype": "はず",
-      "output_category": "名詞",
-      "output_form": "stem"
+      "prototype": "はず"
     },
     "degree": {
       "label": "程度",
       "title": "程度／约量",
       "concept": "grammar.particle.kurai",
       "prototype": "くらい",
-      "output_category": "名詞",
-      "output_form": "stem",
       "variants": [
         {
           "token": {
@@ -6096,7 +6844,6 @@
       "title": "逆接",
       "concept": "grammar.connective.kedo",
       "prototype": "けど",
-      "output_form": "other",
       "variants": [
         {
           "token": {
@@ -6114,22 +6861,19 @@
       "label": "逆接",
       "title": "逆接",
       "concept": "grammar.connective.kedo",
-      "prototype": "けれども",
-      "output_form": "other"
+      "prototype": "けれども"
     },
     "ga_connection": {
       "label": "逆接",
       "title": "逆接",
       "concept": "grammar.connective.ga",
-      "prototype": "が",
-      "output_form": "other"
+      "prototype": "が"
     },
     "noni_connection": {
       "label": "のに接续",
       "title": "逆接／用途与评价",
       "concept": "grammar.connective.noni",
       "prototype": "のに",
-      "output_form": "other",
       "candidates": [
         "逆接",
         "用途・评价"
@@ -6139,57 +6883,49 @@
       "label": "原因",
       "title": "原因",
       "concept": "grammar.connective.kara",
-      "prototype": "から",
-      "output_form": "other"
+      "prototype": "から"
     },
     "node_connection": {
       "label": "原因",
       "title": "原因",
       "concept": "grammar.connective.node",
-      "prototype": "ので",
-      "output_form": "other"
+      "prototype": "ので"
     },
     "to_condition": {
       "label": "条件",
       "title": "条件",
       "concept": "morphology.mood.conditional",
-      "prototype": "と",
-      "output_form": "conditional"
+      "prototype": "と"
     },
     "nara_condition": {
       "label": "条件",
       "title": "条件",
       "concept": "morphology.mood.conditional",
-      "prototype": "なら",
-      "output_form": "conditional"
+      "prototype": "なら"
     },
     "negative_ba": {
       "label": "否定条件",
       "title": "否定条件",
       "concept": "morphology.mood.conditional",
-      "prototype": "なければ",
-      "output_form": "conditional"
+      "prototype": "なければ"
     },
     "negative_tewa": {
       "label": "否定条件",
       "title": "否定条件",
       "concept": "morphology.mood.conditional",
-      "prototype": "なくては",
-      "output_form": "conditional"
+      "prototype": "なくては"
     },
     "negative_to": {
       "label": "否定条件",
       "title": "否定条件",
       "concept": "morphology.mood.conditional",
-      "prototype": "ないと",
-      "output_form": "conditional"
+      "prototype": "ないと"
     },
     "tewa_condition": {
       "label": "取立条件",
       "title": "取立条件",
       "concept": "morphology.mood.conditional",
       "prototype": "ては",
-      "output_form": "conditional",
       "variants": [
         {
           "token": {
@@ -6208,15 +6944,13 @@
       "label": "否定接续",
       "title": "否定接续",
       "concept": "grammar.connective.naide",
-      "prototype": "ないで",
-      "output_form": "other"
+      "prototype": "ないで"
     },
     "negative_zuni": {
       "label": "否定接续",
       "title": "否定接续",
       "concept": "grammar.classical.zu",
-      "prototype": "ずに",
-      "output_form": "other"
+      "prototype": "ずに"
     },
     "classical_gotoshi": {
       "label": "文言比况",
@@ -6250,16 +6984,13 @@
       "label": "断定连用",
       "title": "断定接续",
       "concept": "grammar.auxiliary.da",
-      "prototype": "で",
-      "output_category": "保持前项",
-      "output_form": "continuative"
+      "prototype": "で"
     },
     "copula_past": {
       "label": "断定过去",
       "title": "断定过去",
       "concept": "grammar.auxiliary.da",
       "prototype": "だった",
-      "output_category": "保持前项",
       "variants": [
         {
           "token": {
@@ -10449,29 +11180,29 @@
       "volitional": "意向形",
       "te": "て形"
     },
-    "raw_form_labels": {
-      "未然形": "未然形",
-      "連用形": "連用形",
-      "終止形": "終止形・連体形",
-      "連体形": "終止形・連体形",
-      "仮定形": "仮定形",
-      "已然形": "已然形",
-      "命令形": "命令形",
-      "意志推量形": "意向形"
-    },
-    "families": {
-      "五段": "五段活用",
-      "一段": "一段活用",
-      "下一段": "下一段活用",
-      "上一段": "上一段活用",
-      "上二段": "上二段活用",
-      "下二段": "下二段活用",
-      "四段": "四段活用",
-      "サ行変格": "サ変活用",
-      "カ行変格": "カ変活用",
-      "サ変": "サ変活用",
-      "カ変": "カ変活用"
-    },
+    "raw_form_labels": [
+      {"prefix": "未然形", "label": "未然形"},
+      {"prefix": "連用形", "label": "連用形"},
+      {"prefix": "終止形", "label": "終止形・連体形"},
+      {"prefix": "連体形", "label": "終止形・連体形"},
+      {"prefix": "仮定形", "label": "仮定形"},
+      {"prefix": "已然形", "label": "已然形"},
+      {"prefix": "命令形", "label": "命令形"},
+      {"prefix": "意志推量形", "label": "意向形"}
+    ],
+    "families": [
+      {"prefix": "五段", "label": "五段活用"},
+      {"prefix": "一段", "label": "一段活用"},
+      {"prefix": "下一段", "label": "下一段活用"},
+      {"prefix": "上一段", "label": "上一段活用"},
+      {"prefix": "上二段", "label": "上二段活用"},
+      {"prefix": "下二段", "label": "下二段活用"},
+      {"prefix": "四段", "label": "四段活用"},
+      {"prefix": "サ行変格", "label": "サ変活用"},
+      {"prefix": "カ行変格", "label": "カ変活用"},
+      {"prefix": "サ変", "label": "サ変活用"},
+      {"prefix": "カ変", "label": "カ変活用"}
+    ],
     "category_labels": {
       "形容詞": "形容詞活用",
       "形状詞": "形容動詞活用",
@@ -10482,11 +11213,6 @@
       "丁寧": "丁寧",
       "受身等候选": "受身・可能等",
       "接续": "接続"
-    },
-    "inflections": [
-      "conjugation",
-      "initial_alternation",
-      "final_alternation"
-    ]
+    }
   }
 }

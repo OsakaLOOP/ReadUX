@@ -10,6 +10,8 @@ pub static CONFIG: LazyLock<Config> =
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
+    pub schema: ConfigSchema,
+    pub intrinsic_features: Vec<String>,
     pub operators: BTreeMap<String, Operator>,
     #[serde(default)]
     pub rule_metadata: BTreeMap<String, RuleMetadata>,
@@ -33,7 +35,6 @@ pub struct Config {
     pub connection_types: BTreeMap<String, Vec<String>>,
     #[serde(default)]
     pub input_recoveries: Vec<InputRecovery>,
-    #[serde(default = "default_auxiliary_depth")]
     pub max_auxiliary_depth: usize,
     #[serde(default)]
     pub classical_forms: Vec<ClassicalForm>,
@@ -41,8 +42,10 @@ pub struct Config {
     pub classical_auxiliaries: Vec<ClassicalAuxiliary>,
 }
 
-fn default_auxiliary_depth() -> usize {
-    8
+#[derive(Deserialize)]
+pub enum ConfigSchema {
+    #[serde(rename = "readux.morphology-config.v1")]
+    V1,
 }
 
 /// 接续路径同时用于识别与词条图示；显示字段不参与匹配。
@@ -56,6 +59,25 @@ pub struct ConnectionPaths {
     pub scope: String,
     #[serde(default)]
     pub source: String,
+    #[serde(default)]
+    pub ctype_mode: CTypeMatch,
+}
+
+#[derive(Default, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CTypeMatch {
+    #[default]
+    Prefix,
+    ClassicalPrefix,
+}
+
+impl ConnectionPaths {
+    pub fn matches_ctype(&self, actual: &str, prefix: &str) -> bool {
+        match self.ctype_mode {
+            CTypeMatch::Prefix => actual.starts_with(prefix),
+            CTypeMatch::ClassicalPrefix => ctype_matches(actual, prefix),
+        }
+    }
 }
 
 #[derive(Default, Deserialize)]
@@ -172,8 +194,11 @@ pub struct RuleMetadata {
     pub stage: String,
     pub executor: String,
     pub rule_group: String,
-    pub input_category: String,
+    pub input_label: String,
+    pub input_category_mode: InputCategoryMode,
     pub output_category: String,
+    pub output_form: Option<ConnectionForm>,
+    pub preserve_state: bool,
     pub terminal_mode: String,
     pub order_rank: i32,
     #[serde(default)]
@@ -182,6 +207,15 @@ pub struct RuleMetadata {
     pub input_forms: Vec<ConnectionForm>,
     #[serde(default)]
     pub exclude_input_ctypes: Vec<String>,
+}
+
+#[derive(Default, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum InputCategoryMode {
+    #[default]
+    Any,
+    Exact,
+    JudgementCompatible,
 }
 
 #[derive(Deserialize)]
@@ -221,9 +255,6 @@ pub struct Operator {
     pub compound_candidate: bool,
     pub connector: Option<String>,
     pub connector_alternatives: Vec<String>,
-    pub output_category: Option<String>,
-    pub output_form: Option<ConnectionForm>,
-    pub preserve_state: bool,
     pub display_suffix: Option<String>,
 }
 
@@ -441,10 +472,27 @@ pub fn definition(kind: &str) -> Option<&'static Operator> {
     CONFIG.operators.get(kind)
 }
 
+static CONNECTION_RULES_BY_OPERATOR: LazyLock<
+    BTreeMap<&'static str, (&'static str, &'static ConnectionPaths)>,
+> = LazyLock::new(|| {
+    CONFIG.connection_rules.iter().flat_map(|(id, rule)| {
+        rule.operators.iter().map(move |kind| (kind.as_str(), (id.as_str(), rule)))
+    }).collect()
+});
+
+static CONNECTION_TYPES_BY_OPERATOR: LazyLock<BTreeMap<&'static str, &'static str>> =
+    LazyLock::new(|| {
+        CONFIG.connection_types.iter().flat_map(|(category, kinds)| {
+            kinds.iter().map(move |kind| (kind.as_str(), category.as_str()))
+        }).collect()
+    });
+
+pub fn connection_rule(kind: &str) -> Option<(&'static str, &'static ConnectionPaths)> {
+    CONNECTION_RULES_BY_OPERATOR.get(kind).copied()
+}
+
 pub fn connection_type(kind: &str) -> &'static str {
-    CONFIG.connection_types.iter()
-        .find(|(_, kinds)| kinds.iter().any(|member| member == kind))
-        .map_or("direct", |(kind, _)| kind.as_str())
+    CONNECTION_TYPES_BY_OPERATOR.get(kind).copied().unwrap_or("direct")
 }
 
 pub fn concept(kind: &str, token: &ProviderToken) -> Option<&'static str> {
@@ -654,11 +702,7 @@ pub fn entity_class_for_token(token: &ProviderToken) -> &'static str {
 }
 
 pub fn is_inflection(kind: &str) -> bool {
-    CONFIG.presentation["inflections"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .any(|value| value.as_str() == Some(kind))
+    CONFIG.intrinsic_features.iter().any(|value| value == kind)
 }
 
 pub fn prototype(kind: &str, token: &ProviderToken) -> Option<String> {
@@ -775,7 +819,7 @@ mod tests {
                 );
             }
         }
-        assert!(CONFIG.presentation["inflections"].as_array().is_some());
+        assert!(!CONFIG.intrinsic_features.is_empty());
         for (kind, metadata) in &CONFIG.rule_metadata {
             assert!(!metadata.stage.is_empty(), "{kind} 缺少阶段");
             assert!(!metadata.executor.is_empty(), "{kind} 缺少执行器");

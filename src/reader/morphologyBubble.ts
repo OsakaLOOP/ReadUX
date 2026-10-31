@@ -1,6 +1,6 @@
 import explanations from "../../crates/readux-core/resources/grammar/compiled/grammar_explanations.json" with { type: "json" };
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
-import { configuredPrototype, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { configuredPrototype, isIntrinsicFeature, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyPrototype, morphologyRuleForOperator, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, UnifiedDocument } from "../types/nlp";
 
 export interface MorphologyEntryContent {
@@ -93,7 +93,7 @@ function contractionForm(operator: MorphologyOperator) {
 export function morphologyEntry(operator: MorphologyOperator, document: UnifiedDocument, transition = "", fullTransition = false): MorphologyEntryContent {
   const definition = operatorDefinitions[operator.kind];
   const token = document.morphemes?.[operator.source_morpheme_range?.[0]];
-  const prototype = configuredPrototype(operator.kind, token);
+  const prototype = morphologyPrototype(operator);
   const support = definition?.support;
   const headword = support?.expanded?.[0] ?? (support?.group === "te" || support?.group === "contracted"
     ? prototype.replace(/^(?:て|で)/u, "") : support && ["enumerative", "volitional", "nominal_change"].includes(support.group)
@@ -204,7 +204,7 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
   for (const chain of family) {
     if (!chain.morpheme_range) continue;
     const operators = (chain.operators ?? []).filter((op) => operatorDefinitions[op.kind]
-      && !morphologyPresentation.inflections.includes(op.kind) && op.char_range);
+      && !isIntrinsicFeature(op.kind) && op.char_range);
     // 复合规则拥有完整范围，同一范围仅显示一个语法身份。
     const owners: MorphologyOperator[] = [];
     for (const op of [...operators].sort((a, b) => (b.char_range[1] - b.char_range[0]) - (a.char_range[1] - a.char_range[0]))) {
@@ -295,8 +295,7 @@ export function morphologyConnectionDiagram(
   operator: MorphologyOperator, owner: MorphologyChain | undefined, document: UnifiedDocument, status: string,
 ): ConnectionDiagram | null {
   const connection = operator.connection;
-  type Path = { id: string; group: string; label: string; steps: string[]; connector?: string; connector_paths?: string[] };
-  const rules: Record<string, { label: string; operators: string[]; paths: Path[] }> = morphologyConnectionRules;
+  const rules = morphologyConnectionRules;
   const rule = connection && rules[connection.rule];
   const sentence = morphologySentenceParts(operator, owner, document);
   if (!rule && !sentence.length) return null;
@@ -309,7 +308,7 @@ export function morphologyConnectionDiagram(
   const inputs = (rule?.paths ?? []).flatMap((path) => {
     const matched = connection?.matched_paths.includes(path.id) ?? false;
     if (!path.connector) return [{ path, id: path.id, branch: operatorDefinitions[operator.kind]?.connector ? connectorLabel : "", matched }];
-    const shared = Object.values(rules).find((rule) => rule.operators.includes(path.connector!));
+    const shared = morphologyRuleForOperator(path.connector);
     return (shared?.paths ?? []).filter((input) => path.connector_paths?.includes(input.id)).map((input) => ({
       path: input, id: `${path.id}:${input.id}`, branch: operatorDefinitions[path.connector!]?.prototype ?? "",
       matched: matched && connector?.kind === path.connector && Boolean(connector?.connection?.matched_paths.includes(input.id)),

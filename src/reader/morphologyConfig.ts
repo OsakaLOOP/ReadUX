@@ -1,40 +1,51 @@
 import configuration from "../../configs/unidic-nlp/morphology.json" with { type: "json" };
+import type { MorphologyOperator } from "../types/nlp";
 
-type TokenField = "pos" | "sub" | "detail" | "ctype" | "cform" | "lemma" | "base" | "surface";
-interface TokenPattern {
-  equals?: Partial<Record<TokenField, string[]>>;
-  starts_with?: Partial<Record<TokenField, string[]>>;
-  contains?: Partial<Record<TokenField, string[]>>;
+if (configuration.schema !== "readux.morphology-config.v1") {
+  throw new Error(`活用配置版本不匹配：${configuration.schema}`);
 }
+
 interface OperatorDefinition {
   label: string;
   title: string;
   prototype: string;
   normalized?: string;
-  token_lemma?: boolean;
   support?: { group: string; bases: string[]; expanded?: string[] };
   connector?: string;
   connector_alternatives?: string[];
-  variants?: { token: TokenPattern; form: string; concept?: string }[];
 }
 export interface RuleTreeNode {
   id: string; label: string; summary?: string; input_examples?: string[]; output?: string; children?: RuleTreeNode[];
 }
-interface Token {
-  surface: string;
-  lemma?: string | null;
-  pos?: (string | null)[];
+export interface ConnectionPathDefinition {
+  id: string; group: string; label: string; steps: string[];
+  connector?: string; connector_paths?: string[];
 }
-
+export interface ConnectionRuleDefinition {
+  label: string; operators: string[]; paths: ConnectionPathDefinition[];
+}
 export const morphologyPresentation = configuration.presentation;
 export const operatorDefinitions: Record<string, OperatorDefinition> = configuration.operators;
-export const morphologyEntityClasses = configuration.entity_classes ?? {};
-export const morphologyRuleTree: RuleTreeNode[] = configuration.rule_tree ?? [];
-export const morphologyConnectionRules = configuration.connection_rules;
+export const morphologyEntityClasses = configuration.entity_classes;
+export const morphologyRuleTree: RuleTreeNode[] = configuration.rule_tree;
+export const morphologyConnectionRules: Record<string, ConnectionRuleDefinition> = configuration.connection_rules;
 export const morphologyConnectionTypes: Record<string, string[]> = configuration.connection_types;
 
+const ruleByOperator = new Map(Object.values(morphologyConnectionRules)
+  .flatMap((rule) => rule.operators.map((kind) => [kind, rule] as const)));
+const typeByOperator = new Map(Object.entries(morphologyConnectionTypes)
+  .flatMap(([type, kinds]) => kinds.map((kind) => [kind, type] as const)));
+
+export function morphologyRuleForOperator(kind: string) {
+  return ruleByOperator.get(kind);
+}
+
 export function morphologyConnectionType(kind: string): string {
-  return Object.entries(morphologyConnectionTypes).find(([, kinds]) => kinds.includes(kind))?.[0] ?? "direct";
+  return typeByOperator.get(kind) ?? "direct";
+}
+
+export function isIntrinsicFeature(kind: string): boolean {
+  return configuration.intrinsic_features.includes(kind);
 }
 
 export function morphologyTags(kind: string, cform = "", evidence: string[] = []): string[] {
@@ -47,24 +58,13 @@ export function morphologyTags(kind: string, cform = "", evidence: string[] = []
   return [...new Set(labels)];
 }
 
-export function configuredPrototype(kind: string, token?: Token): string {
+export function configuredPrototype(kind: string): string {
   const entry = operatorDefinitions[kind];
   if (!entry) return "";
-  if (entry.normalized) return entry.normalized;
-  if (token) {
-    const values: Partial<Record<TokenField, string | null>> = {
-      surface: token.surface, lemma: token.lemma, pos: token.pos?.[0], sub: token.pos?.[1], detail: token.pos?.[2],
-    };
-    const matches = (pattern: TokenPattern) =>
-      Object.entries(pattern).every(([mode, fields]) => Object.entries(fields as Partial<Record<TokenField, string[]>>)
-        .every(([field, alternatives]) => {
-          const value = values[field as TokenField] ?? "";
-          return alternatives?.some((alternative) => mode === "equals" ? value === alternative
-            : mode === "starts_with" ? value.startsWith(alternative) : value.includes(alternative));
-        }));
-    const variant = entry.variants?.find((variant) => matches(variant.token));
-    if (variant) return variant.form;
-    if (entry.token_lemma && token.lemma) return token.lemma;
-  }
-  return entry.prototype;
+  return entry.normalized || entry.prototype;
+}
+
+/** 本句原型由分析阶段根据完整 UniDic 字段确定。 */
+export function morphologyPrototype(operator: Pick<MorphologyOperator, "kind" | "normalized_form">): string {
+  return operator.normalized_form || configuredPrototype(operator.kind);
 }

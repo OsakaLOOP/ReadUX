@@ -17,6 +17,7 @@
 | [语言分析](language_analysis.md)                  | 活用、构词、文节、小句、语法、表达与规则                   |
 | [P4 活用链与整体构词](p4_morphology_formation.md) | 多来源协作、活用状态机、occurrence、整体查询对象和十段验收 |
 | [活用链配置](morphology_configuration.md) | 统一规则、概念路由、原型与展示的维护指导 |
+| [活用配置协议与存储重构](morphology_storage_refactor_analysis.md) | v1 字段契约、消费修复、顺序语义与分文件编译方案 |
 | [活用链重构执行计划](morphology_refactor_execution_plan.md) | 按重要度排列的剩余任务、完成证据与当前状态 |
 | [活用链例句验收清单](morphology_example_status.md) | 199 条例句的当前结果、问题、边界和覆盖情况 |
 | [活用链局部接续验收](morphology_local_connections_2026-10-27.md) | 顺序约束审计、递归活用、名词性＋になる、条件插入とか与七句复测 |
