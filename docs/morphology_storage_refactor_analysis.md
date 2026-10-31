@@ -241,3 +241,5 @@ definition 保存运行时 operators 的全部定义字段，execution 保存 ru
 
 生成文件通过 `.gitattributes` 固定为 LF，Windows 的 `core.autocrlf=true` 保留相同的编译字节。
 
+dist 全书的三段抽样共 171 个 token、106 条链，实际状态、范围、接续路径和查询形式一致；17 处差异均为元数据中“动词→動詞”的命名统一。来源与逐段结果见[静态分析抽样对比](morphology_dist_comparison_2026-10-31.md)。
+
