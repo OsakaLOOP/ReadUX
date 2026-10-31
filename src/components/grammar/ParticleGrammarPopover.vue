@@ -27,7 +27,7 @@ const particleKind = computed(
     (
       ({
         格助詞: "格助词",
-        係助詞: "係助词",
+        係助詞: "系助词",
         副助詞: "副助词",
         接続助詞: "接续助词",
         終助詞: "终助词",
@@ -54,10 +54,12 @@ const particleKind = computed(
       <h2 v-if="docked" class="dock-section-title">词典</h2>
       <header class="particle-popover__header">
         <div>
-          <strong>{{ lookup.entries[0]?.headword ?? lookup.query }}</strong
-          ><span>{{ particleKind }}</span>
+          <strong>{{ lookup.entries[0]?.headword ?? lookup.query }}</strong>
         </div>
-        <div><span>无活用</span></div>
+        <div>
+          <span>{{ particleKind }}</span
+          ><span>无活用</span>
+        </div>
       </header>
       <ParticleGrammarBlock :lookup="lookup" :show-header="false" />
     </aside>
