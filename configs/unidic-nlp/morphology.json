@@ -9397,6 +9397,54 @@
           "steps": [
             "判断词干"
           ]
+        },
+        {
+          "categories": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ],
+          "exact_category": true,
+          "following": {
+            "equals": {
+              "lemma": [
+                "の"
+              ],
+              "pos": [
+                "助詞"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "forms": [
+            "terminal",
+            "attributive"
+          ],
+          "group": "用言",
+          "id": "restriction_nominalization",
+          "label": "限定后名词化接续",
+          "predecessors": [
+            {
+              "equals": {
+                "base": [
+                  "だけ"
+                ],
+                "pos": [
+                  "助詞"
+                ],
+                "sub": [
+                  "副助詞"
+                ]
+              }
+            }
+          ],
+          "steps": [
+            "終止形・連体形",
+            "だけ"
+          ]
         }
       ]
     },
@@ -10832,6 +10880,9 @@
             "動詞"
           ],
           "exact_category": true,
+          "exclude_previous_operators": [
+            "attributive_na"
+          ],
           "forms": [
             "terminal",
             "attributive"
@@ -10856,6 +10907,9 @@
             "形容詞"
           ],
           "exact_category": true,
+          "exclude_previous_operators": [
+            "attributive_na"
+          ],
           "forms": [
             "terminal",
             "attributive"
@@ -10940,6 +10994,9 @@
             "助動詞"
           ],
           "exact_category": true,
+          "exclude_previous_operators": [
+            "attributive_na"
+          ],
           "forms": [
             "terminal",
             "attributive"
@@ -10981,6 +11038,41 @@
           },
           "steps": [
             "连体形＋の／ん"
+          ]
+        },
+        {
+          "categories": [
+            "動詞",
+            "形容詞",
+            "助動詞"
+          ],
+          "connector": "attributive_na",
+          "connector_paths": [
+            "restriction_nominalization"
+          ],
+          "exact_category": true,
+          "forms": [
+            "attributive"
+          ],
+          "group": "用言",
+          "id": "no_restriction_na",
+          "label": "经限定成分与连体修饰な",
+          "next": {
+            "equals": {
+              "lemma": [
+                "の"
+              ],
+              "pos": [
+                "助詞"
+              ],
+              "surface": [
+                "の",
+                "ん"
+              ]
+            }
+          },
+          "steps": [
+            "な"
           ]
         }
       ]

@@ -492,6 +492,29 @@ fn auxiliary_support_depth(chains: &[MorphologyChain], previous_index: usize) ->
 struct ClassicalConjugationExecutor;
 
 impl ClassicalConjugationExecutor {
+    /// 复合词条继承ごとし的前接状态，范围覆盖ごとく与なり的完整成员。
+    fn project_composition(chain: &MorphologyChain, operator: &mut MorphologyOperator) {
+        if operator.kind != "classical_gotokunari"
+            || !operator
+                .evidence
+                .iter()
+                .any(|item| item == "classical_composition:ごとし+なり")
+        {
+            return;
+        }
+        if let Some(prefix) = chain
+            .operators
+            .iter()
+            .rev()
+            .find(|item| item.kind == "classical_gotoshi")
+        {
+            operator.source_morpheme_range[0] = prefix.source_morpheme_range[0];
+            operator.char_range[0] = prefix.char_range[0];
+            operator.state_before = prefix.state_before.clone();
+            operator.input_state = prefix.input_state.clone();
+        }
+    }
+
     fn accepts(kind: &str) -> bool {
         config::rule_metadata(kind)
             .is_some_and(|metadata| metadata.executor == "classical_conjugation")
@@ -917,7 +940,7 @@ fn operator(
 ) -> MorphologyOperator {
     let metadata = config::rule_metadata(&kind);
     let definition = config::definition(&kind);
-    MorphologyOperator {
+    let mut operator = MorphologyOperator {
         operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
         source_morpheme_range: atom.morpheme_range,
         char_range: atom.char_range,
@@ -944,7 +967,9 @@ fn operator(
         terminal_mode: metadata.map_or_else(String::new, |m| m.terminal_mode.clone()),
         order_rank: metadata.map_or(0, |m| m.order_rank),
         connection: None,
-    }
+    };
+    ClassicalConjugationExecutor::project_composition(chain, &mut operator);
+    operator
 }
 
 fn merge(chain: &mut MorphologyChain, atom: MorphologyChain, core: bool) {

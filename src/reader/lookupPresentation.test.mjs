@@ -52,7 +52,7 @@ test("缩略形式标签仅用于实际缩约，规范原型继续作为副标�
 
 test("条件词尾的显示覆盖完整たら与だら", () => {
   for (const [text, lemma, ending] of [["なれたら", "なる", "たら"], ["読んだら", "読む", "だら"]]) {
-    const operator = { operator_id: "condition", kind: "tara_condition", label: "条件", char_range: [2, 4], source_morpheme_range: [1, 2] };
+    const operator = { operator_id: "condition", kind: "tara_condition", label: "条件", normalized_form: ending, char_range: [2, 4], source_morpheme_range: [1, 2] };
     const document = {
       text, morphemes: [{ surface: text.slice(0, 2), lemma }, { surface: ending, lemma: "た", pos: ["助動詞"] }],
       formation: { nodes: [] }, morphology: {

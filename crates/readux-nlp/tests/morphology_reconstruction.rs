@@ -567,7 +567,7 @@ fn deshou_is_conjectural_after_predicates_and_nominals() {
             assert_eq!(operators.len(), 1, "{text}");
             assert_eq!(operators[0].kind, "deshou_modality");
             assert_eq!(operators[0].normalized_form.as_deref(), Some("でしょう"));
-            assert_eq!(operators[0].concept_id, "grammar.auxiliary.desu");
+            assert_eq!(operators[0].concept_id, "grammar.modality.deshou");
         }
     }
 }

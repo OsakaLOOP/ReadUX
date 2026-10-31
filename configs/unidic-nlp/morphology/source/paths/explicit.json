@@ -1970,6 +1970,54 @@
           "attributive"
         ],
         "exact_category": true
+      },
+      {
+        "id": "restriction_nominalization",
+        "group": "用言",
+        "label": "限定后名词化接续",
+        "steps": [
+          "終止形・連体形",
+          "だけ"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "predecessors": [
+          {
+            "equals": {
+              "pos": [
+                "助詞"
+              ],
+              "sub": [
+                "副助詞"
+              ],
+              "base": [
+                "だけ"
+              ]
+            }
+          }
+        ],
+        "following": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2791,7 +2839,10 @@
               "ん"
             ]
           }
-        }
+        },
+        "exclude_previous_operators": [
+          "attributive_na"
+        ]
       },
       {
         "id": "no_adjective",
@@ -2815,7 +2866,10 @@
               "ん"
             ]
           }
-        }
+        },
+        "exclude_previous_operators": [
+          "attributive_na"
+        ]
       },
       {
         "id": "no_na",
@@ -2899,7 +2953,10 @@
               "ん"
             ]
           }
-        }
+        },
+        "exclude_previous_operators": [
+          "attributive_na"
+        ]
       },
       {
         "id": "no_classical",
@@ -2918,6 +2975,41 @@
         "exact_category": true,
         "next": {
           "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_restriction_na",
+        "group": "用言",
+        "label": "经限定成分与连体修饰な",
+        "steps": [
+          "な"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true,
+        "connector": "attributive_na",
+        "connector_paths": [
+          "restriction_nominalization"
+        ],
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
             "surface": [
               "の",
               "ん"

@@ -10,6 +10,8 @@
 
 「な」的名词化接续路径采用 following 确认紧邻的「の／ん」，其他用途采用 exclude_following 排除该后项；两个字段均为单个 token 条件，并检查字符连续性。名词谓语及形容动词的类别继续保留。
 
+「気付きたくなかっただけなのだ」等限定结构采用 `restriction_nominalization` 与 `no_restriction_na` 两条路径，分别表示用言经「だけ」接「な」和后续名词化。「だけ」继续保留前项状态，路径明确要求其副助词身份和后续「の／ん」；一般用言名词化路径排除该连接器。
+
 维护约定见 [第 11 阶段展示规范](morphology_stage11_bubble_display.md)。完成修改后可运行 python -X utf8 scripts/check_morphology_connections.py，检查全部条目的分类、路径、连接器、概念正文、例句以及既有路径引用。检查脚本只读取资源。
 
 维护入口为 `configs/unidic-nlp/morphology/source/`，文件索引见 [source/README.md](../configs/unidic-nlp/morphology/source/README.md)。`npm run morphology:build` 编译生成 `configs/unidic-nlp/morphology.json`，`npm run morphology:check` 核对字节与引用一致性。开发、预览和构建入口自动生成配置，发布 CI 检查源文件与产物对应关系。
@@ -63,6 +65,8 @@ Rust 根据完整 UniDic 字段按顺序选择 `variants`，并将本句原型�
 `classical_forms` 根据明确的词元或文语 cType、词元词尾与实际词形识别ク／シク／ナリ／タリ活用，表中词元提供代表形式，文语 cType 允许同型词推广。`classical_auxiliaries` 按词元、cType、cForm 和完整词形匹配助动词，并通过 `inputs` 的任选条件组同时校验前项 `categories`、`forms`、`ctype` 与 `exclude_ctype`。例如り分别声明サ变未然形、四段已然形两组输入；なり和たり依据意义拆分接续规则。
 
 文言 inputs 对应的 31 组接续规则显式声明 `ctype_mode: classical_prefix`，与文言执行器共用兼容“文語”前缀的匹配。普通规则默认采用 `prefix`；`source` 保留规则的数据来源说明。
+
+「ごとく＋なり」的复合 operator 覆盖完整成员范围，并继承ごとし之前的输入状态，使拆分词形与完整词形共用同一前接条件。
 
 文言规则与其他规则共用 `operators` 和 `rule_metadata`，词条位于普通 grammar source bundle，编译目录、搜索索引和气泡查询沿用同一入口。范式与接续证据写入 operator 的 evidence；终止、连体、连用和条件等状态决定句末、从句或中顿的可停机性。验收入口为 `morphology_stages_5_6.rs`，覆盖每个已声明的词形、接续组及其输入活用形。
 

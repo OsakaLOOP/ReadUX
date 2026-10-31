@@ -544,7 +544,7 @@ fn recursive_predicates_use_local_inflection_and_preserve_nominal_inputs() {
         ("読んでほしくなかった", "te_hoshii", "形容詞"),
         ("読んじゃいたかった", "contracted_te_shimau", "形容詞"),
         ("読んだのだったらしい", "rashii_modality", "形容詞"),
-        ("こうならないはずなのだから", "hazu_modality", "形状詞"),
+        ("こうならないはずなのだから", "hazu_modality", "名詞"),
         ("リサーチしつつ", "tsutsu_connection", "動詞"),
         ("支え合ったりできるような気がする", "tari_dekiru", "形状詞"),
     ] {
@@ -843,7 +843,7 @@ fn stage_nine_operators_resolve_formal_concepts() {
     let service = AnalysisService::new(ResourcePaths::development(&root));
     for (text, kind, concept) in [
         ("行きたがる。", "desire_outward", "grammar.modality.tagaru"),
-        ("学生である。", "copula_aru", "grammar.functional.aru"),
+        ("学生である。", "copula_aru", "grammar.copula.de_aru"),
         ("静かさを測る。", "nominalization", "grammar.functional.sa"),
         (
             "食べたら寝る。",

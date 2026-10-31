@@ -632,6 +632,13 @@ fn real_classical_gotokunari_composes_gotoshi_and_nari() {
     let chain = &artifact.chains[0];
     assert_eq!(chain.surface_form, "ごとくなり");
     assert_eq!(chain.status, "resolved");
+    let composition = chain
+        .operators
+        .iter()
+        .find(|operator| operator.kind == "classical_gotokunari")
+        .unwrap();
+    assert_eq!(composition.source_morpheme_range, [0, 2]);
+    assert_eq!(composition.char_range, [0, 5]);
     assert_eq!(chain.final_state.entity_class, "文言活用类");
     assert!(chain
         .operators

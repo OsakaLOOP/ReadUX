@@ -943,7 +943,7 @@ mod tests {
 
         for (kind, concept) in [
             ("desire_outward", "grammar.modality.tagaru"),
-            ("copula_aru", "grammar.functional.aru"),
+            ("copula_aru", "grammar.copula.de_aru"),
             ("nominalization", "grammar.functional.sa"),
             ("ba_connection", "grammar.particle.ba"),
             ("tara_condition", "morphology.mood.conditional"),
@@ -956,7 +956,7 @@ mod tests {
             ("exemplification", "grammar.connective.toka"),
             ("degree", "grammar.particle.kurai"),
             ("imperative", "morphology.form.imperative"),
-            ("ga_connection", "grammar.particle.ga"),
+            ("ga_connection", "grammar.connective.ga"),
             ("node_connection", "grammar.connective.node"),
             ("negative_de", "grammar.connective.naide"),
             (

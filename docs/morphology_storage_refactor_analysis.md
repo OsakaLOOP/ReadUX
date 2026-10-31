@@ -18,7 +18,7 @@
 | `operators` | 150 个 ID → 定义 | 概念路由、词形、补助本体与连接器身份 |
 | `rule_metadata` | 150 个 ID → 执行元数据 | 输入条件、输出状态、执行器与停机语义 |
 | `connection_types` | 6 类、150 个成员 | 接续结构分类索引 |
-| `connection_rules` | 89 组、433 条路径 | 路径匹配、连接器路径和接续图声明 |
+| `connection_rules` | 89 组、435 条路径 | 路径匹配、连接器路径和接续图声明 |
 | `features` | 48 条 | 单 token 功能识别 |
 | `connections` | 48 条、67 组 when 条件 | 相邻成员的组链动作 |
 | `sequences` | 30 条、58 个 token 模式位置 | 连续词尾识别 |
@@ -35,7 +35,7 @@
 
 150 个 operator 的接续分类为 direct 84、connector 30、sequence 18、predicate 12、inflection 4、insertion 2。124 个 operator 直接归属接续规则，26 个通过连接器获得路径。
 
-89 组路径分为三种来源：31 组文言输入对应 138 条路径，12 组谓语构式对应 63 条路径，46 组显式路径对应 232 条路径。三者合计 433 条。文言助动词共 32 条；其中 `negative_zuni` 使用显式 `zuni` 路径，包含分词恢复等专门条件，故文言派生组为 31 组。
+89 组路径分为三种来源：31 组文言输入对应 138 条路径，12 组谓语构式对应 63 条路径，46 组显式路径对应 234 条路径。三者合计 435 条。首次迁移的 433 条路径与 v1 基准完整一致；随后回归修复增加了「用言＋だけ＋な＋の／ん」的两条路径。文言助动词共 32 条；其中 `negative_zuni` 使用显式 `zuni` 路径，包含分词恢复等专门条件，故文言派生组为 31 组。
 
 六类实体与执行器分派值分别计数。执行元数据含 verb_cycle 45、auxiliary_verb 44、classical_conjugation 33、na_adjective_judgement 16、i_adjective_conversion 6、nominalization 2、verb_cycle+i_adjective_conversion 2、insertion 2，共八种分派值、150 条记录。
 
@@ -184,7 +184,11 @@ definition 保存运行时 operators 的全部定义字段，execution 保存 ru
 
 46 组显式路径原样维护其条件与显示字段。zuni 的四条路径继续在此维护，保留文言前接、形容词未然形和分词恢复的差别。连接器路径通过 connector 与 connector_paths 引用共享路径，保持现有共享结构。
 
-生成结果仍包含 89 组和 433 条展开路径，源文件中具有同一来源的机器条件只维护一次。语法概念正文继续位于 grammar source bundles，通过 concept ID 关联。
+生成结果包含 89 组和 435 条展开路径，源文件中具有同一来源的机器条件只维护一次。语法概念正文继续位于 grammar source bundles，通过 concept ID 关联。
+
+限定后名词化由两条相互引用的显式路径构成：`judgement_attributive/restriction_nominalization` 接受动词、形容词或助动词的终止／连体状态，并要求紧邻的「だけ」及后续「の／ん」；`nominalization/no_restriction_na` 引用该连接器路径。一般用言名词化路径排除已存在的 attributive_na，使两种结构分别命中。
+
+「ごとく＋なり」复合结果在文言执行器中继承ごとし的前接状态，operator 的范围覆盖完整复合词条。路径匹配继续读取已有的ごとくなり输入规则，分析结果保留ごとし与ごとくなり两个 operator 及复合证据。
 
 ## 七、编译器职责与结果固定
 
@@ -214,4 +218,26 @@ definition 保存运行时 operators 的全部定义字段，execution 保存 ru
 | 5. 接入维护流程 | 开发生成命令、构建入口、CI 与配置维护文档 | 已完成 |
 
 存储拆分的可读性收益来自规则与执行元数据集中维护，以及重复路径条件按来源生成。运行时仍解析一份配置；新增的归属索引将每次遍历 89 组路径或分类成员改为按 operator 查找。规则识别、GiNZA 依赖和补助递归继续由专用执行器承担，编译器负责将可维护源结构转换成已经确定的运行协议。
+
+## 九、迁移与回归验证（2026-10-31）
+
+首次迁移产物与提交 `8405677` 的 v1 配置逐项比较，150 个 operator、89 个规则组、433 条路径、状态条件、概念及全部有序数组一致。分类与规则归属成员按集合核对。迁移提交为 `a50753d`；之后的回归修复单独维护两条限定名词化路径和文言复合范围。
+
+| 检查 | 结果 |
+| --- | --- |
+| 重复编译、源对象键顺序反转 | 输出字节一致 |
+| 修改源定义后的传播 | 产物按源内容变化 |
+| 无效输入模式、缺失连接器、缺失规则 | 编译器均报告错误 |
+| `npm run morphology:check` | 150 个 operator、89 组、435 条路径通过字节与引用检查 |
+| 既有路径、概念、例句检查 | 全部通过，124 个直接归属、26 个连接器继承条目 |
+| `cargo test -p readux-nlp` | 80 项通过 |
+| `cargo test -p readux-core --test p4_language` | 14 项通过 |
+| core 库单元测试 | 55 项通过 |
+| `npm run build` | TypeScript 检查与 Vite 生产构建通过 |
+
+验证同步了历史样例中的 concept 和状态预期：である采用 `grammar.copula.de_aru`，接续助词が采用 `grammar.connective.ga`，でしょう采用 `grammar.modality.deshou`，はず输出名词；前端条件词尾样例提供本句 normalized_form。既有文言复合回归增加了完整成员范围的检查。
+
+扩展前端检查为 109/116 项通过。六项胶囊分组与一项图布局失败已在提交 `8405677` 的独立临时基线中复现，失败集合一致。扩展的 `p5_lookup` 为 9/12 项通过，三项失败分别涉及全句查询表记一致性、整体词条目标，以及「ひとつ→一つ」规范形式；这些结果单独记录为词典查询检查结果。
+
+生成文件通过 `.gitattributes` 固定为 LF，Windows 的 `core.autocrlf=true` 保留相同的编译字节。
 
