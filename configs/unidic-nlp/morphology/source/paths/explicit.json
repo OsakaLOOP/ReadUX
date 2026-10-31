@@ -1,0 +1,4808 @@
+{
+  "adjectival_change": {
+    "label": "变化",
+    "paths": [
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "连用形：く",
+        "steps": [
+          "连用形：く"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "predecessors": [
+          {
+            "equals": {
+              "ctype": [
+                "形容詞",
+                "助動詞-ナイ"
+              ]
+            },
+            "starts_with": {
+              "cform": [
+                "連用形-一般"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "连用形：く",
+        "steps": [
+          "连用形：く"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "predecessors": [
+          {
+            "equals": {
+              "ctype": [
+                "形容詞",
+                "助動詞-ナイ"
+              ]
+            },
+            "starts_with": {
+              "cform": [
+                "連用形-一般"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "attributive_connections": {
+    "label": "逆接／用途与评价／原因",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "ba": {
+    "label": "条件／逆接",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断假定形",
+        "steps": [
+          "判断假定形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "classical_adjective": {
+    "label": "文言形容词",
+    "scope": "inflection",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形",
+        "steps": [
+          "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "stem",
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形",
+        "steps": [
+          "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "stem",
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形",
+        "steps": [
+          "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形",
+        "steps": [
+          "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "stem",
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形",
+        "steps": [
+          "词干／未然形／连用形／终止形／连体形／假定形／已然形／命令形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "stem",
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "conditional": {
+    "label": "条件",
+    "scope": "inflection",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "假定形／已然形",
+        "steps": [
+          "假定形／已然形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "conditional"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "continuative": {
+    "label": "连用形接续",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-マス",
+          "助動詞-タ",
+          "助動詞-デス"
+        ]
+      }
+    ]
+  },
+  "contracted_te": {
+    "label": "进行／状态持续／完成／遗憾／感慨／预先处置／保持",
+    "paths": [
+      {
+        "id": "ichidan",
+        "group": "动词",
+        "label": "一段动词",
+        "steps": [
+          "连用形：去る",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "上一段",
+          "下一段"
+        ],
+        "exclude_previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "kuru",
+        "group": "动词",
+        "label": "カ变动词",
+        "steps": [
+          "连用形：き",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "カ行変格"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "suru",
+        "group": "动词",
+        "label": "サ变动词",
+        "steps": [
+          "连用形：し",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "サ行変格"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_te",
+        "group": "动词",
+        "label": "五段动词 · 清音",
+        "steps": [
+          "连用形・イ音便／促音便",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_de",
+        "group": "动词",
+        "label": "五段动词 · 浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "で"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "で",
+              "じゃ",
+              "ど"
+            ]
+          }
+        }
+      },
+      {
+        "id": "voice",
+        "group": "助动词",
+        "label": "被动／使役",
+        "steps": [
+          "连用形：去る",
+          "て"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "masu",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "て"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词",
+        "steps": [
+          "连用形：词尾变く",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-ナイ",
+          "助動詞-タイ"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "negative",
+        "group": "否定",
+        "label": "否定ない",
+        "steps": [
+          "连用形：なく",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-ナイ"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "desire",
+        "group": "助动词",
+        "label": "愿望たい",
+        "steps": [
+          "连用形：たく",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-タイ"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "て",
+              "ちゃ",
+              "と"
+            ]
+          }
+        }
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断连用",
+        "steps": [
+          "词干",
+          "で"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "で",
+              "じゃ",
+              "ど"
+            ]
+          }
+        }
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断连用",
+        "steps": [
+          "名词",
+          "で"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "next": {
+          "starts_with": {
+            "surface": [
+              "で",
+              "じゃ",
+              "ど"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "degree": {
+    "label": "程度／约量",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "enumerative": {
+    "label": "列举",
+    "paths": [
+      {
+        "id": "verb_te",
+        "group": "动词",
+        "label": "一段／变格／五段清音",
+        "steps": [
+          "连用形及音便",
+          "たり／だり"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行",
+          "助動詞-マス"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "たり"
+            ]
+          }
+        }
+      },
+      {
+        "id": "verb_de",
+        "group": "动词",
+        "label": "五段浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "たり／だり"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "だり"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词／ない／たい",
+        "steps": [
+          "连用形：かっ",
+          "たり／だり"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "たり／だり"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "classical",
+        "group": "助动词",
+        "label": "文言助动词",
+        "steps": [
+          "连用形",
+          "たり／だり"
+        ],
+        "categories": [
+          "助動詞",
+          "文語用言"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "judgement",
+        "group": "判断",
+        "label": "判断结构",
+        "steps": [
+          "连用形：だっ／でし",
+          "たり／だり"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      }
+    ]
+  },
+  "excessive": {
+    "label": "过度すぎる",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "动作过度",
+        "steps": [
+          "连用形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "性质过度",
+        "steps": [
+          "词干"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "stem"
+        ]
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "性质过度",
+        "steps": [
+          "词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem"
+        ]
+      }
+    ]
+  },
+  "exemplification": {
+    "label": "举例",
+    "paths": [
+      {
+        "id": "enumerative",
+        "group": "列举",
+        "label": "たり／だり之后",
+        "steps": [
+          "列举形式"
+        ],
+        "previous_operators": [
+          "enumerative"
+        ]
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "enumerative"
+        ]
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "enumerative"
+        ]
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "enumerative"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "enumerative"
+        ]
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "enumerative"
+        ]
+      }
+    ]
+  },
+  "hazu": {
+    "label": "预期判断",
+    "paths": [
+      {
+        "id": "judgement_noun",
+        "group": "名词",
+        "label": "判断连体形：な",
+        "steps": [
+          "判断连体形：な"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "ctypes": [
+          "助動詞-ダ"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "base": [
+              "はず",
+              "筈"
+            ]
+          }
+        }
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "连体形：な",
+        "steps": [
+          "连体形：な"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "名词＋の（连续词尾成员）",
+        "steps": [
+          "名词＋の（连续词尾成员）"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "imperative": {
+    "label": "命令",
+    "scope": "inflection",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "命令形",
+        "steps": [
+          "命令形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "命令形",
+        "steps": [
+          "命令形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "命令形",
+        "steps": [
+          "命令形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "命令形",
+        "steps": [
+          "命令形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "imperative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "命令形",
+        "steps": [
+          "命令形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "imperative"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "insertion": {
+    "label": "插入语",
+    "paths": [
+      {
+        "id": "te_support_verb",
+        "group": "动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "te_support_adjective",
+        "group": "イ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "te_support_na",
+        "group": "ナ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "te_support_auxiliary",
+        "group": "助动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "te_support_classical",
+        "group": "文言用言",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "te_support_noun",
+        "group": "名词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "te"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:te_support"
+        ],
+        "previous_operators": [
+          "te_connection"
+        ]
+      },
+      {
+        "id": "predicate_suffix_verb",
+        "group": "动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:predicate_suffix"
+        ]
+      },
+      {
+        "id": "predicate_suffix_adjective",
+        "group": "イ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:predicate_suffix"
+        ]
+      },
+      {
+        "id": "predicate_suffix_na",
+        "group": "ナ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:predicate_suffix"
+        ]
+      },
+      {
+        "id": "predicate_suffix_auxiliary",
+        "group": "助动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:predicate_suffix"
+        ]
+      },
+      {
+        "id": "predicate_suffix_classical",
+        "group": "文言用言",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:predicate_suffix"
+        ]
+      },
+      {
+        "id": "nominal_suffix_noun",
+        "group": "名词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:nominal_suffix"
+        ]
+      },
+      {
+        "id": "nominal_suffix_na",
+        "group": "ナ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:nominal_suffix"
+        ]
+      },
+      {
+        "id": "continuative_focus_verb",
+        "group": "动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:continuative_focus"
+        ]
+      },
+      {
+        "id": "continuative_focus_adjective",
+        "group": "イ形容词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:continuative_focus"
+        ]
+      },
+      {
+        "id": "continuative_focus_auxiliary",
+        "group": "助动词",
+        "label": "允许的焦点／限定插入位置",
+        "steps": [
+          "允许的焦点／限定插入位置"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "evidence": [
+          "insertion_position:continuative_focus"
+        ]
+      }
+    ]
+  },
+  "irrealis": {
+    "label": "可能、被动等／使役",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "judgement": {
+    "label": "断定",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "judgement_adverbial": {
+    "label": "连用修饰",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "judgement_aru": {
+    "label": "断定",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断连用形＋で",
+        "steps": [
+          "判断连用形＋で"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "previous_operators": [
+          "copula_de"
+        ],
+        "predecessors": [
+          {},
+          {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断连用形＋で",
+        "steps": [
+          "判断连用形＋で"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true,
+        "previous_operators": [
+          "copula_de"
+        ],
+        "predecessors": [
+          {},
+          {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "judgement_attributive": {
+    "label": "连体修饰",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_following": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "noun_nominalization",
+        "group": "名词",
+        "label": "名词化接续",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "following": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "judgement_modality": {
+    "label": "推量／推量疑问",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断词干／已成立谓语",
+        "steps": [
+          "判断词干／已成立谓语"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断词干／已成立谓语",
+        "steps": [
+          "判断词干／已成立谓语"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "judgement_past": {
+    "label": "判断过去",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "名词判断",
+        "steps": [
+          "名词",
+          "だっ／でし",
+          "た"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "形容词判断",
+        "steps": [
+          "词干",
+          "だっ／でし",
+          "た"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词敬体",
+        "steps": [
+          "终止形",
+          "でし",
+          "た"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ]
+  },
+  "kamoshirenai": {
+    "label": "可能性",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "koto": {
+    "label": "内容／事件的名词化",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "mitai": {
+    "label": "推量",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "nara": {
+    "label": "条件",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "negative": {
+    "label": "否定ない",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "动词否定",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词否定",
+        "steps": [
+          "连用形：く"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "judgement",
+        "group": "名词／ナ形容词",
+        "label": "判断否定",
+        "steps": [
+          "判断连用形",
+          "で"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "previous_operators": [
+          "copula_de"
+        ],
+        "predecessors": [
+          {},
+          {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "negative_conditions": {
+    "label": "否定条件／否定接续",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "动词否定",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词否定",
+        "steps": [
+          "连用形：く"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "judgement",
+        "group": "名词／ナ形容词",
+        "label": "判断否定",
+        "steps": [
+          "判断连用形",
+          "で"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "previous_operators": [
+          "copula_de"
+        ],
+        "predecessors": [
+          {},
+          {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "negative_volitional": {
+    "label": "否定推量／否定意志",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形；部分活用型可用未然形／连用形",
+        "steps": [
+          "终止形；部分活用型可用未然形／连用形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形；部分活用型可用未然形／连用形",
+        "steps": [
+          "终止形；部分活用型可用未然形／连用形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "nominal_change": {
+    "label": "变化接续",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "nominalization": {
+    "label": "名词化",
+    "paths": [
+      {
+        "id": "no_judgement_noun",
+        "group": "名词",
+        "label": "谓语连体形＋の／ん",
+        "steps": [
+          "谓语连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "attributive_na"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_noun_na",
+        "group": "名词",
+        "label": "经连体修饰な",
+        "steps": [
+          "な"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true,
+        "connector": "attributive_na",
+        "connector_paths": [
+          "noun_nominalization"
+        ],
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "sa_adjective",
+        "group": "イ形容词",
+        "label": "词干＋さ",
+        "steps": [
+          "词干＋さ"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "base": [
+              "さ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "sa_na",
+        "group": "ナ形容词",
+        "label": "词干＋さ",
+        "steps": [
+          "词干＋さ"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "base": [
+              "さ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "sa_auxiliary",
+        "group": "助动词",
+        "label": "词干＋さ",
+        "steps": [
+          "词干＋さ"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "base": [
+              "さ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_verb",
+        "group": "动词",
+        "label": "连体形＋の／ん",
+        "steps": [
+          "连体形＋の／ん"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_adjective",
+        "group": "イ形容词",
+        "label": "连体形＋の／ん",
+        "steps": [
+          "连体形＋の／ん"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_na",
+        "group": "ナ形容词",
+        "label": "谓语连体形＋の／ん",
+        "steps": [
+          "谓语连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "exclude_previous_operators": [
+          "attributive_na"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_na_attributive",
+        "group": "ナ形容词",
+        "label": "经连体修饰な",
+        "steps": [
+          "な"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "exact_category": true,
+        "connector": "attributive_na",
+        "connector_paths": [
+          "na"
+        ],
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_auxiliary",
+        "group": "助动词",
+        "label": "连体形＋の／ん",
+        "steps": [
+          "连体形＋の／ん"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "id": "no_classical",
+        "group": "文言用言",
+        "label": "连体形＋の／ん",
+        "steps": [
+          "连体形＋の／ん"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "obligation": {
+    "label": "当为",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "past": {
+    "label": "过去た／だ",
+    "paths": [
+      {
+        "id": "verb_te",
+        "group": "动词",
+        "label": "一段／变格／五段清音",
+        "steps": [
+          "连用形及音便",
+          "た"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行",
+          "助動詞-マス"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "た",
+              "たら",
+              "たり"
+            ]
+          }
+        }
+      },
+      {
+        "id": "verb_de",
+        "group": "动词",
+        "label": "五段浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "だ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "だ",
+              "だら",
+              "だり"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词／ない／たい",
+        "steps": [
+          "连用形：かっ",
+          "た"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "た"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "classical",
+        "group": "助动词",
+        "label": "文言助动词",
+        "steps": [
+          "连用形",
+          "た"
+        ],
+        "categories": [
+          "助動詞",
+          "文語用言"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "judgement",
+        "group": "判断",
+        "label": "判断结构",
+        "steps": [
+          "连用形：だっ／でし",
+          "た"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      }
+    ]
+  },
+  "polite_judgement": {
+    "label": "敬体／推量",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断词干",
+        "steps": [
+          "判断词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "前项谓语的敬体收尾",
+        "steps": [
+          "前项谓语的敬体收尾"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "前项谓语的敬体收尾",
+        "steps": [
+          "前项谓语的敬体收尾"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "continuative",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "prohibitive": {
+    "label": "禁止",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "rashii": {
+    "label": "推量",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "rashii_characteristic": {
+    "label": "典型性",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "categories": [
+          "名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "shika_nai": {
+    "label": "唯一选择",
+    "paths": [
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "词干／终止形／连体形",
+        "steps": [
+          "词干／终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "sou": {
+    "label": "样态 / 传闻",
+    "paths": [
+      {
+        "id": "appearance_verb",
+        "group": "动词",
+        "label": "样态：连用形",
+        "steps": [
+          "样态：连用形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "appearance_auxiliary",
+        "group": "助动词",
+        "label": "样态：连用形",
+        "steps": [
+          "样态：连用形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "appearance_adjective",
+        "group": "イ形容词",
+        "label": "样态：词干",
+        "steps": [
+          "样态：词干"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "appearance_na",
+        "group": "ナ形容词",
+        "label": "样态：词干",
+        "steps": [
+          "样态：词干"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "hearsay_verb",
+        "group": "动词",
+        "label": "传闻：终止形／连体形",
+        "steps": [
+          "传闻：终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "hearsay_adjective",
+        "group": "イ形容词",
+        "label": "传闻：终止形／连体形",
+        "steps": [
+          "传闻：终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "hearsay_na",
+        "group": "ナ形容词",
+        "label": "传闻：终止形／连体形",
+        "steps": [
+          "传闻：终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "hearsay_auxiliary",
+        "group": "助动词",
+        "label": "传闻：终止形／连体形",
+        "steps": [
+          "传闻：终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "hearsay_classical",
+        "group": "文言用言",
+        "label": "传闻：终止形／连体形",
+        "steps": [
+          "传闻：终止形／连体形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "传闻：判断谓语",
+        "steps": [
+          "传闻：判断谓语"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "tara": {
+    "label": "条件",
+    "paths": [
+      {
+        "id": "verb_te",
+        "group": "动词",
+        "label": "一段／变格／五段清音",
+        "steps": [
+          "连用形及音便",
+          "たら／だら"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行",
+          "助動詞-マス"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "たら"
+            ]
+          }
+        }
+      },
+      {
+        "id": "verb_de",
+        "group": "动词",
+        "label": "五段浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "たら／だら"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "だら"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词／ない／たい",
+        "steps": [
+          "连用形：かっ",
+          "たら／だら"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "たら／だら"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "classical",
+        "group": "助动词",
+        "label": "文言助动词",
+        "steps": [
+          "连用形",
+          "たら／だら"
+        ],
+        "categories": [
+          "助動詞",
+          "文語用言"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-マス"
+        ]
+      },
+      {
+        "id": "judgement",
+        "group": "判断",
+        "label": "判断结构",
+        "steps": [
+          "连用形：だっ／でし",
+          "たら／だら"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "continuative"
+        ]
+      }
+    ]
+  },
+  "te": {
+    "label": "て／で",
+    "paths": [
+      {
+        "id": "ichidan",
+        "group": "动词",
+        "label": "一段动词",
+        "steps": [
+          "连用形：去る",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "上一段",
+          "下一段"
+        ],
+        "exclude_previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "kuru",
+        "group": "动词",
+        "label": "カ变动词",
+        "steps": [
+          "连用形：き",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "カ行変格"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "suru",
+        "group": "动词",
+        "label": "サ变动词",
+        "steps": [
+          "连用形：し",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "サ行変格"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_te",
+        "group": "动词",
+        "label": "五段动词 · 清音",
+        "steps": [
+          "连用形・イ音便／促音便",
+          "て"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_de",
+        "group": "动词",
+        "label": "五段动词 · 浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "で"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      },
+      {
+        "id": "voice",
+        "group": "助动词",
+        "label": "被动／使役",
+        "steps": [
+          "连用形：去る",
+          "て"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "masu",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "て"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词",
+        "steps": [
+          "连用形：词尾变く",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-ナイ",
+          "助動詞-タイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "negative",
+        "group": "否定",
+        "label": "否定ない",
+        "steps": [
+          "连用形：なく",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-ナイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "desire",
+        "group": "助动词",
+        "label": "愿望たい",
+        "steps": [
+          "连用形：たく",
+          "て"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-タイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て"
+            ]
+          }
+        }
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断连用",
+        "steps": [
+          "词干",
+          "で"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断连用",
+        "steps": [
+          "名词",
+          "で"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "terminal_connections": {
+    "label": "逆接／原因／条件",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "tewa": {
+    "label": "取立条件",
+    "paths": [
+      {
+        "id": "ichidan",
+        "group": "动词",
+        "label": "一段动词",
+        "steps": [
+          "连用形：去る",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "上一段",
+          "下一段"
+        ],
+        "exclude_previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "kuru",
+        "group": "动词",
+        "label": "カ变动词",
+        "steps": [
+          "连用形：き",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "カ行変格"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "suru",
+        "group": "动词",
+        "label": "サ变动词",
+        "steps": [
+          "连用形：し",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "サ行変格"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_te",
+        "group": "动词",
+        "label": "五段动词 · 清音",
+        "steps": [
+          "连用形・イ音便／促音便",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段"
+        ],
+        "exclude_ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "godan_de",
+        "group": "动词",
+        "label": "五段动词 · 浊音",
+        "steps": [
+          "连用形・拨音便／イ音便",
+          "では／じゃ"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "五段-ガ行",
+          "五段-ナ行",
+          "五段-バ行",
+          "五段-マ行"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で",
+              "じゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "voice",
+        "group": "助动词",
+        "label": "被动／使役",
+        "steps": [
+          "连用形：去る",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "previous_operators": [
+          "causative",
+          "passive_potential"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "masu",
+        "group": "助动词",
+        "label": "敬体ます",
+        "steps": [
+          "连用形：まし",
+          "ては／ちゃ"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-マス"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "形容词",
+        "steps": [
+          "连用形：词尾变く",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "助動詞-ナイ",
+          "助動詞-タイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "negative",
+        "group": "否定",
+        "label": "否定ない",
+        "steps": [
+          "连用形：なく",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-ナイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "desire",
+        "group": "助动词",
+        "label": "愿望たい",
+        "steps": [
+          "连用形：たく",
+          "ては／ちゃ"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "continuative"
+        ],
+        "ctypes": [
+          "助動詞-タイ"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "て",
+              "ちゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "判断连用",
+        "steps": [
+          "词干",
+          "では／じゃ"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で",
+              "じゃ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "判断连用",
+        "steps": [
+          "名词",
+          "では／じゃ"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem"
+        ],
+        "next": {
+          "equals": {
+            "surface": [
+              "で",
+              "じゃ"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "volitional": {
+    "label": "意向形",
+    "scope": "inflection",
+    "paths": [
+      {
+        "id": "attached_verb",
+        "group": "动词",
+        "label": "未然形＋う／よう",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "attached_auxiliary",
+        "group": "助动词",
+        "label": "未然形＋う／よう",
+        "steps": [
+          "未然形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "意向形",
+        "steps": [
+          "意向形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "意向形",
+        "steps": [
+          "意向形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "意向形",
+        "steps": [
+          "意向形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "意向形",
+        "steps": [
+          "意向形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "意向形",
+        "steps": [
+          "意向形"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "volitional_to": {
+    "label": "意向接续",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "意向形＋と（后接する）",
+        "steps": [
+          "意向形＋と（后接する）"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "exact_category": true
+      }
+    ]
+  },
+  "you": {
+    "label": "推量",
+    "paths": [
+      {
+        "id": "judgement_noun",
+        "group": "名词",
+        "label": "判断连体形：な",
+        "steps": [
+          "判断连体形：な"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "attributive"
+        ],
+        "ctypes": [
+          "助動詞-ダ"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "base": [
+              "よう",
+              "様",
+              "ようだ"
+            ]
+          }
+        }
+      },
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "adjective",
+        "group": "イ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "na",
+        "group": "ナ形容词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "auxiliary",
+        "group": "助动词",
+        "label": "终止形／连体形",
+        "steps": [
+          "终止形／连体形"
+        ],
+        "categories": [
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true
+      },
+      {
+        "id": "noun",
+        "group": "名词",
+        "label": "名词＋の（连续词尾成员）",
+        "steps": [
+          "名词＋の（连续词尾成员）"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "exact_category": true,
+        "next": {
+          "equals": {
+            "surface": [
+              "の"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "zuni": {
+    "label": "文言否定ず（に）",
+    "paths": [
+      {
+        "id": "verb",
+        "group": "动词",
+        "label": "动词未然",
+        "steps": [
+          "未然形",
+          "ず",
+          "に（接续用法）"
+        ],
+        "categories": [
+          "動詞",
+          "助動詞"
+        ],
+        "forms": [
+          "irrealis",
+          "continuative"
+        ]
+      },
+      {
+        "id": "classical",
+        "group": "文言用言",
+        "label": "文言活用",
+        "steps": [
+          "文言前接形",
+          "ず"
+        ],
+        "categories": [
+          "文語用言"
+        ],
+        "forms": [
+          "irrealis",
+          "continuative"
+        ],
+        "exclude_ctypes": [
+          "文語形容詞"
+        ]
+      },
+      {
+        "id": "adjective",
+        "group": "形容词",
+        "label": "形容词未然",
+        "steps": [
+          "未然形：から",
+          "ず",
+          "に（接续用法）"
+        ],
+        "categories": [
+          "形容詞",
+          "文語用言"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "ctypes": [
+          "形容詞",
+          "文語形容詞"
+        ],
+        "exclude_ctypes": [
+          "形容詞-ク復元"
+        ]
+      },
+      {
+        "id": "recovered_adjective",
+        "group": "形容词",
+        "label": "形容词未然 · 分词恢复",
+        "steps": [
+          "未然形：から",
+          "ず",
+          "に"
+        ],
+        "categories": [
+          "形容詞"
+        ],
+        "forms": [
+          "irrealis"
+        ],
+        "ctypes": [
+          "形容詞-ク復元"
+        ],
+        "predecessors": [
+          {
+            "equals": {
+              "surface": [
+                "高"
+              ]
+            }
+          },
+          {
+            "equals": {
+              "surface": [
+                "から"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

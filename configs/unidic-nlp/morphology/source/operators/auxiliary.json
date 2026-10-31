@@ -1,0 +1,1578 @@
+{
+  "adjectival_naru": {
+    "definition": {
+      "label": "くなる",
+      "title": "变化",
+      "concept": "grammar.functional.naru",
+      "prototype": "なる",
+      "support": {
+        "group": "adjectival_change",
+        "bases": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "变化接续",
+      "input_label": "形容詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_forms": [
+        "continuative"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "形容詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "adjectival_change"
+  },
+  "completion": {
+    "definition": {
+      "label": "活用",
+      "title": "彻底完成",
+      "concept": "grammar.auxiliary.kiru",
+      "prototype": "切る",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "きる",
+          "切る",
+          "ぬく",
+          "抜く",
+          "つくす",
+          "尽くす"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "continuative_aspect": {
+    "definition": {
+      "label": "活用",
+      "title": "动作持续",
+      "concept": "grammar.auxiliary.tsuzukeru",
+      "prototype": "続ける",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "つづける",
+          "続ける",
+          "とおす",
+          "通す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "contracted_te_iru": {
+    "definition": {
+      "label": "ている",
+      "title": "进行／状态持续",
+      "concept": "grammar.auxiliary.iru",
+      "prototype": "ている",
+      "normalized": "ている",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "てる",
+          "でる"
+        ],
+        "expanded": [
+          "いる",
+          "イル"
+        ]
+      }
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": "contracted_te"
+  },
+  "contracted_te_oku": {
+    "definition": {
+      "label": "ておく",
+      "title": "预先处置／保持",
+      "concept": "grammar.auxiliary.oku",
+      "prototype": "ておく",
+      "normalized": "ておく",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "とく",
+          "どく"
+        ],
+        "expanded": [
+          "おく",
+          "オク"
+        ]
+      }
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": "contracted_te"
+  },
+  "contracted_te_shimau": {
+    "definition": {
+      "label": "てしまう",
+      "title": "完成／遗憾／感慨",
+      "concept": "grammar.auxiliary.shimau",
+      "prototype": "てしまう",
+      "normalized": "てしまう",
+      "support": {
+        "group": "contracted",
+        "bases": [
+          "ちゃう",
+          "じゃう"
+        ],
+        "expanded": [
+          "しまう",
+          "シマウ"
+        ]
+      }
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": "contracted_te"
+  },
+  "corrective": {
+    "definition": {
+      "label": "活用",
+      "title": "重新进行",
+      "concept": "grammar.auxiliary.naosu",
+      "prototype": "直す",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "なおす",
+          "直す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "excessive": {
+    "definition": {
+      "label": "活用",
+      "title": "过度",
+      "concept": "grammar.auxiliary.sugiru",
+      "prototype": "すぎる",
+      "token_lemma": false,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "すぎる",
+          "過ぎる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "excessive"
+  },
+  "failure": {
+    "definition": {
+      "label": "活用",
+      "title": "失败 / 错过",
+      "concept": "grammar.auxiliary.sokonau",
+      "prototype": "損なう",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "そこなう",
+          "損なう"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "inceptive": {
+    "definition": {
+      "label": "活用",
+      "title": "动作开始",
+      "concept": "grammar.auxiliary.hajimeru",
+      "prototype": "始める",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "はじめる",
+          "始める"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "inchoative": {
+    "definition": {
+      "label": "活用",
+      "title": "开始发生",
+      "concept": "grammar.auxiliary.dasu",
+      "prototype": "出す",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "だす",
+          "出す"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "incomplete": {
+    "definition": {
+      "label": "活用",
+      "title": "动作未完",
+      "concept": "grammar.auxiliary.kakeru",
+      "prototype": "掛ける",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "かける",
+          "掛ける"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "iterative_aspect": {
+    "definition": {
+      "label": "反复动作",
+      "title": "反复动作",
+      "concept": "grammar.auxiliary.makuru",
+      "prototype": "まくる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "まくる",
+          "捲る"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "missed_opportunity": {
+    "definition": {
+      "label": "活用",
+      "title": "错失机会",
+      "concept": "grammar.auxiliary.sobireru",
+      "prototype": "そびれる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "そびれる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "ni_naru": {
+    "definition": {
+      "label": "になる",
+      "title": "变化",
+      "concept": "grammar.functional.naru",
+      "prototype": "になる",
+      "support": {
+        "group": "nominal_change",
+        "bases": [
+          "なる",
+          "成る"
+        ]
+      },
+      "connector": "nominal_change_ni",
+      "connector_alternatives": [
+        "adverbial_ni"
+      ]
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "变化接续",
+      "input_label": "名词性成分",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞"
+      ],
+      "input_forms": [
+        "other",
+        "continuative"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "reluctance": {
+    "definition": {
+      "label": "活用",
+      "title": "难以做出",
+      "concept": "grammar.auxiliary.kaneru",
+      "prototype": "兼ねる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "かねる",
+          "兼ねる"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "tari_dekiru": {
+    "definition": {
+      "label": "たりできる",
+      "title": "列举·可能",
+      "concept": "grammar.particle.tari",
+      "prototype": "たりできる",
+      "normalized": "たりできる",
+      "support": {
+        "group": "enumerative",
+        "bases": [
+          "できる",
+          "出来る"
+        ]
+      },
+      "connector": "enumerative"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "列举接续",
+      "input_label": "用言",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "tari_suru": {
+    "definition": {
+      "label": "たりする",
+      "title": "列举·举例",
+      "concept": "grammar.particle.tari",
+      "prototype": "たりする",
+      "normalized": "たりする",
+      "support": {
+        "group": "enumerative",
+        "bases": [
+          "する",
+          "為る"
+        ],
+        "expanded": [
+          "する",
+          "スル"
+        ]
+      },
+      "connector": "enumerative",
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "列举接续",
+      "input_label": "用言",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_ageru": {
+    "definition": {
+      "label": "てあげる",
+      "title": "给予",
+      "concept": "grammar.auxiliary.ageru",
+      "prototype": "てあげる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "あげる",
+          "上げる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てあげる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_aru": {
+    "definition": {
+      "label": "てある",
+      "title": "结果存续",
+      "concept": "grammar.auxiliary.aru",
+      "prototype": "てある",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ある",
+          "有る",
+          "在る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てある"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "结果存续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 32,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_connection": {
+    "definition": {
+      "label": "て形",
+      "title": "接续形",
+      "concept": "morphology.form.te",
+      "prototype": "て",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "form": "で"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "て形接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 30,
+      "output_form": "te",
+      "preserve_state": true,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "te"
+  },
+  "te_form": {
+    "definition": {
+      "label": "て形",
+      "title": "接续形",
+      "concept": "morphology.form.te",
+      "prototype": "て",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "form": "で"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "te"
+  },
+  "te_goran": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.goran",
+      "prototype": "てごらん",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ごらん",
+          "御覧"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "用言",
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_hoshii": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.hoshii",
+      "prototype": "てほしい",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ほしい",
+          "欲しい"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_ii": {
+    "definition": {
+      "label": "ていい",
+      "title": "许可／认可",
+      "concept": "grammar.permission.te_ii",
+      "prototype": "ていい",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "base": [
+                "よい",
+                "良い"
+              ]
+            }
+          },
+          "form": "てよい"
+        }
+      ],
+      "support": {
+        "group": "te",
+        "bases": [
+          "いい",
+          "よい",
+          "良い"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "许可与认可",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "te"
+      ],
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_iku": {
+    "definition": {
+      "label": "ていく",
+      "title": "远离／持续发展",
+      "concept": "grammar.auxiliary.iku",
+      "prototype": "ていく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "いく",
+          "行く"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ていく"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "趋向与发展",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 35,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_iru": {
+    "definition": {
+      "label": "ている",
+      "title": "进行／状态持续",
+      "concept": "grammar.auxiliary.iru",
+      "prototype": "ている",
+      "support": {
+        "group": "te",
+        "bases": [
+          "いる",
+          "居る",
+          "おる",
+          "居る-オル"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ている"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "持续与状态",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 31,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_itadaku": {
+    "definition": {
+      "label": "ていただく",
+      "title": "受惠（自谦）",
+      "concept": "grammar.auxiliary.itadaku",
+      "prototype": "ていただく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "いただく",
+          "頂く",
+          "戴く"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_kakaru": {
+    "definition": {
+      "label": "てかかる",
+      "title": "态度／应对",
+      "concept": "grammar.auxiliary.kakaru",
+      "prototype": "てかかる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "かかる",
+          "掛かる",
+          "掛る"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "态度接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_kudasaru": {
+    "definition": {
+      "label": "てくださる",
+      "title": "受惠（尊敬）",
+      "concept": "grammar.auxiliary.kudasaru",
+      "prototype": "てくださる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くださる",
+          "下さる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくださる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_kureru": {
+    "definition": {
+      "label": "てくれる",
+      "title": "受惠",
+      "concept": "grammar.auxiliary.kureru",
+      "prototype": "てくれる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くれる",
+          "呉れる"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくれる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_kuru": {
+    "definition": {
+      "label": "てくる",
+      "title": "趋近／逐渐显现",
+      "concept": "grammar.auxiliary.kuru",
+      "prototype": "てくる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "くる",
+          "来る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てくる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_miru": {
+    "definition": {
+      "label": "てみる",
+      "title": "尝试",
+      "concept": "grammar.auxiliary.miru",
+      "prototype": "てみる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "みる",
+          "見る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てみる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_miseru": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.miseru",
+      "prototype": "てみせる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "みせる",
+          "見せる"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_morau": {
+    "definition": {
+      "label": "てもらう",
+      "title": "受惠／请求",
+      "concept": "grammar.auxiliary.morau",
+      "prototype": "てもらう",
+      "support": {
+        "group": "te",
+        "bases": [
+          "もらう",
+          "貰う"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てもらう"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_naranai": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.naranai",
+      "prototype": "てならない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ならない",
+          "成らない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_oku": {
+    "definition": {
+      "label": "ておく",
+      "title": "预先处置／保持",
+      "concept": "grammar.auxiliary.oku",
+      "prototype": "ておく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "おく",
+          "置く"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "ておく"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "预先处置",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 34,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_shimau": {
+    "definition": {
+      "label": "てしまう",
+      "title": "完成／遗憾／感慨",
+      "concept": "grammar.auxiliary.shimau",
+      "prototype": "てしまう",
+      "support": {
+        "group": "te",
+        "bases": [
+          "しまう",
+          "仕舞う"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てしまう"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "完成与遗憾",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 33,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_tamaranai": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.tamaranai",
+      "prototype": "てたまらない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "たまらない",
+          "堪らない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_yamanai": {
+    "definition": {
+      "label": "活用",
+      "title": "活用",
+      "concept": "grammar.auxiliary.yamanai",
+      "prototype": "てやまない",
+      "support": {
+        "group": "te",
+        "bases": [
+          "やまない",
+          "止まない"
+        ]
+      },
+      "connector": "te_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_yaru": {
+    "definition": {
+      "label": "てやる",
+      "title": "给予",
+      "concept": "grammar.auxiliary.yaru",
+      "prototype": "てやる",
+      "support": {
+        "group": "te",
+        "bases": [
+          "やる",
+          "遣る"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てやる"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "补助动词接续",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "te_yuku": {
+    "definition": {
+      "label": "てゆく",
+      "title": "远离／持续发展",
+      "concept": "grammar.auxiliary.yuku",
+      "prototype": "てゆく",
+      "support": {
+        "group": "te",
+        "bases": [
+          "ゆく"
+        ]
+      },
+      "connector": "te_connection",
+      "normalized": "てゆく"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "趋向与发展",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 36,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  },
+  "terminative": {
+    "definition": {
+      "label": "活用",
+      "title": "动作完了",
+      "concept": "grammar.auxiliary.owaru",
+      "prototype": "終わる",
+      "token_lemma": true,
+      "support": {
+        "group": "continuative",
+        "bases": [
+          "おわる",
+          "終わる",
+          "おえる",
+          "終える"
+        ]
+      },
+      "compound_candidate": true
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "连用形补助",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 37,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "volitional_to_suru": {
+    "definition": {
+      "label": "ようとする",
+      "title": "尝试／即将",
+      "concept": "grammar.modality.volitional_to_suru",
+      "prototype": "ようとする",
+      "support": {
+        "group": "volitional",
+        "bases": [
+          "する",
+          "為る"
+        ]
+      },
+      "connector": "volitional_to_connection"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "auxiliary_verb",
+      "rule_group": "意向接续",
+      "input_label": "動詞",
+      "input_forms": [
+        "other"
+      ],
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "connector",
+    "connection_rule": null
+  }
+}

@@ -1,0 +1,250 @@
+[
+  {
+    "prefix": "negative_ba",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "kind": "necessity_negative_ba_naru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_ba",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "いける",
+          "行ける"
+        ]
+      }
+    },
+    "kind": "necessity_negative_ba_ikeru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_ba",
+    "next": {
+      "equals": {
+        "pos": [
+          "名詞",
+          "形状詞"
+        ],
+        "base": [
+          "だめ",
+          "駄目",
+          "ダメ"
+        ]
+      }
+    },
+    "kind": "necessity_negative_ba_dame",
+    "required_operators": []
+  },
+  {
+    "prefix": "negative_tewa",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "kind": "necessity_negative_tewa_naru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_tewa",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "いける",
+          "行ける"
+        ]
+      }
+    },
+    "kind": "necessity_negative_tewa_ikeru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_tewa",
+    "next": {
+      "equals": {
+        "pos": [
+          "名詞",
+          "形状詞"
+        ],
+        "base": [
+          "だめ",
+          "駄目",
+          "ダメ"
+        ]
+      }
+    },
+    "kind": "necessity_negative_tewa_dame",
+    "required_operators": []
+  },
+  {
+    "prefix": "negative_to",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "kind": "necessity_negative_to_naru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_to",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "いける",
+          "行ける"
+        ]
+      }
+    },
+    "kind": "necessity_negative_to_ikeru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "negative_to",
+    "next": {
+      "equals": {
+        "pos": [
+          "名詞",
+          "形状詞"
+        ],
+        "base": [
+          "だめ",
+          "駄目",
+          "ダメ"
+        ]
+      }
+    },
+    "kind": "necessity_negative_to_dame",
+    "required_operators": []
+  },
+  {
+    "prefix": "tewa_condition",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "なる",
+          "成る"
+        ]
+      }
+    },
+    "kind": "prohibition_tewa_condition_naru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "tewa_condition",
+    "next": {
+      "equals": {
+        "pos": [
+          "動詞"
+        ],
+        "base": [
+          "いける",
+          "行ける"
+        ]
+      }
+    },
+    "kind": "prohibition_tewa_condition_ikeru",
+    "required_operators": [
+      "negative",
+      "negative_ba",
+      "negative_to",
+      "negative_tewa",
+      "negative_de"
+    ]
+  },
+  {
+    "prefix": "tewa_condition",
+    "next": {
+      "equals": {
+        "pos": [
+          "名詞",
+          "形状詞"
+        ],
+        "base": [
+          "だめ",
+          "駄目",
+          "ダメ"
+        ]
+      }
+    },
+    "kind": "prohibition_tewa_condition_dame",
+    "required_operators": []
+  }
+]

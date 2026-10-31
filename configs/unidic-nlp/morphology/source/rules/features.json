@@ -1,0 +1,853 @@
+[
+  {
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "surface": [
+          "で"
+        ],
+        "ctype": [
+          "助動詞-ダ"
+        ]
+      }
+    },
+    "kind": "copula_de"
+  },
+  {
+    "token": {
+      "equals": {
+        "base": [
+          "らしい"
+        ],
+        "pos": [
+          "接尾辞"
+        ]
+      }
+    },
+    "kind": "rashii_characteristic"
+  },
+  {
+    "kind": "classical_beshi",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "べし",
+          "べき"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "classical_gotoshi",
+    "token": {
+      "equals": {
+        "base": [
+          "ごとし",
+          "如し"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "negative_zuni",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ヌ",
+          "助動詞-ズ"
+        ],
+        "surface": [
+          "ず"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "darou_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ダ"
+        ]
+      },
+      "starts_with": {
+        "cform": [
+          "意志推量形"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "past",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-タ"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "starts_with": {
+          "cform": [
+            "仮定形",
+            "已然形"
+          ]
+        }
+      },
+      {
+        "contains": {
+          "cform": [
+            "融合"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "negative",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ナイ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "negative",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ヌ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "negative",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ズ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "politeness_masu",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-マス"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "deshou_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-デス"
+        ]
+      },
+      "starts_with": {
+        "cform": [
+          "意志推量形"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "politeness_desu",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-デス"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "starts_with": {
+          "cform": [
+            "意志推量形"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "desire",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-タイ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "adverbial_ni",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ダ"
+        ],
+        "surface": [
+          "に"
+        ]
+      },
+      "starts_with": {
+        "cform": [
+          "連用形"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "attributive_na",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ダ"
+        ],
+        "surface": [
+          "な"
+        ]
+      },
+      "starts_with": {
+        "cform": [
+          "連体形"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "copula",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ダ"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "starts_with": {
+          "cform": [
+            "意志推量形"
+          ]
+        }
+      },
+      {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ],
+          "surface": [
+            "に"
+          ]
+        },
+        "starts_with": {
+          "cform": [
+            "連用形"
+          ]
+        }
+      },
+      {
+        "equals": {
+          "pos": [
+            "助動詞"
+          ],
+          "ctype": [
+            "助動詞-ダ"
+          ],
+          "surface": [
+            "な"
+          ]
+        },
+        "starts_with": {
+          "cform": [
+            "連体形"
+          ]
+        }
+      },
+      {
+        "equals": {
+          "surface": [
+            "で",
+            "だっ"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "copula",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-デアル"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "volitional",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ム"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "obligation",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "ctype": [
+          "助動詞-ベシ"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "equals": {
+          "ctype": [
+            "助動詞-ベシ"
+          ],
+          "base": [
+            "べし"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "passive_potential",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "lemma": [
+          "れる",
+          "られる"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "causative",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "lemma": [
+          "せる",
+          "させる",
+          "しめる"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "volitional",
+    "token": {
+      "starts_with": {
+        "cform": [
+          "意志推量形"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "equals": {
+          "ctype": [
+            "助動詞-デス",
+            "助動詞-ダ"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "conditional",
+    "token": {
+      "starts_with": {
+        "cform": [
+          "仮定形",
+          "已然形"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "equals": {
+          "ctype": [
+            "助動詞-タ"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "tara_condition",
+    "token": {
+      "equals": {
+        "ctype": [
+          "助動詞-タ"
+        ]
+      },
+      "contains": {
+        "cform": [
+          "仮定形",
+          "已然形",
+          "融合"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "enumerative",
+    "token": {
+      "equals": {
+        "ctype": [
+          "助動詞-タ"
+        ],
+        "surface": [
+          "たり"
+        ]
+      },
+      "contains": {
+        "cform": [
+          "一般"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "te_form",
+    "token": {
+      "equals": {
+        "pos": [
+          "助詞"
+        ],
+        "sub": [
+          "接続助詞"
+        ],
+        "surface": [
+          "て"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "de_form",
+    "token": {
+      "equals": {
+        "pos": [
+          "助詞"
+        ],
+        "sub": [
+          "接続助詞"
+        ],
+        "surface": [
+          "で"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "conditional",
+    "token": {
+      "equals": {
+        "pos": [
+          "助詞"
+        ],
+        "sub": [
+          "接続助詞"
+        ],
+        "surface": [
+          "ば"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "imperative",
+    "token": {
+      "starts_with": {
+        "cform": [
+          "命令形"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "negative",
+    "token": {
+      "equals": {
+        "pos": [
+          "形容詞"
+        ],
+        "base": [
+          "ない",
+          "無い"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "sou_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "そう",
+          "そうだ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "sou_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "そう",
+          "そうだ"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "you_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "よう",
+          "ようだ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "you_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "よう",
+          "ようだ"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "mitai_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "みたい",
+          "みたいだ"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "mitai_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "みたい",
+          "みたいだ"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "rashii_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "らしい"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "rashii_modality",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "らしい"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "obligation",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "べし",
+          "べきだ"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "equals": {
+          "ctype": [
+            "助動詞-ベシ"
+          ],
+          "base": [
+            "べし"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "obligation",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "べし",
+          "べきだ"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    },
+    "exclude": [
+      {
+        "equals": {
+          "ctype": [
+            "助動詞-ベシ"
+          ],
+          "base": [
+            "べし"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "negative_volitional",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "まい"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "negative_volitional",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "まい"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "desire_outward",
+    "token": {
+      "equals": {
+        "pos": [
+          "助動詞"
+        ],
+        "base": [
+          "たがる"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "desire_outward",
+    "token": {
+      "equals": {
+        "pos": [
+          "形状詞"
+        ],
+        "base": [
+          "たがる"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "助動詞"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "ease",
+    "token": {
+      "equals": {
+        "pos": [
+          "接尾辞"
+        ],
+        "base": [
+          "やすい",
+          "易い"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "difficulty",
+    "token": {
+      "equals": {
+        "pos": [
+          "接尾辞"
+        ],
+        "base": [
+          "にくい",
+          "難い",
+          "づらい",
+          "辛い"
+        ]
+      }
+    }
+  },
+  {
+    "kind": "nominalization",
+    "token": {
+      "equals": {
+        "pos": [
+          "接尾辞"
+        ],
+        "base": [
+          "さ"
+        ]
+      }
+    }
+  }
+]

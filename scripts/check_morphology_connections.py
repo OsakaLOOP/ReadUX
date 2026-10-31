@@ -20,8 +20,9 @@ def read(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"), object_pairs_hook=unique_object)
 
 
-def check():
-    config = read("configs/unidic-nlp/morphology.json")
+def check(config=None, *, report=True):
+    if config is None:
+        config = read("configs/unidic-nlp/morphology.json")
     operators = config["operators"]
     rules = config["connection_rules"]
     explanations = {entry["concept_id"]: entry for entry in read(
@@ -119,11 +120,14 @@ def check():
             raise ValueError(f"{case['kind']} 的既有规则引用失效")
         if case["path"] not in {path["id"] for path in rules[case["rule"]]["paths"]}:
             raise ValueError(f"{case['kind']} 的既有路径引用失效")
-    print(json.dumps({"词条": len(operators), "直接规则": len(owners),
+    summary = {"词条": len(operators), "直接规则": len(owners),
                       "连接器引用条目": len(operators) - len(owners), "规则组": len(rules),
                       "路径": sum(len(rule["paths"]) for rule in rules.values()),
                       "分类": {name: len(kinds) for name, kinds in config["connection_types"].items()},
-                      "结果": "完整性检查通过"}, ensure_ascii=False, indent=2))
+                      "结果": "完整性检查通过"}
+    if report:
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+    return summary
 
 
 if __name__ == "__main__":

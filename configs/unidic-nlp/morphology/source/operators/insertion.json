@@ -1,0 +1,47 @@
+{
+  "exemplification": {
+    "definition": {
+      "label": "举例",
+      "title": "举例",
+      "concept": "grammar.connective.toka",
+      "prototype": "とか"
+    },
+    "execution": {
+      "stage": "insertion",
+      "executor": "insertion",
+      "rule_group": "插入语",
+      "input_label": "已成立链",
+      "output_category": "保持前项",
+      "terminal_mode": "preserve",
+      "order_rank": 0,
+      "preserve_state": true,
+      "input_category_mode": "any",
+      "input_categories": []
+    },
+    "connection_type": "insertion",
+    "connection_rule": "exemplification"
+  },
+  "insertion": {
+    "definition": {
+      "label": "插入语",
+      "title": "插入语",
+      "concept": "grammar.morphology.insertion",
+      "prototype": "",
+      "token_lemma": true
+    },
+    "execution": {
+      "stage": "insertion",
+      "executor": "insertion",
+      "rule_group": "插入语",
+      "input_label": "已成立链",
+      "output_category": "保持前项",
+      "terminal_mode": "preserve",
+      "order_rank": 0,
+      "preserve_state": true,
+      "input_category_mode": "any",
+      "input_categories": []
+    },
+    "connection_type": "insertion",
+    "connection_rule": "insertion"
+  }
+}

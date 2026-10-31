@@ -1,0 +1,1527 @@
+{
+  "ba_connection": {
+    "definition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "grammar.particle.ba",
+      "prototype": "ば"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "ba"
+  },
+  "causative": {
+    "definition": {
+      "label": "使役",
+      "title": "使役",
+      "concept": "morphology.voice.causative",
+      "prototype": "せる",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "させる"
+              ]
+            }
+          },
+          "form": "させる"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "しめる"
+              ]
+            }
+          },
+          "form": "しめる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "させ"
+              ]
+            }
+          },
+          "form": "させる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "しめ"
+              ]
+            }
+          },
+          "form": "しめる"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "voice",
+      "executor": "verb_cycle",
+      "rule_group": "使役",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 10,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "irrealis"
+  },
+  "concessive_connection": {
+    "definition": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.keredomo",
+      "prototype": "ど",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ども"
+              ]
+            }
+          },
+          "form": "ども"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "ba"
+  },
+  "conditional": {
+    "definition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": ""
+    },
+    "execution": {
+      "stage": "voice",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 10,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "inflection",
+    "connection_rule": "conditional"
+  },
+  "darou_question": {
+    "definition": {
+      "label": "推量疑问",
+      "title": "推量疑问",
+      "concept": "grammar.modality.darou",
+      "prototype": "だろうか"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "judgement_modality"
+  },
+  "de_form": {
+    "definition": {
+      "label": "で形",
+      "title": "接续形",
+      "concept": "morphology.form.de",
+      "prototype": "で"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "te"
+  },
+  "degree": {
+    "definition": {
+      "label": "程度",
+      "title": "程度／约量",
+      "concept": "grammar.particle.kurai",
+      "prototype": "くらい",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ぐらい"
+              ]
+            }
+          },
+          "form": "ぐらい"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "degree"
+  },
+  "desire_outward": {
+    "definition": {
+      "label": "活用",
+      "title": "外向愿望",
+      "concept": "grammar.modality.tagaru",
+      "prototype": "たがる"
+    },
+    "execution": {
+      "stage": "desire",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 40,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "enumerative": {
+    "definition": {
+      "label": "列举",
+      "title": "列举",
+      "concept": "grammar.connective.tari",
+      "prototype": "たり"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 30,
+      "preserve_state": true,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "enumerative"
+  },
+  "ga_connection": {
+    "definition": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.ga",
+      "prototype": "が"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "terminal_connections"
+  },
+  "imperative": {
+    "definition": {
+      "label": "命令",
+      "title": "命令",
+      "concept": "morphology.form.imperative",
+      "prototype": ""
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "inflection",
+    "connection_rule": "imperative"
+  },
+  "kara_connection": {
+    "definition": {
+      "label": "原因",
+      "title": "原因",
+      "concept": "grammar.connective.kara",
+      "prototype": "から"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "terminal_connections"
+  },
+  "kedo_connection": {
+    "definition": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.kedo",
+      "prototype": "けど",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "けれど"
+              ]
+            }
+          },
+          "form": "けれど"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "terminal_connections"
+  },
+  "keredomo_connection": {
+    "definition": {
+      "label": "逆接",
+      "title": "逆接",
+      "concept": "grammar.connective.kedo",
+      "prototype": "けれども"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "terminal_connections"
+  },
+  "nagara_connection": {
+    "definition": {
+      "label": "ながら接続",
+      "title": "伴随",
+      "concept": "grammar.connective.nagara",
+      "prototype": "ながら"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "necessity_negative_ba_dame": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければだめ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_ba_dame"
+  },
+  "necessity_negative_ba_ikeru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければいけない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_ba_ikeru"
+  },
+  "necessity_negative_ba_naru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なければならない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_ba_naru"
+  },
+  "necessity_negative_tewa_dame": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはだめ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_tewa_dame"
+  },
+  "necessity_negative_tewa_ikeru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはいけない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_tewa_ikeru"
+  },
+  "necessity_negative_tewa_naru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "なくてはならない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_tewa_naru"
+  },
+  "necessity_negative_to_dame": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないとだめ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_to_dame"
+  },
+  "necessity_negative_to_ikeru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないといけない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_to_ikeru"
+  },
+  "necessity_negative_to_naru": {
+    "definition": {
+      "label": "义务",
+      "title": "义务",
+      "concept": "grammar.obligation.nakereba_naranai",
+      "prototype": "ないとならない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "necessity_negative_to_naru"
+  },
+  "negative": {
+    "definition": {
+      "label": "否定",
+      "title": "否定形",
+      "concept": "morphology.polarity.negative",
+      "prototype": "ない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ん"
+              ],
+              "pos": [
+                "助動詞"
+              ]
+            }
+          },
+          "form": "ん"
+        },
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "ぬ"
+              ]
+            }
+          },
+          "form": "ぬ"
+        },
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ぬ"
+              ]
+            }
+          },
+          "form": "ぬ"
+        },
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "ず"
+              ]
+            }
+          },
+          "form": "ず"
+        },
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "ず"
+              ]
+            }
+          },
+          "form": "ず"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle+i_adjective_conversion",
+      "rule_group": "否定",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス"
+      ],
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "negative"
+  },
+  "negative_ba": {
+    "definition": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なければ"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "negative_conditions"
+  },
+  "negative_de": {
+    "definition": {
+      "label": "否定接续",
+      "title": "否定接续",
+      "concept": "grammar.connective.naide",
+      "prototype": "ないで"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "negative_conditions"
+  },
+  "negative_tewa": {
+    "definition": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なくては"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "negative_conditions"
+  },
+  "negative_to": {
+    "definition": {
+      "label": "否定条件",
+      "title": "否定条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "ないと"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "output_form": "conditional",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "negative_conditions"
+  },
+  "negative_volitional": {
+    "definition": {
+      "label": "否定推量／否定意志",
+      "title": "否定推量／否定意志",
+      "concept": "grammar.modality.mai",
+      "prototype": "まい"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 50,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "negative_volitional"
+  },
+  "node_connection": {
+    "definition": {
+      "label": "原因",
+      "title": "原因",
+      "concept": "grammar.connective.node",
+      "prototype": "ので"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "attributive_connections"
+  },
+  "nominal_change_ni": {
+    "definition": {
+      "label": "变化接续",
+      "title": "变化接续",
+      "concept": "grammar.functional.naru",
+      "prototype": "に"
+    },
+    "execution": {
+      "stage": "te_support",
+      "executor": "verb_cycle",
+      "rule_group": "变化接续",
+      "input_label": "名词性成分",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 0,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem"
+      ],
+      "output_form": "other",
+      "preserve_state": true,
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "nominal_change"
+  },
+  "noni_connection": {
+    "definition": {
+      "label": "のに接续",
+      "title": "逆接／用途与评价",
+      "concept": "grammar.connective.noni",
+      "prototype": "のに",
+      "candidates": [
+        "逆接",
+        "用途・评价"
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "other",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "attributive_connections"
+  },
+  "passive_potential": {
+    "definition": {
+      "label": "受身等候选",
+      "title": "可能、被动等",
+      "concept": "morphology.voice.passive_potential",
+      "prototype": "れる",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "られる"
+              ]
+            }
+          },
+          "form": "られる"
+        },
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "られ"
+              ]
+            }
+          },
+          "form": "られる"
+        }
+      ],
+      "candidates": [
+        "受身",
+        "可能",
+        "尊敬",
+        "自発"
+      ]
+    },
+    "execution": {
+      "stage": "voice",
+      "executor": "verb_cycle",
+      "rule_group": "受身・可能",
+      "input_label": "动词",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 20,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "irrealis"
+  },
+  "past": {
+    "definition": {
+      "label": "过去",
+      "title": "过去",
+      "concept": "morphology.tense.past",
+      "prototype": "た"
+    },
+    "execution": {
+      "stage": "tense",
+      "executor": "verb_cycle+i_adjective_conversion",
+      "rule_group": "过去与完成",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 60,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "past"
+  },
+  "polite_negative": {
+    "definition": {
+      "label": "敬体否定",
+      "title": "敬体否定",
+      "concept": "morphology.polarity.negative",
+      "prototype": "ません"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "动词活用",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "continuative"
+  },
+  "politeness_masu": {
+    "definition": {
+      "label": "丁寧",
+      "title": "敬体",
+      "concept": "morphology.politeness.masu",
+      "prototype": "ます"
+    },
+    "execution": {
+      "stage": "polarity_politeness",
+      "executor": "verb_cycle",
+      "rule_group": "礼貌",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "continue",
+      "order_rank": 51,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "prohibition_tewa_condition_dame": {
+    "definition": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "grammar.prohibition.tewa_dame",
+      "prototype": "てはだめ",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではだめ"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "prohibition_tewa_condition_dame"
+  },
+  "prohibition_tewa_condition_ikeru": {
+    "definition": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "grammar.prohibition.tewa_ikenai",
+      "prototype": "てはいけない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではいけない"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "prohibition_tewa_condition_ikeru"
+  },
+  "prohibition_tewa_condition_naru": {
+    "definition": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "grammar.prohibition.tewa_naranai",
+      "prototype": "てはならない",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "ではならない"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "predicate",
+    "connection_rule": "prohibition_tewa_condition_naru"
+  },
+  "prohibitive": {
+    "definition": {
+      "label": "禁止",
+      "title": "禁止",
+      "concept": "grammar.sentence_particle.na",
+      "prototype": "な"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "prohibitive"
+  },
+  "tara_condition": {
+    "definition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "たら",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "だら"
+              ]
+            }
+          },
+          "form": "だら"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "tara"
+  },
+  "tewa_condition": {
+    "definition": {
+      "label": "取立条件",
+      "title": "取立条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "ては",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "で",
+                "じゃ"
+              ]
+            }
+          },
+          "form": "では"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "tewa"
+  },
+  "to_condition": {
+    "definition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "と"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "terminal_connections"
+  },
+  "tsutsu_connection": {
+    "definition": {
+      "label": "つつ接続",
+      "title": "伴随·持续",
+      "concept": "grammar.connective.tsutsu",
+      "prototype": "つつ"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "volitional": {
+    "definition": {
+      "label": "意向",
+      "title": "意向形",
+      "concept": "morphology.mood.volitional",
+      "prototype": "う",
+      "variants": [
+        {
+          "token": {
+            "starts_with": {
+              "surface": [
+                "よう"
+              ]
+            }
+          },
+          "form": "よう"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "よう"
+              ]
+            }
+          },
+          "form": "よう"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "verb_cycle",
+      "rule_group": "意向",
+      "input_label": "動詞",
+      "output_category": "動詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "inflection",
+    "connection_rule": "volitional"
+  },
+  "volitional_to_connection": {
+    "definition": {
+      "label": "意向接续",
+      "title": "意向接续",
+      "concept": "grammar.modality.volitional_to_suru",
+      "prototype": "と"
+    },
+    "execution": {
+      "stage": "boundary",
+      "executor": "verb_cycle",
+      "rule_group": "意向接续",
+      "input_label": "動詞",
+      "input_forms": [
+        "volitional"
+      ],
+      "output_category": "用言",
+      "terminal_mode": "continue",
+      "order_rank": 70,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "volitional_to"
+  }
+}

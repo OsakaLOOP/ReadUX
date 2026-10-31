@@ -1,0 +1,128 @@
+{
+  "max_auxiliary_depth": 8,
+  "intrinsic_features": [
+    "conjugation",
+    "initial_alternation",
+    "final_alternation"
+  ],
+  "forms": [
+    {
+      "prefixes": [
+        "未然形"
+      ],
+      "form": "irrealis"
+    },
+    {
+      "prefixes": [
+        "連用形"
+      ],
+      "form": "continuative"
+    },
+    {
+      "prefixes": [
+        "終止形"
+      ],
+      "form": "terminal"
+    },
+    {
+      "prefixes": [
+        "連体形"
+      ],
+      "form": "attributive"
+    },
+    {
+      "prefixes": [
+        "仮定形"
+      ],
+      "form": "conditional"
+    },
+    {
+      "prefixes": [
+        "已然形"
+      ],
+      "form": "conditional"
+    },
+    {
+      "prefixes": [
+        "命令形"
+      ],
+      "form": "imperative"
+    },
+    {
+      "prefixes": [
+        "意志推量形"
+      ],
+      "form": "volitional"
+    },
+    {
+      "prefixes": [
+        "語幹"
+      ],
+      "form": "stem"
+    }
+  ],
+  "input_recoveries": [
+    {
+      "id": "taka_kara_zuni",
+      "lemma": "高い",
+      "reading": "たかい",
+      "surface_reading": "たかから",
+      "ctype": "形容詞-ク復元",
+      "previous": {
+        "equals": {
+          "surface": [
+            "高"
+          ],
+          "pos": [
+            "接尾辞"
+          ],
+          "sub": [
+            "名詞的"
+          ]
+        }
+      },
+      "next": {
+        "equals": {
+          "surface": [
+            "から"
+          ],
+          "pos": [
+            "助詞"
+          ],
+          "sub": [
+            "格助詞"
+          ]
+        }
+      },
+      "following": [
+        {
+          "equals": {
+            "surface": [
+              "ず"
+            ],
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ヌ",
+              "助動詞-ズ"
+            ]
+          }
+        },
+        {
+          "equals": {
+            "surface": [
+              "に"
+            ],
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

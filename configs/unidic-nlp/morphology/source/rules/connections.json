@@ -1,0 +1,1809 @@
+[
+  {
+    "action": "attach",
+    "kinds": [
+      "volitional_to_connection"
+    ],
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "と"
+            ]
+          }
+        },
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "volitional"
+        ],
+        "following": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ],
+            "base": [
+              "する",
+              "為る"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "action": "support",
+    "support_group": "volitional",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ]
+          }
+        },
+        "categories": [
+          "動詞"
+        ],
+        "forms": [
+          "other"
+        ],
+        "operators": [
+          "volitional_to_connection"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "kinds": [
+      "koto_nominalization"
+    ],
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "名詞"
+            ],
+            "lemma": [
+              "事",
+              "こと"
+            ],
+            "base": [
+              "こと",
+              "事"
+            ]
+          }
+        },
+        "categories": [
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ],
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞"
+            ],
+            "base": [
+              "だけ",
+              "など",
+              "なんて"
+            ]
+          }
+        },
+        "operators": [
+          "insertion"
+        ],
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ]
+      }
+    ]
+  },
+  {
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "形容詞",
+              "助動詞"
+            ],
+            "base": [
+              "ない",
+              "無い"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "operators": [
+          "copula_de"
+        ]
+      }
+    ],
+    "action": "attach",
+    "kinds": [
+      "negative"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "categories": [
+          "動詞",
+          "形容詞",
+          "助動詞",
+          "形状詞"
+        ],
+        "next": {
+          "equals": {
+            "base": [
+              "そう",
+              "そうだ"
+            ],
+            "pos": [
+              "助動詞",
+              "形状詞"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "categories": [
+          "形容詞",
+          "形状詞"
+        ],
+        "next": {
+          "equals": {
+            "base": [
+              "そう",
+              "そうだ"
+            ],
+            "pos": [
+              "助動詞",
+              "形状詞"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ]
+      }
+    ],
+    "kinds": [
+      "sou_modality"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "categories": [
+          "動詞",
+          "形容詞",
+          "形状詞",
+          "助動詞"
+        ],
+        "next": {
+          "equals": {
+            "base": [
+              "よう",
+              "様",
+              "ようだ"
+            ],
+            "pos": [
+              "名詞",
+              "助動詞",
+              "形状詞"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "you_modality"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "categories": [
+          "動詞",
+          "形容詞",
+          "形状詞",
+          "助動詞",
+          "名詞"
+        ],
+        "next": {
+          "equals": {
+            "base": [
+              "みたい",
+              "みたいだ"
+            ],
+            "pos": [
+              "助動詞",
+              "形状詞"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive",
+          "stem"
+        ]
+      }
+    ],
+    "kinds": [
+      "mitai_modality"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "categories": [
+          "名詞"
+        ],
+        "next": {
+          "equals": {
+            "base": [
+              "らしい"
+            ],
+            "pos": [
+              "接尾辞"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ]
+      }
+    ],
+    "kinds": [
+      "rashii_characteristic"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "名詞"
+            ],
+            "lemma": [
+              "筈",
+              "はず"
+            ]
+          }
+        },
+        "forms": [
+          "attributive"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "hazu_modality"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞"
+            ],
+            "lemma": [
+              "くらい"
+            ]
+          }
+        },
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞",
+          "形状詞",
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "degree"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "意志推量形"
+            ]
+          }
+        },
+        "forms": [
+          "stem",
+          "terminal",
+          "attributive"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞",
+          "形状詞",
+          "動詞",
+          "形容詞",
+          "助動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "darou_modality"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "けど",
+              "けれど"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "kedo_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "が"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "ga_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "から"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "kara_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "と"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "to_condition"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "のに"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "noni_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ので"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ],
+    "kinds": [
+      "node_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞",
+              "終助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "形状詞",
+          "助動詞"
+        ],
+        "following": {
+          "equals": {
+            "ctype": [
+              "助動詞-ダ",
+              "助動詞-デス"
+            ]
+          }
+        }
+      }
+    ],
+    "kinds": [
+      "nominalization"
+    ]
+  },
+  {
+    "action": "stop",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "終助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        }
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞",
+              "終助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        },
+        "at_end": true
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞",
+              "終助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        },
+        "following": {
+          "equals": {
+            "pos": [
+              "補助記号"
+            ],
+            "sub": [
+              "句点",
+              "括弧閉"
+            ]
+          }
+        }
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞",
+              "終助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        },
+        "following": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "終助詞"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "準体助詞"
+            ],
+            "lemma": [
+              "の"
+            ],
+            "surface": [
+              "の",
+              "ん"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "形状詞",
+          "助動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "nominalization"
+    ]
+  },
+  {
+    "action": "core",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ],
+            "base": [
+              "する",
+              "為る"
+            ]
+          },
+          "contains": {
+            "ctype": [
+              "サ行変格"
+            ]
+          }
+        },
+        "sahen": true
+      }
+    ]
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ]
+          }
+        },
+        "operators": [
+          "enumerative"
+        ]
+      }
+    ],
+    "support_group": "enumerative"
+  },
+  {
+    "action": "core",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "接尾辞"
+            ],
+            "sub": [
+              "名詞的"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "に"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "categories": [
+          "名詞",
+          "代名詞",
+          "形状詞"
+        ],
+        "following": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ],
+            "base": [
+              "なる",
+              "成る"
+            ]
+          }
+        }
+      }
+    ],
+    "kinds": [
+      "nominal_change_ni"
+    ]
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "格助詞"
+            ],
+            "surface": [
+              "に"
+            ]
+          }
+        },
+        "operators": [
+          "nominal_change_ni"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "に"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ],
+        "categories": [
+          "形状詞"
+        ],
+        "operators": [
+          "adverbial_ni"
+        ]
+      }
+    ],
+    "support_group": "nominal_change"
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "ctype": [
+              "形容詞",
+              "助動詞-ナイ"
+            ]
+          },
+          "starts_with": {
+            "cform": [
+              "連用形-一般"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ],
+        "categories": [
+          "形容詞",
+          "助動詞"
+        ]
+      }
+    ],
+    "support_group": "adjectival_change"
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "接尾辞"
+            ],
+            "base": [
+              "さ"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "categories": [
+          "形容詞",
+          "形状詞"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "接尾辞"
+            ],
+            "base": [
+              "さ"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "ctype": [
+              "助動詞-ナイ"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "nominalization"
+    ]
+  },
+  {
+    "action": "core",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "接尾辞"
+            ],
+            "base": [
+              "やすい",
+              "易い",
+              "にくい",
+              "難い",
+              "づらい",
+              "辛い",
+              "さ"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "stem"
+        ],
+        "categories": [
+          "動詞",
+          "形容詞",
+          "形状詞"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞",
+              "助動詞",
+              "接尾辞"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      }
+    ],
+    "support_group": "continuative"
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞",
+              "助動詞"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "te"
+        ]
+      }
+    ],
+    "support_group": "contracted"
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "base": [
+              "ある",
+              "有る"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "ctype": [
+              "助動詞-ダ"
+            ],
+            "surface": [
+              "で"
+            ]
+          }
+        }
+      }
+    ],
+    "kinds": [
+      "copula_aru"
+    ]
+  },
+  {
+    "action": "support",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "動詞",
+              "形容詞",
+              "助動詞",
+              "名詞"
+            ]
+          }
+        },
+        "forms": [
+          "te"
+        ]
+      }
+    ],
+    "support_group": "te"
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "形状詞"
+            ],
+            "base": [
+              "そう",
+              "よう",
+              "みたい"
+            ]
+          },
+          "contains": {
+            "sub": [
+              "助動詞"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "形状詞"
+            ],
+            "base": [
+              "そう",
+              "よう",
+              "みたい"
+            ]
+          },
+          "contains": {
+            "sub": [
+              "助動詞"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "categories": [
+          "形容詞"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "れる",
+              "られる",
+              "せる",
+              "させる",
+              "しめる"
+            ]
+          }
+        },
+        "forms": [
+          "irrealis"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ",
+              "助動詞-ヌ",
+              "助動詞-ズ"
+            ]
+          }
+        },
+        "forms": [
+          "irrealis"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-タ",
+              "助動詞-マス",
+              "助動詞-タイ"
+            ],
+            "surface": [
+              "たり",
+              "だり"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "other"
+        ]
+      }
+    ],
+    "kinds": [
+      "enumerative"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-タ",
+              "助動詞-マス",
+              "助動詞-タイ"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ]
+          }
+        },
+        "categories": [
+          "名詞",
+          "形状詞",
+          "代名詞"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-デス"
+            ]
+          }
+        },
+        "categories": [
+          "名詞",
+          "形状詞",
+          "代名詞"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-デス"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "たがる"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "まい"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive",
+          "irrealis",
+          "continuative"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "そう",
+              "そうだ"
+            ]
+          }
+        },
+        "categories": [
+          "名詞",
+          "形状詞",
+          "代名詞"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "そう",
+              "そうだ"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "terminal",
+          "attributive"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "よう",
+              "ようだ",
+              "らしい",
+              "べし",
+              "べきだ"
+            ]
+          }
+        },
+        "categories": [
+          "名詞",
+          "形状詞",
+          "代名詞"
+        ]
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "よう",
+              "ようだ",
+              "らしい",
+              "べし",
+              "べきだ"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "stop",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "base": [
+              "れる",
+              "られる",
+              "せる",
+              "させる",
+              "しめる",
+              "たがる",
+              "まい",
+              "そう",
+              "そうだ",
+              "よう",
+              "ようだ",
+              "らしい",
+              "べし",
+              "べきだ"
+            ]
+          }
+        }
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ナイ",
+              "助動詞-ヌ",
+              "助動詞-ズ",
+              "助動詞-タ",
+              "助動詞-マス",
+              "助動詞-タイ",
+              "助動詞-ダ",
+              "助動詞-デス"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ]
+          }
+        },
+        "forms": [
+          "irrealis",
+          "continuative",
+          "terminal",
+          "attributive",
+          "conditional",
+          "imperative",
+          "volitional"
+        ],
+        "auxiliary_relation": true
+      },
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "形容詞"
+            ],
+            "base": [
+              "ない",
+              "無い"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ],
+        "categories": [
+          "形容詞",
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "て",
+              "で"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      }
+    ],
+    "kinds": [
+      "te_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ば"
+            ]
+          }
+        },
+        "forms": [
+          "conditional"
+        ]
+      }
+    ],
+    "kinds": [
+      "ba_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ながら"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      }
+    ],
+    "kinds": [
+      "nagara_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "つつ"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ]
+      }
+    ],
+    "kinds": [
+      "tsutsu_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "ど",
+              "ども"
+            ]
+          }
+        },
+        "forms": [
+          "conditional"
+        ]
+      }
+    ],
+    "kinds": [
+      "concessive_connection"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞",
+              "副助詞"
+            ],
+            "surface": [
+              "たり",
+              "だり"
+            ]
+          }
+        },
+        "forms": [
+          "continuative",
+          "other"
+        ]
+      }
+    ],
+    "kinds": [
+      "enumerative"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "終助詞"
+            ],
+            "surface": [
+              "な"
+            ]
+          }
+        },
+        "forms": [
+          "terminal",
+          "attributive"
+        ],
+        "categories": [
+          "動詞"
+        ]
+      }
+    ],
+    "kinds": [
+      "prohibitive"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "接続助詞"
+            ],
+            "surface": [
+              "し"
+            ]
+          }
+        },
+        "forms": [
+          "continuative"
+        ],
+        "operators": [
+          "negative_zuni"
+        ]
+      }
+    ],
+    "kinds": [
+      "classical_ki"
+    ]
+  },
+  {
+    "action": "attach",
+    "when": [
+      {
+        "next": {
+          "equals": {
+            "pos": [
+              "助動詞"
+            ],
+            "ctype": [
+              "助動詞-ダ"
+            ]
+          }
+        },
+        "last": {
+          "equals": {
+            "pos": [
+              "助詞"
+            ],
+            "sub": [
+              "副助詞"
+            ],
+            "surface": [
+              "くらい",
+              "ぐらい"
+            ]
+          }
+        },
+        "forms": [
+          "stem"
+        ],
+        "operators": [
+          "degree"
+        ]
+      }
+    ],
+    "kinds": [
+      "copula"
+    ]
+  }
+]

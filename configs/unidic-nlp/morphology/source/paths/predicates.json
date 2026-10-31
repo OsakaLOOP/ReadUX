@@ -1,0 +1,50 @@
+{
+  "necessity_negative_ba_dame": {
+    "label": "义务",
+    "predicate": "necessity_negative_ba_dame"
+  },
+  "necessity_negative_ba_ikeru": {
+    "label": "义务",
+    "predicate": "necessity_negative_ba_ikeru"
+  },
+  "necessity_negative_ba_naru": {
+    "label": "义务",
+    "predicate": "necessity_negative_ba_naru"
+  },
+  "necessity_negative_tewa_dame": {
+    "label": "义务",
+    "predicate": "necessity_negative_tewa_dame"
+  },
+  "necessity_negative_tewa_ikeru": {
+    "label": "义务",
+    "predicate": "necessity_negative_tewa_ikeru"
+  },
+  "necessity_negative_tewa_naru": {
+    "label": "义务",
+    "predicate": "necessity_negative_tewa_naru"
+  },
+  "necessity_negative_to_dame": {
+    "label": "义务",
+    "predicate": "necessity_negative_to_dame"
+  },
+  "necessity_negative_to_ikeru": {
+    "label": "义务",
+    "predicate": "necessity_negative_to_ikeru"
+  },
+  "necessity_negative_to_naru": {
+    "label": "义务",
+    "predicate": "necessity_negative_to_naru"
+  },
+  "prohibition_tewa_condition_dame": {
+    "label": "禁止",
+    "predicate": "prohibition_tewa_condition_dame"
+  },
+  "prohibition_tewa_condition_ikeru": {
+    "label": "禁止",
+    "predicate": "prohibition_tewa_condition_ikeru"
+  },
+  "prohibition_tewa_condition_naru": {
+    "label": "禁止",
+    "predicate": "prohibition_tewa_condition_naru"
+  }
+}

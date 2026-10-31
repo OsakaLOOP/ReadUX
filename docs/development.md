@@ -85,6 +85,8 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 ## 检查与构建
 
+活用规则在 `configs/unidic-nlp/morphology/source/` 维护。修改后执行 `npm run morphology:build`；前端开发、静态预览和正式构建会先生成配置。单独使用 Cargo 构建 NLP 服务前执行生成命令。`npm run morphology:check` 在内存中编译并核对已保存产物，同时检查分类、连接器、路径与概念引用。维护方法见 [活用链配置](morphology_configuration.md)。
+
 按修改范围选择检查；以下命令是对应入口，实际结果记录在 TODO 或验收报告中：
 
 ```powershell
@@ -93,6 +95,7 @@ cargo check -p tauri-app
 npm run test:ui
 npm run build
 python scripts/build_grammar_catalog.py --check
+npm run morphology:check
 python scripts/test_dictionary_schema.py
 ```
 

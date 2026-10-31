@@ -1,0 +1,104 @@
+{
+  "insertion": [
+    {
+      "equals": {
+        "pos": [
+          "助詞",
+          "副詞"
+        ],
+        "base": [
+          "は",
+          "も",
+          "さえ",
+          "こそ",
+          "だけ",
+          "まで",
+          "しか",
+          "すら",
+          "なんて",
+          "など",
+          "とか"
+        ]
+      },
+      "contains": {
+        "sub": [
+          "副助詞",
+          "係助詞"
+        ]
+      }
+    }
+  ],
+  "insertion_positions": [
+    {
+      "id": "te_support",
+      "connector": "te_connection",
+      "support_group": "te"
+    },
+    {
+      "id": "predicate_suffix",
+      "categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ],
+      "forms": [
+        "terminal",
+        "attributive"
+      ],
+      "bases": [
+        "だけ",
+        "まで",
+        "しか",
+        "すら",
+        "なんて",
+        "など",
+        "さえ",
+        "こそ",
+        "も",
+        "は"
+      ]
+    },
+    {
+      "id": "nominal_suffix",
+      "categories": [
+        "名詞",
+        "代名詞",
+        "形状詞"
+      ],
+      "forms": [
+        "stem"
+      ],
+      "bases": [
+        "は",
+        "も",
+        "さえ",
+        "こそ",
+        "だけ",
+        "まで",
+        "しか",
+        "すら",
+        "なんて",
+        "など"
+      ]
+    },
+    {
+      "id": "continuative_focus",
+      "categories": [
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "forms": [
+        "continuative"
+      ],
+      "bases": [
+        "は",
+        "も",
+        "さえ",
+        "こそ"
+      ]
+    }
+  ]
+}

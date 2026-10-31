@@ -1,0 +1,722 @@
+{
+  "classical_adjective": {
+    "definition": {
+      "label": "文言活用",
+      "title": "文言形容词",
+      "concept": "grammar.classical.adjective",
+      "prototype": ""
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言形容词活用",
+      "input_label": "已成立链",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "any",
+      "input_categories": []
+    },
+    "connection_type": "inflection",
+    "connection_rule": "classical_adjective"
+  },
+  "classical_beranari": {
+    "definition": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.classical.beranari",
+      "prototype": "べらなり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_label": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_beranari"
+  },
+  "classical_beshi": {
+    "definition": {
+      "label": "文言推量／当然",
+      "title": "べし",
+      "concept": "grammar.classical.beshi",
+      "prototype": "べし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言助动词",
+      "input_label": "用言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_beshi"
+  },
+  "classical_classical_nu": {
+    "definition": {
+      "label": "完了／自然成立",
+      "title": "完了／自然成立",
+      "concept": "grammar.classical.nu",
+      "prototype": "ぬ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナ変型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_classical_nu"
+  },
+  "classical_gotokunari": {
+    "definition": {
+      "label": "比况",
+      "title": "比况",
+      "concept": "grammar.classical.gotokunari",
+      "prototype": "ごとくなり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_label": "連体形と体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_gotokunari"
+  },
+  "classical_gotoshi": {
+    "definition": {
+      "label": "文言比况",
+      "title": "如同／仿佛",
+      "concept": "grammar.classical.gotoshi",
+      "prototype": "ごとし",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "surface": [
+                "ごとき"
+              ]
+            }
+          },
+          "form": "ごとき"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言比况",
+      "input_label": "用言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "classical_gotoshi"
+  },
+  "classical_ji": {
+    "definition": {
+      "label": "否定推量／否定意志",
+      "title": "否定推量／否定意志",
+      "concept": "grammar.classical.ji",
+      "prototype": "じ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_ji"
+  },
+  "classical_kemu": {
+    "definition": {
+      "label": "过去推量／传闻",
+      "title": "过去推量／传闻",
+      "concept": "grammar.classical.kemu",
+      "prototype": "けむ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_kemu"
+  },
+  "classical_kerashi": {
+    "definition": {
+      "label": "过去推定／咏叹",
+      "title": "过去推定／咏叹",
+      "concept": "grammar.classical.kerashi",
+      "prototype": "けらし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "无变化型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_kerashi"
+  },
+  "classical_keri": {
+    "definition": {
+      "label": "过去／咏叹",
+      "title": "过去／咏叹",
+      "concept": "grammar.classical.keri",
+      "prototype": "けり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_keri"
+  },
+  "classical_ki": {
+    "definition": {
+      "label": "过去",
+      "title": "过去",
+      "concept": "grammar.classical.ki",
+      "prototype": "き"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_ki"
+  },
+  "classical_mahoshi": {
+    "definition": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "grammar.classical.mahoshi",
+      "prototype": "まほし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "シク活用",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_mahoshi"
+  },
+  "classical_maji": {
+    "definition": {
+      "label": "否定推量／禁止",
+      "title": "否定推量／禁止",
+      "concept": "grammar.classical.maji",
+      "prototype": "まじ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ク活用",
+      "input_label": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_maji"
+  },
+  "classical_mashi": {
+    "definition": {
+      "label": "反实／愿望",
+      "title": "反实／愿望",
+      "concept": "grammar.classical.mashi",
+      "prototype": "まし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "特殊型",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_mashi"
+  },
+  "classical_meri": {
+    "definition": {
+      "label": "推定／婉曲",
+      "title": "推定／婉曲",
+      "concept": "grammar.classical.meri",
+      "prototype": "めり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_label": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_meri"
+  },
+  "classical_mu": {
+    "definition": {
+      "label": "推量／意志／婉曲",
+      "title": "推量／意志／婉曲",
+      "concept": "grammar.classical.mu",
+      "prototype": "む"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_mu"
+  },
+  "classical_muzu": {
+    "definition": {
+      "label": "推量／意志",
+      "title": "推量／意志",
+      "concept": "grammar.classical.muzu",
+      "prototype": "むず"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "サ変型",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_muzu"
+  },
+  "classical_nari_copula": {
+    "definition": {
+      "label": "断定／存在",
+      "title": "断定／存在",
+      "concept": "grammar.classical.nari_copula",
+      "prototype": "なり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_label": "体言或连体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_nari_copula"
+  },
+  "classical_nari_hearsay": {
+    "definition": {
+      "label": "传闻／推定",
+      "title": "传闻／推定",
+      "concept": "grammar.classical.nari_hearsay",
+      "prototype": "なり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_label": "终止形或ラ变连用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_nari_hearsay"
+  },
+  "classical_ramu": {
+    "definition": {
+      "label": "现在推量／传闻",
+      "title": "现在推量／传闻",
+      "concept": "grammar.classical.ramu",
+      "prototype": "らむ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "四段型",
+      "input_label": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_ramu"
+  },
+  "classical_raru": {
+    "definition": {
+      "label": "受身／自发／可能／尊敬",
+      "title": "受身／自发／可能／尊敬",
+      "concept": "grammar.classical.raru",
+      "prototype": "らる"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "四段・ナ変・ラ変以外の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_raru"
+  },
+  "classical_rashi": {
+    "definition": {
+      "label": "推定",
+      "title": "推定",
+      "concept": "grammar.classical.rashi",
+      "prototype": "らし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "无变化型",
+      "input_label": "終止形とラ変型の連体形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_rashi"
+  },
+  "classical_ri": {
+    "definition": {
+      "label": "存续／完了",
+      "title": "存续／完了",
+      "concept": "grammar.classical.ri",
+      "prototype": "り"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型",
+      "input_label": "サ変の未然形と四段の已然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_ri"
+  },
+  "classical_ru": {
+    "definition": {
+      "label": "受身／自发／可能／尊敬",
+      "title": "受身／自发／可能／尊敬",
+      "concept": "grammar.classical.ru",
+      "prototype": "る"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "四段・ナ変・ラ変の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_ru"
+  },
+  "classical_sasu": {
+    "definition": {
+      "label": "使役／尊敬",
+      "title": "使役／尊敬",
+      "concept": "grammar.classical.sasu",
+      "prototype": "さす"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "四段・ナ変・ラ変以外の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_sasu"
+  },
+  "classical_shimu": {
+    "definition": {
+      "label": "使役／尊敬",
+      "title": "使役／尊敬",
+      "concept": "grammar.classical.shimu",
+      "prototype": "しむ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_shimu"
+  },
+  "classical_su": {
+    "definition": {
+      "label": "使役",
+      "title": "使役",
+      "concept": "grammar.classical.su",
+      "prototype": "す"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "四段・ナ変・ラ変の未然形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_su"
+  },
+  "classical_tari_copula": {
+    "definition": {
+      "label": "断定",
+      "title": "断定",
+      "concept": "grammar.classical.tari_copula",
+      "prototype": "たり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "タリ活用",
+      "input_label": "体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_tari_copula"
+  },
+  "classical_tari_perfect": {
+    "definition": {
+      "label": "存续／完了",
+      "title": "存续／完了",
+      "concept": "grammar.classical.tari_perfect",
+      "prototype": "たり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ラ変型・タリ活用",
+      "input_label": "用言连用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_tari_perfect"
+  },
+  "classical_tashi": {
+    "definition": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "grammar.classical.tashi",
+      "prototype": "たし"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ク活用",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_tashi"
+  },
+  "classical_tsu": {
+    "definition": {
+      "label": "完了／强意",
+      "title": "完了／强意",
+      "concept": "grammar.classical.tsu",
+      "prototype": "つ"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "下二段型",
+      "input_label": "連用形",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_tsu"
+  },
+  "classical_yaunari": {
+    "definition": {
+      "label": "比况／例示",
+      "title": "比况／例示",
+      "concept": "grammar.classical.yaunari",
+      "prototype": "やうなり"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "ナリ活用",
+      "input_label": "体言",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "input_category_mode": "exact",
+      "input_categories": []
+    },
+    "connection_type": "direct",
+    "connection_rule": "classical_yaunari"
+  },
+  "negative_zuni": {
+    "definition": {
+      "label": "否定接续",
+      "title": "否定接续",
+      "concept": "grammar.classical.zu",
+      "prototype": "ずに"
+    },
+    "execution": {
+      "stage": "classical",
+      "executor": "classical_conjugation",
+      "rule_group": "文言否定",
+      "input_label": "動詞",
+      "output_category": "文語用言",
+      "terminal_mode": "pause_or_continue",
+      "order_rank": 0,
+      "output_form": "other",
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "zuni"
+  }
+}

@@ -1,0 +1,449 @@
+{
+  "entity_classes": {
+    "动词循环类": {
+      "label": "动词循环类",
+      "executor": "verb_cycle",
+      "summary": "输入和输出保持动词范畴的有限活用链"
+    },
+    "イ形容词转换类": {
+      "label": "イ形容词转换类",
+      "executor": "i_adjective_conversion",
+      "summary": "从动词或助动词切换到イ形容词活用"
+    },
+    "ナ形容词判断类": {
+      "label": "ナ形容词判断类",
+      "executor": "na_adjective_judgement",
+      "summary": "词干与判断词尾组合并处理だ／な／で"
+    },
+    "文言活用类": {
+      "label": "文言活用类",
+      "executor": "classical_conjugation",
+      "summary": "按文语活用表处理文言形式"
+    },
+    "补助动词类": {
+      "label": "补助动词类",
+      "executor": "auxiliary_verb",
+      "summary": "按连接器建立可递归的补助用言父子链"
+    },
+    "插入语类": {
+      "label": "插入语类",
+      "executor": "insertion",
+      "summary": "保持前项状态并扩展命中范围"
+    }
+  },
+  "rule_tree": [
+    {
+      "id": "verb-cycle",
+      "label": "动词循环类",
+      "summary": "动词范畴内的有限活用转移",
+      "input_examples": [
+        "未然形",
+        "连用形",
+        "终止形"
+      ],
+      "output": "动词",
+      "children": [
+        {
+          "id": "verb-cycle-imperfective",
+          "label": "未然形输入",
+          "input_examples": [
+            "五段",
+            "一段・变格"
+          ],
+          "output": "ない／せる／れる"
+        },
+        {
+          "id": "verb-cycle-continuative",
+          "label": "连用形输入",
+          "input_examples": [
+            "礼貌层",
+            "补助层入口"
+          ],
+          "output": "ます／て・で"
+        },
+        {
+          "id": "verb-cycle-ending",
+          "label": "终止形收尾",
+          "input_examples": [
+            "意向",
+            "禁止或推量"
+          ],
+          "output": "う／よう／まい"
+        }
+      ]
+    },
+    {
+      "id": "auxiliary-verb",
+      "label": "补助动词类",
+      "summary": "连接器与补助用言形成递归父子链",
+      "input_examples": [
+        "て／で形",
+        "连用形",
+        "たり"
+      ],
+      "output": "动词或形容词",
+      "children": [
+        {
+          "id": "auxiliary-te",
+          "label": "て形接续",
+          "input_examples": [
+            "持续与状态",
+            "完成与遗憾"
+          ],
+          "output": "いる／しまう"
+        },
+        {
+          "id": "auxiliary-direction",
+          "label": "趋向与处置",
+          "input_examples": [
+            "预先处置",
+            "趋向与变化"
+          ],
+          "output": "おく／いく／くる"
+        },
+        {
+          "id": "auxiliary-continuative",
+          "label": "连用形补助",
+          "input_examples": [
+            "开始、继续、结束",
+            "程度、反复、相互"
+          ],
+          "output": "始める／続ける／すぎる"
+        }
+      ]
+    },
+    {
+      "id": "insertion",
+      "label": "插入语类",
+      "summary": "不改变前项状态的范围扩展",
+      "input_examples": [
+        "对比与提示",
+        "限定与强调",
+        "列举与举例"
+      ],
+      "output": "保持前项状态"
+    },
+    {
+      "id": "na-adjective-judgement",
+      "label": "ナ形容词判断类",
+      "summary": "先形成判断词干，再按だ／な／で等形式收尾",
+      "input_examples": [
+        "普通形输入",
+        "词干输入",
+        "名词修饰输入"
+      ],
+      "output": "形状词／判断结构",
+      "children": [
+        {
+          "id": "na-adjective-evidential",
+          "label": "样态与传闻",
+          "input_examples": [
+            "そうだ",
+            "らしい"
+          ],
+          "output": "判断词干"
+        },
+        {
+          "id": "na-adjective-inference",
+          "label": "推量与比喻",
+          "input_examples": [
+            "ようだ",
+            "みたいだ"
+          ],
+          "output": "形状词词干"
+        },
+        {
+          "id": "na-adjective-norm",
+          "label": "预期与规范",
+          "input_examples": [
+            "はずだ",
+            "べきだ"
+          ],
+          "output": "判断收尾"
+        }
+      ]
+    },
+    {
+      "id": "i-adjective-conversion",
+      "label": "イ形容词转换类",
+      "summary": "把动词或助动词整体转换为イ形容词性状态",
+      "input_examples": [
+        "未然形输入",
+        "连用形输入",
+        "前一转换形输入"
+      ],
+      "output": "イ形容词",
+      "children": [
+        {
+          "id": "i-adjective-desire",
+          "label": "主观愿望",
+          "input_examples": [
+            "たい",
+            "たくない"
+          ],
+          "output": "イ形容词性整体"
+        },
+        {
+          "id": "i-adjective-negative",
+          "label": "否定转换",
+          "input_examples": [
+            "ない",
+            "なかった"
+          ],
+          "output": "イ形容词性整体"
+        },
+        {
+          "id": "i-adjective-evaluation",
+          "label": "难易与倾向",
+          "input_examples": [
+            "やすい",
+            "にくい／づらい"
+          ],
+          "output": "イ形容词性整体"
+        }
+      ]
+    },
+    {
+      "id": "classical-conjugation",
+      "label": "文言活用类",
+      "summary": "按文语活用表处理古典用言和助动结构",
+      "input_examples": [
+        "ク活用",
+        "シク活用",
+        "文语助动词"
+      ],
+      "output": "文语用言／文语助动结构",
+      "children": [
+        {
+          "id": "classical-adjective",
+          "label": "ク・シク活用表",
+          "input_examples": [
+            "未然形与连用形",
+            "终止形与连体形"
+          ],
+          "output": "文语形容词"
+        },
+        {
+          "id": "classical-auxiliary",
+          "label": "文语助动词",
+          "input_examples": [
+            "ず／ぬ",
+            "べし"
+          ],
+          "output": "文语助动结构"
+        },
+        {
+          "id": "classical-gotoshi",
+          "label": "ごとし类接续",
+          "input_examples": [
+            "ごとし",
+            "ごとき"
+          ],
+          "output": "文语判断结构"
+        }
+      ]
+    }
+  ],
+  "presentation": {
+    "sentence_compounds": [
+      "kamoshirenai"
+    ],
+    "sentence_layers": {
+      "predicate": [
+        "causative",
+        "passive_potential",
+        "negative",
+        "negative_de",
+        "negative_zuni",
+        "polite_negative",
+        "politeness_masu",
+        "politeness_desu",
+        "past",
+        "copula_past",
+        "classical_shimu",
+        "classical_sasu",
+        "classical_su",
+        "classical_raru",
+        "classical_ru",
+        "classical_ki",
+        "classical_keri",
+        "classical_classical_nu",
+        "classical_tsu",
+        "classical_ri",
+        "classical_tari_perfect"
+      ],
+      "modality": [
+        "darou_modality",
+        "darou_question",
+        "deshou_modality",
+        "negative_volitional",
+        "sou_modality",
+        "you_modality",
+        "mitai_modality",
+        "rashii_modality",
+        "hazu_modality",
+        "kamoshirenai",
+        "obligation",
+        "classical_nari_hearsay",
+        "classical_beranari",
+        "classical_meri",
+        "classical_kerashi",
+        "classical_rashi",
+        "classical_ramu",
+        "classical_kemu",
+        "classical_muzu",
+        "classical_mu",
+        "classical_maji",
+        "classical_ji",
+        "classical_gotoshi",
+        "classical_beshi",
+        "classical_yaunari",
+        "classical_gotokunari"
+      ]
+    },
+    "contraction_label": "缩略形式",
+    "observed_steps": [
+      "politeness_desu"
+    ],
+    "phenomena": [
+      {
+        "label": "插入语",
+        "cform_contains": [],
+        "evidence": "phenomenon:insertion"
+      },
+      {
+        "label": "イ音便",
+        "cform_contains": [
+          "イ音便"
+        ]
+      },
+      {
+        "label": "促音便",
+        "cform_contains": [
+          "促音便"
+        ]
+      },
+      {
+        "label": "撥音便",
+        "cform_contains": [
+          "撥音便"
+        ]
+      },
+      {
+        "label": "ウ音便",
+        "cform_contains": [
+          "ウ音便"
+        ]
+      },
+      {
+        "label": "缩略形式",
+        "cform_contains": [
+          "融合"
+        ],
+        "evidence": "phenomenon:contraction"
+      }
+    ],
+    "form_labels": {
+      "stem": "語幹",
+      "irrealis": "未然形",
+      "continuative": "連用形",
+      "terminal": "終止形・連体形",
+      "attributive": "終止形・連体形",
+      "conditional": "仮定形",
+      "imperative": "命令形",
+      "volitional": "意向形",
+      "te": "て形"
+    },
+    "raw_form_labels": [
+      {
+        "prefix": "未然形",
+        "label": "未然形"
+      },
+      {
+        "prefix": "連用形",
+        "label": "連用形"
+      },
+      {
+        "prefix": "終止形",
+        "label": "終止形・連体形"
+      },
+      {
+        "prefix": "連体形",
+        "label": "終止形・連体形"
+      },
+      {
+        "prefix": "仮定形",
+        "label": "仮定形"
+      },
+      {
+        "prefix": "已然形",
+        "label": "已然形"
+      },
+      {
+        "prefix": "命令形",
+        "label": "命令形"
+      },
+      {
+        "prefix": "意志推量形",
+        "label": "意向形"
+      }
+    ],
+    "families": [
+      {
+        "prefix": "五段",
+        "label": "五段活用"
+      },
+      {
+        "prefix": "一段",
+        "label": "一段活用"
+      },
+      {
+        "prefix": "下一段",
+        "label": "下一段活用"
+      },
+      {
+        "prefix": "上一段",
+        "label": "上一段活用"
+      },
+      {
+        "prefix": "上二段",
+        "label": "上二段活用"
+      },
+      {
+        "prefix": "下二段",
+        "label": "下二段活用"
+      },
+      {
+        "prefix": "四段",
+        "label": "四段活用"
+      },
+      {
+        "prefix": "サ行変格",
+        "label": "サ変活用"
+      },
+      {
+        "prefix": "カ行変格",
+        "label": "カ変活用"
+      },
+      {
+        "prefix": "サ変",
+        "label": "サ変活用"
+      },
+      {
+        "prefix": "カ変",
+        "label": "カ変活用"
+      }
+    ],
+    "category_labels": {
+      "形容詞": "形容詞活用",
+      "形状詞": "形容動詞活用",
+      "形容動詞": "形容動詞活用",
+      "助動詞": "助動詞活用"
+    },
+    "label_aliases": {
+      "丁寧": "丁寧",
+      "受身等候选": "受身・可能等",
+      "接续": "接続"
+    }
+  }
+}

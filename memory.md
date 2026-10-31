@@ -1,6 +1,6 @@
 # 开发入口记忆
 
-- 活用配置已采用 `readux.morphology-config.v1`。`rule_metadata` 统一保存输出状态，`input_label` 与 `input_category_mode`／`input_categories` 分离说明与条件；`intrinsic_features` 保存三个原子特征。前端通过 `morphologyPrototype` 读取 Rust 的 `normalized_form`，接续规则和分类在加载时建立索引。文言路径使用 `ctype_mode: classical_prefix`；展示前缀表为有序数组。最终协议与后续分文件编译方案见 `docs/morphology_storage_refactor_analysis.md`，当前运行入口仍为 `configs/unidic-nlp/morphology.json`，编译器尚待实施。
+- 活用规则维护入口为 `configs/unidic-nlp/morphology/source/`，18 个 JSON 源文件由 `scripts/build_morphology_config.py` 编译为 v1 `morphology.json`。`npm run morphology:build` 生成配置，`npm run morphology:check` 检查编译结果与引用；开发、预览、构建和发布 CI 已接入。文言路径引用具名 inputs，谓语路径引用构式前缀；有序规则数组完整保留。字段契约与迁移记录见 `docs/morphology_storage_refactor_analysis.md`，维护索引见源目录 README。
 
 - 静态书库生成入口为 scripts/generate_static_library.py，输出位于 public/library。浏览器宿主入口为 src/services/staticLibrary.ts 和 src/services/staticAnalysis.ts，分析结果按六个桌面单元分片；开发预览使用 npm run static:dev。
 

@@ -1,0 +1,1849 @@
+{
+  "classical_beranari": {
+    "label": "推量",
+    "auxiliary": "classical_beranari",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_beshi": {
+    "label": "べし",
+    "auxiliary": "classical_beshi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ／助動詞-ズ／助動詞-ヌ／文語助動詞-ズ／文語助動詞-ヌ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_classical_nu": {
+    "label": "完了／自然成立",
+    "auxiliary": "classical_classical_nu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形／未然形",
+        "steps": [
+          "连用形／未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形／未然形",
+        "steps": [
+          "连用形／未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_gotokunari": {
+    "label": "比况",
+    "auxiliary": "classical_gotokunari",
+    "paths": [
+      {
+        "id": "input0_noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_gotoshi": {
+    "label": "如同／仿佛",
+    "auxiliary": "classical_gotoshi",
+    "paths": [
+      {
+        "id": "input0_noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_ji": {
+    "label": "否定推量／否定意志",
+    "auxiliary": "classical_ji",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_kemu": {
+    "label": "过去推量／传闻",
+    "auxiliary": "classical_kemu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_kerashi": {
+    "label": "过去推定／咏叹",
+    "auxiliary": "classical_kerashi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_keri": {
+    "label": "过去／咏叹",
+    "auxiliary": "classical_keri",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形／终止形",
+        "steps": [
+          "连用形／终止形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形／终止形",
+        "steps": [
+          "连用形／终止形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_ki": {
+    "label": "过去",
+    "auxiliary": "classical_ki",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形／终止形",
+        "steps": [
+          "连用形／终止形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形／终止形",
+        "steps": [
+          "连用形／终止形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_mahoshi": {
+    "label": "愿望",
+    "auxiliary": "classical_mahoshi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_maji": {
+    "label": "否定推量／禁止",
+    "auxiliary": "classical_maji",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形／连用形 · 排除指定活用型",
+        "steps": [
+          "终止形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形／连用形 · 排除指定活用型",
+        "steps": [
+          "终止形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形／连用形 · 排除指定活用型",
+        "steps": [
+          "终止形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形／连用形 · 排除指定活用型",
+        "steps": [
+          "终止形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形／连用形 · 排除指定活用型",
+        "steps": [
+          "终止形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_mashi": {
+    "label": "反实／愿望",
+    "auxiliary": "classical_mashi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_meri": {
+    "label": "推定／婉曲",
+    "auxiliary": "classical_meri",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_mu": {
+    "label": "推量／意志／婉曲",
+    "auxiliary": "classical_mu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_muzu": {
+    "label": "推量／意志",
+    "auxiliary": "classical_muzu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_nari_copula": {
+    "label": "断定／存在",
+    "auxiliary": "classical_nari_copula",
+    "paths": [
+      {
+        "id": "input0_noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形",
+        "steps": [
+          "连体形"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_nari_hearsay": {
+    "label": "传闻／推定",
+    "auxiliary": "classical_nari_hearsay",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连用形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_ramu": {
+    "label": "现在推量／传闻",
+    "auxiliary": "classical_ramu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_raru": {
+    "label": "受身／自发／可能／尊敬",
+    "auxiliary": "classical_raru",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形／连用形 · 排除指定活用型",
+        "steps": [
+          "未然形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形／连用形 · 排除指定活用型",
+        "steps": [
+          "未然形／连用形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_rashi": {
+    "label": "推定",
+    "auxiliary": "classical_rashi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "终止形 · 排除指定活用型",
+        "steps": [
+          "终止形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_adjective",
+        "group": "イ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input1_na",
+        "group": "ナ形容词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input1_auxiliary",
+        "group": "助动词",
+        "label": "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ",
+        "steps": [
+          "连体形 · 文語ラ行変格／ラ行変格／助動詞-ケリ／助動詞-タリ／助動詞-リ／助動詞-メリ／助動詞-ナリ"
+        ],
+        "input": "input1",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_ri": {
+    "label": "存续／完了",
+    "auxiliary": "classical_ri",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形 · 文語サ行変格／サ行変格",
+        "steps": [
+          "未然形 · 文語サ行変格／サ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形 · 文語サ行変格／サ行変格",
+        "steps": [
+          "未然形 · 文語サ行変格／サ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input1_classical",
+        "group": "文言用言",
+        "label": "已然形 · 文語四段／四段",
+        "steps": [
+          "已然形 · 文語四段／四段"
+        ],
+        "input": "input1",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input1_verb",
+        "group": "动词",
+        "label": "已然形 · 文語四段／四段",
+        "steps": [
+          "已然形 · 文語四段／四段"
+        ],
+        "input": "input1",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_ru": {
+    "label": "受身／自发／可能／尊敬",
+    "auxiliary": "classical_ru",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格",
+        "steps": [
+          "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格",
+        "steps": [
+          "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_sasu": {
+    "label": "使役／尊敬",
+    "auxiliary": "classical_sasu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形 · 排除指定活用型",
+        "steps": [
+          "未然形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形 · 排除指定活用型",
+        "steps": [
+          "未然形 · 排除指定活用型"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_shimu": {
+    "label": "使役／尊敬",
+    "auxiliary": "classical_shimu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形",
+        "steps": [
+          "未然形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_su": {
+    "label": "使役",
+    "auxiliary": "classical_su",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格",
+        "steps": [
+          "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格",
+        "steps": [
+          "未然形 · 文語四段／四段／文語ナ行変格／ナ行変格／文語ラ行変格／ラ行変格"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_tari_copula": {
+    "label": "断定",
+    "auxiliary": "classical_tari_copula",
+    "paths": [
+      {
+        "id": "input0_noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      }
+    ]
+  },
+  "classical_tari_perfect": {
+    "label": "存续／完了",
+    "auxiliary": "classical_tari_perfect",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      },
+      {
+        "id": "input0_adjective",
+        "group": "イ形容词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "形容詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      },
+      {
+        "id": "input0_auxiliary",
+        "group": "助动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "助動詞"
+        ]
+      }
+    ]
+  },
+  "classical_tashi": {
+    "label": "愿望",
+    "auxiliary": "classical_tashi",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_tsu": {
+    "label": "完了／强意",
+    "auxiliary": "classical_tsu",
+    "paths": [
+      {
+        "id": "input0_classical",
+        "group": "文言用言",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "文語用言"
+        ]
+      },
+      {
+        "id": "input0_verb",
+        "group": "动词",
+        "label": "连用形",
+        "steps": [
+          "连用形"
+        ],
+        "input": "input0",
+        "categories": [
+          "動詞"
+        ]
+      }
+    ]
+  },
+  "classical_yaunari": {
+    "label": "比况／例示",
+    "auxiliary": "classical_yaunari",
+    "paths": [
+      {
+        "id": "input0_noun",
+        "group": "名词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "名詞",
+          "代名詞"
+        ]
+      },
+      {
+        "id": "input0_na",
+        "group": "ナ形容词",
+        "label": "词干",
+        "steps": [
+          "词干"
+        ],
+        "input": "input0",
+        "categories": [
+          "形状詞"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "adverbial_ni": {
+    "definition": {
+      "label": "连用修饰",
+      "title": "连用修饰",
+      "concept": "morphology.form.continuative",
+      "prototype": "に",
+      "display_suffix": "に"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal"
+      ],
+      "output_form": "continuative",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "judgement_adverbial"
+  },
+  "attributive_na": {
+    "definition": {
+      "label": "连体修饰",
+      "title": "连体修饰",
+      "concept": "morphology.form.adjectival_attributive",
+      "prototype": "な",
+      "display_suffix": "な"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "形状詞",
+        "名詞",
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "output_form": "attributive",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "judgement_attributive"
+  },
+  "copula": {
+    "definition": {
+      "label": "判断",
+      "title": "断定",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だ",
+      "display_suffix": "だ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "output_form": "terminal",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "judgement"
+  },
+  "copula_aru": {
+    "definition": {
+      "label": "判断",
+      "title": "断定",
+      "concept": "grammar.copula.de_aru",
+      "prototype": "である"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "体言／判断词干",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "continuative"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "connector",
+    "connection_rule": "judgement_aru"
+  },
+  "copula_de": {
+    "definition": {
+      "label": "断定连用",
+      "title": "断定接续",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "で"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "断定连用",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "continue",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "形状詞",
+        "形容詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "output_form": "continuative",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "te"
+  },
+  "copula_past": {
+    "definition": {
+      "label": "断定过去",
+      "title": "断定过去",
+      "concept": "grammar.auxiliary.da",
+      "prototype": "だった",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "surface": [
+                "でした"
+              ]
+            }
+          },
+          "form": "でした"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "断定过去",
+      "input_label": "体言／判断词干",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive",
+        "continuative"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "sequence",
+    "connection_rule": "judgement_past"
+  },
+  "darou_modality": {
+    "definition": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.modality.darou",
+      "prototype": "だろう"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "judgement_modality"
+  },
+  "deshou_modality": {
+    "definition": {
+      "label": "推量",
+      "title": "推量",
+      "concept": "grammar.modality.deshou",
+      "prototype": "でしょう"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "polite_judgement"
+  },
+  "hazu_modality": {
+    "definition": {
+      "label": "预期",
+      "title": "预期判断",
+      "concept": "grammar.expectation.hazu",
+      "prototype": "はず"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 70,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "名詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "sequence",
+    "connection_rule": "hazu"
+  },
+  "mitai_modality": {
+    "definition": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "grammar.modality.mitai",
+      "prototype": "みたいだ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "比况判断",
+      "input_label": "用言",
+      "output_category": "形状詞",
+      "terminal_mode": "continue",
+      "order_rank": 74,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "mitai"
+  },
+  "nara_condition": {
+    "definition": {
+      "label": "条件",
+      "title": "条件",
+      "concept": "morphology.mood.conditional",
+      "prototype": "なら"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "判断与推量",
+      "input_label": "用言",
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞",
+        "助動詞"
+      ],
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 70,
+      "output_form": "conditional",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "sequence",
+    "connection_rule": "nara"
+  },
+  "obligation": {
+    "definition": {
+      "label": "当为",
+      "title": "当为",
+      "concept": "grammar.obligation.beki",
+      "prototype": "べきだ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "当为判断",
+      "input_label": "用言",
+      "output_category": "形状詞",
+      "terminal_mode": "continue",
+      "order_rank": 75,
+      "input_categories": [
+        "動詞",
+        "文語用言"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "obligation"
+  },
+  "politeness_desu": {
+    "definition": {
+      "label": "丁寧",
+      "title": "敬体",
+      "concept": "grammar.auxiliary.desu",
+      "prototype": "です"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "敬体判断",
+      "input_label": "体言／判断词干",
+      "output_category": "保持前项",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 80,
+      "input_categories": [
+        "名詞",
+        "代名詞",
+        "形状詞",
+        "形容詞",
+        "動詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive",
+        "continuative"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "polite_judgement"
+  },
+  "rashii_modality": {
+    "definition": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "grammar.modality.rashii",
+      "prototype": "らしい"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "推量判断",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 71,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "rashii"
+  },
+  "sou_modality": {
+    "definition": {
+      "label": "活用",
+      "title": "样态 / 传闻",
+      "concept": "grammar.modality.sou",
+      "prototype": "そうだ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "样态判断",
+      "input_label": "用言",
+      "output_category": "形状詞",
+      "terminal_mode": "continue",
+      "order_rank": 72,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "continuative",
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "sou"
+  },
+  "you_modality": {
+    "definition": {
+      "label": "活用",
+      "title": "推量",
+      "concept": "grammar.modality.you",
+      "prototype": "ようだ"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "na_adjective_judgement",
+      "rule_group": "比况判断",
+      "input_label": "用言",
+      "output_category": "形状詞",
+      "terminal_mode": "continue",
+      "order_rank": 73,
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "名詞",
+        "形状詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive",
+        "stem"
+      ],
+      "output_form": "stem",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "sequence",
+    "connection_rule": "you"
+  }
+}

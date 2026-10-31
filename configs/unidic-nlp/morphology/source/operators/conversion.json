@@ -1,0 +1,267 @@
+{
+  "desire": {
+    "definition": {
+      "label": "愿望",
+      "title": "愿望",
+      "concept": "morphology.modality.desire",
+      "prototype": "たい"
+    },
+    "execution": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "主观愿望",
+      "input_label": "動詞",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 40,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "difficulty": {
+    "definition": {
+      "label": "活用",
+      "title": "困难",
+      "concept": "grammar.adjective.nikui",
+      "prototype": "にくい",
+      "variants": [
+        {
+          "token": {
+            "contains": {
+              "surface": [
+                "づらい"
+              ]
+            }
+          },
+          "form": "づらい"
+        },
+        {
+          "token": {
+            "contains": {
+              "lemma": [
+                "づらい"
+              ]
+            }
+          },
+          "form": "づらい"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "形容词转换",
+      "input_label": "動詞",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 40,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "ease": {
+    "definition": {
+      "label": "活用",
+      "title": "容易",
+      "concept": "grammar.adjective.yasui",
+      "prototype": "やすい"
+    },
+    "execution": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "形容词转换",
+      "input_label": "動詞",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 40,
+      "exclude_input_ctypes": [
+        "助動詞-マス",
+        "助動詞-タ",
+        "助動詞-デス",
+        "助動詞-ダ"
+      ],
+      "input_category_mode": "exact",
+      "input_categories": [
+        "動詞"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "continuative"
+  },
+  "kamoshirenai": {
+    "definition": {
+      "label": "可能性",
+      "title": "可能性",
+      "concept": "grammar.modality.kamo",
+      "prototype": "かもしれない"
+    },
+    "execution": {
+      "stage": "modality",
+      "executor": "i_adjective_conversion",
+      "rule_group": "兼容接续",
+      "input_label": "用言",
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 70,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "sequence",
+    "connection_rule": "kamoshirenai"
+  },
+  "koto_nominalization": {
+    "definition": {
+      "label": "こと",
+      "title": "内容／事件的名词化",
+      "concept": "grammar.formal.koto",
+      "prototype": "こと"
+    },
+    "execution": {
+      "stage": "conversion",
+      "executor": "nominalization",
+      "rule_group": "形式名词",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞"
+      ],
+      "input_forms": [
+        "terminal",
+        "attributive"
+      ],
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 45,
+      "output_form": "stem",
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "koto"
+  },
+  "nominalization": {
+    "definition": {
+      "label": "名词化",
+      "title": "名词化",
+      "concept": "grammar.functional.sa",
+      "prototype": "さ",
+      "variants": [
+        {
+          "token": {
+            "equals": {
+              "lemma": [
+                "の"
+              ]
+            }
+          },
+          "form": "の",
+          "concept": "grammar.nominalization.no"
+        }
+      ]
+    },
+    "execution": {
+      "stage": "conversion",
+      "executor": "nominalization",
+      "rule_group": "名词化",
+      "input_label": "用言",
+      "output_category": "名詞",
+      "terminal_mode": "continue",
+      "order_rank": 45,
+      "input_category_mode": "judgement_compatible",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "形状詞",
+        "助動詞",
+        "文語用言"
+      ]
+    },
+    "connection_type": "direct",
+    "connection_rule": "nominalization"
+  },
+  "rashii_characteristic": {
+    "definition": {
+      "label": "典型性",
+      "title": "典型性",
+      "concept": "grammar.modality.rashii",
+      "prototype": "らしい"
+    },
+    "execution": {
+      "stage": "desire",
+      "executor": "i_adjective_conversion",
+      "rule_group": "典型性",
+      "input_label": "名詞",
+      "output_category": "形容詞",
+      "terminal_mode": "sentence_or_pause",
+      "order_rank": 40,
+      "input_categories": [
+        "名詞"
+      ],
+      "input_forms": [
+        "stem"
+      ],
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "direct",
+    "connection_rule": "rashii_characteristic"
+  },
+  "shika_nai": {
+    "definition": {
+      "label": "しかない",
+      "title": "唯一选择",
+      "concept": "grammar.restriction.shika_nai",
+      "prototype": "しかない"
+    },
+    "execution": {
+      "stage": "conversion",
+      "executor": "i_adjective_conversion",
+      "rule_group": "限定与选择",
+      "input_categories": [
+        "動詞",
+        "形容詞",
+        "助動詞",
+        "名詞",
+        "代名詞",
+        "形状詞"
+      ],
+      "input_forms": [
+        "stem",
+        "terminal",
+        "attributive"
+      ],
+      "output_category": "形容詞",
+      "terminal_mode": "continue",
+      "order_rank": 50,
+      "input_label": "",
+      "input_category_mode": "judgement_compatible"
+    },
+    "connection_type": "sequence",
+    "connection_rule": "shika_nai"
+  }
+}

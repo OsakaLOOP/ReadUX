@@ -12,7 +12,9 @@
 
 维护约定见 [第 11 阶段展示规范](morphology_stage11_bubble_display.md)。完成修改后可运行 python -X utf8 scripts/check_morphology_connections.py，检查全部条目的分类、路径、连接器、概念正文、例句以及既有路径引用。检查脚本只读取资源。
 
-运行配置入口为 `configs/unidic-nlp/morphology.json`，协议为 `readux.morphology-config.v1`。Rust 编译时嵌入配置，前端导入同一文件；配置内容参与基础分析与完整分析缓存标识。`max_auxiliary_depth` 显式声明为 8。字段契约、顺序语义和后续分文件编译方案见[配置协议与存储重构](morphology_storage_refactor_analysis.md)。
+维护入口为 `configs/unidic-nlp/morphology/source/`，文件索引见 [source/README.md](../configs/unidic-nlp/morphology/source/README.md)。`npm run morphology:build` 编译生成 `configs/unidic-nlp/morphology.json`，`npm run morphology:check` 核对字节与引用一致性。开发、预览和构建入口自动生成配置，发布 CI 检查源文件与产物对应关系。
+
+运行配置协议为 `readux.morphology-config.v1`。Rust 编译时嵌入生成文件，前端导入同一文件；配置内容参与基础分析与完整分析缓存标识。`max_auxiliary_depth` 显式声明为 8。字段契约、顺序语义和编译细节见[配置协议与存储重构](morphology_storage_refactor_analysis.md)。
 
 `intrinsic_features` 保存 `conjugation`、`initial_alternation`、`final_alternation` 三种由分析阶段创建的原子特征，用于 occurrence、查询目标和展示筛选。`connection_types.inflection` 则记录四个词内活用 operator 的接续结构分类。Rust 与前端在配置加载后建立 operator 到规则、分类的索引。
 
