@@ -1301,7 +1301,14 @@ function activeRangesForCapsule(capsule: TextCapsule): CapsuleActiveRange[] {
     if (!selected.length) return [];
     const clicked = selected.find((part) => activePartRange.value
       && part.range[0] < activePartRange.value[1] && part.range[1] > activePartRange.value[0]) ?? selected[0];
-    if (clicked.detail?.highlight) return clicked.detail.highlight.segments.map((segment) => ({ ...segment, group: clicked.detail!.highlight!.unit }));
+    if (clicked.detail?.highlight) {
+      const offset = query.selectionDocument ? query.range[0] : query.unit.contextOffset;
+      return clicked.detail.highlight.segments.map((segment) => ({
+        ...segment,
+        range: [segment.range[0] + offset, segment.range[1] + offset] as [number, number],
+        group: clicked.detail!.highlight!.unit,
+      }));
+    }
     const detailRange = clicked.detailRange ?? clicked.range;
     return [{ range: detailRange, tone: clicked.detailRole === "stem" ? "blue" : "grammar", group: clicked.detail?.id }];
   }
@@ -1344,9 +1351,12 @@ async function keepLookupSourceAboveSheet() {
 }
 
 function selectConnectionPart(id: string) {
-  const range = activeDetail.value?.connection?.sentence.find((part) => part.id === id)?.range;
-  const unitId = activeHit.value?.unit.unit.unit_id;
-  if (!range || !unitId) return;
+  const localRange = activeDetail.value?.connection?.sentence.find((part) => part.id === id)?.range;
+  const hit = activeHit.value;
+  if (!localRange || !hit) return;
+  const unitId = hit.unit.unit.unit_id;
+  const offset = hit.selectionDocument ? hit.range[0] : hit.unit.contextOffset;
+  const range: [number, number] = [localRange[0] + offset, localRange[1] + offset];
   const parts = [...visibleCapsules.value.values()].flat().flatMap((capsule) => capsule.parts).filter((item) =>
     item.hit?.unit.unit.unit_id === unitId && item.detail && item.range[0] < range[1] && item.range[1] > range[0]);
   const part = parts.find((item) => item.detailRole === "grammar") ?? parts[0];

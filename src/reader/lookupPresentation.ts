@@ -905,7 +905,10 @@ export function readerMorphologyHits(
         const sourceFields = document.source.tokens.find((token) => token.index === sourceToken?.source_index)?.fields ?? [];
         const conjugationType = sourceFields.find((field) => field.name === "cType")?.value ?? "";
         const conjugationForm = sourceFields.find((field) => field.name === "cForm")?.value ?? "";
-        const split = chain.parent_chain_id === null
+        // 一段动词的未然形和连用形保留完整词干，如「いない」中的「い」。
+        const stemOnly = chain.parent_chain_id === null && /一段/u.test(conjugationType)
+          && /^(未然形|連用形)/u.test(conjugationForm);
+        const split = chain.parent_chain_id === null && !stemOnly
           ? inflectionStemAndEnding(surface, operator.char_range, conjugationType, conjugationForm)
           : null;
         if (split) {
@@ -928,8 +931,14 @@ export function readerMorphologyHits(
         return [{
           range: operator.char_range,
           targetId: target.id,
-          role: "grammar" as const,
-          detail,
+          role: stemOnly ? "stem" as const : "grammar" as const,
+          detail: stemOnly ? {
+            ...detail,
+            highlight: {
+              ...detail.highlight,
+              segments: [{ range: detail.highlight.range, tone: "blue" as const }],
+            },
+          } : detail,
         }];
       });
     const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
