@@ -21,6 +21,8 @@ __pycache__/
 /src/version/changelog.json
 
 # Local NLP dictionaries and generated runtime databases
+
+public/library/
 /data/*
 !/data/baselines/
 !/data/validation/
@@ -32,6 +34,7 @@ __pycache__/
 /unidic-cwj-202512/
 /unidic-csj-202512/
 /upload-resources/
+/dist.zip
 *.dic
 *.mdx
 
