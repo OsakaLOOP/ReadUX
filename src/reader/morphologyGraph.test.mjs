@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyLocalTransition } from "./morphologyBubble.ts";
-import { layoutConnectionRules, layoutSentenceChain } from "./morphologyGraph.ts";
+import { layoutConnectionRules, layoutSentenceChain, morphologyGraphLink } from "./morphologyGraph.ts";
 import { readerMorphologyHits } from "./lookupPresentation.ts";
 
 const snapshots = JSON.parse(readFileSync(new URL("../grammar-guide/lesson-stage11-analysis.json", import.meta.url), "utf8")).examples;
@@ -111,17 +111,16 @@ test("名词性变化经实际连接器进入なる，形容词连用形直接�
           const connector = layout.nodes.find((node) => node.kind === "connector");
           assert.equal(connector.lines[0].text, "に");
           assert.ok(connector.matched);
-          assert.ok(layout.links.some((link) => link.source === connector.id && link.target === "target" && link.matched));
+          assert.ok(layout.links.some((link) => link.source === connector.id && link.target === diagram.targetNodeId && link.matched));
           for (const group of layout.nodes.filter((node) => node.kind === "group")) {
             assert.ok(layout.links.some((link) => link.source === group.id && link.target === connector.id));
           }
-          const current = diagram.branches.flatMap((branch) => branch.groups).flatMap((group) => group.paths).find((path) => path.matched);
-          assert.equal(current.actual, operator.connection.predecessor_surface);
+          assert.equal(diagram.predecessor.surface, operator.connection.predecessor_surface);
         } else {
           directCount++;
           assert.deepEqual(diagram.branches.map((branch) => branch.label), [""]);
           assert.ok(layout.nodes.every((node) => node.kind !== "connector"));
-          assert.ok(layout.links.some((link) => link.target === "target" && link.matched));
+          assert.ok(layout.links.some((link) => link.target === diagram.targetNodeId && link.matched));
         }
       }
     }
@@ -314,7 +313,7 @@ test("前接只连接词性节点，未显示的单条条件可展开，完整�
 });
 
 test("前接图各父节点按子节点范围自然居中，末个分类只计算标题", () => {
-  const path = (id, matched) => ({ id, label: id, condition: `${id}接续条件`, matched, actual: "" });
+  const path = (id, matched) => ({ id, label: id, condition: `${id}接续条件`, matched });
   const diagram = {
     target: "ません",
     branches: [
@@ -329,13 +328,65 @@ test("前接图各父节点按子节点范围自然居中，末个分类只计�
   };
   const layout = layoutConnectionRules(diagram, "verbs");
   const categories = layout.nodes.filter((node) => node.kind === "group").sort((a, b) => a.y - b.y);
-  assert.ok(categories[0].height > 28);
+  assert.ok(categories[0].height > 44);
   for (const parent of layout.nodes.filter((node) => node.kind !== "group")) {
     const children = layout.links.filter((link) => link.target === parent.id)
       .map((link) => layout.nodes.find((node) => node.id === link.source)).sort((a, b) => a.y - b.y);
     const first = children[0];
     const last = children.at(-1);
-    const bottom = last.y + (last.kind === "group" ? 28 : last.height);
+    const bottom = last.y + (last.kind === "group" ? 44 : last.height);
     assert.equal(parent.y + parent.height / 2, (first.y + bottom) / 2);
   }
+});
+
+test("切换连续活用词时沿用句中节点身份作为前接词，并以无箭头高亮线连接词性", () => {
+  const document = snapshots["M11-39"].document;
+  const owner = document.morphology.chains.find((chain) => chain.operators.some((operator) => operator.kind === "past"));
+  const previous = owner.operators.find((operator) => operator.kind === "te_iru");
+  const selected = owner.operators.find((operator) => operator.kind === "past");
+  const before = morphologyConnectionDiagram(previous, owner, document, owner.status);
+  const after = morphologyConnectionDiagram(selected, owner, document, owner.status);
+  assert.equal(before.targetNodeId, after.predecessor.id);
+  assert.ok(after.sentence.some((part) => part.range && `sentence:${part.range[0]}:${part.range[1]}` === after.predecessor.id
+    && part.surface === after.predecessor.surface));
+
+  const beforeLayout = layoutConnectionRules(before, null);
+  const afterLayout = layoutConnectionRules(after, null);
+  const oldTarget = beforeLayout.nodes.find((node) => node.id === before.targetNodeId);
+  const movedPredecessor = afterLayout.nodes.find((node) => node.id === after.predecessor.id);
+  const category = afterLayout.nodes.find((node) => node.id.startsWith("group:") && node.matched);
+  const link = afterLayout.links.find((item) => item.source === movedPredecessor.id && item.target === category.id);
+  assert.equal(oldTarget.kind, "target");
+  assert.equal(movedPredecessor.kind, "predecessor");
+  assert.ok(oldTarget.x > movedPredecessor.x);
+  assert.ok(movedPredecessor.x < category.x);
+  assert.equal(link.matched, true);
+  assert.equal(link.arrow, false);
+  assert.equal(morphologyGraphLink(link, new Map(afterLayout.nodes.map((node) => [node.id, node]))),
+    `M${movedPredecessor.x + movedPredecessor.width},${movedPredecessor.y + 22}L${category.x},${category.y + 22}`);
+  assert.equal(movedPredecessor.width, Math.max(Array.from(after.predecessor.surface).length * 15, Array.from(after.predecessor.form).length * 11) + 24);
+  assert.equal(afterLayout.nodes.find((node) => node.id === after.targetNodeId).width, Array.from(after.target).length * 15 + 24);
+  assert.ok((category.list ?? []).every((row) => !("actual" in row)));
+
+  const operators = document.morphology.chains.flatMap((chain) => chain.operators);
+  const connector = operators.find((operator) => operator.kind === "te_connection");
+  const connectorOwner = document.morphology.chains.find((chain) => chain.operators.includes(connector));
+  const connectorDiagram = morphologyConnectionDiagram(connector, connectorOwner, document, owner.status);
+  const matchedBranch = connectorDiagram.branches.find((branch) => branch.matched);
+  assert.equal(connectorDiagram.target, null);
+  const connectorPart = connectorDiagram.sentence.find((part) => part.unit === connector.operator_id);
+  assert.equal(`sentence:${connectorPart.range[0]}:${connectorPart.range[1]}`, matchedBranch.nodeId);
+  assert.equal(layoutConnectionRules(connectorDiagram, null).nodes.find((node) => node.id === matchedBranch.nodeId).kind, "connector");
+});
+
+test("接续规则词性列按照固定词类顺序排列", () => {
+  const labels = ["文言", "名词", "名词 / ナ形容词", "い形容词", "动词"];
+  const diagram = { target: "ない", branches: [{ id: "direct", label: "", matched: true, groups: labels.map((label) => ({
+    id: label, label, paths: [{ id: label, label: `${label}路径`, condition: "接续条件", matched: false }],
+  })) }] };
+  const categories = layoutConnectionRules(diagram, null).nodes.filter((node) => node.kind === "group").sort((a, b) => a.y - b.y);
+  assert.deepEqual(categories.map((node) => node.lines[0].text), ["动词", "い形容词", "名词 / ナ形容词", "名词", "文言"]);
+  const reduced = { ...diagram, branches: [{ ...diagram.branches[0], groups: diagram.branches[0].groups.filter((group) => ["动词", "名词", "文言"].includes(group.label)) }] };
+  assert.deepEqual(layoutConnectionRules(reduced, null).nodes.filter((node) => node.kind === "group").sort((a, b) => a.y - b.y).map((node) => node.lines[0].text),
+    ["动词", "名词", "文言"]);
 });

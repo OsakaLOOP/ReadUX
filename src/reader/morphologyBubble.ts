@@ -17,7 +17,6 @@ export interface ConnectionPathView {
   label: string;
   condition: string;
   matched: boolean;
-  actual: string;
 }
 export interface ConnectionGroupView { id: string; label: string; paths: ConnectionPathView[] }
 export interface SentenceChainPart {
@@ -36,10 +35,15 @@ export interface SentenceChainPart {
 export interface ConnectionDiagram {
   id: string;
   target: string | null;
+  targetNodeId?: string;
+  predecessor?: { id: string; surface: string; form: string };
   status: string;
   diagnostics: string[];
-  branches: { id: string; label: string; matched: boolean; groups: ConnectionGroupView[] }[];
+  branches: { id: string; nodeId?: string; label: string; matched: boolean; groups: ConnectionGroupView[] }[];
   sentence: SentenceChainPart[];
+}
+function sentenceNodeId(part: SentenceChainPart) {
+  return part.range ? `sentence:${part.range[0]}:${part.range[1]}` : part.id;
 }
 
 const explanationByConcept = new Map(explanations.explanations.map((item) => [item.concept_id, item]));
@@ -299,6 +303,14 @@ export function morphologyConnectionDiagram(
   const rule = connection && rules[connection.rule];
   const sentence = morphologySentenceParts(operator, owner, document);
   if (!rule && !sentence.length) return null;
+  const targetPart = sentence.find((part) => part.unit === operator.operator_id);
+  const predecessorRange = connection?.predecessor_range;
+  const predecessorPart = predecessorRange && sentence
+    .filter((part) => part.range && part.range[0] < predecessorRange[1] && predecessorRange[0] < part.range[1] && part.range[1] === predecessorRange[1])
+    .sort((left, right) => right.range![0] - left.range![0])[0];
+  const predecessor = predecessorPart && targetPart && sentenceNodeId(predecessorPart) !== sentenceNodeId(targetPart) && connection?.predecessor_surface
+    ? { id: sentenceNodeId(predecessorPart), surface: connection.predecessor_surface, form: predecessorPart.form }
+    : undefined;
   const connector = connection?.connector_operator_id
     ? document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.operator_id === connection.connector_operator_id) : operator;
   const separateTe = connection?.rule === "te" || connection?.rule === "contracted_te";
@@ -323,11 +335,13 @@ export function morphologyConnectionDiagram(
       const steps = path.steps.filter((step) => !separateTe || step !== label);
       // 词条自身的组成由目标节点说明，前接卡片仅保留输入条件。
       const conditions = connection?.rule === "zuni" ? steps.filter((step) => !["ず", "に", "に（接续用法）"].includes(step)) : steps;
-      group.paths.push({ id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched,
-        actual: matched ? [connection?.predecessor_surface, ...morphologyTags("", connector?.state_before?.conjugation_form)].filter(Boolean).join(" · ") : "" });
+      group.paths.push({ id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched });
     }
-    return { id: label || connection?.rule || "", label, groups, matched: groups.some((group) => group.paths.some((path) => path.matched)) };
+    const matched = groups.some((group) => group.paths.some((path) => path.matched));
+    return { id: label || connection?.rule || "", nodeId: separateTe && matched && targetPart ? sentenceNodeId(targetPart) : undefined, label, groups, matched };
   }).filter((branch) => branch.groups.length);
   return { id: operator.operator_id, target: separateTe && !operatorDefinitions[operator.kind]?.support ? null : morphologyEntry(operator, document).headword,
+    targetNodeId: targetPart ? sentenceNodeId(targetPart) : undefined,
+    predecessor,
     status, diagnostics: connection?.diagnostics ?? [], branches, sentence };
 }

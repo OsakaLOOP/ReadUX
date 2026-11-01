@@ -21,13 +21,13 @@ const selectedBounds = computed(() => {
   const ranges = (groups.length ? groups : nodes).flatMap((node) => {
     if (node.kind !== 'group') return [{ top: node.y, bottom: node.y + node.height }];
     // 规则栏居中显示当前命中的条目，展开列表中的其他条目保留手动滚动。
-    let top = node.y + 35;
+    let top = node.y + 51;
     const rows = (node.list ?? []).flatMap((row) => {
       const range = { top, bottom: top + row.height };
       top += row.height;
       return row.matched ? [range] : [];
     });
-    return rows.length ? rows : [{ top: node.y, bottom: node.y + 28 }];
+    return rows.length ? rows : [{ top: node.y, bottom: node.y + 44 }];
   });
   return nodes.length ? {
     left: Math.min(...nodes.map((node) => node.x)),
@@ -100,26 +100,26 @@ watch([current, viewportWidth, viewportHeight], async () => {
 
 function textY(node: GraphNode, index: number) {
   const contentHeight = node.lines.reduce((sum, line) => sum + (line.kind === 'secondary' ? 15 : 18), 0);
-  const height = node.kind === 'group' ? 28 : node.height;
+  const height = node.kind === 'group' ? 44 : node.height;
   return (height - contentHeight) / 2 + 13 + node.lines.slice(0, index).reduce((sum, line) => sum + (line.kind === 'secondary' ? 15 : 18), 0);
 }
 
 function listGuides(node: GraphNode) {
-  let y = 35;
+  let y = 51;
   const branches = (node.list ?? []).map((row) => {
     const line = `M12,${y + 12}H23`;
     y += row.height;
     return line;
   });
   const last = node.list?.[node.list.length - 1];
-  const bottom = last ? y - last.height + 12 : 28;
-  return `M12,28V${bottom} ${branches.join(' ')}`;
+  const bottom = last ? y - last.height + 12 : 44;
+  return `M12,44V${bottom} ${branches.join(' ')}`;
 }
 
 function currentGuide(node: GraphNode) {
-  let y = 35;
+  let y = 51;
   for (const row of node.list ?? []) {
-    if (row.matched) return `M12,28V${y + 12}H22`;
+    if (row.matched) return `M12,44V${y + 12}H22`;
     y += row.height;
   }
   return '';
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
       </defs>
       <g class="morphology-graph__edges" aria-hidden="true">
         <g v-for="link in orderedLinks" :key="link.id" :class="{ 'is-matched': link.matched, 'is-fold': link.vertical }">
-          <path :d="morphologyGraphLink(link, nodeMap)" :marker-end="`url(#${markerId})`" />
+          <path :d="morphologyGraphLink(link, nodeMap)" :marker-end="link.arrow === false ? undefined : `url(#${markerId})`" />
           <text v-if="link.label && nodeMap.get(link.source) && nodeMap.get(link.target)"
             :x="(nodeMap.get(link.source)!.x + nodeMap.get(link.source)!.width / 2 + nodeMap.get(link.target)!.x + nodeMap.get(link.target)!.width / 2) / 2 + 9"
             :y="(nodeMap.get(link.source)!.y + nodeMap.get(link.source)!.height + nodeMap.get(link.target)!.y) / 2 + 3">{{ link.label }}</text>
@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
         :data-node-id="node.id" :data-matched="node.matched ? '' : undefined" :data-touch-brush="node.kind === 'sentence' ? node.id : undefined"
         role="group" :aria-label="node.lines.map(line => line.text).join('，')">
         <title>{{ node.lines.map(line => line.text).join(' · ') }}</title>
-        <rect :width="node.width" :height="node.kind === 'group' ? 28 : node.height" rx="6"
+        <rect :width="node.width" :height="node.kind === 'group' ? 44 : node.height" rx="6"
           :role="node.action || node.kind === 'sentence' ? 'button' : undefined" :tabindex="node.action || node.kind === 'sentence' ? 0 : undefined"
           :aria-label="node.action ? `${node.action.expanded ? '收起' : '展开'}${node.lines[0].text}的其他接续路径` : node.kind === 'sentence' ? node.lines[0].text : undefined"
           :aria-expanded="node.action ? node.action.expanded : undefined"
@@ -204,10 +204,10 @@ onBeforeUnmount(() => {
         <template v-if="node.list?.length">
           <path class="morphology-graph__list-stem" :d="listGuides(node)" aria-hidden="true" />
           <path v-if="currentGuide(node)" class="morphology-graph__current-stem" :d="currentGuide(node)" :marker-end="`url(#${markerId})`" aria-hidden="true" />
-          <foreignObject x="24" y="35" :width="node.width - 24" :height="Math.max(0, node.height - 35)" @click.stop>
+          <foreignObject x="24" y="51" :width="node.width - 36" :height="Math.max(0, node.height - 51)" @click.stop>
             <div class="morphology-rule-list" role="list" :aria-label="`${node.lines[0].text}的细分类`">
               <div v-for="row in node.list" :key="row.id" class="morphology-rule-list__row" :class="{ 'is-current': row.matched }" role="listitem" :data-path-id="row.id" :data-current-path="row.matched ? '' : undefined">
-                <div class="morphology-rule-list__heading"><span>{{ row.label }}</span><b v-if="row.actual" lang="ja">{{ row.actual }}</b></div>
+                <div class="morphology-rule-list__heading"><span>{{ row.label }}</span></div>
                 <div v-if="row.condition" class="morphology-rule-list__condition">{{ row.condition }}</div>
               </div>
             </div>
@@ -234,7 +234,7 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-graph__node.is-matched > rect { fill: color-mix(in srgb, var(--bg-primary, #fff) 92%, var(--accent-color)); stroke: var(--accent-color); stroke-width: 1.5; }
 .morphology-graph__node text { pointer-events: none; fill: var(--text-primary); }
 .morphology-graph__node .line-main { font-weight: 500; font-size: 12px; }
-.morphology-graph__node.is-sentence .line-main, .morphology-graph__node.is-connector .line-main, .morphology-graph__node.is-target .line-main { font: 600 15px var(--font-ja); }
+.morphology-graph__node.is-sentence .line-main, .morphology-graph__node.is-connector .line-main, .morphology-graph__node.is-target .line-main, .morphology-graph__node.is-predecessor .line-main { font: 600 15px var(--font-ja); }
 .morphology-graph__node .line-secondary { fill: var(--text-secondary); font-size: 11px; }
 .morphology-graph__node .line-actual { fill: var(--accent-color); font: 500 12px var(--font-ja); }
 .morphology-graph__node .run-label { fill: var(--text-secondary); font: 12px var(--font-ui); }
@@ -253,7 +253,6 @@ svg { display: block; margin: 0 auto; overflow: visible; font: 12px/1.4 var(--fo
 .morphology-rule-list__row { padding: 3px 0; }
 .morphology-rule-list__heading { display: flex; align-items: baseline; gap: 4px; transition: color 180ms ease; }
 .morphology-rule-list__condition { color: var(--text-secondary); font-size: 11px; line-height: 15px; overflow-wrap: anywhere; }
-.morphology-rule-list__heading b { margin-left: auto; color: var(--accent-color); font: 500 12px/18px var(--font-ja); white-space: nowrap; }
 .morphology-rule-list__row.is-current .morphology-rule-list__heading { color: var(--accent-color); }
 @media (prefers-reduced-motion: reduce) {
   .morphology-graph__edges path, .morphology-graph__edges text, .morphology-graph__node rect, .morphology-rule-list__heading { transition: none; }
