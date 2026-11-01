@@ -697,10 +697,10 @@
   },
   "negative_zuni": {
     "definition": {
-      "label": "否定接续",
-      "title": "否定接续",
+      "label": "文言否定",
+      "title": "文言否定",
       "concept": "grammar.classical.zu",
-      "prototype": "ずに"
+      "prototype": "ず"
     },
     "execution": {
       "stage": "classical",

@@ -203,6 +203,10 @@ fn judgement_stems_and_endings_form_complete_chains() {
             assert_eq!(tail.state_after.form, *form);
             if *ending_kind == "copula_past" {
                 assert_eq!(
+                    tail.normalized_form.as_deref(),
+                    Some(if ending[0].surface == "でし" { "でした" } else { "だった" })
+                );
+                assert_eq!(
                     chain
                         .operators
                         .iter()
@@ -612,9 +616,11 @@ fn classical_chaining_and_modern_boundaries_use_form_and_context() {
         },
     ]);
     assert!(zu.diagnostics.is_empty(), "{:?}", zu.diagnostics);
-    assert_eq!(zu.chains.len(), 1);
-    assert_eq!(zu.chains[0].final_state.form, ConnectionForm::Other);
+    assert_eq!(zu.chains.len(), 2);
+    assert_eq!(zu.chains[0].surface_form, "読まず");
+    assert_eq!(zu.chains[0].final_state.form, ConnectionForm::Continuative);
     assert!(zu.chains[0].terminal);
+    assert_eq!(zu.chains[1].surface_form, "に");
 }
 
 #[test]

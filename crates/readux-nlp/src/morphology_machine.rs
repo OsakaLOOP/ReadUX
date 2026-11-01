@@ -631,9 +631,6 @@ impl ClassicalConjugationExecutor {
         atom.final_state.form =
             config::classical_connection_form(&atom.final_state.conjugation_form)
                 .unwrap_or_else(|| atom.final_state.form.clone());
-        if kind == "negative_zuni" && atom.morpheme_range[1] > atom.morpheme_range[0] + 1 {
-            atom.final_state.form = ConnectionForm::Other;
-        }
         atom.evidence.extend([
             format!("classical_paradigm:{}:{}", entry.class_name, form_name),
             format!("classical_connection:{}", entry.connection.join("／")),
@@ -939,7 +936,6 @@ fn operator(
     token: &ProviderToken,
 ) -> MorphologyOperator {
     let metadata = config::rule_metadata(&kind);
-    let definition = config::definition(&kind);
     let mut operator = MorphologyOperator {
         operator_id: format!("morphology:{}:{kind}", atom.anchor_morpheme),
         source_morpheme_range: atom.morpheme_range,
@@ -948,9 +944,7 @@ fn operator(
         output_state: format!("{}{}", chain.surface_form, atom.surface_form),
         state_before: chain.final_state.clone(),
         state_after: atom.final_state.clone(),
-        normalized_form: definition
-            .and_then(|entry| entry.normalized.clone())
-            .or_else(|| config::prototype(&kind, token)),
+        normalized_form: config::display_form(&kind, &atom.surface_form, token),
         concept_id: config::concept(&kind, token).unwrap_or_else(|| feature_concept(&kind)).to_owned(),
         confidence: 1.0,
         evidence: atom.evidence.clone(),
@@ -1301,7 +1295,6 @@ pub(crate) fn compose(
             .last()
             .and_then(|previous| suffix_sequence(previous, index, source, &context));
         if let Some(rule) = sequence {
-            let first_state = atom.final_state.clone();
             for _ in 1..rule.tokens.len() {
                 merge(
                     &mut atom,
@@ -1311,9 +1304,6 @@ pub(crate) fn compose(
             }
             atom.operators.clear();
             atom.evidence.extend(rule.phenomena.iter().cloned());
-            if rule.kind == "negative_zuni" {
-                atom.final_state = first_state;
-            }
         }
         let rule_token = sequence.map_or(current, |rule| &source[index + rule.head]);
         atom.source_evidence = context.evidence(atom.char_range);

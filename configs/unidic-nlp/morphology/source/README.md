@@ -36,7 +36,7 @@ npm run morphology:check
 
 每个 operator ID 在一个领域文件中保存 `definition`、`execution`、`connection_type` 和 `connection_rule`。执行器决定领域归属。`connection_rule` 为直接所属规则 ID；通过连接器继承路径时填写 null，并在 definition 声明 connector。
 
-输入文案位于 execution.input_label；机器条件使用 input_category_mode、input_categories、input_forms。输出状态字段统一位于 execution。definition 中的 variants 按顺序匹配，Rust 将本句结果写入 normalized_form。
+输入文案位于 execution.input_label；机器条件使用 input_category_mode、input_categories、input_forms。输出状态字段统一位于 execution。语法词条可以登记多个 display_forms；variants 将实际表面形映射到其中一个显示形，Rust 将本句选择结果写入 normalized_form。normalized 用于音便或缩略等需要规范化查询与展示的词形。
 
 文言 inputs 的 id 是稳定引用。路径布局通过 input 指向该声明，通过 categories 选择显示分支；名词与代词可以共享分支。forms、ctypes、exclude_ctypes 从输入声明取得。新增输入类别时同步声明其显示分支。
 

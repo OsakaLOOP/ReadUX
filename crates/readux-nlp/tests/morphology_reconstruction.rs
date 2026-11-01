@@ -693,6 +693,11 @@ fn classical_rules_keep_their_own_entities_and_concepts() {
         assert_eq!(operator.concept_id, concept, "{text}");
         assert_eq!(operator.executor, "classical_conjugation", "{text}");
         assert_eq!(chain.final_state.entity_class, "文言活用类", "{text}");
+        if kind == "negative_zuni" {
+            assert_eq!(operator.normalized_form.as_deref(), Some("ず"), "{text}");
+            assert_eq!(operator.char_range[1] - operator.char_range[0], 1, "{text}");
+            assert!(chain.surface_form.ends_with("ず"), "{}", chain.surface_form);
+        }
     }
 
     let modern = run(

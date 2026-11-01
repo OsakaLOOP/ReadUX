@@ -247,6 +247,7 @@ pub struct Operator {
     pub title: String,
     pub concept: String,
     pub prototype: String,
+    pub display_forms: Vec<String>,
     pub variants: Vec<PrototypeVariant>,
     pub token_lemma: bool,
     pub normalized: Option<String>,
@@ -263,6 +264,8 @@ pub struct Operator {
 pub struct PrototypeVariant {
     pub token: TokenPattern,
     pub form: String,
+    #[serde(default)]
+    pub observed_form: Option<String>,
     #[serde(default)]
     pub concept: Option<String>,
 }
@@ -714,6 +717,21 @@ pub fn prototype(kind: &str, token: &ProviderToken) -> Option<String> {
         return Some(field(token, 7).into());
     }
     (!entry.prototype.is_empty()).then(|| entry.prototype.clone())
+}
+
+pub fn display_form(kind: &str, observed_form: &str, token: &ProviderToken) -> Option<String> {
+    let entry = definition(kind)?;
+    if let Some(variant) = entry
+        .variants
+        .iter()
+        .find(|variant| variant.observed_form.as_deref() == Some(observed_form))
+    {
+        return Some(variant.form.clone());
+    }
+    entry
+        .normalized
+        .clone()
+        .or_else(|| prototype(kind, token))
 }
 
 pub fn features(token: &ProviderToken) -> Vec<String> {

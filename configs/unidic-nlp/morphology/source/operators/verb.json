@@ -32,6 +32,11 @@
       "title": "使役",
       "concept": "morphology.voice.causative",
       "prototype": "せる",
+      "display_forms": [
+        "せる",
+        "させる",
+        "しめる"
+      ],
       "variants": [
         {
           "token": {
@@ -103,6 +108,10 @@
       "title": "逆接",
       "concept": "grammar.connective.keredomo",
       "prototype": "ど",
+      "display_forms": [
+        "ど",
+        "ども"
+      ],
       "variants": [
         {
           "token": {
@@ -232,7 +241,7 @@
               ]
             }
           },
-          "form": "ぐらい"
+          "form": "くらい"
         }
       ]
     },
@@ -399,19 +408,8 @@
       "label": "逆接",
       "title": "逆接",
       "concept": "grammar.connective.kedo",
-      "prototype": "けど",
-      "variants": [
-        {
-          "token": {
-            "equals": {
-              "surface": [
-                "けれど"
-              ]
-            }
-          },
-          "form": "けれど"
-        }
-      ]
+      "prototype": "けれど",
+      "normalized": "けれど"
     },
     "execution": {
       "stage": "boundary",
@@ -738,6 +736,11 @@
       "title": "否定形",
       "concept": "morphology.polarity.negative",
       "prototype": "ない",
+      "display_forms": [
+        "ない",
+        "ぬ",
+        "ず"
+      ],
       "variants": [
         {
           "token": {
@@ -750,7 +753,7 @@
               ]
             }
           },
-          "form": "ん"
+          "form": "ない"
         },
         {
           "token": {
@@ -1034,6 +1037,10 @@
       "title": "可能、被动等",
       "concept": "morphology.voice.passive_potential",
       "prototype": "れる",
+      "display_forms": [
+        "れる",
+        "られる"
+      ],
       "variants": [
         {
           "token": {
@@ -1332,7 +1339,7 @@
               ]
             }
           },
-          "form": "だら"
+          "form": "たら"
         }
       ]
     },
@@ -1458,6 +1465,10 @@
       "title": "意向形",
       "concept": "morphology.mood.volitional",
       "prototype": "う",
+      "display_forms": [
+        "う",
+        "よう"
+      ],
       "variants": [
         {
           "token": {

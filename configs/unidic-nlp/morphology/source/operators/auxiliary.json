@@ -775,7 +775,7 @@
               ]
             }
           },
-          "form": "で"
+          "form": "て"
         }
       ]
     },
@@ -812,7 +812,7 @@
               ]
             }
           },
-          "form": "で"
+          "form": "て"
         }
       ]
     },
@@ -904,6 +904,10 @@
       "title": "许可／认可",
       "concept": "grammar.permission.te_ii",
       "prototype": "ていい",
+      "display_forms": [
+        "ていい",
+        "てよい"
+      ],
       "variants": [
         {
           "token": {

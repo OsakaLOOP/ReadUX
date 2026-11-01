@@ -162,15 +162,20 @@
       "title": "断定过去",
       "concept": "grammar.auxiliary.da",
       "prototype": "だった",
+      "display_forms": [
+        "だった",
+        "でした"
+      ],
       "variants": [
         {
           "token": {
             "equals": {
               "surface": [
-                "でした"
+                "でし"
               ]
             }
           },
+          "observed_form": "でした",
           "form": "でした"
         }
       ]

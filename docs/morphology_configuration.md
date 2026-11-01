@@ -30,7 +30,7 @@
 
 `operators` 按形式身份定义概念目录路由、标题、原型与候选解释；`rule_metadata` 统一声明输出词类 `output_category`、输出活用形 `output_form` 和状态继承 `preserve_state`。はず的输出词类为名词。补助用言的 `support` 声明词元和连接组，`connector` 指向前项接续形式，`compound_candidate` 控制整体查词候选。
 
-Rust 根据完整 UniDic 字段按顺序选择 `variants`，并将本句原型写入 `normalized_form`；固定展开形式优先读取 `normalized`。前端气泡与推导通过 `morphologyPrototype` 共用本句结果，静态条目通过 `configuredPrototype` 读取配置原型。原始表记、成员及来源字段保存在分析对象中。
+Rust 根据完整 UniDic 字段按顺序选择 `variants`，并将本句显示形写入 `normalized_form`。词条可用 `display_forms` 登记多个等价显示形，`observed_form` 将完整实际表面形映射到指定显示形；`normalized` 用于音便、缩略等需要规范化的形式。前端气泡与推导通过 `morphologyPrototype` 共用本句结果，静态条目通过 `configuredPrototype` 读取默认显示形。原始表记、成员及来源字段保存在分析对象中。
 
 `support.group` 为 `contracted` 的实际缩约显示“缩略形式”标签，文案由 `presentation.contraction_label` 定义。原型和规范化字段用于形式展示及查询，缩约身份由连接组明确指定。
 

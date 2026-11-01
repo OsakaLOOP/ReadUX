@@ -42,6 +42,11 @@
     },
     "causative": {
       "concept": "morphology.voice.causative",
+      "display_forms": [
+        "せる",
+        "させる",
+        "しめる"
+      ],
       "label": "使役",
       "prototype": "せる",
       "title": "使役",
@@ -313,6 +318,10 @@
     },
     "concessive_connection": {
       "concept": "grammar.connective.keredomo",
+      "display_forms": [
+        "ど",
+        "ども"
+      ],
       "label": "逆接",
       "prototype": "ど",
       "title": "逆接",
@@ -427,16 +436,21 @@
     },
     "copula_past": {
       "concept": "grammar.auxiliary.da",
+      "display_forms": [
+        "だった",
+        "でした"
+      ],
       "label": "断定过去",
       "prototype": "だった",
       "title": "断定过去",
       "variants": [
         {
           "form": "でした",
+          "observed_form": "でした",
           "token": {
             "equals": {
               "surface": [
-                "でした"
+                "でし"
               ]
             }
           }
@@ -483,7 +497,7 @@
       "title": "程度／约量",
       "variants": [
         {
-          "form": "ぐらい",
+          "form": "くらい",
           "token": {
             "equals": {
               "surface": [
@@ -688,20 +702,9 @@
     "kedo_connection": {
       "concept": "grammar.connective.kedo",
       "label": "逆接",
-      "prototype": "けど",
-      "title": "逆接",
-      "variants": [
-        {
-          "form": "けれど",
-          "token": {
-            "equals": {
-              "surface": [
-                "けれど"
-              ]
-            }
-          }
-        }
-      ]
+      "normalized": "けれど",
+      "prototype": "けれど",
+      "title": "逆接"
     },
     "keredomo_connection": {
       "concept": "grammar.connective.kedo",
@@ -803,12 +806,17 @@
     },
     "negative": {
       "concept": "morphology.polarity.negative",
+      "display_forms": [
+        "ない",
+        "ぬ",
+        "ず"
+      ],
       "label": "否定",
       "prototype": "ない",
       "title": "否定形",
       "variants": [
         {
-          "form": "ん",
+          "form": "ない",
           "token": {
             "equals": {
               "pos": [
@@ -894,9 +902,9 @@
     },
     "negative_zuni": {
       "concept": "grammar.classical.zu",
-      "label": "否定接续",
-      "prototype": "ずに",
-      "title": "否定接续"
+      "label": "文言否定",
+      "prototype": "ず",
+      "title": "文言否定"
     },
     "ni_naru": {
       "concept": "grammar.functional.naru",
@@ -970,6 +978,10 @@
         "自発"
       ],
       "concept": "morphology.voice.passive_potential",
+      "display_forms": [
+        "れる",
+        "られる"
+      ],
       "label": "受身等候选",
       "prototype": "れる",
       "title": "可能、被动等",
@@ -1129,7 +1141,7 @@
       "title": "条件",
       "variants": [
         {
-          "form": "だら",
+          "form": "たら",
           "token": {
             "equals": {
               "surface": [
@@ -1213,7 +1225,7 @@
       "title": "接续形",
       "variants": [
         {
-          "form": "で",
+          "form": "て",
           "token": {
             "equals": {
               "surface": [
@@ -1231,7 +1243,7 @@
       "title": "接续形",
       "variants": [
         {
-          "form": "で",
+          "form": "て",
           "token": {
             "equals": {
               "surface": [
@@ -1273,6 +1285,10 @@
     "te_ii": {
       "concept": "grammar.permission.te_ii",
       "connector": "te_connection",
+      "display_forms": [
+        "ていい",
+        "てよい"
+      ],
       "label": "ていい",
       "prototype": "ていい",
       "support": {
@@ -1600,6 +1616,10 @@
     },
     "volitional": {
       "concept": "morphology.mood.volitional",
+      "display_forms": [
+        "う",
+        "よう"
+      ],
       "label": "意向",
       "prototype": "う",
       "title": "意向形",
@@ -13924,7 +13944,7 @@
           "steps": [
             "未然形",
             "ず",
-            "に（接续用法）"
+            "接续助词に（可选）"
           ]
         },
         {
@@ -13967,7 +13987,7 @@
           "steps": [
             "未然形：から",
             "ず",
-            "に（接续用法）"
+            "接续助词に（可选）"
           ]
         },
         {
@@ -17642,19 +17662,6 @@
             ],
             "surface": [
               "ず"
-            ]
-          }
-        },
-        {
-          "equals": {
-            "pos": [
-              "助詞"
-            ],
-            "sub": [
-              "格助詞"
-            ],
-            "surface": [
-              "に"
             ]
           }
         }

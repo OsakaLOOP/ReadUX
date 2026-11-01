@@ -69,13 +69,19 @@ def validate(config):
     support_owners = {}
     for kind, definition in config["operators"].items():
         fields(definition, ("label", "title", "concept", "prototype"),
-               ("variants", "token_lemma", "normalized", "candidates", "support",
+               ("display_forms", "variants", "token_lemma", "normalized", "candidates", "support",
                 "compound_candidate", "connector", "connector_alternatives", "display_suffix"), kind)
         strings([definition[key] for key in ("label", "title", "concept", "prototype", "normalized",
                                              "connector", "display_suffix") if key in definition], kind)
         for variant in definition.get("variants", []):
-            fields(variant, ("token", "form"), ("concept",), f"{kind}/variants")
+            fields(variant, ("token", "form"), ("observed_form", "concept"), f"{kind}/variants")
             pattern(variant["token"], f"{kind}/variants/token")
+            if "observed_form" in variant and not isinstance(variant["observed_form"], str):
+                raise ValueError(f"{kind}/variants/observed_form 应为字符串")
+            if definition.get("display_forms") and variant["form"] not in definition["display_forms"]:
+                raise ValueError(f"{kind}/variants/form 未登记为显示形")
+        if "display_forms" in definition:
+            strings(definition["display_forms"], f"{kind}/display_forms")
         for key in ("token_lemma", "compound_candidate"):
             if key in definition and type(definition[key]) is not bool:
                 raise ValueError(f"{kind}/{key} 应为布尔值")
