@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="T extends { key: string; text: string }">
-import { computed } from "vue";
-import { groupCapsuleRuns, type CapsuleActiveRange } from "../../reader/capsuleRuns";
+import type { CapsuleActiveRange } from "../../reader/capsuleRuns";
 
 const props = defineProps<{
   grouped?: boolean;
@@ -8,9 +7,15 @@ const props = defineProps<{
   activeRanges?: CapsuleActiveRange[];
   runs: { key: string; reading?: string; parts: T[] }[];
 }>();
-const groups = computed(() => groupCapsuleRuns(props.runs, props.activeRanges));
+function partHighlight(part: T) {
+  const range = (part as T & { range?: [number, number] }).range;
+  const activePart = range && props.activeRanges?.find((item) => range[0] < item.range[1] && range[1] > item.range[0]);
+  if (!activePart) return undefined;
+  const group = activePart.group ?? `${activePart.range[0]}:${activePart.range[1]}`;
+  return highlightStyle(group);
+}
 function highlightStyle(group?: string) {
-  const active = props.activeRanges?.filter((item) => group ? item.group === group : true) ?? [];
+  const active = props.activeRanges?.filter((item) => group ? (item.group ?? `${item.range[0]}:${item.range[1]}`) === group : true) ?? [];
   const blue = active.filter((item) => item.tone === "blue");
   const grammar = active.filter((item) => item.tone === "grammar");
   if (!blue.length) return {
@@ -36,19 +41,13 @@ function highlightStyle(group?: string) {
 
 <template>
   <span class="reader-capsule" :class="{ 'reader-capsule--group': grouped, 'reader-capsule--merged': merged, 'reader-capsule--active': activeRanges?.length }">
-    <template v-for="group in groups" :key="group.key">
-      <span v-if="group.active" class="reader-capsule__query-object" :style="highlightStyle(group.activeGroup)">
-        <component v-for="run in group.runs" :key="run.key" :is="run.reading ? 'ruby' : 'span'">
-          <slot v-for="part in run.parts" :key="part.key" :part="part">{{ part.text }}</slot>
-          <rt v-if="run.reading">{{ run.reading }}</rt>
-        </component>
-      </span>
-      <template v-else>
-      <component v-for="run in group.runs" :key="run.key" :is="run.reading ? 'ruby' : 'span'">
-        <slot v-for="part in run.parts" :key="part.key" :part="part">{{ part.text }}</slot>
+    <template v-for="run in runs" :key="run.key">
+      <component :is="run.reading ? 'ruby' : 'span'">
+        <span v-for="part in run.parts" :key="part.key" class="reader-capsule__query-object" :style="partHighlight(part)">
+          <slot :part="part">{{ part.text }}</slot>
+        </span>
         <rt v-if="run.reading">{{ run.reading }}</rt>
       </component>
-      </template>
     </template>
   </span>
 </template>
