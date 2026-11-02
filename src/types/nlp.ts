@@ -167,6 +167,7 @@ export interface FormationWord {
   query_forms: QueryForm[]; dictionary_status: string; reason: string;
 }
 export interface MorphologyChain {
+  adverb_capabilities?: number | null;
   chain_id: string; anchor_morpheme: number; anchor_range: [number, number]; morpheme_range: [number, number];
   char_range: [number, number]; role: 'lexical' | 'functional'; base_lexeme: string; surface_form: string;
   dictionary_form: string; lemma_form: string; lookup_form: string; display_form: string; parent_chain_id: string | null; source_ranges: [number, number][];

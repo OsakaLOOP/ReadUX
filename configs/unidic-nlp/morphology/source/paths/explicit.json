@@ -1,4 +1,20 @@
 {
+  "adverb_suru": {
+    "label": "副词动词化",
+    "paths": [{"id": "suru", "group": "可活用副词", "label": "サ变直结可能", "steps": ["サ变可能词干"],
+      "categories": ["副詞", "形状詞"], "forms": ["stem"], "capabilities": 2}]
+  },
+  "adverb_to": {
+    "label": "状态修饰と",
+    "paths": [{"id": "to", "group": "可活用副词", "label": "トス可能", "steps": ["トス可能词干"],
+      "categories": ["副詞", "形状詞"], "forms": ["stem"], "capabilities": 8}]
+  },
+  "adverb_to_suru": {
+    "label": "状态修饰后接する",
+    "paths": [{"id": "to_suru", "group": "可活用副词", "label": "经由状态修饰と", "steps": ["と"],
+      "categories": ["副詞", "形状詞"], "forms": ["other"], "capabilities": 8,
+      "connector": "adverb_to", "connector_paths": ["to"], "previous_operators": ["adverb_to"]}]
+  },
   "adjectival_change": {
     "label": "变化",
     "paths": [

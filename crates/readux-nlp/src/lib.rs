@@ -1,5 +1,6 @@
 //! UniDic 分析对象与来源适配。
 pub mod alignment;
+pub mod adverb;
 pub mod alignment_group;
 pub mod application;
 pub mod bunsetsu;

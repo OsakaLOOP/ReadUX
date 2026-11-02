@@ -2,13 +2,13 @@
   "schema_version": 1,
   "catalog_version": "grammar-2026.07.16",
   "content_version": "grammar-content-2026.07.16",
-  "fingerprint": "ba03e63c08bbaf6d734a6bd3d5eb8f80f828ae2dddd60c65dc99c88719414ef5",
+  "fingerprint": "5c7a9909ec3ae12ae3ecfa670e01482192d276cbf79ab19e971cabd9be2ca599",
   "counts": {
-    "concepts": 207,
+    "concepts": 210,
     "senses": 223,
     "realizations": 185,
     "rules": 185,
-    "explanations": 195,
+    "explanations": 198,
     "redirects": 12
   }
 }

@@ -19,6 +19,7 @@ export interface RuleTreeNode {
 }
 export interface ConnectionPathDefinition {
   id: string; group: string; label: string; steps: string[];
+  capabilities?: number;
   connector?: string; connector_paths?: string[];
 }
 export interface ConnectionRuleDefinition {

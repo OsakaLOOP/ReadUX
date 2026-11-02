@@ -118,6 +118,9 @@ pub struct MorphologyConnection {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct MorphologyChain {
+    /// 词干的静态接续资格；空值表示未审定。
+    #[serde(default)]
+    pub adverb_capabilities: Option<crate::adverb::Capabilities>,
     pub chain_id: String,
     pub anchor_morpheme: usize,
     pub anchor_range: [usize; 2],
@@ -253,6 +256,15 @@ pub fn collect_with_external(
     morphemes: &[MorphemeToken],
     external: &[crate::external::SourceArtifact],
 ) -> Result<MorphologyArtifact, String> {
+    Ok(crate::morphology_machine::compose(
+        collect_atoms(source_tokens, morphemes)?, source_tokens, morphemes, external,
+    ))
+}
+
+pub(crate) fn collect_atoms(
+    source_tokens: &[crate::model::ProviderToken],
+    morphemes: &[MorphemeToken],
+) -> Result<Vec<MorphologyChain>, String> {
     if source_tokens.len() != morphemes.len() {
         return Err("形态链输入的来源 token 与统一 token 数量不一致".into());
     }
@@ -358,6 +370,7 @@ pub fn collect_with_external(
             query_forms.insert(0, query);
         }
         chains.push(MorphologyChain {
+            adverb_capabilities: crate::adverb::for_token(source),
             chain_id: format!("morphology:m{index}"),
             anchor_morpheme: index,
             anchor_range: morpheme.char_range,
@@ -384,12 +397,7 @@ pub fn collect_with_external(
             terminal: false,
         });
     }
-    Ok(crate::morphology_machine::compose(
-        chains,
-        source_tokens,
-        morphemes,
-        external,
-    ))
+    Ok(chains)
 }
 
 pub fn features(token: &crate::model::ProviderToken) -> Vec<String> {

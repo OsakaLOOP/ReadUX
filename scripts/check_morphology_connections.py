@@ -35,7 +35,7 @@ def check(config=None, *, report=True):
     if set(config["rule_metadata"]) != set(operators):
         raise ValueError("条目与执行元数据的成员不一致")
     owners = {}
-    valid_categories = {"動詞", "形容詞", "形状詞", "名詞", "代名詞", "助動詞", "文語用言"}
+    valid_categories = {"動詞", "形容詞", "形状詞", "名詞", "代名詞", "助動詞", "文語用言", "副詞"}
     valid_forms = {"stem", "irrealis", "continuative", "terminal", "attributive",
                    "conditional", "imperative", "volitional", "te", "other"}
     for name, rule in rules.items():

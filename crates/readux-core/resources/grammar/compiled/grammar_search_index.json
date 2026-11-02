@@ -3744,6 +3744,51 @@
       ]
     },
     {
+      "concept_id": "grammar.adverb.suru",
+      "label": "副词＋する",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.adverb.to",
+      "label": "状态修饰と",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
+      "concept_id": "grammar.adverb.to_suru",
+      "label": "状态词干＋とする",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "surface_hints": [],
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "sense_hints": []
+    },
+    {
       "concept_id": "grammar.classical.yaunari",
       "label": "やうなり（文言比况／例示）",
       "aliases": [],

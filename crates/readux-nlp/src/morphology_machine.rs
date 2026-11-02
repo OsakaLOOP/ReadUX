@@ -7,6 +7,7 @@ use crate::{
 };
 
 use crate::morphology_config::{self as config, field, identity, Action, CONFIG};
+use crate::adverb::{self, Capabilities};
 
 pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
     let raw = field(t, 5);
@@ -32,7 +33,10 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
                 }
             })
     });
-    let category = if classical {
+    let category = if field(t, 0) == "副詞"
+        && adverb::for_token(t).is_some_and(|flags| flags.has(Capabilities::NA_DA | Capabilities::TARI)) {
+        "形状詞"
+    } else if classical {
         "文語用言"
     } else if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" {
         "名詞"
@@ -44,7 +48,9 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
         form,
         conjugation_type: field(t, 4).into(),
         conjugation_form: raw.into(),
-        entity_class: if classical {
+        entity_class: if category == "形状詞" {
+            "ナ形容词判断类"
+        } else if classical {
             "文言活用类"
         } else {
             config::entity_class_for_token(t)
@@ -674,6 +680,20 @@ fn apply_rule_executor(
             NaAdjectiveJudgementExecutor::apply(previous, atom, kind, diagnostics, index)
         }
         "nominalization" => NominalizationExecutor::apply(previous, atom, kind, diagnostics, index),
+        "adverbial_predicate" => {
+            let flag = if kind == "adverb_suru" { Capabilities::SURU } else { Capabilities::TO_SURU };
+            if !previous.adverb_capabilities.is_some_and(|f| f.has(flag)) {
+                atom.status = "candidate".into();
+                diagnostics.push(format!("adverb_input_capability:{}:{kind}", previous.chain_id));
+            }
+            if kind == "adverb_to" {
+                atom.final_state = previous.final_state.clone();
+                atom.final_state.form = ConnectionForm::Other;
+            } else {
+                atom.final_state.category = "動詞".into();
+                atom.final_state.entity_class = "动词循环类".into();
+            }
+        }
         "auxiliary_verb" if kind == "te_connection" => declared_output(previous, atom, kind),
         "classical_conjugation" => {
             ClassicalConjugationExecutor::apply(previous, atom, kind, token, diagnostics, index)
@@ -836,6 +856,30 @@ fn transition(
     context: &Context<'_>,
     source: &[ProviderToken],
 ) -> Transition {
+    let anchor = &source[previous.anchor_morpheme];
+    let lexical_stem = previous.morpheme_indices.len() == 1;
+    let flags = previous.adverb_capabilities;
+    // する资格先于词汇核心及外部来源判定，独立する保留自身动词链。
+    if adverb::is_suru(next) && matches!(field(anchor, 0), "副詞" | "形状詞") {
+        if lexical_stem {
+            return if flags.is_some_and(|f| f.has(Capabilities::SURU)) {
+                Transition::Attach(vec!["adverb_suru".into()])
+            } else { Transition::Boundary };
+        }
+        if previous.operators.last().is_some_and(|op| op.kind == "adverb_to") {
+            return if flags.is_some_and(|f| f.has(Capabilities::TO_SURU)) {
+                Transition::Attach(vec!["adverb_to_suru".into()])
+            } else { Transition::Boundary };
+        }
+    }
+    if lexical_stem && flags.is_some_and(|f| f.has(Capabilities::TO_SURU))
+        && field(next, 0) == "助詞" && field(next, 1) == "格助詞" && next.surface == "と" {
+        return Transition::Attach(vec!["adverb_to".into()]);
+    }
+    if lexical_stem && field(anchor, 0) == "副詞" && field(next, 4).contains("タリ")
+        && !flags.is_some_and(|f| f.has(Capabilities::TARI)) {
+        return Transition::Boundary;
+    }
     if let Some((entry, _)) = config::classical_auxiliary(next) {
         if entry.rule == "classical_nari_copula"
             && previous.final_state.form == ConnectionForm::Continuative
@@ -1291,6 +1335,18 @@ pub(crate) fn compose(
                 continue;
             }
         }
+        if let Some(previous) = chains.last_mut().filter(|previous|
+            previous.morpheme_indices.len() == 1 && previous.char_range[1] == atom.char_range[0]
+                && previous.morpheme_range[1] == index
+                && field(&source[previous.anchor_morpheme], 0) == "副詞"
+                && matches!(field(current, 4), "助動詞-ダ" | "助動詞-デス")) {
+            previous.final_state.category = "形状詞".into();
+            previous.final_state.entity_class = "ナ形容词判断类".into();
+            if previous.adverb_capabilities.is_none() {
+                previous.adverb_capabilities = Some(Capabilities(Capabilities::NA_DA));
+            }
+            previous.evidence.push("adverb:contextual_judgement".into());
+        }
         let sequence = chains
             .last()
             .and_then(|previous| suffix_sequence(previous, index, source, &context));
@@ -1360,6 +1416,8 @@ pub(crate) fn compose(
             let nominalization = matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind|
                 config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "nominalization")));
             let semantic_connection = nominalization
+                || matches!(&local_step, Transition::Attach(kinds) if kinds.iter().any(|kind|
+                    config::rule_metadata(kind).is_some_and(|metadata| metadata.executor == "adverbial_predicate")))
                 || matches!(&local_step, Transition::Support(_) | Transition::Insert(_));
             let step = if sequence.is_none()
                 && members.contains(&index)
@@ -1739,7 +1797,9 @@ fn identify_connection_paths(
                         .find(|(_, executor, end)| executor != "insertion" && *end <= op.char_range[0])
                         .map(|(kind, _, _)| kind.as_str())));
             let matched: Vec<_> = rule.paths.iter().filter(|path| {
-                (path.categories.is_empty() || if path.exact_category {
+                (path.capabilities == 0 || chain.adverb_capabilities
+                    .is_some_and(|flags| flags.0 & path.capabilities == path.capabilities))
+                    && (path.categories.is_empty() || if path.exact_category {
                     path.categories.contains(&state.category)
                 } else { accepts_category(state, &path.categories) })
                     && (path.forms.is_empty() || path.forms.contains(&state.form))
@@ -1839,5 +1899,80 @@ fn identify_connection_paths(
     for (ci, oi, connection) in inherited {
         if connection.path.is_none() { chains[ci].status = "candidate".into(); }
         chains[ci].operators[oi].connection = Some(connection);
+    }
+}
+
+#[cfg(test)]
+mod adverb_acceptance {
+    use super::*;
+    use crate::{model::Register, sources::UniDicProvider};
+    use std::path::PathBuf;
+
+    #[test]
+    fn real_unidic_adverb_connections_and_boundaries() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let provider = UniDicProvider::open(Register::Cwj, &root.join(
+            "experiments/unidic-source/unidic-cwj-202512.vibrato.dic")).unwrap();
+        let cases: &[(&str, Option<u8>, &[&str])] = &[
+            ("ふわふわしていて。", Some(Capabilities::SURU | Capabilities::NA_DA), &["adverb_suru", "te_connection", "te_iru"]),
+            ("はっきりしなかった。", Some(Capabilities::SURU | Capabilities::TO_SURU), &["adverb_suru", "negative", "past"]),
+            ("堂々としている。", Some(Capabilities::TARI | Capabilities::TO_SURU), &["adverb_to", "adverb_to_suru", "te_iru"]),
+            ("堂々と歩く。", Some(Capabilities::TARI | Capabilities::TO_SURU), &["adverb_to"]),
+            ("堂々たる態度。", None, &["classical_tari_copula"]),
+            ("そうでないと困る。", None, &["copula_de", "negative"]),
+            ("そうなんだから。", None, &["attributive_na", "nominalization", "copula", "kara_connection"]),
+            ("そうなのだ。", None, &["attributive_na", "nominalization", "copula"]),
+            ("そうだった。", None, &["copula_past"]),
+            ("そうです。", None, &["politeness_desu"]),
+            ("ふわふわ浮かぶ。", Some(Capabilities::SURU | Capabilities::NA_DA), &[]),
+            ("まだしていない。", Some(Capabilities::NONE), &[]),
+            ("すぐする。", Some(Capabilities::NONE), &[]),
+            ("もっとする。", Some(Capabilities::NONE), &[]),
+            ("必ずする。", Some(Capabilities::NONE), &[]),
+            ("とてもしない。", Some(Capabilities::NONE), &[]),
+            ("とてもではない。", Some(Capabilities::NONE), &[]),
+            ("とてもだ。", Some(Capabilities::NONE), &["copula"]),
+            ("はっきりしている。", None, &[]),
+        ];
+        let mut reports = Vec::new();
+        for &(text, flags, required) in cases {
+            let source = provider.analyze(text).unwrap();
+            let morphemes: Vec<_> = source.tokens.iter().map(|token| MorphemeToken {
+                id: format!("m{}", token.index), source_index: token.index, surface: token.surface.clone(),
+                char_range: token.char_range,
+                pos: std::array::from_fn(|i| token.fields[i].value.clone()),
+                lemma: token.fields[7].value.clone(), reading: token.fields[20].value.clone(),
+                query_forms: vec![QueryForm { kind: "base".into(), form: field(token, 10).into(),
+                    reading: token.fields[21].value.clone(), reading_field: Some("kanaBase".into()) }],
+            }).collect();
+            let mut atoms = crate::morphology::collect_atoms(&source.tokens, &morphemes).unwrap();
+            if let Some(flags) = flags {
+                atoms[0].adverb_capabilities = Some(Capabilities(flags));
+            }
+            let artifact = compose(atoms, &source.tokens, &morphemes, &[]);
+            assert!(artifact.diagnostics.is_empty(), "{text}: {:?}", artifact.diagnostics);
+            for &kind in required {
+                let op = artifact.chains.iter().flat_map(|c| &c.operators).find(|op| op.kind == kind)
+                    .unwrap_or_else(|| panic!("{text}: 缺少 {kind}"));
+                let connection = op.connection.as_ref().unwrap();
+                assert_eq!(connection.matched_paths.len(), 1, "{text}: {kind}");
+                assert!(connection.diagnostics.is_empty());
+            }
+            if required.is_empty() {
+                assert_eq!(artifact.chains[0].morpheme_indices, vec![0], "{text}: 前链范围");
+                assert!(artifact.chains.get(1).is_some_and(|c| c.parent_chain_id.is_none()), "{text}");
+            }
+            if text == "堂々と歩く。" {
+                assert!(artifact.chains.iter().any(|c| c.surface_form == "歩く" && c.parent_chain_id.is_none()));
+            }
+            if text == "とてもではない。" {
+                assert_eq!(artifact.chains[0].adverb_capabilities, Some(Capabilities(Capabilities::NONE)));
+            }
+            reports.push(serde_json::json!({"text": text, "source": source, "morphemes": morphemes,
+                "morphology": artifact}));
+        }
+        if let Some(path) = std::env::var_os("READUX_ADVERB_ACCEPTANCE_REPORT") {
+            std::fs::write(path, serde_json::to_vec(&reports).unwrap()).unwrap();
+        }
     }
 }

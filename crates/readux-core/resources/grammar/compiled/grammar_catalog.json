@@ -3857,6 +3857,69 @@
       "enabled": true
     },
     {
+      "concept_id": "grammar.adverb.suru",
+      "kind": "construction",
+      "canonical_label": "副词＋する",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.adverb.suru",
+      "source_refs": [
+        "readux-editorial:adverb-capabilities"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.adverb.to",
+      "kind": "construction",
+      "canonical_label": "状态修饰と",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.adverb.to",
+      "source_refs": [
+        "readux-editorial:adverb-capabilities"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
+      "concept_id": "grammar.adverb.to_suru",
+      "kind": "construction",
+      "canonical_label": "状态词干＋とする",
+      "aliases": [],
+      "semantic_domains": [],
+      "function_tags": [],
+      "jlpt_level": null,
+      "register": [
+        "modern_standard"
+      ],
+      "related_concept_ids": [],
+      "contrast_concept_ids": [],
+      "default_explanation_id": "explanation.grammar.adverb.to_suru",
+      "source_refs": [
+        "readux-editorial:adverb-capabilities"
+      ],
+      "audit_status": "reviewed",
+      "concept_version": 1,
+      "enabled": true
+    },
+    {
       "concept_id": "grammar.classical.yaunari",
       "kind": "construction",
       "canonical_label": "やうなり（文言比况／例示）",

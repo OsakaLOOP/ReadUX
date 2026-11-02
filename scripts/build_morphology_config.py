@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from check_morphology_connections import check, unique_object
+from build_adverb_lexicon import compile_reviewed
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "configs/unidic-nlp/morphology/source"
@@ -18,9 +19,10 @@ OPERATOR_FILES = {
     "auxiliary": {"auxiliary_verb"},
     "classical": {"classical_conjugation"},
     "insertion": {"insertion"},
+    "adverb": {"adverbial_predicate"},
 }
 CONNECTION_TYPES = ("direct", "connector", "sequence", "predicate", "inflection", "insertion")
-CATEGORIES = {"動詞", "形容詞", "形状詞", "名詞", "代名詞", "助動詞", "文語用言"}
+CATEGORIES = {"動詞", "形容詞", "形状詞", "名詞", "代名詞", "助動詞", "文語用言", "副詞"}
 FORMS = {"stem", "irrealis", "continuative", "terminal", "attributive",
          "conditional", "imperative", "volitional", "te", "other"}
 TOKEN_FIELDS = {"pos", "sub", "detail", "ctype", "cform", "lemma", "base", "surface"}
@@ -207,7 +209,10 @@ def validate(config):
                    ("categories", "forms", "ctypes", "exclude_ctypes", "cform_contains",
                     "exclude_cform_contains", "previous_operators", "exclude_previous_operators",
                     "exact_category", "evidence", "next", "predecessors", "connector", "connector_paths",
-                    "following", "exclude_following"), f"{name}/{path['id']}")
+                    "following", "exclude_following", "capabilities"), f"{name}/{path['id']}")
+            if "capabilities" in path and (type(path["capabilities"]) is not int
+                    or path["capabilities"] <= 1 or path["capabilities"] & ~30):
+                raise ValueError(f"{name}/{path['id']} 的接续资格无效")
             for key in ("next", "following", "exclude_following"):
                 if key in path:
                     pattern(path[key], f"{name}/{path['id']}/{key}")
@@ -356,6 +361,7 @@ def compile_config(source=SOURCE):
         "entity_classes": presentation["entity_classes"],
         "rule_tree": presentation["rule_tree"],
         "presentation": presentation["presentation"],
+        "adverb_capabilities": compile_reviewed(read_source(source, "adverbs/reviewed.json")),
     }
     validate(config)
     return config

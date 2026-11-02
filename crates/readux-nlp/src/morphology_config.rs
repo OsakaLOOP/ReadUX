@@ -10,6 +10,7 @@ pub static CONFIG: LazyLock<Config> =
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
+    pub adverb_capabilities: BTreeMap<String, crate::adverb::LexemeCapabilities>,
     pub schema: ConfigSchema,
     pub intrinsic_features: Vec<String>,
     pub operators: BTreeMap<String, Operator>,
@@ -83,6 +84,8 @@ impl ConnectionPaths {
 #[derive(Default, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct ConnectionPath {
+    /// 前接词干必须具备的副词接续资格。
+    pub capabilities: u8,
     pub id: String,
     pub group: String,
     pub label: String,
@@ -852,6 +855,7 @@ mod tests {
                         | "auxiliary_verb"
                         | "classical_conjugation"
                         | "insertion"
+                        | "adverbial_predicate"
                 ),
                 "{kind} 使用未知执行器 {}",
                 metadata.executor

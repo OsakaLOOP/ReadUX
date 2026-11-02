@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 副词接续资格设计见 `docs/adverb_capabilities.md`。单次词表导出与来源筛查入口为 `scripts/build_adverb_lexicon.py`，审定映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`；`crates/readux-nlp/src/adverb.rs` 定义资格，`operators/adverb.json` 定义新增接续。映射数据分阶段审定，空表表示尚未发布词条资格。
+
 - 静态书库活用抽样比较入口为 `scripts/compare_morphology_dist.py`，读取 dist 当前 manifest，从开头、中段和后记各选一段，在完整单元内重新进行 auto 语域、GiNZA 与查询分析。报告位于 `.agents/analysis/morphology-dist-comparison.json`，本次三段对比结论见 `docs/morphology_dist_comparison_2026-10-31.md`。
 
 - 活用规则维护入口为 `configs/unidic-nlp/morphology/source/`，18 个 JSON 源文件由 `scripts/build_morphology_config.py` 编译为 v1 `morphology.json`。`npm run morphology:build` 生成配置，`npm run morphology:check` 检查编译结果与引用；开发、预览、构建和发布 CI 已接入。文言路径引用具名 inputs，谓语路径引用构式前缀；有序规则数组完整保留。字段契约与迁移记录见 `docs/morphology_storage_refactor_analysis.md`，维护索引见源目录 README。

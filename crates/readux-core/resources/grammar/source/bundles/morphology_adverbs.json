@@ -1,0 +1,44 @@
+{
+  "bundle_id": "morphology-adverbs",
+  "audit_status": "reviewed",
+  "source_refs": ["readux-editorial:adverb-capabilities"],
+  "review": {"method": "依据词元接续资格和实际 UniDic 词法边界核对接续条件"},
+  "items": [
+    {
+      "concept_id": "grammar.adverb.suru", "kind": "construction", "canonical_label": "副词＋する",
+      "explanation": {
+        "compact_summary": "サ变可能副词后接する，形成表示状态或性质的谓语。",
+        "function_summary": "具备サ变资格的副词词干直接接する；后续采用する的活用，可以继续否定、礼貌、过去和补助接续。",
+        "connection": "サ变可能副词词干＋する及其活用形。",
+        "formation": "ふわふわ＋し＋て＋いる",
+        "examples": ["毛布がふわふわしている。", "理由がはっきりした。"],
+        "counter_examples": ["すぐする。（する是独立动词）", "まだしていない。（まだ修饰后项）"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.adverb.to", "kind": "construction", "canonical_label": "状态修饰と",
+      "explanation": {
+        "compact_summary": "具备相应资格的状态词干通过と修饰后项。",
+        "function_summary": "と标记动作或事物呈现的状态。后接普通动词时保留后项词界，后接する时可形成状态谓语。",
+        "connection": "トス可能词干＋格助词と。",
+        "formation": "堂々＋と＋歩く",
+        "examples": ["堂々と歩く。", "はっきりと話す。"],
+        "counter_examples": ["友人と歩く。（共同参与者）", "そうと思う。（引用内容）"],
+        "body_blocks": []
+      }
+    },
+    {
+      "concept_id": "grammar.adverb.to_suru", "kind": "construction", "canonical_label": "状态词干＋とする",
+      "explanation": {
+        "compact_summary": "状态词干经由と接する，形成状态谓语或连体修饰。",
+        "function_summary": "词干须具备トス资格，と承接する及其活用。「とした＋名词」可说明事物的状态或性质。",
+        "connection": "トス可能词干＋と＋する及其活用形。",
+        "formation": "堂々＋と＋し＋た＋態度",
+        "examples": ["堂々としている。", "毅然とした態度を示した。"],
+        "counter_examples": ["行こうとする。（意向形接续）", "友人とする。（共同参与者）"],
+        "body_blocks": []
+      }
+    }
+  ]
+}

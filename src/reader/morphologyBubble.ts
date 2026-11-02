@@ -2,6 +2,7 @@ import explanations from "../../crates/readux-core/resources/grammar/compiled/gr
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
 import { configuredPrototype, isIntrinsicFeature, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyPrototype, morphologyRuleForOperator, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, UnifiedDocument } from "../types/nlp";
+import { adverbChainAt, adverbInflecting } from "./adverbCapabilities.ts";
 
 export interface MorphologyEntryContent {
   headword: string;
@@ -72,7 +73,11 @@ function elementForm(document: UnifiedDocument, index: number, state?: Morpholog
   const rawForm = source?.fields.find((field) => field.name === "cForm")?.value || "";
   const inflecting = ["動詞", "形容詞", "助動詞"].includes(token.pos?.[0] ?? "")
     || token.pos?.[0] === "接尾辞" && ["動詞的", "形容詞的"].includes(token.pos?.[1] ?? "");
-  if (!inflecting) return "无活用";
+  if (!inflecting) {
+    const chain = adverbChainAt(document, index);
+    const stem = chain && adverbInflecting(chain) || token.pos?.[0] === "形状詞";
+    return stem ? "词干" : "无活用";
+  }
   return formLabel(state, kind, evidence, rawForm);
 }
 
@@ -115,6 +120,7 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
     evidence.startsWith("classical_paradigm:ナリ活用") || evidence.startsWith("classical_paradigm:タリ活用"));
   const identity = support ? token?.pos?.[0] === "形容詞" ? "补助形容词"
     : token?.pos?.[0] === "名詞" ? "补助表达" : "补助动词"
+    : operator.executor === "adverbial_predicate" ? particle ? "状态修饰助词" : "サ变接续"
     : operator.executor === "insertion" ? "插入成分"
     : structure === "predicate" ? "谓语构式"
     : structure === "sequence" && operator.source_morpheme_range[1] - operator.source_morpheme_range[0] > 1 ? "复合语法形式"

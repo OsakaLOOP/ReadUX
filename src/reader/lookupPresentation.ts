@@ -3,8 +3,10 @@ import { isIntrinsicFeature, morphologyPresentation, morphologyPrototype, morpho
 import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 import { inflectionStemAndEnding } from "./japaneseInflectionRanges.ts";
+import { adverbCapabilityLabel, adverbInflecting } from "./adverbCapabilities.ts";
 
 export interface ReaderTargetPresentation {
+  inflectionCapability?: string;
   pos: PosTag;
   conjugationType: string;
   observedForm: string;
@@ -43,7 +45,9 @@ export function readerTargetPresentation(
     .find((item) => item?.pos?.[0]);
   if (!morpheme?.pos?.[0]) return null;
   const source = document.source.tokens.find((token) => token.index === morpheme.source_index);
+  const chain = chains.find((item) => document.morphemes[item.anchor_morpheme]?.id === morpheme.id);
   return {
+    inflectionCapability: chain ? adverbCapabilityLabel(chain) : '',
     pos: {
       major: morpheme.pos[0],
       sub1: morpheme.pos[1] ?? "",
@@ -332,6 +336,7 @@ function stemConjugationTitle(chain: MorphologyChain, state: MorphologyState | u
   const category = document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
     || state?.category || chain.final_state?.category || "";
   const pos = category === "形状詞" ? "形容動詞" : category;
+  if (category === "副詞" && adverbCapabilityLabel(chain)) return `${pos}・${adverbCapabilityLabel(chain)}`;
   const family = conjugationFamilyLabel(state?.conjugation_type || chain.final_state?.conjugation_type, category);
   return family.startsWith(pos) ? family : [pos, family].filter(Boolean).join("・");
 }
@@ -941,7 +946,7 @@ export function readerMorphologyHits(
         }];
       });
     const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
-    const entryVisible = !['名詞', '代名詞', '副詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
+    const entryVisible = adverbInflecting(chain) || !['名詞', '代名詞', '副詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
       || firstOperator?.state_before?.category || chain.final_state?.category || '');
     for (const hit of hits) hit.detail.entryVisible = entryVisible;
     const anchor = chain.anchor_range;
@@ -954,7 +959,7 @@ export function readerMorphologyHits(
     const state = (chain.operators ?? []).find((operator) => !isIntrinsicFeature(operator.kind))?.state_before
       ?? chain.final_state;
     const category = token?.pos?.[0] || state?.category || '';
-    const inflecting = ['動詞', '形容詞', '形状詞', '形容動詞', '助動詞'].includes(category)
+    const inflecting = adverbInflecting(chain) || ['動詞', '形容詞', '形状詞', '形容動詞', '助動詞'].includes(category)
       || category === '接尾辞' && ['動詞的', '形容詞的'].includes(token?.pos?.[1] ?? '');
     const surface = characters.slice(...stem.range).join('');
     const prototype = chain.lookup_form || stem.caption || surface;
@@ -974,7 +979,7 @@ export function readerMorphologyHits(
         status: chain.status,
         title: stemConjugationTitle(chain, state, document),
         surface,
-        conjugation: inflecting ? conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
+        conjugation: inflecting ? state?.form === 'stem' ? '語幹' : conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
         description: prototype === surface ? '' : transitionDescription(prototype, surface),
         tags: inflecting ? morphologyTags('conjugation', state?.conjugation_form) : [],
         candidates: [],

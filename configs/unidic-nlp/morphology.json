@@ -20,6 +20,25 @@
       },
       "title": "变化"
     },
+    "adverb_suru": {
+      "concept": "grammar.adverb.suru",
+      "label": "サ变接续",
+      "prototype": "する",
+      "title": "副词动词化"
+    },
+    "adverb_to": {
+      "concept": "grammar.adverb.to",
+      "label": "状态修饰",
+      "prototype": "と",
+      "title": "状态修饰と"
+    },
+    "adverb_to_suru": {
+      "concept": "grammar.adverb.to_suru",
+      "connector": "adverb_to",
+      "label": "状态述语化",
+      "prototype": "する",
+      "title": "状态修饰后接する"
+    },
     "adverbial_ni": {
       "concept": "morphology.form.continuative",
       "display_suffix": "に",
@@ -1688,6 +1707,58 @@
       "output_category": "動詞",
       "rule_group": "变化接续",
       "stage": "te_support",
+      "terminal_mode": "continue"
+    },
+    "adverb_suru": {
+      "executor": "adverbial_predicate",
+      "input_categories": [
+        "副詞",
+        "形状詞"
+      ],
+      "input_category_mode": "exact",
+      "input_forms": [
+        "stem"
+      ],
+      "input_label": "サ变可能词干",
+      "order_rank": 10,
+      "output_category": "動詞",
+      "rule_group": "副词述语化",
+      "stage": "modality",
+      "terminal_mode": "continue"
+    },
+    "adverb_to": {
+      "executor": "adverbial_predicate",
+      "input_categories": [
+        "副詞",
+        "形状詞"
+      ],
+      "input_category_mode": "exact",
+      "input_forms": [
+        "stem"
+      ],
+      "input_label": "トス可能词干",
+      "order_rank": 10,
+      "output_category": "保持前项",
+      "output_form": "other",
+      "rule_group": "副词状态修饰",
+      "stage": "modality",
+      "terminal_mode": "continue"
+    },
+    "adverb_to_suru": {
+      "executor": "adverbial_predicate",
+      "input_categories": [
+        "副詞",
+        "形状詞"
+      ],
+      "input_category_mode": "exact",
+      "input_forms": [
+        "other"
+      ],
+      "input_label": "状态修饰と",
+      "order_rank": 10,
+      "output_category": "動詞",
+      "rule_group": "副词述语化",
+      "stage": "modality",
       "terminal_mode": "continue"
     },
     "adverbial_ni": {
@@ -4075,6 +4146,7 @@
   },
   "connection_types": {
     "connector": [
+      "adverb_to_suru",
       "contracted_te_iru",
       "contracted_te_oku",
       "contracted_te_shimau",
@@ -4108,6 +4180,8 @@
     ],
     "direct": [
       "adjectival_naru",
+      "adverb_suru",
+      "adverb_to",
       "adverbial_ni",
       "attributive_na",
       "ba_connection",
@@ -4302,6 +4376,85 @@
           ],
           "steps": [
             "连用形：く"
+          ]
+        }
+      ]
+    },
+    "adverb_suru": {
+      "label": "副词动词化",
+      "operators": [
+        "adverb_suru"
+      ],
+      "paths": [
+        {
+          "capabilities": 2,
+          "categories": [
+            "副詞",
+            "形状詞"
+          ],
+          "forms": [
+            "stem"
+          ],
+          "group": "可活用副词",
+          "id": "suru",
+          "label": "サ变直结可能",
+          "steps": [
+            "サ变可能词干"
+          ]
+        }
+      ]
+    },
+    "adverb_to": {
+      "label": "状态修饰と",
+      "operators": [
+        "adverb_to"
+      ],
+      "paths": [
+        {
+          "capabilities": 8,
+          "categories": [
+            "副詞",
+            "形状詞"
+          ],
+          "forms": [
+            "stem"
+          ],
+          "group": "可活用副词",
+          "id": "to",
+          "label": "トス可能",
+          "steps": [
+            "トス可能词干"
+          ]
+        }
+      ]
+    },
+    "adverb_to_suru": {
+      "label": "状态修饰后接する",
+      "operators": [
+        "adverb_to_suru"
+      ],
+      "paths": [
+        {
+          "capabilities": 8,
+          "categories": [
+            "副詞",
+            "形状詞"
+          ],
+          "connector": "adverb_to",
+          "connector_paths": [
+            "to"
+          ],
+          "forms": [
+            "other"
+          ],
+          "group": "可活用副词",
+          "id": "to_suru",
+          "label": "经由状态修饰と",
+          "previous_operators": [
+            "adverb_to"
+          ],
+          "steps": [
+            "と"
           ]
         }
       ]
@@ -20590,5 +20743,6 @@
         "classical_tari_perfect"
       ]
     }
-  }
+  },
+  "adverb_capabilities": {}
 }

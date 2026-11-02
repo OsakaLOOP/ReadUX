@@ -375,6 +375,9 @@ const dictionaryFormConjugation = computed(() => {
     ?? props.token?.bunsetsu.head_word.pos.major
     ?? props.lookup?.pos?.major
     ?? "";
+  if (major === "副詞" && props.sourcePresentation?.inflectionCapability) {
+    return props.sourcePresentation.inflectionCapability;
+  }
   if (!["動詞", "形容詞", "形状詞", "形容動詞", "形動"].includes(major)) return "";
   const observed = props.sourcePresentation?.observedForm
     ?? props.lookup?.observed_form

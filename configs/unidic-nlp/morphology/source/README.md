@@ -20,6 +20,8 @@ npm run morphology:check
 | `operators/auxiliary.json` | 补助执行器与连接器，共 44 条 |
 | `operators/classical.json` | 文言执行器，共 33 条 |
 | `operators/insertion.json` | 插入执行器，共 2 条 |
+| `operators/adverb.json` | 副词述语化与状态修饰的三个接续规则 |
+| `adverbs/reviewed.json` | 已审定副词接续资格，初始为空 |
 | `rules/features.json` | 48 条单 token 特征 |
 | `rules/connections.json` | 48 条相邻连接规则 |
 | `rules/sequences.json` | 30 条连续词尾 |
@@ -45,3 +47,5 @@ npm run morphology:check
 features、connections、sequences、predicate_links、forms、classical_forms、classical_auxiliaries、variants 和 paths 的数组顺序参与执行或展示，维护时保留其顺序。对象键按字典序生成；分类成员和规则归属成员按 operator ID 排序。
 
 完整协议、数量基准与验证记录见 [活用配置协议与存储重构](../../../../docs/morphology_storage_refactor_analysis.md)。
+
+副词资格的数据处理、状态机与查询展示设计见 [副词接续资格与活用链](../../../../docs/adverb_capabilities.md)。
