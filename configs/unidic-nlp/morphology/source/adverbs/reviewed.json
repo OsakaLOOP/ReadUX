@@ -1,4 +1,814 @@
 {
   "schema": "readux.adverb-capabilities.v1",
-  "sources": []
+  "sources": [
+    {
+      "id": "synthesized-diagnostic-50",
+      "entries": [
+        {
+          "lemma_id": "26503",
+          "lemma": "迚も",
+          "reading": "トテモ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "迚も的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "11140",
+          "lemma": "決して",
+          "reading": "ケッシテ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "決して的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "36084",
+          "lemma": "丸で",
+          "reading": "マルデ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "丸で的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "24363",
+          "lemma": "遂に",
+          "reading": "ツイニ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "遂に的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "19286",
+          "lemma": "既に",
+          "reading": "スデニ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "既に的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "20750",
+          "lemma": "是非",
+          "reading": "ゼヒ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "是非的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "4983",
+          "lemma": "恐らく",
+          "reading": "オソラク",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "恐らく的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "258",
+          "lemma": "敢えて",
+          "reading": "アエテ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "敢えて的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "19134",
+          "lemma": "直ぐ",
+          "reading": "スグ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "直ぐ的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "6912",
+          "lemma": "必ず",
+          "reading": "カナラズ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "必ず的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "4531",
+          "lemma": "大いに",
+          "reading": "オオイニ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "大いに的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "35816",
+          "lemma": "全く",
+          "reading": "マッタク",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "全く的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "15670",
+          "lemma": "暫く",
+          "reading": "シバラク",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "暫く的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "20169",
+          "lemma": "折角",
+          "reading": "セッカク",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "折角的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "22656",
+          "lemma": "偶々",
+          "reading": "タマタマ",
+          "flags": [
+            "none"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：none",
+          "examples": [
+            {
+              "text": "偶々的典型none接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "15478",
+          "lemma": "確り",
+          "reading": "シッカリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "確り的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "29839",
+          "lemma": "はっきり",
+          "reading": "ハッキリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "はっきり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "19244",
+          "lemma": "すっきり",
+          "reading": "スッキリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "すっきり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "38854",
+          "lemma": "ゆっくり",
+          "reading": "ユックリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "ゆっくり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "35264",
+          "lemma": "ぼんやり",
+          "reading": "ボンヤリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "ぼんやり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8089",
+          "lemma": "がっかり",
+          "reading": "ガッカリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "がっかり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8678",
+          "lemma": "きっちり",
+          "reading": "キッチリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "きっちり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "10237",
+          "lemma": "くっきり",
+          "reading": "クッキリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "くっきり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "27193",
+          "lemma": "どきどき",
+          "reading": "ドキドキ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "どきどき的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "33232",
+          "lemma": "ふわふわ",
+          "reading": "フワフワ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "ふわふわ的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "14255",
+          "lemma": "さっぱり",
+          "reading": "サッパリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "さっぱり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "38855",
+          "lemma": "ゆったり",
+          "reading": "ユッタリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "ゆったり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "12803",
+          "lemma": "こっそり",
+          "reading": "コッソリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "こっそり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "15522",
+          "lemma": "しっとり",
+          "reading": "シットリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "しっとり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "17558",
+          "lemma": "しんみり",
+          "reading": "シンミリ",
+          "flags": [
+            "suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：suru",
+          "examples": [
+            {
+              "text": "しんみり的典型suru接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "200",
+          "lemma": "生憎",
+          "reading": "アイニク",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "生憎的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "1031",
+          "lemma": "余り",
+          "reading": "アマリ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "余り的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "1081",
+          "lemma": "あやふや",
+          "reading": "アヤフヤ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "あやふや的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "1614",
+          "lemma": "如何",
+          "reading": "イカガ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "如何的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "2617",
+          "lemma": "色々",
+          "reading": "イロイロ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "色々的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "6200",
+          "lemma": "格段",
+          "reading": "カクダン",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "格段的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "6232",
+          "lemma": "格別",
+          "reading": "カクベツ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "格別的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "6701",
+          "lemma": "かちかち",
+          "reading": "カチカチ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "かちかち的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "6913",
+          "lemma": "可成",
+          "reading": "カナリ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "可成的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "7228",
+          "lemma": "からから",
+          "reading": "カラカラ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "からから的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8055",
+          "lemma": "がさがさ",
+          "reading": "ガサガサ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "がさがさ的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8079",
+          "lemma": "がたがた",
+          "reading": "ガタガタ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "がたがた的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8152",
+          "lemma": "がらがら",
+          "reading": "ガラガラ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "がらがら的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "8163",
+          "lemma": "がりがり",
+          "reading": "ガリガリ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "がりがり的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "9957",
+          "lemma": "ぎりぎり",
+          "reading": "ギリギリ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "ぎりぎり的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "10126",
+          "lemma": "くしゃくしゃ",
+          "reading": "クシャクシャ",
+          "flags": [
+            "na_da"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：na_da",
+          "examples": [
+            {
+              "text": "くしゃくしゃ的典型na_da接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "23303",
+          "lemma": "断固",
+          "reading": "ダンコ",
+          "flags": [
+            "tari",
+            "to_suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：tari",
+          "examples": [
+            {
+              "text": "断固的典型tari接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "27141",
+          "lemma": "堂々",
+          "reading": "ドウドウ",
+          "flags": [
+            "tari",
+            "to_suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：tari",
+          "examples": [
+            {
+              "text": "堂々的典型tari接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "52653",
+          "lemma": "欣然",
+          "reading": "キンゼン",
+          "flags": [
+            "tari",
+            "to_suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：tari",
+          "examples": [
+            {
+              "text": "欣然的典型tari接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        },
+        {
+          "lemma_id": "137328",
+          "lemma": "潺々",
+          "reading": "センセン",
+          "flags": [
+            "tari",
+            "to_suru"
+          ],
+          "status": "reviewed",
+          "reason": "UniDic 副词词元的人工诊断分类：tari",
+          "examples": [
+            {
+              "text": "潺々的典型tari接续",
+              "source": "synthesized-diagnostic"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

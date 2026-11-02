@@ -21049,5 +21049,256 @@
       ]
     }
   },
-  "adverb_capabilities": {}
+  "adverb_capabilities": {
+    "10126": {
+      "flags": 4,
+      "lemma": "くしゃくしゃ",
+      "reading": "クシャクシャ"
+    },
+    "10237": {
+      "flags": 2,
+      "lemma": "くっきり",
+      "reading": "クッキリ"
+    },
+    "1031": {
+      "flags": 4,
+      "lemma": "余り",
+      "reading": "アマリ"
+    },
+    "1081": {
+      "flags": 4,
+      "lemma": "あやふや",
+      "reading": "アヤフヤ"
+    },
+    "11140": {
+      "flags": 1,
+      "lemma": "決して",
+      "reading": "ケッシテ"
+    },
+    "12803": {
+      "flags": 2,
+      "lemma": "こっそり",
+      "reading": "コッソリ"
+    },
+    "137328": {
+      "flags": 24,
+      "lemma": "潺々",
+      "reading": "センセン"
+    },
+    "14255": {
+      "flags": 2,
+      "lemma": "さっぱり",
+      "reading": "サッパリ"
+    },
+    "15478": {
+      "flags": 2,
+      "lemma": "確り",
+      "reading": "シッカリ"
+    },
+    "15522": {
+      "flags": 2,
+      "lemma": "しっとり",
+      "reading": "シットリ"
+    },
+    "15670": {
+      "flags": 1,
+      "lemma": "暫く",
+      "reading": "シバラク"
+    },
+    "1614": {
+      "flags": 4,
+      "lemma": "如何",
+      "reading": "イカガ"
+    },
+    "17558": {
+      "flags": 2,
+      "lemma": "しんみり",
+      "reading": "シンミリ"
+    },
+    "19134": {
+      "flags": 1,
+      "lemma": "直ぐ",
+      "reading": "スグ"
+    },
+    "19244": {
+      "flags": 2,
+      "lemma": "すっきり",
+      "reading": "スッキリ"
+    },
+    "19286": {
+      "flags": 1,
+      "lemma": "既に",
+      "reading": "スデニ"
+    },
+    "200": {
+      "flags": 4,
+      "lemma": "生憎",
+      "reading": "アイニク"
+    },
+    "20169": {
+      "flags": 1,
+      "lemma": "折角",
+      "reading": "セッカク"
+    },
+    "20750": {
+      "flags": 1,
+      "lemma": "是非",
+      "reading": "ゼヒ"
+    },
+    "22656": {
+      "flags": 1,
+      "lemma": "偶々",
+      "reading": "タマタマ"
+    },
+    "23303": {
+      "flags": 24,
+      "lemma": "断固",
+      "reading": "ダンコ"
+    },
+    "24363": {
+      "flags": 1,
+      "lemma": "遂に",
+      "reading": "ツイニ"
+    },
+    "258": {
+      "flags": 1,
+      "lemma": "敢えて",
+      "reading": "アエテ"
+    },
+    "2617": {
+      "flags": 4,
+      "lemma": "色々",
+      "reading": "イロイロ"
+    },
+    "26503": {
+      "flags": 1,
+      "lemma": "迚も",
+      "reading": "トテモ"
+    },
+    "27141": {
+      "flags": 24,
+      "lemma": "堂々",
+      "reading": "ドウドウ"
+    },
+    "27193": {
+      "flags": 2,
+      "lemma": "どきどき",
+      "reading": "ドキドキ"
+    },
+    "29839": {
+      "flags": 2,
+      "lemma": "はっきり",
+      "reading": "ハッキリ"
+    },
+    "33232": {
+      "flags": 2,
+      "lemma": "ふわふわ",
+      "reading": "フワフワ"
+    },
+    "35264": {
+      "flags": 2,
+      "lemma": "ぼんやり",
+      "reading": "ボンヤリ"
+    },
+    "35816": {
+      "flags": 1,
+      "lemma": "全く",
+      "reading": "マッタク"
+    },
+    "36084": {
+      "flags": 1,
+      "lemma": "丸で",
+      "reading": "マルデ"
+    },
+    "38854": {
+      "flags": 2,
+      "lemma": "ゆっくり",
+      "reading": "ユックリ"
+    },
+    "38855": {
+      "flags": 2,
+      "lemma": "ゆったり",
+      "reading": "ユッタリ"
+    },
+    "4531": {
+      "flags": 1,
+      "lemma": "大いに",
+      "reading": "オオイニ"
+    },
+    "4983": {
+      "flags": 1,
+      "lemma": "恐らく",
+      "reading": "オソラク"
+    },
+    "52653": {
+      "flags": 24,
+      "lemma": "欣然",
+      "reading": "キンゼン"
+    },
+    "6200": {
+      "flags": 4,
+      "lemma": "格段",
+      "reading": "カクダン"
+    },
+    "6232": {
+      "flags": 4,
+      "lemma": "格別",
+      "reading": "カクベツ"
+    },
+    "6701": {
+      "flags": 4,
+      "lemma": "かちかち",
+      "reading": "カチカチ"
+    },
+    "6912": {
+      "flags": 1,
+      "lemma": "必ず",
+      "reading": "カナラズ"
+    },
+    "6913": {
+      "flags": 4,
+      "lemma": "可成",
+      "reading": "カナリ"
+    },
+    "7228": {
+      "flags": 4,
+      "lemma": "からから",
+      "reading": "カラカラ"
+    },
+    "8055": {
+      "flags": 4,
+      "lemma": "がさがさ",
+      "reading": "ガサガサ"
+    },
+    "8079": {
+      "flags": 4,
+      "lemma": "がたがた",
+      "reading": "ガタガタ"
+    },
+    "8089": {
+      "flags": 2,
+      "lemma": "がっかり",
+      "reading": "ガッカリ"
+    },
+    "8152": {
+      "flags": 4,
+      "lemma": "がらがら",
+      "reading": "ガラガラ"
+    },
+    "8163": {
+      "flags": 4,
+      "lemma": "がりがり",
+      "reading": "ガリガリ"
+    },
+    "8678": {
+      "flags": 2,
+      "lemma": "きっちり",
+      "reading": "キッチリ"
+    },
+    "9957": {
+      "flags": 4,
+      "lemma": "ぎりぎり",
+      "reading": "ギリギリ"
+    }
+  }
 }

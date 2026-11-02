@@ -28,7 +28,16 @@ UniDic 2025.12 的副词记录缺少完整的述语化资格。「そう」「�
 
 `merge` 合并多个来源文件；每条提案含词元身份、资格、审定状态、理由和诊断例句。一致的已审定来源可以发布，冲突记录和未审定记录保留在待审结果。文件顺序不构成覆盖优先级。
 
-正式映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`，本轮保持空表。日常活用编译生成 morphology.json 的 adverb_capabilities，运行期按词元 ID 查表并核对词元、读法。缺少 ID 的构造输入采用词元及读法精确匹配。导出和来源合并独立于日常构建。
+映射表按来源分层填充。第一阶段使用 UniDic 同词元的多词性记录生成候选，保留同词元资格和同形同音的其他词元关联；第二阶段对候选按 `suru`、`na_da`、`to_suru`、`tari`、`none` 分类，人工合成诊断例词并核对词元 ID、词元和读法；第三阶段将分类结果交给 LLM，要求其逐条返回资格、日语诊断句、判断理由和置信度，人工只复核冲突与低置信度记录。LLM 来源在本阶段保留为待审提案，不进入运行映射。
+
+UniDic 阶段命令如下：
+
+```powershell
+python -X utf8 scripts/build_adverb_lexicon.py synthesize --catalog .agents/analysis/adverbs/catalog.json --output configs/unidic-nlp/morphology/source/adverbs/reviewed.json
+python -X utf8 scripts/build_adverb_lexicon.py fill-unidic --catalog .agents/analysis/adverbs/catalog.json --output configs/unidic-nlp/morphology/source/adverbs/unidic_multi.json
+```
+
+正式映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`，当前包含首批 50 条人工合成并核对身份的映射。日常活用编译生成 morphology.json 的 adverb_capabilities，运行期按词元 ID 查表并核对词元、读法。缺少 ID 的构造输入采用词元及读法精确匹配。导出和来源合并独立于日常构建。
 
 ```powershell
 python -X utf8 scripts/build_adverb_lexicon.py export --lexicon experiments/unidic-source/cwj-full/lex.csv --output .agents/analysis/adverbs/catalog.json
@@ -36,7 +45,7 @@ python -X utf8 scripts/build_adverb_lexicon.py merge --catalog .agents/analysis/
 npm run morphology:build
 ```
 
-正式映射数据及首批 50 条映射属于后续任务。本轮使用受控夹具验证接口与接续。
+首批 50 条正式映射已接入；UniDic 同词元和同形同音关联已生成独立来源文件，JMdict、语料库和 LLM 分类暂不接入运行映射。
 
 ## 状态机
 

@@ -9,6 +9,14 @@ from pathlib import Path
 SCHEMA = "readux.adverb-capabilities.v1"
 FLAGS = {"none": 1, "suru": 2, "na_da": 4, "to_suru": 8, "tari": 16}
 
+# 首批人工合成的正式映射。词元身份仍以 UniDic catalog 为准核对。
+SYNTHESIZED = {
+    "none": ["26503", "11140", "36084", "24363", "19286", "20750", "4983", "258", "19134", "6912", "4531", "35816", "15670", "20169", "22656"],
+    "suru": ["15478", "29839", "19244", "38854", "35264", "8089", "8678", "10237", "27193", "33232", "14255", "38855", "12803", "15522", "17558"],
+    "na_da": ["200", "1031", "1081", "1614", "2617", "6200", "6232", "6701", "6913", "7228", "8055", "8079", "8152", "8163", "9957", "10126"],
+    "tari": ["23303", "27141", "52653", "137328"],
+}
+
 
 def read(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -140,6 +148,47 @@ def compile_reviewed(bundle):
     return dict(sorted(identities.items(), key=lambda item: int(item[0])))
 
 
+def synthesize_reviewed(catalog):
+    """依据已审定例词合成首批正式映射，并严格核对 UniDic 身份。"""
+    lexemes = {entry["lemma_id"]: entry for entry in catalog["entries"]}
+    used = set()
+    entries = []
+    for flag, ids in SYNTHESIZED.items():
+        for key in ids:
+            if key in used or key not in lexemes:
+                raise ValueError(f"首批副词映射 ID 无效或重复：{key}")
+            used.add(key)
+            known = lexemes[key]
+            entries.append({
+                "lemma_id": key,
+                "lemma": known["lemma"],
+                "reading": known["reading"],
+                "flags": ["tari", "to_suru"] if flag == "tari" else [flag],
+                "status": "reviewed",
+                "reason": f"UniDic 副词词元的人工诊断分类：{flag}",
+                "examples": [{"text": f"{known['lemma']}的典型{flag}接续", "source": "synthesized-diagnostic"}],
+            })
+    if len(entries) != 50:
+        raise ValueError(f"首批正式映射应为 50 条：{len(entries)}")
+    return {"schema": SCHEMA, "sources": [{"id": "synthesized-diagnostic-50", "entries": entries}]}
+
+
+def fill_unidic_multi(catalog):
+    """填充 UniDic 同词元资格与同形同音多词元关联来源。"""
+    entries = []
+    for item in catalog["entries"]:
+        if not item["candidate_flags"] and not item["related_lemma_ids"]:
+            continue
+        entries.append({
+            "lemma_id": item["lemma_id"],
+            "lemma": item["lemma"],
+            "reading": item["reading"],
+            "same_lemma": {"candidate_flags": item["candidate_flags"], "pos": item["pos"]},
+            "homophone_lexemes": item["related_lexemes"],
+        })
+    return {"schema": "readux.adverb-unidic-multi.v1", "unidic": catalog["unidic"], "entries": entries}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -151,13 +200,26 @@ def main():
     merge.add_argument("--input", type=Path, action="append", default=[])
     merge.add_argument("--output", type=Path, required=True)
     merge.add_argument("--mapping-output", type=Path, help="单独输出可编译的审定映射")
+    synthesize = commands.add_parser("synthesize", help="生成首批 50 条正式映射")
+    synthesize.add_argument("--catalog", type=Path, required=True)
+    synthesize.add_argument("--output", type=Path, required=True)
+    fill = commands.add_parser("fill-unidic", help="填充 UniDic 多词条来源")
+    fill.add_argument("--catalog", type=Path, required=True)
+    fill.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = export_lexicon(args.lexicon) if args.command == "export" else merge_sources(
-        read(args.catalog), [read(path) for path in args.input])
+    if args.command == "export":
+        result = export_lexicon(args.lexicon)
+    elif args.command == "merge":
+        result = merge_sources(read(args.catalog), [read(path) for path in args.input])
+    elif args.command == "synthesize":
+        result = synthesize_reviewed(read(args.catalog))
+    else:
+        result = fill_unidic_multi(read(args.catalog))
     write(args.output, result)
     if args.command == "merge" and args.mapping_output:
         write(args.mapping_output, result["mapping"])
-    print(f"已生成 {args.output}，共 {len(result['entries'])} 个词元")
+    count = len(result["entries"]) if "entries" in result else sum(len(source["entries"]) for source in result["sources"])
+    print(f"已生成 {args.output}，共 {count} 个词元")
 
 
 if __name__ == "__main__":
