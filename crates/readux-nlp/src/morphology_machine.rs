@@ -33,10 +33,7 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
                 }
             })
     });
-    let category = if field(t, 0) == "副詞"
-        && adverb::for_token(t).is_some_and(|flags| flags.has(Capabilities::NA_DA | Capabilities::TARI)) {
-        "形状詞"
-    } else if classical {
+    let category = if classical {
         "文語用言"
     } else if field(t, 0) == "接尾辞" && field(t, 1) == "名詞的" {
         "名詞"
@@ -48,7 +45,8 @@ pub(crate) fn state(t: &ProviderToken) -> MorphologyState {
         form,
         conjugation_type: field(t, 4).into(),
         conjugation_form: raw.into(),
-        entity_class: if category == "形状詞" {
+        entity_class: if category == "形状詞" || category == "副詞"
+            && adverb::for_token(t).is_some_and(|flags| flags.has(Capabilities::NA_DA | Capabilities::TARI)) {
             "ナ形容词判断类"
         } else if classical {
             "文言活用类"
@@ -99,9 +97,13 @@ fn may_stop(kind: &str, state: &MorphologyState) -> bool {
     )
 }
 
-/// 名词谓语与形容动词共用判断词尾的接续表，词汇类别保持各自身份。
+/// 词干保留原词性；判断兼容用于执行条件，图示采用显式的词性分支。
 fn accepts_category(state: &MorphologyState, categories: &[String]) -> bool {
     categories.contains(&state.category)
+        || state.category == "副詞"
+            && state.entity_class == "ナ形容词判断类"
+            && state.form == ConnectionForm::Stem
+            && categories.iter().any(|category| category == "形状詞")
         || matches!(state.category.as_str(), "名詞" | "代名詞")
             && state.entity_class == "ナ形容词判断类"
             && state.form != ConnectionForm::Stem
@@ -291,6 +293,7 @@ impl NaAdjectiveJudgementExecutor {
         atom.final_state.category = match metadata.output_category.as_str() {
             "形状詞" => "形状詞".into(),
             "名詞" => "名詞".into(),
+            "用言" | "保持前项" | "" if previous.final_state.category == "副詞" => "形状詞".into(),
             "用言" | "保持前项" | "" => previous.final_state.category.clone(),
             category => category.into(),
         };
@@ -1340,10 +1343,10 @@ pub(crate) fn compose(
                 && previous.morpheme_range[1] == index
                 && field(&source[previous.anchor_morpheme], 0) == "副詞"
                 && matches!(field(current, 4), "助動詞-ダ" | "助動詞-デス")) {
-            previous.final_state.category = "形状詞".into();
             previous.final_state.entity_class = "ナ形容词判断类".into();
-            if previous.adverb_capabilities.is_none() {
-                previous.adverb_capabilities = Some(Capabilities(Capabilities::NA_DA));
+            if previous.adverb_capabilities.is_none_or(|flags| !flags.has(Capabilities::NONE)) {
+                previous.adverb_capabilities = Some(Capabilities(
+                    previous.adverb_capabilities.map_or(0, |flags| flags.0) | Capabilities::NA_DA));
             }
             previous.evidence.push("adverb:contextual_judgement".into());
         }
@@ -1799,7 +1802,7 @@ fn identify_connection_paths(
             let matched: Vec<_> = rule.paths.iter().filter(|path| {
                 (path.capabilities == 0 || chain.adverb_capabilities
                     .is_some_and(|flags| flags.0 & path.capabilities == path.capabilities))
-                    && (path.categories.is_empty() || if path.exact_category {
+                    && (path.categories.is_empty() || if path.exact_category || state.category == "副詞" {
                     path.categories.contains(&state.category)
                 } else { accepts_category(state, &path.categories) })
                     && (path.forms.is_empty() || path.forms.contains(&state.form))
@@ -1924,6 +1927,19 @@ mod adverb_acceptance {
             ("そうなのだ。", None, &["attributive_na", "nominalization", "copula"]),
             ("そうだった。", None, &["copula_past"]),
             ("そうです。", None, &["politeness_desu"]),
+            ("そうだ。", None, &["copula"]),
+            ("そうだから。", None, &["copula", "kara_connection"]),
+            ("そうでしたから。", None, &["copula_past", "kara_connection"]),
+            ("そうな人。", None, &["attributive_na"]),
+            ("そうでなかったのだ。", None, &["copula_de", "negative", "past", "nominalization", "copula"]),
+            ("そうでなくていいのだ。", None, &["copula_de", "negative", "te_ii", "nominalization", "copula"]),
+            ("そうである。", None, &["copula_de", "copula_aru"]),
+            ("そうであったのだ。", None, &["copula_de", "copula_aru", "past", "nominalization", "copula"]),
+            ("そうだろう。", None, &["darou_modality"]),
+            ("そうでしょう。", None, &["deshou_modality"]),
+            ("そうなら困る。", None, &["nara_condition"]),
+            ("いろいろになる。", Some(Capabilities::NA_DA), &["adverbial_ni", "ni_naru"]),
+            ("いろいろになっている。", Some(Capabilities::NA_DA), &["adverbial_ni", "ni_naru", "te_iru"]),
             ("ふわふわ浮かぶ。", Some(Capabilities::SURU | Capabilities::NA_DA), &[]),
             ("まだしていない。", Some(Capabilities::NONE), &[]),
             ("すぐする。", Some(Capabilities::NONE), &[]),
@@ -1957,6 +1973,12 @@ mod adverb_acceptance {
                 let connection = op.connection.as_ref().unwrap();
                 assert_eq!(connection.matched_paths.len(), 1, "{text}: {kind}");
                 assert!(connection.diagnostics.is_empty());
+                if op.state_before.category == "副詞" && op.executor == "na_adjective_judgement" {
+                    assert_eq!(connection.path.as_deref(), Some(if flags == Some(Capabilities::NONE) {
+                        "adverb_context"
+                    } else { "adverb" }), "{text}: {kind} 的副词前接分支");
+                    assert_ne!(op.state_after.category, "副詞", "{text}: {kind} 的整体状态");
+                }
             }
             if required.is_empty() {
                 assert_eq!(artifact.chains[0].morpheme_indices, vec![0], "{text}: 前链范围");
@@ -1970,6 +1992,28 @@ mod adverb_acceptance {
             }
             reports.push(serde_json::json!({"text": text, "source": source, "morphemes": morphemes,
                 "morphology": artifact}));
+        }
+        // 同一词元的副词分支采用受控标注，检查に与タリ的词性入口。
+        for (text, flag, kind) in [
+            ("いろいろになっている。", Capabilities::NA_DA, "adverbial_ni"),
+            ("堂々たる態度。", Capabilities::TARI | Capabilities::TO_SURU, "classical_tari_copula"),
+        ] {
+            let observed = reports.iter().find(|report| report["text"] == text).unwrap();
+            let mut source: crate::model::SourceAnalysis = serde_json::from_value(observed["source"].clone()).unwrap();
+            let mut morphemes: Vec<MorphemeToken> = serde_json::from_value(observed["morphemes"].clone()).unwrap();
+            source.tokens[0].fields[0].value = Some("副詞".into());
+            morphemes[0].pos[0] = Some("副詞".into());
+            let mut atoms = crate::morphology::collect_atoms(&source.tokens, &morphemes).unwrap();
+            atoms[0].adverb_capabilities = Some(Capabilities(flag));
+            atoms[0].final_state.entity_class = "ナ形容词判断类".into();
+            let artifact = compose(atoms, &source.tokens, &morphemes, &[]);
+            assert!(artifact.diagnostics.is_empty(), "{text}: {:?}", artifact.diagnostics);
+            let op = artifact.chains.iter().flat_map(|chain| &chain.operators).find(|op| op.kind == kind).unwrap();
+            assert_eq!(op.state_before.category, "副詞");
+            assert_eq!(op.connection.as_ref().unwrap().path.as_deref(), Some(
+                if kind == "adverbial_ni" { "adverb" } else { "input0_adverb" }));
+            reports.push(serde_json::json!({"text": text, "source": source, "morphemes": morphemes,
+                "morphology": artifact, "controlled_pos": true}));
         }
         if let Some(path) = std::env::var_os("READUX_ADVERB_ACCEPTANCE_REPORT") {
             std::fs::write(path, serde_json::to_vec(&reports).unwrap()).unwrap();

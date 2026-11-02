@@ -2,7 +2,7 @@ import explanations from "../../crates/readux-core/resources/grammar/compiled/gr
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
 import { configuredPrototype, isIntrinsicFeature, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyPrototype, morphologyRuleForOperator, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, UnifiedDocument } from "../types/nlp";
-import { adverbChainAt, adverbInflecting } from "./adverbCapabilities.ts";
+import { adverbChainAt, adverbStemLabel } from "./adverbCapabilities.ts";
 
 export interface MorphologyEntryContent {
   headword: string;
@@ -75,8 +75,8 @@ function elementForm(document: UnifiedDocument, index: number, state?: Morpholog
     || token.pos?.[0] === "接尾辞" && ["動詞的", "形容詞的"].includes(token.pos?.[1] ?? "");
   if (!inflecting) {
     const chain = adverbChainAt(document, index);
-    const stem = chain && adverbInflecting(chain) || token.pos?.[0] === "形状詞";
-    return stem ? "词干" : "无活用";
+    if (token.pos?.[0] === "副詞" && chain) return adverbStemLabel(chain);
+    return token.pos?.[0] === "形状詞" ? "词干" : "无活用";
   }
   return formLabel(state, kind, evidence, rawForm);
 }

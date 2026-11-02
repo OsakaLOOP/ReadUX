@@ -8,6 +8,7 @@ import { layoutConnectionRules, layoutSentenceChain } from "../src/reader/morpho
 const path = process.argv[2] || ".agents/analysis/adverbs/acceptance.json";
 const documents = JSON.parse(readFileSync(path, "utf8"));
 let operators = 0;
+let judgements = 0;
 for (const document of documents) {
   const targets = document.morphology.chains.filter((chain) => !chain.parent_chain_id && chain.role === "lexical")
     .map((chain) => ({ id: chain.chain_id, char_range: chain.char_range, surface: chain.surface_form,
@@ -15,6 +16,18 @@ for (const document of documents) {
       morpheme_ids: chain.morpheme_indices.map((index) => document.morphemes[index].id), lookup_forms: chain.query_forms }));
   const hits = readerMorphologyHits(targets, document);
   for (const chain of document.morphology.chains) {
+    for (const operator of chain.operators.filter((op) => op.state_before.category === "副詞"
+      && (op.executor === "na_adjective_judgement" || op.kind === "classical_tari_copula"))) {
+      judgements++;
+      const diagram = morphologyConnectionDiagram(operator, chain, document, chain.status);
+      assert.ok(diagram.branches.some((branch) => branch.groups.some((group) => group.label === "副词"
+        && group.paths.some((path) => path.matched))), `${document.text}: 判断词尾的副词分支`);
+      assert.equal(diagram.diagnostics.length, 0);
+      const entry = morphologyEntry(operator, document);
+      assert.ok(entry.summary && entry.examples.length, `${document.text}: 判断词条`);
+      assert.notEqual(operator.state_after.category, "副詞");
+      assert.ok(hits.some((hit) => hit.detail.id === `occurrence:${operator.operator_id}`));
+    }
     for (const operator of chain.operators.filter((op) => op.executor === "adverbial_predicate")) {
       operators++;
       const entry = morphologyEntry(operator, document);
@@ -42,6 +55,8 @@ for (const document of documents) {
     const stem = diagram.sentence.find((part) => part.unit === `${chain.chain_id}:core`);
     if ((chain.adverb_capabilities & 30) !== 0) {
       assert.ok(stem && stem.form !== "无活用", `${document.text}: 可活用词干`);
+      assert.match(stem.form, /可活用/);
+      if ((chain.adverb_capabilities & 4) !== 0) assert.match(stem.form, /判断活用/);
       const target = targets.find((item) => item.id === chain.chain_id);
       if (target) assert.match(readerTargetPresentation(target, document).inflectionCapability, /^可活用/);
     } else if (stem) {
@@ -50,4 +65,5 @@ for (const document of documents) {
   }
 }
 assert.ok(operators >= 5, "验收应覆盖三个新增规则");
-console.log(`${documents.length} 条真实分词记录、${operators} 个新增接续的词条、查询入口与图示投影通过。`);
+assert.ok(judgements >= 10, "验收应覆盖判断词尾的副词分支和后续延伸");
+console.log(`${documents.filter((doc) => !doc.controlled_pos).length} 条真实分词记录、${documents.filter((doc) => doc.controlled_pos).length} 条受控词性变体、${operators} 个述语化接续、${judgements} 个副词判断分支的查询与图示投影通过。`);

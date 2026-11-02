@@ -7668,6 +7668,22 @@
       ],
       "paths": [
         {
+          "capabilities": 16,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "input0_adverb",
+          "label": "タリ活用可能词干",
+          "steps": [
+            "タリ活用可能词干"
+          ]
+        },
+        {
           "categories": [
             "名詞",
             "代名詞"
@@ -9340,6 +9356,39 @@
       ],
       "paths": [
         {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "断定：だ",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
+        {
           "categories": [
             "名詞",
             "代名詞"
@@ -9382,6 +9431,39 @@
         "adverbial_ni"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "连用修饰：に",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
         {
           "categories": [
             "名詞",
@@ -9490,6 +9572,39 @@
         "attributive_na"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "连体修饰：な",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
         {
           "categories": [
             "名詞",
@@ -9629,6 +9744,39 @@
       ],
       "paths": [
         {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "推量：だろう",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
+        {
           "categories": [
             "名詞",
             "代名詞"
@@ -9719,6 +9867,39 @@
         "copula_past"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "判断过去：だった／でした",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
         {
           "categories": [
             "名詞",
@@ -10019,6 +10200,39 @@
         "nara_condition"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "条件：なら",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
         {
           "categories": [
             "名詞",
@@ -11135,7 +11349,9 @@
           ],
           "connector": "attributive_na",
           "connector_paths": [
-            "na"
+            "na",
+            "adverb",
+            "adverb_context"
           ],
           "exact_category": true,
           "forms": [
@@ -11446,6 +11662,39 @@
         "politeness_desu"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "敬体：です／でしょう",
+          "steps": [
+            "判断活用可能词干"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "steps": [
+            "无活用词干",
+            "句中判断词尾"
+          ]
+        },
         {
           "categories": [
             "名詞",
@@ -13061,6 +13310,61 @@
         "te_form"
       ],
       "paths": [
+        {
+          "capabilities": 4,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb",
+          "label": "判断连用：で",
+          "next": {
+            "equals": {
+              "ctype": [
+                "助動詞-ダ"
+              ],
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "steps": [
+            "判断活用可能词干",
+            "で"
+          ]
+        },
+        {
+          "capabilities": 1,
+          "categories": [
+            "副詞"
+          ],
+          "exact_category": true,
+          "forms": [
+            "stem"
+          ],
+          "group": "副词",
+          "id": "adverb_context",
+          "label": "无活用副词的句中判断接续",
+          "next": {
+            "equals": {
+              "ctype": [
+                "助動詞-ダ"
+              ],
+              "surface": [
+                "で"
+              ]
+            }
+          },
+          "steps": [
+            "无活用词干",
+            "句中判断词尾",
+            "で"
+          ]
+        },
         {
           "categories": [
             "動詞"
@@ -18972,7 +19276,8 @@
           "categories": [
             "名詞",
             "形状詞",
-            "代名詞"
+            "代名詞",
+            "副詞"
           ],
           "forms": [
             "stem"

@@ -1663,6 +1663,15 @@
     "auxiliary": "classical_tari_copula",
     "paths": [
       {
+        "id": "input0_adverb",
+        "input": "input0",
+        "group": "副词",
+        "label": "タリ活用可能词干",
+        "steps": ["タリ活用可能词干"],
+        "categories": ["副詞"],
+        "capabilities": 16
+      },
+      {
         "id": "input0_noun",
         "group": "名词",
         "label": "词干",

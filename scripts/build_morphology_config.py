@@ -211,7 +211,8 @@ def validate(config):
                     "exact_category", "evidence", "next", "predecessors", "connector", "connector_paths",
                     "following", "exclude_following", "capabilities"), f"{name}/{path['id']}")
             if "capabilities" in path and (type(path["capabilities"]) is not int
-                    or path["capabilities"] <= 1 or path["capabilities"] & ~30):
+                    or path["capabilities"] < 1 or path["capabilities"] & ~31
+                    or path["capabilities"] & 1 and path["capabilities"] != 1):
                 raise ValueError(f"{name}/{path['id']} 的接续资格无效")
             for key in ("next", "following", "exclude_following"):
                 if key in path:
@@ -291,13 +292,15 @@ def compile_config(source=SOURCE):
             raise ValueError(f"{name} 的文言助动词归属无效：{auxiliary}")
         paths = []
         for layout in spec["paths"]:
-            fields(layout, ("id", "input", "categories", "group", "label", "steps"), (), f"{name}/paths")
+            fields(layout, ("id", "input", "categories", "group", "label", "steps"), ("capabilities",), f"{name}/paths")
             condition = inputs[auxiliary][layout["input"]]
             strings(layout["categories"], f"{name}/{layout['id']}/categories", CATEGORIES)
             if not set(layout["categories"]).issubset(condition["categories"]):
                 raise ValueError(f"{name}/{layout['id']} 的类别不属于所引用输入")
             path = {key: layout[key] for key in ("id", "group", "label", "steps")}
             path.update(categories=layout["categories"], forms=condition["forms"], exact_category=True)
+            if "capabilities" in layout:
+                path["capabilities"] = layout["capabilities"]
             for original, target in (("ctype", "ctypes"), ("exclude_ctype", "exclude_ctypes")):
                 if original in condition:
                     path[target] = condition[original]

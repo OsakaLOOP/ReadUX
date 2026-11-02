@@ -1764,6 +1764,8 @@
   "judgement": {
     "label": "断定",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "断定：だ", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -1804,6 +1806,8 @@
   "judgement_adverbial": {
     "label": "连用修饰",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "连用修饰：に", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -1906,6 +1910,8 @@
   "judgement_attributive": {
     "label": "连体修饰",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "连体修饰：な", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -2040,6 +2046,8 @@
   "judgement_modality": {
     "label": "推量／推量疑问",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "推量：だろう", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -2128,6 +2136,8 @@
   "judgement_past": {
     "label": "判断过去",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "判断过去：だった／でした", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -2416,6 +2426,8 @@
   "nara": {
     "label": "条件",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "条件：なら", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -2930,7 +2942,7 @@
         "exact_category": true,
         "connector": "attributive_na",
         "connector_paths": [
-          "na"
+          "na", "adverb", "adverb_context"
         ],
         "next": {
           "equals": {
@@ -3221,6 +3233,8 @@
   "polite_judgement": {
     "label": "敬体／推量",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "敬体：です／でしょう", "steps": ["判断活用可能词干"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1},
       {
         "id": "noun",
         "group": "名词",
@@ -3816,6 +3830,8 @@
   "te": {
     "label": "て／で",
     "paths": [
+      {"id": "adverb", "group": "副词", "label": "判断连用：で", "steps": ["判断活用可能词干", "で"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 4, "next": {"equals": {"surface": ["で"], "ctype": ["助動詞-ダ"]}}},
+      {"id": "adverb_context", "group": "副词", "label": "无活用副词的句中判断接续", "steps": ["无活用词干", "句中判断词尾", "で"], "categories": ["副詞"], "forms": ["stem"], "exact_category": true, "capabilities": 1, "next": {"equals": {"surface": ["で"], "ctype": ["助動詞-ダ"]}}},
       {
         "id": "ichidan",
         "group": "动词",

@@ -3,7 +3,7 @@ import { isIntrinsicFeature, morphologyPresentation, morphologyPrototype, morpho
 import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 import { inflectionStemAndEnding } from "./japaneseInflectionRanges.ts";
-import { adverbCapabilityLabel, adverbInflecting } from "./adverbCapabilities.ts";
+import { adverbCapabilityLabel, adverbInflecting, adverbStemLabel } from "./adverbCapabilities.ts";
 
 export interface ReaderTargetPresentation {
   inflectionCapability?: string;
@@ -979,7 +979,8 @@ export function readerMorphologyHits(
         status: chain.status,
         title: stemConjugationTitle(chain, state, document),
         surface,
-        conjugation: inflecting ? state?.form === 'stem' ? '語幹' : conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
+        conjugation: category === '副詞' ? adverbStemLabel(chain)
+          : inflecting ? state?.form === 'stem' ? '語幹' : conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
         description: prototype === surface ? '' : transitionDescription(prototype, surface),
         tags: inflecting ? morphologyTags('conjugation', state?.conjugation_form) : [],
         candidates: [],
