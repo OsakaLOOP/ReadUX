@@ -1,5 +1,11 @@
 # 来源与文档索引
 
+## DeepSeek Responses API
+
+| 外部来源 | 链接 | 使用内容 |
+| --- | --- | --- |
+| DeepSeek API 文档：创建 Response | <https://api-docs.deepseek.com/zh-cn/api/create-response> | `stream` SSE 响应、`reasoning.effort` 思考强度、`text.format.type=json_schema` 结构化输出，以及 `response.completed`、`response.incomplete`、`response.failed` 结束事件 |
+
 ## 全量接续词条与结构分类（2026-10-28）
 
 本轮依据提交 1d032be、用户已审阅的接续规则以及三张界面截图（020042、020059、020051），维护词条身份、接续功能、实际活用形与图中分组。[阶段规范](docs/morphology_stage11_bubble_display.md) 记录定义，[完整性检查](scripts/check_morphology_connections.py) 核对分类、路径来源、连接器、正文与例句。

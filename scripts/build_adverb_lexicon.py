@@ -79,7 +79,8 @@ def export_lexicon(path):
                         "candidate_flags": candidate_flags(entry["pos"]),
                         "related_lemma_ids": related_ids,
                         "related_lexemes": [{"lemma_id": peer, "lemma": records[peer]["lemma"],
-                            "reading": records[peer]["reading"],
+                            "reading": records[peer]["reading"], "spellings": sorted(records[peer]["spellings"]),
+                            "spellings": sorted(records[peer]["spellings"]),
                             "pos": [list(pos) for pos in sorted(records[peer]["pos"])],
                             "candidate_flags": candidate_flags(records[peer]["pos"])} for peer in related_ids]})
     return {"schema": "readux.adverb-lexicon.v1", "unidic": "2025.12", "entries": entries}
@@ -110,8 +111,6 @@ def merge_sources(catalog, bundles):
                 flag_bits(entry["flags"])
                 if entry["status"] not in {"candidate", "reviewed"} or not entry.get("reason"):
                     raise ValueError(f"来源 {name} 缺少审定状态或理由：{key}")
-                if entry["status"] == "reviewed" and not entry.get("examples"):
-                    raise ValueError(f"审定记录缺少诊断例句：{key}")
                 proposals[key].append({**entry, "source": name})
     entries, reviewed = [], []
     for key, lexeme in lexemes.items():
@@ -122,7 +121,9 @@ def merge_sources(catalog, bundles):
         entries.append({"lemma_id": key, "lemma": lexeme["lemma"], "reading": lexeme["reading"],
                         "status": status, "proposals": rows, "candidate_flags": lexeme["candidate_flags"]})
         if status == "reviewed":
-            reviewed.append({k: approved[0][k] for k in ("lemma_id", "lemma", "reading", "flags", "status", "reason", "examples")})
+            fields = ("lemma_id", "lemma", "reading", "flags", "status", "reason")
+            reviewed.append({**{k: approved[0][k] for k in fields},
+                             **({"examples": approved[0]["examples"]} if approved[0].get("examples") else {})})
     return {"schema": "readux.adverb-review.v1", "entries": entries,
             "mapping": {"schema": SCHEMA, "sources": [{"id": "merged-review", "entries": reviewed}]}}
 
@@ -137,8 +138,8 @@ def compile_reviewed(bundle):
             key = entry["lemma_id"]
             if not isinstance(key, str) or not key.isdecimal():
                 raise ValueError("副词词元 ID 应为十进制字符串")
-            if entry["status"] != "reviewed" or not entry.get("reason") or not entry.get("examples"):
-                raise ValueError(f"运行映射缺少审定证据：{key}")
+            if entry["status"] != "reviewed" or not entry.get("reason"):
+                raise ValueError(f"运行映射缺少审定状态或理由：{key}")
             item = {"lemma": entry["lemma"], "reading": entry["reading"], "flags": flag_bits(entry["flags"])}
             if not item["lemma"] or not item["reading"]:
                 raise ValueError(f"词元身份为空：{key}")
@@ -189,6 +190,50 @@ def fill_unidic_multi(catalog):
     return {"schema": "readux.adverb-unidic-multi.v1", "unidic": catalog["unidic"], "entries": entries}
 
 
+def integrate_llm(results, frequency):
+    """发布全部 reviewed 记录，并按词频结果审定高频 candidate。"""
+    candidates = {item["lemma_id"]: item for item in frequency["records"]}
+    entries = {}
+    for item in results["entries"]:
+        if item["status"] != "reviewed":
+            continue
+        flags = ["to_suru" if flag == "to_surus" else flag for flag in item.get("flags", [])]
+        flag_bits(flags)
+        entries[item["lemma_id"]] = {**{key: item[key] for key in
+            ("lemma_id", "lemma", "reading", "status", "reason")}, "flags": flags}
+
+    repeated = []
+    empty = []
+    promoted = []
+    for key, item in candidates.items():
+        lemma = item["lemma"]
+        unit = next((lemma[:width] for width in range(2, len(lemma) // 3 + 1)
+                     if len(lemma) >= 6 and len(lemma) % width == 0
+                     and lemma == lemma[:width] * (len(lemma) // width)), None)
+        flags = item.get("llm_flags", [])
+        reason = item.get("llm_reason", "")
+        if unit:
+            flags = ["none"]
+            reason = f"UniDic 词元由构词单元「{unit}」重复构成，长度至少 6 且重复不少于 3 次，归为无活用副词。"
+            repeated.append(key)
+        elif not flags:
+            flags = ["none"]
+            reason = f"BCCWJ 词频命中，但 UniDic 未提供同词元活用词性；该词条副词用法不需要登记正向资格。原复核意见：{reason}"
+            empty.append(key)
+        flag_bits(flags)
+        entries[key] = {"lemma_id": key, "lemma": item["lemma"], "reading": item["reading"],
+                        "flags": flags, "status": "reviewed", "reason": reason}
+        promoted.append(key)
+
+    return {"schema": SCHEMA, "sources": [{
+        "id": "llm-reviewed-and-bccwj-candidates",
+        "entries": sorted(entries.values(), key=lambda item: int(item["lemma_id"]))}],
+        "summary": {"llm_reviewed": len(entries) - len(promoted),
+                    "frequency_candidates_reviewed": len(promoted),
+                    "frequency_empty_flags_set_none": len(empty),
+                    "repeated_units_set_none": len(repeated)}}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -206,6 +251,10 @@ def main():
     fill = commands.add_parser("fill-unidic", help="填充 UniDic 多词条来源")
     fill.add_argument("--catalog", type=Path, required=True)
     fill.add_argument("--output", type=Path, required=True)
+    integrate = commands.add_parser("integrate-llm", help="整合 LLM reviewed 与词频候选映射")
+    integrate.add_argument("--results", type=Path, required=True)
+    integrate.add_argument("--frequency", type=Path, required=True)
+    integrate.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "export":
         result = export_lexicon(args.lexicon)
@@ -213,8 +262,10 @@ def main():
         result = merge_sources(read(args.catalog), [read(path) for path in args.input])
     elif args.command == "synthesize":
         result = synthesize_reviewed(read(args.catalog))
-    else:
+    elif args.command == "fill-unidic":
         result = fill_unidic_multi(read(args.catalog))
+    else:
+        result = integrate_llm(read(args.results), read(args.frequency))
     write(args.output, result)
     if args.command == "merge" and args.mapping_output:
         write(args.mapping_output, result["mapping"])

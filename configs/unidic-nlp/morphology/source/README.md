@@ -21,7 +21,7 @@ npm run morphology:check
 | `operators/classical.json` | 文言执行器，共 33 条 |
 | `operators/insertion.json` | 插入执行器，共 2 条 |
 | `operators/adverb.json` | 副词述语化与状态修饰的三个接续规则 |
-| `adverbs/reviewed.json` | 首批 50 条已审定副词接续资格 |
+| `adverbs/reviewed.json` | LLM 审定及 BCCWJ 词频候选汇总后的运行映射 |
 | `adverbs/unidic_multi.json` | UniDic 同词元资格与同形同音多词元关联来源 |
 | `rules/features.json` | 48 条单 token 特征 |
 | `rules/connections.json` | 48 条相邻连接规则 |

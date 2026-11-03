@@ -28,16 +28,19 @@ UniDic 2025.12 的副词记录缺少完整的述语化资格。「そう」「�
 
 `merge` 合并多个来源文件；每条提案含词元身份、资格、审定状态、理由和诊断例句。一致的已审定来源可以发布，冲突记录和未审定记录保留在待审结果。文件顺序不构成覆盖优先级。
 
-映射表按来源分层填充。第一阶段使用 UniDic 同词元的多词性记录生成候选，保留同词元资格和同形同音的其他词元关联；第二阶段对候选按 `suru`、`na_da`、`to_suru`、`tari`、`none` 分类，人工合成诊断例词并核对词元 ID、词元和读法；第三阶段将分类结果交给 LLM，要求其逐条返回资格、日语诊断句、判断理由和置信度，人工只复核冲突与低置信度记录。LLM 来源在本阶段保留为待审提案，不进入运行映射。
+映射表分 UniDic 资料提取、LLM 分类、人工复核与运行映射整合。UniDic 提供词元 ID、词元、读法、表面形、同词元词性及同形同音 lemma 资料。LLM 按 `suru`、`na_da`、`to_suru`、`tari`、`none` 分类，返回资格、状态和简短理由；BCCWJ 词频命中的候选再按人工规则复核，确认后标为 reviewed。诊断例句属于可选审计材料。
 
-UniDic 阶段命令如下：
+统一 LLM 分类入口为 `scripts/classify_adverbs_llm.py`。`prepare` 从 UniDic catalog 提取词元 ID、词元、读法、全部表面形、词性、同形同音 lemma 的表面形和词性，并按每批 20 条写入 `data/adverbs-llm/llm_batches.json`。`classify --batch 1,3,8-10` 只处理指定批次，结果持续写入 `data/adverbs-llm/llm_results.json`；`html` 始终只生成一个 `data/adverbs-llm/llm_review.html` 审核页，分类后自动更新。脚本顶部预留 `API_KEY`，请求使用 `https://api.deepseek.com/responses` 的 `deepseek-flash` 模型，通过 `reasoning.effort` 设置思考强度，通过 `stream=true` 实时读取 SSE，并通过 Responses `text.format.type=json_schema` 强制输出 `adverb_capability_batch` schema。输出字段限于词元身份、资格、状态和简短理由。HTTP 错误、流中断和 JSON 校验失败均写入结果文件并显示在同一审核页，批次继续处理。
+
+UniDic 提取和运行映射整合命令如下：
 
 ```powershell
 python -X utf8 scripts/build_adverb_lexicon.py synthesize --catalog .agents/analysis/adverbs/catalog.json --output configs/unidic-nlp/morphology/source/adverbs/reviewed.json
 python -X utf8 scripts/build_adverb_lexicon.py fill-unidic --catalog .agents/analysis/adverbs/catalog.json --output configs/unidic-nlp/morphology/source/adverbs/unidic_multi.json
+python -X utf8 scripts/build_adverb_lexicon.py integrate-llm --results data/adverbs-llm/llm_results.json --frequency data/adverbs-llm/candidate_frequency_global.json --output configs/unidic-nlp/morphology/source/adverbs/reviewed.json
 ```
 
-正式映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`，当前包含首批 50 条人工合成并核对身份的映射。日常活用编译生成 morphology.json 的 adverb_capabilities，运行期按词元 ID 查表并核对词元、读法。缺少 ID 的构造输入采用词元及读法精确匹配。导出和来源合并独立于日常构建。
+正式映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`。`integrate-llm` 汇总完整 LLM reviewed 结果，并将 BCCWJ global 词频命中的 candidate 按复核规则转为 reviewed 后写入同一运行来源。运行资格以词元 ID 为主，并核对词元和读法；没有 ID 的构造输入采用词元与读法精确匹配。诊断例句为可选审计材料，不影响运行资格编译。
 
 ```powershell
 python -X utf8 scripts/build_adverb_lexicon.py export --lexicon experiments/unidic-source/cwj-full/lex.csv --output .agents/analysis/adverbs/catalog.json
@@ -45,7 +48,7 @@ python -X utf8 scripts/build_adverb_lexicon.py merge --catalog .agents/analysis/
 npm run morphology:build
 ```
 
-首批 50 条正式映射已接入；UniDic 同词元和同形同音关联已生成独立来源文件，JMdict、语料库和 LLM 分类暂不接入运行映射。
+LLM 审定映射与 BCCWJ 高频候选已经接入；UniDic 同词元及同形同音关联作为审核资料保留在独立来源文件。
 
 ## 状态机
 

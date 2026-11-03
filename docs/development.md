@@ -49,7 +49,7 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 ## EdgeOne Makers 静态部署
 
-在仓库根目录运行 `npm ci`、`npm run build`，输出目录为 `dist`。EdgeOne Makers 的框架选择 Vue 或 Vite，根目录为 `./`，构建命令为 `npm run build`，输出目录为 `dist`，Node.js 可选择 22.21.1。直接上传时选择整个 `dist` 文件夹，ZIP 上传须保证 `index.html` 位于压缩包根目录。
+在仓库根目录运行 `npm ci`、`npm run edgeone:build`，输出目录为 `dist`。该命令先编译活用配置并构建正式分析服务，再重新生成三课指南快照和 `public/library/catalog.json` 已登记书籍的静态资源，最后执行 Vue 类型检查与 Vite 生产构建。本机书库中未发布的图书不会加入部署资源。书籍资源版本由分析服务、活用配置、图书正文、图书资源和生成脚本共同确定，输入变化会生成新的版本目录并更新书库索引。EdgeOne Makers 的框架选择 Vue 或 Vite，根目录为 `./`，构建命令为 `npm run edgeone:build`，输出目录为 `dist`，Node.js 可选择 22.21.1。直接上传时选择整个 `dist` 文件夹，ZIP 上传须保证 `index.html` 位于压缩包根目录。
 
 正式构建自动将三课指南的分析、词典快照压缩为 `.json.gz`，前端通过浏览器原生 `DecompressionStream` 解压后读取。开发服务继续使用 JSON。静态托管按普通 gzip 文件提供这些资源，浏览器负责解压文件内容。
 

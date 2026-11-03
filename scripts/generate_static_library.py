@@ -47,13 +47,15 @@ def pack_rows(directory, prefix, rows, limit=1024 * 1024):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--title", default="わたしが恋人になれるわけないじゃん、ムリムリ！")
+    parser.add_argument("--book-id", help="按书库 ID 精确选择图书")
     parser.add_argument("--library", type=Path, default=Path.home() / "Documents/ReadUX Library")
     parser.add_argument("--service", type=Path, default=ROOT / "target/release/readux-nlp.exe")
     parser.add_argument("--version", default=time.strftime("%Y%m%d"))
     args = parser.parse_args()
     source = sqlite3.connect((args.library / "library.sqlite").resolve().as_uri() + "?mode=ro", uri=True)
     source.row_factory = sqlite3.Row
-    matches = source.execute("SELECT * FROM books WHERE title LIKE ?", (args.title + "%",)).fetchall()
+    matches = (source.execute("SELECT * FROM books WHERE id=?", (args.book_id,)).fetchall()
+               if args.book_id else source.execute("SELECT * FROM books WHERE title LIKE ?", (args.title + "%",)).fetchall())
     if len(matches) != 1:
         raise ValueError(f"书名应唯一匹配，实际匹配 {len(matches)} 本")
     row = dict(matches[0])
