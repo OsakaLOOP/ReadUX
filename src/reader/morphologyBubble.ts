@@ -18,6 +18,7 @@ export interface ConnectionPathView {
   label: string;
   condition: string;
   matched: boolean;
+  actual?: string;
 }
 export interface ConnectionGroupView { id: string; label: string; paths: ConnectionPathView[] }
 export interface SentenceChainPart {
@@ -37,7 +38,7 @@ export interface ConnectionDiagram {
   id: string;
   target: string | null;
   targetNodeId?: string;
-  predecessor?: { id: string; surface: string; form: string };
+  predecessor?: { id: string; surface: string };
   status: string;
   diagnostics: string[];
   branches: { id: string; nodeId?: string; label: string; matched: boolean; groups: ConnectionGroupView[] }[];
@@ -315,7 +316,7 @@ export function morphologyConnectionDiagram(
     .filter((part) => part.range && part.range[0] < predecessorRange[1] && predecessorRange[0] < part.range[1] && part.range[1] === predecessorRange[1])
     .sort((left, right) => right.range![0] - left.range![0])[0];
   const predecessor = predecessorPart && targetPart && sentenceNodeId(predecessorPart) !== sentenceNodeId(targetPart) && connection?.predecessor_surface
-    ? { id: sentenceNodeId(predecessorPart), surface: connection.predecessor_surface, form: predecessorPart.form }
+    ? { id: sentenceNodeId(predecessorPart), surface: connection.predecessor_surface }
     : undefined;
   const connector = connection?.connector_operator_id
     ? document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.operator_id === connection.connector_operator_id) : operator;
@@ -341,7 +342,8 @@ export function morphologyConnectionDiagram(
       const steps = path.steps.filter((step) => !separateTe || step !== label);
       // 词条自身的组成由目标节点说明，前接卡片仅保留输入条件。
       const conditions = connection?.rule === "zuni" ? steps.filter((step) => !["ず", "に", "に（接续用法）"].includes(step)) : steps;
-      group.paths.push({ id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched });
+      group.paths.push({ id, label: path.label.replace(" · 分词恢复", ""), condition: conditions.join(" · "), matched,
+        actual: matched ? morphologyTags("", connector?.state_before?.conjugation_form).join(" · ") : undefined });
     }
     const matched = groups.some((group) => group.paths.some((path) => path.matched));
     return { id: label || connection?.rule || "", nodeId: separateTe && matched && targetPart ? sentenceNodeId(targetPart) : undefined, label, groups, matched };

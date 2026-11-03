@@ -10,11 +10,11 @@ export interface GraphNode {
   kind: "group" | "connector" | "target" | "predecessor" | "sentence";
   matched: boolean; inserted?: boolean; opacity: number;
   action?: { key: string; expanded: boolean; count: number };
-  list?: { id: string; label: string; condition: string; matched: boolean; height: number }[];
+  list?: { id: string; label: string; condition: string; actual?: string; matched: boolean; height: number }[];
 }
 export interface GraphLink { id: string; source: string; target: string; vertical?: boolean; matched: boolean; label?: string; arrow?: boolean }
 export interface MorphologyGraphLayout { width: number; height: number; nodes: GraphNode[]; links: GraphLink[] }
-interface RuleNode { id: string; label: string; kind: GraphNode["kind"]; width: number; height: number; matched: boolean; children?: RuleNode[]; group?: ConnectionGroupView; list?: GraphNode["list"]; lines?: GraphLine[]; arrow?: boolean; hidden?: boolean }
+interface RuleNode { id: string; label: string; kind: GraphNode["kind"]; width: number; height: number; matched: boolean; children?: RuleNode[]; group?: ConnectionGroupView; list?: GraphNode["list"]; hidden?: boolean }
 
 // 优先用 canvas 实际测量；节点测试环境无 canvas 时回退到按字符宽度的估算。
 let context: CanvasRenderingContext2D | null | undefined;
@@ -58,7 +58,7 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
   const categories = diagram.branches.flatMap((branch) => branch.groups);
   const groupWidth = Math.max(0, ...categories.map((group) => Math.max(
     textWidth(group.label) + 24 + (group.paths.some((path) => !path.matched) ? 24 : 0),
-    ...group.paths.flatMap((path) => [textWidth(path.label, 11) + 36, textWidth(path.condition, 11) + 36]),
+    ...group.paths.flatMap((path) => [textWidth(path.label) + (path.actual ? textWidth(path.actual) + 8 : 0) + 36, textWidth(path.condition, 11) + 36]),
   )));
   const groupNode = (group: ConnectionGroupView): RuleNode => {
     const paths = group.paths.filter((path) => path.matched || expanded === group.id);
@@ -68,26 +68,17 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
       const lineCount = wrap(condition, width - 36, 11).length;
       return { ...path, condition, height: 24 + lineCount * 15 };
     });
-    const height = 44 + (list.length ? 7 + list.reduce((sum, path) => sum + path.height, 0) + 4 : 0);
+    const height = 28 + (list.length ? 7 + list.reduce((sum, path) => sum + path.height, 0) + 4 : 0);
     const matched = group.paths.some((path) => path.matched);
     return { id: `group:${group.id}`, label: group.label, kind: "group", width, height,
-      matched, group, list,
-      children: matched && diagram.predecessor ? [{
-        id: diagram.predecessor.id, label: diagram.predecessor.surface, kind: "predecessor",
-        width: Math.max(textWidth(diagram.predecessor.surface, 15), textWidth(diagram.predecessor.form, 11)) + 24,
-        height: 44, matched: true, arrow: false,
-        lines: [
-          { text: diagram.predecessor.surface, kind: "main" },
-          { text: diagram.predecessor.form || "无活用", kind: "secondary" },
-        ],
-      }] : undefined };
+      matched, group, list };
   };
   const hasConnectors = diagram.branches.some((branch) => branch.label);
   const root: RuleNode = {
     id: diagram.targetNodeId ?? "target", label: diagram.target ?? "", kind: "target", width: diagram.target ? textWidth(diagram.target, 15) + 24 : 0,
-    height: 44, matched: true, hidden: !diagram.target,
+    height: 32, matched: true, hidden: !diagram.target,
     children: diagram.branches.map((branch) => branch.label ? {
-      id: branch.nodeId ?? `connector:${branch.id}`, label: branch.label, kind: "connector" as const, width: textWidth(branch.label, 15) + 24, height: 44, matched: branch.matched,
+      id: branch.nodeId ?? `connector:${branch.id}`, label: branch.label, kind: "connector" as const, width: textWidth(branch.label, 15) + 24, height: 32, matched: branch.matched,
       children: [...branch.groups].sort((left, right) => categoryOrder(left.label) - categoryOrder(right.label)
         || adjectiveOrder(left.label) - adjectiveOrder(right.label) || left.label.localeCompare(right.label)).map(groupNode),
     } : hasConnectors ? {
@@ -105,16 +96,15 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
     const children = node.children.flatMap((child) => child.data.hidden ? child.children ?? [] : [child]);
     const first = children[0];
     const last = children[children.length - 1];
-    const visibleTop = (child: typeof first) => child.x - child.data.height / 2
-      + (child.data.kind === "group" ? child.data.height / 2 - 22 : 0);
-    const top = visibleTop(first);
-    const bottom = visibleTop(last) + (last.data.kind === "group" ? 44 : last.data.height);
-    node.x = (top + bottom) / 2 + (node.data.kind === "group" ? node.data.height / 2 - 22 : 0);
+    const top = first.x - first.data.height / 2;
+    const bottom = last.x - last.data.height / 2 + (last.data.kind === "group" ? 28 : last.data.height);
+    node.x = (top + bottom) / 2;
   });
   const depthWidths: number[] = [];
   for (const node of positioned.descendants()) depthWidths[node.depth] = Math.max(depthWidths[node.depth] ?? 0, node.data.width);
   const depthX: number[] = [];
-  let width = 4;
+  const predecessorWidth = diagram.predecessor ? textWidth(diagram.predecessor.surface, 15) + 24 : 0;
+  let width = 4 + (predecessorWidth ? predecessorWidth + 28 : 0);
   for (let depth = depthWidths.length - 1; depth >= 0; depth--) {
     depthX[depth] = width + depthWidths[depth] / 2;
     width += depthWidths[depth] + (depthWidths[depth] ? 28 : 0);
@@ -128,7 +118,7 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
     if (data.hidden) continue;
     const x = depthX[node.depth] - data.width / 2;
     const y = node.x - data.height / 2 - minY + 4;
-    const lines: GraphLine[] = data.lines ?? [{ text: data.label, kind: "main" }];
+    const lines: GraphLine[] = [{ text: data.label, kind: "main" }];
     nodes.push({ id: data.id, x, y, width: data.width, height: data.height,
       lines, kind: data.kind, matched: data.matched, opacity: 1,
       list: data.list,
@@ -136,8 +126,16 @@ export function layoutConnectionRules(diagram: ConnectionDiagram, expanded: stri
         ? { key: data.group.id, expanded: expanded === data.group.id, count: data.group.paths.length } : undefined });
     let parent = node.parent;
     while (parent?.data.hidden) parent = parent.parent;
-    if (parent) links.push({ id: `${data.id}:${parent.data.id}`, source: data.id, target: parent.data.id, matched: data.matched, arrow: data.arrow });
+    if (parent) links.push({ id: `${data.id}:${parent.data.id}`, source: data.id, target: parent.data.id, matched: data.matched });
     height = Math.max(height, y + data.height + 4);
+  }
+  // 前接词与词性标题对齐，仅占用横向空间，保持规则树原有高度。
+  const currentGroup = nodes.find((node) => node.kind === "group" && node.matched);
+  if (diagram.predecessor && currentGroup) {
+    const predecessor = diagram.predecessor;
+    nodes.push({ id: predecessor.id, x: 4, y: currentGroup.y, width: predecessorWidth, height: 28,
+      lines: [{ text: predecessor.surface, kind: "main" }], kind: "predecessor", matched: true, opacity: 1 });
+    links.push({ id: `${predecessor.id}:${currentGroup.id}`, source: predecessor.id, target: currentGroup.id, matched: true, arrow: false });
   }
   return { width: width - 24, height, nodes, links };
 }
@@ -202,8 +200,8 @@ export function morphologyGraphLink(link: GraphLink, nodes: ReadonlyMap<string, 
     return `M${startX},${startY}L${endX - dx / length * gap},${target.y - dy / length * gap}`;
   }
   const forward = target.x > source.x;
-  const start: [number, number] = [forward ? source.x + source.width : source.x, source.y + (source.kind === 'group' ? 22 : source.height / 2)];
-  const end: [number, number] = [forward ? target.x - (link.arrow === false ? 0 : 5) : target.x + target.width + (link.arrow === false ? 0 : 5), target.y + (target.kind === 'group' ? 22 : target.height / 2)];
+  const start: [number, number] = [forward ? source.x + source.width : source.x, source.y + (source.kind === 'group' ? 14 : source.height / 2)];
+  const end: [number, number] = [forward ? target.x - (link.arrow === false ? 0 : 5) : target.x + target.width + (link.arrow === false ? 0 : 5), target.y + (target.kind === 'group' ? 14 : target.height / 2)];
   if (Math.abs(start[1] - end[1]) < 1) return `M${start[0]},${start[1]}L${end[0]},${end[1]}`;
   // 所有路径采用相同的短直线与不对称控制柄，保持重叠处的曲线走向一致。
   const tail = Math.min(14, Math.max(0, Math.abs(end[0] - start[0]) - 4)) / 3;

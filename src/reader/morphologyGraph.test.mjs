@@ -328,13 +328,13 @@ test("前接图各父节点按子节点范围自然居中，末个分类只计�
   };
   const layout = layoutConnectionRules(diagram, "verbs");
   const categories = layout.nodes.filter((node) => node.kind === "group").sort((a, b) => a.y - b.y);
-  assert.ok(categories[0].height > 44);
+  assert.ok(categories[0].height > 28);
   for (const parent of layout.nodes.filter((node) => node.kind !== "group")) {
     const children = layout.links.filter((link) => link.target === parent.id)
       .map((link) => layout.nodes.find((node) => node.id === link.source)).sort((a, b) => a.y - b.y);
     const first = children[0];
     const last = children.at(-1);
-    const bottom = last.y + (last.kind === "group" ? 44 : last.height);
+    const bottom = last.y + (last.kind === "group" ? 28 : last.height);
     assert.equal(parent.y + parent.height / 2, (first.y + bottom) / 2);
   }
 });
@@ -363,10 +363,16 @@ test("切换连续活用词时沿用句中节点身份作为前接词，并以�
   assert.equal(link.matched, true);
   assert.equal(link.arrow, false);
   assert.equal(morphologyGraphLink(link, new Map(afterLayout.nodes.map((node) => [node.id, node]))),
-    `M${movedPredecessor.x + movedPredecessor.width},${movedPredecessor.y + 22}L${category.x},${category.y + 22}`);
-  assert.equal(movedPredecessor.width, Math.max(Array.from(after.predecessor.surface).length * 15, Array.from(after.predecessor.form).length * 11) + 24);
+    `M${movedPredecessor.x + movedPredecessor.width},${movedPredecessor.y + 14}L${category.x},${category.y + 14}`);
+  assert.equal(movedPredecessor.width, Array.from(after.predecessor.surface).length * 15 + 24);
+  assert.deepEqual(movedPredecessor.lines, [{ text: after.predecessor.surface, kind: "main" }]);
+  assert.equal(movedPredecessor.height, 28);
+  assert.equal(oldTarget.height, 32);
+  assert.equal(afterLayout.height, layoutConnectionRules({ ...after, predecessor: undefined }, null).height);
+  const expandedLayout = layoutConnectionRules(after, category.action?.key ?? category.id.slice(6));
+  assert.equal(expandedLayout.height, layoutConnectionRules({ ...after, predecessor: undefined }, category.action?.key ?? category.id.slice(6)).height);
   assert.equal(afterLayout.nodes.find((node) => node.id === after.targetNodeId).width, Array.from(after.target).length * 15 + 24);
-  assert.ok((category.list ?? []).every((row) => !("actual" in row)));
+  assert.ok(category.list.some((row) => row.matched && row.condition.includes("连用形")));
 
   const operators = document.morphology.chains.flatMap((chain) => chain.operators);
   const connector = operators.find((operator) => operator.kind === "te_connection");
@@ -377,6 +383,8 @@ test("切换连续活用词时沿用句中节点身份作为前接词，并以�
   const connectorPart = connectorDiagram.sentence.find((part) => part.unit === connector.operator_id);
   assert.equal(`sentence:${connectorPart.range[0]}:${connectorPart.range[1]}`, matchedBranch.nodeId);
   assert.equal(layoutConnectionRules(connectorDiagram, null).nodes.find((node) => node.id === matchedBranch.nodeId).kind, "connector");
+  assert.equal(layoutConnectionRules(connectorDiagram, null).nodes.find((node) => node.id === matchedBranch.nodeId).height, 32);
+  assert.equal(connectorDiagram.branches.flatMap((branch) => branch.groups.flatMap((group) => group.paths)).find((path) => path.matched).actual, "撥音便");
 });
 
 test("接续规则词性列按照固定词类顺序排列", () => {
