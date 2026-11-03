@@ -10,9 +10,9 @@
 
 先执行 cargo build --release -p readux-core --bin readux-nlp，再执行 npm run generate:library 和 npm run build。
 
-生成器默认读取 Windows 文档目录中的 ReadUX Library。参数 --title 指定书名，--library 指定书库，--service 指定分析服务，--version 指定资源版本。文本或规则更新后采用新版本目录。
+生成器默认读取 Windows 文档目录中的 ReadUX Library。参数 --title 指定书名，--library 指定书库，--service 指定分析服务，--version 指定资源版本。文本或规则更新后采用新版本目录；同版本重新生成时清空原输出目录，生成成功并更新目录索引后自动清理未引用版本，每本书只保留已发布版本。
 
-生成过程保存在 .agents/analysis/static-library 中，相同参数支持续接；report.json 保存最终数量与体积。公开书目在全部资源完成后更新。
+生成过程保存在 data/edgeone-cache 中，相同参数支持续接；report.json 保存最终数量与体积。公开书目在全部资源完成后更新。npm run build 通过 prebuild 自动清理公开书库的历史版本，清理依据为 public/library/catalog.json；也可执行 python -X utf8 scripts/generate_static_library.py --clean 单独清理。
 
 ## 预览与上传
 

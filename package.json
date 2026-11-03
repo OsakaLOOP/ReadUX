@@ -15,6 +15,7 @@
     "static:dev": "npm run morphology:build && vite --mode static --port 5174",
     "generate:library": "python -X utf8 scripts/generate_static_library.py",
     "edgeone:build": "python -X utf8 scripts/build_edgeone.py",
+    "prebuild": "python -X utf8 scripts/generate_static_library.py --clean",
     "build": "npm run morphology:build && vue-tsc --noEmit && vite build",
     "insider": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_channel.ps1 -Channel insider",
     "test:ui": "node --test --experimental-strip-types src/explanation/*.test.mjs src/reader/*.test.mjs src/utils/*.test.mjs",

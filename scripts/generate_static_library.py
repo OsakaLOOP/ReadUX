@@ -15,6 +15,26 @@ from generate_grammar_guide_analysis import request
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def clean_library(root):
+    root = root.resolve()
+    catalog_path = root / "library/catalog.json"
+    books = root / "library/books"
+    if not catalog_path.is_file() or not books.is_dir():
+        return
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    active = {(root / book["manifest"]).parent.resolve() for book in catalog["books"]}
+    for book in books.iterdir():
+        if not book.is_dir():
+            continue
+        for version in book.iterdir():
+            if version.is_dir() and version.resolve() not in active:
+                version.resolve().relative_to(books)
+                shutil.rmtree(version)
+                print(f"已清理旧版书籍资源：{version.relative_to(root)}", flush=True)
+        if not any(book.iterdir()):
+            book.rmdir()
+
+
 def encode(value):
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
 
@@ -51,7 +71,12 @@ def main():
     parser.add_argument("--library", type=Path, default=Path.home() / "Documents/ReadUX Library")
     parser.add_argument("--service", type=Path, default=ROOT / "target/release/readux-nlp.exe")
     parser.add_argument("--version", default=time.strftime("%Y%m%d"))
+    parser.add_argument("--work-dir", type=Path, default=ROOT / "data/edgeone-cache")
+    parser.add_argument("--clean", action="store_true", help="清理公开书库中目录索引未引用的版本")
     args = parser.parse_args()
+    if args.clean:
+        clean_library(ROOT / "public")
+        return
     source = sqlite3.connect((args.library / "library.sqlite").resolve().as_uri() + "?mode=ro", uri=True)
     source.row_factory = sqlite3.Row
     matches = (source.execute("SELECT * FROM books WHERE id=?", (args.book_id,)).fetchall()
@@ -62,8 +87,11 @@ def main():
     bid = row["id"]
     base = f"library/books/{bid}/{args.version}"
     directory = ROOT / "public" / base
+    if directory.exists():
+        directory.resolve().relative_to((ROOT / "public/library/books").resolve())
+        shutil.rmtree(directory)
     directory.mkdir(parents=True, exist_ok=True)
-    work = ROOT / ".agents/analysis/static-library" / bid / args.version
+    work = args.work_dir / bid / args.version
     work.mkdir(parents=True, exist_ok=True)
     markdown = (args.library / "books" / bid / "content.md").read_text(encoding="utf-8")
     parsed = json.loads(subprocess.run(["node", "scripts/static_library_document.mjs"], cwd=ROOT,
@@ -244,6 +272,7 @@ def main():
     catalog = json.loads(catalog_path.read_text(encoding="utf-8")) if catalog_path.exists() else {"schema": "readux.static-library.v1", "books": []}
     catalog["books"] = [b for b in catalog["books"] if b["id"] != bid] + [{**summary, "manifest": f"{base}/manifest.json"}]
     write_json(catalog_path, catalog)
+    clean_library(ROOT / "public")
     files = [path for path in directory.rglob("*") if path.is_file()]
     largest = max(files, key=lambda path: path.stat().st_size)
     report = dict(title=summary["title"], characters=len(parsed["text"]), units=len(plan["units"]), chunks=len(set(chunks.values())),

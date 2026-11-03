@@ -5,6 +5,7 @@ import json
 import sqlite3
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,7 +63,8 @@ def build_books():
         print(f"书籍资源：{book['title']} [{book['id']}]", flush=True)
         run("静态书库", [sys.executable, "-X", "utf8", "scripts/generate_static_library.py",
                           "--book-id", book["id"], "--library", str(LIBRARY),
-                          "--service", str(SERVICE), "--version", version])
+                          "--service", str(SERVICE), "--version", version,
+                          "--work-dir", str(ROOT / "data/edgeone-cache")])
     source.close()
 
 
@@ -79,6 +81,12 @@ def main():
     print("\nEdgeOne 发布书目将以 public/library/catalog.json 为准。", flush=True)
     build_books()
     run("EdgeOne 静态构建", ["npm.cmd", "run", "build"])
+    archive = ROOT / "dist.zip"
+    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as output:
+        for path in sorted((ROOT / "dist").rglob("*")):
+            if path.is_file():
+                output.write(path, path.relative_to(ROOT / "dist").as_posix())
+    print(f"EdgeOne ZIP 已生成：{archive} ({archive.stat().st_size} bytes)", flush=True)
     print("\nEdgeOne 资源和 dist 构建已完成。", flush=True)
 
 
