@@ -15,8 +15,8 @@ export function adverbCapabilityLabel(chain: MorphologyChain): string {
   const flags = adverbCapabilities(chain);
   if (flags == null) return "";
   if (flags === adverbFlags.none) return "不可活用";
-  const labels = [[2, "サ变活用"], [4, "判断活用（だ・な・で・に）"], [8, "トス活用"], [16, "タリ活用"]] as const;
-  return `可活用 · ${labels.filter(([flag]) => (flags & flag) !== 0).map(([, label]) => label).join("／")}`;
+  const labels = [[2, "サ变活用"], [4, "判断活用"], [8, "トス活用"], [16, "タリ活用"]] as const;
+  return `可${labels.filter(([flag]) => (flags & flag) !== 0).map(([, label]) => label).join("／")}`;
 }
 
 export function adverbStemLabel(chain: MorphologyChain): string {
