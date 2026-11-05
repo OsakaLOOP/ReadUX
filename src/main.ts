@@ -9,6 +9,7 @@ console.log(
 );
 
 const application = import.meta.env.MODE === "frontend" && !isTauri()
+  && new URLSearchParams(location.search).get("view") === "header-animation"
   ? import("./dev/HeaderAnimationPreview.vue")
   : import("./App.vue");
 

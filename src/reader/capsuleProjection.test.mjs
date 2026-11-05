@@ -14,16 +14,15 @@ const runs = [{ key: "plain", parts }];
 test("整体词范围由一个查询容器覆盖全部片段", () => {
   const groups = groupCapsuleRuns(runs, [{ range: [8, 12], tone: "blue" }]);
   assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "runs");
   assert.equal(groups[0].active, true);
+  assert.equal(groups[0].activeGroup, "8:12");
   assert.deepEqual(groups[0].runs[0].parts.map((part) => part.text), ["準備", "し", "た"]);
 });
 
 test("活用子范围只包裹对应连续片段", () => {
   const groups = groupCapsuleRuns(runs, [{ range: [10, 12], tone: "grammar" }]);
-  assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "partial");
-  assert.deepEqual(groups[0].segments.map((segment) => ({ active: segment.active, text: segment.parts.map((part) => part.text).join("") })), [
+  assert.equal(groups.length, 2);
+  assert.deepEqual(groups.map((group) => ({ active: group.active, text: group.runs.flatMap((run) => run.parts).map((part) => part.text).join("") })), [
     { active: false, text: "準備" },
     { active: true, text: "した" },
   ]);
@@ -36,7 +35,6 @@ test("相邻完整 ruby run 合并进同一个查询容器", () => {
   ];
   const groups = groupCapsuleRuns(groupedRuns, [{ range: [8, 12], tone: "blue" }]);
   assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "runs");
   assert.equal(groups[0].active, true);
   assert.equal(groups[0].runs.length, 2);
 });
@@ -50,13 +48,12 @@ test("词干蓝色与语法黄色连续组合成一个活用词容器", () => {
     { key: "ta", text: "た", range: [6, 7] },
   ];
   const coloredRanges = [
-    { range: [2, 4], tone: "blue" },
-    { range: [4, 6], tone: "grammar" },
-    { range: [6, 7], tone: "grammar" },
+    { range: [2, 4], tone: "blue", group: "verb" },
+    { range: [4, 6], tone: "grammar", group: "verb" },
+    { range: [6, 7], tone: "grammar", group: "verb" },
   ];
   const groups = groupCapsuleRuns([{ key: "inflected", parts: inflected }], coloredRanges);
   assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "runs");
   assert.equal(groups[0].active, true);
   assert.deepEqual(groups[0].runs[0].parts.map((part) => part.text).join(""), "殺しました");
 });
@@ -79,10 +76,10 @@ test("同一图元素的词干与首个活用假名共用一个高亮对象", ()
     { range: [2, 4], tone: "grammar", group: "stem-ending" },
   ]);
   assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "runs");
+  assert.equal(groups[0].activeGroup, "stem-ending");
 });
 
-test("相邻的不同接续图元素保持独立高亮对象", () => {
+test("相邻的不同接续图元素保持独立高亮组", () => {
   const groups = groupCapsuleRuns([{ key: "all", parts: [
     { key: "a", text: "て", range: [0, 1] },
     { key: "b", text: "いる", range: [1, 3] },
@@ -90,9 +87,17 @@ test("相邻的不同接续图元素保持独立高亮对象", () => {
     { range: [0, 1], tone: "grammar", group: "te" },
     { range: [1, 3], tone: "grammar", group: "iru" },
   ]);
-  assert.equal(groups.length, 1);
-  assert.equal(groups[0].kind, "partial");
-  assert.deepEqual(groups[0].segments.map((segment) => segment.activeGroup), ["te", "iru"]);
+  assert.equal(groups.length, 2);
+  assert.deepEqual(groups.map((group) => group.activeGroup), ["te", "iru"]);
+});
+
+test("同一高亮组遇到原文间隔时分开绘制", () => {
+  const groups = groupCapsuleRuns([{ key: "all", parts: [
+    { key: "before", text: "読", range: [0, 1] },
+    { key: "after", text: "む", range: [2, 3] },
+  ] }], [{ range: [0, 3], tone: "blue", group: "word" }]);
+  assert.equal(groups.length, 2);
+  assert.ok(groups.every((group) => group.activeGroup === "word"));
 });
 
 test("点击词尾时显示蓝色词干和黄色连续尾缀", () => {

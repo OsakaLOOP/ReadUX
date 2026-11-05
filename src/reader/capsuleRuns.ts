@@ -29,20 +29,23 @@ export function stemEndingHighlights(
   return null;
 }
 
-export function groupCapsuleRuns<T extends { key: string; text: string }>(
+export function groupCapsuleRuns<T extends { key: string; text: string; range?: [number, number] }>(
   runs: { key: string; reading?: string; parts: T[] }[],
   activeRanges: CapsuleActiveRange[] = [],
 ) {
   type Atom = { part: T; run: (typeof runs)[number]; active: boolean; activeGroup?: string };
   const atoms: Atom[] = runs.flatMap((run) => run.parts.map((part) => {
-    const range = (part as T & { range?: [number, number] }).range;
+    const range = part.range;
     const active = range && activeRanges.find((candidate) => range[0] < candidate.range[1] && range[1] > candidate.range[0]);
     return { part, run, active: Boolean(active), activeGroup: active ? active.group ?? `${active.range[0]}:${active.range[1]}` : undefined };
   }));
   const result: { key: string; active: boolean; activeGroup?: string; runs: { key: string; reading?: string; parts: T[] }[] }[] = [];
-  for (const atom of atoms) {
+  for (const [index, atom] of atoms.entries()) {
     let group = result[result.length - 1];
-    if (!group || group.active !== atom.active || group.activeGroup !== atom.activeGroup) {
+    const previous = atoms[index - 1];
+    const separated = atom.active && previous?.active && atom.part.range && previous.part.range
+      && atom.part.range[0] !== previous.part.range[1];
+    if (!group || group.active !== atom.active || group.activeGroup !== atom.activeGroup || separated) {
       group = { key: atom.part.key, active: atom.active, activeGroup: atom.activeGroup, runs: [] };
       result.push(group);
     }

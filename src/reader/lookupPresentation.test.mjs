@@ -169,6 +169,46 @@ test("サ变て形说明显示原形到整体活用形", () => {
   assert.equal(hit.detail.description, "力説する → 力説して（する→して）");
 });
 
+test("サ变名词的する活用按词干和黄色词尾分色", () => {
+  const document = {
+    text: "検索し", formation: { nodes: [] },
+    morphemes: [
+      { surface: "検索", lemma: "検索", pos: ["名詞", "普通名詞", "サ変可能"], source_index: 0, char_range: [0, 2] },
+      { surface: "し", lemma: "為る", pos: ["動詞"], source_index: 1, char_range: [2, 3] },
+    ],
+    source: { tokens: [
+      { index: 0, fields: [] },
+      { index: 1, fields: [
+        { name: "cType", value: "サ行変格" },
+        { name: "cForm", value: "連用形-一般" },
+      ] },
+    ] },
+    morphology: { chains: [{ chain_id: "sahen", role: "lexical", parent_chain_id: null,
+      anchor_morpheme: 0, anchor_range: [0, 2], char_range: [0, 3], lookup_form: "検索する",
+      morpheme_range: [0, 2], morpheme_indices: [0, 1], core_morpheme_indices: [0, 1], final_state: { category: "動詞", form: "continuative", conjugation_type: "サ行変格", conjugation_form: "連用形-一般" },
+      operators: [{ operator_id: "sahen-conjugation", kind: "conjugation",
+        char_range: [0, 3], source_morpheme_range: [1, 2], evidence: [], output_state: "連用形",
+        state_before: { category: "動詞", form: "stem", conjugation_type: "サ行変格", conjugation_form: "未然形-一般" },
+        state_after: { category: "動詞", form: "continuative", conjugation_type: "サ行変格", conjugation_form: "連用形-一般" },
+      }] }], occurrences: [] },
+  };
+  const hits = readerMorphologyHits([
+    { id: "whole", char_range: [0, 3], lexical_core_ids: ["sahen"], source_formation_ids: [] },
+  ], document);
+  const inflection = hits.find((hit) => hit.detail.id === "sahen-conjugation");
+  assert.ok(inflection, JSON.stringify(hits.map((hit) => ({ range: hit.range, id: hit.detail.id, role: hit.role }))));
+  assert.deepEqual(hits.filter((hit) => hit.detail.id === inflection.detail.id).map((hit) => ({
+    range: hit.range, role: hit.role,
+  })), [
+    { range: [0, 2], role: "stem" },
+    { range: [2, 3], role: "grammar" },
+  ]);
+  assert.deepEqual(inflection.detail.highlight.segments, [
+    { range: [0, 2], tone: "blue" },
+    { range: [2, 3], tone: "grammar" },
+  ]);
+});
+
 test("按当前查询目标引用展示词形、连接和成员", () => {
   const document = {
     morphemes: [

@@ -946,7 +946,9 @@ export function readerMorphologyHits(
         }];
       });
     const hits: ReaderMorphologyHit[] = [...syntheticHits, ...operatorHits];
-    const entryVisible = adverbInflecting(chain) || !['名詞', '代名詞', '副詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
+    const sahenVerb = chain.lookup_form?.endsWith("する")
+      && document.morphemes?.[chain.anchor_morpheme]?.pos?.[0] === "名詞";
+    const entryVisible = sahenVerb || adverbInflecting(chain) || !['名詞', '代名詞', '副詞'].includes(document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
       || firstOperator?.state_before?.category || chain.final_state?.category || '');
     for (const hit of hits) hit.detail.entryVisible = entryVisible;
     const anchor = chain.anchor_range;

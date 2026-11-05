@@ -3,7 +3,7 @@ import type { DictEntry, DictionaryLookup } from '../types';
 import type { DocumentPlan, DocumentUpdate, UnitUpdate } from '../reader/session';
 import { loadStaticJson, staticBookManifest, type StaticBookManifest } from './staticLibrary';
 
-export const isStaticReader = !isTauri() && (import.meta.env.PROD || import.meta.env.MODE === 'static');
+export const isStaticReader = !isTauri() && (import.meta.env.PROD || import.meta.env.MODE === 'frontend' || import.meta.env.MODE === 'static');
 interface StaticUnit extends UnitUpdate { queries: Record<string, string> }
 interface LookupSnapshot { result?: Omit<DictionaryLookup, 'entries'>; selectedFormId?: string; entryKeys: string[] }
 interface LookupIndex { queries: Record<string, string>; contents: Record<string, string>; words: Record<string, string[]> }

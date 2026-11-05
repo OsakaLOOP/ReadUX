@@ -9,7 +9,8 @@ interface CatalogBook extends LibraryBookSummary { manifest: string }
 const packages = new Map<string, Promise<unknown>>();
 
 export function staticUrl(path: string) {
-  return new URL(path, new URL(import.meta.env.BASE_URL, location.href)).href;
+  const resource = import.meta.env.MODE === 'frontend' ? `dist/${path}` : path;
+  return new URL(resource, new URL(import.meta.env.BASE_URL, location.href)).href;
 }
 
 export function loadStaticJson<T>(path: string): Promise<T> {

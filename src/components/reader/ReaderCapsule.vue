@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T extends { key: string; text: string }">
 import type { CapsuleActiveRange } from "../../reader/capsuleRuns";
+import { groupCapsuleRuns } from "../../reader/capsuleRuns";
 
 const props = defineProps<{
   grouped?: boolean;
@@ -7,12 +8,8 @@ const props = defineProps<{
   activeRanges?: CapsuleActiveRange[];
   runs: { key: string; reading?: string; parts: T[] }[];
 }>();
-function partHighlight(part: T) {
-  const range = (part as T & { range?: [number, number] }).range;
-  const activePart = range && props.activeRanges?.find((item) => range[0] < item.range[1] && range[1] > item.range[0]);
-  if (!activePart) return undefined;
-  const group = activePart.group ?? `${activePart.range[0]}:${activePart.range[1]}`;
-  return highlightStyle(group);
+function highlightGroups() {
+  return groupCapsuleRuns(props.runs, props.activeRanges ?? []);
 }
 function highlightStyle(group?: string) {
   const active = props.activeRanges?.filter((item) => group ? (item.group ?? `${item.range[0]}:${item.range[1]}`) === group : true) ?? [];
@@ -41,14 +38,14 @@ function highlightStyle(group?: string) {
 
 <template>
   <span class="reader-capsule" :class="{ 'reader-capsule--group': grouped, 'reader-capsule--merged': merged, 'reader-capsule--active': activeRanges?.length }">
-    <template v-for="run in runs" :key="run.key">
-      <component :is="run.reading ? 'ruby' : 'span'">
-        <span v-for="part in run.parts" :key="part.key" class="reader-capsule__query-object" :style="partHighlight(part)">
-          <slot :part="part">{{ part.text }}</slot>
-        </span>
-        <rt v-if="run.reading">{{ run.reading }}</rt>
-      </component>
-    </template>
+    <span v-for="group in highlightGroups()" :key="group.key" class="reader-capsule__query-object" :style="group.active ? highlightStyle(group.activeGroup) : undefined">
+      <template v-for="run in group.runs" :key="run.key">
+        <component :is="run.reading ? 'ruby' : 'span'">
+          <span v-for="part in run.parts" :key="part.key"><slot :part="part">{{ part.text }}</slot></span>
+          <rt v-if="run.reading">{{ run.reading }}</rt>
+        </component>
+      </template>
+    </span>
   </span>
 </template>
 
