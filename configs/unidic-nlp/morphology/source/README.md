@@ -47,6 +47,6 @@ npm run morphology:check
 
 features、connections、sequences、predicate_links、forms、classical_forms、classical_auxiliaries、variants 和 paths 的数组顺序参与执行或展示，维护时保留其顺序。对象键按字典序生成；分类成员和规则归属成员按 operator ID 排序。
 
-完整协议、数量基准与验证记录见 [活用配置协议与存储重构](../../../../docs/morphology_storage_refactor_analysis.md)。
+当前协议、条件语义、数量及维护操作见 [L5 活用规则与配置维护](../../../../docs/language_analysis/morphology_configuration.md)，词条和解说见 [L6](../../../../docs/language_analysis/entries.md)。此前的[配置迁移记录](../../../../docs/morphology_storage_refactor_analysis.md)保留历史设计和验证依据。
 
-副词资格的数据处理、状态机与查询展示设计见 [副词接续资格与活用链](../../../../docs/adverb_capabilities.md)。
+副词资格的输入身份见 [L2](../../../../docs/language_analysis/lexical_input.md#基础身份与接续资格)，运行及编译关系见 [L5](../../../../docs/language_analysis/morphology_configuration.md#副词接续资格)。逐条规则 JSON 与复杂分支按 L5 交接清单继续细化。

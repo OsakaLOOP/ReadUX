@@ -110,6 +110,8 @@ Rust 通过 `scripts/nlp_provider.py` 启动 Python 子进程，采用 UTF-8、�
 
 活用维护涉及执行规则、解说和显示三个相互关联的部分。
 
+完整规则维护契约见 [L5](language_analysis/morphology_configuration.md)，词条及解说的读取顺序见 [L6](language_analysis/entries.md)，输入和分析对象从 [L0 总览](language_analysis/README.md)进入。
+
 | 修改对象 | 维护入口 | 后续操作 |
 | --- | --- | --- |
 | 接续、状态和执行条件 | `configs/unidic-nlp/morphology/source/` | 生成配置，重新编译使用该配置的 Rust 服务，更新受影响快照 |

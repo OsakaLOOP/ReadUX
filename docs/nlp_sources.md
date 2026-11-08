@@ -1,8 +1,10 @@
 # 分析来源与对齐
 
+本文保留原来源设计资料。2026-11-09 核实后的正文准备、词法字段和语域见 [L2](language_analysis/lexical_input.md)，完整来源、UD 方向及对齐见 [L3](language_analysis/ud_alignment.md)。本文中的阶段、版本和早期界面目标用于追溯；当前统一文档协议为 v10，正文准备包含逐字符旧字转换。
+
 ## 来源职责
 
-本机版本的实测输出、规范化行为及 P0–P4 设计依据见 [NLP 行为基线](nlp_behavior.md)。
+本机版本的实测输出、规范化行为及 P0–P4 设计依据见 [NLP 行为基线](research/nlp_behavior.md)。
 
 | 来源 | 输入与资源 | 主要职责 |
 | --- | --- | --- |

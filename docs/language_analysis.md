@@ -1,5 +1,7 @@
 # 语言分析
 
+本文保留原整体设计资料。2026-11-09 整理后的现有能力见[语言分析总览](language_analysis/README.md)及 [L1 流程](language_analysis/pipeline.md)。原 grammar 整体流程和语法库界面设计已过时；本文后续模块的流程和义项决定属于历史提纲，具体方案按更新总计划讨论。当前普通分析中的 application、grammar 和 expression 状态见 L1，词条资源的实际用途见 [L6](language_analysis/entries.md)。
+
 ## 对象与依赖
 
 应用分析在统一词元、来源结构和明确的知识目录上建立阅读单位。各层保留成员、精确命中范围、整体覆盖范围、来源和决定；查询及展示通过这些引用取得解释。
@@ -20,7 +22,7 @@ P4 提供 token、活用链和构词候选；下一模块完成词典查询、�
 
 ## 活用与词形
 
-P4 完善的具体契约见[活用链与整体构词](p4_morphology_formation.md)。UniDic 的词法连接与 GiNZA 的正式词界、活用、辅助依存和文节位置共同参与链构建。
+现有契约见[活用状态机](language_analysis/morphology.md)及[分析流程](language_analysis/pipeline.md)。UniDic 的词法连接与 GiNZA 的正式词界、活用、辅助依存和文节位置共同参与链构建。
 
 活用链保存词汇／功能所有权、核心、成员、有序 operator、连接形、实际表记、显示原型、辞书形和查询形。一个 operator 记录输入状态、输出状态、实际范围及解释证据。
 

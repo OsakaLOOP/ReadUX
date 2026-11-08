@@ -1,5 +1,7 @@
 # 活用规则逐词条覆盖清单
 
+本文保留原阶段覆盖清单，未完成事项及阶段表述供追溯。当前状态机、规则归属和概念引用见 [L4](language_analysis/morphology.md)、[L5](language_analysis/morphology_configuration.md)、[L6](language_analysis/entries.md)。逐规则深入说明的交接范围集中在 L5，后续按当前代码和样例核对。
+
 本清单记录活用 operator 的架构映射。六类、执行器、阶段和排序来自 configs/unidic-nlp/morphology.json 的实际配置；逐词条升级以此表为入口维护正式 grammar concept、词条正文、接续例句和反例。
 
 ## 当前已具备正式执行入口的代表规则

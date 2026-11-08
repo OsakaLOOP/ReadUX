@@ -1,6 +1,6 @@
 # 文档索引
 
-更新日期：2026-11-09。项目目标、架构和开发入口已按当前实现及用户说明重新整理。其他现有模块文档按[文档更新总计划](documentation_update_plan.md)继续重写和整合。
+更新日期：2026-11-09。项目目标、架构、开发入口及语言分析 L0–L6 已按当前实现整理。其他现有模块文档按[文档更新总计划](documentation_update_plan.md)继续重写和整合。
 
 ## 从这里阅读
 
@@ -15,21 +15,23 @@
 
 ## 现有模块资料
 
-下表提供现存文档入口。各篇处于待整理状态，其中的目标、实施阶段和历史统计按总体文档及实际代码核对。
+语言分析的正式入口为 [L0 总览](language_analysis/README.md)，依次包括 [L1 流程](language_analysis/pipeline.md)、[L2 基础输入](language_analysis/lexical_input.md)、[L3 UD 对齐](language_analysis/ud_alignment.md)、[L4 活用状态机](language_analysis/morphology.md)、[L5 规则配置](language_analysis/morphology_configuration.md)、[L6 词条解说](language_analysis/entries.md)。主要对象、当前调用、资源和维护契约已完成；逐条规则的完整 JSON 及复杂分支细节留给后续 agent，交接清单见 L5。
+
+下表提供其余模块和原有资料入口。原有阶段文档保留追溯用途，当前目标、协议和统计以总体文档及 L0–L6 为准。
 
 | 范围 | 现有文档 |
 | --- | --- |
-| 活用分析 | [状态机设计](morphology_state_machine_design.md)、[配置维护](morphology_configuration.md)、[配置协议](morphology_storage_refactor_analysis.md) |
+| 活用分析 | [状态机](language_analysis/morphology.md)、[配置维护](language_analysis/morphology_configuration.md)、[词条解说](language_analysis/entries.md)；原[配置迁移记录](morphology_storage_refactor_analysis.md) |
 | 活用展示与审阅 | [气泡及接续展示](morphology_stage11_bubble_display.md)、[谓语关系审阅](morphology_predicate_relations_review.md)、[规则覆盖清单](morphology_operator_inventory.md)、[阶段记录](morphology_refactor_execution_plan.md) |
 | 说明界面 | [气泡、侧栏与抽屉布局资料](explanation_layout.md) |
-| 分析输入与流程 | [来源与对齐](nlp_sources.md)、[语言分析资料](language_analysis.md) |
+| 分析输入与流程 | [流程](language_analysis/pipeline.md)、[基础输入](language_analysis/lexical_input.md)、[UD 对齐](language_analysis/ud_alignment.md)；原[语言分析资料](language_analysis.md) |
 | 查询与词典 | [词典资料](dictionary.md)、[查询及投影问题记录](lookup_issue_tracking.md) |
 | 书架及阅读 | [书库与阅读器](reader.md)、[文档会话及分析调度](reader_engine.md) |
 | 指南内容 | [展示及内容制作资料](grammar_guide_display.md)、[当前 2.1 课程的原内容规格](grammar_guide_1_1.md) |
 | 数据与导出 | [收藏、笔记及输出资料](user_state.md) |
 | 验证与发行 | [质量验证资料](quality.md)、[桌面发行资料](standalone_distribution.md)、[静态书库](static_library.md) |
 
-语言分析后续统一组织在 `docs/language_analysis/`，包括基础输入、UD 对齐、状态机、规则配置、词条和结果投影。该目录及其他待编写文档的完整清单见总计划，随实际交付更新链接。
+语言分析已统一组织在 [language_analysis](language_analysis/README.md)。L11 的完整结果投影及 M3、M4 的视图和图组件仍待整理；L7–L10 的详细设计按计划暂缓。完整清单及状态见总计划。
 
 ## 研究入口
 

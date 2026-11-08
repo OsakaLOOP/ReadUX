@@ -1,5 +1,7 @@
 # 活用链配置
 
+当前维护说明已整合至 [L5 活用规则与配置维护](language_analysis/morphology_configuration.md)，包括文件分工、运行协议、条件、连接器、路径、原型和操作。本文保留此前的专项规则记录，逐条复杂 JSON 及扩展样例的后续工作集中登记于 L5。
+
 全部 operator 在 connection_types 中采用统一的接续结构分类，分别为直接接续、连接器接续、连续词尾、谓语构式、词内活用和插入成分。路径分支、语法成员和前项依赖数量分别维护。connection_rules 为每个条目提供直接路径或连接器引用；文言路径的 source 对应 classical_auxiliaries.inputs，义务和禁止构式对应 predicate_links.prefix。新增的词类分组使用 exact_category 保留名词谓语等原始类别，既有判断兼容路径继续共享判断词尾的接续条件。
 
 连接器接续保存连接器之前的输入状态和连接器本身，如「动词连用形＋て／で＋おく」；三个缩约补助形式采用相同的结构分类。connector_alternatives 声明同一用法的其他连接器入口，「になる」同时引用名词后的格助词に和形容动词的连用形に。分析结果的 dependency_type 表示结构类别，predecessor_range 定位具体路径的前项，context_range 与 context_surface 保留包含连接器及合法插入项的上下文。
