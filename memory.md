@@ -1,5 +1,7 @@
 # 开发入口记忆
 
+- 文档更新总计划与进度入口为 `docs/documentation_update_plan.md`，基于 `34dc0f7` 后保留的 docs 与当前代码入口制定，状态为待审阅；总体、入口、模块和 research 文档的命名、内容范围及旧文档去向集中记录于此。用户确认计划后再逐篇编写。
+
 - 副词接续资格设计见 `docs/adverb_capabilities.md`。单次词表导出与来源筛查入口为 `scripts/build_adverb_lexicon.py`，审定映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`；`crates/readux-nlp/src/adverb.rs` 定义资格，`operators/adverb.json` 定义新增接续。映射数据分阶段审定，空表表示尚未发布词条资格。
 
 - 副词词干保持副词身份；判断词尾及タリ接续树采用显式副词分支，词尾接入后输出整体状态。な后的名词化沿用原规则并引用副词路径。真实分词与词性变体验收由 morphology_machine.rs 的 adverb_acceptance 生成，查询图示验证入口为 scripts/verify_adverb_capabilities.mjs。
