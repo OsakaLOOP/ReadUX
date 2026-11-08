@@ -1,5 +1,7 @@
 # 首个任务：Serverless GPU API 与镜像闭环
 
+[暂缓实验]
+
 ## 任务目标
 
 本地 Python 脚本直接调用 RunPod，完成 GiNZA BERT large 全量分析。交付可部署镜像、简易 API 输入输出、本地实验工具和实际部署报告，覆盖延迟、耗时、性能、资源占用与实际费用。
@@ -18,18 +20,22 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 
 输入示例：
 
-~~~json
+```json
 {
   "input": {
     "schema": "readux.cloud-analysis.v1",
     "request_id": "book-001",
     "units": [
-      {"id": "chapter-1-unit-1", "text": "銀座でランチをご一緒しましょう。"}
+      { "id": "chapter-1-unit-1", "text": "銀座でランチをご一緒しましょう。" }
     ],
-    "options": {"batch_size": 32, "precision": "fp16", "cpu_decode_processes": 8}
+    "options": {
+      "batch_size": 32,
+      "precision": "fp16",
+      "cpu_decode_processes": 8
+    }
   }
 }
-~~~
+```
 
 一个任务接收一组有序单元。小说输入由本地按现有文档单元策略准备，worker 使用 nlp.pipe 批处理。API 输出包含相同 request_id、模型清单、每个单元的 id 和来源 artifact，以及任务指标。
 
@@ -39,16 +45,16 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 
 ## 代码和镜像组织
 
-| 计划入口 | 职责 |
-| --- | --- |
-| cloud/inference/engine.py | 模型初始化、批处理、指标 |
-| cloud/inference/handler.py | RunPod SDK 入口 |
-| cloud/inference/requirements.txt | Python 依赖 |
-| cloud/inference/Dockerfile | Linux amd64 GPU 镜像 |
-| cloud/inference/prefetch_model.py | 模型文件准备与路径记录 |
-| scripts/cloud_gpu_experiment.py | 本地提交、查询、下载和并发实验 |
-| scripts/cloud_gpu_report.py | 性能与费用汇总 |
-| docs/cloud_gpu_experiment_report.md | 实际结果与推荐配置 |
+| 计划入口                            | 职责                           |
+| ----------------------------------- | ------------------------------ |
+| cloud/inference/engine.py           | 模型初始化、批处理、指标       |
+| cloud/inference/handler.py          | RunPod SDK 入口                |
+| cloud/inference/requirements.txt    | Python 依赖                    |
+| cloud/inference/Dockerfile          | Linux amd64 GPU 镜像           |
+| cloud/inference/prefetch_model.py   | 模型文件准备与路径记录         |
+| scripts/cloud_gpu_experiment.py     | 本地提交、查询、下载和并发实验 |
+| scripts/cloud_gpu_report.py         | 性能与费用汇总                 |
+| docs/cloud_gpu_experiment_report.md | 实际结果与推荐配置             |
 
 现有 scripts/nlp_adapters.py 提供完整来源序列化，实施时提取“已分析 Doc 转 artifact”的公共函数，单文本和批处理共用。scripts/nlp_resources.py 提供资源身份记录，云端清单增加实际 GPU、模型仓库与 revision。保持现有桌面调用兼容。
 
@@ -78,12 +84,12 @@ E1 镜像与 E2 执行核心兼容后期恒源云 RTX 4060 Ti 16G 常驻。两�
 
 本机纯 Transformer FP16 为 12900–15944 token/s，关闭 NER 的 AMP 管线为 4705 token/s，完整 FP16 为 810 token/s。NER 占分阶段耗时 65.1%。E1 单进程为零优化对照，E2 优化后的 serverless 是正式上线版本。
 
-| 状态 | 完整吞吐预算 | 十万 token 暖机完成 | 缓存冷启动完成 | 每本 GPU 费用 |
-| --- | ---: | ---: | ---: | ---: |
-| Serverless E1 基线 | 900 token/s/worker | 116 s | 133 s | 0.166 元 |
-| Serverless E2 上线版 | 3000 token/s/worker | 38 s | 68 s | 0.091 元 |
-| 常驻单卡基线 | 900 token/s/卡 | 116 s | 服务启动时初始化 | 按月租 |
-| 常驻单卡正式版 | 3000 token/s/卡 | 38 s | 服务启动时初始化 | 按月租 |
+| 状态                 |        完整吞吐预算 | 十万 token 暖机完成 |   缓存冷启动完成 | 每本 GPU 费用 |
+| -------------------- | ------------------: | ------------------: | ---------------: | ------------: |
+| Serverless E1 基线   |  900 token/s/worker |               116 s |            133 s |      0.166 元 |
+| Serverless E2 上线版 | 3000 token/s/worker |                38 s |             68 s |      0.091 元 |
+| 常驻单卡基线         |      900 token/s/卡 |               116 s | 服务启动时初始化 |        按月租 |
+| 常驻单卡正式版       |     3000 token/s/卡 |                38 s | 服务启动时初始化 |        按月租 |
 
 E1 模型加载预算 17 s；E2 的模型、CPU pool 初始化与预热合计 30 s。请求与结果处理预留 5 s，serverless 空闲保留 10 s。E2 的 9068 token 正文暖机/缓存冷启动为 8/38 s，119702 字符材料约 73500 token，对应 30/60 s。并发 6–10 个 serverless 请求时，平台分配独立 worker，各请求保持该单次时间预算，总 GPU 费用按所有 worker 秒数累加。
 
@@ -93,19 +99,19 @@ P4 常驻单卡复用 E2 执行核心，增加跨请求的单元合批和优先�
 
 ## 实验内容与报告
 
-| 项目 | 实验内容 | 报告结果 |
-| --- | --- | --- |
-| 部署闭环 | 构建、推送、建立 endpoint、真实请求 | 镜像 digest、配置、任务 ID、完整输出 |
-| 语言与协议 | 复用 P4 样本，核对关键复杂词和语法、Unicode、单元顺序 | 来源输出、字符坐标、下游可消费情况 |
-| 冷启动 | 首次部署和 worker 缩至零后的再次调用 | 提交至开始、加载模型、提交至完成 |
-| 连续调用 | 已加载 worker 连续处理 | 每任务耗时、吞吐、结果下载耗时 |
-| 全量输入 | 短段落、现有 119702 字符语料和完整书籍 | 总耗时、结果大小、完整性 |
-| Serverless 并发 | 上限 10 worker，提交 1、6、10 个任务 | 每请求耗时、聚合吞吐、总 worker 秒数与费用 |
-| 批处理 | 在 16 GB 卡上比较几个批大小 | 速度、显存、推荐批大小 |
-| 计算精度 | FP16 默认配置与 FP32 结果基准 | 云端结果一致性和实际显存 |
-| 资源占用 | worker 运行期间采集 CPU、RAM、GPU 显存和利用率 | 峰值和使用曲线 |
-| 缓存与保留 | 两种模型缓存和 0/10/30 秒保留 | 启动速度、连续体验和账单 |
-| 实际费用 | 实验开始至结束的全部资源支出 | GPU、初始化/保留、模型存储和总额 |
+| 项目            | 实验内容                                              | 报告结果                                   |
+| --------------- | ----------------------------------------------------- | ------------------------------------------ |
+| 部署闭环        | 构建、推送、建立 endpoint、真实请求                   | 镜像 digest、配置、任务 ID、完整输出       |
+| 语言与协议      | 复用 P4 样本，核对关键复杂词和语法、Unicode、单元顺序 | 来源输出、字符坐标、下游可消费情况         |
+| 冷启动          | 首次部署和 worker 缩至零后的再次调用                  | 提交至开始、加载模型、提交至完成           |
+| 连续调用        | 已加载 worker 连续处理                                | 每任务耗时、吞吐、结果下载耗时             |
+| 全量输入        | 短段落、现有 119702 字符语料和完整书籍                | 总耗时、结果大小、完整性                   |
+| Serverless 并发 | 上限 10 worker，提交 1、6、10 个任务                  | 每请求耗时、聚合吞吐、总 worker 秒数与费用 |
+| 批处理          | 在 16 GB 卡上比较几个批大小                           | 速度、显存、推荐批大小                     |
+| 计算精度        | FP16 默认配置与 FP32 结果基准                         | 云端结果一致性和实际显存                   |
+| 资源占用        | worker 运行期间采集 CPU、RAM、GPU 显存和利用率        | 峰值和使用曲线                             |
+| 缓存与保留      | 两种模型缓存和 0/10/30 秒保留                         | 启动速度、连续体验和账单                   |
+| 实际费用        | 实验开始至结束的全部资源支出                          | GPU、初始化/保留、模型存储和总额           |
 
 报告同时保留本地端到端耗时、worker 内耗时和平台任务指标。GPU 耗时在 CUDA 完成后记录；资源采样贯穿 worker 初始化和任务处理。
 

@@ -16,7 +16,7 @@
 
 ## 预览与上传
 
-开发预览使用 npm run static:dev，生产预览使用 npm run preview。EdgeOne Pages 的构建命令保持 npm run build，输出目录保持 dist。直接上传整个 dist 文件夹；ZIP 的根目录应包含 index.html，library 目录随页面一起上传。
+本地阅读预览使用 npm run frontend:dev，静态书库、分析分片和封面直接读取 dist/library，与 EdgeOne 发布产物一致；启动前先执行 npm run edgeone:build。生产预览使用 npm run preview。EdgeOne Pages 的构建命令保持 npm run build，输出目录保持 dist。直接上传整个 dist 文件夹；ZIP 的根目录应包含 index.html，library 目录随页面一起上传。
 
 浏览器根据 gzip 文件头解压资源，同时支持平台已经解压的 JSON 响应。
 

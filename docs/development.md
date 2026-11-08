@@ -1,5 +1,7 @@
 # 开发与桌面交付
 
+[已过时, 需调整]
+
 ## 运行组成
 
 交付物包括 Windows 桌面程序、前端、现代语 UniDic 资源、词典源包、规则与讲解目录，以及随包交付的最小 GiNZA Python 运行环境。开发渠道仍可使用本机 Python 环境，发行渠道使用包内解释器和模型。
@@ -14,7 +16,7 @@
 npx tauri dev
 ```
 
-前端动画开发使用 `npm run frontend:dev`，浏览器直接显示带占位书籍的书架。点击书籍或右上角的打开、关闭按钮，即可预览完整 header 动画，包括播放期间反向操作。该入口通过 Vite 热更新，独立于 Rust、书库和 NLP 服务。
+本地阅读开发使用 `npm run frontend:dev`，浏览器在 5173 端口打开完整阅读器，并读取 EdgeOne 构建产物 `dist/library`；启动前执行 `npm run edgeone:build` 更新部署资源。header 动画预览可通过 `/?view=header-animation` 打开。
 
 `npm run acceptance` 在 1420 端口提供正式应用和 Rust 分析 bridge；纯前端预览使用 5173 端口。Vite 的依赖扫描入口固定为 `index.html`，监听范围排除模型、构建产物和浏览器测试目录；各模式使用独立的依赖预构建缓存。气泡测试页可通过查询参数 `?view=grammar-guide&lesson=grammar-stage11` 直接打开。
 
@@ -61,15 +63,15 @@ GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查�
 
 ## 当前资源定位
 
-| 资源 | 开发位置或覆盖项 |
-| --- | --- |
-| CWJ | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`；`READUX_UNIDIC_CWJ` |
-| CSJ | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`；`READUX_UNIDIC_CSJ` |
-| 词典源包 | `data/dict-sources/*.kdict` |
-| 词典查询缓存 | `data/dicts` |
-| 词典数据根目录 | `READUX_DATA_DIR` |
-| GiNZA 实验环境 | `experiments/ginza311`，由本机配置选择解释器 |
-| GiNZA 最小环境 | `experiments/ginza-minimal`，由 `scripts/build_ginza_minimal_env.py` 生成 |
+| 资源           | 开发位置或覆盖项                                                               |
+| -------------- | ------------------------------------------------------------------------------ |
+| CWJ            | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`；`READUX_UNIDIC_CWJ` |
+| CSJ            | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`；`READUX_UNIDIC_CSJ` |
+| 词典源包       | `data/dict-sources/*.kdict`                                                    |
+| 词典查询缓存   | `data/dicts`                                                                   |
+| 词典数据根目录 | `READUX_DATA_DIR`                                                              |
+| GiNZA 实验环境 | `experiments/ginza311`，由本机配置选择解释器                                   |
+| GiNZA 最小环境 | `experiments/ginza-minimal`，由 `scripts/build_ginza_minimal_env.py` 生成      |
 
 桌面 release 从安装目录读取 `nlp/cwj.dic`、`nlp/csj.dic`、`dict-sources`、`python` 和 `scripts`，查询缓存使用应用数据目录。`scripts/prepare_installer_resources.py` 将本地 GiNZA 环境转换为独立 Python 解释器、标准库与模型包；安装资源统一写入 `release-resources`，Windows 解释器为 `python/python.exe`。
 
