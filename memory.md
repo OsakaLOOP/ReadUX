@@ -1,6 +1,8 @@
 # 开发入口记忆
 
-- 文档更新总计划与进度入口为 `docs/documentation_update_plan.md`，基于 `34dc0f7` 后保留的 docs 与当前代码入口制定，状态为待审阅；总体、入口、模块和 research 文档的命名、内容范围及旧文档去向集中记录于此。用户确认计划后再逐篇编写。
+- 文档更新总计划与进度入口为 `docs/documentation_update_plan.md`，以 2026-11-09 用户说明确定目标：核心为活用状态机、规则词条、气泡／侧栏／抽屉与 D3 图；后续语言分析为词组修饰并列、格关系及句中成分、登记语法模式，并配套匹配、用法、解说和 UI。应用方向为收藏管理及统计、Anki、阅读器替换、LLM。用户已审阅目录，要求优先重写整合现有文档，待设计条目暂缓；research 内部文件保持不动，仅总体文档简述引用。`docs/goals.md`、`docs/architecture.md`、`docs/development.md` 和总索引已完成；接替 agent 依总计划继续整理现有模块。
+
+- 活用解说的实际资源入口包括 `configs/unidic-nlp/morphology/source/operators/`、`configs/grammar/auxiliaries.json` 与 `crates/readux-core/resources/grammar/compiled/grammar_explanations.json`；`morphologyBubble.ts` 按 concept 取解说，并取内置摘要和例句。`configs/grammar/particles.json` 由阅读器与指南的 `grammarMorphemeLookup` 使用。旧 grammar 整体应用流程过时，普通分析未调用 `language_analysis::apply`；现用词条资源按实际引用说明。详细核对见计划第 2.2 节。
 
 - 副词接续资格设计见 `docs/adverb_capabilities.md`。单次词表导出与来源筛查入口为 `scripts/build_adverb_lexicon.py`，审定映射位于 `configs/unidic-nlp/morphology/source/adverbs/reviewed.json`；`crates/readux-nlp/src/adverb.rs` 定义资格，`operators/adverb.json` 定义新增接续。映射数据分阶段审定，空表表示尚未发布词条资格。
 

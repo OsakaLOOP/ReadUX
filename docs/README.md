@@ -1,75 +1,38 @@
-# 当前设计
+# 文档索引
 
-本组文档定义 ReadUX 的统一目标模型。实施状态集中记录在 [TODO](TODO.md)，各模块正文采用目标协议描述，代码入口用于定位现有基础。
+更新日期：2026-11-09。项目目标、架构和开发入口已按当前实现及用户说明重新整理。其他现有模块文档按[文档更新总计划](documentation_update_plan.md)继续重写和整合。
 
-## 交付目标
+## 从这里阅读
 
-完成语言分析与应用模块接入，使用户能够在 Windows 桌面应用中导入和阅读日文书籍，查询词汇与语法，管理适用的规则条件和个人状态，并导出选中内容。表达识别结合词汇、形态和结构证据。
+| 文档 | 内容 |
+| --- | --- |
+| [开发目标与功能范围](goals.md) | 活用核心成果、当前入口、后续语言分析与应用方向 |
+| [总体架构](architecture.md) | 实际分析链路、规则与词条、说明视图、D3 图、静态资源及数据 |
+| [开发说明](development.md) | 环境、运行、配置与词条维护、快照制作、构建及针对性验证 |
+| [文档更新总计划与追踪](documentation_update_plan.md) | 交接要求、目标文档名称、内容概要、代码范围、现有资料去向和进度 |
 
-应用使用本机 UniDic、GiNZA 及其配套词典和模型。当前运行链路不使用 KWJA；相关模型与研究资料仍保留在本机。GiNZA 通过本机 Python 环境执行，Rust 统一管理请求和结果。初次配置明确选择解释器与资源目录，后续从桌面应用启动并离线分析。
+接替 agent 先阅读上述四篇。当前任务是整理现有成果，待设计模块保留已确定方向和问题；research 原文保持现状。详细要求及状态以总计划为准。
 
-## 模块索引
+## 现有模块资料
 
-| 文档                                              | 内容                                                       |
-| ------------------------------------------------- | ---------------------------------------------------------- |
-| [总体架构](architecture.md)                       | 四级处理、对象身份、会话、缓存与增量更新                   |
-| [分析来源与对齐](nlp_sources.md)                  | UniDic 字段、GiNZA、字符坐标、token 对齐                   |
-| [语言分析](language_analysis.md)                  | 活用、构词、文节、小句、语法、表达与规则                   |
-| [P4 活用链与整体构词](p4_morphology_formation.md) | 多来源协作、活用状态机、occurrence、整体查询对象和十段验收 |
-| [活用链配置](morphology_configuration.md) | 统一规则、概念路由、原型与展示的维护指导 |
-| [副词接续资格与活用链](adverb_capabilities.md) | 标志位、单次词表导出、来源筛查与述语化接续 |
-| [活用配置协议与存储重构](morphology_storage_refactor_analysis.md) | v1 字段契约、消费修复、顺序语义与分文件编译方案 |
-| [静态活用分析抽样对比](morphology_dist_comparison_2026-10-31.md) | dist 全书三段正文与当前分析的状态、路径及查询形式对比 |
-| [活用链重构执行计划](morphology_refactor_execution_plan.md) | 按重要度排列的剩余任务、完成证据与当前状态 |
-| [活用链例句验收清单](morphology_example_status.md) | 199 条例句的当前结果、问题、边界和覆盖情况 |
-| [活用链局部接续验收](morphology_local_connections_2026-10-27.md) | 顺序约束审计、递归活用、名词性＋になる、条件插入とか与七句复测 |
-| [谓语接续例句验收](morphology_predicate_examples_2026-10-27.md) | しかない、意向形＋とする、こと名词化、ていい及态度补助かかる的七句验收 |
-| [P4 完成范围与后续开发对齐](p4_handoff.md)        | 当前完成证据、原任务归属、P4 独立待核验项及下游查询问题    |
-| [P4 小说性能测量](p4_novel_performance.md)        | 第一话前约一万字符的十段测量、分窗校验及阶段耗时           |
-| [云端 SaaS 路线](cloud_saas_roadmap.md)            | BERT large 云端推理、订阅配额、容量成本与阶段 catalog       |
-| [Web 产品路线建议](web_product_strategy.md) | 结合空间实测的产品入口、内容分发、宿主适配及阶段建议；讨论稿 |
-| [静态线上化空间测量](static_storage_measurement.md) | 指南压缩、小说每千字索引、共用词典与数据库体积实测 |
-| [静态书库](static_library.md) | 生成与部署、分析分块、词典及语法内容包、浏览器阅读状态 |
-| [首个云端部署实验](cloud_gpu_first_experiment.md) | 本地直连 RunPod、推理镜像、性能资源与实际费用实验 |
-| [GiNZA CUDA 测量](ginza_cuda_measurement.md) | RTX 3050 显存与批次上限、七种配置、量化差异及二十处人工复核 |
-| [GiNZA BERT 优化交接](ginza_optimization_handoff.md) | BERT 阶段模型、CPU 并行、GPU 批次/多流实测与 4060 Ti 后续任务 |
-| [GiNZA GPU 并行设计](ginza_gpu_parallel_design.md) | 4060 Ti 显存预算、批次、异步传输、并行边界与验收矩阵 |
-| [词典与解释](dictionary.md)                       | 下一模块的多粒度查询、词典验证、聚合与决定、表记矩阵和浮层 |
-| [语法指南展示与交互](grammar_guide_display.md) | 原稿混排、胶囊 JSON 预生成、后台审阅修改与加载、显示开关；设计稿 |
-| [语法指南 1.1 内容规格](grammar_guide_1_1.md) | 原稿原文、例句插入关系、19 条原例与 70 条补充例句、核心验收指标；设计稿 |
-| [书库与阅读器](reader.md)                         | EPUB、Markdown、章节、虚拟滚动与阅读进度                   |
-| [阅读器 Engine](reader_engine.md)                 | 应用生命周期、UniDic／GiNZA 管线、进度与词典气泡投影       |
-| [词典与活用面板布局](explanation_layout.md) | 词典、活用与接续气泡的点击交互、右侧栏和底部抽屉布局 |
-| [用户状态与输出](user_state.md)                   | 画像、选择、收藏、导出和词典助手                           |
-| [质量验收](quality.md)                            | 功能覆盖、语言质量、差分审计与性能测量                     |
-| [开发与交付](development.md)                      | 运行入口、依赖、资源、配置及桌面产物                       |
-| [独立桌面发行版](standalone_distribution.md)      | 最小资源、完整环境打包、性能优化与 Rust 替换计划           |
-| [实施 TODO](TODO.md)                              | 工作区差距、开发顺序与完成条件                             |
-| [实施记录](implementation_progress.md)            | 阶段状态、实际调用与检查证据                               |
-| [验收清单](acceptance.md)                         | 桌面场景、操作步骤、期望与异常恢复                         |
-| [NLP 行为基线](nlp_behavior.md)                   | 本机三来源输出观察与前期设计依据                           |
-| [P4 样本输出复核](p4_sample_review.md)            | 十段语料的原始词法、构词、语法证据与后续设计依据           |
-| [查词与阅读投影问题追踪](lookup_issue_tracking.md) | 根据实际样例登记查词、注音、活用和胶囊投影问题及修复判断     |
+下表提供现存文档入口。各篇处于待整理状态，其中的目标、实施阶段和历史统计按总体文档及实际代码核对。
 
-## 完整功能范围
+| 范围 | 现有文档 |
+| --- | --- |
+| 活用分析 | [状态机设计](morphology_state_machine_design.md)、[配置维护](morphology_configuration.md)、[配置协议](morphology_storage_refactor_analysis.md) |
+| 活用展示与审阅 | [气泡及接续展示](morphology_stage11_bubble_display.md)、[谓语关系审阅](morphology_predicate_relations_review.md)、[规则覆盖清单](morphology_operator_inventory.md)、[阶段记录](morphology_refactor_execution_plan.md) |
+| 说明界面 | [气泡、侧栏与抽屉布局资料](explanation_layout.md) |
+| 分析输入与流程 | [来源与对齐](nlp_sources.md)、[语言分析资料](language_analysis.md) |
+| 查询与词典 | [词典资料](dictionary.md)、[查询及投影问题记录](lookup_issue_tracking.md) |
+| 书架及阅读 | [书库与阅读器](reader.md)、[文档会话及分析调度](reader_engine.md) |
+| 指南内容 | [展示及内容制作资料](grammar_guide_display.md)、[当前 2.1 课程的原内容规格](grammar_guide_1_1.md) |
+| 数据与导出 | [收藏、笔记及输出资料](user_state.md) |
+| 验证与发行 | [质量验证资料](quality.md)、[桌面发行资料](standalone_distribution.md)、[静态书库](static_library.md) |
 
-| 模块       | 用户可用结果                                                 |
-| ---------- | ------------------------------------------------------------ |
-| 输入与书库 | 导入 EPUB、打开 Markdown／文本、书架管理、继续阅读           |
-| 语言分析   | 注音、形态、复合词、文节、句子、小句及外部模型结构结果       |
-| 阅读与查询 | 阅读胶囊、整体与成分查词、三词典切换、表记选择、正文关系导航 |
-| 语法与表达 | 活用说明、精确语法讲解、文法库、连续与非连续表达             |
-| 用户操作   | 范围选择、词汇状态、收藏与笔记                               |
-| 个人状态   | 已知状态、曝光记录、熟悉度显示、词典顺序、阅读设置           |
-| 摘录与输出 | 收藏和选中内容管理、上下文与释义导出                         |
-| 词典助手   | 用户主动请求候选消歧，查看并采用建议                         |
-| 质量工具   | 分层差分、双侧阅读与查询、历史报告和性能诊断                 |
-| 桌面运行   | 本机依赖检查、资源配置、可执行产物、重启后恢复状态           |
+语言分析后续统一组织在 `docs/language_analysis/`，包括基础输入、UD 对齐、状态机、规则配置、词条和结果投影。该目录及其他待编写文档的完整清单见总计划，随实际交付更新链接。
 
-## 文档维护
+## 研究入口
 
-每项规则在所属模块中定义一次，其他文档通过链接引用。功能或协议改变时同步修改所属模块和 TODO；实施完成须有实际调用路径及验收结果。实验数据、阶段报告和替代方案保存在研究资料中。
+研究资料位于 [research](research/)，本轮保留原文。范围和用途在[开发目标](goals.md#研究内容)、[总体架构](architecture.md#后续方向及研究)及[开发说明](development.md#研究与文档交接)中简述。
 
-当前修复与长期方案分别维护：P4 自身问题在完成范围记录和独立待办中跟踪；词典与查询聚合、决定按下一模块协议开发。新的设计要求保持待实施状态，已通过验证继续对应原程序和资源版本。
-
-外部来源和完整标题索引见根目录 [sources.md](../sources.md)。
+外部资料来源与标题索引继续维护在 [sources.md](../sources.md)。

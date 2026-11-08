@@ -1,132 +1,218 @@
-# 开发与桌面交付
+# 开发说明
 
-[已过时, 需调整]
+更新日期：2026-11-09。先阅读[开发目标](goals.md)和[总体架构](architecture.md)。本页集中说明当前入口、资源及维护流程；模块文档的后续整理与交接要求见[总计划](documentation_update_plan.md)。
 
-## 运行组成
+## 环境与资源准备
 
-交付物包括 Windows 桌面程序、前端、现代语 UniDic 资源、词典源包、规则与讲解目录，以及随包交付的最小 GiNZA Python 运行环境。开发渠道仍可使用本机 Python 环境，发行渠道使用包内解释器和模型。
+开发以仓库根目录为工作目录，文件、配置和进程协议采用 UTF-8。需要 Rust、Node.js/npm、Python 及 Tauri 2 对应的平台工具链；Windows 桌面编译使用 MSVC 和 WebView2。发布 CI 当前使用 Node.js 20、Python 3.11，以及 Windows x64 和 macOS arm64 构建环境。
 
-本机配置记录解释器绝对路径、适配器入口、模型与词典位置、版本及任务选项。资源检查从应用启动入口执行，成功后复用已加载服务。配置完成的环境支持离线分析。
-
-## 当前开发入口
-
-仓库使用 Rust、Node.js、npm 和 Tauri 2，Windows 编译依赖相应的桌面工具链。已有依赖时直接运行：
+安装前端依赖：
 
 ```powershell
-npx tauri dev
+npm ci
 ```
 
-本地阅读开发使用 `npm run frontend:dev`，浏览器在 5173 端口打开完整阅读器，并读取 EdgeOne 构建产物 `dist/library`；启动前执行 `npm run edgeone:build` 更新部署资源。header 动画预览可通过 `/?view=header-animation` 打开。
+大体积词典、模型和解释器通过本机环境或发行资源准备。开发默认路径由 `ResourcePaths::development` 和 `ProviderSettings::development` 定义：
 
-`npm run acceptance` 在 1420 端口提供正式应用和 Rust 分析 bridge；纯前端预览使用 5173 端口。Vite 的依赖扫描入口固定为 `index.html`，监听范围排除模型、构建产物和浏览器测试目录；各模式使用独立的依赖预构建缓存。气泡测试页可通过查询参数 `?view=grammar-guide&lesson=grammar-stage11` 直接打开。
+| 资源 | 默认位置或配置 |
+| --- | --- |
+| CWJ Vibrato 词典 | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`，环境变量 `READUX_UNIDIC_CWJ` 可覆盖 |
+| CSJ Vibrato 词典 | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`，环境变量 `READUX_UNIDIC_CSJ` 可覆盖 |
+| 词典源包 | 数据目录的 `dict-sources/*.kdict` |
+| 词典查询数据库 | 数据目录的 `dicts/` |
+| GiNZA 解释器与模型 | `experiments/ginza311/Scripts/python.exe`、模型 `ja_ginza` |
+| provider 配置 | 数据目录的 `providers.local.json` |
+| 活用运行配置 | `configs/unidic-nlp/morphology.json`，由 source 编译生成 |
+| 指南快照 | `src/grammar-guide/lesson-*-analysis.json` 与 `lesson-*-dictionary.json` |
+| 静态书籍 | `public/library/`；纯前端开发预览读取构建后的 `dist/library/` |
 
-指南例句读取预生成的分析快照。Vite 热更新会加载接续配置中的图示文案，实际命中路径和前项范围由快照保存。修改 Rust 接续规则后，须使用重新编译的服务生成对应快照，再刷新浏览器页面。开发 bridge 占用默认服务时，可生成独立的指南服务；以下命令更新复杂句组：
+开发 CLI 的数据目录默认为仓库 `data/`，`READUX_DATA_DIR` 可覆盖。桌面 debug 的分析服务沿用开发资源定位；书库和阅读状态由 Tauri 使用文档目录及应用数据目录定位。桌面 release 从便携目录或 Tauri 资源目录查找资源，应用数据目录保存配置和缓存。详细分工见[总体架构](architecture.md)。
+
+## 运行入口
+
+| 目的 | 入口 | 条件及行为 |
+| --- | --- | --- |
+| 静态前端开发 | `npm run frontend:dev` | 5173 端口，frontend 模式；浏览器书籍从 `dist/library` 读取，指南使用源码中的内容和快照 |
+| 已构建站点预览 | `npm run preview` | 读取 `dist/`，直接检查生产资源 |
+| NLP 开发 bridge | `npm run acceptance` | 编译活用配置和 debug CLI，启动 1420 端口 Vite；`POST /api/nlp` 转发至 Rust stdio |
+| 桌面开发渠道 | `npm run dev` | 调用 `scripts/run_channel.ps1 -Channel dev`，使用 Tauri 开发资源配置；当前端口配置差异见下文 |
+| 基础文本检查 | `cargo run -p readux-core --bin readux-nlp -- inspect cwj "七日は警察署へ向かった。"` | 调用基础 Analyze 请求，检查 UniDic 与基础活用结果 |
+| 持续请求 | `cargo run -p readux-core --bin readux-nlp -- stdio` | 逐行 JSON，可调用追加 GiNZA、文档会话、查询及配置请求 |
+
+### 桌面开发的端口配置
+
+当前 `src-tauri/tauri.conf.json` 的 `beforeDevCommand` 执行 `npm run frontend:dev`，启动 5173；`devUrl` 为 `http://127.0.0.1:1420`。开发渠道覆盖文件只调整打包资源。单独执行渠道命令时，Tauri 等待的地址与前端启动地址不同。
+
+沿用 5173 前端进行桌面开发时，可以通过 Tauri 的 JSON 配置覆盖 URL：
+
+```powershell
+$desktopConfig = '{"build":{"devUrl":"http://127.0.0.1:5173"}}'
+node node_modules/@tauri-apps/cli/tauri.js dev --config src-tauri/tauri.dev.conf.json --config $desktopConfig
+```
+
+Tauri CLI 支持按顺序合并多个配置参数；此命令继续使用原有前端启动命令。桌面窗口内 `isTauri()` 为真，阅读和分析使用桌面接口。后续若修正渠道配置，应同步更新本节。
+
+`run_channel.ps1` 还会检查 `target/` 的大小，超过 4 GiB 且无构建进程时清理该构建目录。选择渠道脚本时应了解这一现有行为。
+
+### 前端与 bridge 的范围
+
+`frontend` 模式提供静态阅读适配，适合正文显示、说明视图、图组件及指南调试。浏览器书库接口始终由 `staticLibrary.ts` 承接。`acceptance` 模式额外提供 NLP 请求 bridge，适合分析请求调试；该 bridge 的接口范围为 `/api/nlp`。
+
+可用页面参数包括：
+
+| 参数 | 页面 |
+| --- | --- |
+| `/?view=header-animation` | frontend 模式下的 header 动画预览 |
+| `/?view=grammar-guide&lesson=grammar-1.1` | 《句法入门》 |
+| `/?view=grammar-guide&lesson=grammar-2.1` | 《认识实词、虚词、助词》 |
+| `/?view=grammar-guide&lesson=grammar-stage11` | 活用与接续气泡测试 |
+
+## CLI 与 GiNZA 配置
+
+CLI 提供 `inspect`、`repl` 和 `stdio`。前两者调用基础分析，`stdio` 暴露 `AnalysisService` 请求协议；每行接收一个 JSON 请求，返回包含 `result` 或 `error` 的响应。
+
+```powershell
+cargo build -p readux-core --bin readux-nlp
+.\target\debug\readux-nlp.exe stdio
+```
+
+进入 stdio 后可逐行输入：
+
+```json
+{"command":"status"}
+{"command":"provider_status"}
+{"command":"check_providers"}
+{"command":"analyze","text":"本を読んでいる。","register":"cwj"}
+```
+
+分析响应中的 `id` 用于后续 `enrich` 请求的 `analysis_id`。整书阅读使用文档会话请求，完整分析单元会执行 UniDic、GiNZA、统一分析和查询目标构建。请求字段以 `crates/readux-core/src/analysis.rs` 的 `Request` 枚举为准。
+
+provider 设置的当前结构为：
+
+```json
+{
+  "ginza": {
+    "python": "D:/path/to/python.exe",
+    "model": "ja_ginza",
+    "enabled": true,
+    "timeout_seconds": 120,
+    "dictionary": ""
+  },
+  "analysis_timing_enabled": true
+}
+```
+
+通过 `configure_providers` 的 `settings` 字段提交设置，再调用 `check_providers` 检查加载。`model` 接受安装模型名或模型目录，`dictionary` 为空时采用 Python 环境中的默认词典。配置写入 `providers.local.json`，日志保存在相邻的 `provider-logs/`。现有 `ProviderPanel.vue` 保留设置 UI，主应用的可访问入口以实际组件引用为准；CLI 可以直接调用对应请求。
+
+Rust 通过 `scripts/nlp_provider.py` 启动 Python 子进程，采用 UTF-8、标准输入输出协议并复用模型。Windows 通过 Job Object 管理所属子进程。模型缺失、解释器错误和完整单元分析失败可从 provider 响应、日志及会话错误定位。
+
+## 活用规则、词条与界面维护
+
+活用维护涉及执行规则、解说和显示三个相互关联的部分。
+
+| 修改对象 | 维护入口 | 后续操作 |
+| --- | --- | --- |
+| 接续、状态和执行条件 | `configs/unidic-nlp/morphology/source/` | 生成配置，重新编译使用该配置的 Rust 服务，更新受影响快照 |
+| 概念解说及例句 | `crates/readux-core/resources/grammar/source/` | 生成 compiled 内容，核对活用概念引用及前端显示 |
+| 内置助词、助动词 | `configs/grammar/particles.json`、`auxiliaries.json` | 核对阅读器和指南调用的词条与例句 |
+| 说明内容和图布局 | `src/reader/morphologyBubble.ts`、`morphologyGraph.ts`、`lookupPresentation.ts` | 在相应例句中检查词条、图、正文范围及高亮 |
+| 气泡、侧栏及抽屉 | `src/explanation/`、`src/composables/useExplanation*.ts`、`src/components/explanation/` | 检查宽窄视口、布局切换、滚动及点击或触摸行为 |
+
+规则生成与检查：
+
+```powershell
+npm run morphology:build
+npm run morphology:check
+```
+
+编译器生成 `configs/unidic-nlp/morphology.json`，同时检查规则、路径、连接器、词条解说和例句引用。Rust 编译时嵌入该产物，前端导入相同配置。单独调用 Cargo 前应先生成最新配置；前端开发和构建命令已经包含生成步骤。
+
+grammar 解说源内容发生变化时，使用：
+
+```powershell
+python -X utf8 scripts/build_grammar_catalog.py
+```
+
+`configs/grammar/` 仍参与当前阅读及活用解说。原 grammar 整体分析流程的过时状态见[总体架构](architecture.md)，现用内容的维护应根据实际引用进行。
+
+## 指南及书籍静态资源
+
+### 更新指南快照
+
+修改 Rust 规则或影响分析的配置后，重新编译服务，再生成相关课节或例句组：
+
+```powershell
+npm run morphology:build
+cargo build -p readux-core --bin readux-nlp
+python -X utf8 scripts/generate_grammar_guide_analysis.py --lesson stage11 --group complex
+```
+
+`--lesson` 接受 `1.1`、`2.1` 或 `stage11`；省略 `--group` 时生成整课。生成器通过正式服务执行基础分析、GiNZA 追加和词典查询，写入课节的分析及词典快照。
+
+默认 debug 服务正在被 bridge 占用时，可生成独立服务并显式指定：
 
 ```powershell
 cargo rustc -p readux-core --bin readux-nlp -- -o target/debug/readux-nlp-guide.exe
 python -X utf8 scripts/generate_grammar_guide_analysis.py --lesson stage11 --group complex --service target/debug/readux-nlp-guide.exe
 ```
 
-header 的统一动画资源为 `src/branding/readux-animated.svg`，由 `python -X utf8 scripts/generate_header_mark.py` 从两种品牌姿态生成。`ReadingMark.vue` 挂载单个 SVG，`markPlayback.ts` 统一控制 2.2 秒时间轴。眼睛与刀身在前 45%（约 1 秒）完成变换，使用较弱的缓动；书本保持前 42% 进入、后 58% 展开的节奏。各部分同时触发，由速度差形成先后顺序。路径或书本设计调整后执行生成脚本。
+配置文案的前端热更新与分析快照分别更新。真实命中路径及范围来自快照；修改执行条件后需要使用新服务生成相应快照。
 
-`npm run test:header` 验证初始姿态、路径插值、打开与关闭、重复操作、减少动态效果设置以及桌面和窄屏截图。需要可用的 Playwright，沿用 `PLAYWRIGHT_MODULE` 指定本机模块路径，`READUX_TEST_URL` 可覆盖预览地址。
+### 构建静态站点
 
-当前 CLI 支持如下命令：
-
-```powershell
-cargo run -p readux-core --bin readux-nlp -- inspect cwj "七日は警察署へ向かった。"
-cargo run -p readux-core --bin readux-nlp -- repl
-cargo run -p readux-core --bin readux-nlp -- stdio
-```
-
-`stdio` 接收逐行 JSON 请求，使用与桌面端相同的 `AnalysisService`。网页开发由 Vite 提供，通过开发 bridge 调用 Rust；Tauri 窗口承担桌面 IPC 与资源定位验收。
-
-本机模型入口为 `scripts/nlp_provider.py`，由 Rust 使用 `-X utf8 -u` 启动。桌面先显示 UniDic 结果，再以 `enrich` 请求追加 GiNZA 结构。设置位于“结构分析 → 本机模型设置”，开发环境可指定 GiNZA 解释器、模型和 Sudachi 词典文件；发行包默认使用 `python/Scripts/python.exe`。词典路径留空时使用随 Python 包安装的资源。配置写入数据目录的 `providers.local.json`，日志位于同目录 `provider-logs`。旧配置中的 KWJA 字段可读取，但不进入当前配置对象、状态响应或分析任务；发行版运行时不依赖系统 Python。
-
-GiNZA 模型支持已安装模型名或 spaCy 模型目录。“保存并检查”执行 `check_providers`，重新初始化已启用模型，报告资源缺失、加载错误及完整清单；检查成功后复用模型进行分析。开发默认路径对应下表已准备的环境；实际任务清单由加载的模型返回。
-
-`scripts/nlp_resources.py` 记录实际资源内容的 SHA-256、路径和大小。GiNZA 清单包含模型及 Sudachi 资源，并结合依赖版本、执行参数形成 `resource_digest`，随完整来源结果传输。`provider_status.configured` 表示解释器与适配器路径存在，`available` 表示模型已经成功初始化。
-
-`npm run dev` 使用开发资源配置启动桌面应用；`npm run insider` 准备独立运行资源、以 release 配置生成 `target/release/ReadUX.exe`，再组织 Windows 便携包，产物位于 `packages/ReadUX-insider-portable-win64.zip`。具体行为见 [run_channel.ps1](../scripts/run_channel.ps1)。
-
-## EdgeOne Makers 静态部署
-
-在仓库根目录运行 `npm ci`、`npm run edgeone:build`，生成 `dist/` 与根目录 `dist.zip`。该命令先编译活用配置并构建正式分析服务，再重新生成三课指南快照和 `public/library/catalog.json` 已登记书籍的静态资源，最后执行 Vue 类型检查与 Vite 生产构建并打包 ZIP。本机书库中未发布的图书不会加入部署资源。书籍资源版本由分析服务、活用配置、图书正文、图书资源和生成脚本共同确定，输入变化会生成新的版本目录并更新书库索引。同版本重新生成时清空原输出目录，生成完成后清理目录索引未引用的版本；`npm run build` 在构建前再次按索引清理，每本书仅有一个已发布版本进入 `dist/` 与 ZIP。EdgeOne Makers 的框架选择 Vue 或 Vite，根目录为 `./`，构建命令为 `npm run edgeone:build`，输出目录为 `dist`，Node.js 可选择 22.21.1。直接上传时选择整个 `dist` 文件夹，ZIP 上传须保证 `index.html` 位于压缩包根目录。
-
-正式构建自动将三课指南的分析、词典快照压缩为 `.json.gz`，前端通过浏览器原生 `DecompressionStream` 解压后读取。开发服务继续使用 JSON。静态托管按普通 gzip 文件提供这些资源，浏览器负责解压文件内容。
-
-浏览器首页显示静态书架，已发布图书按阅读范围分块加载分析结果，生成与部署说明见[静态书库](static_library.md)。语法指南通过右上角按钮打开，三课共 812 条例句采用预生成分析与词典内容。课节直达链接使用 `/?view=grammar-guide&lesson=grammar-1.1`、`grammar-2.1` 或 `grammar-stage11`。网页中的书库导入和即时分析入口禁用。
-
-平台规定单文件最大 25 MB，项目最多 20000 个文件；构建产物应按这两个条件核对。本次官方文档正文和完整索引暂存于 `.agents/analysis/edgeone-docs/`。
-
-指南资源的六份 gzip 文件已核对源 JSON，纯静态 HTTP 服务已验证三课切换、词典、注音与译文开关、活用接续图、悬浮气泡及 390 px 抽屉布局。气泡测试课有 7 条孤立助动词样例的原始快照缺少查询目标，按纯文本显示：`M-synthetic-001` 至 `M-synthetic-004`、`M-E051` 至 `M-E053`。指南验收报告位于 `.agents/analysis/edgeone-static/`；书库验收报告位于 `.agents/analysis/static-library/verification.json`。
-
-## 当前资源定位
-
-| 资源           | 开发位置或覆盖项                                                               |
-| -------------- | ------------------------------------------------------------------------------ |
-| CWJ            | `experiments/unidic-source/unidic-cwj-202512.vibrato.dic`；`READUX_UNIDIC_CWJ` |
-| CSJ            | `experiments/unidic-source/unidic-csj-202512.vibrato.dic`；`READUX_UNIDIC_CSJ` |
-| 词典源包       | `data/dict-sources/*.kdict`                                                    |
-| 词典查询缓存   | `data/dicts`                                                                   |
-| 词典数据根目录 | `READUX_DATA_DIR`                                                              |
-| GiNZA 实验环境 | `experiments/ginza311`，由本机配置选择解释器                                   |
-| GiNZA 最小环境 | `experiments/ginza-minimal`，由 `scripts/build_ginza_minimal_env.py` 生成      |
-
-桌面 release 从安装目录读取 `nlp/cwj.dic`、`nlp/csj.dic`、`dict-sources`、`python` 和 `scripts`，查询缓存使用应用数据目录。`scripts/prepare_installer_resources.py` 将本地 GiNZA 环境转换为独立 Python 解释器、标准库与模型包；安装资源统一写入 `release-resources`，Windows 解释器为 `python/python.exe`。
-
-词典源目录按应用数据目录、便携目录和 Tauri 资源目录依次查找，候选目录必须包含 `.kdict` 源包。空目录会继续查找后续候选，包内源包用于核验并重建应用数据目录中的查询数据库。
-
-## 资源与用户数据
-
-只读词典、权重和语法知识内容具有资源版本及校验值；查询缓存按资源身份重建。画像、收藏、书库和阅读进度属于持久用户数据，升级采用独立迁移。
-
-词典源包和查询数据库分别承担分发与本机访问。第三方程序、词典、权重和词典正文的许可分别登记。本机依赖清单注明来源、获取方式和验证命令，桌面产物说明相应的配置要求。
-
-文件、进程协议和日志统一采用 UTF-8。程序启动使用配置路径和明确参数，后台 provider 以隐藏窗口运行。应用退出时关闭所属分析任务和进程。
-
-## 检查与构建
-
-活用规则在 `configs/unidic-nlp/morphology/source/` 维护。修改后执行 `npm run morphology:build`；前端开发、静态预览和正式构建会先生成配置。单独使用 Cargo 构建 NLP 服务前执行生成命令。`npm run morphology:check` 在内存中编译并核对已保存产物，同时检查分类、连接器、路径与概念引用。维护方法见 [活用链配置](morphology_configuration.md)。
-
-按修改范围选择检查；以下命令是对应入口，实际结果记录在 TODO 或验收报告中：
+已有指南和书籍资源时执行：
 
 ```powershell
-cargo test -p readux-nlp -p readux-core --lib
-cargo check -p tauri-app
-npm run test:ui
 npm run build
-python scripts/build_grammar_catalog.py --check
-npm run morphology:check
-python scripts/test_dictionary_schema.py
+npm run preview
 ```
 
-核心测试覆盖已注册模块；模块恢复时将其测试纳入编译和执行。前端构建包含 TypeScript 检查与 Vite 打包。语法资源或词典 schema 改动时执行各自专项检查。
+`prebuild` 根据 `public/library/catalog.json` 清理未引用书籍版本，随后生成活用配置、执行 Vue 类型检查并构建 `dist/`。生产构建将指南的分析、词典 JSON 压缩为 gzip 资源。
 
-GitHub Actions 使用 `src-tauri/tauri.github-release.conf.json` 构建 Windows x64 便携包与 macOS arm64 DMG。`.kdict` 是发行包的词典源格式，四个源包已被 Git 跟踪；UniDic 与 GiNZA 资源由 `resources-v1` Release 提供，`scripts/fetch_release_resources.py` 下载资源并转换 Windows 虚拟环境。资源 ZIP 作为构建输入，应用发行产物为便携包。推送与 `package.json` 版本一致的 `v*` 标签后创建 GitHub Release；手动运行工作流生成构建产物。
+需要从本机书库更新全部已发布书籍及三课指南时执行：
 
-## Windows 便携运行
-
-便携包直接运行目录中的 `ReadUX.exe`，程序、UniDic、词典源包、Python 运行时与 provider 脚本使用固定相对路径。应用标识固定为 `com.readux.app`，版本从根目录 `package.json` 读取，Rust 包版本同步维护。Windows Job Object 管理分析进程，解释器使用 `-B`，避免在便携目录生成字节码缓存。
-
-用户配置、阅读状态和查询缓存位于系统应用数据目录 `com.readux.app`，书库位于文档目录 `ReadUX Library`。升级保留这些目录；卸载默认保留应用数据，用户可在卸载界面选择清除应用数据，书库独立保留。`READUX_DATA_DIR` 指定的目录由使用者管理。
-
-Windows EXE 使用 `src-tauri/icons/icon.ico`。`src-tauri/src/windows_icons.rs` 从 EXE 资源编号 32512 加载系统尺寸的大、小图标，分别用于任务栏和标题栏。
-
-`scripts/verify_windows_icons.ps1` 核对 EXE 内全部 ICO 帧，并启动程序读取窗口大、小图标；Windows CI 在构建后执行同一检查，报告默认写入 `.agents/analysis/windows-icons.json`。
-
-资源 Release 的资产名称固定为：
-
-```text
-ReadUX-insider-portable-nlp.zip
-ReadUX-insider-portable-windows-x64-python.zip
-ReadUX-insider-portable-macos-arm64-python.zip
+```powershell
+npm run edgeone:build
 ```
 
-## 桌面交付验收
+该命令依赖文档目录中的 `ReadUX Library`、已登记的公开书目及本机分析资源。脚本构建 release NLP 服务、更新快照与书籍资源，随后构建站点并生成 `dist.zip`。发布范围取自公开书目。只更新书籍时可使用 `npm run generate:library`，具体选择、服务路径和版本参数见 `scripts/generate_static_library.py`。
 
-生成可执行程序及资源包，保存程序版本、资源清单、运行时依赖清单和验收记录。应用从仓库以外的目录启动，直接调用发行包内的 UniDic 和 GiNZA 运行环境。
+静态部署产物为整个 `dist/`；ZIP 中 `index.html` 位于根目录。浏览器从静态文件加载内容，阅读状态保存在当前浏览器。更多现有协议见[静态书库](static_library.md)，该模块正文按总计划继续整理。
 
-完整验收执行导入、继续阅读、结构展示、词典与语法查询、表达解释、个人状态、收藏、导出和质量审计，再重启验证持久状态。记录模型首次加载和复用效果，检查缺失依赖的提示与配置恢复。
+## 桌面构建与发行
 
-桌面交付结果以 [TODO](TODO.md)中的功能矩阵和最终验收项为准。
+Windows 本地便携发行入口：
+
+```powershell
+npm run insider
+```
+
+脚本准备 GiNZA 最小环境及 `release-resources/`，检查资源，使用 release 配置生成 `target/release/ReadUX.exe`，再生成 `packages/ReadUX-insider-portable-win64.zip`。本地资源准备入口为 `scripts/prepare_installer_resources.py`，便携目录由 `scripts/package_portable.py` 组织。
+
+发行目录包括程序、`nlp/`、`dict-sources/`、`python/` 和 provider 脚本。Windows 独立解释器优先使用 `python/python.exe`。CI 通过 `scripts/fetch_release_resources.py` 获取预制资源，在 `.github/workflows/release.yml` 中构建 Windows x64 便携 ZIP 与 macOS arm64 DMG。应用版本来自根目录 `package.json`；标签发布与手动构建按 workflow 执行。
+
+第三方来源及许可见 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。资源组织与交付说明见[独立桌面发行版](standalone_distribution.md)，该模块正文按总计划继续整理。
+
+## 验证与问题定位
+
+根据修改范围选择现有验证入口，最终集中检查相关内容与提交差异。
+
+| 修改范围 | 对应检查 |
+| --- | --- |
+| 活用规则或配置 | `npm run morphology:check`；需要执行证据时选择对应 Rust 用例与真实例句 |
+| grammar 解说源 | `python -X utf8 scripts/build_grammar_catalog.py --check` |
+| Rust 分析实现 | `cargo test -p readux-nlp -p readux-core --lib`，或对应专项用例 |
+| 前端投影及图布局 | `npm run test:ui`，结合对应指南例句与目标视图检查 |
+| 前端类型及生产资源 | `npm run build` |
+| Tauri 接口 | `cargo check -p tauri-app`，结合实际桌面入口 |
+| 词典 schema | `python -X utf8 scripts/test_dictionary_schema.py` |
+| 静态书籍资源 | `node scripts/verify_static_library.mjs` |
+| 桌面资源 | `npm run verify:release-resources -- --require-generated` |
+
+基础分析问题从 `inspect`、来源字段和命中规则定位；完整阅读问题结合会话错误、provider 日志、单元结果及查询目标定位；显示问题核对同一范围在快照、内容投影、图节点和正文中的对应。生成后的资源有问题时，先核对生成服务及输入版本。
+
+## 研究与文档交接
+
+研究入口保留在 [research](research/)，包含来源行为、GiNZA GPU、资源与空间测量、Web 和云端推理资料。本轮通过总体文档简述研究范围，research 内部文档保持原状。
+
+接替 agent 按[总计划](documentation_update_plan.md)完成现有文档的重写、整合与补充。待设计模块记录已确认方向、现有基础和待讨论问题，具体开发方案由后续讨论确定。每篇完成后更新计划状态及相关索引。
