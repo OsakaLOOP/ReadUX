@@ -179,7 +179,7 @@ npm run edgeone:build
 
 该命令依赖文档目录中的 `ReadUX Library`、已登记的公开书目及本机分析资源。脚本构建 release NLP 服务、更新快照与书籍资源，随后构建站点并生成 `dist.zip`。发布范围取自公开书目。只更新书籍时可使用 `npm run generate:library`，具体选择、服务路径和版本参数见 `scripts/generate_static_library.py`。
 
-静态部署产物为整个 `dist/`；ZIP 中 `index.html` 位于根目录。浏览器从静态文件加载内容，阅读状态保存在当前浏览器。更多现有协议见[静态书库](static_library.md)，该模块正文按总计划继续整理。
+静态部署产物为整个 `dist/`；ZIP 中 `index.html` 位于根目录。浏览器从静态文件加载内容，阅读状态保存在当前浏览器。资源协议、生成参数与部署步骤见[静态 Web 与内容部署](static_library.md)。
 
 ## 桌面构建与发行
 
@@ -218,3 +218,5 @@ npm run insider
 研究入口保留在 [research](research/)，包含来源行为、GiNZA GPU、资源与空间测量、Web 和云端推理资料。本轮通过总体文档简述研究范围，research 内部文档保持原状。
 
 接替 agent 按[总计划](documentation_update_plan.md)完成现有文档的重写、整合与补充。待设计模块记录已确认方向、现有基础和待讨论问题，具体开发方案由后续讨论确定。每篇完成后更新计划状态及相关索引。
+
+已整理的运行与模块入口为[桌面端](desktop.md)、[静态 Web](static_library.md)、[CLI](cli.md)、[书架与导入](library.md)、[阅读器](reader.md)、[说明视图](explanation_layout.md)、[D3 图](analysis_graphs.md)、[词典](dictionary.md)及 [L11 结果投影](language_analysis/presentation.md)。显示规范中的待实施修改继续依原清单推进。

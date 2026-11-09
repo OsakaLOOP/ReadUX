@@ -1,6 +1,8 @@
 # 开发入口记忆
 
-- 语言分析L0–L6的正式入口为 `docs/language_analysis/README.md`。当前统一文档v10，活用配置为153个operator、92组规则、455条路径。L5维护字段用途、限定集合、内部编排及编译；`morphology_rule_categories.md`按学校语法与功能细分规则，包含副词情态／程度／陈述、动作阶段、授受等类别及源JSON样例；`morphology_display_conventions.md`规定名称、讲解、D3节点和七组前接树，并列明现有不一致。后续按清单实施内容和显示修订，L11、M3、M4继续整理。
+- 语言分析 L0–L6 及 L11 的正式入口为 `docs/language_analysis/README.md`。当前统一文档 v10，活用配置为 153 个 operator、92 组规则、455 条路径。L5 维护字段用途、限定集合、内部编排及编译；`morphology_rule_categories.md` 按学校语法与功能细分规则，包含副词情态／程度／陈述、动作阶段、授受等类别及源 JSON 样例；`morphology_display_conventions.md` 规定名称、讲解、D3 节点和七组前接树，并列明现有不一致。后续按清单实施内容和显示修订。
+
+- E1–E3、M1–M5 和 L11 当前实现文档已完成，入口分别为 `docs/desktop.md`、`static_library.md`、`cli.md`、`library.md`、`reader.md`、`explanation_layout.md`、`analysis_graphs.md`、`dictionary.md` 和 `language_analysis/presentation.md`。L11 定义分析到内容及范围的映射，M3 定义三种视图，M4 定义图布局与控件；显示规范中的七组分类和统一用语仍待实施。阅读器当前由 `ReaderDocumentView.vue` 管理查询，指南由 `GrammarGuideExample.vue` 管理；`useExplanationSession` 和 `useExplanationInteraction` 用于保留的质量界面。当前进度在滚动停止 700 ms 后提交，组件卸载清除计时器，文档已据实际行为说明。后续整理 M6–M9、M13、M14。
 
 - 文档更新总计划与进度入口为 `docs/documentation_update_plan.md`，以 2026-11-09 用户说明确定目标：核心为活用状态机、规则词条、气泡／侧栏／抽屉与 D3 图；后续语言分析为词组修饰并列、格关系及句中成分、登记语法模式，并配套匹配、用法、解说和 UI。应用方向为收藏管理及统计、Anki、阅读器替换、LLM。用户已审阅目录，要求优先重写整合现有文档，待设计条目暂缓；research 内部文件保持不动，仅总体文档简述引用。`docs/goals.md`、`docs/architecture.md`、`docs/development.md` 和总索引已完成；接替 agent 依总计划继续整理现有模块。
 

@@ -71,7 +71,7 @@ flowchart TD
 
 [dictionary/targets.rs](../../crates/readux-core/src/dictionary/targets.rs) 根据统一结果和词典证据生成 `LookupTargetGroup`，保存外层、内部及候选词汇目标、语法目标、排除范围、覆盖状态和默认对象。词汇目标引用成员、活用核心、构词候选及查询形式；语法目标引用范围、链和可用的 concept。
 
-查询构建先确定功能成分及应排除的范围，再组织词汇候选与词典确认。整体词与内部子词分别保留。作者 ruby、基本表记、词元和活用链查询形作为相应证据进入查询。具体词典聚合流程继续由[词典模块](../dictionary.md)整理。
+查询构建先确定功能成分及应排除的范围，再组织词汇候选与词典确认。整体词与内部子词分别保留。作者 ruby、基本表记、词元和活用链查询形作为相应证据进入查询。目标选择及表记聚合见 [M5 词典模块](../dictionary.md)，正文与解说映射见 [L11](presentation.md)。
 
 [lookupPresentation.ts](../../src/reader/lookupPresentation.ts) 根据查询目标及活用链生成正文命中、词干说明和活用步骤。[morphologyBubble.ts](../../src/reader/morphologyBubble.ts) 生成词条内容、句中组成和规则分支；D3 布局与绘制由 `morphologyGraph.ts`、`ReaderMorphologyGraph.vue` 等组件承担。
 

@@ -4,7 +4,7 @@
 
 ## 系统组成
 
-ReadUX 由 Vue 应用、宿主适配、本机 Rust 服务、UniDic/Vibrato、GiNZA Python 进程、规则词条资源及静态内容制作工具组成。语言分析生成带身份与范围的结果，词典服务生成查询目标和内容，前端将结果投影为正文交互、解说和关系图。
+ReadUX 由 Vue 应用、宿主适配、本机 Rust 服务、UniDic/Vibrato、GiNZA Python 进程、规则词条资源及静态内容制作工具组成。语言分析生成带身份与范围的结果，词典服务生成查询目标和内容，前端将结果投影为正文交互、解说和关系图。此外, 围绕这一核心架构, 开发了相应的阅读、书架等前后端.
 
 ```mermaid
 flowchart TD
@@ -30,15 +30,15 @@ flowchart TD
     Static --> Projection
 ```
 
-| 部分 | 职责 | 入口 |
-| --- | --- | --- |
-| 应用协调 | 书架与阅读页面切换，打开书籍、选择及笔记操作，指南入口与设置 | `src/main.ts`、`src/App.vue` |
-| 前端服务适配 | 根据宿主调用 Tauri、开发 NLP bridge 或浏览器静态资源接口 | `src/services/reader.ts`、`nlp.ts`、`staticLibrary.ts`、`staticAnalysis.ts` |
-| 桌面宿主 | 命令注册、文件与资源路径、书库和阅读状态、平台窗口能力 | `src-tauri/src/lib.rs`、`reader_engine.rs` |
-| 应用核心 | 请求分派、文档单元与会话、分析调度、provider 管理、词典和缓存 | `crates/readux-core/src/` |
-| 语言分析 | 正文准备、词法、对齐、来源结构、活用链及查询所需对象 | `crates/readux-nlp/src/` |
-| Python provider | 加载及复用 GiNZA，将 token、UD 关系和结构转换为来源产物 | `scripts/nlp_provider.py`、`nlp_adapters.py`、`nlp_resources.py` |
-| 内容制作 | 调用本机服务，生成指南快照和发布书籍的静态资源 | `scripts/generate_grammar_guide_analysis.py`、`generate_static_library.py`、`build_edgeone.py` |
+| 部分            | 职责                                                          | 入口                                                                                           |
+| --------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| 应用协调        | 书架与阅读页面切换，打开书籍、选择及笔记操作，指南入口与设置  | `src/main.ts`、`src/App.vue`                                                                   |
+| 前端服务适配    | 根据宿主调用 Tauri、开发 NLP bridge 或浏览器静态资源接口      | `src/services/reader.ts`、`nlp.ts`、`staticLibrary.ts`、`staticAnalysis.ts`                    |
+| 桌面宿主        | 命令注册、文件与资源路径、书库和阅读状态、平台窗口能力        | `src-tauri/src/lib.rs`、`reader_engine.rs`                                                     |
+| 应用核心        | 请求分派、文档单元与会话、分析调度、provider 管理、词典和缓存 | `crates/readux-core/src/`                                                                      |
+| 语言分析        | 正文准备、词法、对齐、来源结构、活用链及查询所需对象          | `crates/readux-nlp/src/`                                                                       |
+| Python provider | 加载及复用 GiNZA，将 token、UD 关系和结构转换为来源产物       | `scripts/nlp_provider.py`、`nlp_adapters.py`、`nlp_resources.py`                               |
+| 内容制作        | 调用本机服务，生成指南快照和发布书籍的静态资源                | `scripts/generate_grammar_guide_analysis.py`、`generate_static_library.py`、`build_edgeone.py` |
 
 ## 本机分析与文档会话
 
@@ -72,14 +72,14 @@ GiNZA 信息通过 `linguistic_context.rs` 进入局部判断。该接口提供�
 
 活用规则通过 concept 关联解说，前端根据命中的 operator 生成当前词条和接续说明。资源分工如下：
 
-| 资源 | 当前用途 |
-| --- | --- |
-| `configs/unidic-nlp/morphology/source/operators/` | 规则名称、概念引用、原型、变体、输入输出状态及接续归属 |
-| `configs/grammar/particles.json` | 阅读器与指南使用的内置助词解说 |
-| `configs/grammar/auxiliaries.json` | 内置助动词解说及例句，活用说明也读取其中部分内容 |
-| `configs/grammar/migrations/te_construction_ids.json` | 历史 ID 映射，前端部分补助词处理仍有引用 |
-| `crates/readux-core/resources/grammar/source/` | 概念、用法、实现形式、规则及解说的源内容 |
-| `crates/readux-core/resources/grammar/compiled/` | 编译后的目录、解说和索引；活用前端直接读取其中的解说文件 |
+| 资源                                                  | 当前用途                                                 |
+| ----------------------------------------------------- | -------------------------------------------------------- |
+| `configs/unidic-nlp/morphology/source/operators/`     | 规则名称、概念引用、原型、变体、输入输出状态及接续归属   |
+| `configs/grammar/particles.json`                      | 阅读器与指南使用的内置助词解说                           |
+| `configs/grammar/auxiliaries.json`                    | 内置助动词解说及例句，活用说明也读取其中部分内容         |
+| `configs/grammar/migrations/te_construction_ids.json` | 历史 ID 映射，前端部分补助词处理仍有引用                 |
+| `crates/readux-core/resources/grammar/source/`        | 概念、用法、实现形式、规则及解说的源内容                 |
+| `crates/readux-core/resources/grammar/compiled/`      | 编译后的目录、解说和索引；活用前端直接读取其中的解说文件 |
 
 `morphologyBubble.ts` 按 operator 的 `concept_id` 读取 `grammar_explanations.json`，并结合内置助动词资源选择摘要和例句。`particleEntries.ts` 根据语素身份生成助词、助动词查询，阅读器和指南均调用这一接口。
 
@@ -105,14 +105,14 @@ Rust 词典模块负责词典源包和索引、候选形式、整体与内部查
 
 ## 数据与资源所有权
 
-| 数据 | 当前保存位置或管理入口 |
-| --- | --- |
-| 桌面书库与原书资源 | 系统文档目录的 `ReadUX Library/`，索引为 `library.sqlite`，书籍文件位于 `books/<id>/` |
-| 桌面阅读状态、摘录和笔记 | Tauri 应用数据目录的 `reader-state.sqlite` |
+| 数据                          | 当前保存位置或管理入口                                                                                            |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 桌面书库与原书资源            | 系统文档目录的 `ReadUX Library/`，索引为 `library.sqlite`，书籍文件位于 `books/<id>/`                             |
+| 桌面阅读状态、摘录和笔记      | Tauri 应用数据目录的 `reader-state.sqlite`                                                                        |
 | provider 配置、日志与分析缓存 | `ResourcePaths` 指定的数据目录；主要文件为 `providers.local.json`、`provider-logs/` 和 `analysis-cache/*.msgpack` |
-| 词典源包与查询索引 | `.kdict` 源包和 `dicts/` 查询数据库，具体位置由开发及发行资源定位确定 |
-| 静态阅读及指南编辑状态 | 浏览器 localStorage，指南快照与发布内容作为资源读取 |
-| 规则、词条和静态内容源 | 仓库中的配置及内容文件，由对应制作脚本生成运行产物 |
+| 词典源包与查询索引            | `.kdict` 源包和 `dicts/` 查询数据库，具体位置由开发及发行资源定位确定                                             |
+| 静态阅读及指南编辑状态        | 浏览器 localStorage，指南快照与发布内容作为资源读取                                                               |
+| 规则、词条和静态内容源        | 仓库中的配置及内容文件，由对应制作脚本生成运行产物                                                                |
 
 开发 CLI 的默认数据目录为仓库 `data/`；桌面阅读状态与书库由 Tauri 定位。`READUX_DATA_DIR` 的作用要结合宿主说明，详见[开发说明](development.md)。
 

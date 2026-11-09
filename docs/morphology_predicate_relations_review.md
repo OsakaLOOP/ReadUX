@@ -1,5 +1,7 @@
 # 谓语关系与接续标签审阅
 
+本文保留该次审阅过程。当前状态机契约见 [L4](language_analysis/morphology.md)，谓语身份及关系文字的现用投影见 [L11](language_analysis/presentation.md)，后续统一用语见[显示规范](language_analysis/morphology_display_conventions.md)。
+
 本次按配置中的全部执行器及词性输出类别阅读规则与实现，修改判断规则和句中关系投影。依照用户要求，本会话未执行测试、构建或运行效果验证。
 
 ## 判断与谓语身份

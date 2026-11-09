@@ -1,6 +1,6 @@
 # 文档更新总计划与追踪
 
-更新日期：2026-11-09。文档基线：`34dc0f7` 后保留的 docs。产品与架构方向以本次用户说明为准。状态：目录与方向已审阅，总体文档及语言分析 L0–L6 已完成，其余现有文档交接整理。
+更新日期：2026-11-09。文档基线：`34dc0f7` 后保留的 docs。产品与架构方向以本次用户说明为准。状态：总体文档、L0–L6、E1–E3、M1–M5 及 L11 当前实现已完成，其余模块按本计划继续整理。
 
 本计划确定 ReadUX 文档的名称、内容范围、代码入口、现有资料去向和编写顺序。进度集中记录于本文。
 
@@ -16,6 +16,8 @@
 接替 agent 先阅读[开发目标](goals.md)、[总体架构](architecture.md)和[开发说明](development.md)，再依据本文定位现有模块。各项清单的内容范围受以上交接要求约束。L7 至 L10、M10 至 M12 的详细设计暂缓；M2 和 L11 先完成当前实现及既有设计的整理，后续部分仅保留方向。研究内容的交付要求集中见第 7 节。
 
 已完成 G1、G2、G3、总索引及 L0–L6。本次进一步完成[L5字段编排与限定集合](language_analysis/morphology_configuration.md#字段编排与限定集合)、[规则分类与编写指南](language_analysis/morphology_rule_categories.md)及[显示规范与修订设计](language_analysis/morphology_display_conventions.md)。分类依据学校语法及实际功能，细分到动作阶段、授受、趋向、感情评价、副词情态／程度／陈述等类别；同时规定内部元数据、名称、讲解、D3节点和前接树编排。已确认的显示及输入许可差异列入修订清单，后续据此实施。L11、M3、M4及其他模块继续按原范围整理。
+
+E1–E3、M1–M5 和 L11 已依据当前调用完成：运行入口、书库导入、阅读坐标、查询目标、三种说明视图与 D3 图分别归入所属文档，旧阶段资料增加正式入口说明。M2 保留阅读器替换关注点，L11 保留后续分析接入要求；显示规范中的名称、分组及输入许可修订继续作为待实施事项。
 
 ## 1. 文档依据与当前方向
 
@@ -102,7 +104,7 @@ G3 已记录 Tauri 开发 URL 为 1420、前端启动为 5173 的配置差异，
 | L8 | `docs/language_analysis/case_dependencies.md` · 格关系、句中成分与基本依存 | 词组及格助词的范围和身份；所依存谓语、句中成分及基本关系；助词同形、具体用法、接续和 UD 方向的联合判断；确定结果、解说和 UI；与修饰、并列及活用的衔接 | 现有基础为 `configs/grammar/particles.json`、`linguistic_context.rs`、`external.rs`、`structure_graph.rs`、`morphology.rs`、`src/grammar/particleEntries.ts`；格关系分析及规则待设计 | 待设计，主要后续模块 |
 | L9 | `docs/language_analysis/grammar_patterns.md` · 登记语法模式的识别与提取 | 已登记模式的形式、成员身份和条件；接续、活用、词组与依存约束；连续及登记的非连续模式、命中范围与命名捕获；模式和词面相同形式的区分；用法选择、解说、提取及 UI | 可核查基础为 `crates/readux-nlp/src/rules.rs`、`grammar.rs`、`expression.rs`、`crates/readux-core/src/language_rules.rs`、`language_analysis.rs`、`resources/grammar/source/`；原流程标明过时，具体复用范围按新职责决定 | 待设计，主要后续模块 |
 | L10 | `docs/language_analysis/matching_usage.md` · 匹配与义项用法确定 | 三个模块共用的判断原则；底层词性、领域身份、活用状态、局部条件和 UD 证据怎样形成确定结果；同形、多用法、重叠命中及组合规则；规则、用法及解说的关联；未确定结果与代表正反例 | 活用参照为 `morphology_machine.rs`、`morphology_config.rs`、`linguistic_context.rs`；现有 `Rule`、`RuleMatch`、`Explanation`、词条用法字段提供对象基础 | 待设计 |
-| L11 | `docs/language_analysis/presentation.md` · 分析结果、解说与界面投影 | 各模块输出怎样映射到正文范围、整体与组分、查询目标、解说和关系图；当前活用投影；词组、格关系和模式的新增显示要求；同一结果在三种视图、指南及阅读器中的一致性 | `src/reader/lookupPresentation.ts`、`morphologyBubble.ts`、`src/types/nlp.ts`、`src/explanation/`、`ReaderConnectionTree.vue`、`ReaderMorphologyGraph.vue`、指南快照 | 待编写与设计 |
+| L11 | [分析结果、解说与界面投影](language_analysis/presentation.md) | 各模块输出怎样映射到正文范围、整体与组分、查询目标、解说和关系图；当前活用投影；词组、格关系和模式的新增显示要求；同一结果在三种视图、指南及阅读器中的一致性 | `src/reader/lookupPresentation.ts`、`morphologyBubble.ts`、`src/types/nlp.ts`、`src/explanation/`、`ReaderConnectionTree.vue`、`ReaderMorphologyGraph.vue`、指南快照 | 当前实现已完成；后续设计暂缓 |
 
 ### 5.1 后续设计提纲（暂缓）
 
@@ -124,9 +126,9 @@ L7、L8、L9 保留对象、范围、词性与身份、规则、UD、用法、�
 
 | 编号 | 文件与名称 | 内容概要 | 对应文件／目录 | 状态 |
 | --- | --- | --- | --- | --- |
-| E1 | `docs/desktop.md` · 桌面端使用与运行 | 启动及资源要求、书架和输入、阅读及分析说明、查询与收藏、设置、状态恢复；便携包与平台范围；资源问题定位 | `src/App.vue`、`src/components/reader/`、`src-tauri/src/lib.rs`、`reader_engine.rs`、`src-tauri/tauri*.conf.json` | 待编写 |
-| E2 | `docs/static_library.md` · 静态 Web 与内容部署 | 网页入口、预生成资源、发布书目、范围加载、浏览器状态；生成、版本清理、预览、gzip 和部署；指南链接及能力范围 | `src/services/staticLibrary.ts`、`staticAnalysis.ts`、`public/library/`、`scripts/generate_static_library.py`、`build_edgeone.py`、`static_library_document.mjs`、`verify_static_library.mjs` | 待重写 |
-| E3 | `docs/cli.md` · CLI 与本机请求协议 | inspect、repl、stdio；逐行 JSON、资源和错误；分析、会话、查询、provider、现有规则预览和管理；UniDic/Vibrato 词典构建工具 | `crates/readux-core/src/bin/readux-nlp.rs`、`unidic-vibrato-build.rs`、`analysis.rs`、`scripts/nlp_bridge.mjs` | 待编写 |
+| E1 | [桌面端使用与运行](desktop.md) | 启动及资源要求、书架和输入、阅读及分析说明、查询与收藏、设置、状态恢复；便携包与平台范围；资源问题定位 | `src/App.vue`、`src/components/reader/`、`src-tauri/src/lib.rs`、`reader_engine.rs`、`src-tauri/tauri*.conf.json` | 已完成 |
+| E2 | [静态 Web 与内容部署](static_library.md) | 网页入口、预生成资源、发布书目、范围加载、浏览器状态；生成、版本清理、预览、gzip 和部署；指南链接及能力范围 | `src/services/staticLibrary.ts`、`staticAnalysis.ts`、`public/library/`、`scripts/generate_static_library.py`、`build_edgeone.py`、`static_library_document.mjs`、`verify_static_library.mjs` | 已完成 |
+| E3 | [CLI 与本机请求协议](cli.md) | inspect、repl、stdio；逐行 JSON、资源和错误；分析、会话、查询、provider、现有规则预览和管理；UniDic/Vibrato 词典构建工具 | `crates/readux-core/src/bin/readux-nlp.rs`、`unidic-vibrato-build.rs`、`analysis.rs`、`scripts/nlp_bridge.mjs` | 已完成 |
 
 E2 写明 `npm run build` 使用现成资源构建前端和清理版本，`npm run edgeone:build` 从本机书库与分析服务更新资源后生成 `dist/` 和 ZIP；具体步骤按当前脚本核实。E3 的请求目录以 `Request` 枚举为准。
 
@@ -134,11 +136,11 @@ E2 写明 `npm run build` 使用现成资源构建前端和清理版本，`npm r
 
 | 编号 | 文件与名称 | 内容概要 | 对应文件／目录或拟接入位置 | 状态 |
 | --- | --- | --- | --- | --- |
-| M1 | `docs/library.md` · 书架、导入与书库 | EPUB 导入、正文和资源、书籍身份及目录；书架检索、分类、详情、打开与删除；现有导入与后续阅读引擎的边界 | `src/components/reader/LibraryHome.vue`、`src/reader/library.ts`、`src/App.vue`、`crates/readux-core/src/import/`、`library.rs`、`reader_markdown.rs` | 待编写 |
-| M2 | `docs/reader.md` · 阅读器与替换设计 | 现有正文、胶囊、ruby、图片、导航、选择及进度；epub.js 或同类方案的接入目标；原书结构与分析文本坐标、定位锚点、选区、注音和高亮的对应；阅读引擎与分析说明组件的接口；替换步骤及关键验证 | `ReaderDocumentView.vue`、`ReaderImageBlock.vue`、`ReaderNavigationPanel.vue`、`ReaderAppearancePanel.vue`、`src/reader/document.ts`、`document.worker.ts`、`rows.ts`、`virtualization.ts`、`src/utils/markdownDocument.ts`、EPUB 导入；具体阅读器待选型 | 待重写与设计 |
-| M3 | `docs/explanation_layout.md` · 气泡、侧栏与抽屉 | 三种视图共用的内容和激活对象；词典、活用及接续说明的组织；布局切换、窄屏、尺寸、滚动、关闭和触摸；正文命中及高亮协作；后续分析结果的接入要求 | `src/explanation/`、`src/composables/useExplanation*.ts`、`src/components/explanation/`、`ReaderExplanationBubble.vue`、阅读器与指南集成 | 待重写，核心资产 |
-| M4 | `docs/analysis_graphs.md` · D3 分析图与交互控件 | 句中活用图和接续树；数据、布局、绘制、节点与连接器、折叠、当前路径、尺寸测量和动画；图节点与正文定位；词组和依存图的展示需求及可复用部分 | `src/reader/morphologyGraph.ts`、`morphologyBubble.ts`、`ReaderConnectionTree.vue`、`ReaderMorphologyGraph.vue`、`ReaderMorphologySummary.vue` | 待编写，核心资产 |
-| M5 | `docs/dictionary.md` · 词典、查询目标与聚合 | 词汇范围、整体与内部查询、词形还原、表记和读音、词典矩阵、内容解析及关联导航；词典资源和缓存；静态查询；与领域解说的协作 | `crates/readux-core/src/dictionary/`、`src/components/dictionary/`、`src/explanation/dictionaryMatrix.ts`、`scripts/build_dictionary_bundle.py`、`dictionary_bundle.py`、`dictionary_schema.py` | 待重写 |
+| M1 | [书架、导入与书库](library.md) | EPUB 导入、正文和资源、书籍身份及目录；书架检索、分类、详情、打开与删除；现有导入与后续阅读引擎的边界 | `src/components/reader/LibraryHome.vue`、`src/reader/library.ts`、`src/App.vue`、`crates/readux-core/src/import/`、`library.rs`、`reader_markdown.rs` | 已完成 |
+| M2 | [阅读器与替换方向](reader.md) | 现有正文、胶囊、ruby、图片、导航、选择及进度；原书结构与分析坐标、定位、选区和高亮的对应；epub.js 或同类方案的集成关注点及待选型事项 | `ReaderDocumentView.vue`、`ReaderImageBlock.vue`、`ReaderNavigationPanel.vue`、`ReaderAppearancePanel.vue`、`src/reader/document.ts`、`document.worker.ts`、`rows.ts`、`virtualization.ts`、`src/utils/markdownDocument.ts`、EPUB 导入 | 当前实现已完成；替换设计暂缓 |
+| M3 | [气泡、侧栏与抽屉](explanation_layout.md) | 三种视图共用的内容和激活对象；词典、活用及接续说明的组织；布局切换、窄屏、尺寸、滚动、关闭和触摸；正文命中及高亮协作；后续分析结果的接入要求 | `src/explanation/`、`src/composables/useExplanation*.ts`、`src/components/explanation/`、`ReaderExplanationBubble.vue`、阅读器与指南集成 | 已完成，核心资产 |
+| M4 | [D3 分析图与交互控件](analysis_graphs.md) | 句中活用图和接续树；数据、布局、绘制、节点与连接器、折叠、当前路径、尺寸测量和动画；图节点与正文定位；词组和依存图的展示需求及可复用部分 | `src/reader/morphologyGraph.ts`、`morphologyBubble.ts`、`ReaderConnectionTree.vue`、`ReaderMorphologyGraph.vue`、`ReaderMorphologySummary.vue` | 已完成，核心资产 |
+| M5 | [词典、查询目标与聚合](dictionary.md) | 词汇范围、整体与内部查询、词形还原、表记和读音、词典矩阵、内容解析及关联导航；词典资源和缓存；静态查询；与领域解说的协作 | `crates/readux-core/src/dictionary/`、`src/components/dictionary/`、`src/explanation/dictionaryMatrix.ts`、`scripts/build_dictionary_bundle.py`、`dictionary_bundle.py`、`dictionary_schema.py` | 已完成 |
 | M6 | `docs/grammar_guide.md` · 语法指南与内容制作 | 课程目录、原稿混排、例句、译文和注音；内容、分析及词典快照；制作、审阅、保存、加载和局部重生成；复用分析说明与图组件；测试课的组织 | `src/components/grammar/`、`src/grammar-guide/`、`scripts/import_grammar_guide_source.mjs`、`generate_grammar_guide_content.py`、`generate_grammar_guide_analysis.py`、`build_morphology_stage11_guide.py`、`build_grammar_guide_package.mjs`、`grammar_guide_assets.mjs` | 待编写 |
 | M7 | `docs/storage.md` · 存储、资源与缓存 | 书库、阅读位置、收藏笔记、设置、provider 配置、规则词条、词典缓存、分析缓存、静态包和浏览器数据；所有权、位置、格式、版本与重建；阅读器定位及收藏数据的后续变化 | `library.rs`、`reader_state.rs`、`analysis_cache.rs`、`analysis_engine.rs`、`rule_store.rs`、`providers.rs`、`dictionary/bundle.rs`、`src/services/staticLibrary.ts`、指南数据 | 待编写 |
 | M8 | `docs/backend.md` · 本机后端与宿主接口 | Tauri、Rust AnalysisService、CLI、开发 bridge 和静态适配；请求、资源定位、配置、进程与错误；领域分析模块调用位置 | `src-tauri/src/lib.rs`、`crates/readux-core/src/analysis.rs`、`providers.rs`、`src/services/`、`scripts/nlp_bridge.mjs`、`nlp_provider.py` | 待编写 |
@@ -226,9 +228,9 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 | --- | --- | --- | --- |
 | 0. 审阅本计划 | 核心资产、目标、目录、旧资料去向 | 用户认可目录，并确定现有文档优先、后续设计暂缓、research 原文保持现状的范围 | 已完成 |
 | 1. 总体文档 | G1、G2、G3、I2 | 当前成果、方向、结构和入口明确，交接要求及有效索引可查 | 已完成 |
-| 2. 核心成果 | L0 至 L6、L11 的当前实现，M3、M4 | 活用状态机、规则词条、GiNZA 证据、内容投影、三种视图和 D3 图的调用及职责完整；grammar 的有效资源与过时设计区分准确 | L0–L6及规则分类、字段与显示规范已完成；L11、M3、M4待整理 |
+| 2. 核心成果 | L0 至 L6、L11 的当前实现，M3、M4 | 活用状态机、规则词条、GiNZA 证据、内容投影、三种视图和 D3 图的调用及职责完整；grammar 的有效资源与过时设计区分准确 | 文档已完成；显示规范的实施事项另行推进 |
 | 3. 后续语言分析设计 | L7 至 L10、L11 的后续部分 | 现阶段保留方向与问题，具体方案等待讨论 | 暂缓 |
-| 4. 现有应用入口与模块 | E1 至 E3、M1、M2 当前实现、M5 至 M9、M13、M14 | 入口可查；存储、后端、阅读器及调度与代码一致；M10 至 M12 的详细设计暂缓 | 交接待整理 |
+| 4. 现有应用入口与模块 | E1 至 E3、M1、M2 当前实现、M5 至 M9、M13、M14 | 入口可查；存储、后端、阅读器及调度与代码一致；M10 至 M12 的详细设计暂缓 | E1–E3、M1、M2 当前实现及 M5 已完成；M6–M9、M13、M14 待整理 |
 | 5. 最终整理 | I1、I3、模块交付后的 I2 维护及旧文档引用 | README、方向和模块说明一致；旧文档内容与链接整理完成；research 文件无变更 | 交接待整理 |
 
 文档按依赖逐篇完成，同一规则或协议在所属文档中定义，其他文档引用。单篇交付需明确用途、当前状态、主要对象、输入输出、协作关系、代码入口和后续工作。当前功能说明依据实际调用，新模块设计依据用户确定的方向和可用基础。
@@ -243,8 +245,9 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 - [x] 完成 L0–L6，更新正式入口、旧资料状态和配置源目录索引。
 - [x] 深化语法规则分类、同类区别、内部字段编排及限定集合，提供源JSON样例，制定名称、讲解、D3节点和前接树规范。
 - [ ] 按显示规范清单实施名称与讲解统一，确认并修订输入许可差异。
-- [ ] 接替 agent 完成现有核心成果文档的重写和整合。
-- [ ] 接替 agent 完成现有入口和应用模块文档。
+- [x] 完成 L11 当前投影、M3 三种视图及 M4 图组件的重写和整合。
+- [x] 完成 E1–E3、M1、M2 当前实现及 M5，更新正式索引及相关旧资料状态。
+- [ ] 接替 agent 完成 M6–M9、M13、M14 等现有应用模块文档。
 - [ ] 完成索引、开发任务及旧文档整理。
 
 | 日期 | 范围 | 结果 | 下一步 |
@@ -254,3 +257,4 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 | 2026-11-09 | G1、G2、G3、I2 | 完成目标、当前架构、开发说明及总索引；写明现有文档优先、后续设计暂缓和 research 原文保持现状的交接要求 | 接替 agent 按清单整理现有模块，每篇完成后更新状态 |
 | 2026-11-09 | L0–L6 及索引 | 核实正文与词法、完整来源和 UD、状态机、配置及解说读取；创建七篇文档，结合运行截图说明用户体验，更新总体文档及旧资料状态 | 用户指定的逐规则完整 JSON 与复杂分支留给下一位 agent；L11、M3、M4 继续整理 |
 | 2026-11-09 | L5规则深化及L6显示契约 | 按学校语法和实际功能细分规则；整理字段用途、取值集合、内部编排与样例；制定统一名称、讲解、句中节点和七组前接树规范；记录24项笼统名称、14种混合分组及具体输入冲突 | 依清单实施内容和显示修订；文言额外输入逐项核实依据；继续整理L11、M3、M4 |
+| 2026-11-09 | E1–E3、M1–M5、L11 | 完成九篇入口及模块文档，核实 CLI 全部请求、书库及阅读坐标、查询矩阵、说明布局和图投影；更新索引、记忆与旧资料说明 | 继续整理 M6–M9、M13、M14；替换与新增模块设计暂缓，显示修订沿既有清单推进 |

@@ -1,5 +1,7 @@
 # 活用词条气泡与接续方式展示设计
 
+本文保留阶段 11 的设计与样例记录。当前内容投影已整理至 [L11](language_analysis/presentation.md)，三种视图见 [M3](explanation_layout.md)，图数据、布局及交互见 [M4](analysis_graphs.md)。本页数量和“新增”等表述按原阶段理解；后续名称、分组及节点修订以[显示规范](language_analysis/morphology_display_conventions.md)为准。
+
 本文定义执行计划第 11 阶段的界面约定、词条内容和接续规则投影。已审计的接续路径与谓语身份、接续标签审阅共同作为扩展依据；实际覆盖范围以配置及验收结果为准。
 
 ## 当前界面约定
