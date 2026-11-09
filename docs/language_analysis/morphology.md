@@ -129,4 +129,4 @@ occurrence 从非原子 operator 生成，保留相关实例 ID、成员、候�
 
 现有验证入口包括 [morphology_reconstruction.rs](../../crates/readux-nlp/tests/morphology_reconstruction.rs)、[morphology_stages_5_6.rs](../../crates/readux-nlp/tests/morphology_stages_5_6.rs)、[p4_language.rs](../../crates/readux-core/tests/p4_language.rs) 及前端投影样例。既有执行计划和覆盖表用于追溯阶段记录，当前契约以本文、L5 和实际实现为准。
 
-逐条规则的完整条件、JSON 和复杂例句留待下一轮细化，范围集中见 [L5](morphology_configuration.md#规则细节交接)。
+规则的细分类别、同形区别、前接要求及JSON样例见[分类与编写指南](morphology_rule_categories.md)，各执行器实际读取的字段见 [L5](morphology_configuration.md#各执行器实际读取哪些元数据)。名称、讲解和图示的统一设计及现有差异见[显示规范](morphology_display_conventions.md)。

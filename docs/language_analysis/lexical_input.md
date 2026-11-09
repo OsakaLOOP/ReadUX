@@ -115,4 +115,4 @@ Vibrato 配置为 `max_grouping_len(10)` 和 `ignore_space(true)`。provider 按
 
 ## 维护定位
 
-字段定义在 [model.rs](../../crates/readux-nlp/src/model.rs)，来源解析在 [sources.rs](../../crates/readux-nlp/src/sources.rs)，正文准备在 [prepare.rs](../../crates/readux-nlp/src/prepare.rs)，语域在 [routing.rs](../../crates/readux-nlp/src/routing.rs)。前端协议位于 [nlp.ts](../../src/types/nlp.ts)。后续规则的逐条字段组合与具体 JSON 留在 L5 的细化清单中。
+字段定义在 [model.rs](../../crates/readux-nlp/src/model.rs)，来源解析在 [sources.rs](../../crates/readux-nlp/src/sources.rs)，正文准备在 [prepare.rs](../../crates/readux-nlp/src/prepare.rs)，语域在 [routing.rs](../../crates/readux-nlp/src/routing.rs)。前端协议位于 [nlp.ts](../../src/types/nlp.ts)。规则的字段限定及组合见 [L5](morphology_configuration.md#字段编排与限定集合)，副词的学校语法细类与词元资格见[分类指南](morphology_rule_categories.md#副词的语法细类与接续资格)。

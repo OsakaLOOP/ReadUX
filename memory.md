@@ -1,6 +1,6 @@
 # 开发入口记忆
 
-- 语言分析 L0–L6 的正式入口为 `docs/language_analysis/README.md`，分别说明流程、基础输入、UD 对齐、状态机、配置和词条。当前统一文档 v10，活用配置为 153 个 operator、92 组规则、455 条路径。逐条规则的完整 JSON 及复杂样例由用户交给下一位 agent，交接集中在 L5「规则细节交接」和 L6「内容维护与后续细化」；L11、M3、M4 继续按总计划整理。
+- 语言分析L0–L6的正式入口为 `docs/language_analysis/README.md`。当前统一文档v10，活用配置为153个operator、92组规则、455条路径。L5维护字段用途、限定集合、内部编排及编译；`morphology_rule_categories.md`按学校语法与功能细分规则，包含副词情态／程度／陈述、动作阶段、授受等类别及源JSON样例；`morphology_display_conventions.md`规定名称、讲解、D3节点和七组前接树，并列明现有不一致。后续按清单实施内容和显示修订，L11、M3、M4继续整理。
 
 - 文档更新总计划与进度入口为 `docs/documentation_update_plan.md`，以 2026-11-09 用户说明确定目标：核心为活用状态机、规则词条、气泡／侧栏／抽屉与 D3 图；后续语言分析为词组修饰并列、格关系及句中成分、登记语法模式，并配套匹配、用法、解说和 UI。应用方向为收藏管理及统计、Anki、阅读器替换、LLM。用户已审阅目录，要求优先重写整合现有文档，待设计条目暂缓；research 内部文件保持不动，仅总体文档简述引用。`docs/goals.md`、`docs/architecture.md`、`docs/development.md` 和总索引已完成；接替 agent 依总计划继续整理现有模块。
 
@@ -12,7 +12,7 @@
 
 - 静态书库活用抽样比较入口为 `scripts/compare_morphology_dist.py`，读取 dist 当前 manifest，从开头、中段和后记各选一段，在完整单元内重新进行 auto 语域、GiNZA 与查询分析。报告位于 `.agents/analysis/morphology-dist-comparison.json`，本次三段对比结论见 `docs/morphology_dist_comparison_2026-10-31.md`。
 
-- 活用规则维护入口为 `configs/unidic-nlp/morphology/source/`，18 个 JSON 源文件由 `scripts/build_morphology_config.py` 编译为 v1 `morphology.json`。`npm run morphology:build` 生成配置，`npm run morphology:check` 检查编译结果与引用；开发、预览、构建和发布 CI 已接入。文言路径引用具名 inputs，谓语路径引用构式前缀；有序规则数组完整保留。字段契约与迁移记录见 `docs/morphology_storage_refactor_analysis.md`，维护索引见源目录 README。
+- 活用规则维护入口为 `configs/unidic-nlp/morphology/source/`，当前21个JSON文件中有20个由 `scripts/build_morphology_config.py`直接读取并编译为v1 `morphology.json`，unidic_multi是资格整理资料。`npm run morphology:build`生成配置，`npm run morphology:check`检查编译结果与引用。文言路径引用具名inputs，谓语路径引用构式前缀；显式路径49组。当前契约见L5，历史迁移记录见 `docs/morphology_storage_refactor_analysis.md`。
 
 - 静态书库生成入口为 scripts/generate_static_library.py，输出位于 public/library。浏览器宿主入口为 src/services/staticLibrary.ts 和 src/services/staticAnalysis.ts，分析结果按六个桌面单元分片；开发预览使用 npm run static:dev。
 

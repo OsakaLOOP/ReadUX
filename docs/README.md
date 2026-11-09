@@ -15,7 +15,7 @@
 
 ## 现有模块资料
 
-语言分析的正式入口为 [L0 总览](language_analysis/README.md)，依次包括 [L1 流程](language_analysis/pipeline.md)、[L2 基础输入](language_analysis/lexical_input.md)、[L3 UD 对齐](language_analysis/ud_alignment.md)、[L4 活用状态机](language_analysis/morphology.md)、[L5 规则配置](language_analysis/morphology_configuration.md)、[L6 词条解说](language_analysis/entries.md)。主要对象、当前调用、资源和维护契约已完成；逐条规则的完整 JSON 及复杂分支细节留给后续 agent，交接清单见 L5。
+语言分析的正式入口为 [L0 总览](language_analysis/README.md)，依次包括 [L1 流程](language_analysis/pipeline.md)、[L2 基础输入](language_analysis/lexical_input.md)、[L3 UD 对齐](language_analysis/ud_alignment.md)、[L4 活用状态机](language_analysis/morphology.md)、[L5 规则配置](language_analysis/morphology_configuration.md)、[L6 词条解说](language_analysis/entries.md)。L5配套[规则分类与编写指南](language_analysis/morphology_rule_categories.md)和[显示规范与修订设计](language_analysis/morphology_display_conventions.md)，进一步说明语法细类、字段编排、样例、统一名称、讲解及D3前接树。
 
 下表提供其余模块和原有资料入口。原有阶段文档保留追溯用途，当前目标、协议和统计以总体文档及 L0–L6 为准。
 

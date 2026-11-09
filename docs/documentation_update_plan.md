@@ -15,7 +15,7 @@
 
 接替 agent 先阅读[开发目标](goals.md)、[总体架构](architecture.md)和[开发说明](development.md)，再依据本文定位现有模块。各项清单的内容范围受以上交接要求约束。L7 至 L10、M10 至 M12 的详细设计暂缓；M2 和 L11 先完成当前实现及既有设计的整理，后续部分仅保留方向。研究内容的交付要求集中见第 7 节。
 
-已完成 G1、G2、G3、总索引及 L0–L6。L0–L6 按现有实现说明输入、UD、状态机、规则和词条，并结合运行截图对应阅读体验。用户进一步明确，具体语法规则的深入设计、完整 JSON 和复杂分支可以留给下一位 agent；交接清单见 [L5](language_analysis/morphology_configuration.md#规则细节交接)和 [L6](language_analysis/entries.md#内容维护与后续细化)。后续 agent 继续整理 L11、M3、M4 及其他模块，每篇完成后更新状态和链接，集中进行相应范围的最终检查。
+已完成 G1、G2、G3、总索引及 L0–L6。本次进一步完成[L5字段编排与限定集合](language_analysis/morphology_configuration.md#字段编排与限定集合)、[规则分类与编写指南](language_analysis/morphology_rule_categories.md)及[显示规范与修订设计](language_analysis/morphology_display_conventions.md)。分类依据学校语法及实际功能，细分到动作阶段、授受、趋向、感情评价、副词情态／程度／陈述等类别；同时规定内部元数据、名称、讲解、D3节点和前接树编排。已确认的显示及输入许可差异列入修订清单，后续据此实施。L11、M3、M4及其他模块继续按原范围整理。
 
 ## 1. 文档依据与当前方向
 
@@ -96,7 +96,7 @@ G3 已记录 Tauri 开发 URL 为 1420、前端启动为 5173 的配置差异，
 | L2 | [正文、分词与基础身份](language_analysis/lexical_input.md) | UniDic/Vibrato、CWJ/CSJ 及语域；POS 层级、词元、表记、假名、发音、活用型和活用形；旧字、ruby、正文映射、字符及字节范围；后续规则所用底层字段 | `crates/readux-nlp/src/model.rs`、`sources.rs`、`prepare.rs`、`routing.rs`、`kyujitai.rs`、`ruby.rs`、`src/types/nlp.ts` | 已完成 |
 | L3 | [GiNZA 与 UD 对齐](language_analysis/ud_alignment.md) | provider 的正式词元、主辞、有向依存和标签；与 UniDic 的多对多映射；范围和身份转换；局部结构查询；规则采用 UD 证据的条件、方向及冲突处理 | `scripts/nlp_adapters.py`、`crates/readux-nlp/src/external.rs`、`syntax.rs`、`alignment.rs`、`alignment_group.rs`、`structure_graph.rs`、`linguistic_context.rs` | 已完成；逐规则细节后续深化 |
 | L4 | [活用状态机](language_analysis/morphology.md) | 状态、实体类别、词汇和功能身份、核心、链及父子链；执行器、局部接续、词性转换、补助递归、插入、文言和副词；实际词形与原型；operator、occurrence、连接路径及来源证据 | `crates/readux-nlp/src/morphology.rs`、`morphology_machine.rs`、`morphology_config.rs`、`linguistic_context.rs`、`adverb.rs` | 已完成；逐规则细节后续深化 |
-| L5 | [活用规则与配置维护](language_analysis/morphology_configuration.md) | source 文件分工与 v1 产物；definition/execution、词性及状态条件、规则顺序、连接器、paths、变体和 presentation；新增规则和更新词条的操作；编译、引用与快照检查 | `configs/unidic-nlp/morphology/source/`、`configs/unidic-nlp/morphology.json`、`scripts/build_morphology_config.py`、`check_morphology_connections.py`、`src/reader/morphologyConfig.ts` | 已完成；完整 JSON 及复杂分支按交接清单深化 |
+| L5 | [活用规则与配置维护](language_analysis/morphology_configuration.md) | 字段用途、限定集合、编排、执行器生效范围与编译；配套[语法细类及样例](language_analysis/morphology_rule_categories.md)和[名称讲解与D3规范](language_analysis/morphology_display_conventions.md) | `configs/unidic-nlp/morphology/source/`、`configs/unidic-nlp/morphology.json`、`scripts/build_morphology_config.py`、`check_morphology_connections.py`、`src/reader/morphologyConfig.ts` | 已完成分类与规范设计；具体修订按清单实施 |
 | L6 | [词条、用法与解说资源](language_analysis/entries.md) | 当前规则到 concept、解说及例句的读取关系；活用定义、内置助词与助动词、source/compiled 的各自作用；词条与用法身份、来源及维护入口；按第 2.2 节标明过时设计 | `configs/unidic-nlp/morphology/source/operators/`、`configs/grammar/`、`crates/readux-core/resources/grammar/`、`grammar_catalog.rs`、`scripts/build_grammar_catalog.py`、`src/grammar/particleEntries.ts`、`src/reader/morphologyBubble.ts` | 已完成；逐用法内容后续深化 |
 | L7 | `docs/language_analysis/phrases.md` · 词组范围、修饰与并列 | 词组核心、整体范围、内部成员与嵌套；修饰项、被修饰项、修饰方法及并列成员；依据词性、身份、活用状态、连接成分和 UD 的匹配条件；具体用法、解说及 UI 对象；边界、歧义与代表例句 | 现有基础为 `linguistic_context.rs`、`structure_graph.rs`、`bunsetsu.rs`、`formation.rs`、`morphology.rs`；新增词组规则及分析模块在详细设计时定位 | 待设计，主要后续模块 |
 | L8 | `docs/language_analysis/case_dependencies.md` · 格关系、句中成分与基本依存 | 词组及格助词的范围和身份；所依存谓语、句中成分及基本关系；助词同形、具体用法、接续和 UD 方向的联合判断；确定结果、解说和 UI；与修饰、并列及活用的衔接 | 现有基础为 `configs/grammar/particles.json`、`linguistic_context.rs`、`external.rs`、`structure_graph.rs`、`morphology.rs`、`src/grammar/particleEntries.ts`；格关系分析及规则待设计 | 待设计，主要后续模块 |
@@ -226,7 +226,7 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 | --- | --- | --- | --- |
 | 0. 审阅本计划 | 核心资产、目标、目录、旧资料去向 | 用户认可目录，并确定现有文档优先、后续设计暂缓、research 原文保持现状的范围 | 已完成 |
 | 1. 总体文档 | G1、G2、G3、I2 | 当前成果、方向、结构和入口明确，交接要求及有效索引可查 | 已完成 |
-| 2. 核心成果 | L0 至 L6、L11 的当前实现，M3、M4 | 活用状态机、规则词条、GiNZA 证据、内容投影、三种视图和 D3 图的调用及职责完整；grammar 的有效资源与过时设计区分准确 | L0–L6 已完成；L11、M3、M4 待整理；逐规则细节另行深化 |
+| 2. 核心成果 | L0 至 L6、L11 的当前实现，M3、M4 | 活用状态机、规则词条、GiNZA 证据、内容投影、三种视图和 D3 图的调用及职责完整；grammar 的有效资源与过时设计区分准确 | L0–L6及规则分类、字段与显示规范已完成；L11、M3、M4待整理 |
 | 3. 后续语言分析设计 | L7 至 L10、L11 的后续部分 | 现阶段保留方向与问题，具体方案等待讨论 | 暂缓 |
 | 4. 现有应用入口与模块 | E1 至 E3、M1、M2 当前实现、M5 至 M9、M13、M14 | 入口可查；存储、后端、阅读器及调度与代码一致；M10 至 M12 的详细设计暂缓 | 交接待整理 |
 | 5. 最终整理 | I1、I3、模块交付后的 I2 维护及旧文档引用 | README、方向和模块说明一致；旧文档内容与链接整理完成；research 文件无变更 | 交接待整理 |
@@ -241,7 +241,8 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 - [x] 用户审阅修订后的目录及范围，并确定文档整理及交接要求。
 - [x] 完成三个总体文档与当前总索引。
 - [x] 完成 L0–L6，更新正式入口、旧资料状态和配置源目录索引。
-- [ ] 下一位 agent 按 L5、L6 交接清单深化逐条语法规则、完整 JSON 和复杂样例。
+- [x] 深化语法规则分类、同类区别、内部字段编排及限定集合，提供源JSON样例，制定名称、讲解、D3节点和前接树规范。
+- [ ] 按显示规范清单实施名称与讲解统一，确认并修订输入许可差异。
 - [ ] 接替 agent 完成现有核心成果文档的重写和整合。
 - [ ] 接替 agent 完成现有入口和应用模块文档。
 - [ ] 完成索引、开发任务及旧文档整理。
@@ -252,3 +253,4 @@ M10、M11、M12 保留用户确认的方向，当前收藏、摘录和相关调�
 | 2026-11-09 | 当前修订 | 以活用核心和三种视图重设目录；保留三个后续模块方向；核实 grammar 资源及旧流程 | 用户已审阅并进一步限定文档工作范围 |
 | 2026-11-09 | G1、G2、G3、I2 | 完成目标、当前架构、开发说明及总索引；写明现有文档优先、后续设计暂缓和 research 原文保持现状的交接要求 | 接替 agent 按清单整理现有模块，每篇完成后更新状态 |
 | 2026-11-09 | L0–L6 及索引 | 核实正文与词法、完整来源和 UD、状态机、配置及解说读取；创建七篇文档，结合运行截图说明用户体验，更新总体文档及旧资料状态 | 用户指定的逐规则完整 JSON 与复杂分支留给下一位 agent；L11、M3、M4 继续整理 |
+| 2026-11-09 | L5规则深化及L6显示契约 | 按学校语法和实际功能细分规则；整理字段用途、取值集合、内部编排与样例；制定统一名称、讲解、句中节点和七组前接树规范；记录24项笼统名称、14种混合分组及具体输入冲突 | 依清单实施内容和显示修订；文言额外输入逐项核实依据；继续整理L11、M3、M4 |

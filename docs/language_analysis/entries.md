@@ -123,4 +123,6 @@ npm run morphology:build
 
 grammar 编译后，活用配置编译会检查 concept 的有效摘要和可用例句。最终核对可使用 `build_grammar_catalog.py --check` 与 `npm run morphology:check`；仅修改文档时集中核对引用和内容依据。
 
-本轮完成资源职责、身份和实际读取关系。下一位 agent 可进一步整理各语法家族的完整 source JSON、bundle 扩展样式、多用法条目的逐项证据和例句，以及概念正文到各显示字段的对应。L5 已列出逐规则细化清单。后续义项自动选择、多个解说的选择策略及新增模式模块继续按总计划讨论。
+各语法细类的共同条件、区别、元数据和源JSON样例见[分类指南](morphology_rule_categories.md)。功能名称、摘要、具体用途、句中节点及前接说明的对应见[显示规范](morphology_display_conventions.md)，其中列出当前多处名称和讲解选择的不一致。维护内容时按该规范统一operators定义与concept正文；本句用途采用已有kind、concept、evidence和路径支持的区分。
+
+后续实施包括按清单修订名称和讲解、统一前端文案读取、确认输入条件冲突。bundle的现有结构及编译入口继续沿用本文。后续义项自动选择、多个解说的选择策略及新增模式模块按总计划讨论。

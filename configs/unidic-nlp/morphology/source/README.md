@@ -30,7 +30,7 @@ npm run morphology:check
 | `rules/insertion.json` | 插入成员白名单与四组允许位置 |
 | `classical/forms.json` | 5 个文言范式 |
 | `classical/auxiliaries.json` | 32 条文言助动词及 44 组具名输入 |
-| `paths/explicit.json` | 46 组显式路径 |
+| `paths/explicit.json` | 49 组显式路径 |
 | `paths/classical.json` | 31 组文言输入引用与路径展示声明 |
 | `paths/predicates.json` | 12 组谓语前缀引用 |
 | `presentation.json` | 六类实体、规则树与展示配置 |
@@ -49,4 +49,4 @@ features、connections、sequences、predicate_links、forms、classical_forms�
 
 当前协议、条件语义、数量及维护操作见 [L5 活用规则与配置维护](../../../../docs/language_analysis/morphology_configuration.md)，词条和解说见 [L6](../../../../docs/language_analysis/entries.md)。此前的[配置迁移记录](../../../../docs/morphology_storage_refactor_analysis.md)保留历史设计和验证依据。
 
-副词资格的输入身份见 [L2](../../../../docs/language_analysis/lexical_input.md#基础身份与接续资格)，运行及编译关系见 [L5](../../../../docs/language_analysis/morphology_configuration.md#副词接续资格)。逐条规则 JSON 与复杂分支按 L5 交接清单继续细化。
+副词资格的输入身份见 [L2](../../../../docs/language_analysis/lexical_input.md#基础身份与接续资格)，运行及编译关系见 [L5](../../../../docs/language_analysis/morphology_configuration.md#副词接续资格)。按学校语法和实际功能细分的共同要求、内部字段与JSON样例见[规则分类与编写指南](../../../../docs/language_analysis/morphology_rule_categories.md)，名称、讲解和前接树编排见[显示规范与修订设计](../../../../docs/language_analysis/morphology_display_conventions.md)。当前名称及许可差异按显示规范清单继续修订。

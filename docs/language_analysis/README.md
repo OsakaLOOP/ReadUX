@@ -13,7 +13,7 @@
 | L2 | [正文、分词与基础身份](lexical_input.md) | 正文坐标、UniDic 字段、语域、旧字与作者注音 |
 | L3 | [GiNZA 与 UD 对齐](ud_alignment.md) | 正式词元、结构关系、多对多映射和局部证据查询 |
 | L4 | [活用状态机](morphology.md) | 核心、状态、执行器、父子链、具体路径和 occurrence |
-| L5 | [活用规则与配置维护](morphology_configuration.md) | 分文件源、编译协议、条件语义、顺序及维护操作 |
+| L5 | [活用规则与配置维护](morphology_configuration.md) | 字段编排、限定集合、执行器生效范围及编译约束；配套[规则分类](morphology_rule_categories.md)与[显示规范](morphology_display_conventions.md) |
 | L6 | [词条、用法与解说资源](entries.md) | operator 到 concept、内置词条、解说及例句的读取 |
 
 初次阅读依次查看 L0、L1，再按词法输入、来源对齐、状态机、配置和词条的顺序深入。修改规则时从 L5 定位源文件，并同时核对 L4 的执行语义和 L6 的内容依赖。
@@ -76,4 +76,4 @@ UniDic/Vibrato 提供词法及活用字段，GiNZA 提供自身的正式词元�
 
 规则维护顺序为真实输入与来源字段核实、规则与状态设计、词条及解说维护、配置编译、相关分析快照更新、最终针对性验证。纯文档整理集中检查内容依据、路径和引用。
 
-本轮完成 L0–L6 的结构与主要契约。逐条语法规则的完整 JSON、复杂分支的条件解释及扩展样例交由后续 agent 细化；具体交接范围列于 [L5](morphology_configuration.md#规则细节交接)和 [L6](entries.md#内容维护与后续细化)。
+L0–L6说明结构与主要契约。规则细节进一步整理为[分类与编写指南](morphology_rule_categories.md)及[显示规范与修订设计](morphology_display_conventions.md)，覆盖学校语法与功能细类、同形区别、内部字段和样例、名称讲解及前接树编排。后续实施项见 [L5](morphology_configuration.md#规则细节交接)。
