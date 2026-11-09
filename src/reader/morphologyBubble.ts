@@ -1,6 +1,6 @@
 import explanations from "../../crates/readux-core/resources/grammar/compiled/grammar_explanations.json" with { type: "json" };
 import auxiliaries from "../../configs/grammar/auxiliaries.json" with { type: "json" };
-import { configuredPrototype, isIntrinsicFeature, morphologyConnectionRules, morphologyConnectionType, morphologyPresentation, morphologyPrototype, morphologyRuleForOperator, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { configuredPrototype, isIntrinsicFeature, morphologyCategoryLabel, morphologyConnectionRules, morphologyConnectionType, morphologyFormLabel, morphologyPresentation, morphologyPrototype, morphologyRuleForOperator, morphologyTags, morphologyUsage, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, UnifiedDocument } from "../types/nlp";
 import { adverbChainAt, adverbStemLabel } from "./adverbCapabilities.ts";
 
@@ -49,19 +49,10 @@ function sentenceNodeId(part: SentenceChainPart) {
 }
 
 const explanationByConcept = new Map(explanations.explanations.map((item) => [item.concept_id, item]));
-const posLabels: Record<string, string> = { 動詞: "动词", 形容詞: "イ形容词", 形状詞: "ナ形容词", 名詞: "名词", 代名詞: "代词", 助詞: "助词", 助動詞: "助动词" };
 
 function formLabel(state: MorphologyState | undefined, kind = "", evidence: string[] = [], rawForm = "") {
   const observed = rawForm || state?.conjugation_form || "";
-  const forms: [string, string][] = [
-    ["未然形", "未然形"], ["連用形", "连用形"], ["終止形", "终止形"],
-    ["連体形", "连体形"], ["仮定形", "假定形"], ["已然形", "已然形"],
-    ["命令形", "命令形"], ["意志推量形", "未然形"], ["意向形", "未然形"],
-  ];
-  const form = forms.find(([prefix]) => observed.startsWith(prefix))?.[1]
-    || ({ irrealis: "未然形", continuative: "连用形", terminal: "终止形", attributive: "连体形",
-      conditional: "假定形", imperative: "命令形", volitional: "未然形" } as Record<string, string>)[state?.form ?? ""]
-    || "无活用";
+  const form = morphologyFormLabel(observed, state?.form);
   const phenomena = morphologyTags(kind, observed, evidence).filter((tag) => tag !== "插入语");
   return [form, ...phenomena].join(" · ");
 }
@@ -109,6 +100,9 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
     ? prototype.replace(/^(?:て|で)/u, "") : support && ["enumerative", "volitional", "nominal_change"].includes(support.group)
       ? support.bases[0] : prototype);
   const explanation = explanationByConcept.get(operator.concept_id);
+  const usage = morphologyUsage(operator);
+  const usageSummary = operator.kind === "sou_modality" ? explanation?.body_blocks
+    .find((block) => block.kind === "definition_list" && block.label === usage)?.text : undefined;
   const builtin = auxiliaries.entries.find((entry) => entry.headword === headword);
   const pairs = (explanation?.body_blocks ?? []).filter((block) => block.kind === "example_pair")
     .map((block) => ({ ja: block.label ?? "", zh: block.text }));
@@ -129,17 +123,17 @@ export function morphologyEntry(operator: MorphologyOperator, document: UnifiedD
       ? classicalNominal ? "文言形容动词" : "文言形容词" : "文言助动词"
     : particle ? ({ 接続助詞: "接续助词", 準体助詞: "准体助词", 終助詞: "终助词",
       格助詞: "格助词", 副助詞: "副助词", 係助詞: "提示助词" } as Record<string, string>)[token?.pos?.[1] ?? ""] || "助词"
-    : token?.pos?.[0] === "接尾辞" ? "接尾辞" : posLabels[token?.pos?.[0] ?? ""] || "语法成分";
+    : token?.pos?.[0] === "接尾辞" ? "接尾辞" : morphologyCategoryLabel(token?.pos?.[0] ?? "") || "语法成分";
   return {
     headword: headword || token?.surface || operator.normalized_form || "",
     identity,
     conjugation: elementForm(document, operator.source_morpheme_range[1] - 1, operator.state_after, operator.kind, operator.evidence),
-    usage: definition?.title || operator.label,
+    usage,
     transition: fullTransition && transition ? morphologyLocalTransition(transition, true)
       : expanded ? `${expanded} → ${document.morphemes.slice(...operator.source_morpheme_range).map((item) => item.surface).join("")}`
       : morphologyLocalTransition(transition),
     summary: operator.kind === "polite_negative" ? builtin?.senses[0]?.meaning || "礼貌地否定动作或状态。"
-      : explanation?.function_summary || builtin?.senses[0]?.meaning || definition?.title || operator.description,
+      : usageSummary || explanation?.function_summary || builtin?.senses[0]?.meaning || usage || operator.description,
     examples: examples.slice(0, 2),
   };
 }
@@ -180,7 +174,7 @@ function predecessorCategory(operator: MorphologyOperator, chain: MorphologyChai
     || category(operator.state_before, "名詞");
 }
 
-function connectionFunction(operator: MorphologyOperator, before: string, after: string, surface: string) {
+function connectionFunction(operator: MorphologyOperator, before: string, surface: string) {
   const kind = operator.kind;
   if (predicateEndings.has(kind)) {
     if (kind === "adverbial_ni") return "连用修饰";
@@ -189,23 +183,12 @@ function connectionFunction(operator: MorphologyOperator, before: string, after:
     if (kind === "darou_modality" || kind === "deshou_modality") return kind === "deshou_modality" ? "推量（敬体）" : "推量（简体）";
     const polite = kind === "politeness_desu" || surface.startsWith("でし");
     const identity = ["名詞", "代名詞"].includes(before) ? "名词谓语"
-      : before === "形状詞" ? "形容动词" : "谓语";
+      : before === "形状詞" ? "ナ形容词谓语" : "谓语";
     const form = kind === "copula_de" ? "连用" : polite ? "敬体" : "简体";
     const past = kind === "copula_past" ? "·过去" : "";
     return `${identity}（${form}${past}）· 判断`;
   }
-  if (operator.executor === "nominalization" || kind === "degree") return "名词化";
-  if (operator.executor === "classical_conjugation") return operatorDefinitions[kind]?.title || "文言活用";
-  const modality: Record<string, string> = {
-    sou_modality: ["terminal", "attributive"].includes(operator.state_before?.form ?? "") ? "传闻" : "样态",
-    you_modality: "比况／推量", mitai_modality: "比况／推量", rashii_modality: "推量",
-    obligation: "当为判断", hazu_modality: "预期判断", kamoshirenai: "可能性推量",
-  };
-  if (modality[kind]) return modality[kind];
-  if (before !== after && ["i_adjective_conversion", "verb_cycle+i_adjective_conversion"].includes(operator.executor ?? "")) {
-    return `${posLabels[before] || before} → ${posLabels[after] || after}`;
-  }
-  return operatorDefinitions[kind]?.title || operator.label || "接续";
+  return morphologyUsage(operator);
 }
 
 /** 节点覆盖原文的互斥分段；多语素规则保持一个接续单元。 */
@@ -244,7 +227,6 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
         const combined = inserted || morphologyPresentation.sentence_compounds.includes(op.kind);
         const support = definition?.support;
         const before = predecessorCategory(op, chain, document);
-        const after = predicateEndings.has(op.kind) ? before : category(op.state_after, before);
         const entry = morphologyEntry(op, document);
         const multi = op.source_morpheme_range[1] - op.source_morpheme_range[0] > 1;
         const end = combined ? op.source_morpheme_range[1] : index + 1;
@@ -255,11 +237,11 @@ export function morphologySentenceParts(operator: MorphologyOperator | null, own
           || (lexicalInflection ? chain.lookup_form || chain.dictionary_form || token.lemma || entry.headword
             : inserted ? surface : combined ? entry.headword
               : multi ? token.query_forms?.find((form) => form.kind === "base")?.form || token.surface : entry.headword);
-        const label = inserted ? "插入语" : !first && multi ? "" : support ? "补助" : op.kind === "negative" ? "否定形" : entry.usage;
+        const label = !first && multi ? "" : entry.usage;
         parts.push({ id: `${op.operator_id}:${index}`, surface, caption, label,
           range: combined ? op.char_range : token.char_range,
           form: elementForm(document, end - 1, op.state_after, op.kind, op.evidence), breakBefore: false,
-          relation: support ? "补助接续" : connectionFunction(op, before, after,
+          relation: support ? "补助接续" : connectionFunction(op, before,
             document.morphemes.slice(...op.source_morpheme_range).map((item) => item.surface).join("")),
           inserted, selected: op.operator_id === operator?.operator_id, unit: op.operator_id });
         index = end - 1;

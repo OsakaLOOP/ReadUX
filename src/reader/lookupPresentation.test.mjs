@@ -62,7 +62,7 @@ test("条件词尾的显示覆盖完整たら与だら", () => {
     };
     const hits = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
     assert.equal(hits.length, 1);
-    assert.equal(hits[0].detail.title, "条件形");
+    assert.equal(hits[0].detail.title, "条件接续");
     assert.equal(hits[0].detail.surface, ending);
     assert.deepEqual(hits[0].range, [2, 4]);
   }
@@ -70,7 +70,7 @@ test("条件词尾的显示覆盖完整たら与だら", () => {
 
 test("みたい和よう之后的に、な、だ分别显示对应功能与形式", () => {
   for (const word of ["みたい", "よう"]) {
-    for (const [ending, kind, title] of [["に", "adverbial_ni", "連用修飾"], ["な", "attributive_na", "連体修飾"], ["だ", "copula", "断定"]]) {
+    for (const [ending, kind, title] of [["に", "adverbial_ni", "连用修饰"], ["な", "attributive_na", "连体修饰"], ["だ", "copula", "断定"]]) {
       const range = [word.length, word.length + 1];
       const text = word + ending;
       const document = {
@@ -165,7 +165,7 @@ test("サ变て形说明显示原形到整体活用形", () => {
   const [hit] = readerMorphologyHits([
     { id: "whole", char_range: [0, 4], lexical_core_ids: ["sahen"], source_formation_ids: [] },
   ], document);
-  assert.equal(hit.detail.title, "て形");
+  assert.equal(hit.detail.title, "て形接续");
   assert.equal(hit.detail.description, "力説する → 力説して（する→して）");
 });
 
@@ -227,7 +227,7 @@ test("按当前查询目标引用展示词形、连接和成员", () => {
   const [chain] = readerChains({ lexical_core_ids: ["chain-1"], source_formation_ids: [], morpheme_ids: ["m0"] }, document);
   assert.equal(chain.surface, "読んで");
   assert.equal(chain.lemma, "読む");
-  assert.equal(chain.conjugation, "五段活用 - 連用形");
+  assert.equal(chain.conjugation, "五段活用 - 连用形");
   assert.deepEqual(chain.members, [{ surface: "読ん", role: "核心" }, { surface: "で", role: "助詞" }]);
   assert.deepEqual(chain.connections, ["て接続"]);
   assert.deepEqual(chain.steps, [{ label: "音便", description: "撥音便", normalizedForm: undefined }]);
@@ -262,7 +262,7 @@ test("活用部分的两个命中范围共用核心词查询目标", () => {
   assert.deepEqual(hits.map((hit) => [hit.range, hit.targetId]), [
     [[2, 3], "word"], [[3, 5], "word"],
   ]);
-  assert.equal(hits[0].detail.title, "進行・状態継続");
+  assert.equal(hits[0].detail.title, "进行／状态持续");
   assert.equal(hits[0].detail.surface, "ている");
   const [preferred] = readerMorphologyHits([
     { id: "inner", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] },
@@ -281,7 +281,7 @@ test("所属补助链参与词典气泡的整体活用概要", () => {
     ] },
   };
   const chains = readerChains({ lexical_core_ids: ["core"], source_formation_ids: [], morpheme_ids: ["core-m"] }, document);
-  assert.deepEqual(chains.map((chain) => [chain.surface, chain.formName]), [["読んで", ""], ["いる", "ている形式"]]);
+  assert.deepEqual(chains.map((chain) => [chain.surface, chain.formName]), [["読んで", ""], ["いる", "进行／状态持续"]]);
 });
 
 test("普通词尾活用生成单体说明而保留词典目标", () => {
@@ -296,8 +296,8 @@ test("普通词尾活用生成单体说明而保留词典目标", () => {
   };
   const [hit] = readerMorphologyHits([{ id: "word", char_range: [0, 2], lexical_core_ids: ["core"], source_formation_ids: [] }], document);
   assert.equal(hit.targetId, "word");
-  assert.equal(hit.detail.title, "動詞・五段活用");
-  assert.equal(hit.detail.conjugation, "連用形");
+  assert.equal(hit.detail.title, "动词・五段活用");
+  assert.equal(hit.detail.conjugation, "连用形");
   assert.equal(hit.detail.description, "読む → 読ん（む→ん）");
 });
 
@@ -314,7 +314,7 @@ test("可能动词的两个气泡统一从词元推导当前词形", () => {
   const target = { id: "word", char_range: [0, 4], lexical_core_ids: ["core"], source_formation_ids: [], morpheme_ids: ["m0"] };
   const [hit] = readerMorphologyHits([target], document);
   const [chain] = readerChains(target, document);
-  assert.equal(hit.detail.title, "動詞・下一段活用");
+  assert.equal(hit.detail.title, "动词・下一段活用");
   assert.equal(hit.detail.conjugation, "未然形 - 可能形");
   assert.equal(hit.detail.description, "立ち回る → 立ち回れ（る→れ）");
   assert.equal(chain.lookupForm, "立ち回る");
@@ -360,20 +360,20 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
 
   // 1. 核心词未然形屈折命中
   assert.ok(coreHit);
-  assert.equal(coreHit.detail.title, "動詞・五段活用");
+  assert.equal(coreHit.detail.title, "动词・五段活用");
   assert.equal(coreHit.detail.conjugation, "未然形");
   assert.equal(coreHit.detail.description, "読む → 読ま（む→ま）");
 
-  // 2. 否定算子命中：title 为概念标题 否定形，surface 为现实原型 ない，推导终点以ない原型结束
+  // 否定步骤采用统一功能名，原型与推导范围分别保存。
   assert.ok(negHit);
-  assert.equal(negHit.detail.title, "未然形 - ない形");
+  assert.equal(negHit.detail.title, "否定");
   assert.equal(negHit.detail.surface, "ない");
   assert.equal(negHit.detail.description, "読ま → 読まない");
   assert.equal(negHit.detail.entry.transition, "読ま → 読まない");
 
   // 3. 过去算子命中：title 为概念标题 过去，surface 为现实原型 た，起点从上一步的原型読まない开始，终点到当前实际形式読まなかった
   assert.ok(pastHit);
-  assert.equal(pastHit.detail.title, "連用形 - た形");
+  assert.equal(pastHit.detail.title, "过去");
   assert.equal(pastHit.detail.surface, "た");
   assert.equal(pastHit.detail.description, "読まない → 読まなかった（ない→なかった）");
 
@@ -382,9 +382,9 @@ test("复合活用链如読まなかった按现实原型展示标题并逐步�
   assert.equal(chain.steps.length, 3);
   assert.equal(chain.steps[0].label, "未然形");
   assert.equal(chain.steps[0].description, "読む → 読ま（む→ま）");
-  assert.equal(chain.steps[1].label, "未然形 - ない形");
+  assert.equal(chain.steps[1].label, "否定");
   assert.equal(chain.steps[1].description, "読ま → 読まない");
-  assert.equal(chain.steps[2].label, "連用形 - た形");
+  assert.equal(chain.steps[2].label, "过去");
   assert.equal(chain.steps[2].description, "読まない → 読まなかった（ない→なかった）");
 });
 
@@ -452,11 +452,11 @@ test("訪ねてきたりしない包含たりする语法化句型并聚合为�
   const hits = readerMorphologyHits(targets, document);
   const tariSuruHit = hits.find((h) => h.detail.id === "occ-tarisuru");
   assert.ok(tariSuruHit);
-  assert.equal(tariSuruHit.detail.title, "列挙・例示");
+  assert.equal(tariSuruHit.detail.title, "列举");
   assert.equal(tariSuruHit.detail.surface, "たりする");
 
   const negHit = hits.find((h) => h.detail.id === "occ-neg");
   assert.ok(negHit);
-  assert.equal(negHit.detail.title, "未然形 - ない形");
+  assert.equal(negHit.detail.title, "否定");
   assert.equal(negHit.detail.surface, "ない");
 });

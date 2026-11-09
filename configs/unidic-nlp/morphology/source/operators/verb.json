@@ -1,8 +1,8 @@
 {
   "ba_connection": {
     "definition": {
-      "label": "条件",
-      "title": "条件",
+      "label": "条件接续",
+      "title": "条件接续",
       "concept": "grammar.particle.ba",
       "prototype": "ば"
     },
@@ -147,8 +147,8 @@
   },
   "conditional": {
     "definition": {
-      "label": "条件",
-      "title": "条件",
+      "label": "假定形",
+      "title": "假定形",
       "concept": "morphology.mood.conditional",
       "prototype": ""
     },
@@ -201,8 +201,8 @@
   },
   "de_form": {
     "definition": {
-      "label": "で形",
-      "title": "接续形",
+      "label": "て形接续",
+      "title": "て形接续",
       "concept": "morphology.form.de",
       "prototype": "で"
     },
@@ -228,7 +228,7 @@
   },
   "degree": {
     "definition": {
-      "label": "程度",
+      "label": "程度／约量",
       "title": "程度／约量",
       "concept": "grammar.particle.kurai",
       "prototype": "くらい",
@@ -269,8 +269,8 @@
   },
   "desire_outward": {
     "definition": {
-      "label": "活用",
-      "title": "外向愿望",
+      "label": "愿望表现",
+      "title": "愿望表现",
       "concept": "grammar.modality.tagaru",
       "prototype": "たがる"
     },
@@ -354,8 +354,8 @@
   },
   "imperative": {
     "definition": {
-      "label": "命令",
-      "title": "命令",
+      "label": "命令形",
+      "title": "命令形",
       "concept": "morphology.form.imperative",
       "prototype": ""
     },
@@ -462,7 +462,7 @@
   },
   "nagara_connection": {
     "definition": {
-      "label": "ながら接続",
+      "label": "伴随",
       "title": "伴随",
       "concept": "grammar.connective.nagara",
       "prototype": "ながら"
@@ -733,7 +733,7 @@
   "negative": {
     "definition": {
       "label": "否定",
-      "title": "否定形",
+      "title": "否定",
       "concept": "morphology.polarity.negative",
       "prototype": "ない",
       "display_forms": [
@@ -1001,7 +1001,7 @@
   },
   "noni_connection": {
     "definition": {
-      "label": "のに接续",
+      "label": "逆接／用途与评价",
       "title": "逆接／用途与评价",
       "concept": "grammar.connective.noni",
       "prototype": "のに",
@@ -1033,8 +1033,8 @@
   },
   "passive_potential": {
     "definition": {
-      "label": "受身等候选",
-      "title": "可能、被动等",
+      "label": "被动／可能等",
+      "title": "被动／可能等",
       "concept": "morphology.voice.passive_potential",
       "prototype": "れる",
       "display_forms": [
@@ -1150,7 +1150,7 @@
   },
   "politeness_masu": {
     "definition": {
-      "label": "丁寧",
+      "label": "敬体",
       "title": "敬体",
       "concept": "morphology.politeness.masu",
       "prototype": "ます"
@@ -1326,8 +1326,8 @@
   },
   "tara_condition": {
     "definition": {
-      "label": "条件",
-      "title": "条件",
+      "label": "条件接续",
+      "title": "条件接续",
       "concept": "morphology.mood.conditional",
       "prototype": "たら",
       "variants": [
@@ -1365,8 +1365,8 @@
   },
   "tewa_condition": {
     "definition": {
-      "label": "取立条件",
-      "title": "取立条件",
+      "label": "ては条件",
+      "title": "ては条件",
       "concept": "morphology.mood.conditional",
       "prototype": "ては",
       "variants": [
@@ -1406,8 +1406,8 @@
   },
   "to_condition": {
     "definition": {
-      "label": "条件",
-      "title": "条件",
+      "label": "条件接续",
+      "title": "条件接续",
       "concept": "morphology.mood.conditional",
       "prototype": "と"
     },
@@ -1434,8 +1434,8 @@
   },
   "tsutsu_connection": {
     "definition": {
-      "label": "つつ接続",
-      "title": "伴随·持续",
+      "label": "伴随／持续",
+      "title": "伴随／持续",
       "concept": "grammar.connective.tsutsu",
       "prototype": "つつ"
     },
@@ -1461,7 +1461,7 @@
   },
   "volitional": {
     "definition": {
-      "label": "意向",
+      "label": "意向形",
       "title": "意向形",
       "concept": "morphology.mood.volitional",
       "prototype": "う",

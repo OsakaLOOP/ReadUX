@@ -1,7 +1,7 @@
 {
   "adjectival_naru": {
     "definition": {
-      "label": "くなる",
+      "label": "变化",
       "title": "变化",
       "concept": "grammar.functional.naru",
       "prototype": "なる",
@@ -34,7 +34,7 @@
   },
   "completion": {
     "definition": {
-      "label": "活用",
+      "label": "彻底完成",
       "title": "彻底完成",
       "concept": "grammar.auxiliary.kiru",
       "prototype": "切る",
@@ -76,7 +76,7 @@
   },
   "continuative_aspect": {
     "definition": {
-      "label": "活用",
+      "label": "动作持续",
       "title": "动作持续",
       "concept": "grammar.auxiliary.tsuzukeru",
       "prototype": "続ける",
@@ -116,7 +116,7 @@
   },
   "contracted_te_iru": {
     "definition": {
-      "label": "ている",
+      "label": "进行／状态持续",
       "title": "进行／状态持续",
       "concept": "grammar.auxiliary.iru",
       "prototype": "ている",
@@ -157,7 +157,7 @@
   },
   "contracted_te_oku": {
     "definition": {
-      "label": "ておく",
+      "label": "预先处置／保持",
       "title": "预先处置／保持",
       "concept": "grammar.auxiliary.oku",
       "prototype": "ておく",
@@ -198,7 +198,7 @@
   },
   "contracted_te_shimau": {
     "definition": {
-      "label": "てしまう",
+      "label": "完成／遗憾／感慨",
       "title": "完成／遗憾／感慨",
       "concept": "grammar.auxiliary.shimau",
       "prototype": "てしまう",
@@ -239,7 +239,7 @@
   },
   "corrective": {
     "definition": {
-      "label": "活用",
+      "label": "重新进行",
       "title": "重新进行",
       "concept": "grammar.auxiliary.naosu",
       "prototype": "直す",
@@ -277,7 +277,7 @@
   },
   "excessive": {
     "definition": {
-      "label": "活用",
+      "label": "过度",
       "title": "过度",
       "concept": "grammar.auxiliary.sugiru",
       "prototype": "すぎる",
@@ -315,8 +315,8 @@
   },
   "failure": {
     "definition": {
-      "label": "活用",
-      "title": "失败 / 错过",
+      "label": "实施失败",
+      "title": "实施失败",
       "concept": "grammar.auxiliary.sokonau",
       "prototype": "損なう",
       "token_lemma": true,
@@ -353,7 +353,7 @@
   },
   "inceptive": {
     "definition": {
-      "label": "活用",
+      "label": "动作开始",
       "title": "动作开始",
       "concept": "grammar.auxiliary.hajimeru",
       "prototype": "始める",
@@ -391,7 +391,7 @@
   },
   "inchoative": {
     "definition": {
-      "label": "活用",
+      "label": "开始发生",
       "title": "开始发生",
       "concept": "grammar.auxiliary.dasu",
       "prototype": "出す",
@@ -429,7 +429,7 @@
   },
   "incomplete": {
     "definition": {
-      "label": "活用",
+      "label": "动作未完",
       "title": "动作未完",
       "concept": "grammar.auxiliary.kakeru",
       "prototype": "掛ける",
@@ -505,7 +505,7 @@
   },
   "missed_opportunity": {
     "definition": {
-      "label": "活用",
+      "label": "错失机会",
       "title": "错失机会",
       "concept": "grammar.auxiliary.sobireru",
       "prototype": "そびれる",
@@ -542,7 +542,7 @@
   },
   "ni_naru": {
     "definition": {
-      "label": "になる",
+      "label": "变化",
       "title": "变化",
       "concept": "grammar.functional.naru",
       "prototype": "になる",
@@ -582,8 +582,8 @@
   },
   "reluctance": {
     "definition": {
-      "label": "活用",
-      "title": "难以做出",
+      "label": "难以实施",
+      "title": "难以实施",
       "concept": "grammar.auxiliary.kaneru",
       "prototype": "兼ねる",
       "token_lemma": true,
@@ -620,8 +620,8 @@
   },
   "tari_dekiru": {
     "definition": {
-      "label": "たりできる",
-      "title": "列举·可能",
+      "label": "列举（可能）",
+      "title": "列举（可能）",
       "concept": "grammar.particle.tari",
       "prototype": "たりできる",
       "normalized": "たりできる",
@@ -656,8 +656,8 @@
   },
   "tari_suru": {
     "definition": {
-      "label": "たりする",
-      "title": "列举·举例",
+      "label": "列举",
+      "title": "列举",
       "concept": "grammar.particle.tari",
       "prototype": "たりする",
       "normalized": "たりする",
@@ -697,7 +697,7 @@
   },
   "te_ageru": {
     "definition": {
-      "label": "てあげる",
+      "label": "给予",
       "title": "给予",
       "concept": "grammar.auxiliary.ageru",
       "prototype": "てあげる",
@@ -729,7 +729,7 @@
   },
   "te_aru": {
     "definition": {
-      "label": "てある",
+      "label": "结果存续",
       "title": "结果存续",
       "concept": "grammar.auxiliary.aru",
       "prototype": "てある",
@@ -762,8 +762,8 @@
   },
   "te_connection": {
     "definition": {
-      "label": "て形",
-      "title": "接续形",
+      "label": "て形接续",
+      "title": "て形接续",
       "concept": "morphology.form.te",
       "prototype": "て",
       "variants": [
@@ -799,8 +799,8 @@
   },
   "te_form": {
     "definition": {
-      "label": "て形",
-      "title": "接续形",
+      "label": "て形接续",
+      "title": "て形接续",
       "concept": "morphology.form.te",
       "prototype": "て",
       "variants": [
@@ -834,8 +834,8 @@
   },
   "te_goran": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "建议尝试",
+      "title": "建议尝试",
       "concept": "grammar.auxiliary.goran",
       "prototype": "てごらん",
       "support": {
@@ -869,8 +869,8 @@
   },
   "te_hoshii": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "希望",
+      "title": "希望",
       "concept": "grammar.auxiliary.hoshii",
       "prototype": "てほしい",
       "support": {
@@ -900,7 +900,7 @@
   },
   "te_ii": {
     "definition": {
-      "label": "ていい",
+      "label": "许可／认可",
       "title": "许可／认可",
       "concept": "grammar.permission.te_ii",
       "prototype": "ていい",
@@ -954,7 +954,7 @@
   },
   "te_iku": {
     "definition": {
-      "label": "ていく",
+      "label": "远离／持续发展",
       "title": "远离／持续发展",
       "concept": "grammar.auxiliary.iku",
       "prototype": "ていく",
@@ -986,7 +986,7 @@
   },
   "te_iru": {
     "definition": {
-      "label": "ている",
+      "label": "进行／状态持续",
       "title": "进行／状态持续",
       "concept": "grammar.auxiliary.iru",
       "prototype": "ている",
@@ -1020,7 +1020,7 @@
   },
   "te_itadaku": {
     "definition": {
-      "label": "ていただく",
+      "label": "受惠（自谦）",
       "title": "受惠（自谦）",
       "concept": "grammar.auxiliary.itadaku",
       "prototype": "ていただく",
@@ -1052,7 +1052,7 @@
   },
   "te_kakaru": {
     "definition": {
-      "label": "てかかる",
+      "label": "态度／应对",
       "title": "态度／应对",
       "concept": "grammar.auxiliary.kakaru",
       "prototype": "てかかる",
@@ -1084,7 +1084,7 @@
   },
   "te_kudasaru": {
     "definition": {
-      "label": "てくださる",
+      "label": "受惠（尊敬）",
       "title": "受惠（尊敬）",
       "concept": "grammar.auxiliary.kudasaru",
       "prototype": "てくださる",
@@ -1116,7 +1116,7 @@
   },
   "te_kureru": {
     "definition": {
-      "label": "てくれる",
+      "label": "受惠",
       "title": "受惠",
       "concept": "grammar.auxiliary.kureru",
       "prototype": "てくれる",
@@ -1148,7 +1148,7 @@
   },
   "te_kuru": {
     "definition": {
-      "label": "てくる",
+      "label": "趋近／逐渐显现",
       "title": "趋近／逐渐显现",
       "concept": "grammar.auxiliary.kuru",
       "prototype": "てくる",
@@ -1180,7 +1180,7 @@
   },
   "te_miru": {
     "definition": {
-      "label": "てみる",
+      "label": "尝试",
       "title": "尝试",
       "concept": "grammar.auxiliary.miru",
       "prototype": "てみる",
@@ -1212,8 +1212,8 @@
   },
   "te_miseru": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "决心／展示",
+      "title": "决心／展示",
       "concept": "grammar.auxiliary.miseru",
       "prototype": "てみせる",
       "support": {
@@ -1243,7 +1243,7 @@
   },
   "te_morau": {
     "definition": {
-      "label": "てもらう",
+      "label": "受惠／请求",
       "title": "受惠／请求",
       "concept": "grammar.auxiliary.morau",
       "prototype": "てもらう",
@@ -1275,8 +1275,8 @@
   },
   "te_naranai": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "自发感受",
+      "title": "自发感受",
       "concept": "grammar.auxiliary.naranai",
       "prototype": "てならない",
       "support": {
@@ -1310,7 +1310,7 @@
   },
   "te_oku": {
     "definition": {
-      "label": "ておく",
+      "label": "预先处置／保持",
       "title": "预先处置／保持",
       "concept": "grammar.auxiliary.oku",
       "prototype": "ておく",
@@ -1342,7 +1342,7 @@
   },
   "te_shimau": {
     "definition": {
-      "label": "てしまう",
+      "label": "完成／遗憾／感慨",
       "title": "完成／遗憾／感慨",
       "concept": "grammar.auxiliary.shimau",
       "prototype": "てしまう",
@@ -1374,8 +1374,8 @@
   },
   "te_tamaranai": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "强烈感受",
+      "title": "强烈感受",
       "concept": "grammar.auxiliary.tamaranai",
       "prototype": "てたまらない",
       "support": {
@@ -1409,8 +1409,8 @@
   },
   "te_yamanai": {
     "definition": {
-      "label": "活用",
-      "title": "活用",
+      "label": "感情持续",
+      "title": "感情持续",
       "concept": "grammar.auxiliary.yamanai",
       "prototype": "てやまない",
       "support": {
@@ -1444,7 +1444,7 @@
   },
   "te_yaru": {
     "definition": {
-      "label": "てやる",
+      "label": "给予",
       "title": "给予",
       "concept": "grammar.auxiliary.yaru",
       "prototype": "てやる",
@@ -1476,7 +1476,7 @@
   },
   "te_yuku": {
     "definition": {
-      "label": "てゆく",
+      "label": "远离／持续发展",
       "title": "远离／持续发展",
       "concept": "grammar.auxiliary.yuku",
       "prototype": "てゆく",
@@ -1507,8 +1507,8 @@
   },
   "terminative": {
     "definition": {
-      "label": "活用",
-      "title": "动作完了",
+      "label": "动作结束",
+      "title": "动作结束",
       "concept": "grammar.auxiliary.owaru",
       "prototype": "終わる",
       "token_lemma": true,
@@ -1547,7 +1547,7 @@
   },
   "volitional_to_suru": {
     "definition": {
-      "label": "ようとする",
+      "label": "尝试／即将",
       "title": "尝试／即将",
       "concept": "grammar.modality.volitional_to_suru",
       "prototype": "ようとする",

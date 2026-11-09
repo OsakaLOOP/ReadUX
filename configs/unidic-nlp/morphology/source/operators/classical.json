@@ -2,7 +2,7 @@
   "classical_adjective": {
     "definition": {
       "label": "文言活用",
-      "title": "文言形容词",
+      "title": "文言活用",
       "concept": "grammar.classical.adjective",
       "prototype": ""
     },
@@ -43,8 +43,8 @@
   },
   "classical_beshi": {
     "definition": {
-      "label": "文言推量／当然",
-      "title": "べし",
+      "label": "推量／当然等",
+      "title": "推量／当然等",
       "concept": "grammar.classical.beshi",
       "prototype": "べし"
     },
@@ -112,8 +112,8 @@
   },
   "classical_gotoshi": {
     "definition": {
-      "label": "文言比况",
-      "title": "如同／仿佛",
+      "label": "比况",
+      "title": "比况",
       "concept": "grammar.classical.gotoshi",
       "prototype": "ごとし",
       "variants": [
@@ -445,8 +445,8 @@
   },
   "classical_raru": {
     "definition": {
-      "label": "受身／自发／可能／尊敬",
-      "title": "受身／自发／可能／尊敬",
+      "label": "被动／自发／可能／尊敬",
+      "title": "被动／自发／可能／尊敬",
       "concept": "grammar.classical.raru",
       "prototype": "らる"
     },
@@ -487,8 +487,8 @@
   },
   "classical_ri": {
     "definition": {
-      "label": "存续／完了",
-      "title": "存续／完了",
+      "label": "完了／存续",
+      "title": "完了／存续",
       "concept": "grammar.classical.ri",
       "prototype": "り"
     },
@@ -508,8 +508,8 @@
   },
   "classical_ru": {
     "definition": {
-      "label": "受身／自发／可能／尊敬",
-      "title": "受身／自发／可能／尊敬",
+      "label": "被动／自发／可能／尊敬",
+      "title": "被动／自发／可能／尊敬",
       "concept": "grammar.classical.ru",
       "prototype": "る"
     },
@@ -613,8 +613,8 @@
   },
   "classical_tari_perfect": {
     "definition": {
-      "label": "存续／完了",
-      "title": "存续／完了",
+      "label": "完了／存续",
+      "title": "完了／存续",
       "concept": "grammar.classical.tari_perfect",
       "prototype": "たり"
     },

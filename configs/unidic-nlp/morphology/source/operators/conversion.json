@@ -30,7 +30,7 @@
   },
   "difficulty": {
     "definition": {
-      "label": "活用",
+      "label": "困难",
       "title": "困难",
       "concept": "grammar.adjective.nikui",
       "prototype": "にくい",
@@ -81,7 +81,7 @@
   },
   "ease": {
     "definition": {
-      "label": "活用",
+      "label": "容易",
       "title": "容易",
       "concept": "grammar.adjective.yasui",
       "prototype": "やすい"
@@ -137,8 +137,8 @@
   },
   "koto_nominalization": {
     "definition": {
-      "label": "こと",
-      "title": "内容／事件的名词化",
+      "label": "内容名词化",
+      "title": "内容名词化",
       "concept": "grammar.formal.koto",
       "prototype": "こと"
     },
@@ -233,7 +233,7 @@
   },
   "shika_nai": {
     "definition": {
-      "label": "しかない",
+      "label": "唯一选择",
       "title": "唯一选择",
       "concept": "grammar.restriction.shika_nai",
       "prototype": "しかない"

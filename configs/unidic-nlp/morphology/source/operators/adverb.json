@@ -1,6 +1,6 @@
 {
   "adverb_suru": {
-    "definition": {"label": "サ变接续", "title": "副词动词化", "concept": "grammar.adverb.suru", "prototype": "する"},
+    "definition": {"label": "副词动词化", "title": "副词动词化", "concept": "grammar.adverb.suru", "prototype": "する"},
     "execution": {
       "stage": "modality", "executor": "adverbial_predicate", "rule_group": "副词述语化",
       "input_label": "サ变可能词干", "input_category_mode": "exact", "input_categories": ["副詞", "形状詞"],
@@ -9,7 +9,7 @@
     "connection_type": "direct", "connection_rule": "adverb_suru"
   },
   "adverb_to": {
-    "definition": {"label": "状态修饰", "title": "状态修饰と", "concept": "grammar.adverb.to", "prototype": "と"},
+    "definition": {"label": "状态修饰", "title": "状态修饰", "concept": "grammar.adverb.to", "prototype": "と"},
     "execution": {
       "stage": "modality", "executor": "adverbial_predicate", "rule_group": "副词状态修饰",
       "input_label": "トス可能词干", "input_category_mode": "exact", "input_categories": ["副詞", "形状詞"],
@@ -19,7 +19,7 @@
     "connection_type": "direct", "connection_rule": "adverb_to"
   },
   "adverb_to_suru": {
-    "definition": {"label": "状态述语化", "title": "状态修饰后接する", "concept": "grammar.adverb.to_suru", "prototype": "する", "connector": "adverb_to"},
+    "definition": {"label": "状态述语化", "title": "状态述语化", "concept": "grammar.adverb.to_suru", "prototype": "する", "connector": "adverb_to"},
     "execution": {
       "stage": "modality", "executor": "adverbial_predicate", "rule_group": "副词述语化",
       "input_label": "状态修饰と", "input_category_mode": "exact", "input_categories": ["副詞", "形状詞"],

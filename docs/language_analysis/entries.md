@@ -46,9 +46,9 @@
 | headword | 优先 support.expanded；て形和缩约用法移除原型开头て／で；列举、意向、名词变化用法取 support.bases 首项；其他取原型 |
 | 身份 | support、本句 POS、执行器及接续结构联合生成补助动词、复合语法形式、插入成分等名称 |
 | 当前活用 | 当前末成员的来源 cForm、状态及现象标签 |
-| 用法名称 | operator 定义的中文 title，随后使用 operator.label |
+| 用法名称 | 统一的morphologyUsage；普通规则读取定义title，そう按已有evidence区分样态／传闻，の／さ按concept区分准体／性质名词化 |
 | 局部变化 | `lookupPresentation.ts` 的推导步骤，缩约分支保留实际缩略词形 |
-| 一般摘要 | concept 解说的 function_summary → 内置同 headword 首个 sense 的 meaning → 定义 title → operator.description |
+| 一般摘要 | そう优先读取对应样态／传闻definition_list；随后为concept解说function_summary → 内置同headword首个sense的meaning → 功能名 → operator.description |
 | `polite_negative` 摘要 | 内置「ません」首个 sense 的 meaning；缺失时使用代码内的敬体否定摘要 |
 | 例句 | concept 的 example_pair 内容块；缺失时取内置首个 sense 的 examples；随后使用 concept 的单语 examples；最多显示两条 |
 
@@ -125,4 +125,4 @@ grammar 编译后，活用配置编译会检查 concept 的有效摘要和可用
 
 各语法细类的共同条件、区别、元数据和源JSON样例见[分类指南](morphology_rule_categories.md)。功能名称、摘要、具体用途、句中节点及前接说明的对应见[显示规范](morphology_display_conventions.md)，其中列出当前多处名称和讲解选择的不一致。维护内容时按该规范统一operators定义与concept正文；本句用途采用已有kind、concept、evidence和路径支持的区分。
 
-后续实施包括按清单修订名称和讲解、统一前端文案读取、确认输入条件冲突。bundle的现有结构及编译入口继续沿用本文。后续义项自动选择、多个解说的选择策略及新增模式模块按总计划讨论。
+名称统一及词条、步骤、句中图的共用文案读取已实施；そう的本句摘要与准体／性质名词化名称使用已有分析证据。规则条件与前接分组保持现状，输入冲突按清单后续核实。bundle的现有结构及编译入口继续沿用本文。后续义项自动选择、多个解说的选择策略及新增模式模块按总计划讨论。

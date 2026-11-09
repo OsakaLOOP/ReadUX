@@ -174,7 +174,7 @@ causative 与 passive_potential 共用动词未然形前接组 irrealis，执行
 {
   "te_iru": {
     "definition": {
-      "label": "ている",
+      "label": "进行／状态持续",
       "title": "进行／状态持续",
       "concept": "grammar.auxiliary.iru",
       "prototype": "ている",
@@ -199,7 +199,7 @@ causative 与 passive_potential 共用动词未然形前接组 irrealis，执行
 }
 ```
 
-本例的 label 按显示统一设计改为“进行／状态持续”。同一连接器可以为不同补助细分类别提供前接条件；本体之间的语义差异保留在 concept、功能名及讲解中。
+本例的label与title统一为“进行／状态持续”。同一连接器可以为不同补助细分类别提供前接条件；本体之间的语义差异保留在concept、功能名及讲解中。
 
 ### 缩约、列举、意向与变化补助
 

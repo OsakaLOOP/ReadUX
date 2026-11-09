@@ -64,7 +64,7 @@
   },
   "copula": {
     "definition": {
-      "label": "判断",
+      "label": "断定",
       "title": "断定",
       "concept": "grammar.auxiliary.da",
       "prototype": "だ",
@@ -98,7 +98,7 @@
   },
   "copula_aru": {
     "definition": {
-      "label": "判断",
+      "label": "断定",
       "title": "断定",
       "concept": "grammar.copula.de_aru",
       "prototype": "である"
@@ -128,7 +128,7 @@
   "copula_de": {
     "definition": {
       "label": "断定连用",
-      "title": "断定接续",
+      "title": "断定连用",
       "concept": "grammar.auxiliary.da",
       "prototype": "で"
     },
@@ -263,7 +263,7 @@
   "hazu_modality": {
     "definition": {
       "label": "预期",
-      "title": "预期判断",
+      "title": "预期",
       "concept": "grammar.expectation.hazu",
       "prototype": "はず"
     },
@@ -295,8 +295,8 @@
   },
   "mitai_modality": {
     "definition": {
-      "label": "活用",
-      "title": "推量",
+      "label": "比况／推量",
+      "title": "比况／推量",
       "concept": "grammar.modality.mitai",
       "prototype": "みたいだ"
     },
@@ -328,8 +328,8 @@
   },
   "nara_condition": {
     "definition": {
-      "label": "条件",
-      "title": "条件",
+      "label": "条件接续",
+      "title": "条件接续",
       "concept": "morphology.mood.conditional",
       "prototype": "なら"
     },
@@ -386,7 +386,7 @@
   },
   "politeness_desu": {
     "definition": {
-      "label": "丁寧",
+      "label": "敬体",
       "title": "敬体",
       "concept": "grammar.auxiliary.desu",
       "prototype": "です"
@@ -419,7 +419,7 @@
   },
   "rashii_modality": {
     "definition": {
-      "label": "活用",
+      "label": "推量",
       "title": "推量",
       "concept": "grammar.modality.rashii",
       "prototype": "らしい"
@@ -451,8 +451,8 @@
   },
   "sou_modality": {
     "definition": {
-      "label": "活用",
-      "title": "样态 / 传闻",
+      "label": "样态／传闻",
+      "title": "样态／传闻",
       "concept": "grammar.modality.sou",
       "prototype": "そうだ"
     },
@@ -485,8 +485,8 @@
   },
   "you_modality": {
     "definition": {
-      "label": "活用",
-      "title": "推量",
+      "label": "比况／推量",
+      "title": "比况／推量",
       "concept": "grammar.modality.you",
       "prototype": "ようだ"
     },

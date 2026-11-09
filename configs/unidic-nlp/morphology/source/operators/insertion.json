@@ -23,8 +23,8 @@
   },
   "insertion": {
     "definition": {
-      "label": "插入语",
-      "title": "插入语",
+      "label": "插入成分",
+      "title": "插入成分",
       "concept": "grammar.morphology.insertion",
       "prototype": "",
       "token_lemma": true

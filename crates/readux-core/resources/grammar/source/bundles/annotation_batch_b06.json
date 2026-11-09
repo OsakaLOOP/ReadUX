@@ -25,7 +25,10 @@
         "formation": "前项＋そうだ／そうな／そうで／そうだった",
         "examples": ["雨が降りそうだ。", "彼は元気そうだ。", "明日は雨だそうだ。"],
         "counter_examples": ["そうだ作为独立应答词而没有前项判断结构"],
-        "body_blocks": []
+        "body_blocks": [
+          {"kind": "definition_list", "label": "样态", "text": "根据外观或迹象判断动作即将发生或性质呈现某种状态。"},
+          {"kind": "definition_list", "label": "传闻", "text": "转述从他处获得的信息。"}
+        ]
       },
       "senses": [
         {"sense_id": "grammar.modality.sou.appearance", "label": "样态判断", "function_summary": "根据外观或直接迹象判断即将出现的状态", "semantic_features": {"function": "appearance"}},

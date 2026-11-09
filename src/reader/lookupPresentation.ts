@@ -1,5 +1,5 @@
 import type { DictionaryLookup, PosTag } from "../types";
-import { isIntrinsicFeature, morphologyPresentation, morphologyPrototype, morphologyRuleTree, morphologyTags, operatorDefinitions } from "./morphologyConfig.ts";
+import { isIntrinsicFeature, morphologyCategoryLabel, morphologyFormLabel, morphologyPresentation, morphologyPrototype, morphologyRuleTree, morphologyTags, morphologyUsage, operatorDefinitions } from "./morphologyConfig.ts";
 import type { MorphologyChain, MorphologyOperator, MorphologyState, QueryOutput, UnifiedDocument } from "../types/nlp";
 import { morphologyConnectionDiagram, morphologyEntry, morphologyStemDiagram, type ConnectionDiagram, type MorphologyEntryContent } from "./morphologyBubble.ts";
 import { inflectionStemAndEnding } from "./japaneseInflectionRanges.ts";
@@ -202,8 +202,6 @@ export function readerRubyAnnotations(
   return [...resolved, ...unresolved].sort((left, right) => left.char_range[0] - right.char_range[0]);
 }
 
-const formLabels: Record<string, string> = morphologyPresentation.form_labels;
-
 export function displayReading(reading: string) {
   return Array.from(reading, (character) => {
     const code = character.codePointAt(0)!;
@@ -255,74 +253,6 @@ export function kanjiRubySegments(annotation: { base: string; reading: string; c
   return segments;
 }
 
-function grammaticalLabel(value: string) {
-  const aliases: Record<string, string> = {
-    "过去": "過去",
-    "愿望": "願望",
-    "敬体否定": "丁寧な否定",
-    "敬体": "丁寧体",
-    "当为": "当為",
-    "条件": "条件",
-    "接续": "接続",
-    "接续形": "接続形",
-    "进行／状态持续": "進行・状態継続",
-    "预先处置／保持": "前もっての処置・保持",
-    "远离／持续发展": "離脱・継続発展",
-    "趋近／逐渐显现": "接近・漸次発現",
-    "尝试": "試行",
-    "受惠（尊敬）": "受益（尊敬）",
-    "受惠／请求": "受益・依頼",
-    "给予": "授与",
-    "列举·举例": "列挙・例示",
-    "伴随": "付帯",
-    "伴随·持续": "付帯・継続",
-    "逆接": "逆接",
-    "原因": "原因",
-    "完成／遗憾／感慨": "完了・遺憾・感慨",
-    "容易": "容易",
-    "困难": "困難",
-    "名词化": "名詞化",
-    "变化": "変化",
-    "预期判断": "予期判断",
-    "程度／约量": "程度・概量",
-    "可能性": "可能性",
-    "禁止": "禁止",
-    "列举": "列挙",
-    "插入语": "挿入語",
-    "举例": "例示",
-    "变化接续": "変化接続",
-    "推量疑问": "推量疑問",
-    "连用修饰": "連用修飾",
-    "连体修饰": "連体修飾",
-    "可能、被动等": "可能・受身等",
-    "结果存续": "結果存続",
-    "列举·可能": "列挙・可能",
-    "过度": "過度",
-    "逆接／用途与评价": "逆接・用途と評価",
-    "活用": "活用",
-    "样态 / 传闻": "様態・伝聞",
-    "动作开始": "動作開始",
-    "动作持续": "動作継続",
-    "动作完了": "動作完了",
-    "反复动作": "反復動作",
-    "开始发生": "発生開始",
-    "重新进行": "再実行",
-    "动作未完": "動作未完了",
-    "彻底完成": "完全完了",
-    "难以做出": "実行困難",
-    "失败 / 错过": "失敗・逸失",
-    "错失机会": "機会逸失",
-    "のに接续": "のに接続",
-    "否定条件": "否定条件",
-    "否定接续": "否定接続",
-    "义务": "義務",
-    "取立条件": "取り立て条件",
-  };
-  return aliases[value]
-    ?? (morphologyPresentation.label_aliases as Record<string, string>)[value]
-    ?? value;
-}
-
 function conjugationFamilyLabel(type = "", category = "") {
   return morphologyPresentation.families.find(({ prefix }) => type.startsWith(prefix))?.label
     ?? (morphologyPresentation.category_labels as Record<string, string>)[category] ?? "";
@@ -335,56 +265,18 @@ function conjugationLabel(type = "", form = "", category = "", stateForm = "") {
 function stemConjugationTitle(chain: MorphologyChain, state: MorphologyState | undefined, document: UnifiedDocument) {
   const category = document.morphemes?.[chain.anchor_morpheme]?.pos?.[0]
     || state?.category || chain.final_state?.category || "";
-  const pos = category === "形状詞" ? "形容動詞" : category;
+  const pos = morphologyCategoryLabel(category);
   if (category === "副詞" && adverbCapabilityLabel(chain)) return `${pos}・${adverbCapabilityLabel(chain)}`;
   const family = conjugationFamilyLabel(state?.conjugation_type || chain.final_state?.conjugation_type, category);
   return family.startsWith(pos) ? family : [pos, family].filter(Boolean).join("・");
 }
 
 function conjugationFormLabel(form = "", stateForm = "", fallback = "活用") {
-  const normalized = form.trim();
-  if (/終止形|連体形/.test(normalized)) return "終止形・連体形";
-  if (/未然形/.test(normalized)) return "未然形";
-  if (/連用形/.test(normalized)) return "連用形";
-  if (/仮定形|已然形/.test(normalized)) return "仮定形";
-  if (/命令形/.test(normalized)) return "命令形";
-  if (/意志推量形|意向形/.test(normalized)) return "意向形";
-  return formLabels[stateForm]
-    ?? morphologyPresentation.raw_form_labels.find(({ prefix }) => normalized.startsWith(prefix))?.label
-    ?? fallback;
+  return morphologyFormLabel(form, stateForm, fallback);
 }
 
-const educationalOperatorLabels: Record<string, string> = {
-  negative: "ない形",
-  polite_negative: "ます形",
-  causative: "使役形",
-  passive_potential: "受身形",
-  volitional: "意向形",
-  politeness_masu: "ます形",
-  politeness_desu: "です形",
-  te_form: "て形",
-  de_form: "て形",
-  te_connection: "て形",
-  past: "た形",
-  conditional: "条件形",
-  ba_connection: "条件形",
-  tara_condition: "条件形",
-  to_condition: "条件形",
-  nara_condition: "条件形",
-  imperative: "命令形",
-};
-
 function operatorDisplayTitle(operator: MorphologyOperator) {
-  const educational = educationalOperatorLabels[operator.kind];
-  if (educational) {
-    const national = conjugationFormLabel(
-      operator.state_before?.conjugation_form,
-      operator.state_before?.form,
-      "",
-    );
-    return [national, educational].filter(Boolean).join(" - ");
-  }
-  return grammaticalLabel(operatorDefinitions[operator.kind]?.title || operator.label || "活用");
+  return morphologyUsage(operator);
 }
 
 function chainRoot(chains: ReadonlyArray<MorphologyChain>, chain: MorphologyChain) {
@@ -424,7 +316,7 @@ function ruleTreeForChain(entityClass: string | undefined, chain: MorphologyChai
   if (!root) return null;
   const operators = (chain?.operators ?? []).filter((operator) => operator.kind !== "conjugation");
   const matched = operators.map((operator) => ({
-    label: (operator.rule_group || operator.label) + "：" + operator.label,
+    label: morphologyUsage(operator),
     summary: ((operator.state_before?.category || operator.input_category) + " "
       + (operator.state_before?.form || "") + " → "
       + (operator.state_after?.category || operator.output_category) + " "
@@ -454,7 +346,7 @@ export function operatorPrototypeForm(
   morphemes?: ReadonlyArray<{ surface: string; lemma?: string | null; pos?: (string | null)[] }>,
 ): string {
   const token = morphemes && operator.source_morpheme_range ? morphemes[operator.source_morpheme_range[0]] : undefined;
-  return morphologyPrototype(operator) || token?.surface || grammaticalLabel(operator.label) || "活用";
+  return morphologyPrototype(operator) || token?.surface || morphologyUsage(operator) || "活用";
 }
 
 // 兼容已有导出的别名
@@ -767,7 +659,7 @@ export function readerChains(
       return conjugationLabel(state?.conjugation_type, state?.conjugation_form, state?.category, state?.form);
     })(),
     formName: [...new Set(visibleOperators(chain).filter((operator) => !isIntrinsicFeature(operator.kind))
-      .map((operator) => grammaticalLabel(operator.label)).filter(Boolean))].join(" · "),
+      .map((operator) => morphologyUsage(operator)).filter(Boolean))].join(" · "),
     connections: (chain.connection_forms ?? []).filter((value) => value && value !== "*"),
     members: (chain.morpheme_indices ?? []).filter((index) => (document.morphemes?.[index]?.char_range?.[1] ?? 0) <= targetEnd).flatMap((index) => {
       const morpheme = document.morphemes?.[index];
@@ -836,7 +728,8 @@ export function readerMorphologyHits(
       surface: step ? step.prototypeForm : operatorPrototypeForm(operator, document.morphemes),
       description: step ? step.description : (operator.description || ""),
       tags: morphologyTags(operator.kind, operator.state_after?.conjugation_form, operator.evidence),
-      candidates: occurrence.candidates ?? [],
+      candidates: (occurrence.candidates ?? []).map((value) =>
+        (morphologyPresentation.label_aliases as Record<string, string>)[value] || value),
       entityClass: owner?.final_state?.entity_class || operator.state_after?.entity_class,
       connectionTree: ruleTreeForChain(owner?.final_state?.entity_class || operator.state_after?.entity_class, owner),
       ruleMetadata: {
@@ -982,7 +875,7 @@ export function readerMorphologyHits(
         title: stemConjugationTitle(chain, state, document),
         surface,
         conjugation: category === '副詞' ? adverbStemLabel(chain)
-          : inflecting ? state?.form === 'stem' ? '語幹' : conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
+          : inflecting ? state?.form === 'stem' ? '词干' : conjugationFormLabel(state?.conjugation_form, state?.form, stem.form) : '无活用',
         description: prototype === surface ? '' : transitionDescription(prototype, surface),
         tags: inflecting ? morphologyTags('conjugation', state?.conjugation_form) : [],
         candidates: [],

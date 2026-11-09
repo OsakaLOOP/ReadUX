@@ -2710,7 +2710,18 @@
         "version": "1"
       },
       "review_status": "ai_checked",
-      "body_blocks": []
+      "body_blocks": [
+        {
+          "kind": "definition_list",
+          "label": "样态",
+          "text": "根据外观或迹象判断动作即将发生或性质呈现某种状态。"
+        },
+        {
+          "kind": "definition_list",
+          "label": "传闻",
+          "text": "转述从他处获得的信息。"
+        }
+      ]
     },
     {
       "explanation_id": "explanation.grammar.modality.you",

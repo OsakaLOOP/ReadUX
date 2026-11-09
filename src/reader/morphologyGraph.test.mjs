@@ -77,11 +77,11 @@ test("新增活用类型沿用相同的范围投影与独立连接器拼接", ()
 });
 
 test("缩约节点和词条变化保留连接器、清浊及实际活用", () => {
-  for (const [id, kind, expanded, surface] of [
-    ["M-complex-001", "contracted_te_shimau", "てしまう", "ちゃう"],
-    ["M-regression-134", "contracted_te_shimau", "でしまう", "じゃっ"],
-    ["M-regression-099", "contracted_te_iru", "ている", "てる"],
-    ["M-regression-162", "contracted_te_oku", "でおく", "どく"],
+  for (const [id, kind, expanded, surface, usage] of [
+    ["M-complex-001", "contracted_te_shimau", "てしまう", "ちゃう", "完成／遗憾／感慨"],
+    ["M-regression-134", "contracted_te_shimau", "でしまう", "じゃっ", "完成／遗憾／感慨"],
+    ["M-regression-099", "contracted_te_iru", "ている", "てる", "进行／状态持续"],
+    ["M-regression-162", "contracted_te_oku", "でおく", "どく", "预先处置／保持"],
   ]) {
     const diagram = diagramFor(id, kind);
     const part = diagram.sentence.find((part) => part.selected);
@@ -89,7 +89,7 @@ test("缩约节点和词条变化保留连接器、清浊及实际活用", () =>
     assert.equal(part.surface, surface);
     assert.ok(part.form.includes("缩略形式"));
     const node = layoutSentenceChain(diagram.sentence).nodes.find((node) => node.matched);
-    assert.equal(node.lines[0].text, `补助 ${expanded} → ${surface}`);
+    assert.equal(node.lines[0].text, `${usage} ${expanded} → ${surface}`);
     const document = snapshots[id].document;
     const operator = document.morphology.chains.flatMap((chain) => chain.operators).find((op) => op.kind === kind);
     assert.equal(morphologyEntry(operator, document).transition, `${expanded} → ${surface}`);
@@ -212,9 +212,9 @@ test("实际递归链的节点内部固定两行，每次折行后从左向右�
   }
   const first = layout.nodes[0].lines[0];
   assert.equal(first.runs.find((run) => run.role === "form").lang, "ja");
-  const support = layout.nodes.find((node) => node.lines[0].text.includes("补助"));
+  const support = layout.nodes.find((node) => node.lines[0].text.startsWith("完成／遗憾／感慨"));
   assert.equal(support.lines[0].runs[0].lang, "zh-CN");
-  assert.equal(support.lines[0].text, "补助 しまう → しまっ");
+  assert.equal(support.lines[0].text, "完成／遗憾／感慨 しまう → しまっ");
   assert.equal(first.text, "読む → 読ん");
 });
 

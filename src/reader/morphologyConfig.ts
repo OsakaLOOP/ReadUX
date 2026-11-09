@@ -69,3 +69,27 @@ export function configuredPrototype(kind: string): string {
 export function morphologyPrototype(operator: Pick<MorphologyOperator, "kind" | "normalized_form">): string {
   return operator.normalized_form || configuredPrototype(operator.kind);
 }
+
+export function morphologyUsage(operator: Pick<MorphologyOperator, "kind" | "concept_id" | "evidence" | "label">): string {
+  if (operator.kind === "nominalization") {
+    if (operator.concept_id === "grammar.nominalization.no") return "准体名词化";
+    if (operator.concept_id === "grammar.functional.sa") return "性质名词化";
+  }
+  if (operator.kind === "sou_modality") {
+    if (operator.evidence?.includes("judgement_usage:appearance")) return "样态";
+    if (operator.evidence?.includes("judgement_usage:hearsay")) return "传闻";
+  }
+  return operatorDefinitions[operator.kind]?.title || operator.label || "活用";
+}
+
+export function morphologyFormLabel(rawForm = "", stateForm = "", fallback = "无活用"): string {
+  return morphologyPresentation.raw_form_labels.find(({ prefix }) => rawForm.trim().startsWith(prefix))?.label
+    || (rawForm.startsWith("意向形") ? "意向形" : "")
+    || (morphologyPresentation.form_labels as Record<string, string>)[stateForm]
+    || fallback;
+}
+
+export function morphologyCategoryLabel(category: string): string {
+  return ({ 動詞: "动词", 形容詞: "イ形容词", 形状詞: "ナ形容词", 名詞: "名词", 代名詞: "代词",
+    副詞: "副词", 助詞: "助词", 助動詞: "助动词", 文語用言: "文言用言" } as Record<string, string>)[category] || category;
+}
